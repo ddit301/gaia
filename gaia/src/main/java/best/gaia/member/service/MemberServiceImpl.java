@@ -20,13 +20,13 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public ServiceResult authenticate(MemberVO user) {
-		MemberVO savedUser = dao.selectUser(user.getMember_id());
+		MemberVO savedUser = dao.selectUser(user.getMEM_EMAIL());
 		ServiceResult result = null;
 		if(savedUser != null) {
-			String inputPass = user.getMember_pass();
+			String inputPass = user.getMEM_PASS();
 			try {
 				String encodedPass = inputPass; // do not encrypt as column size is too small
-				String savedPass = savedUser.getMember_pass();
+				String savedPass = savedUser.getMEM_PASS();
 				if(savedPass.equals(encodedPass)) {
 					try {
 						BeanUtils.copyProperties(user, savedUser);
