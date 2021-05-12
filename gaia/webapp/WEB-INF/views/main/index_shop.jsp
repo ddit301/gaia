@@ -1,60 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-US" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--  
-    Document Title
-    =============================================
-    -->
-    <title>Titan | Multipurpose HTML5 Template</title>
-    <!--  
-    Favicons
-    =============================================
-    -->
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="assets/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="assets/images/favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!--  
-    Stylesheets
-    =============================================
-    
-    -->
-    <!-- Default stylesheets-->
-    <link href="assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template specific stylesheets-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="assets/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="assets/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
-    <link href="assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <!-- Main stylesheet and color file-->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="assets/css/colors/default.css" rel="stylesheet">
-  </head>
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main>
+
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
@@ -355,29 +299,23 @@
           </div>
         </div>
       </nav>
-      <section class="home-section home-full-height" id="home">
+      <section class="home-section home-fade home-full-height" id="home">
         <div class="hero-slider">
           <ul class="slides">
-            <li class="bg-dark-30 restaurant-page-header bg-dark" style="background-image:url(&quot;assets/images/restaurant/slider1.jpg&quot;);">
+            <li class="bg-dark-30 bg-dark shop-page-header" style="background-image:url(&quot;assets/images/shop/slider1.png&quot;);">
               <div class="titan-caption">
                 <div class="caption-content">
-                  <div class="font-alt mb-30 titan-title-size-1"> Hello & welcome</div>
-                  <div class="font-alt mb-40 titan-title-size-4">We are Titan</div><a class="section-scroll btn btn-border-w btn-round" href="#menu">Check Our Menu</a>
+                  <div class="font-alt mb-30 titan-title-size-1">This is Titan</div>
+                  <div class="font-alt mb-30 titan-title-size-4"> Summer 2017</div>
+                  <div class="font-alt mb-40 titan-title-size-1">Your online fashion destination</div><a class="section-scroll btn btn-border-w btn-round" href="#latest">Learn More</a>
                 </div>
               </div>
             </li>
-            <li class="bg-dark-30 restaurant-page-header bg-dark" style="background-image:url(&quot;assets/images/restaurant/slider2.jpg&quot;);">
+            <li class="bg-dark-30 bg-dark shop-page-header" style="background-image:url(&quot;assets/images/shop/slider3.png&quot;);">
               <div class="titan-caption">
                 <div class="caption-content">
-                  <div class="font-alt mb-30 titan-title-size-2">Titan is creative multipurpose html template for<br>web developers who change the world</div><a class="btn btn-border-w btn-round" href="about1.html">Discover our story</a>
-                </div>
-              </div>
-            </li>
-            <li class="bg-dark-30 restaurant-page-header bg-dark" style="background-image:url(&quot;assets/images/restaurant/slider3.jpg&quot;);">
-              <div class="titan-caption">
-                <div class="caption-content">
-                  <div class="font-alt mb-30 titan-title-size-1"> Take a look at</div>
-                  <div class="font-alt mb-40 titan-title-size-3">our specialities</div><a class="section-scroll btn btn-border-w btn-round" href="#specialities">Learn More</a>
+                  <div class="font-alt mb-30 titan-title-size-1"> This is Titan</div>
+                  <div class="font-alt mb-40 titan-title-size-4">Exclusive products</div><a class="section-scroll btn btn-border-w btn-round" href="#latest">Learn More</a>
                 </div>
               </div>
             </li>
@@ -385,286 +323,281 @@
         </div>
       </section>
       <div class="main">
-        <section class="module" id="services">
+        <section class="module-small">
           <div class="container">
             <div class="row">
-              <div class="col-sm-2 col-sm-offset-5">
-                <div class="alt-module-subtitle"><span class="holder-w"></span>
-                  <h5 class="font-serif">For your comfort</h5><span class="holder-w"></span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-8 col-sm-offset-2">
-                <h2 class="module-title font-alt">Our Services</h2>
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="module-title font-alt">Latest in clothing</h2>
               </div>
             </div>
             <div class="row multi-columns-row">
               <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-clock"></span></div>
-                  <h3 class="features-title font-alt">Opened 24/7</h3>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.
+                <div class="shop-item">
+                  <div class="shop-item-image"><img src="assets/images/shop/product-7.jpg" alt="Accessories Pack"/>
+                    <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">Accessories Pack</a></h4>£9.00
                 </div>
               </div>
               <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-streetsign"></span></div>
-                  <h3 class="features-title font-alt">Free parking</h3>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.
+                <div class="shop-item">
+                  <div class="shop-item-image"><img src="assets/images/shop/product-8.jpg" alt="Men’s Casual Pack"/>
+                    <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">Men’s Casual Pack</a></h4>£12.00
                 </div>
               </div>
               <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-map"></span></div>
-                  <h3 class="features-title font-alt">Central Location</h3>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.
+                <div class="shop-item">
+                  <div class="shop-item-image"><img src="assets/images/shop/product-9.jpg" alt="Men’s Garb"/>
+                    <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">Men’s Garb</a></h4>£6.00
                 </div>
               </div>
               <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-heart"></span></div>
-                  <h3 class="features-title font-alt">High quality</h3>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.
+                <div class="shop-item">
+                  <div class="shop-item-image"><img src="assets/images/shop/product-10.jpg" alt="Cold Garb"/>
+                    <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">Cold Garb</a></h4>£14.00
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="shop-item">
+                  <div class="shop-item-image"><img src="assets/images/shop/product-11.jpg" alt="Accessories Pack"/>
+                    <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">Accessories Pack</a></h4>£9.00
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="shop-item">
+                  <div class="shop-item-image"><img src="assets/images/shop/product-12.jpg" alt="Men’s Casual Pack"/>
+                    <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">Men’s Casual Pack</a></h4>£12.00
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="shop-item">
+                  <div class="shop-item-image"><img src="assets/images/shop/product-13.jpg" alt="Men’s Garb"/>
+                    <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">Men’s Garb</a></h4>£6.00
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="shop-item">
+                  <div class="shop-item-image"><img src="assets/images/shop/product-14.jpg" alt="Cold Garb"/>
+                    <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">Cold Garb</a></h4>£14.00
+                </div>
+              </div>
+            </div>
+            <div class="row mt-30">
+              <div class="col-sm-12 align-center"><a class="btn btn-b btn-round" href="#">See all products</a></div>
+            </div>
+          </div>
+        </section>
+        <section class="module module-video bg-dark-30" data-background="">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="module-title font-alt mb-0">Be inspired. Get ahead of trends.</h2>
+              </div>
+            </div>
+          </div>
+          <div class="video-player" data-property="{videoURL:'https://www.youtube.com/watch?v=EMy5krGcoOU', containment:'.module-video', startAt:0, mute:true, autoPlay:true, loop:true, opacity:1, showControls:false, showYTLogo:false, vol:25}"></div>
+        </section>
+        <section class="module">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="module-title font-alt">Exclusive products</h2>
+                <div class="module-subtitle font-serif">The languages only differ in their grammar, their pronunciation and their most common words.</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="owl-carousel text-center" data-items="5" data-pagination="false" data-navigation="false">
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="assets/images/shop/product-1.jpg" alt="Leather belt"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£12.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="assets/images/shop/product-2.jpg" alt="Derby shoes"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Derby shoes</a></h4>£54.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="assets/images/shop/product-3.jpg" alt="Leather belt"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£19.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="assets/images/shop/product-4.jpg" alt="Leather belt"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£14.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="assets/images/shop/product-5.jpg" alt="Chelsea boots"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Chelsea boots</a></h4>£44.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="assets/images/shop/product-6.jpg" alt="Leather belt"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£19.00
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
         <hr class="divider-w">
-        <section class="module" id="specialities">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-2 col-sm-offset-5">
-                <div class="alt-module-subtitle"><span class="holder-w"></span>
-                  <h5 class="font-serif">Take a look at</h5><span class="holder-w"></span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-8 col-sm-offset-2">
-                <h2 class="module-title font-alt">Our Specialities</h2>
-              </div>
-            </div>
-            <div class="row multi-columns-row">
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="content-box">
-                  <div class="content-box-image"><img src="assets/images/restaurant/kabab.jpg" alt="Kabab"/></div>
-                  <h3 class="content-box-title font-serif">Kabab</h3>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="content-box">
-                  <div class="content-box-image"><img src="assets/images/restaurant/limes.jpg" alt="Limes"/></div>
-                  <h3 class="content-box-title font-serif">Limes</h3>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="content-box">
-                  <div class="content-box-image"><img src="assets/images/restaurant/radish.jpg" alt="Radish"/></div>
-                  <h3 class="content-box-title font-serif">Radish</h3>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="content-box">
-                  <div class="content-box-image"><img src="assets/images/restaurant/corn.jpg" alt="Corn"/></div>
-                  <h3 class="content-box-title font-serif">Corn</h3>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="module module-video bg-dark-30" data-background="assets/images/restaurant/coffee_bg.png">
+        <section class="module" id="news">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt mb-0">The Best Restaurant In Town. Enjoy Your Meal</h2>
+                <h2 class="module-title font-alt">Our News</h2>
+              </div>
+            </div>
+            <div class="row multi-columns-row post-columns wo-border">
+              <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="post mb-40">
+                  <div class="post-header font-alt">
+                    <h2 class="post-title"><a href="#">Receipt of the new collection</a></h2>
+                  </div>
+                  <div class="post-entry">
+                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  </div>
+                  <div class="post-more"><a class="more-link" href="#">Read more</a></div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="post mb-40">
+                  <div class="post-header font-alt">
+                    <h2 class="post-title"><a href="#">Sale of summer season</a></h2>
+                  </div>
+                  <div class="post-entry">
+                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  </div>
+                  <div class="post-more"><a class="more-link" href="#">Read more</a></div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="post mb-40">
+                  <div class="post-header font-alt">
+                    <h2 class="post-title"><a href="#">New lookbook</a></h2>
+                  </div>
+                  <div class="post-entry">
+                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  </div>
+                  <div class="post-more"><a class="more-link" href="#">Read more</a></div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="post mb-40">
+                  <div class="post-header font-alt">
+                    <h2 class="post-title"><a href="#">Receipt of the new collection</a></h2>
+                  </div>
+                  <div class="post-entry">
+                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  </div>
+                  <div class="post-more"><a class="more-link" href="#">Read more</a></div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="post mb-40">
+                  <div class="post-header font-alt">
+                    <h2 class="post-title"><a href="#">Sale of summer season</a></h2>
+                  </div>
+                  <div class="post-entry">
+                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  </div>
+                  <div class="post-more"><a class="more-link" href="#">Read more</a></div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="post mb-40">
+                  <div class="post-header font-alt">
+                    <h2 class="post-title"><a href="#">New lookbook</a></h2>
+                  </div>
+                  <div class="post-entry">
+                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  </div>
+                  <div class="post-more"><a class="more-link" href="#">Read more</a></div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="video-player" data-property="{videoURL:'https://www.youtube.com/watch?v=i_XV7YCRzKo', containment:'.module-video', startAt:3, mute:true, autoPlay:true, loop:true, opacity:1, showControls:false, showYTLogo:false, vol:25}"></div>
         </section>
-        <section class="module" id="menu">
+        <hr class="divider-w">
+        <section class="module-small">
           <div class="container">
-            <div class="row">
-              <div class="col-sm-2 col-sm-offset-5">
-                <div class="alt-module-subtitle"><span class="holder-w"></span>
-                  <h5 class="font-serif">Most popular menu</h5><span class="holder-w"></span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-8 col-sm-offset-2">
-                <h2 class="module-title font-alt">Popular Dishes</h2>
-              </div>
-            </div>
-            <div class="row multi-columns-row">
-              <div class="col-sm-6">
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">Wild Mushroom Bucatini with Kale</h4>
-                      <div class="menu-detail font-serif">Mushroom / Veggie / White Sources</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$10.5</h4>
-                    </div>
+            <div class="row client">
+              <div class="owl-carousel text-center" data-items="6" data-pagination="false" data-navigation="false">
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="client-logo"><img src="assets/images/client-logo-dark-1.png" alt="Client Logo"/></div>
                   </div>
                 </div>
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">Lemon and Garlic Green Beans</h4>
-                      <div class="menu-detail font-serif">Lemon / Garlic / Beans</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$14.5</h4>
-                    </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="client-logo"><img src="assets/images/client-logo-dark-2.png" alt="Client Logo"/></div>
                   </div>
                 </div>
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">LambBeef Kofka Skewers with Tzatziki</h4>
-                      <div class="menu-detail font-serif">Lamb / Wine / Butter</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$18.5</h4>
-                    </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="client-logo"><img src="assets/images/client-logo-dark-3.png" alt="Client Logo"/></div>
                   </div>
                 </div>
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">Imported Oysters Grill (5 Pieces)</h4>
-                      <div class="menu-detail font-serif">Oysters / Veggie / Ginger</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$15.9</h4>
-                    </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="client-logo"><img src="assets/images/client-logo-dark-4.png" alt="Client Logo"/></div>
                   </div>
                 </div>
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">Meatloaf with Black Pepper-Honey BBQ</h4>
-                      <div class="menu-detail font-serif">Pepper / Chicken / Honey</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$16.4</h4>
-                    </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="client-logo"><img src="assets/images/client-logo-dark-5.png" alt="Client Logo"/></div>
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">Wild Mushroom Bucatini with Kale</h4>
-                      <div class="menu-detail font-serif">Mushroom / Veggie / White Sources</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$10.5</h4>
-                    </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="client-logo"><img src="assets/images/client-logo-dark-1.png" alt="Client Logo"/></div>
                   </div>
                 </div>
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">Lemon and Garlic Green Beans</h4>
-                      <div class="menu-detail font-serif">Lemon / Garlic / Beans</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$14.5</h4>
-                    </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="client-logo"><img src="assets/images/client-logo-dark-2.png" alt="Client Logo"/></div>
                   </div>
                 </div>
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">LambBeef Kofka Skewers with Tzatziki</h4>
-                      <div class="menu-detail font-serif">Lamb / Wine / Butter</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$18.5</h4>
-                    </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="client-logo"><img src="assets/images/client-logo-dark-3.png" alt="Client Logo"/></div>
                   </div>
                 </div>
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">Imported Oysters Grill (5 Pieces)</h4>
-                      <div class="menu-detail font-serif">Oysters / Veggie / Ginger</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$15.9</h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="menu">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h4 class="menu-title font-alt">Meatloaf with Black Pepper-Honey BBQ</h4>
-                      <div class="menu-detail font-serif">Pepper / Chicken / Honey</div>
-                    </div>
-                    <div class="col-sm-4 menu-price-detail">
-                      <h4 class="menu-price font-alt">$16.4</h4>
-                    </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="client-logo"><img src="assets/images/client-logo-dark-4.png" alt="Client Logo"/></div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="text-center"><a class="btn btn-border-d mt-50" href="restaurant_menu1.html">Check our full menu</a></div>
           </div>
-        </section>
-        <section class="module pt-0 pb-0">
-          <div class="row position-relative m-0">
-            <div class="col-xs-12 col-md-6 side-image-text">
-              <div class="row">
-                <div class="col-sm-12">
-                  <h2 class="module-title font-alt align-left">Reserve a Table</h2>
-                  <p class="module-subtitle font-serif align-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                </div>
-              </div>
-              <form class="reservation-form" id="reservationForm" action="php/reservation.php" method="post">
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="icon-calendar"></i></div>
-                    <input class="form-control input-lg" id="date" type="date" name="date" placeholder="dd/mm/yyyy" required=""/>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="icon-clock"></i></div>
-                    <select class="form-control input-lg" id="time" name="time" type="text" required="required">
-                      <option value="time" disabled="" selected="">Select Time</option>
-                      <option value="1.30">1:30 pm</option>
-                      <option value="3.00">3:00 pm</option>
-                      <option value="4.30">4:30 pm</option>
-                      <option value="6.00">6:00 pm</option>
-                      <option value="7.30">7:30 pm</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="icon-profile-male"></i></div>
-                    <input class="form-control input-lg" id="people" type="number" name="people" min="1" max="50" step="1" placeholder="Number of people" required=""/>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="icon-envelope"></i></div>
-                    <input class="form-control input-lg" type="email" id="email" name="email" placeholder="Your Email*" required="required" data-validation-required-message="Please enter your email address."/>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-g btn-round btn-block btn-lg mt-20" id="rfsubmit" type="submit"><i class="fa fa-paper-plane-o"></i> Reserve</button>
-                </div>
-                <div id="reservationFormResponse"></div>
-              </form>
-            </div>
-            <div class="col-xs-12 col-md-6 col-md-offset-6 side-image restaurant-image-overlay" data-background="assets/images/restaurant/reservation.jpg"></div>
-          </div>
-        </section>
-        <section id="map-section">
-          <div id="map"></div>
         </section>
         <div class="module-small bg-dark">
           <div class="container">
@@ -741,24 +674,4 @@
         </footer>
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-    </main>
-    <!--  
-    JavaScripts
-    =============================================
-    -->
-    <script src="assets/lib/jquery/dist/jquery.js"></script>
-    <script src="assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/lib/wow/dist/wow.js"></script>
-    <script src="assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="assets/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="assets/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="assets/lib/smoothscroll.js"></script>
-    <script src="assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK2Axt8xiFYMBMDwwG1XzBQvEbYpzCvFU"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/main.js"></script>
-  </body>
-</html>
+   
