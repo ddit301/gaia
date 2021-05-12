@@ -118,8 +118,11 @@ function ssc_wheel(e) {
         i *= ssc_stepsize / 120
     }
     ssc_scrollArray(n, -r, -i);
-    e.preventDefault()
+    
 }
+
+window.addEventListener("ssc_wheel", function (event) { event.preventDefault (); }, {passive: false})
+
 
 function ssc_keydown(e) {
     var t = e.target;
