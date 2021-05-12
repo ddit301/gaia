@@ -34,9 +34,9 @@ public class LoginController {
 	}
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	@RequestMapping(value="/login/loginCheck.do", method = RequestMethod.GET)
+	@RequestMapping(value="/login/login.do", method = RequestMethod.GET)
 	public String loginPage() {
-		return "login";
+		return "member/login";
 	}
 	
 	@RequestMapping(value="/login/loginCheck.do", method = RequestMethod.POST)
@@ -65,8 +65,8 @@ public class LoginController {
 		boolean valid = validate(user_id, user_pass);
 		
 		MemberVO user = new MemberVO();
-		user.setMember_id(user_id);
-		user.setMember_pass(user_pass);
+		user.setMEM_EMAIL(user_id);
+		user.setMEM_PASS(user_pass);
 		
 		String view = null;
 		String message = "";
@@ -77,34 +77,34 @@ public class LoginController {
 			switch(result) {
 			case OK:
 				// 로그인 성공시 쿠키에 접속한 아이디 저장
-				Cookie idCookie = new Cookie("loginId",user.getMember_id());
+				Cookie idCookie = new Cookie("loginId",user.getMEM_EMAIL());
 				idCookie.setMaxAge(1*24*60*60);
 				idCookie.setPath(String.format("%s",application.getContextPath()));
 				resp.addCookie(idCookie);
 				// 로그인 성공시 쿠키에 접속자 이름 저장
-				Cookie nameCookie = new Cookie("loginName",user.getMember_name());
+				Cookie nameCookie = new Cookie("loginName",user.getMEM_NCNM());
 				nameCookie.setMaxAge(1*24*60*60);
 				nameCookie.setPath(application.getContextPath());
 				resp.addCookie(nameCookie);
 				
-				view = "redirect:/";
+				view = "redirect:/blank.jsp";
 				session.setAttribute("authUser", user);
 				break;
 			case NOTEXIST:
-				view = "redirect:/login/loginCheck.do";
+				view = "redirect:/login/login.do";
 				message = "아이디 오류";
 				break;
 			case INVALIDPASSWORD:
 			default:
 				// 인증 실패
-				view = "redirect:/login/loginCheck.do";
+				view = "redirect:/login/login.do";
 				message = "비번 오류";
 				break;
 			}
 			
 		}else {
 			// 1)검증
-			view = "redirect:/login/loginCheck.do";
+			view = "redirect:/login/login.do";
 			message = "아이디나 비번 누락";
 		}
 		
