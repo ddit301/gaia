@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Toast UI test</title>
+</head>
+<!-- Editor's Dependecy Style -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+<!-- Editor's Style --> 
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+<body>
+<div id="editor" style="box-sizing: border-box; height: 500px;"></div>
+<!-- onchange 말고 굳이 버튼 이후코드 반영된 코드 보여주고 싶다면  -->
+<button onclick="ToView();">test editor</button>
+<div id="viewer"></div>
+
+<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
+<script>
+		const content = [].join('\n');
+        const editor = new toastui.Editor({
+            el: document.querySelector('#editor'),
+            previewStyle: 'vertical',
+            initialEditType: "wysiwyg",
+            height: '500px',
+            initialValue: content
+        });
+        const viewer = toastui.Editor.factory({
+            el: document.querySelector('#viewer'),
+            viewer: true,
+            height: '500px',
+            initialValue: content
+        });
+
+        function ToView()
+        {
+            viewer.setMarkdown(editor.getMarkdown());
+        };
+</script>
+</body>
+</html>

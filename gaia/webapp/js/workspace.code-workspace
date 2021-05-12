@@ -1,0 +1,16 @@
+{
+  "folders": [
+	{
+		"path": "D:\\A_TeachingMaterial\\4.MiddleProject\\workspace"
+	},
+	{
+		"path": ".."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "2117_infinite_loop"
+  },
+  "extensions": {
+    "recommendations": ["pthorsson.vscode-jsp"]
+  }
+}
