@@ -28,9 +28,9 @@ public class IndexTestController {
 	}
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	@RequestMapping(value="/admin/index", method = RequestMethod.GET)
+	@RequestMapping(value="/index", method = RequestMethod.GET)
 	public String loginPage() {
-		return "admin/index";
+		return "index";
 	}
 	
 }
