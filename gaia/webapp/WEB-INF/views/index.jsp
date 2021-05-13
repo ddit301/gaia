@@ -1,5 +1,13 @@
+<%--
+* [[개정이력(Modification Information)]]
+* Date         Modifier		Modification
+* ----------  ---------  -----------------
+* 2021. 5. 13.      Robin      Initial Commit
+* Copyright (c) 2021 by Team SEED All right reserved
+ --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="UTF-8" dir="ltr">
   <head>
