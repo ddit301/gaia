@@ -35,15 +35,25 @@
 <a href="#" target="_blank"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>
 
 ### Team members 🏕
-<img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/74809918?s=96&amp;v=4" width="48" height="48" alt="@Shane-Park"> [Shane](https://github.com/Shane-Park)
+<a href="https://github.com/Shane-Park">
+  <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/74809918?s=96&amp;v=4" width="48" height="48" alt="@Shane-Park"> Shane
+</a>
+
 > Project Leader
 
-<img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/24990542?s=96&amp;v=4" width="48" height="48" alt="@KrGil"> [Eisen](https://github.com/KrGil)   
+<a href="https://github.com/KrGil">
+<img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/24990542?s=96&amp;v=4" width="48" height="48" alt="@KrGil"> Eisen
+ <a/>
+
 > Technical Archiect
 
-<img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/77673021?s=96&amp;v=4" width="48" height="48" alt="@JeonghoonWon"> [josh](https://github.com/JeonghoonWon)   
+<a href="https://github.com/JeonghoonWon">
+<img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/77673021?s=96&amp;v=4" width="48" height="48" alt="@JeonghoonWon"> josh <a/>
+
 > Data Architect
 
-<img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/77029227?s=96&amp;v=4" width="48" height="48" alt="@maskan19"> [Robin](https://github.com/maskan19)   
+<a href="https://github.com/maskan19">
+<img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/77029227?s=96&amp;v=4" width="48" height="48" alt="@maskan19"> Robin <a/>
+
 > Quality Assuarance
 
