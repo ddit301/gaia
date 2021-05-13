@@ -1,4 +1,11 @@
-      <div class="page-loader">
+<%--
+* [[개정이력(Modification Information)]]
+* Date         Modifier		Modification
+* ----------  ---------  -----------------
+* ${date}      Robin      Initial Commit
+* Copyright (c) ${year} by Team SEED All right reserved
+ --%>
+       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
       <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -313,7 +320,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6">
-                <h5 class="font-alt">We’re a digital creative agency</h5><br/>
+                <h5 class="font-alt">Weâre a digital creative agency</h5><br/>
                 <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
                 <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.</p>
               </div>
