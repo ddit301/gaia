@@ -31,7 +31,23 @@
                             <li><a href="#">Kanban Board</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-graph menu-icon"></i> <span class="nav-text">Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./chart-chartjs.html">Chartjs</a></li>
+                            <li><a href="./chart-chartist.html">Chartist</a></li>
+                            <li><a href="./chart-sparkline.html">Sparkline</a></li>
+                            <li><a href="./chart-peity.html">Peity</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-label">Apps</li>
+                    <li>
+                        <a href="#" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Messenger</span>
+                        </a>
+                    </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-envelope menu-icon"></i> <span class="nav-text">Help</span>
