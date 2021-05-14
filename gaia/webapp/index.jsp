@@ -99,17 +99,6 @@
       </nav>
 
 
-<%-- <c:choose> --%>
-<%-- <c:when test="${ not empty view }"> --%>
-<%-- 	<c:import url="${view }.jsp"></c:import> --%>
-<%-- </c:when> --%>
-<%-- <c:otherwise> --%>
-<%-- 	<c:import url="main/about1.jsp" charEncoding="UTF-8"></c:import> --%>
-<%-- </c:otherwise> --%>
-<%-- </c:choose> --%>
-
-
-
 	</main>
 	<main id="mainBody">
 
