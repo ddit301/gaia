@@ -14,7 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.member.service.MemberService;
 
 @Controller
-public class SampleController {
+public class IssueController {
 	
 	@Inject
 	private MemberService service;
@@ -27,7 +27,7 @@ public class SampleController {
 		application = container.getServletContext();
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
+	private static final Logger logger = LoggerFactory.getLogger(IssueController.class);
 	
 
 }

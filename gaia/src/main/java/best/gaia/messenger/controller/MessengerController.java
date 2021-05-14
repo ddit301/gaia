@@ -12,7 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.messenger.service.MessengerService;
 
 @Controller
-public class SampleController {
+public class MessengerController {
 	
 	@Inject
 	private MessengerService service;
@@ -25,7 +25,7 @@ public class SampleController {
 		application = container.getServletContext();
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MessengerController.class);
 	
 
 }
