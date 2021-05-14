@@ -40,7 +40,7 @@ public class pageIndexingController {
 		application = container.getServletContext();
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger logger = LoggerFactory.getLogger(pageIndexingController.class);
 
 	@RequestMapping(value = "/intro")
 	public String introPage() {
