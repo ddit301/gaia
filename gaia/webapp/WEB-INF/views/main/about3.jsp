@@ -1,4 +1,11 @@
-      <div class="page-loader">
+<%--
+* [[개정이력(Modification Information)]]
+* Date         Modifier		Modification
+* ----------  ---------  -----------------
+* ${date}      Robin      Initial Commit
+* Copyright (c) ${year} by Team SEED All right reserved
+ --%>
+       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
       <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">

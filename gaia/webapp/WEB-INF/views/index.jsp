@@ -1,25 +1,24 @@
-<%--
-* [[개정이력(Modification Information)]]
-* Date         Modifier		Modification
-* ----------  ---------  -----------------
-* 2021. 5. 13.      Robin      Initial Commit
-* Copyright (c) 2021 by Team SEED All right reserved
- --%>
+<!--  [[개정이력(Modification Information)]]				-->
+<!--  Date         Modifier		Modification			-->
+<!--  ===========  ========     =============			-->
+<!--  2021. 5. 13.  Robin		Initial Commit			-->
+<!--  Copyright (c) 2021 by Team SEED All right reserved-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="UTF-8" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--  
+    <!--
     Document Title
     =============================================
     -->
     <title>GAIA</title>
-    <!--  
+    <!--
     Favicons
     =============================================
     -->
@@ -40,10 +39,9 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="main/images/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <!--  
+    <!--
     Stylesheets
     =============================================
-    
     -->
     <!-- Default stylesheets-->
     <link href="main/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -86,7 +84,7 @@
               </li>
               <li class=""><a class="" href="#" data-toggle="">고객센터</a>
               </li>
-              
+
             </ul>
             </div>
             <div class="space-between">
@@ -99,30 +97,30 @@
               </ul>
             </div>
           </div>
-          
+
         </div>
       </nav>
 
-	  
-	  
-	  
+
+
+
 <!-- 	  included page -->
 	  <jsp:include page="main/indexContent.jsp"></jsp:include>
-	  
-	  
-	  
-	  
-	  
-	  
- 
+
+
+
+
+
+
+
 
     </main>
-    
-    <!--  
+
+    <!--
     JavaScripts
     =============================================
     -->
-    
+
     <script src="main/lib/jquery/dist/jquery.js"></script>
     <script src="main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="main/lib/wow/dist/wow.js"></script>
@@ -136,13 +134,13 @@
     <script src="main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="main/js/plugins.js"></script>
     <script src="main/js/main.js"></script>
-    
+
     <script type="text/javascript">
-    
+
 // 	let searchForm = $("#searchForm").ajaxForm({
 // 		dataType:"json"
 // 		, beforeSubmit:function(){
-// 			searchForm.find("[name='page']").val("");	
+// 			searchForm.find("[name='page']").val("");
 // 		}, success:function(resp){
 // 			listBody.empty();
 // 			pagingArea.empty();
@@ -176,9 +174,9 @@
 // 					trTags.push(tr);
 // 				});
 // 			}else{
-// 				trTags.push( 
+// 				trTags.push(
 // 					$("<tr>").html(
-// 						$("<td>").attr("colspan", "8")		
+// 						$("<td>").attr("colspan", "8")
 // 					)
 // 				);
 // 			}
@@ -189,8 +187,8 @@
 // 		}
 // 	});
 // 	searchForm.submit();
-    
+
     </script>
-    
+
   </body>
 </html>
