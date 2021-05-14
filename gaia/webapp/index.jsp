@@ -102,12 +102,8 @@
 	</main>
 	<main id="mainBody">
 
-
-
-<!-- 	  included page -->
-
-<jsp:include page="WEB-INF/views/main/intro.jsp"></jsp:include>
-
+	<!-- default included page -->
+	<jsp:include page="WEB-INF/views/main/intro.jsp"></jsp:include>
 
     </main>
     <main id="mainFooter">
@@ -116,37 +112,25 @@
             <div class="row">
               <div class="col-sm-3">
                 <div class="widget">
-                  <h5 class="widget-title font-alt">About Titan</h5>
+                  <h5 class="widget-title font-alt">About SEED</h5>
                   <p>The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                  <p>Phone: +1 234 567 89 10</p>Fax: +1 234 567 89 10
-                  <p>Email:<a href="#">somecompany@example.com</a></p>
+                  <p>Phone: +80 234 567 89 10</p>Fax: +1 234 567 89 10
+                  <p>Email:<a href="#">gaia@gaia.best</a></p>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="widget">
                   <h5 class="widget-title font-alt">Recent Comments</h5>
                   <ul class="icon-list">
-                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                    <li>Jack on <a href="#">Bottle Mockup</a></li>
-                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
+                    <li>Shane on <a href="#">Designer Desk Essentials</a></li>
+                    <li>Robin on <a href="#">Realistic Business Card Mockup</a></li>
+                    <li>Josh on <a href="#">Eco bag Mockup</a></li>
+                    <li>Eisen on <a href="#">Bottle Mockup</a></li>
                   </ul>
                 </div>
               </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Blog Categories</h5>
-                  <ul class="icon-list">
-                    <li><a href="#">Photography - 7</a></li>
-                    <li><a href="#">Web Design - 3</a></li>
-                    <li><a href="#">Illustration - 12</a></li>
-                    <li><a href="#">Marketing - 1</a></li>
-                    <li><a href="#">Wordpress - 16</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-sm-3">
+              
+              <div class="col-sm-6">
                 <div class="widget">
                   <h5 class="widget-title font-alt">Popular Posts</h5>
                   <ul class="widget-posts">
@@ -175,10 +159,10 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6">
-                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
+                <p class="copyright font-alt">&copy; 2021&nbsp;<a href="index.html">team SEED</a>, All Rights Reserved</p>
               </div>
               <div class="col-sm-6">
-                <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
+                <div class="footer-social-links"><a href="#"><i class="fa fa-github"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-skype"></i></a>
                 </div>
               </div>
             </div>
