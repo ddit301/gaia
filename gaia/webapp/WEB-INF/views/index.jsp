@@ -7,7 +7,7 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="UTF-8" dir="ltr">
   <head>
@@ -18,7 +18,7 @@
     Document Title
     =============================================
     -->
-    <title>GAIA | Multipurpose HTML5 Template</title>
+    <title>GAIA</title>
     <!--  
     Favicons
     =============================================
@@ -106,7 +106,7 @@
 	  
 	  
 	  
-	  
+<!-- 	  included page -->
 	  <jsp:include page="main/indexContent.jsp"></jsp:include>
 	  
 	  
@@ -139,56 +139,56 @@
     
     <script type="text/javascript">
     
-	let searchForm = $("#searchForm").ajaxForm({
-		dataType:"json"
-		, beforeSubmit:function(){
-			searchForm.find("[name='page']").val("");	
-		}, success:function(resp){
-			listBody.empty();
-			pagingArea.empty();
-			let trTags = [];
-			if(resp.dataList){
-				let viewURLPtrn = "${cPath}/board/boardView.do?what=%d";
-				$(resp.dataList).each(function(idx, board){
-					let viewURL = viewURLPtrn.replace("%d", board.bo_no);
-					let aTag = $("<a>").html(board.bo_title)
-									   .attr("href", viewURL);
-					if(board.bo_seq == 'Y'){
-						aTag.addClass('secret');
-					}else{
-						aTag.addClass('nonsecret');
-						aTag.data("toggle", 'popover');
-						aTag.attr("title", board.bo_title);
-					}
-					let tr = $("<tr>").append(
-								  $("<td>").html(board.bo_type == 'NOTICE'?'공지':'일반')
-								, $("<td>").html(board.bo_no)
-								, $("<td>").html(
-									$("<img>").addClass("thumbnail")
-											  .attr("src", board.thumbnail)
-								)
-								, $("<td>").html(aTag)
-								, $("<td>").html(board.bo_writer)
-								, $("<td>").html(board.bo_date)
-								, $("<td>").html(board.bo_hit)
-								, $("<td>").html(board.bo_rec)
-							).data("board", board).css("cursor", "pointer");
-					trTags.push(tr);
-				});
-			}else{
-				trTags.push( 
-					$("<tr>").html(
-						$("<td>").attr("colspan", "8")		
-					)
-				);
-			}
-			listBody.html(trTags);
-			pagingArea.html(resp.pagingHTMLBS);
-		}, error:function(xhr, resp, error){
-			console.log(xhr);
-		}
-	});
-	searchForm.submit();
+// 	let searchForm = $("#searchForm").ajaxForm({
+// 		dataType:"json"
+// 		, beforeSubmit:function(){
+// 			searchForm.find("[name='page']").val("");	
+// 		}, success:function(resp){
+// 			listBody.empty();
+// 			pagingArea.empty();
+// 			let trTags = [];
+// 			if(resp.dataList){
+// 				let viewURLPtrn = "${cPath}/board/boardView.do?what=%d";
+// 				$(resp.dataList).each(function(idx, board){
+// 					let viewURL = viewURLPtrn.replace("%d", board.bo_no);
+// 					let aTag = $("<a>").html(board.bo_title)
+// 									   .attr("href", viewURL);
+// 					if(board.bo_seq == 'Y'){
+// 						aTag.addClass('secret');
+// 					}else{
+// 						aTag.addClass('nonsecret');
+// 						aTag.data("toggle", 'popover');
+// 						aTag.attr("title", board.bo_title);
+// 					}
+// 					let tr = $("<tr>").append(
+// 								  $("<td>").html(board.bo_type == 'NOTICE'?'공지':'일반')
+// 								, $("<td>").html(board.bo_no)
+// 								, $("<td>").html(
+// 									$("<img>").addClass("thumbnail")
+// 											  .attr("src", board.thumbnail)
+// 								)
+// 								, $("<td>").html(aTag)
+// 								, $("<td>").html(board.bo_writer)
+// 								, $("<td>").html(board.bo_date)
+// 								, $("<td>").html(board.bo_hit)
+// 								, $("<td>").html(board.bo_rec)
+// 							).data("board", board).css("cursor", "pointer");
+// 					trTags.push(tr);
+// 				});
+// 			}else{
+// 				trTags.push( 
+// 					$("<tr>").html(
+// 						$("<td>").attr("colspan", "8")		
+// 					)
+// 				);
+// 			}
+// 			listBody.html(trTags);
+// 			pagingArea.html(resp.pagingHTMLBS);
+// 		}, error:function(xhr, resp, error){
+// 			console.log(xhr);
+// 		}
+// 	});
+// 	searchForm.submit();
     
     </script>
     
