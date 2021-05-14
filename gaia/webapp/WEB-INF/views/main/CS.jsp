@@ -29,7 +29,7 @@
                   </form>
                 </div>
                 <div class="widget">
-                  <h5 class="widget-title font-alt">Blog Categories</h5>
+                  <h5 class="widget-title font-alt">FAQ</h5>
                   <ul class="icon-list">
                     <li><a href="#">Photography - 7</a></li>
                     <li><a href="#">Web Design - 3</a></li>
@@ -39,7 +39,7 @@
                   </ul>
                 </div>
                 <div class="widget">
-                  <h5 class="widget-title font-alt">Popular Posts</h5>
+                  <h5 class="widget-title font-alt">문의하기</h5>
                   <ul class="widget-posts">
                     <li class="clearfix">
                       <div class="widget-posts-image"><a href="#"><img src="main/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
@@ -72,7 +72,7 @@
                   </ul>
                 </div>
                 <div class="widget">
-                  <h5 class="widget-title font-alt">Tag</h5>
+                  <h5 class="widget-title font-alt">문의하기</h5>
                   <div class="tags font-serif"><a href="#" rel="tag">Blog</a><a href="#" rel="tag">Photo</a><a href="#" rel="tag">Video</a><a href="#" rel="tag">Image</a><a href="#" rel="tag">Minimal</a><a href="#" rel="tag">Post</a><a href="#" rel="tag">Theme</a><a href="#" rel="tag">Ideas</a><a href="#" rel="tag">Tags</a><a href="#" rel="tag">Bootstrap</a><a href="#" rel="tag">Popular</a><a href="#" rel="tag">English</a>
                   </div>
                 </div>
