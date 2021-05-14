@@ -4,7 +4,7 @@
 <!--  2021. 5. 13.  Robin		Initial Commit			-->
 <!--  Copyright (c) 2021 by Team SEED All right reserved-->
       <div class="main">
-        <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
+        <section class="module bg-dark-30 about-page-header" data-background="main/images/about_bg.jpg">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
@@ -97,14 +97,14 @@
                   <h5 class="widget-title font-alt">Popular Posts</h5>
                   <ul class="widget-posts">
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"><img src="main/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
                         <div class="widget-posts-meta">23 january</div>
                       </div>
                     </li>
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"><img src="main/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
                         <div class="widget-posts-meta">15 February</div>
@@ -136,16 +136,16 @@
     JavaScripts
     =============================================
     -->
-    <script src="assets/lib/jquery/dist/jquery.js"></script>
-    <script src="assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/lib/wow/dist/wow.js"></script>
-    <script src="assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="assets/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="assets/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="assets/lib/smoothscroll.js"></script>
-    <script src="assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="main/lib/jquery/dist/jquery.js"></script>
+    <script src="main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="main/lib/wow/dist/wow.js"></script>
+    <script src="main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="main/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="main/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="main/lib/smoothscroll.js"></script>
+    <script src="main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="main/js/plugins.js"></script>
+    <script src="main/js/main.js"></script>
