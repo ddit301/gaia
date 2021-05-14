@@ -5,7 +5,6 @@
 <!--  Copyright (c) 2021 by Team SEED All right reserved-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="UTF-8" dir="ltr">
@@ -69,22 +68,21 @@
       <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">GAIA</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/gaia">GAIA</a>
           </div>
           <div class="collapse navbar-collapse" id="custom-collapse">
             <div class="space-between">
             <ul class="nav navbar-nav navbar-left">
-              <li class=""><a class="" href="#" data-toggle="">소개</a>
+              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/intro');">소개</a>
               </li>
-              <li class=""><a class="" href="#" data-toggle="">데모체험</a>
+              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/demo');">데모체험</a>
               </li>
-              <li class=""><a class="" href="#" data-toggle="">요금안내</a>
+              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/sales');">요금안내</a>
               </li>
-              <li class=""><a class="" href="#" data-toggle="">업데이트내역</a>
+              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/updates');">업데이트내역</a>
               </li>
-              <li class=""><a class="" href="#" data-toggle="">고객센터</a>
+              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/CS');">고객센터</a>
               </li>
-
             </ul>
             </div>
             <div class="space-between">
@@ -93,8 +91,6 @@
               <li class=""><a class="" href="#" data-toggle="">Sign in</a>
               </li>
               <li class=""><a class="" href="#" data-toggle="">Sign up</a>
-	  <input type="button" value="페이지 이동" onclick="acyncMovePage('<%=request.getContextPath() %>/about1')">
-              </li>
               </ul>
             </div>
           </div>
@@ -103,8 +99,16 @@
       </nav>
 
 
+<%-- <c:choose> --%>
+<%-- <c:when test="${ not empty view }"> --%>
+<%-- 	<c:import url="${view }.jsp"></c:import> --%>
+<%-- </c:when> --%>
+<%-- <c:otherwise> --%>
+<%-- 	<c:import url="main/about1.jsp" charEncoding="UTF-8"></c:import> --%>
+<%-- </c:otherwise> --%>
+<%-- </c:choose> --%>
 
-	  <jsp:include page="main/about1.jsp"></jsp:include>
+
 
 	</main>
 	<main id="mainBody">
@@ -113,7 +117,7 @@
 
 <!-- 	  included page -->
 
-
+<jsp:include page="WEB-INF/views/main/intro.jsp"></jsp:include>
 
 
     </main>
@@ -149,67 +153,10 @@
         };
 
         $.ajax(ajaxOption).done(function(data){
-            // Contents 영역 삭제
             $('#mainBody').children().remove();
-            // Contents 영역 교체
             $('#mainBody').html(data);
         });
     }
-
-
-
-
-
-// 	let searchForm = $("#searchForm").ajaxForm({
-// 		dataType:"json"
-// 		, beforeSubmit:function(){
-// 			searchForm.find("[name='page']").val("");
-// 		}, success:function(resp){
-// 			listBody.empty();
-// 			pagingArea.empty();
-// 			let trTags = [];
-// 			if(resp.dataList){
-// 				let viewURLPtrn = "${cPath}/board/boardView.do?what=%d";
-// 				$(resp.dataList).each(function(idx, board){
-// 					let viewURL = viewURLPtrn.replace("%d", board.bo_no);
-// 					let aTag = $("<a>").html(board.bo_title)
-// 									   .attr("href", viewURL);
-// 					if(board.bo_seq == 'Y'){
-// 						aTag.addClass('secret');
-// 					}else{
-// 						aTag.addClass('nonsecret');
-// 						aTag.data("toggle", 'popover');
-// 						aTag.attr("title", board.bo_title);
-// 					}
-// 					let tr = $("<tr>").append(
-// 								  $("<td>").html(board.bo_type == 'NOTICE'?'공지':'일반')
-// 								, $("<td>").html(board.bo_no)
-// 								, $("<td>").html(
-// 									$("<img>").addClass("thumbnail")
-// 											  .attr("src", board.thumbnail)
-// 								)
-// 								, $("<td>").html(aTag)
-// 								, $("<td>").html(board.bo_writer)
-// 								, $("<td>").html(board.bo_date)
-// 								, $("<td>").html(board.bo_hit)
-// 								, $("<td>").html(board.bo_rec)
-// 							).data("board", board).css("cursor", "pointer");
-// 					trTags.push(tr);
-// 				});
-// 			}else{
-// 				trTags.push(
-// 					$("<tr>").html(
-// 						$("<td>").attr("colspan", "8")
-// 					)
-// 				);
-// 			}
-// 			listBody.html(trTags);
-// 			pagingArea.html(resp.pagingHTMLBS);
-// 		}, error:function(xhr, resp, error){
-// 			console.log(xhr);
-// 		}
-// 	});
-// 	searchForm.submit();
 
     </script>
 

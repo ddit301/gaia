@@ -27,21 +27,32 @@ public class IndexTestController {
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String indexPage() {
-		return "index";
-	}
 	
-	@RequestMapping(value = "/about1")
-	public String nfPage() {
-		return "main/about1";
+	@RequestMapping(value = "/intro")
+	public String introPage() {
+		return "main/intro";
+	}
+	@RequestMapping(value = "/demo")
+	public String demoPage() {
+		return "main/demo";
+	}
+	@RequestMapping(value = "/sales")
+	public String salesPage() {
+		return "main/sales";
+	}
+	@RequestMapping(value = "/updates")
+	public String updatesPage() {
+		return "main/updates";
+	}
+	@RequestMapping(value = "/CS")
+	public String CSPage() {
+		return "main/CS";
 	}
 
-	@RequestMapping(value = "/index", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void loginPage(@RequestParam String anchor, Model model) {
-
-		model.addAttribute("view",anchor);
-	}
+//	@RequestMapping(value = "/index", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	public void loginPage(@RequestParam String anchor, Model model) {
+//
+//		model.addAttribute("view",anchor);
+//	}
 
 }
