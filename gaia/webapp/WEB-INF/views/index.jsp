@@ -13,12 +13,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--  
+    <!--
     Document Title
     =============================================
     -->
     <title>GAIA</title>
-    <!--  
+    <!--
     Favicons
     =============================================
     -->
@@ -39,7 +39,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="main/images/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <!--  
+    <!--
     Stylesheets
     =============================================
     -->
@@ -84,7 +84,7 @@
               </li>
               <li class=""><a class="" href="#" data-toggle="">고객센터</a>
               </li>
-              
+
             </ul>
             </div>
             <div class="space-between">
@@ -97,31 +97,30 @@
               </ul>
             </div>
           </div>
-          
+
         </div>
       </nav>
 
-	  
-	  
-	  
-	  
-	  
+
+
+
+<!-- 	  included page -->
 	  <jsp:include page="main/indexContent.jsp"></jsp:include>
-	  
-	  
-	  
-	  
-	  
-	  
- 
+
+
+
+
+
+
+
 
     </main>
-    
-    <!--  
+
+    <!--
     JavaScripts
     =============================================
     -->
-    
+
     <script src="main/lib/jquery/dist/jquery.js"></script>
     <script src="main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="main/lib/wow/dist/wow.js"></script>
@@ -135,13 +134,13 @@
     <script src="main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="main/js/plugins.js"></script>
     <script src="main/js/main.js"></script>
-    
+
     <script type="text/javascript">
-    
+
 // 	let searchForm = $("#searchForm").ajaxForm({
 // 		dataType:"json"
 // 		, beforeSubmit:function(){
-// 			searchForm.find("[name='page']").val("");	
+// 			searchForm.find("[name='page']").val("");
 // 		}, success:function(resp){
 // 			listBody.empty();
 // 			pagingArea.empty();
@@ -175,9 +174,9 @@
 // 					trTags.push(tr);
 // 				});
 // 			}else{
-// 				trTags.push( 
+// 				trTags.push(
 // 					$("<tr>").html(
-// 						$("<td>").attr("colspan", "8")		
+// 						$("<td>").attr("colspan", "8")
 // 					)
 // 				);
 // 			}
@@ -188,8 +187,8 @@
 // 		}
 // 	});
 // 	searchForm.submit();
-    
+
     </script>
-    
+
   </body>
 </html>
