@@ -32,6 +32,11 @@ public class IndexTestController {
 	public String indexPage() {
 		return "index";
 	}
+	
+	@RequestMapping(value = "/about1")
+	public String nfPage() {
+		return "main/about1";
+	}
 
 	@RequestMapping(value = "/index", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public void loginPage(@RequestParam String anchor, Model model) {

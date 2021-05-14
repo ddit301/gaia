@@ -62,7 +62,7 @@
     <link id="color-scheme" href="main/css/colors/default.css" rel="stylesheet">
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main>
+    <main id="mainNav">
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
@@ -93,6 +93,7 @@
               <li class=""><a class="" href="#" data-toggle="">Sign in</a>
               </li>
               <li class=""><a class="" href="#" data-toggle="">Sign up</a>
+	  <input type="button" value="페이지 이동" onclick="acyncMovePage('<%=request.getContextPath() %>/about1')">
               </li>
               </ul>
             </div>
@@ -103,13 +104,14 @@
 
 
 
+	  <jsp:include page="main/about1.jsp"></jsp:include>
+
+	</main>
+	<main id="mainBody">
+
+
 
 <!-- 	  included page -->
-	  <jsp:include page="main/indexContent.jsp"></jsp:include>
-
-
-
-
 
 
 
@@ -136,6 +138,27 @@
     <script src="main/js/main.js"></script>
 
     <script type="text/javascript">
+    function acyncMovePage(url){
+        // ajax option
+        var ajaxOption = {
+                url : url,
+                async : true,
+                type : "POST",
+                dataType : "html",
+                cache : false
+        };
+
+        $.ajax(ajaxOption).done(function(data){
+            // Contents 영역 삭제
+            $('#mainBody').children().remove();
+            // Contents 영역 교체
+            $('#mainBody').html(data);
+        });
+    }
+
+
+
+
 
 // 	let searchForm = $("#searchForm").ajaxForm({
 // 		dataType:"json"
