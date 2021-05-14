@@ -73,15 +73,15 @@
           <div class="collapse navbar-collapse" id="custom-collapse">
             <div class="space-between">
             <ul class="nav navbar-nav navbar-left">
-              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/intro');">소개</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/intro');">소개</a>
               </li>
-              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/demo');">데모체험</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/demo');">데모체험</a>
               </li>
-              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/sales');">요금안내</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/sales');">요금안내</a>
               </li>
-              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/updates');">업데이트내역</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/updates');">업데이트내역</a>
               </li>
-              <li class=""><a href="javascript:acyncMovePage('<%=request.getContextPath() %>/CS');">고객센터</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/CS');">고객센터</a>
               </li>
             </ul>
             </div>
