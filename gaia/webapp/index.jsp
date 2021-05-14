@@ -197,9 +197,10 @@
         var ajaxOption = {
                 url : url,
                 async : true,
-                type : "POST",
+                type : "GET",
                 dataType : "html",
                 cache : false
+//                 ,contentType:'text/html; charset=UTF-8'
         };
 
         $.ajax(ajaxOption).done(function(data){
@@ -207,7 +208,6 @@
             $('#mainBody').html(data);
         });
     }
-
     </script>
 
   </body>
