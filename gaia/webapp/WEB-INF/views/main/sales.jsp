@@ -3,6 +3,8 @@
 <!--  ===========  ========     =============			-->
 <!--  2021. 5. 13.  Robin		Initial Commit			-->
 <!--  Copyright (c) 2021 by Team SEED All right reserved-->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
       <div class="main">
         <section class="module bg-dark-60 service-page-header" data-background="main/images/services_bg.jpg">
           <div class="container">

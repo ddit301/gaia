@@ -3,7 +3,8 @@
 <!--  ===========  ========     =============			-->
 <!--  2021. 5. 13.  Robin		Initial Commit			-->
 <!--  Copyright (c) 2021 by Team SEED All right reserved-->
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
       <section class="home-section home-full-height bg-dark-30" id="home" data-background="main/images/section-5.jpg">
         <div class="video-player" data-property="{videoURL:'https://www.youtube.com/watch?v=bNucJgetMjE', containment:'.home-section', startAt:18, mute:false, autoPlay:true, loop:true, opacity:1, showControls:false, showYTLogo:false, vol:25}"></div>
         <div class="video-controls-box">
