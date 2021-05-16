@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.enumpkg.ServiceResult;
 import best.gaia.member.service.MemberService;
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.MemberVO;
 
 @Controller
