@@ -8,8 +8,8 @@ import javax.inject.Inject;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import best.gaia.enumpkg.ServiceResult;
 import best.gaia.member.dao.MemberDao;
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.MemberVO;
 
 @Service

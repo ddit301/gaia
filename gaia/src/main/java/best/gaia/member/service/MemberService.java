@@ -2,7 +2,7 @@ package best.gaia.member.service;
 
 import java.util.List;
 
-import best.gaia.enumpkg.ServiceResult;
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.MemberVO;
 
 public interface MemberService {

@@ -25,7 +25,7 @@
 	<%
 	Cookie[] cookies = request.getCookies();
 	String loginId = "";
-	String loginName = "Login";
+	String loginName = "";
 	if(cookies != null){
 		for(Cookie tmp : cookies){
 			String value = URLDecoder.decode(tmp.getValue(),"utf-8");
@@ -53,16 +53,17 @@
             <!-- row -->
 
             <div class="container-fluid">
-				로그인 한 아이디 : ${loginId }<br>
-				로그인 닉네임 : ${loginName }
+				로그인 한 아이디 : ${loginId }<br/>
+				로그인 닉네임 : ${loginName }<br/>
+				조회중인 프로젝트 번호 : ${project_no }
             </div>
             <!-- #/ container -->
         </div>
         <!--**********************************
             Content body end
         ***********************************-->
-        <jsp:include page="quixlab/footer.jsp"></jsp:include>
+        <jsp:include page="/quixlab/footer.jsp"></jsp:include>
     </div>
-	<jsp:include page="quixlab/postScript.jsp"></jsp:include>
+	<jsp:include page="/quixlab/postScript.jsp"></jsp:include>
 </body>
 </html>

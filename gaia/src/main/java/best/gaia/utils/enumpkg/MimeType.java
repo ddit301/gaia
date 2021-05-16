@@ -1,4 +1,4 @@
-package best.gaia.enumpkg;
+package best.gaia.utils.enumpkg;
 
 public enum MimeType {
 	JSON("application/json;charset=UTF-8"), 
