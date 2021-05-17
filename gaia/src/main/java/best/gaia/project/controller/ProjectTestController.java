@@ -15,7 +15,6 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.service.ProjectService;
 
 @Controller
-@RequestMapping("/project")
 public class ProjectTestController {
 	
 	@Inject
@@ -31,12 +30,43 @@ public class ProjectTestController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProjectTestController.class);
 	
-	@RequestMapping(value = "{project_no}")
+	@RequestMapping(value = "project/overview")
+	public String overview(
+			) {
+		return "project/overview";
+	}
+	@RequestMapping(value = "project/milestone")
+	public String milestone(
+			) {
+		return "project/milestone";
+	}
+	@RequestMapping(value = "project/issue")
+	public String issue(
+			) {
+		return "project/issue";
+	}
+	
+	@RequestMapping(value = "{mem_nick}/setting")
+	public String profileSetting(
+			@PathVariable String mem_nick
+			) {
+		return "project/overview";
+	}
+	@RequestMapping(value = "{mem_nick}/activity")
+	public String memberActivity(
+			@PathVariable String mem_nick
+			) {
+		return "project/overview";
+	}
+	
+	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!setting)(?!activity)}")
 	public String projectTemplate(
-			@PathVariable String project_no
+			@PathVariable String mem_nick,
+			@PathVariable String project_title
 			,Model model
 			) {
-		model.addAttribute("project_no", project_no);
+		model.addAttribute("mem_nick", mem_nick);
+		model.addAttribute("project_title", project_title);
 		return "project/project_template";
 	}
 	
