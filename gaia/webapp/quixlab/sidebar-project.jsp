@@ -7,9 +7,9 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript">
 	var overview = function(){
-		event.preventDefault();
 		$.ajax({
 			url : '${cPath}/project/overview',
 			type : 'get',
@@ -21,7 +21,7 @@
 					
 				var data;
 				var title;
-				var url = '${cPath}/${mem_nick }/${project_title }/overView';
+				var url = '${cPath}/${mem_nick }/${project_title }/overview';
 				history.pushState(data, title, url);
 					
 			},
@@ -32,7 +32,6 @@
 		})
 	}
 	var milestone = function(){
-		event.preventDefault();
 		$.ajax({
 			url : '${cPath}/project/milestone',
 			type : 'get',
@@ -51,7 +50,6 @@
 		})
 	}
 	var issue = function(){
-		event.preventDefault();
 		$.ajax({
 			url : '${cPath}/project/issue',
 			type : 'get',
@@ -69,14 +67,28 @@
 			dataType : 'html'
 		})
 	}
-	
-	
 </script>
+<script>
+<c:if test="${not empty projectMenu }">
+	<c:choose>
+		<c:when test="${projectMenu == 'overview' }">
+			overview();
+		</c:when>
+		<c:when test="${projectMenu == 'issue' }">
+			issue();
+		</c:when>
+		<c:when test="${projectMenu == 'milestone' }">
+			milestone();
+		</c:when>
+	</c:choose>
+</c:if>
+</script>
+
   <div class="nk-sidebar">           
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a href="overview.html" onclick="overview()" aria-expanded="false">
+                        <a href="overview.html" onclick="overview(); return false;" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Overview</span>
                         </a>
                     </li>
@@ -85,8 +97,8 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Issue</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="milestone.html" onclick="milestone()">Milestone</a></li>
-                            <li><a href="issue.html" onclick="issue()">Issue</a></li>
+                            <li><a href="milestone.html" onclick="milestone(); return false;">Milestone</a></li>
+                            <li><a href="issue.html" onclick="issue(); return false;">Issue</a></li>
                         </ul>
                     </li>
                     <li>
