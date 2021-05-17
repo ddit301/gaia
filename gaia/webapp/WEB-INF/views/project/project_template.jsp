@@ -18,11 +18,11 @@
     <div id="main-wrapper">
         <jsp:include page="/quixlab/navheader.jsp"></jsp:include>
  		<jsp:include page="/quixlab/header.jsp"></jsp:include>
- 		<jsp:include page="/quixlab/sidebar.jsp"></jsp:include>
+ 		<jsp:include page="/quixlab/sidebar-project.jsp"></jsp:include>
         <!--**********************************
             Content body start
         ***********************************-->
-	<%
+    <%
 	Cookie[] cookies = request.getCookies();
 	String loginId = "";
 	String loginName = "";
@@ -40,25 +40,9 @@
 	pageContext.setAttribute("loginName", loginName);
 	pageContext.setAttribute("loginId", loginId);
 	%>
-        <div class="content-body">
-
-            <div class="row page-titles mx-0">
-                <div class="col p-md-0">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
-                    </ol>
-                </div>
-            </div>
-            <!-- row -->
-
-            <div class="container-fluid">
-				로그인 한 아이디 : ${loginId }<br/>
-				로그인 닉네임 : ${loginName }<br/>
-				조회중인 프로젝트 번호 : ${project_no }
-            </div>
-            <!-- #/ container -->
-        </div>
+		<div class="content-body">
+			
+		</div>
         <!--**********************************
             Content body end
         ***********************************-->
