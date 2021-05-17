@@ -61,6 +61,16 @@ public class pageIndexingController {
 	public String updatesPage() {
 		return "main/updates";
 	}
+	
+	@RequestMapping(value = "/signin")
+	public String loginPage() {
+		return "main/signin";
+	}
+	
+	@RequestMapping(value = "/signup")
+	public String logoutPage() {
+		return "main/signup";
+	}
 
 	@RequestMapping(value = "/CS")
 	public String CSPage() {
