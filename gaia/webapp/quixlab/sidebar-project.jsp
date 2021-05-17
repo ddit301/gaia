@@ -18,6 +18,12 @@
 				var overviewData = '조회중인 프로젝트 생성자 : ${mem_nick }<br/>'
 					+'조회중인 프로젝트 타이틀 : ${project_title }'
 				$('.container-fluid').html(overviewData);
+					
+				var data;
+				var title;
+				var url = '${cPath}/${mem_nick }/${project_title }/overView';
+				history.pushState(data, title, url);
+					
 			},
 			error : function(xhr) {
 				alert("status : " + xhr.status);
@@ -32,6 +38,11 @@
 			type : 'get',
 			success : function(res) {
 				$('.content-body').html(res);
+				
+				var data;
+				var title;
+				var url = '${cPath}/${mem_nick }/${project_title }/milestone';
+				history.pushState(data, title, url);
 			},
 			error : function(xhr) {
 				alert("status : " + xhr.status);
@@ -46,6 +57,11 @@
 			type : 'get',
 			success : function(res) {
 				$('.content-body').html(res);
+				
+				var data;
+				var title;
+				var url = '${cPath}/${mem_nick }/${project_title }/issue';
+				history.pushState(data, title, url);
 			},
 			error : function(xhr) {
 				alert("status : " + xhr.status);
