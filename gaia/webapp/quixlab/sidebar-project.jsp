@@ -7,21 +7,86 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script type="text/javascript">
+	var overview = function(){
+		event.preventDefault();
+		$.ajax({
+			url : '${cPath}/project/overview',
+			type : 'get',
+			success : function(res) {
+				$('.content-body').html(res);
+				var overviewData = '조회중인 프로젝트 생성자 : ${mem_nick }<br/>'
+					+'조회중인 프로젝트 타이틀 : ${project_title }'
+				$('.container-fluid').html(overviewData);
+					
+				var data;
+				var title;
+				var url = '${cPath}/${mem_nick }/${project_title }/overView';
+				history.pushState(data, title, url);
+					
+			},
+			error : function(xhr) {
+				alert("status : " + xhr.status);
+			},
+			dataType : 'html'
+		})
+	}
+	var milestone = function(){
+		event.preventDefault();
+		$.ajax({
+			url : '${cPath}/project/milestone',
+			type : 'get',
+			success : function(res) {
+				$('.content-body').html(res);
+				
+				var data;
+				var title;
+				var url = '${cPath}/${mem_nick }/${project_title }/milestone';
+				history.pushState(data, title, url);
+			},
+			error : function(xhr) {
+				alert("status : " + xhr.status);
+			},
+			dataType : 'html'
+		})
+	}
+	var issue = function(){
+		event.preventDefault();
+		$.ajax({
+			url : '${cPath}/project/issue',
+			type : 'get',
+			success : function(res) {
+				$('.content-body').html(res);
+				
+				var data;
+				var title;
+				var url = '${cPath}/${mem_nick }/${project_title }/issue';
+				history.pushState(data, title, url);
+			},
+			error : function(xhr) {
+				alert("status : " + xhr.status);
+			},
+			dataType : 'html'
+		})
+	}
+	
+	
+</script>
   <div class="nk-sidebar">           
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a href="widgets.html" aria-expanded="false">
+                        <a href="overview.html" onclick="overview()" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Overview</span>
                         </a>
                     </li>
-                    <li class="mega-menu mega-menu-sm">
+                    <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Issue</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./layout-blank.html">Milestone</a></li>
-                            <li><a href="./layout-one-column.html">Issue</a></li>
+                            <li><a href="milestone.html" onclick="milestone()">Milestone</a></li>
+                            <li><a href="issue.html" onclick="issue()">Issue</a></li>
                         </ul>
                     </li>
                     <li>
