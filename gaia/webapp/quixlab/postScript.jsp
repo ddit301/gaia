@@ -7,8 +7,8 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <script src="quixlab/plugins/common/common.min.js"></script>
-    <script src="quixlab/js/custom.min.js"></script>
-    <script src="quixlab/js/settings.js"></script>
-    <script src="quixlab/js/gleek.js"></script>
-    <script src="quixlab/js/styleSwitcher.js"></script>
+    <script src="${cPath}/quixlab/plugins/common/common.min.js"></script>
+    <script src="${cPath}/quixlab/js/custom.min.js"></script>
+    <script src="${cPath}/quixlab/js/settings.js"></script>
+    <script src="${cPath}/quixlab/js/gleek.js"></script>
+    <script src="${cPath}/quixlab/js/styleSwitcher.js"></script>

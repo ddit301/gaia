@@ -49,20 +49,24 @@
 </a>
 
 > Project Leader
+</br>https://shanepark.tistory.com
 
 <a href="https://github.com/KrGil">
 <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/24990542?s=96&amp;v=4" width="48" height="48" alt="@KrGil"> Eisen
  <a/>
 
 > Technical Archiect
+</br>https://jjam89.tistory.com
 
 <a href="https://github.com/JeonghoonWon">
 <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/77673021?s=96&amp;v=4" width="48" height="48" alt="@JeonghoonWon"> josh <a/>
 
 > Data Architect
+</br>https://joshwon.tistory.com
 
 <a href="https://github.com/maskan19">
 <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/77029227?s=96&amp;v=4" width="48" height="48" alt="@maskan19"> Robin <a/>
 
 > Quality Assuarance
+</br>https://tistory.com
 

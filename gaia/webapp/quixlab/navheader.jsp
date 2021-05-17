@@ -10,10 +10,10 @@
 <div class="nav-header">
      <div class="brand-logo">
          <a href="index.html">
-             <b class="logo-abbr"><img src="quixlab/images/logo-text.png" alt=""> </b>
-             <span class="logo-compact"><img src="quixlab/images/logo-compact.png" alt=""></span>
+             <b class="logo-abbr"><img src="${cPath}/quixlab/images/logo-text.png" alt=""> </b>
+             <span class="logo-compact"><img src="${cPath}/quixlab/images/logo-compact.png" alt=""></span>
              <span class="brand-title">
-                 <img src="quixlab/images/logo-text.png" alt="">
+                 <img src="${cPath}/quixlab/images/logo-text.png" alt="">
              </span>
          </a>
      </div>

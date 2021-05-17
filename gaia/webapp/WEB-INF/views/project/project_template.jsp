@@ -1,0 +1,69 @@
+<%--
+* [[개정이력(Modification Information)]]
+* Date         Modifier		Modification
+* ----------  ---------  -----------------
+* 12 May 2021   Shane      Initial Commit
+* Copyright (c) 2021 by Team Gaia All right reserved
+ --%>
+<%@page import="java.net.URLDecoder"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<jsp:include page="/quixlab/preScript.jsp"></jsp:include>
+</head>
+<body>
+    <jsp:include page="/quixlab/preloader.jsp"></jsp:include>
+    <div id="main-wrapper">
+        <jsp:include page="/quixlab/navheader.jsp"></jsp:include>
+ 		<jsp:include page="/quixlab/header.jsp"></jsp:include>
+ 		<jsp:include page="/quixlab/sidebar.jsp"></jsp:include>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+	<%
+	Cookie[] cookies = request.getCookies();
+	String loginId = "";
+	String loginName = "";
+	if(cookies != null){
+		for(Cookie tmp : cookies){
+			String value = URLDecoder.decode(tmp.getValue(),"utf-8");
+			if("loginId".equals(tmp.getName())){
+				loginId = URLDecoder.decode(tmp.getValue(),"utf-8");
+			}
+			if("loginName".equals(tmp.getName())){
+				loginName = URLDecoder.decode(tmp.getValue(),"utf-8");
+			}
+		}
+	}
+	pageContext.setAttribute("loginName", loginName);
+	pageContext.setAttribute("loginId", loginId);
+	%>
+        <div class="content-body">
+
+            <div class="row page-titles mx-0">
+                <div class="col p-md-0">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- row -->
+
+            <div class="container-fluid">
+				로그인 한 아이디 : ${loginId }<br/>
+				로그인 닉네임 : ${loginName }<br/>
+				조회중인 프로젝트 번호 : ${project_no }
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        <jsp:include page="/quixlab/footer.jsp"></jsp:include>
+    </div>
+	<jsp:include page="/quixlab/postScript.jsp"></jsp:include>
+</body>
+</html>
