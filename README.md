@@ -29,7 +29,6 @@
 <a href="#" target="_blank"><img src="https://img.shields.io/badge/ElasticSearch-005571?style=flat-square&logo=ElasticSearch&logoColor=white"/></a>
 <a href="#" target="_blank"><img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white"/></a>
 
-<a href="#" target="_blank"><img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=NGINX&logoColor=white"/></a>
 <a href="#" target="_blank"><img src="https://img.shields.io/badge/Apache tomcat-F8DC75?style=flat-square&logo=Apache-tomcat&logoColor=white"/></a>
 <a href="#" target="_blank"><img src="https://img.shields.io/badge/OpenSSL-721412?style=flat-square&logo=OpenSSL&logoColor=white"/></a>
 
