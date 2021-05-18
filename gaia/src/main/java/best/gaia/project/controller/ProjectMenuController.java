@@ -1,26 +1,18 @@
 package best.gaia.project.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "view/project/")
 public class ProjectMenuController {
 	
-	@RequestMapping(value = "overview")
-	public String overview(
+	@RequestMapping(value = "{menuname}")
+	public String menuMapper(
+			@PathVariable String menuname
 			) {
-		return "project/overview";
-	}
-	@RequestMapping(value = "milestone")
-	public String milestone(
-			) {
-		return "project/milestone";
-	}
-	@RequestMapping(value = "issue")
-	public String issue(
-			) {
-		return "project/issue";
+		return "project/"+menuname;
 	}
 		
 }
