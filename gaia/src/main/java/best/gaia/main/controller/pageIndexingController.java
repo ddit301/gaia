@@ -76,5 +76,9 @@ public class pageIndexingController {
 	public String CSPage() {
 		return "main/CS";
 	}
+	@RequestMapping(value = "/project")
+	public String projectPage() {
+		return "project/index";
+	}
 
 }

@@ -27,6 +27,15 @@
 	<jsp:include page="/quixlab/preScript.jsp"></jsp:include>
 </head>
 <body>
+<div id="row">
+<div id=" col-lg-2">
+
+
+
+</div>
+
+
+<div id="col-lg-10">
     <jsp:include page="/quixlab/preloader.jsp"></jsp:include>
     <div id="main-wrapper">
         <jsp:include page="/quixlab/navheader.jsp"></jsp:include>
@@ -62,5 +71,10 @@
         <jsp:include page="/quixlab/footer.jsp"></jsp:include>
     </div>
 	<jsp:include page="/quixlab/postScript.jsp"></jsp:include>
+</div>
+</div>
+	
+	
+	
 </body>
 </html>
