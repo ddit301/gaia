@@ -12,18 +12,6 @@
               <div class="col-sm-6 col-sm-offset-3">
                 <h1 class="module-title font-alt">결제내역</h1>
               </div>
-              
-              
-              
-              
-              
-              
-              
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                
-              </div>
             </div>
            
             <hr class="divider-w">
