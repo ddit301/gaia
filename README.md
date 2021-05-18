@@ -65,5 +65,5 @@
 <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/77029227?s=96&amp;v=4" width="48" height="48" alt="@maskan19"> Robin <a/>
 
 > Quality Assuarance
-</br>https://maskan.tistory.com/
+</br>https://maskan.tistory.com
 
