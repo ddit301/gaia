@@ -11,6 +11,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		// 뒤로가기 이벤트 binding 하기
+		$(window).bind("popstate", function(event) {
+		    var data = event.originalEvent.state;
+		    if(data){ // 이전 페이지 데이터가 있으면 ajax로 다시 요청해 화면 렌더링.
+		    	movePage(data);
+		    }else{ // 히스토리에 정보가 없을경우 메인화면으로 이동시키기.
+		    	var url = "${cPath}";    
+		    	$(location).attr('href',url);
+		    }
+	 	})
+	</script>
 	<jsp:include page="/quixlab/preScript.jsp"></jsp:include>
 </head>
 <body>
