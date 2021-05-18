@@ -46,7 +46,7 @@ public class adminPageIndexingController {
 	public String adminPage() {
 		return "admin/index";
 	}
-	@RequestMapping(value = "/admin/memberList")
+	@RequestMapping(value = "/admin/member")
 	public String memberListPage() {
 		return "admin/member";
 	}
