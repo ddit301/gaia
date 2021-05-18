@@ -48,6 +48,6 @@
         ***********************************-->
         <jsp:include page="/quixlab/footer.jsp"></jsp:include>
     </div>
-	<jsp:include page="/quixlab/postScript.jsp"></jsp:include>
+	<jsp:include page="/quixlab/postScript-project.jsp"></jsp:include>
 </body>
 </html>
