@@ -44,54 +44,54 @@ public class ProjectTestController {
 	
 	// 이 아래는 정리해서 하나로 만들어야 함 //////////////////////////////////////////////////////////////
 	
-//	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!new)(?!setting)(?!activity)}/{projectmenu}")
+	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!new)(?!setting)(?!activity)}/{projectmenu}")
+	public String projectMenuOverview(
+			@PathVariable String mem_nick,
+			@PathVariable String project_title,
+			@PathVariable String projectmenu
+			,Model model
+			) {
+		model.addAttribute("mem_nick", mem_nick);
+		model.addAttribute("project_title", project_title);
+		model.addAttribute("projectMenu", projectmenu);
+		return "project/project_template";
+	}
+	
+//	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!setting)(?!activity)}/overview")
 //	public String projectMenuOverview(
 //			@PathVariable String mem_nick,
-//			@PathVariable String project_title,
-//			@PathVariable String projectmenu
+//			@PathVariable String project_title
 //			,Model model
 //			) {
 //		model.addAttribute("mem_nick", mem_nick);
 //		model.addAttribute("project_title", project_title);
-//		model.addAttribute("projectMenu", projectmenu);
+//		model.addAttribute("projectMenu", "overview");
 //		return "project/project_template";
 //	}
-	
-	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!setting)(?!activity)}/overview")
-	public String projectMenuOverview(
-			@PathVariable String mem_nick,
-			@PathVariable String project_title
-			,Model model
-			) {
-		model.addAttribute("mem_nick", mem_nick);
-		model.addAttribute("project_title", project_title);
-		model.addAttribute("projectMenu", "overview");
-		return "project/project_template";
-	}
-	
-	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!setting)(?!activity)}/issue")
-	public String projectMenuIssue(
-			@PathVariable String mem_nick,
-			@PathVariable String project_title
-			,Model model
-			) {
-		model.addAttribute("mem_nick", mem_nick);
-		model.addAttribute("project_title", project_title);
-		model.addAttribute("projectMenu", "issue");
-		return "project/project_template";
-	}
-	
-	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!setting)(?!activity)}/milestone")
-	public String projectMenuMilestone(
-			@PathVariable String mem_nick,
-			@PathVariable String project_title
-			,Model model
-			) {
-		model.addAttribute("mem_nick", mem_nick);
-		model.addAttribute("project_title", project_title);
-		model.addAttribute("projectMenu", "milestone");
-		return "project/project_template";
-	}
+//	
+//	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!setting)(?!activity)}/issue")
+//	public String projectMenuIssue(
+//			@PathVariable String mem_nick,
+//			@PathVariable String project_title
+//			,Model model
+//			) {
+//		model.addAttribute("mem_nick", mem_nick);
+//		model.addAttribute("project_title", project_title);
+//		model.addAttribute("projectMenu", "issue");
+//		return "project/project_template";
+//	}
+//	
+//	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!setting)(?!activity)}/milestone")
+//	public String projectMenuMilestone(
+//			@PathVariable String mem_nick,
+//			@PathVariable String project_title
+//			,Model model
+//			) {
+//		model.addAttribute("mem_nick", mem_nick);
+//		model.addAttribute("project_title", project_title);
+//		model.addAttribute("projectMenu", "milestone");
+//		return "project/project_template";
+//	}
 	
 
 }

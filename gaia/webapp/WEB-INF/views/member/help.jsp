@@ -7,13 +7,17 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">member</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">help</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
 
-</body>
-</html>
+<div class="container-fluid">
+help
+</div>
+<!-- #/ container -->

@@ -38,7 +38,7 @@ public class ProfileTestController {
 			) {
 		model.addAttribute("mem_nick", mem_nick);
 		model.addAttribute("mem_menu", "overview");
-		return "member/overview";
+		return "member/member_template";
 	}
 	
 	@RequestMapping(value = "/setting")
@@ -47,7 +47,7 @@ public class ProfileTestController {
 			,Model model
 			) {
 		model.addAttribute("mem_menu", "setting");
-		return "member/setting";
+		return "member/member_template";
 	}
 	
 	@RequestMapping(value = "/activity")
@@ -56,7 +56,7 @@ public class ProfileTestController {
 			,Model model
 			) {
 		model.addAttribute("mem_menu", "activity");
-		return "member/activity";
+		return "member/member_template";
 	}
 	
 	@RequestMapping(value = "/new")
@@ -66,7 +66,7 @@ public class ProfileTestController {
 			) {
 		model.addAttribute("mem_nick", mem_nick);
 		model.addAttribute("mem_menu", "setting");
-		return "member/new";
+		return "member/member_template";
 	}
 	@RequestMapping(value = "/help")
 	public String help(
@@ -75,6 +75,6 @@ public class ProfileTestController {
 			) {
 		model.addAttribute("mem_nick", mem_nick);
 		model.addAttribute("mem_menu", "help");
-		return "member/help";
+		return "member/member_template";
 	}
 }
