@@ -103,15 +103,15 @@
                     <tbody>
                       <tr>
                         <th>Cart Subtotal :</th>
-                        <td>Â£40.00</td>
+                        <td>40.00</td>
                       </tr>
                       <tr>
                         <th>Shipping Total :</th>
-                        <td>Â£2.00</td>
+                        <td>2.00</td>
                       </tr>
                       <tr class="shop-Cart-totalprice">
                         <th>Total :</th>
-                        <td>Â£42.00</td>
+                        <td>42.00</td>
                       </tr>
                     </tbody>
                   </table>
@@ -160,8 +160,8 @@
                                             <tr>
                                                 <th>프로젝트 SID</th>
                                                 <th>회원 SID</th>
-                                                <th>결제일<input type="date"></th>
-                                                <th>구독 시작일<input type="date"></th>
+                                                <th>결제일<input type="date" class='date enchilada'></th>
+                                                <th>구독 시작일<input type="date" class='date enchilada'></th>
                                                 <th>구독 만료일<input type="date"></th>
                                                 <th>결제 상세 정보</th>
                                             </tr>

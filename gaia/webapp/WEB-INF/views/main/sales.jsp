@@ -6,7 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
       <div class="main">
-        <section class="module bg-dark-60 service-page-header" data-background="main/images/services_bg.jpg">
+        <section class="module bg-dark-60 service-page-header" data-background="resources/main/images/services_bg.jpg">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
@@ -38,7 +38,7 @@
                 </div>
               </div>
               <div class="col-md-6 col-lg-6 hidden-xs hidden-sm">
-                <div class="alt-services-image align-center"><img src="main/images/promo.png" alt="Feature Image"></div>
+                <div class="alt-services-image align-center"><img src="resources/main/images/promo.png" alt="Feature Image"></div>
               </div>
               <div class="col-sm-6 col-md-3 col-lg-3">
                 <div class="alt-features-item">
@@ -153,16 +153,16 @@
     JavaScripts
     =============================================
     -->
-    <script src="main/lib/jquery/dist/jquery.js"></script>
-    <script src="main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="main/lib/wow/dist/wow.js"></script>
-    <script src="main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="main/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="main/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="main/lib/smoothscroll.js"></script>
-    <script src="main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="main/js/plugins.js"></script>
-    <script src="main/js/main.js"></script>
+    <script src="resources/main/lib/jquery/dist/jquery.js"></script>
+    <script src="resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="resources/main/lib/wow/dist/wow.js"></script>
+    <script src="resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="resources/main/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="resources/main/lib/smoothscroll.js"></script>
+    <script src="resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="resources/main/js/plugins.js"></script>
+    <script src="resources/main/js/main.js"></script>

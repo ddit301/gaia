@@ -119,16 +119,16 @@
     JavaScripts
     =============================================
     -->
-    <script src="main/lib/jquery/dist/jquery.js"></script>
-    <script src="main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="main/lib/wow/dist/wow.js"></script>
-    <script src="main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="main/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="main/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="main/lib/smoothscroll.js"></script>
-    <script src="main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="main/js/plugins.js"></script>
-    <script src="main/js/main.js"></script>
+    <script src="/gaia/resources/main/lib/jquery/dist/jquery.js"></script>
+    <script src="/gaia/resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/gaia/resources/main/lib/wow/dist/wow.js"></script>
+    <script src="/gaia/resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="/gaia/resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="/gaia/resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="/gaia/resources/main/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="/gaia/resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="/gaia/resources/main/lib/smoothscroll.js"></script>
+    <script src="/gaia/resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="/gaia/resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="/gaia/resources/main/js/plugins.js"></script>
+    <script src="/gaia/resources/main/js/main.js"></script>

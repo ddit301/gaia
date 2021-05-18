@@ -32,28 +32,28 @@
                   <h5 class="widget-title font-alt">Popular Posts</h5>
                   <ul class="widget-posts">
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"><img src="resources/main/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
                         <div class="widget-posts-meta">23 january</div>
                       </div>
                     </li>
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"><img src="resources/main/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
                         <div class="widget-posts-meta">15 February</div>
                       </div>
                     </li>
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-3.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"><img src="resources/main/images/rp-3.jpg" alt="Post Thumbnail"/></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Eco bag Mockup</a></div>
                         <div class="widget-posts-meta">21 February</div>
                       </div>
                     </li>
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-4.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"><img src="resources/main/images/rp-4.jpg" alt="Post Thumbnail"/></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Bottle Mockup</a></div>
                         <div class="widget-posts-meta">2 March</div>
@@ -82,7 +82,7 @@
               </div>
               <div class="col-sm-8 col-sm-offset-1">
                 <div class="post">
-                  <div class="post-thumbnail"><img src="assets/images/post-4.jpg" alt="Blog Featured Image"/></div>
+                  <div class="post-thumbnail"><img src="resources/main/images/post-4.jpg" alt="Blog Featured Image"/></div>
                   <div class="post-header font-alt">
                     <h1 class="post-title">Our trip to the Alps</h1>
                     <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>| 23 November | 3 Comments | <a href="#">Photography, </a><a href="#">Web Design</a>
@@ -160,20 +160,21 @@
             </div>
           </div>
         </section>
+        </div>
     <!--  
     JavaScripts
     =============================================
     -->
-    <script src="assets/lib/jquery/dist/jquery.js"></script>
-    <script src="assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/lib/wow/dist/wow.js"></script>
-    <script src="assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="assets/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="assets/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="assets/lib/smoothscroll.js"></script>
-    <script src="assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="/gaia/resources/main/lib/jquery/dist/jquery.js"></script>
+    <script src="/gaia/resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/gaia/resources/main/lib/wow/dist/wow.js"></script>
+    <script src="/gaia/resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="/gaia/resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="/gaia/resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="/gaia/resources/main/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="/gaia/resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="/gaia/resources/main/lib/smoothscroll.js"></script>
+    <script src="/gaia/resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="/gaia/resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="/gaia/resources/main/js/plugins.js"></script>
+    <script src="/gaia/resources/main/js/main.js"></script>
