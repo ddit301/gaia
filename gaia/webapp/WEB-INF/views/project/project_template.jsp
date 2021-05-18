@@ -24,14 +24,14 @@
 		    }
 	 	})
 	</script>
-	<jsp:include page="/resources/quixlab/preScript.jsp"></jsp:include>
+	<jsp:include page="/resources/assets/custom_template/preScript.jsp"></jsp:include>
 </head>
 <body>
-    <jsp:include page="/resources/quixlab/preloader.jsp"></jsp:include>
+    <jsp:include page="/resources/assets/custom_template/preloader.jsp"></jsp:include>
     <div id="main-wrapper">
-        <jsp:include page="/resources/quixlab/navheader.jsp"></jsp:include>
- 		<jsp:include page="/resources/quixlab/header.jsp"></jsp:include>
- 		<jsp:include page="/resources/quixlab/sidebar-project.jsp"></jsp:include>
+        <jsp:include page="/resources/assets/custom_template/navheader.jsp"></jsp:include>
+ 		<jsp:include page="/resources/assets/custom_template/header.jsp"></jsp:include>
+ 		<jsp:include page="/resources/assets/custom_template/sidebar-project.jsp"></jsp:include>
         <!--**********************************
             Content body start
         ***********************************-->
@@ -59,8 +59,8 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        <jsp:include page="/resources/quixlab/footer.jsp"></jsp:include>
+        <jsp:include page="/resources/assets/custom_template/footer.jsp"></jsp:include>
     </div>
-	<jsp:include page="/resources/quixlab/postScript-project.jsp"></jsp:include>
+	<jsp:include page="/resources/assets/custom_template/postScript-project.jsp"></jsp:include>
 </body>
 </html>
