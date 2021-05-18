@@ -56,6 +56,9 @@
     <link href="main/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
     <link href="main/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
     <link href="main/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    
+    
     <!-- Main stylesheet and color file-->
     <link href="main/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="main/css/colors/default.css" rel="stylesheet">
