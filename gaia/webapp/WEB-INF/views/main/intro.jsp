@@ -5,7 +5,7 @@
 <!--  Copyright (c) 2021 by Team SEED All right reserved-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-      <section class="home-section home-full-height bg-dark-30" id="home" data-background="main/images/section-5.jpg">
+      <section class="home-section home-full-height bg-dark-30" id="home" data-background="resources/main/images/section-5.jpg">
         <div class="video-player" data-property="{videoURL:'https://www.youtube.com/watch?v=bNucJgetMjE', containment:'.home-section', startAt:18, mute:false, autoPlay:true, loop:true, opacity:1, showControls:false, showYTLogo:false, vol:25}"></div>
         <div class="video-controls-box">
           <div class="container">
@@ -48,7 +48,7 @@
                 </div>
               </div>
               <div class="col-md-6 col-lg-6 hidden-xs hidden-sm">
-                <div class="alt-services-image align-center"><img src="main/images/promo.png" alt="Feature Image"></div>
+                <div class="alt-services-image align-center"><img src="resources/main/images/promo.png" alt="Feature Image"></div>
               </div>
               <div class="col-sm-6 col-md-3 col-lg-3">
                 <div class="alt-features-item">
@@ -71,7 +71,7 @@
             </div>
           </div>
         </section>
-        <section class="module bg-dark-60" data-background="main/images/section-6.jpg">
+        <section class="module bg-dark-60" data-background="resources/main/images/section-6.jpg">
           <div class="container">
             <div class="row">
               <div class="col-sm-12">
@@ -108,37 +108,37 @@
           </div>
           <ul class="works-grid works-grid-gut works-grid-3 works-hover-w" id="works-grid">
             <li class="work-item illustration webdesign"><a href="portfolio_single_featured_image1.html">
-                <div class="work-image"><img src="main/images/portfolio/grid-portfolio1.jpg" alt="Portfolio Item"/></div>
+                <div class="work-image"><img src="resources/main/images/portfolio/grid-portfolio1.jpg" alt="Portfolio Item"/></div>
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Corporate Identity</h3>
                   <div class="work-descr">Illustration</div>
                 </div></a></li>
             <li class="work-item marketing photography"><a href="portfolio_single_featured_image2.html">
-                <div class="work-image"><img src="main/images/portfolio/grid-portfolio2.jpg" alt="Portfolio Item"/></div>
+                <div class="work-image"><img src="resources/main/images/portfolio/grid-portfolio2.jpg" alt="Portfolio Item"/></div>
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Bag MockUp</h3>
                   <div class="work-descr">Marketing</div>
                 </div></a></li>
             <li class="work-item illustration photography"><a href="portfolio_single_featured_slider1.html">
-                <div class="work-image"><img src="main/images/portfolio/grid-portfolio3.jpg" alt="Portfolio Item"/></div>
+                <div class="work-image"><img src="resources/main/images/portfolio/grid-portfolio3.jpg" alt="Portfolio Item"/></div>
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Disk Cover</h3>
                   <div class="work-descr">Illustration</div>
                 </div></a></li>
             <li class="work-item marketing photography"><a href="portfolio_single_featured_slider2.html">
-                <div class="work-image"><img src="main/images/portfolio/grid-portfolio4.jpg" alt="Portfolio Item"/></div>
+                <div class="work-image"><img src="resources/main/images/portfolio/grid-portfolio4.jpg" alt="Portfolio Item"/></div>
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Business Card</h3>
                   <div class="work-descr">Photography</div>
                 </div></a></li>
             <li class="work-item illustration webdesign"><a href="portfolio_single_featured_video1.html">
-                <div class="work-image"><img src="main/images/portfolio/grid-portfolio5.jpg" alt="Portfolio Item"/></div>
+                <div class="work-image"><img src="resources/main/images/portfolio/grid-portfolio5.jpg" alt="Portfolio Item"/></div>
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Web Design</h3>
                   <div class="work-descr">Webdesign</div>
                 </div></a></li>
             <li class="work-item marketing webdesign"><a href="portfolio_single_featured_video2.html">
-                <div class="work-image"><img src="main/images/portfolio/grid-portfolio6.jpg" alt="Portfolio Item"/></div>
+                <div class="work-image"><img src="resources/main/images/portfolio/grid-portfolio6.jpg" alt="Portfolio Item"/></div>
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Paper clip</h3>
                   <div class="work-descr">Marketing</div>
@@ -240,7 +240,7 @@
             <div class="row">
               <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow fadeInUp">
                 <div class="team-item">
-                  <div class="team-image"><img src="main/images/team-1.jpg" alt="Member Photo"/>
+                  <div class="team-image"><img src="resources/main/images/team-1.jpg" alt="Member Photo"/>
                     <div class="team-detail">
                       <h5 class="font-alt">Hi all</h5>
                       <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus, a&amp;nbsp;iaculis diam.</p>
@@ -255,7 +255,7 @@
               </div>
               <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow fadeInUp">
                 <div class="team-item">
-                  <div class="team-image"><img src="main/images/team-2.jpg" alt="Member Photo"/>
+                  <div class="team-image"><img src="resources/main/images/team-2.jpg" alt="Member Photo"/>
                     <div class="team-detail">
                       <h5 class="font-alt">Good day</h5>
                       <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus, a&amp;nbsp;iaculis diam.</p>
@@ -270,7 +270,7 @@
               </div>
               <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow fadeInUp">
                 <div class="team-item">
-                  <div class="team-image"><img src="main/images/team-3.jpg" alt="Member Photo"/>
+                  <div class="team-image"><img src="resources/main/images/team-3.jpg" alt="Member Photo"/>
                     <div class="team-detail">
                       <h5 class="font-alt">Hello</h5>
                       <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus, a&amp;nbsp;iaculis diam.</p>
@@ -285,7 +285,7 @@
               </div>
               <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow fadeInUp">
                 <div class="team-item">
-                  <div class="team-image"><img src="main/images/team-4.jpg" alt="Member Photo"/>
+                  <div class="team-image"><img src="resources/main/images/team-4.jpg" alt="Member Photo"/>
                     <div class="team-detail">
                       <h5 class="font-alt">Yes, it's me</h5>
                       <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus, a&amp;nbsp;iaculis diam.</p>
@@ -301,7 +301,7 @@
             </div>
           </div>
         </section>
-        <section class="module bg-dark-60 pt-0 pb-0 parallax-bg testimonial" data-background="main/images/testimonial_bg.jpg">
+        <section class="module bg-dark-60 pt-0 pb-0 parallax-bg testimonial" data-background="resources/main/images/testimonial_bg.jpg">
           <div class="testimonials-slider pt-140 pb-140">
             <ul class="slides">
               <li>
@@ -390,7 +390,7 @@
             <div class="row multi-columns-row post-columns">
               <div class="col-sm-6 col-md-4 col-lg-4">
                 <div class="post mb-20">
-                  <div class="post-thumbnail"><a href="#"><img src="main/images/post-1.jpg" alt="Blog-post Thumbnail"/></a></div>
+                  <div class="post-thumbnail"><a href="#"><img src="resources/main/images/post-1.jpg" alt="Blog-post Thumbnail"/></a></div>
                   <div class="post-header font-alt">
                     <h2 class="post-title"><a href="#">Our trip to the Alps</a></h2>
                     <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
@@ -404,7 +404,7 @@
               </div>
               <div class="col-sm-6 col-md-4 col-lg-4">
                 <div class="post mb-20">
-                  <div class="post-thumbnail"><a href="#"><img src="main/images/post-2.jpg" alt="Blog-post Thumbnail"/></a></div>
+                  <div class="post-thumbnail"><a href="#"><img src="resources/main/images/post-2.jpg" alt="Blog-post Thumbnail"/></a></div>
                   <div class="post-header font-alt">
                     <h2 class="post-title"><a href="#">Shore after the tide</a></h2>
                     <div class="post-meta">By&nbsp;<a href="#">Andy River</a>&nbsp;| 11 November | 4 Comments
@@ -418,7 +418,7 @@
               </div>
               <div class="col-sm-6 col-md-4 col-lg-4">
                 <div class="post mb-20">
-                  <div class="post-thumbnail"><a href="#"><img src="main/images/post-3.jpg" alt="Blog-post Thumbnail"/></a></div>
+                  <div class="post-thumbnail"><a href="#"><img src="resources/main/images/post-3.jpg" alt="Blog-post Thumbnail"/></a></div>
                   <div class="post-header font-alt">
                     <h2 class="post-title"><a href="#">We in New Zealand</a></h2>
                     <div class="post-meta">By&nbsp;<a href="#">Dylan Woods</a>&nbsp;| 5 November | 15 Comments
@@ -495,16 +495,16 @@
     JavaScripts
     =============================================
     -->
-    <script src="main/lib/jquery/dist/jquery.js"></script>
-    <script src="main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="main/lib/wow/dist/wow.js"></script>
-    <script src="main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="main/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="main/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="main/lib/smoothscroll.js"></script>
-    <script src="main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="main/js/plugins.js"></script>
-    <script src="main/js/main.js"></script>
+    <script src="resources/main/lib/jquery/dist/jquery.js"></script>
+    <script src="resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="resources/main/lib/wow/dist/wow.js"></script>
+    <script src="resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="resources/main/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="resources/main/lib/smoothscroll.js"></script>
+    <script src="resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="resources/main/js/plugins.js"></script>
+    <script src="resources/main/js/main.js"></script>

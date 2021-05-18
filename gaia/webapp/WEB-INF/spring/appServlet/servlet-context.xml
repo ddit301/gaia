@@ -17,7 +17,6 @@
 		/>
 		
 		<resources location="/resources/" mapping="/resources/**" cache-period="0"></resources>
-		<default-servlet-handler/>
 		
 		<beans:bean id="IRVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 			p:prefix="/WEB-INF/views/"

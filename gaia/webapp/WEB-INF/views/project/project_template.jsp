@@ -19,19 +19,19 @@
 		    if(data){ // 이전 페이지 데이터가 있으면 ajax로 다시 요청해 화면 렌더링.
 		    	movePage(data);
 		    }else{ // 히스토리에 정보가 없을경우 메인화면으로 이동시키기.
-		    	var url = "${cPath}";    
+		    	var url = "${cPath}";
 		    	$(location).attr('href',url);
 		    }
 	 	})
 	</script>
-	<jsp:include page="/quixlab/preScript.jsp"></jsp:include>
+	<jsp:include page="/resources/quixlab/preScript.jsp"></jsp:include>
 </head>
 <body>
-    <jsp:include page="/quixlab/preloader.jsp"></jsp:include>
+    <jsp:include page="/resources/quixlab/preloader.jsp"></jsp:include>
     <div id="main-wrapper">
-        <jsp:include page="/quixlab/navheader.jsp"></jsp:include>
- 		<jsp:include page="/quixlab/header.jsp"></jsp:include>
- 		<jsp:include page="/quixlab/sidebar-project.jsp"></jsp:include>
+        <jsp:include page="/resources/quixlab/navheader.jsp"></jsp:include>
+ 		<jsp:include page="/resources/quixlab/header.jsp"></jsp:include>
+ 		<jsp:include page="/resources/quixlab/sidebar-project.jsp"></jsp:include>
         <!--**********************************
             Content body start
         ***********************************-->
@@ -54,13 +54,13 @@
 	pageContext.setAttribute("loginId", loginId);
 	%>
 		<div class="content-body">
-			
+
 		</div>
         <!--**********************************
             Content body end
         ***********************************-->
-        <jsp:include page="/quixlab/footer.jsp"></jsp:include>
+        <jsp:include page="/resources/quixlab/footer.jsp"></jsp:include>
     </div>
-	<jsp:include page="/quixlab/postScript-project.jsp"></jsp:include>
+	<jsp:include page="/resources/quixlab/postScript-project.jsp"></jsp:include>
 </body>
 </html>
