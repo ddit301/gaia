@@ -88,9 +88,9 @@
             <div class="space-between">
            	<ul class="nav navbar-nav navbar-right
            	">
-              <li class=""><a class="" href="#" data-toggle="">Sign in</a>
+              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signin');" data-toggle="">Sign in</a>
               </li>
-              <li class=""><a class="" href="#" data-toggle="">Sign up</a>
+              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signup');" data-toggle="">Sign up</a>
               </ul>
             </div>
           </div>
