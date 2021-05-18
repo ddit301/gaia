@@ -1,22 +1,23 @@
-package best.gaia.main.controller;
+package best.gaia.project.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping(value = "view/project/")
 public class ProjectMenuController {
 	
-	@RequestMapping(value = "project/overview")
+	@RequestMapping(value = "overview")
 	public String overview(
 			) {
 		return "project/overview";
 	}
-	@RequestMapping(value = "project/milestone")
+	@RequestMapping(value = "milestone")
 	public String milestone(
 			) {
 		return "project/milestone";
 	}
-	@RequestMapping(value = "project/issue")
+	@RequestMapping(value = "issue")
 	public String issue(
 			) {
 		return "project/issue";

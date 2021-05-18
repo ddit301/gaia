@@ -14,4 +14,4 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
-    <link href="${cPath}/quixlab/css/style.css" rel="stylesheet">
+    <link href="${cPath}/resources/quixlab/css/style.css" rel="stylesheet">
