@@ -7,22 +7,17 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript">
 	var overview = function(){
-		event.preventDefault();
 		$.ajax({
-			url : '${cPath}/project/overview',
+			url : '${cPath}/view/project/overview',
 			type : 'get',
 			success : function(res) {
 				$('.content-body').html(res);
 				var overviewData = '조회중인 프로젝트 생성자 : ${mem_nick }<br/>'
 					+'조회중인 프로젝트 타이틀 : ${project_title }'
 				$('.container-fluid').html(overviewData);
-					
-				var data;
-				var title;
-				var url = '${cPath}/${mem_nick }/${project_title }/overView';
-				history.pushState(data, title, url);
 					
 			},
 			error : function(xhr) {
@@ -32,17 +27,12 @@
 		})
 	}
 	var milestone = function(){
-		event.preventDefault();
 		$.ajax({
-			url : '${cPath}/project/milestone',
+			url : '${cPath}/view/project/milestone',
 			type : 'get',
 			success : function(res) {
 				$('.content-body').html(res);
 				
-				var data;
-				var title;
-				var url = '${cPath}/${mem_nick }/${project_title }/milestone';
-				history.pushState(data, title, url);
 			},
 			error : function(xhr) {
 				alert("status : " + xhr.status);
@@ -51,17 +41,12 @@
 		})
 	}
 	var issue = function(){
-		event.preventDefault();
 		$.ajax({
-			url : '${cPath}/project/issue',
+			url : '${cPath}/view/project/issue',
 			type : 'get',
 			success : function(res) {
 				$('.content-body').html(res);
-				
-				var data;
-				var title;
-				var url = '${cPath}/${mem_nick }/${project_title }/issue';
-				history.pushState(data, title, url);
+
 			},
 			error : function(xhr) {
 				alert("status : " + xhr.status);
@@ -70,13 +55,44 @@
 		})
 	}
 	
+	// 
+	var movePageHistroy = function(pageParam){
+		var data = pageParam;
+		var title;
+		var url = '${cPath}/${mem_nick }/${project_title }/'+pageParam;
+		history.pushState(data, title, url);
+		
+		movePage(pageParam);
+	}
 	
+	var movePage = function(pageParam){
+		switch(pageParam){
+			case 'overview' : 
+				overview();
+				break;
+			case 'issue' : 
+				issue();
+				break;
+			case 'milestone' : 
+				milestone();
+				break;
+			default:
+				alert(pageParam + '는 유효하지 않은 명령');
+		}
+	}
 </script>
+<script>
+<c:if test="${not empty projectMenu }">
+	let pageParam = '${projectMenu}'; 
+	movePageHistroy(pageParam);
+</c:if>
+</script>
+
   <div class="nk-sidebar">           
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a href="overview.html" onclick="overview()" aria-expanded="false">
+                        <a href="overview.html" onclick="movePageHistroy('overview'); return false;" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Overview</span>
                         </a>
                     </li>
@@ -85,8 +101,8 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Issue</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="milestone.html" onclick="milestone()">Milestone</a></li>
-                            <li><a href="issue.html" onclick="issue()">Issue</a></li>
+                            <li><a href="milestone.html" onclick="movePageHistroy('milestone'); return false;">Milestone</a></li>
+                            <li><a href="issue.html" onclick="movePageHistroy('issue'); return false;">Issue</a></li>
                         </ul>
                     </li>
                     <li>
