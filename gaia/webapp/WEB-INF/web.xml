@@ -10,6 +10,11 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+  <error-page>
+      <error-code>404</error-code>
+      <location>/WEB-INF/views/main/404.jsp</location>
+  </error-page>
+  
   <!--	상위 컨테이너용 설정  -->
 <!-- needed for ContextLoaderListener -->
 	<context-param>
