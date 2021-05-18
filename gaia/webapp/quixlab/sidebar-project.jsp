@@ -19,11 +19,6 @@
 					+'조회중인 프로젝트 타이틀 : ${project_title }'
 				$('.container-fluid').html(overviewData);
 					
-				var data;
-				var title;
-				var url = '${cPath}/${mem_nick }/${project_title }/overview';
-				history.pushState(data, title, url);
-					
 			},
 			error : function(xhr) {
 				alert("status : " + xhr.status);
@@ -38,10 +33,6 @@
 			success : function(res) {
 				$('.content-body').html(res);
 				
-				var data;
-				var title;
-				var url = '${cPath}/${mem_nick }/${project_title }/milestone';
-				history.pushState(data, title, url);
 			},
 			error : function(xhr) {
 				alert("status : " + xhr.status);
@@ -55,11 +46,7 @@
 			type : 'get',
 			success : function(res) {
 				$('.content-body').html(res);
-				
-				var data;
-				var title;
-				var url = '${cPath}/${mem_nick }/${project_title }/issue';
-				history.pushState(data, title, url);
+
 			},
 			error : function(xhr) {
 				alert("status : " + xhr.status);
@@ -67,20 +54,32 @@
 			dataType : 'html'
 		})
 	}
+	
+	var movePage = function(pageParam){
+		var data = pageParam;
+		var title;
+		var url = '${cPath}/${mem_nick }/${project_title }/'+pageParam;
+		history.pushState(data, title, url);
+		
+		switch(pageParam){
+			case 'overview' : 
+				overview();
+				break;
+			case 'issue' : 
+				issue();
+				break;
+			case 'milestone' : 
+				milestone();
+				break;
+			default:
+				alert(pageParam + '는 유효하지 않은 명령');
+		}
+	}
 </script>
 <script>
 <c:if test="${not empty projectMenu }">
-	<c:choose>
-		<c:when test="${projectMenu == 'overview' }">
-			overview();
-		</c:when>
-		<c:when test="${projectMenu == 'issue' }">
-			issue();
-		</c:when>
-		<c:when test="${projectMenu == 'milestone' }">
-			milestone();
-		</c:when>
-	</c:choose>
+	let pageParam = '${projectMenu}'; 
+	movePage(pageParam);
 </c:if>
 </script>
 
@@ -88,7 +87,7 @@
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a href="overview.html" onclick="overview(); return false;" aria-expanded="false">
+                        <a href="overview.html" onclick="movePage('overview'); return false;" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Overview</span>
                         </a>
                     </li>
@@ -97,8 +96,8 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Issue</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="milestone.html" onclick="milestone(); return false;">Milestone</a></li>
-                            <li><a href="issue.html" onclick="issue(); return false;">Issue</a></li>
+                            <li><a href="milestone.html" onclick="movePage('milestone'); return false;">Milestone</a></li>
+                            <li><a href="issue.html" onclick="movePage('issue'); return false;">Issue</a></li>
                         </ul>
                     </li>
                     <li>
