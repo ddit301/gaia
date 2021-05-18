@@ -31,7 +31,7 @@ public class ProjectTestController {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectTestController.class);
 
 	
-	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!setting)(?!activity)}")
+	@RequestMapping(value = "{mem_nick:^.*(?!admin)(?!view)(?!restapi)}/{project_title:^.*(?!new)(?!setting)(?!activity)}")
 	public String projectTemplate(
 			@PathVariable String mem_nick,
 			@PathVariable String project_title
@@ -42,7 +42,9 @@ public class ProjectTestController {
 		return "project/project_template";
 	}
 	
-//	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!setting)(?!activity)}/{projectmenu}")
+	// 이 아래는 정리해서 하나로 만들어야 함 //////////////////////////////////////////////////////////////
+	
+//	@RequestMapping(value = "{mem_nick}/{project_title:^.*(?!new)(?!setting)(?!activity)}/{projectmenu}")
 //	public String projectMenuOverview(
 //			@PathVariable String mem_nick,
 //			@PathVariable String project_title,
