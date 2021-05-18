@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <jsp:include page="/quixlab/preScript.jsp"></jsp:include>
+   <jsp:include page="/resources/quixlab/preScript.jsp"></jsp:include>
 </head>
 <body>
 <!--*******************
@@ -21,9 +21,9 @@
     Main wrapper start
 ***********************************-->
 <div id="main-wrapper">
-<jsp:include page="/quixlab/navheader.jsp"></jsp:include>
-<jsp:include page="/quixlab/header.jsp"></jsp:include>
-<jsp:include page="/quixlab/sidebar-member.jsp"></jsp:include>
+<jsp:include page="/resources/quixlab/navheader.jsp"></jsp:include>
+<jsp:include page="/resources/quixlab/header.jsp"></jsp:include>
+<jsp:include page="/resources/quixlab/sidebar-member.jsp"></jsp:include>
     <!--**********************************
         Content body start
     ***********************************-->
@@ -192,7 +192,7 @@
     Content body end
 ***********************************-->
 
-<jsp:include page="/quixlab/footer.jsp"></jsp:include>
+<jsp:include page="/resources/quixlab/footer.jsp"></jsp:include>
 <!--**********************************
     Main wrapper end
 ***********************************-->
@@ -200,7 +200,7 @@
 <!--**********************************
     Scripts
 ***********************************-->
-<jsp:include page="/quixlab/postScript-member.jsp"></jsp:include>
+<jsp:include page="/resources/quixlab/postScript-member.jsp"></jsp:include>
 </body>
 
 </html>
