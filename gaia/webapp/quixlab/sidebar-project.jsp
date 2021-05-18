@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	var overview = function(){
 		$.ajax({
-			url : '${cPath}/project/overview',
+			url : '${cPath}/view/project/overview',
 			type : 'get',
 			success : function(res) {
 				$('.content-body').html(res);
@@ -28,7 +28,7 @@
 	}
 	var milestone = function(){
 		$.ajax({
-			url : '${cPath}/project/milestone',
+			url : '${cPath}/view/project/milestone',
 			type : 'get',
 			success : function(res) {
 				$('.content-body').html(res);
@@ -42,7 +42,7 @@
 	}
 	var issue = function(){
 		$.ajax({
-			url : '${cPath}/project/issue',
+			url : '${cPath}/view/project/issue',
 			type : 'get',
 			success : function(res) {
 				$('.content-body').html(res);
