@@ -29,7 +29,7 @@ import best.gaia.member.controller.LoginController;
  */
 
 @Controller
-public class pageIndexingController {
+public class mainPageIndexingController {
 
 	@Inject
 	private WebApplicationContext container;
@@ -40,7 +40,7 @@ public class pageIndexingController {
 		application = container.getServletContext();
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(pageIndexingController.class);
+	private static final Logger logger = LoggerFactory.getLogger(mainPageIndexingController.class);
 
 	@RequestMapping(value = "/intro")
 	public String introPage() {
@@ -76,9 +76,5 @@ public class pageIndexingController {
 	public String CSPage() {
 		return "main/CS";
 	}
-	@RequestMapping(value = "/project")
-	public String projectPage() {
-		return "project/index";
-	}
-
+	
 }
