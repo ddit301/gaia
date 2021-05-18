@@ -97,23 +97,21 @@
           <div class="collapse navbar-collapse" id="custom-collapse">
             <div class="space-between">
             <ul class="nav navbar-nav navbar-left">
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('{cPath}/admin/memberList');">회원조회</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/admin/member');">회원조회</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('{cPath}/admin/finance');">결제내역확인</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/admin/finance');">결제내역확인</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('{cPath}/sales');">1:1문의 관리</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/sales');">1:1문의 관리</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('{cPath}/updates');">통계</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/updates');">통계</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('{cPath}/CS');">서버환경 조회</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/CS');">서버환경 조회</a>
               </li>
             </ul>
             </div>
             <div class="space-between">
            	<ul class="nav navbar-nav navbar-right
            	">
-              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('{cPath}/signin');" data-toggle="">Sign out</a>
-              </li>
               <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('{cPath}/signup');" data-toggle="">Sign up</a>
               </ul>
             </div>
@@ -130,6 +128,7 @@
 	<jsp:include page="member.jsp"></jsp:include>
 
     </main>
+    
     <main id="mainFooter">
     <div class="module-small bg-dark">
           <div class="container">
