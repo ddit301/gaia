@@ -18,6 +18,8 @@
             <!-- row -->
 
             <div class="container-fluid">
-				milestone
+				<h4>milestone</h4>
+				조회중인 프로젝트 생성자 : ${manager_nick }<br/>
+				조회중인 프로젝트 타이틀 : ${project_title }
             </div>
             <!-- #/ container -->
