@@ -56,12 +56,11 @@
 	}
 	
 	// 
-	var movePageHistroy = function(pageParam){
+	var movePageHistory = function(pageParam){
 		var data = pageParam;
 		var title;
 		var url = '${cPath}/${mem_nick }/${project_title }/'+pageParam;
 		history.pushState(data, title, url);
-		
 		movePage(pageParam);
 	}
 	
@@ -80,6 +79,16 @@
 				alert(pageParam + '는 유효하지 않은 명령');
 		}
 	}
+	
+	// When document is ready
+	$(function(){
+		$('.moveButton').on('click', function(){
+			let menuName = $(this).data('menu');
+			movePageHistory(menuName);
+		})
+		
+	})
+	
 </script>
 <script>
 <c:if test="${not empty projectMenu }">
@@ -92,7 +101,7 @@
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a href="overview.html" onclick="movePageHistroy('overview'); return false;" aria-expanded="false">
+                        <a class="moveButton" data-menu="overview" href="#" onclick="return false;" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Overview</span>
                         </a>
                     </li>
@@ -101,8 +110,8 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Issue</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="milestone.html" onclick="movePageHistroy('milestone'); return false;">Milestone</a></li>
-                            <li><a href="issue.html" onclick="movePageHistroy('issue'); return false;">Issue</a></li>
+                            <li><a class="moveButton" data-menu="milestone" href="#" onclick="return false;">Milestone</a></li>
+                            <li><a class="moveButton" data-menu="issue" href="#"  onclick="return false;">Issue</a></li>
                         </ul>
                     </li>
                     <li>
@@ -110,9 +119,9 @@
                             <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Project</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./email-inbox.html">Gantt Chart</a></li>
-                            <li><a href="./email-read.html">Calendar</a></li>
-                            <li><a href="./email-compose.html">Kanban Board</a></li>
+                            <li><a class="moveButton" href="#">Gantt Chart</a></li>
+                            <li><a href="#">Calendar</a></li>
+                            <li><a href="#">Kanban Board</a></li>
                         </ul>
                     </li>
                     <li>
