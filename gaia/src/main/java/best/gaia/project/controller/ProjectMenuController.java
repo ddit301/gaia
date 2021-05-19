@@ -19,6 +19,7 @@ public class ProjectMenuController {
 			) {
 		model.addAttribute("manager_nick", manager_nick);
 		model.addAttribute("project_title", project_title);
+		model.addAttribute("menuname", menuname);
 		return "project/"+menuname;
 	}
 		
