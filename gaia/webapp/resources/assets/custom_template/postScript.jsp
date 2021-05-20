@@ -27,11 +27,9 @@
 		    }
 	 	})
 	 	
-	 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에 해당 이벤트를 통해 매칭시켜줍니다.	
-		<c:if test="${not empty pageParam }">
-			let pageParam = '${pageParam}'; 
-			movePageHistory(pageParam);
-		</c:if>
+	 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.	
+		let pageParam = '${pageParam}'; 
+		movePageHistory(pageParam);
 	 	
 	 	/********************************************************************
 	 	*
