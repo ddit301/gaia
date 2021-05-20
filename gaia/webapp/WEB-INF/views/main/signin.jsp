@@ -31,17 +31,16 @@
                   <div class="form-group">
                     <button class="btn btn-block btn-round btn-b" onclick="()">Login</button>
                   </div>
+                  <div class="form-group">
+                    <button class="btn btn-block btn-round btn-b" onclick="()"><i class="fa fa-github"></i> Login with Github</button>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-block btn-round btn-b" onclick="githubLogin()"><i class="fa fa-google"></i> Login with Google</button>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-block btn-round btn-b" onclick="kakaoLogin()"><i class="fa fa-comment-o"></i> Login with Kakao</button>
+                  </div>
                 </form>
-                  <div class="form-group">
-					<div class="bg-contain github-btn" style="background-image:url(resources/main/images/github_login.png)" onclick="githubLogin()"></div>
-                  </div>
-                  <div class="form-group">
-                    <div class="bg-contain google-btn" style="background-image:url(resources/main/images/google_login.png)" onclick="googleLogin()"></div>
-                  </div>
-                  <div class="form-group">
-                    <div class="bg-contain kakao-btn" style="background-image:url(resources/main/images/kakao_login.png)" onclick="kakaoLogin()"></div>
-                  </div>
-                  <div class="form-group"><a href="">Forgot Password?</a></div>
               </div>
             </div>
           </div>

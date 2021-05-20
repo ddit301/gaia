@@ -19,7 +19,7 @@
 <!-- 		</authentication-provider> -->
 		<authentication-provider>
 			<user-service>
-				<user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+				<user name="admin" password="x61Ey612Kl2gpFL56FT9weDnpSo4AV8j8+qx2AuTHdRyY036xxzTTrw10Wq3+4qQyB+XURPWx1ONxp3Y3pB37A==" authorities="ROLE_ADMIN"/>
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>
