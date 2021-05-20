@@ -58,13 +58,13 @@
 	            </a>
 	        </li>
 	        <li>
-	            <a class="moveButton" data-menu="setting" href="javascript:void()" aria-expanded="false">
+	            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
 	                <i class="icon-envelope menu-icon"></i> <span class="nav-text">Settings</span>
 	            </a>
 	            <ul aria-expanded="false">
-	                <li><a class="moveButton" data-menu="activity" href="javascript:void()" >activity</a></li>
-	                <li><a class="moveButton" data-menu="new" href="javascript:void()">new</a></li>
-	                <li><a class="moveButton" data-menu="setting" href="javascript:void()">setting</a></li>
+	                <li><a class="moveButton" data-menu="setting-activity" href="javascript:void()" >activity</a></li>
+	                <li><a class="moveButton" data-menu="setting-new" href="javascript:void()">new</a></li>
+	                <li><a class="moveButton" data-menu="setting-setting" href="javascript:void()">setting</a></li>
 	            </ul>
 	        </li>
 	    </ul>

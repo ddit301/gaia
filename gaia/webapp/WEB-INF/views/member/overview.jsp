@@ -16,8 +16,8 @@
                     <div class="media align-items-center mb-4">
                         <img class="mr-3" src="/resources/assets/images/member/profile.png" width="80" height="80" alt="">
                         <div class="media-body">
-                            <h3 class="mb-0">Shane Park</h3>
-                            <p class="text-muted mb-0">Canada</p>
+                            <h3 class="mb-0">${mem_nick }</h3>
+                            <p class="text-muted mb-0">Deutch</p>
                         </div>
                     </div>
                     
