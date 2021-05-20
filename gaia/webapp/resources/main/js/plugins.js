@@ -7,10 +7,10 @@
  * Copyright (c) 2012 Alexander Brovikov
  * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
  */
-(function($) {
-    $.fn.appear = function(fn, options) {
+(function ($) {
+    $.fn.appear = function (fn, options) {
 
-        var settings = $.extend({
+        let settings = $.extend({
 
             //arbitrary data to pass to fn
             data: undefined,
@@ -24,9 +24,9 @@
 
         }, options);
 
-        return this.each(function() {
+        return this.each(function () {
 
-            var t = $(this);
+            let t = $(this);
 
             //whether the element is currently visible
             t.appeared = false;
@@ -38,10 +38,10 @@
                 return;
             }
 
-            var w = $(window);
+            let w = $(window);
 
             //fires the appear event when appropriate
-            var check = function() {
+            let check = function () {
 
                 //is the element hidden?
                 if (!t.is(':visible')) {
@@ -52,18 +52,18 @@
                 }
 
                 //is the element inside the visible window?
-                var a = w.scrollLeft();
-                var b = w.scrollTop();
-                var o = t.offset();
-                var x = o.left;
-                var y = o.top;
+                let a = w.scrollLeft();
+                let b = w.scrollTop();
+                let o = t.offset();
+                let x = o.left;
+                let y = o.top;
 
-                var ax = settings.accX;
-                var ay = settings.accY;
-                var th = t.height();
-                var wh = w.height();
-                var tw = t.width();
-                var ww = w.width();
+                let ax = settings.accX;
+                let ay = settings.accY;
+                let th = t.height();
+                let wh = w.height();
+                let tw = t.width();
+                let ww = w.width();
 
                 if (y + th + ay >= b &&
                     y <= b + wh + ay &&
@@ -81,7 +81,7 @@
             };
 
             //create a modified fn with some additional logic
-            var modifiedFn = function() {
+            let modifiedFn = function () {
 
                 //mark the element as visible
                 t.appeared = true;
@@ -91,7 +91,7 @@
 
                     //remove the check
                     w.unbind('scroll', check);
-                    var i = $.inArray(check, $.fn.appear.checks);
+                    let i = $.inArray(check, $.fn.appear.checks);
                     if (i >= 0) $.fn.appear.checks.splice(i, 1);
                 }
 
@@ -121,13 +121,13 @@
         timeout: null,
 
         //process the queue
-        checkAll: function() {
-            var length = $.fn.appear.checks.length;
+        checkAll: function () {
+            let length = $.fn.appear.checks.length;
             if (length > 0) while (length--) ($.fn.appear.checks[length])();
         },
 
         //check the queue asynchronously
-        run: function() {
+        run: function () {
             if ($.fn.appear.timeout) clearTimeout($.fn.appear.timeout);
             $.fn.appear.timeout = setTimeout($.fn.appear.checkAll, 20);
         }
@@ -136,48 +136,33 @@
     //run checks when these methods are called
     $.each(['append', 'prepend', 'after', 'before', 'attr',
         'removeAttr', 'addClass', 'removeClass', 'toggleClass',
-        'remove', 'css', 'show', 'hide'], function(i, n) {
-        var old = $.fn[n];
-        if (old) {
-            $.fn[n] = function() {
-                var r = old.apply(this, arguments);
-                $.fn.appear.run();
-                return r;
+        'remove', 'css', 'show', 'hide'], function (i, n) {
+            let old = $.fn[n];
+            if (old) {
+                $.fn[n] = function () {
+                    let r = old.apply(this, arguments);
+                    $.fn.appear.run();
+                    return r;
+                }
             }
-        }
-    });
+        });
 
 })(jQuery);
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(function($) {
-    $.fn.countTo = function(options) {
+(function ($) {
+    $.fn.countTo = function (options) {
         // merge the default plugin settings with the custom options
         options = $.extend({}, $.fn.countTo.defaults, options || {});
 
         // how many times to update the value, and how much to increment the value on each update
-        var loops = Math.ceil(options.speed / options.refreshInterval),
+        let loops = Math.ceil(options.speed / options.refreshInterval),
             increment = (options.to - options.from) / loops;
 
-        return $(this).each(function() {
-            var _this = this,
+        return $(this).each(function () {
+            let _this = this,
                 loopCount = 0,
                 value = options.from,
                 interval = setInterval(updateTimer, options.refreshInterval);
@@ -187,7 +172,7 @@
                 loopCount++;
                 $(_this).html(value.toFixed(options.decimals));
 
-                if (typeof(options.onUpdate) == 'function') {
+                if (typeof (options.onUpdate) == 'function') {
                     options.onUpdate.call(_this, value);
                 }
 
@@ -195,7 +180,7 @@
                     clearInterval(interval);
                     value = options.to;
 
-                    if (typeof(options.onComplete) == 'function') {
+                    if (typeof (options.onComplete) == 'function') {
                         options.onComplete.call(_this, value);
                     }
                 }

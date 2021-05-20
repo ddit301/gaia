@@ -2,13 +2,13 @@
 /* ---------------------------------------------- /*
  * Preloader
  /* ---------------------------------------------- */
-(function(){
-    $(window).on('load', function() {
+(function () {
+    $(window).on('load', function () {
         $('.loader').fadeOut();
         $('.page-loader').delay(350).fadeOut('slow');
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         /* ---------------------------------------------- /*
          * WOW Animation When You Scroll
@@ -24,7 +24,7 @@
          * Scroll top
          /* ---------------------------------------------- */
 
-        $(window).scroll(function() {
+        $(window).scroll(function () {
             if ($(this).scrollTop() > 100) {
                 $('.scroll-up').fadeIn();
             } else {
@@ -32,7 +32,7 @@
             }
         });
 
-        $('a[href="#totop"]').click(function() {
+        $('a[href="#totop"]').click(function () {
             $('html, body').animate({ scrollTop: 0 }, 'slow');
             return false;
         });
@@ -42,14 +42,14 @@
          * Initialization General Scripts for all pages
          /* ---------------------------------------------- */
 
-        var homeSection = $('.home-section'),
-            navbar      = $('.navbar-custom'),
-            navHeight   = navbar.height(),
-            worksgrid   = $('#works-grid'),
-            width       = Math.max($(window).width(), window.innerWidth),
-            mobileTest  = false;
+        let homeSection = $('.home-section'),
+            navbar = $('.navbar-custom'),
+            navHeight = navbar.height(),
+            worksgrid = $('#works-grid'),
+            width = Math.max($(window).width(), window.innerWidth),
+            mobileTest = false;
 
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             mobileTest = true;
         }
 
@@ -58,13 +58,13 @@
         navbarSubmenu(width);
         hoverDropdown(width, mobileTest);
 
-        $(window).resize(function() {
-            var width = Math.max($(window).width(), window.innerWidth);
+        $(window).resize(function () {
+            let width = Math.max($(window).width(), window.innerWidth);
             buildHomeSection(homeSection);
             hoverDropdown(width, mobileTest);
         });
 
-        $(window).scroll(function() {
+        $(window).scroll(function () {
             effectsHomeSection(homeSection, this);
             navbarAnimation(navbar, homeSection, navHeight);
         });
@@ -73,8 +73,8 @@
          * Set sections backgrounds
          /* ---------------------------------------------- */
 
-        var module = $('.home-section, .module, .module-small, .side-image');
-        module.each(function(i) {
+        let module = $('.home-section, .module, .module-small, .side-image');
+        module.each(function (i) {
             if ($(this).attr('data-background')) {
                 $(this).css('background-image', 'url(' + $(this).attr('data-background') + ')');
             }
@@ -101,14 +101,14 @@
 
         function effectsHomeSection(homeSection, scrollTopp) {
             if (homeSection.length > 0) {
-                var homeSHeight = homeSection.height();
-                var topScroll = $(document).scrollTop();
+                let homeSHeight = homeSection.height();
+                let topScroll = $(document).scrollTop();
                 if ((homeSection.hasClass('home-parallax')) && ($(scrollTopp).scrollTop() <= homeSHeight)) {
                     homeSection.css('top', (topScroll * 0.55));
                 }
                 if (homeSection.hasClass('home-fade') && ($(scrollTopp).scrollTop() <= homeSHeight)) {
-                    var caption = $('.caption-content');
-                    caption.css('opacity', (1 - topScroll/homeSection.height() * 1));
+                    let caption = $('.caption-content');
+                    caption.css('opacity', (1 - topScroll / homeSection.height() * 1));
                 }
             }
         }
@@ -117,20 +117,20 @@
          * Intro slider setup
          /* ---------------------------------------------- */
 
-        if( $('.hero-slider').length > 0 ) {
-            $('.hero-slider').flexslider( {
+        if ($('.hero-slider').length > 0) {
+            $('.hero-slider').flexslider({
                 animation: "fade",
                 animationSpeed: 1000,
                 animationLoop: true,
                 prevText: '',
                 nextText: '',
-                before: function(slider) {
-                    $('.titan-caption').fadeOut().animate({top:'-80px'},{queue:false, easing: 'swing', duration: 700});
+                before: function (slider) {
+                    $('.titan-caption').fadeOut().animate({ top: '-80px' }, { queue: false, easing: 'swing', duration: 700 });
                     slider.slides.eq(slider.currentSlide).delay(500);
                     slider.slides.eq(slider.animatingTo).delay(500);
                 },
-                after: function(slider) {
-                    $('.titan-caption').fadeIn().animate({top:'0'},{queue:false, easing: 'swing', duration: 700});
+                after: function (slider) {
+                    $('.titan-caption').fadeIn().animate({ top: '0' }, { queue: false, easing: 'swing', duration: 700 });
                 },
                 useCSS: true
             });
@@ -153,9 +153,9 @@
          /* ---------------------------------------------- */
 
         function navbarAnimation(navbar, homeSection, navHeight) {
-            var topScroll = $(window).scrollTop();
+            let topScroll = $(window).scrollTop();
             if (navbar.length > 0 && homeSection.length > 0) {
-                if(topScroll >= navHeight) {
+                if (topScroll >= navHeight) {
                     navbar.removeClass('navbar-transparent');
                 } else {
                     navbar.addClass('navbar-transparent');
@@ -169,16 +169,16 @@
 
         function navbarSubmenu(width) {
             if (width > 767) {
-                $('.navbar-custom .navbar-nav > li.dropdown').hover(function() {
-                    var MenuLeftOffset  = $('.dropdown-menu', $(this)).offset().left;
-                    var Menu1LevelWidth = $('.dropdown-menu', $(this)).width();
+                $('.navbar-custom .navbar-nav > li.dropdown').hover(function () {
+                    let MenuLeftOffset = $('.dropdown-menu', $(this)).offset().left;
+                    let Menu1LevelWidth = $('.dropdown-menu', $(this)).width();
                     if (width - MenuLeftOffset < Menu1LevelWidth * 2) {
                         $(this).children('.dropdown-menu').addClass('leftauto');
                     } else {
                         $(this).children('.dropdown-menu').removeClass('leftauto');
                     }
                     if ($('.dropdown', $(this)).length > 0) {
-                        var Menu2LevelWidth = $('.dropdown-menu', $(this)).width();
+                        let Menu2LevelWidth = $('.dropdown-menu', $(this)).width();
                         if (width - MenuLeftOffset - Menu1LevelWidth < Menu2LevelWidth) {
                             $(this).children('.dropdown-menu').addClass('left-side');
                         } else {
@@ -196,23 +196,23 @@
         function hoverDropdown(width, mobileTest) {
             if ((width > 767) && (mobileTest !== true)) {
                 $('.navbar-custom .navbar-nav > li.dropdown, .navbar-custom li.dropdown > ul > li.dropdown').removeClass('open');
-                var delay = 0;
-                var setTimeoutConst;
-                $('.navbar-custom .navbar-nav > li.dropdown, .navbar-custom li.dropdown > ul > li.dropdown').hover(function() {
-                        var $this = $(this);
-                        setTimeoutConst = setTimeout(function() {
-                            $this.addClass('open');
-                            $this.find('.dropdown-toggle').addClass('disabled');
-                        }, delay);
-                    },
-                    function() {
+                let delay = 0;
+                let setTimeoutConst;
+                $('.navbar-custom .navbar-nav > li.dropdown, .navbar-custom li.dropdown > ul > li.dropdown').hover(function () {
+                    let $this = $(this);
+                    setTimeoutConst = setTimeout(function () {
+                        $this.addClass('open');
+                        $this.find('.dropdown-toggle').addClass('disabled');
+                    }, delay);
+                },
+                    function () {
                         clearTimeout(setTimeoutConst);
                         $(this).removeClass('open');
                         $(this).find('.dropdown-toggle').removeClass('disabled');
                     });
             } else {
                 $('.navbar-custom .navbar-nav > li.dropdown, .navbar-custom li.dropdown > ul > li.dropdown').unbind('mouseenter mouseleave');
-                $('.navbar-custom [data-toggle=dropdown]').not('.binded').addClass('binded').on('click', function(event) {
+                $('.navbar-custom [data-toggle=dropdown]').not('.binded').addClass('binded').on('click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     $(this).parent().siblings().removeClass('open');
@@ -226,8 +226,8 @@
          * Navbar collapse on click
          /* ---------------------------------------------- */
 
-        $(document).on('click','.navbar-collapse.in',function(e) {
-            if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+        $(document).on('click', '.navbar-collapse.in', function (e) {
+            if ($(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle') {
                 $(this).collapse('hide');
             }
         });
@@ -247,7 +247,7 @@
             gallery: {
                 enabled: true,
                 navigateByImgClick: true,
-                preload: [0,1]
+                preload: [0, 1]
             },
             image: {
                 titleSrc: 'title',
@@ -260,8 +260,7 @@
          * Portfolio
          /* ---------------------------------------------- */
 
-        var worksgrid   = $('#works-grid'),
-            worksgrid_mode;
+        let worksgrid_mode;
 
         if (worksgrid.hasClass('works-grid-masonry')) {
             worksgrid_mode = 'masonry';
@@ -269,17 +268,17 @@
             worksgrid_mode = 'fitRows';
         }
 
-        worksgrid.imagesLoaded(function() {
+        worksgrid.imagesLoaded(function () {
             worksgrid.isotope({
                 layoutMode: worksgrid_mode,
                 itemSelector: '.work-item'
             });
         });
 
-        $('#filters a').click(function() {
+        $('#filters a').click(function () {
             $('#filters .current').removeClass('current');
             $(this).addClass('current');
-            var selector = $(this).attr('data-filter');
+            let selector = $(this).attr('data-filter');
 
             worksgrid.isotope({
                 filter: selector,
@@ -298,8 +297,8 @@
          * Testimonials
          /* ---------------------------------------------- */
 
-        if ($('.testimonials-slider').length > 0 ) {
-            $('.testimonials-slider').flexslider( {
+        if ($('.testimonials-slider').length > 0) {
+            $('.testimonials-slider').flexslider({
                 animation: "slide",
                 smoothHeight: true
             });
@@ -310,8 +309,8 @@
          * Post Slider
          /* ---------------------------------------------- */
 
-        if ($('.post-images-slider').length > 0 ) {
-            $('.post-images-slider').flexslider( {
+        if ($('.post-images-slider').length > 0) {
+            $('.post-images-slider').flexslider({
                 animation: "slide",
                 smoothHeight: true,
             });
@@ -322,12 +321,12 @@
          * Progress bar animations
          /* ---------------------------------------------- */
 
-        $('.progress-bar').each(function(i) {
-            $(this).appear(function() {
-                var percent = $(this).attr('aria-valuenow');
-                $(this).animate({'width' : percent + '%'});
-                $(this).find('span').animate({'opacity' : 1}, 900);
-                $(this).find('span').countTo({from: 0, to: percent, speed: 900, refreshInterval: 30});
+        $('.progress-bar').each(function (i) {
+            $(this).appear(function () {
+                let percent = $(this).attr('aria-valuenow');
+                $(this).animate({ 'width': percent + '%' });
+                $(this).find('span').animate({ 'opacity': 1 }, 900);
+                $(this).find('span').countTo({ from: 0, to: percent, speed: 900, refreshInterval: 30 });
             });
         });
 
@@ -336,10 +335,10 @@
          * Funfact Count-up
          /* ---------------------------------------------- */
 
-        $('.count-item').each(function(i) {
-            $(this).appear(function() {
-                var number = $(this).find('.count-to').data('countto');
-                $(this).find('.count-to').countTo({from: 0, to: number, speed: 1200, refreshInterval: 30});
+        $('.count-item').each(function (i) {
+            $(this).appear(function () {
+                let number = $(this).find('.count-to').data('countto');
+                $(this).find('.count-to').countTo({ from: 0, to: number, speed: 1200, refreshInterval: 30 });
             });
         });
 
@@ -348,11 +347,11 @@
          * Youtube video background
          /* ---------------------------------------------- */
 
-        $(function(){
+        $(function () {
             $(".video-player").mb_YTPlayer();
         });
 
-        $('#video-play').click(function(event) {
+        $('#video-play').click(function (event) {
             event.preventDefault();
             if ($(this).hasClass('fa-play')) {
                 $('.video-player').playYTP();
@@ -363,7 +362,7 @@
             return false;
         });
 
-        $('#video-volume').click(function(event) {
+        $('#video-volume').click(function (event) {
             event.preventDefault();
             if ($(this).hasClass('fa-volume-off')) {
                 $('.video-player').YTPUnmute();
@@ -379,7 +378,7 @@
          * Owl Carousel
          /* ---------------------------------------------- */
 
-        $('.owl-carousel').each(function(i) {
+        $('.owl-carousel').each(function (i) {
 
             // Check items number
             if ($(this).data('items') > 0) {
@@ -403,7 +402,7 @@
             }
 
             // Build carousel
-            $(this).owlCarousel( {
+            $(this).owlCarousel({
                 navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
                 nav: navigation,
                 dots: pagination,
@@ -421,7 +420,7 @@
          * Blog masonry
          /* ---------------------------------------------- */
 
-        $('.post-masonry').imagesLoaded(function() {
+        $('.post-masonry').imagesLoaded(function () {
             $('.post-masonry').masonry();
         });
 
@@ -430,8 +429,8 @@
          * Scroll Animation
          /* ---------------------------------------------- */
 
-        $('.section-scroll').bind('click', function(e) {
-            var anchor = $(this);
+        $('.section-scroll').bind('click', function (e) {
+            let anchor = $(this);
             $('html, body').stop().animate({
                 scrollTop: $(anchor.attr('href')).offset().top - 50
             }, 1000);
@@ -445,9 +444,9 @@
         $("#contactForm").submit(function (e) {
 
             e.preventDefault();
-            var $ = jQuery;
+            let $ = jQuery;
 
-            var postData = $(this).serializeArray(),
+            let postData = $(this).serializeArray(),
                 formURL = $(this).attr("action"),
                 $cfResponse = $('#contactFormResponse'),
                 $cfsubmit = $("#cfsubmit"),
@@ -485,9 +484,9 @@
         $("#requestACall").submit(function (e) {
 
             e.preventDefault();
-            var $ = jQuery;
+            let $ = jQuery;
 
-            var postData = $(this).serializeArray(),
+            let postData = $(this).serializeArray(),
                 formURL = $(this).attr("action"),
                 $cfResponse = $('#requestFormResponse'),
                 $cfsubmit = $("#racSubmit"),
@@ -525,9 +524,9 @@
         $("#reservationForm").submit(function (e) {
 
             e.preventDefault();
-            var $ = jQuery;
+            let $ = jQuery;
 
-            var postData = $(this).serializeArray(),
+            let postData = $(this).serializeArray(),
                 formURL = $(this).attr("action"),
                 $cfResponse = $('#reservationFormResponse'),
                 $cfsubmit = $("#rfsubmit"),
@@ -563,13 +562,13 @@
          * Subscribe form ajax
          /* ---------------------------------------------- */
 
-        $('#subscription-form').submit(function(e) {
+        $('#subscription-form').submit(function (e) {
 
             e.preventDefault();
-            var $form           = $('#subscription-form');
-            var submit          = $('#subscription-form-submit');
-            var ajaxResponse    = $('#subscription-response');
-            var email           = $('input#semail').val();
+            let $form = $('#subscription-form');
+            let submit = $('#subscription-form-submit');
+            let ajaxResponse = $('#subscription-response');
+            let email = $('input#semail').val();
 
             $.ajax({
                 type: 'POST',
@@ -579,12 +578,12 @@
                     email: email
                 },
                 cache: false,
-                beforeSend: function(result) {
+                beforeSend: function (result) {
                     submit.empty();
                     submit.append('<i class="fa fa-cog fa-spin"></i> Wait...');
                 },
-                success: function(result) {
-                    if(result.sendstatus == 1) {
+                success: function (result) {
+                    if (result.sendstatus == 1) {
                         ajaxResponse.html(result.message);
                         $form.fadeOut(500);
                     } else {
@@ -600,18 +599,18 @@
          * Google Map
          /* ---------------------------------------------- */
 
-        if($("#map").length == 0 || typeof google == 'undefined') return;
+        if ($("#map").length == 0 || typeof google == 'undefined') return;
 
         // When the window has finished loading create our google map below
         google.maps.event.addDomListener(window, 'load', init);
 
-        var mkr = new google.maps.LatLng(40.6700, -74.2000);
-        var cntr = (mobileTest) ? mkr : new google.maps.LatLng(40.6700, -73.9400);
+        let mkr = new google.maps.LatLng(40.6700, -74.2000);
+        let cntr = (mobileTest) ? mkr : new google.maps.LatLng(40.6700, -73.9400);
 
         function init() {
             // Basic options for a simple Google Map
             // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-            var mapOptions = {
+            let mapOptions = {
                 // How zoomed in you want the map to start at (always required)
                 zoom: 11,
                 scrollwheel: false,
@@ -821,19 +820,19 @@
 
             // Get the HTML DOM element that will contain your map
             // We are using a div with id="map" seen below in the <body>
-            var mapElement = document.getElementById('map');
+            let mapElement = document.getElementById('map');
 
             // Create the Google Map using our element and options defined above
-            var map = new google.maps.Map(mapElement, mapOptions);
+            let map = new google.maps.Map(mapElement, mapOptions);
 
             // Let's also add a marker while we're at it
-            var image = new google.maps.MarkerImage('assets/images/map-icon.png',
+            let image = new google.maps.MarkerImage('assets/images/map-icon.png',
                 new google.maps.Size(59, 65),
                 new google.maps.Point(0, 0),
                 new google.maps.Point(24, 42)
             );
 
-            var marker = new google.maps.Marker({
+            let marker = new google.maps.Marker({
                 position: mkr,
                 icon: image,
                 title: 'Titan',
@@ -847,4 +846,8 @@
     });
 })(jQuery);
 
-
+window.onload = function () {
+    function kakaoLogin() {
+        window.location.href = 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a31ddbbfbc730c92670b6e2f2ead67b5&redirect_uri=http://localhost/oauth'
+    }
+}
