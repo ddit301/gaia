@@ -25,6 +25,14 @@
 	<jsp:include page="/resources/assets/custom_template/navheader.jsp"></jsp:include>
 	<jsp:include page="/resources/assets/custom_template/header.jsp"></jsp:include>
 	<jsp:include page="/resources/assets/custom_template/sidebar-member.jsp"></jsp:include>
+	<div class="row page-titles mx-0">
+	    <div class="col p-md-0">
+	        <ol class="breadcrumb">
+	            <li class="breadcrumb-item"><a class="moveButton" data-menu="overview" href="javascript:void(0)">Member</a></li>
+	            <li class="breadcrumb-item active"><a class="moveButton" data-menu="${pageParam}" href="javascript:void(0)">${pageParam}</a></li>
+	        </ol>
+	    </div>
+	</div>
 	<div class="content-body">
 	     
 	</div>
