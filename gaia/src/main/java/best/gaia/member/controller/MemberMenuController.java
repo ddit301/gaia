@@ -23,8 +23,8 @@ public class MemberMenuController {
 			) {
 		model.addAttribute("mem_nick", mem_nick);
 		model.addAttribute("menuname", menuname);
-		logger.info("{ menuname : }\n\n", menuname);
-		return menuname;
+		logger.info("menuname : {}\n\n", menuname);
+		return "member/"+menuname;
 	}
 		
 }

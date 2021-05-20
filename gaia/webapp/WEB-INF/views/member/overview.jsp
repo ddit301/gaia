@@ -1,38 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <jsp:include page="/resources/assets/custom_template/preScript.jsp"></jsp:include>
-</head>
-<body>
-<!--*******************
-    Preloader start
-********************-->
-<div id="preloader">
-    <div class="loader">
-        <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
-        </svg>
-    </div>
-</div>
-<!--*******************
-    Preloader end
-********************-->
-<!--**********************************
-    Main wrapper start
-***********************************-->
-<div id="main-wrapper">
-<jsp:include page="/resources/assets/custom_template/navheader.jsp"></jsp:include>
-<jsp:include page="/resources/assets/custom_template/header.jsp"></jsp:include>
-<jsp:include page="/resources/assets/custom_template/sidebar-member.jsp"></jsp:include>
-    <!--**********************************
-        Content body start
-    ***********************************-->
-    <div class="content-body">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
         <div class="row page-titles mx-0">
             <div class="col p-md-0">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">${membermenu}</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Member</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname}</a></li>
                 </ol>
             </div>
         </div>
@@ -44,7 +16,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="media align-items-center mb-4">
-                                <img class="mr-3" src="quixlab/images/Shane-park.jpeg" width="80" height="80" alt="">
+                                <img class="mr-3" src="/resources/assets/images/member/profile.png" width="80" height="80" alt="">
                                 <div class="media-body">
                                     <h3 class="mb-0">Shane Park</h3>
                                     <p class="text-muted mb-0">Canada</p>
@@ -185,22 +157,3 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- #/ container -->
-    </div>
-<!--**********************************
-    Content body end
-***********************************-->
-
-<jsp:include page="/resources/assets/custom_template/footer.jsp"></jsp:include>
-<!--**********************************
-    Main wrapper end
-***********************************-->
-
-<!--**********************************
-    Scripts
-***********************************-->
-<jsp:include page="/resources/assets/custom_template/postScript-member.jsp"></jsp:include>
-</body>
-
-</html>

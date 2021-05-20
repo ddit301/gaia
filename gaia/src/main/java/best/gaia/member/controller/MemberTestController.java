@@ -42,7 +42,7 @@ public class MemberTestController {
 			, Model model
 			) {
 		model.addAttribute("mem_nick", mem_nick);
-		model.addAttribute("memberMenu", membermenu.isPresent() ? membermenu.get() : "overview");
+		model.addAttribute("pageParam", membermenu.isPresent() ? membermenu.get() : "overview");
 		return "member/member_template";
 	}
 }

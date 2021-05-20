@@ -22,15 +22,14 @@
     </div>
 </div>
 <div id="main-wrapper">
-<jsp:include page="/resources/assets/custom_template/navheader.jsp"></jsp:include>
-<jsp:include page="/resources/assets/custom_template/header.jsp"></jsp:include>
-<jsp:include page="/resources/assets/custom_template/sidebar-member.jsp"></jsp:include>
-    <div class="content-body">
-        
-    </div>
+	<jsp:include page="/resources/assets/custom_template/navheader.jsp"></jsp:include>
+	<jsp:include page="/resources/assets/custom_template/header.jsp"></jsp:include>
+	<jsp:include page="/resources/assets/custom_template/sidebar-member.jsp"></jsp:include>
+	<div class="content-body">
+	     
+	</div>
 	<jsp:include page="/resources/assets/custom_template/footer.jsp"></jsp:include>
 </div>
-<jsp:include page="/resources/assets/custom_template/postScript-member.jsp"></jsp:include>
+<jsp:include page="/resources/assets/custom_template/postScript.jsp"></jsp:include>
 </body>
-
 </html>

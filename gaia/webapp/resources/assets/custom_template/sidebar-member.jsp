@@ -42,23 +42,6 @@
 		})
 	}
 	
-	// When document is ready	
-	$(function(){
-		// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
-		$('.moveButton').on('click', function(){
-			event.preventDefault();
-			let menuName = $(this).data('menu');
-			console.log(menuName);
-			movePageHistory(menuName);
-		})
-	})
-	
-</script>
-<script>
-<c:if test="${not empty memberMenu }" >
-	let pageParam = '${memberMenu}'; 
-	movePageHistroy(pageParam);
-</c:if>
 </script>
  <div class="nk-sidebar">           
 	<div class="nk-nav-scroll">
@@ -81,6 +64,7 @@
 	            <ul aria-expanded="false">
 	                <li><a class="moveButton" data-menu="activity" href="javascript:void()" >activity</a></li>
 	                <li><a class="moveButton" data-menu="new" href="javascript:void()">new</a></li>
+	                <li><a class="moveButton" data-menu="setting" href="javascript:void()">setting</a></li>
 	            </ul>
 	        </li>
 	    </ul>

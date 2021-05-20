@@ -10,14 +10,16 @@
 <div class="row page-titles mx-0">
     <div class="col p-md-0">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">member</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">new</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Member</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Settings</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname}</a></li>
         </ol>
     </div>
 </div>
 <!-- row -->
 
 <div class="container-fluid">
-new
+<h4>new</h4>
+조회중인 회원명 : ${mem_nick }<br/>
 </div>
 <!-- #/ container -->
