@@ -12,9 +12,15 @@
 		c:strength="512"
 		p:encodeHashAsBase64="true"
 	/>
+	
 	<authentication-manager>
-		<authentication-provider user-service-ref="authService">
-			<password-encoder ref="shaPasswordEncoder" />
+<!-- 		<authentication-provider user-service-ref="authService"> -->
+<!-- 			<password-encoder ref="shaPasswordEncoder" /> -->
+<!-- 		</authentication-provider> -->
+		<authentication-provider>
+			<user-service>
+				<user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+			</user-service>
 		</authentication-provider>
 	</authentication-manager>
 	
@@ -40,6 +46,7 @@
 		<intercept-url pattern="/signin" access="permitAll"/>
 		<intercept-url pattern="/signup" access="permitAll"/>
 		<intercept-url pattern="/CS" access="permitAll"/>
+
 		<form-login
 		login-page="/signin"
 		login-processing-url="/signin/check"
@@ -49,11 +56,13 @@
 		authentication-failure-url="/signin?error"
 		always-use-default-target="true"
 		/>
+
 		<logout
 		logout-url="/signout"
 		logout-success-url="signin?signout"
 		invalidate-session="true"
 		/>
+
 		<session-management>
 			<concurrency-control
 			max-sessions="1"
