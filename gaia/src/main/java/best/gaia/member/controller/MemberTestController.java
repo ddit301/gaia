@@ -35,7 +35,7 @@ public class MemberTestController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberTestController.class);
 	
-	@RequestMapping(value = {"", "{membermenu}"})
+	@RequestMapping(value = {"", "{membermenu:^.*(help)(overview)(setting-setting)(setting-new)(setting-activity)}"})
 	public String projectTemplate(
 			@PathVariable String mem_nick
 			, @PathVariable Optional<String> membermenu

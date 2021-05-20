@@ -14,6 +14,7 @@
 		var data = pageParam;
 		var title;
 		var url = '${cPath}/${mem_nick }/'+pageParam;
+		console.log(data);
 		history.pushState(data, title, url);
 		movePage(pageParam);
 	}
@@ -21,7 +22,6 @@
 	// 뒤로가기 상황에서는 movePage 함수를 바로 호출합니다. 그렇지 않으면 history가 꼬이게 됩니다.
 	var movePage = function(pageParam){
 		let mem_nick = '${mem_nick}';
-		
 		$.ajax({
 			url : '${cPath}/view/member/'+pageParam,
 			type : 'get',
