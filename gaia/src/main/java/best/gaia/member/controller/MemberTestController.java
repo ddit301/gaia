@@ -19,7 +19,7 @@ import best.gaia.project.service.ProjectService;
 //(?!admin)(?!view)(?!restapi) 다중뎁스.
 //나머지 0뎁
 @Controller
-@RequestMapping(value = "{mem_nick:^.*(?!admin)(?!restapi)(?!view)(?!intro)(?!demo)(?!sales)(?!updates)(?!signin)(?!signup)(?!CS)}")
+@RequestMapping(value = "{mem_nick:^(?:(?!admin$|restapi$|view$|intro$|demo$|sales$|updates$|signin$|signup$|CS$).)*}")
 public class MemberTestController {
 	
 	@Inject
@@ -35,13 +35,14 @@ public class MemberTestController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberTestController.class);
 	
-	@RequestMapping(value = {"", "{membermenu:^.*(help)(overview)(setting-setting)(setting-new)(setting-activity)}"})
+	@RequestMapping(value = "{membermenu:^(?:(?=help$|overview$|setting-setting$|setting-new$|setting-activity$)).*}")
 	public String projectTemplate(
 			@PathVariable String mem_nick
 			, @PathVariable Optional<String> membermenu
 			, Model model
 			) {
 		model.addAttribute("mem_nick", mem_nick);
+		System.out.println(mem_nick);
 		model.addAttribute("pageParam", membermenu.isPresent() ? membermenu.get() : "overview");
 		return "member/member_template";
 	}
