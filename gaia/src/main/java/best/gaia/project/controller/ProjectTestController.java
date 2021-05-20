@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.service.ProjectService;
-
+//@RequestMapping(value = “{mem_nick:?:^((?!help$|activity$).)*}“)
 @Controller
-@RequestMapping("{manager_nick:^.*(?!admin)(?!view)(?!restapi)}/{project_title:^.*(?!new)(?!overview)(?!help)(?!setting)(?!activity)}")
+@RequestMapping("{manager_nick:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
 public class ProjectTestController {
 	
 	@Inject
