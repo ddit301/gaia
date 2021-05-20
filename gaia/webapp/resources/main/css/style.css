@@ -454,7 +454,7 @@ a,
   height: 33px;
   width: 100%;
   background-size: contain;
-  background-position: 50% 50%;
+  background-position: center;
   background: #fee500;
   background-repeat: no-repeat;
   cursor: pointer;

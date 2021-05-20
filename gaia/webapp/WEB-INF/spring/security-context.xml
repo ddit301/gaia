@@ -26,9 +26,9 @@
 	
 	<http pattern="/resources/**" security="none" />
 	
-	<http auto-config="true" use-expressions="true">
-		<form-login login-page="/login/loginForm.jsp" 
-			login-processing-url="/login/loginCheck.do"
+	<http pattern="/admin" auto-config="true" use-expressions="true">
+		<form-login login-page="/" 
+			login-processing-url="/signin/signinCheck"
 			username-parameter="mem_id"
 			password-parameter="mem_pass"		
 		/>

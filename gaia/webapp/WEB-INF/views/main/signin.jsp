@@ -33,13 +33,13 @@
                   </div>
                 </form>
                   <div class="form-group">
-					<div class="bg-contain" style="background-image:url(resources/main/images/kakao_login.png)" onclick="kakaoLogin()"></div>
+					<div class="bg-contain github-btn" style="background-image:url(resources/main/images/github_login.png)" onclick="githubLogin()"></div>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-block btn-round btn-b" onclick="()">GOOGLE Login</button>
+                    <div class="bg-contain google-btn" style="background-image:url(resources/main/images/google_login.png)" onclick="googleLogin()"></div>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-block btn-round btn-b" onclick="()">GITHUB Login</button>
+                    <div class="bg-contain kakao-btn" style="background-image:url(resources/main/images/kakao_login.png)" onclick="kakaoLogin()"></div>
                   </div>
                   <div class="form-group"><a href="">Forgot Password?</a></div>
               </div>
