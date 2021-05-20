@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd" >
+<tiles-definitions>
+
+	<!-- menu list -->
+  <definition name="super" template="/WEB-INF/views/project/project_template.jsp">
+<!--   	<put-attribute name="title" value="gaia" /> -->
+  	<put-attribute name="preScript" value="/resources/assets/custom_template/preScript.jsp" />
+  	<put-attribute name="preloader" value="/resources/assets/custom_template/preloader.jsp" />
+  	<put-attribute name="navheader" value="/resources/assets/custom_template/navheader.jsp" />
+  	<put-attribute name="header" value="/resources/assets/custom_template/header.jsp" />
+  	<put-attribute name="sidebar-project" value="/resources/assets/custom_template/sidebar-project.jsp" />
+  	<put-attribute name="footer" value="/resources/assets/custom_template/footer.jsp"/>
+  	<put-attribute name="postScript" value="/resources/assets/custom_template/postScript.jsp" />
+  </definition>
+  
+  <definition name="project/project_template" extends="super">
+  </definition>
+  
+</tiles-definitions>

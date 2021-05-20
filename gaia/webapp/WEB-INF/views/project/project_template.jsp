@@ -7,26 +7,38 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<jsp:include page="/resources/assets/custom_template/preScript.jsp"></jsp:include>
+<script>
+	function changeContents(url){
+		$.ajax({
+			type : "get",
+		})
+	}
+</script>
+<meta charset="UTF-8">
+<%-- <title><tiles:getAsString name="title" /></title> --%>
+	<tiles:insertAttribute name="preScript" />
 </head>
 <body>
-    <jsp:include page="/resources/assets/custom_template/preloader.jsp"></jsp:include>
+	<tiles:insertAttribute name="preloader" />
     <div id="main-wrapper">
-        <jsp:include page="/resources/assets/custom_template/navheader.jsp"></jsp:include>
- 		<jsp:include page="/resources/assets/custom_template/header.jsp"></jsp:include>
- 		<jsp:include page="/resources/assets/custom_template/sidebar-project.jsp"></jsp:include>
+    	<tiles:insertAttribute name="navheader" />
+    	<tiles:insertAttribute name="header" />
+    	<tiles:insertAttribute name="sidebar-project" />
         <!--**********************************
             Content body start
         ***********************************-->
-		<div class="content-body"></div>
+		<div class="content-body">
+		</div>
         <!--**********************************
             Content body end
         ***********************************-->
-        <jsp:include page="/resources/assets/custom_template/footer.jsp"></jsp:include>
+        <tiles:insertAttribute name="footer" />
     </div>
-	<jsp:include page="/resources/assets/custom_template/postScript.jsp"></jsp:include>
+    <tiles:insertAttribute name="postScript" />
 </body>
 </html>
