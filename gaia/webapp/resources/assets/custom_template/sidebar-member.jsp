@@ -9,34 +9,23 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript">
-	// When document is ready	
-	$(function(){
-		// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
-		$('.moveButton').on('click', function(){
-			event.preventDefault();
-			let menuName = $(this).data('menu');
-			movePageHistory(menuName);
-		})
-	})
-	
 	// 뒤로가기 상황을 제외하고는 pushState를 통해 데이터를 쌓아야합니다.
 	var movePageHistory = function(pageParam){
 		var data = pageParam;
 		var title;
-		var url = '${cPath}/${manager_nick }/${project_title }/'+pageParam;
+		var url = '${cPath}/${mem_nick }/'+pageParam;
 		history.pushState(data, title, url);
 		movePage(pageParam);
 	}
 	
 	// 뒤로가기 상황에서는 movePage 함수를 바로 호출합니다. 그렇지 않으면 history가 꼬이게 됩니다.
 	var movePage = function(pageParam){
-		let project_title = '${project_title}';
-		let manager_nick = '${manager_nick}';
+		let mem_nick = '${mem_nick}';
 		
 		$.ajax({
 			url : '${cPath}/view/member/'+pageParam,
 			type : 'get',
-			data : {'manager_nick' : manager_nick,'project_title' : project_title
+			data : {'mem_nick' : mem_nick
 				},
 			success : function(res) {
 				$('.content-body').html(res);
@@ -53,10 +42,21 @@
 		})
 	}
 	
+	// When document is ready	
+	$(function(){
+		// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
+		$('.moveButton').on('click', function(){
+			event.preventDefault();
+			let menuName = $(this).data('menu');
+			console.log(menuName);
+			movePageHistory(menuName);
+		})
+	})
+	
 </script>
 <script>
-<c:if test="${not empty projectMenu }" >
-	let pageParam = '${projectMenu}'; 
+<c:if test="${not empty memberMenu }" >
+	let pageParam = '${memberMenu}'; 
 	movePageHistroy(pageParam);
 </c:if>
 </script>
