@@ -44,22 +44,6 @@
 		})
 	}
 	
-	// When document is ready
-	$(function(){
-		// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
-		$('.moveButton').on('click', function(){
-			event.preventDefault();
-			let menuName = $(this).data('menu');
-			movePageHistory(menuName);
-		})
-		
-	})
-	
-// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에 해당 이벤트를 통해 매칭시켜줍니다.	
-<c:if test="${not empty projectMenu }">
-	let pageParam = '${projectMenu}'; 
-	movePageHistory(pageParam);
-</c:if>
 </script>
 
   <div class="nk-sidebar">           
@@ -67,27 +51,43 @@
                 <ul class="metismenu" id="menu">
                     <li>
                         <a class="moveButton" data-menu="overview" href="#" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Overview</span>
+                            <i class="icon-home menu-icon"></i><span class="nav-text">Overview</span>
                         </a>
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Issue</span>
+                            <i class="icon-docs menu-icon"></i><span class="nav-text">Projects</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="moveButton" data-menu="milestone" href="#">Milestone</a></li>
-                            <li><a class="moveButton" data-menu="issue" href="#">Issue</a></li>
+                            <li><a href=".">다른프로젝트1</a></li>
+                            <li><a href=".">다른프로젝트2</a></li>
+                            <li><a href=".">다른프로젝트3</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Project</span>
+                        <a class="moveButton" data-menu="milestone" href="#" aria-expanded="false">
+                            <i class="icon-directions"></i><span class="nav-text">Milestone</span>
                         </a>
-                        <ul aria-expanded="false">
-                            <li><a class="moveButton" data-menu="ganttchart" href="#">Gantt Chart</a></li>
-                            <li><a class="moveButton" data-menu="calendar" href="#">Calendar</a></li>
-                            <li><a class="moveButton" data-menu="kanbanboard" href="#">Kanban Board</a></li>
-                        </ul>
+                    </li>
+                    <li>
+                        <a class="moveButton" data-menu="issue" href="#" aria-expanded="false">
+                            <i class="icon-fire"></i><span class="nav-text">Issue</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="moveButton" data-menu="ganttchart" href="#" aria-expanded="false">
+                            <i class="icon-chart"></i><span class="nav-text">Gantt</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="moveButton" data-menu="calendar" href="#" aria-expanded="false">
+                            <i class="icon-calender"></i><span class="nav-text">Calendar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="moveButton" data-menu="kanbanboard" href="#" aria-expanded="false">
+                            <i class="icon-cursor-move"></i><span class="nav-text">Kanban</span>
+                        </a>
                     </li>
                     <li>
                         <a class="moveButton" data-menu="code" href="#" aria-expanded="false">
@@ -101,7 +101,7 @@
                     </li>
                     <li>
                         <a class="moveButton" data-menu="wiki" href="#" aria-expanded="false">
-                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Wiki</span>
+                            <i class="icon-graduation menu-icon"></i><span class="nav-text">Wiki</span>
                         </a>
                     </li>
                     <li>

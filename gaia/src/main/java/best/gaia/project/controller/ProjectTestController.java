@@ -34,16 +34,16 @@ public class ProjectTestController {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectTestController.class);
 
 	
-	@RequestMapping(value = {"","{projectmenu}"})
+	@RequestMapping(value = {"","{pageParam}"})
 	public String projectMenuOverview(
 			@PathVariable String manager_nick
 			,@PathVariable String project_title
-			,@PathVariable Optional<String> projectmenu 
+			,@PathVariable Optional<String> pageParam 
 			,Model model
 			) {
 		model.addAttribute("manager_nick", manager_nick);
 		model.addAttribute("project_title", project_title);
-		model.addAttribute("projectMenu", projectmenu.isPresent() ? projectmenu.get() : "overview" );
+		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : "overview" );
 		return "project/project_template";
 	}
 	
