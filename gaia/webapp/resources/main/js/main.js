@@ -848,6 +848,6 @@
 
 function kakaoLogin() {
     alert("clicked");
-    window.location.href = 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a31ddbbfbc730c92670b6e2f2ead67b5&redirect_uri=http://localhost/oauth&response_type=code&scope={required_scopes.join(',')'
+    window.location.href = 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a31ddbbfbc730c92670b6e2f2ead67b5&redirect_uri=http://localhost/oauth&scope={required_scopes.join(',')'
 
 }

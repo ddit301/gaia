@@ -65,8 +65,8 @@ public class LoginController {
 		boolean valid = validate(user_id, user_pass);
 		
 		MemberVO user = new MemberVO();
-		user.setMEM_EMAIL(user_id);
-		user.setMEM_PASS(user_pass);
+		user.setMem_id(user_id);
+		user.setMem_pass(user_pass);
 		
 		String view = null;
 		String message = "";
@@ -77,12 +77,12 @@ public class LoginController {
 			switch(result) {
 			case OK:
 				// 로그인 성공시 쿠키에 접속한 아이디 저장
-				Cookie idCookie = new Cookie("loginId",user.getMEM_EMAIL());
+				Cookie idCookie = new Cookie("loginId",user.getMem_id());
 				idCookie.setMaxAge(1*24*60*60);
 				idCookie.setPath(String.format("%s",application.getContextPath()));
 				resp.addCookie(idCookie);
 				// 로그인 성공시 쿠키에 접속자 이름 저장
-				Cookie nameCookie = new Cookie("loginName",user.getMEM_NCNM());
+				Cookie nameCookie = new Cookie("loginName",user.getMem_name());
 				nameCookie.setMaxAge(1*24*60*60);
 				nameCookie.setPath(application.getContextPath());
 				resp.addCookie(nameCookie);
