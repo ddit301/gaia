@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <jsp:include page="/quixlab/preScript.jsp"></jsp:include>
+   <jsp:include page="/resources/assets/custom_template/preScript.jsp"></jsp:include>
 </head>
 <body>
 <!-- Preloader start -->
@@ -22,15 +22,15 @@
     </div>
 </div>
 <div id="main-wrapper">
-<jsp:include page="/quixlab/navheader.jsp"></jsp:include>
-<jsp:include page="/quixlab/header.jsp"></jsp:include>
-<jsp:include page="/quixlab/sidebar-member.jsp"></jsp:include>
+<jsp:include page="/resources/assets/custom_template/navheader.jsp"></jsp:include>
+<jsp:include page="/resources/assets/custom_template/header.jsp"></jsp:include>
+<jsp:include page="/resources/assets/custom_template/sidebar-member.jsp"></jsp:include>
     <div class="content-body">
         
     </div>
-	<jsp:include page="/quixlab/footer.jsp"></jsp:include>
+	<jsp:include page="/resources/assets/custom_template/footer.jsp"></jsp:include>
 </div>
-<jsp:include page="/quixlab/postScript-member.jsp"></jsp:include>
+<jsp:include page="/resources/assets/custom_template/postScript-member.jsp"></jsp:include>
 </body>
 
 </html>
