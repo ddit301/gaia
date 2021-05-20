@@ -1,25 +1,28 @@
 package best.gaia.member.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
+@RequestMapping(value = "view/member/")
 public class MemberMenuController {
-	
-	@RequestMapping(value = "view/member/overview")
-	public String overview(
+	// ajax에서만 불러옴. 주소창에 직접 작성하지 않는다.
+	// 만약 주소창에 직접 작성한 경우??
+	@RequestMapping(value = "{menuname}")
+	public String menuMapper(
+			@PathVariable String menuname
+			,@RequestParam String manager_nick
+			,@RequestParam String project_title
+			,Model model
 			) {
-		return "member/overview";
-	}
-	@RequestMapping(value = "view/member/milestone")
-	public String milestone(
-			) {
-		return "member/milestone";
-	}
-	@RequestMapping(value = "view/member/issue")
-	public String issue(
-			) {
-		return "member/issue";
+		model.addAttribute("manager_nick", manager_nick);
+		model.addAttribute("project_title", project_title);
+		model.addAttribute("menuname", menuname);
+		return "project/"+menuname;
 	}
 		
 }
