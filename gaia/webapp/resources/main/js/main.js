@@ -847,7 +847,10 @@
 })(jQuery);
 
 function kakaoLogin() {
-    alert("clicked");
-    window.location.href = 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a31ddbbfbc730c92670b6e2f2ead67b5&redirect_uri=http://localhost/oauth&scope={required_scopes.join(',')'
+    window.location.href = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a31ddbbfbc730c92670b6e2f2ead67b5&redirect_uri=http://localhost/oauth&scope={required_scopes.join(', ')}"
+
+}
+function githubLogin() {
+    window.location.href = "https://github.com/login/oauth/authorize?client_id=386c83173c32e10f3dbe&redirect_uri=http://localhost/gaia/oauth/github"
 
 }
