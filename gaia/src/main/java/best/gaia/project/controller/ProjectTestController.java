@@ -31,25 +31,26 @@ public class ProjectTestController {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectTestController.class);
 
 	
-	@RequestMapping(value = "{mem_nick:^.*(?!admin)(?!view)(?!restapi)}/{project_title:^.*(?!new)(?!setting)(?!activity)}")
+	@RequestMapping(value = "{manager_nick:^.*(?!admin)(?!view)(?!restapi)}/{project_title:^.*(?!new)(?!setting)(?!activity)}")
 	public String projectTemplate(
-			@PathVariable String mem_nick,
-			@PathVariable String project_title
+			@PathVariable String manager_nick
+			,@PathVariable String project_title
 			,Model model
 			) {
-		model.addAttribute("mem_nick", mem_nick);
+		model.addAttribute("manager_nick", manager_nick);
 		model.addAttribute("project_title", project_title);
+		model.addAttribute("projectMenu", "overview");
 		return "project/project_template";
 	}
 	
-	@RequestMapping(value = "{mem_nick:^.*(?!admin)(?!view)(?!restapi)}/{project_title:^.*(?!new)(?!setting)(?!activity)}/{projectmenu}")
+	@RequestMapping(value = "{manager_nick:^.*(?!admin)(?!view)(?!restapi)}/{project_title:^.*(?!new)(?!setting)(?!activity)}/{projectmenu}")
 	public String projectMenuOverview(
-			@PathVariable String mem_nick,
+			@PathVariable String manager_nick,
 			@PathVariable String project_title,
 			@PathVariable String projectmenu
 			,Model model
 			) {
-		model.addAttribute("mem_nick", mem_nick);
+		model.addAttribute("manager_nick", manager_nick);
 		model.addAttribute("project_title", project_title);
 		model.addAttribute("projectMenu", projectmenu);
 		return "project/project_template";

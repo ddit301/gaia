@@ -11,13 +11,15 @@
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">project</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">milestone</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li>
                     </ol>
                 </div>
             </div>
             <!-- row -->
 
             <div class="container-fluid">
-				milestone
+				<h4>milestone</h4>
+				조회중인 프로젝트 생성자 : ${manager_nick }<br/>
+				조회중인 프로젝트 타이틀 : ${project_title }
             </div>
             <!-- #/ container -->

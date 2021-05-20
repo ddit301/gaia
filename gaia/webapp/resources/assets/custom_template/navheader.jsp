@@ -9,7 +9,7 @@
     pageEncoding="UTF-8"%>
 <div class="nav-header">
      <div class="brand-logo">
-         <a href="index.html">
+         <a href="#">
              <b class="logo-abbr"><img src="${cPath }/resources/assets/images/logo-text.png" alt=""> </b>
              <span class="logo-compact"><img src="${cPath }/resources/assets/images/logo-compact.png" alt=""></span>
              <span class="brand-title">
