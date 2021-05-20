@@ -6,11 +6,13 @@ import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.member.controller.LoginController;
+import best.gaia.vo.KakaoService;
 
 /**
  * 
@@ -30,6 +32,8 @@ import best.gaia.member.controller.LoginController;
 
 @Controller
 public class mainPageIndexingController {
+	@Autowired
+    private KakaoService kakaoService;
 
 	@Inject
 	private WebApplicationContext container;
@@ -67,6 +71,12 @@ public class mainPageIndexingController {
 		return "main/signin";
 	}
 	
+	 @RequestMapping("/oauth")
+	 public String login(@RequestParam(value = "code", required = false) String code) throws Exception{
+        System.out.println("#########" + code);
+        return "testPage";
+	}
+	 
 	@RequestMapping(value = "/signup")
 	public String logoutPage() {
 		return "main/signup";

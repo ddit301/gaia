@@ -457,6 +457,7 @@ a,
   background-position: 50% 50%;
   background: #fee500;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 991px) {
