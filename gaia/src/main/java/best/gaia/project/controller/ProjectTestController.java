@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.service.ProjectService;
-
+//@RequestMapping(value = “{mem_nick:?:^((?!help$|activity$).)*}“)
 @Controller
-@RequestMapping("{manager_nick:^.*(?!admin)(?!view)(?!restapi)}/{project_title:^.*(?!new)(?!overview)(?!help)(?!setting)(?!activity)}")
+@RequestMapping("{manager_nick:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
 public class ProjectTestController {
 	
 	@Inject
@@ -43,7 +43,7 @@ public class ProjectTestController {
 			) {
 		model.addAttribute("manager_nick", manager_nick);
 		model.addAttribute("project_title", project_title);
-		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : "overview" );
+		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null );
 		return "project/project_template";
 	}
 	
