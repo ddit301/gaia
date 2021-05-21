@@ -35,15 +35,14 @@ public class MemberTestController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberTestController.class);
 	
-	@RequestMapping(value = "{membermenu:^(?:(?=help$|overview$|setting-setting$|setting-new$|setting-activity$)).*}")
+	@RequestMapping(value = {"","{pageParam:^(?:(?=help$|overview$|setting-setting$|setting-new$|setting-activity$)).*}"})
 	public String projectTemplate(
 			@PathVariable String mem_nick
-			, @PathVariable Optional<String> membermenu
+			, @PathVariable Optional<String> pageParam
 			, Model model
 			) {
 		model.addAttribute("mem_nick", mem_nick);
-		System.out.println(mem_nick);
-		model.addAttribute("pageParam", membermenu.isPresent() ? membermenu.get() : "overview");
+		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null);
 		return "member/member_template";
 	}
 }
