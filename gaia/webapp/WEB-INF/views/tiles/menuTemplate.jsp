@@ -19,7 +19,7 @@
     <div id="main-wrapper">
     	<tiles:insertAttribute name="navheader" />
     	<tiles:insertAttribute name="header" />
-    	<tiles:insertAttribute name="sidebar-project" />
+    	<tiles:insertAttribute name="sidebar" />
 		<div class="content-body">
 		</div>
         <tiles:insertAttribute name="footer" />

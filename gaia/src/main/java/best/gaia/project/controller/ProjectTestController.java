@@ -43,7 +43,7 @@ public class ProjectTestController {
 		model.addAttribute("manager_nick", manager_nick);
 		model.addAttribute("project_title", project_title);
 		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null );
-		return "project/project_template";
+		return "view/template/project";
 	}
 	
 
