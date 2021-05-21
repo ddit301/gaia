@@ -13,4 +13,9 @@
 		FROM ISSUE
 	</select>
 	
+	
+	<select id="selectMilestoneList" parameterType="best.gaia.vo.PagingVO" resultType="best.gaia.vo.MilestoneVO">
+		SELECT *
+		FROM MILESTONE
+	</select>
 </mapper>

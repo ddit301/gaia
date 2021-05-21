@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import best.gaia.vo.IssueVO;
+import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
 
 
@@ -40,5 +41,11 @@ public interface IssueDao {
 	 * @return affected rows count
 	 */
 	public int deleteIssue(String issue_id);
+	
+	/**
+	 * @param pagingVO
+	 * @return MilestoneList
+	 */
+	public List<MilestoneVO> selectMilestoneList(PagingVO<MilestoneVO> pagingVO);
 	
 }

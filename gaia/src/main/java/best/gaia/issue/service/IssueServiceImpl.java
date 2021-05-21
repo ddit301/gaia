@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.IssueVO;
+import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
 
 @Service
@@ -49,6 +50,11 @@ public class IssueServiceImpl implements IssueService {
 	public ServiceResult deleteIssue(IssueVO search) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<MilestoneVO> selecMilestoneList(PagingVO<MilestoneVO> pagingVO) {
+		return dao.selectMilestoneList(pagingVO);
 	}
 
 }
