@@ -1,15 +1,44 @@
 package best.gaia.issue.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
+import best.gaia.vo.IssueVO;
+import best.gaia.vo.PagingVO;
 
 
 @Repository
 public interface IssueDao {
 	
 	/**
-	 * dao-mapper 테스트 용 입니다. 메서드 추가할때 아래 Sample 메서드 삭제해주세요. 
-	 * .xml 에 있는 select sample 도 함께 삭제해주세요.
-	 * by shane
+	 * @param issue_id
+	 * @return issue
 	 */
-	public String issueSample();
+	public IssueVO selectIssue(IssueVO search);
+	
+	/**
+	 * @param pagingVO
+	 * @return issue list
+	 */
+	public List<IssueVO> selectIssueList(PagingVO<IssueVO> pagingVO);
+	
+	/**
+	 * @param issue
+	 * @return affected rows count
+	 */
+	public int insertIssue(IssueVO issue);
+	
+	/**
+	 * @param issue
+	 * @return affected rows count
+	 */
+	public int updateIssue(IssueVO issue);
+	
+	/**
+	 * @param issue_id
+	 * @return affected rows count
+	 */
+	public int deleteIssue(String issue_id);
+	
 }

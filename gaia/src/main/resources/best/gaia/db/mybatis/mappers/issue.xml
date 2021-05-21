@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.issue.dao.IssueDao">
-	<select id="issueSample"></select>
+	
+	<select id="selectIssue" parameterType="best.gaia.vo.IssueVO" resultType="best.gaia.vo.IssueVO">
+		SELECT * 
+		FROM ISSUE
+		WHERE ISSUE_SID = #{issue_sid} 
+	</select>
+	
+	<select id="selectIssueList" parameterType="best.gaia.vo.PagingVO" resultType="best.gaia.vo.IssueVO">
+		SELECT *
+		FROM ISSUE
+	</select>
+	
 </mapper>
