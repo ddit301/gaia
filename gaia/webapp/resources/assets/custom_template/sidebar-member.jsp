@@ -13,7 +13,7 @@
 	var movePageHistory = function(pageParam){
 		var data = pageParam;
 		var title;
-		var url = '${cPath}/${mem_nick }/'+(pageParam ? '/'+pageParam : '');
+		var url = '${cPath}/${mem_nick }'+(pageParam ? '/'+pageParam : '');
 		console.log(data);
 		history.pushState(data, title, url);
 		movePage(pageParam);
@@ -50,7 +50,7 @@
 	    <ul class="metismenu" id="menu">
 	        <li class="nav-label">Dashboard</li>
 	        <li>
-	            <a class="moveButton" data-menu="overview" href="javascript:void()" aria-expanded="false">
+	            <a class="moveButton" href="javascript:void()" aria-expanded="false">
 	                <i class="icon-speedometer menu-icon"></i><span class="nav-text">Overview</span>
 	            </a>
 	        </li>
