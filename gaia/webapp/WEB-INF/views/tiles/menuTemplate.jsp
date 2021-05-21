@@ -8,19 +8,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-	function changeContents(url){
-		$.ajax({
-			type : "get",
-		})
-	}
-</script>
 <meta charset="UTF-8">
-<%-- <title><tiles:getAsString name="title" /></title> --%>
 	<tiles:insertAttribute name="preScript" />
 </head>
 <body>
@@ -28,15 +19,9 @@
     <div id="main-wrapper">
     	<tiles:insertAttribute name="navheader" />
     	<tiles:insertAttribute name="header" />
-    	<tiles:insertAttribute name="sidebar-project" />
-        <!--**********************************
-            Content body start
-        ***********************************-->
+    	<tiles:insertAttribute name="sidebar" />
 		<div class="content-body">
 		</div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
         <tiles:insertAttribute name="footer" />
     </div>
     <tiles:insertAttribute name="postScript" />

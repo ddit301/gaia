@@ -18,11 +18,12 @@ import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.service.IssueService;
 import best.gaia.vo.IssueVO;
+import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
 
 @RestController
-@RequestMapping(value="restapi/project/issue", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class IssueController {
+@RequestMapping(value="restapi/project/milestone", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+public class MilestoneController {
 	
 	@Inject
 	private IssueService service;
@@ -35,22 +36,15 @@ public class IssueController {
 		application = container.getServletContext();
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(IssueController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MilestoneController.class);
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public List<IssueVO> selectIssueList() {
-		PagingVO<IssueVO> pagingVO = new PagingVO<IssueVO>();
-		return service.selectIssueList(pagingVO);
+	public List<MilestoneVO> selectMilestoneList() {
+		PagingVO<MilestoneVO> pagingVO = new PagingVO<MilestoneVO>();
+		return service.selecMilestoneList(pagingVO);
 	}
 	
-//	@RequestMapping(value="{issue_sid}", method=RequestMethod.GET)
-//	public IssueVO selectIssue(
-//				@PathVariable Integer issue_sid
-//			) {
-//		IssueVO search = new IssueVO();
-//		search.setIssue_sid(issue_sid);
-//		return service.selectIssue(search);
-//	}
+	
 	
 	
 	

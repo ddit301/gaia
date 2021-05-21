@@ -43,6 +43,6 @@ public class MemberTestController {
 			) {
 		model.addAttribute("mem_nick", mem_nick);
 		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null);
-		return "member/member_template";
+		return "view/template/member";
 	}
 }
