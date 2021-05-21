@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd" >
+<tiles-definitions>
+
+  <definition name="menuTemplate" template="/WEB-INF/views/tiles/menuTemplate.jsp">
+  	<put-attribute name="preScript" value="/resources/assets/custom_template/preScript.jsp" />
+  	<put-attribute name="preloader" value="/resources/assets/custom_template/preloader.jsp" />
+  	<put-attribute name="navheader" value="/resources/assets/custom_template/navheader.jsp" />
+  	<put-attribute name="header" value="/resources/assets/custom_template/header.jsp" />
+  	<put-attribute name="footer" value="/resources/assets/custom_template/footer.jsp"/>
+  	<put-attribute name="postScript" value="/resources/assets/custom_template/postScript.jsp" />
+  </definition>
+  
+  <definition name="view/template/*" extends="menuTemplate">
+  	<put-attribute name="sidebar" value="/resources/assets/custom_template/sidebar-{1}.jsp"></put-attribute>
+  </definition>
+  
+</tiles-definitions>

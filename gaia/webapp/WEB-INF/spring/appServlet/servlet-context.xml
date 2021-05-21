@@ -27,6 +27,18 @@
 			p:order="1"
 		/>
 		
+		<!-- Tiles START -->
+		<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" 
+			p:definitions="/WEB-INF/tiles/tiles.xml"
+			p:preparerFactoryClass="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory"
+		/>
+		
+	    <beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	        <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	        <beans:property name="order" value="2" />
+    	</beans:bean>    
+		<!-- Tiles END -->
+		
 		
 		<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
 		
