@@ -40,7 +40,7 @@
 		$(function(){
 			
 			// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
-			$('.moveButton').on('click', function(){
+			$('#main-wrapper').on('click', '.moveButton', function(){
 				event.preventDefault();
 				let menuName = $(this).data('menu');
 				movePageHistory(menuName);
