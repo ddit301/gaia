@@ -1,0 +1,24 @@
+1. \\Sem-pc\00.최종프로젝트 관련\rootCA
+폴더를 로컬에 복사
+ex) D:\A_TeachingMaterial\7.LastProject\rootCA
+
+2. openssl.pdf 파일의 내용에 따라 OpenSSL 설치
+및 환경변수 설정
+  주의!
+  openssl.cnf 파일의 v3_req 값에 설정할 도메인 네임은
+  c:/windows/system32/drivers/etc/hosts 파일에 가상 도메인으로 설정.  
+
+-- msvcr120.dll 파일을 찾지 못하는 에러가 발생하면
+폴더내에 vcredits_64x.exe를 설치한다.
+참고 위치 - https://www.microsoft.com/ko-KR/download/details.aspx?id=40784
+
+
+3. openssl.pdf 파일의 인증서 생성 절차 5 번부터 수행.
+1) D:\A_TeachingMaterial\7.LastProject\local_cert 폴더 생성
+2) 윈도우 콘솔에서 1)번의 폴더로 이동
+3) openssl.pdf 5. -> 1) 번부터 수행
+   주의!
+   rootCA 의 위치 : 현재 폴더 기준 "../rootCA/rootca.crt"
+   5.->5) 단계에서 rootCA/rootca.crt 파일을 브라우저에 인증기관으로 설치
+
+
