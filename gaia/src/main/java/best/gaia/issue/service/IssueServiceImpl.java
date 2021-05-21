@@ -31,8 +31,7 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public List<IssueVO> selectIssueList(PagingVO<IssueVO> pagingVO) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectIssueList(pagingVO);
 	}
 
 	@Override

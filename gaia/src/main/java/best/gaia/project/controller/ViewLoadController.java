@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(value = "view/project/")
-public class ProjectMenuController {
+@RequestMapping(value = "view/project")
+public class ViewLoadController {
 	
 	@RequestMapping(value = "{menuname}")
 	public String menuMapper(
