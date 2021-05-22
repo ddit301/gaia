@@ -14,10 +14,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="media align-items-center mb-4">
-                        <img class="mr-3" src="/resources/assets/images/member/profile.png" width="80" height="80" alt="">
+                        <img class="mr-3" src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
                         <div class="media-body">
-                            <h3 class="mb-0">Shane Park</h3>
-                            <p class="text-muted mb-0">Canada</p>
+                            <h3 class="mb-0">${mem_nick }</h3>
+                            <p class="text-muted mb-0">Deutch</p>
                         </div>
                     </div>
                     
@@ -119,7 +119,7 @@
             
 	             <!-- first issue end -->
 	            <div class="media media-reply">
-	                <img class="mr-3 circle-rounded" src="quixlab/images/avatar/2.jpg" width="50" height="50" alt="Generic placeholder image">
+	                <img class="mr-3 circle-rounded" src="${cPath}/resources/assets/images/avatar/2.jpg" width="50" height="50" alt="Generic placeholder image">
 	                <div class="media-body">
 	                    <div class="d-sm-flex justify-content-between mb-2">
 	                        <h5 class="mb-sm-0">Milan Gbah <small class="text-muted ml-3">about 3 days ago</small></h5>
@@ -135,7 +135,7 @@
 	            </div>
 	
 	            <div class="media media-reply">
-	                <img class="mr-3 circle-rounded" src="quixlab/images/avatar/2.jpg" width="50" height="50" alt="Generic placeholder image">
+	                <img class="mr-3 circle-rounded" src="${cPath}/resources/assets/images/avatar/2.jpg" width="50" height="50" alt="Generic placeholder image">
 	                <div class="media-body">
 	                    <div class="d-sm-flex justify-content-between mb-2">
 	                        <h5 class="mb-sm-0">Milan Gbah <small class="text-muted ml-3">about 3 days ago</small></h5>

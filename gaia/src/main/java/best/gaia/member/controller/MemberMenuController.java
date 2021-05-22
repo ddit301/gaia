@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 @RequestMapping(value = "view/member/")
 public class MemberMenuController {
@@ -23,7 +22,6 @@ public class MemberMenuController {
 			) {
 		model.addAttribute("mem_nick", mem_nick);
 		model.addAttribute("menuname", menuname);
-		logger.info("menuname : {}\n\n", menuname);
 		return "member/"+menuname;
 	}
 		

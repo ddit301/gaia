@@ -13,7 +13,7 @@
 	var movePageHistory = function(pageParam){
 		var data = pageParam;
 		var title;
-		var url = '${cPath}/${mem_nick }/'+pageParam;
+		var url = '${cPath}/${mem_nick }'+(pageParam ? '/'+pageParam : '');
 		console.log(data);
 		history.pushState(data, title, url);
 		movePage(pageParam);
@@ -22,6 +22,8 @@
 	// 뒤로가기 상황에서는 movePage 함수를 바로 호출합니다. 그렇지 않으면 history가 꼬이게 됩니다.
 	var movePage = function(pageParam){
 		let mem_nick = '${mem_nick}';
+		if(!pageParam)
+			pageParam = 'overview';
 		$.ajax({
 			url : '${cPath}/view/member/'+pageParam,
 			type : 'get',
@@ -48,7 +50,7 @@
 	    <ul class="metismenu" id="menu">
 	        <li class="nav-label">Dashboard</li>
 	        <li>
-	            <a class="moveButton" data-menu="overview" href="javascript:void()" aria-expanded="false">
+	            <a class="moveButton" href="javascript:void()" aria-expanded="false">
 	                <i class="icon-speedometer menu-icon"></i><span class="nav-text">Overview</span>
 	            </a>
 	        </li>
@@ -58,13 +60,13 @@
 	            </a>
 	        </li>
 	        <li>
-	            <a class="moveButton" data-menu="setting" href="javascript:void()" aria-expanded="false">
+	            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
 	                <i class="icon-envelope menu-icon"></i> <span class="nav-text">Settings</span>
 	            </a>
 	            <ul aria-expanded="false">
-	                <li><a class="moveButton" data-menu="activity" href="javascript:void()" >activity</a></li>
-	                <li><a class="moveButton" data-menu="new" href="javascript:void()">new</a></li>
-	                <li><a class="moveButton" data-menu="setting" href="javascript:void()">setting</a></li>
+	                <li><a class="moveButton" data-menu="setting-activity" href="javascript:void()" >activity</a></li>
+	                <li><a class="moveButton" data-menu="setting-new" href="javascript:void()">new</a></li>
+	                <li><a class="moveButton" data-menu="setting-setting" href="javascript:void()">setting</a></li>
 	            </ul>
 	        </li>
 	    </ul>

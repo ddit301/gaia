@@ -10,7 +10,7 @@
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">project</a></li>
+                        <li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li>
                         <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li>
                     </ol>
                 </div>
@@ -21,5 +21,28 @@
 				<h4>issue</h4>
 				조회중인 프로젝트 생성자 : ${manager_nick }<br/>
 				조회중인 프로젝트 타이틀 : ${project_title }
+	            <div id = "result"></div>
             </div>
             <!-- #/ container -->
+            
+            <script>
+	            $.ajax({
+					url : '${cPath}/restapi/project/issue',
+					type : 'get',
+					data : {
+// 						'id' : feed_id
+					},
+					success : function(res) {
+						$.each(res, function(i, v) {
+							$('#result').append(JSON.stringify(v) + '<br>');
+						})
+					},
+					error : function(xhr, error, msg) {
+						console.log(xhr);
+						console.log(error);
+						console.log(msg);
+					},
+					dataType : 'json'
+				})
+            </script>
+            

@@ -27,11 +27,9 @@
 		    }
 	 	})
 	 	
-	 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에 해당 이벤트를 통해 매칭시켜줍니다.	
-		<c:if test="${not empty pageParam }">
-			let pageParam = '${pageParam}'; 
-			movePageHistory(pageParam);
-		</c:if>
+	 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.	
+		let pageParam = '${pageParam}'; 
+		movePageHistory(pageParam);
 	 	
 	 	/********************************************************************
 	 	*
@@ -42,7 +40,7 @@
 		$(function(){
 			
 			// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
-			$('.moveButton').on('click', function(){
+			$('#main-wrapper').on('click', '.moveButton', function(){
 				event.preventDefault();
 				let menuName = $(this).data('menu');
 				movePageHistory(menuName);

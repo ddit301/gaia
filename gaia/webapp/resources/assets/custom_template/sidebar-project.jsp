@@ -14,7 +14,7 @@
 	var movePageHistory = function(pageParam){
 		var data = pageParam;
 		var title;
-		var url = '${cPath}/${manager_nick }/${project_title }/'+pageParam;
+		var url = '${cPath}/${manager_nick}/${project_title}'+ (pageParam ? '/'+pageParam : '') ;
 		history.pushState(data, title, url);
 		movePage(pageParam);
 	}
@@ -23,6 +23,8 @@
 	var movePage = function(pageParam){
 		let project_title = '${project_title}';
 		let manager_nick = '${manager_nick}';
+		if(!pageParam)
+			pageParam = 'overview';
 		
 		$.ajax({
 			url : '${cPath}/view/project/'+pageParam,
@@ -50,7 +52,7 @@
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a class="moveButton" data-menu="overview" href="#" aria-expanded="false">
+                        <a class="moveButton" data-menu="" href="#" aria-expanded="false">
                             <i class="icon-home menu-icon"></i><span class="nav-text">Overview</span>
                         </a>
                     </li>
