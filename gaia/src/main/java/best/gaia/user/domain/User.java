@@ -1,24 +1,42 @@
-package best.gaia.domain;
+package best.gaia.user.domain;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
-
+/**
+ * 
+ * @author Robin
+ * @since 2021. 5. 22
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * 
+ *      <pre>
+ * [[개정이력(Modification Information)]]
+ * Date         Modifier     Modification
+ * --------     --------    ----------------------
+ * 2021. 5. 22  Robin    Initial Commit
+ * Copyright (c) 2021 by team SEED All right reserved
+ *      </pre>
+ */
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @ToString
@@ -29,8 +47,11 @@ public class User implements UserDetails, Serializable{
 	
 	@Id @GeneratedValue
 	private int mem_no;             //회원 번호
+	@Column(nullable = false)
 	private String mem_id;          //회원 아이디(이메일)
+	@Column(nullable = false)
 	private String mem_pass;        //회원 비밀번호
+	@Column(nullable = false)
 	private String mem_nick;        //회원 닉네임
 	private String mem_tel;         //회원 전화번호
 	private String mem_pic_name;    //회원 프로필 사진 이름
@@ -40,6 +61,7 @@ public class User implements UserDetails, Serializable{
 	private String mem_bio;         //회원 자기소개 내용
 	private String mem_working_city;//회원 근무 도시
 	private String mem_status;      //회원 상태
+	@OneToMany //proxy
 	private List<GrantedAuthority> authorities;
 	private boolean enabled = mem_status.equals("ACTIVE")? true: false;
 	

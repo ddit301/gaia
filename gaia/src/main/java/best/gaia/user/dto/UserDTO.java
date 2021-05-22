@@ -1,4 +1,4 @@
-package best.gaia.dto;
+package best.gaia.user.dto;
 
 import java.util.List;
 
@@ -15,7 +15,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+/**
+ * 
+ * @author Robin
+ * @since 2021. 5. 22
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * 
+ *      <pre>
+ * [[개정이력(Modification Information)]]
+ * Date         Modifier     Modification
+ * --------     --------    ----------------------
+ * 2021. 5. 22  Robin    Initial Commit
+ * Copyright (c) 2021 by team SEED All right reserved
+ *      </pre>
+ */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

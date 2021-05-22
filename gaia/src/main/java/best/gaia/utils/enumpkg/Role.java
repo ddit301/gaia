@@ -1,4 +1,4 @@
-package best.gaia;
+package best.gaia.utils.enumpkg;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
