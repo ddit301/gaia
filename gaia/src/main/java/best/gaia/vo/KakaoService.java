@@ -5,15 +5,18 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Properties;
 
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ibatis.common.resources.Resources;
 
 /**
  * 
@@ -38,8 +41,13 @@ public class KakaoService {
 		String access_Token = "";
 		String refresh_Token = "";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
+		String kakao_client_key = "db/signKey.properties";
+		Properties properties = new Properties();
+		
 
 		try {
+			Reader reader = Resources.getResourceAsReader(kakao_client_key);
+			properties.load(reader);
 			URL url = new URL(reqURL);
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -50,7 +58,7 @@ public class KakaoService {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
-			sb.append("&client_id=a31ddbbfbc730c92670b6e2f2ead67b5");
+			sb.append("&client_id=").append(kakao_client_key);
 			sb.append("&redirect_uri=http://localhost/oauth");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
