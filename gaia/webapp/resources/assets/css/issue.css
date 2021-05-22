@@ -27,3 +27,40 @@
 	height : 30px;
 	width : 30px;
 }
+.issue-title a{
+	font-weight : bold;
+}
+.issue-title span{
+	font-size : 1.5em;
+}
+.menulist .menuBox{
+	background-color : #FFFFFF;
+	font-size : 1.5em;
+	padding : 5px;
+}
+.menulist .menuBox i{
+	float : right;
+	margin-right : 10px;
+}
+.issue-title{
+	background-color : #FFFFFF;
+	margin-top : 20px;
+    margin-right: 0px;
+    margin-left: -0px;
+}
+.issue-title i{
+	float : right;
+	font-size : 2.0em;
+}
+.issue-title .namefield{
+	font-size : 1.5em;
+}
+
+
+
+
+
+
+
+
+

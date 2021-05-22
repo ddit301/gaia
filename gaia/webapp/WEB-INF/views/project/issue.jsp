@@ -18,92 +18,95 @@
                     </ol>
                 </div>
             </div>
-            <!-- row -->
+
             <div class="container-fluid">
-            	<div class="issue-header row">
+            	<div class="row issue-header">
             		<div class="col-md-1"></div>
             		<div class="col-md-5">
 	            		<button type="button" class="btn mb-1 btn-flat btn-grey">Open</button>
 	            		<button type="button" class="btn mb-1 btn-flat btn-dark">Closed</button>
             		</div>
-            			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">작성자</button>
-                           <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-	                           	<a class="dropdown-item" href="#">Robin</a> 
-	                           	<a class="dropdown-item" href="#">Eisen</a> 
-	                           	<a class="dropdown-item" href="#">Link 3</a>
-                       		</div>
-            			</div>
-            			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">중요도</button>
-                           <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-	                           	<a class="dropdown-item" href="#">Robin</a> 
-	                           	<a class="dropdown-item" href="#">Eisen</a> 
-	                           	<a class="dropdown-item" href="#">Link 3</a>
-                       		</div>
-            			</div>
-            			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">라벨</button>
-                           <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-	                           	<a class="dropdown-item" href="#">Robin</a> 
-	                           	<a class="dropdown-item" href="#">Eisen</a> 
-	                           	<a class="dropdown-item" href="#">Link 3</a>
-                       		</div>
-            			</div>
-            			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">마일스톤</button>
-                           <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-	                           	<a class="dropdown-item" href="#">Robin</a> 
-	                           	<a class="dropdown-item" href="#">Eisen</a> 
-	                           	<a class="dropdown-item" href="#">Link 3</a>
-                       		</div>
-            			</div>
-            			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">담당자</button>
-                           <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-	                           	<a class="dropdown-item" href="#">Robin</a> 
-	                           	<a class="dropdown-item" href="#">Eisen</a> 
-	                           	<a class="dropdown-item" href="#">Link 3</a>
-                       		</div>
-            			</div>
-            			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">정렬</button>
-                           <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-	                           	<a class="dropdown-item" href="#">최신순</a> 
-	                           	<a class="dropdown-item" href="#">오래된순</a> 
-	                           	<a class="dropdown-item" href="#">댓글많은순</a>
-                       		</div>
-            			</div>
+           			<div class="dropdown col-md-1">
+                          <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">작성자</button>
+                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                           	<a class="dropdown-item" href="#">Robin</a> 
+                           	<a class="dropdown-item" href="#">Eisen</a> 
+                           	<a class="dropdown-item" href="#">Link 3</a>
+                      		</div>
+           			</div>
+           			<div class="dropdown col-md-1">
+                          <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">중요도</button>
+                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                           	<a class="dropdown-item" href="#">Robin</a> 
+                           	<a class="dropdown-item" href="#">Eisen</a> 
+                           	<a class="dropdown-item" href="#">Link 3</a>
+                      		</div>
+           			</div>
+           			<div class="dropdown col-md-1">
+                          <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">라벨</button>
+                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                           	<a class="dropdown-item" href="#">Robin</a> 
+                           	<a class="dropdown-item" href="#">Eisen</a> 
+                           	<a class="dropdown-item" href="#">Link 3</a>
+                      		</div>
+           			</div>
+           			<div class="dropdown col-md-1">
+                          <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">마일스톤</button>
+                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                           	<a class="dropdown-item" href="#">Robin</a> 
+                           	<a class="dropdown-item" href="#">Eisen</a> 
+                           	<a class="dropdown-item" href="#">Link 3</a>
+                      		</div>
+           			</div>
+           			<div class="dropdown col-md-1">
+                          <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">담당자</button>
+                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                           	<a class="dropdown-item" href="#">Robin</a> 
+                           	<a class="dropdown-item" href="#">Eisen</a> 
+                           	<a class="dropdown-item" href="#">Link 3</a>
+                      		</div>
+           			</div>
+           			<div class="dropdown col-md-1">
+                          <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">정렬</button>
+                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                           	<a class="dropdown-item" href="#">최신순</a> 
+                           	<a class="dropdown-item" href="#">오래된순</a> 
+                           	<a class="dropdown-item" href="#">댓글많은순</a>
+                      		</div>
+           			</div>
             	</div>
-           		<div id = "issuelist"></div>
+            	
+           		<div id="issuelist"></div>
            		<div class="issue-footer">
            			<div class="row">
-	           			<div class="col-md-11"></div>
+		           		<div class="col-md-11"></div>
 	           			<div class="col-md-1">
-		           			<button type="button" class="btn mb-1 btn-success">이슈등록</button>
+		           			<button type="button" class="btn mb-1 btn-rounded btn-outline-dark">이슈등록</button>
 	           			</div>
            			</div>
-           			<ul class="pagination justify-content-center">
-                       <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
-                       </li>
-                       <li class="page-item"><a class="page-link" href="#">1</a>
-                       </li>
-                       <li class="page-item"><a class="page-link" href="#">2</a>
-                       </li>
-                       <li class="page-item"><a class="page-link" href="#">3</a>
-                       </li>
-                       <li class="page-item"><a class="page-link" href="#">Next</a>
-                       </li>
-                   </ul>
+           			<div>
+	           			<ul class="pagination justify-content-center">
+	                       <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">1</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">2</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">3</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">Next</a>
+	                       </li>
+	                   </ul>
+           			</div>
            		</div>
+           	</div>
 				
-            </div>
 
 <div id="issue-template" hidden="hidden" >
 	<div class="issueBox row">                                                                                
 		<div class="col-md-1"></div>                                                                    
 		<div class="issue-title col-md-5">                                                              
-			<span></span>                                                            
+			<a class="moveButton" data-menu="issueview" href="javascript:void(0)"></a>                                                       
 		</div>                                                                                          
 	    <div class="issue-writer col-md-1">                                                                  
 			<img src="" alt="">      
@@ -116,7 +119,7 @@
 		</div>                                                                                      
 		<div class="reply col-md-1">
 			<i class="icon-bubbles icons"></i>
-			<span>3</span>
+			<span></span>
 		</div>                                                            
 	</div>        
 </div>
@@ -135,7 +138,8 @@
 						
 						$.each(res, function(i, v) {
 							let issueBox = $('#issue-template').children('.issueBox').clone();
-							issueBox.children('.issue-title').text(v.issue_title);
+							issueBox.attr('issue_no',v.issue_no);
+							issueBox.children('.issue-title').children('a').text(v.issue_title);
 							issueBox.children('.priority').text('즉시');
 							issueBox.children('.issue-label').text('할일');
 							issueBox.children('.milestone').text('설계구현');
