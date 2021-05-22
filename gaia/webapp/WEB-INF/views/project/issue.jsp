@@ -98,41 +98,53 @@
            		</div>
 				
             </div>
+
+<div id="issue-template" hidden="hidden" >
+	<div class="issueBox row">                                                                                
+		<div class="col-md-1"></div>                                                                    
+		<div class="issue-title col-md-5">                                                              
+			<span></span>                                                            
+		</div>                                                                                          
+	    <div class="col-md-1">                                                                  
+			<img src="/gaia/resources/assets/images/user/1.png" height="40" width="40" alt="">      
+		</div>                                                                                      
+	    <div class="priority col-md-1"></div>                                                       
+		<div class="label col-md-1"></div>                                                           
+		<div class="milestone col-md-1"></div>                                                        
+		<div class="assignee col-md-1">                                                                      
+			<img src="" height="40" width="40" alt="">      
+		</div>                                                                                      
+		<div class="reply col-md-1">
+			<i class="icon-bubbles icons"></i>
+			<span>3</span>
+		</div>                                                            
+	</div>        
+</div>
             
             <script>
             	manager_nick = '${manager_nick }';
             	project_title = '${project_title }';
+            	
 	            $.ajax({
 					url : '${cPath}/restapi/project/issue',
 					type : 'get',
 					data : {
-						//'id' : feed_id
+						//'manager_nick' : manager_nick
 					},
 					success : function(res) {
+						
 						$.each(res, function(i, v) {
-							let template = $('#template');
-							template.find('name').text('이름');
-							template.children('sdf').text('asdf');
-							$('#issuelist').append(template);
-							let issue =
-			           			'<div class="issueBox row">                                                                                '
-					            +'		<div class="col-md-1"></div>                                                                    '
-					            +'		<div class="issue-title col-md-5">                                                              '
-					            +'			<span>'+v.issue_title+'</span>                                                            '
-					            +'		</div>                                                                                          '
-			            		+'       		<div class="col-md-1">                                                                  '
-								+'				<img src="/gaia/resources/assets/images/user/1.png" height="40" width="40" alt="">      '
-								+'			</div>                                                                                      '
-			            		+'       		<div class="col-md-1">즉시</div>                                                        '
-						        +'    		<div class="col-md-1">할일</div>                                                            '
-						        +'    		<div class="col-md-1">설계구현</div>                                                        '
-						        +'    		<div class="col-md-1">                                                                      '
-						        +'    			<img src="/gaia/resources/assets/images/user/1.png" height="40" width="40" alt="">      '
-						        +'    		</div>                                                                                      '
-						        +'    		<div class="col-md-1"><i class="icon-bubbles icons"></i> <span>3</span></div>                                                            '
-				            	+'</div>                                                                                                '
-				            $('#issuelist').append(issue);
+							let issueBox = $('#issue-template').children('.issueBox').clone();
+							issueBox.children('.issue-title').text(v.issue_title);
+							issueBox.children('.priority').text('즉시');
+							issueBox.children('.label').text('할일');
+							issueBox.children('.milestone').text('설계구현');
+							issueBox.children('.assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
+							issueBox.children('.reply').children('span').text('3');
+							
+							$('#issuelist').append(issueBox);
 						})
+						
 					},
 					error : function(xhr, error, msg) {
 						console.log(xhr);
@@ -142,18 +154,6 @@
 					dataType : 'json'
 				})
             </script>
-            
-
-            
-            
-            <div id="template" hidden="hidden">
-            
-            </div>
-            
-            
-            
-            
-            
             
             
             
