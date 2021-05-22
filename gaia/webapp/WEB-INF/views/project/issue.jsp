@@ -23,11 +23,11 @@
             	<div class="issue-header row">
             		<div class="col-md-1"></div>
             		<div class="col-md-5">
-	            		<button type="button" class="btn mb-1 btn-flat btn-light">Open</button>
+	            		<button type="button" class="btn mb-1 btn-flat btn-grey">Open</button>
 	            		<button type="button" class="btn mb-1 btn-flat btn-dark">Closed</button>
             		</div>
             			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">작성자</button>
+                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">작성자</button>
                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
 	                           	<a class="dropdown-item" href="#">Robin</a> 
 	                           	<a class="dropdown-item" href="#">Eisen</a> 
@@ -35,7 +35,7 @@
                        		</div>
             			</div>
             			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">중요도</button>
+                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">중요도</button>
                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
 	                           	<a class="dropdown-item" href="#">Robin</a> 
 	                           	<a class="dropdown-item" href="#">Eisen</a> 
@@ -43,7 +43,7 @@
                        		</div>
             			</div>
             			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">라벨</button>
+                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">라벨</button>
                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
 	                           	<a class="dropdown-item" href="#">Robin</a> 
 	                           	<a class="dropdown-item" href="#">Eisen</a> 
@@ -51,7 +51,7 @@
                        		</div>
             			</div>
             			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">마일스톤</button>
+                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">마일스톤</button>
                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
 	                           	<a class="dropdown-item" href="#">Robin</a> 
 	                           	<a class="dropdown-item" href="#">Eisen</a> 
@@ -59,7 +59,7 @@
                        		</div>
             			</div>
             			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">담당자</button>
+                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">담당자</button>
                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
 	                           	<a class="dropdown-item" href="#">Robin</a> 
 	                           	<a class="dropdown-item" href="#">Eisen</a> 
@@ -67,7 +67,7 @@
                        		</div>
             			</div>
             			<div class="dropdown col-md-1">
-                           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">정렬</button>
+                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">정렬</button>
                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
 	                           	<a class="dropdown-item" href="#">최신순</a> 
 	                           	<a class="dropdown-item" href="#">오래된순</a> 
@@ -78,8 +78,8 @@
            		<div id = "issuelist"></div>
            		<div class="issue-footer">
            			<div class="row">
-	           			<div class="col-md-10"></div>
-	           			<div class="col-md-2">
+	           			<div class="col-md-11"></div>
+	           			<div class="col-md-1">
 		           			<button type="button" class="btn mb-1 btn-success">이슈등록</button>
 	           			</div>
            			</div>
@@ -105,14 +105,14 @@
 		<div class="issue-title col-md-5">                                                              
 			<span></span>                                                            
 		</div>                                                                                          
-	    <div class="col-md-1">                                                                  
-			<img src="/gaia/resources/assets/images/user/1.png" height="40" width="40" alt="">      
+	    <div class="issue-writer col-md-1">                                                                  
+			<img src="" alt="">      
 		</div>                                                                                      
 	    <div class="priority col-md-1"></div>                                                       
-		<div class="label col-md-1"></div>                                                           
+		<div class="issue-label col-md-1"></div>                                                           
 		<div class="milestone col-md-1"></div>                                                        
-		<div class="assignee col-md-1">                                                                      
-			<img src="" height="40" width="40" alt="">      
+		<div class="issue-assignee col-md-1">                                                                      
+			<img src="" alt="">      
 		</div>                                                                                      
 		<div class="reply col-md-1">
 			<i class="icon-bubbles icons"></i>
@@ -137,9 +137,10 @@
 							let issueBox = $('#issue-template').children('.issueBox').clone();
 							issueBox.children('.issue-title').text(v.issue_title);
 							issueBox.children('.priority').text('즉시');
-							issueBox.children('.label').text('할일');
+							issueBox.children('.issue-label').text('할일');
 							issueBox.children('.milestone').text('설계구현');
-							issueBox.children('.assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
+							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
+							issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
 							issueBox.children('.reply').children('span').text('3');
 							
 							$('#issuelist').append(issueBox);

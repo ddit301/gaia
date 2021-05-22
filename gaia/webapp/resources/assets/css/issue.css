@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .issue-header{
-	background-color : #888888;
+	background-color : #FFFFFF;
 	color : black;
 	margin-bottom : 20px;
 	height : 60px;
@@ -8,12 +8,12 @@
 .issue-header div{
 	padding-top : 10px;
 }
-.issue-title{
-	height : 50px;
-}
 .issueBox{
-	background-color : #DD9999;
+	background-color : #FFFFFF;
 	margin : 2px;
+	padding-top : 25px;
+	height : 70px;
+	color : black;
 }
 .issue-footer{
 	margin-top : 20px;
@@ -21,4 +21,9 @@
 #issuelist{
     margin-right: -15px;
     margin-left: -15px;
+}
+.issue-writer, .issue-assignee{
+	margin-top : -15px;
+	height : 30px;
+	width : 30px;
 }
