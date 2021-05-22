@@ -27,24 +27,32 @@
 	height : 30px;
 	width : 30px;
 }
-.issue-title a{
-	font-weight : bold;
-}
-.issue-title span{
-	font-size : 1.5em;
+
+.menulist{
+	padding-right : 0px;
 }
 .menulist .menuBox{
 	background-color : #FFFFFF;
 	font-size : 1.5em;
-	padding : 5px;
+	margin-top : 10px;
+	width : 100%;
+}
+.menulist .menuBox p{
+	margin-bottom : 0px;
+}
+.menulist .menuBox img{
+	width : 50px;
+	height : 50px;
+	
 }
 .menulist .menuBox i{
 	float : right;
 	margin-right : 10px;
+	margin-top: 30px;
 }
 .issue-title{
 	background-color : #FFFFFF;
-	margin-top : 20px;
+	margin-top : 0px;
     margin-right: 0px;
     margin-left: -0px;
 }
@@ -52,14 +60,63 @@
 	float : right;
 	font-size : 2.0em;
 }
-.issue-title .namefield{
+.issue-title a{
+	font-weight : bold;
+}
+.issue-title span{
 	font-size : 1.5em;
 }
-
-
-
-
-
+.issue-title .namefield{
+	font-size : 1.5em;
+	font-weight : bold;
+}
+.issue-title i{
+	font-size : 1.5em;
+	font-weight : bold;
+	margin-top : 10px;
+}
+.issue-body .col-md-9{
+	padding-top : 30px;
+}
+.issue-reply{
+	padding-left : 20px;
+	margin-bottom : 20px;
+}
+.issue-reply i{
+	float : right;
+}
+.rep-right{
+	background-color : white;
+	margin-left : 30px;
+	padding-left : 0px;
+	padding-right : 0px;
+}
+.rep-right .repHeader, .repBody{
+	padding : 10px;
+}
+.rep-right .repHeader{
+	background-color : #F7F7F7;
+}
+.rep-right .repBody{
+	background-color : #FFFFFF;
+}
+.rep-right .repBody textarea{
+	width : 100%;
+}
+.issue-change img{
+	width : 30px;
+	height : 30px;
+	margin-right : 10px;
+}
+.issue-change i{
+	padding-left : 30px;
+}
+.repWrite{
+	margin-top : 30px;
+}
+.repWrite .repFoot{
+	float : right;
+}
 
 
 
