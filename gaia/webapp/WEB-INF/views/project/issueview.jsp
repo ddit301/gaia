@@ -37,7 +37,7 @@
 		            		<div class="rep-right col-md-10">
             					<div class="repHeader">
 		            				<span>Shane commented 8 days ago</span>
-		            				<i class="icon-note menu-icon"></i>
+		            				<i class="icon-options menu-icon"></i>
 		            			</div>
 		            			<div class="repBody">
 		            				유스 케이스 정의서 문서 작업 해주세요!<br>해줘요!!<br>빨리!!
@@ -51,7 +51,7 @@
 		            		<div class="rep-right col-md-10">
             					<div class="repHeader">
 		            				<span>Shane commented 8 days ago</span>
-		            				<i class="icon-note menu-icon"></i>
+		            				<i class="icon-options menu-icon"></i>
 		            			</div>
 		            			<div class="repBody">
 		            				유스 케이스 정의서 문서 작업 해주세요!<br>해줘요!!<br>빨리!!
@@ -76,6 +76,20 @@
             				<div class="col-md-6">
             					<img src="/gaia/resources/assets/images/user/1.png" alt="">
             					Shane 이 중요도를 급함 으로 변경함
+            				</div>
+            			</div>
+            			<div class="issue-reply row">
+		            		<div class="col-md-1">
+		            			<img src="/gaia/resources/assets/images/user/2.png" alt="">
+		            		</div>
+		            		<div class="rep-right col-md-10">
+            					<div class="repHeader">
+		            				<span>Shane commented 8 days ago</span>
+		            				<i class="icon-options menu-icon"></i>
+		            			</div>
+		            			<div class="repBody">
+		            				유스 케이스 정의서 문서 작업 해주세요!<br>해줘요!!<br>빨리!!
+		            			</div>
             				</div>
             			</div>
            				<div class="repWrite issue-reply row">
