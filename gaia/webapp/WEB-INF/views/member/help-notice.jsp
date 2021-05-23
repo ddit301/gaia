@@ -16,7 +16,7 @@
 	</div>
 </div>
 <div class="container-fluid">
-<h4>help</h4>
+<h4>help-notice</h4>
 조회중인 회원명 : ${mem_nick }<br/>
 </div>
 <!-- #/ container -->
