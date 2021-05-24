@@ -82,23 +82,7 @@
 	    <artifactId>jstl</artifactId>
 	    <version>1.2</version>
 	</dependency>
-  	
-  	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
-	<dependency>
-	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-starter-data-jpa</artifactId>
-	    <exclusions>
-			<exclusion>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-logging</artifactId>
-			</exclusion>
-		</exclusions>
-	    <version>2.4.6</version>
-	</dependency>
-	  	
-	
 
-  	
   	<!--  DATABASE CONNECT RELATED -->
  	<dependency>
   		<groupId>com.oracle</groupId>

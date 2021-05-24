@@ -95,6 +95,17 @@ public class APILoginController {
 	
 	
 	// github login
+	@RequestMapping("/signout/success")
+	public String logOut(HttpSession session) throws Exception {
+		if(session.isNew()) {
+			return "redirect:/";
+		} else {
+			return "member/overview";
+		}
+		
+	}
+	
+	// github login
 	@RequestMapping("/oauth/github")
 	public String githubLogin(@RequestParam(value = "code", required = false) String code, @RequestParam(value="scope", required = false) String scope) throws Exception {
         String access_Token = kakaoService.getAccessToken(code);

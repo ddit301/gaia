@@ -18,43 +18,43 @@ public class MemberServiceImpl implements MemberService{
 	@Inject
 	private MemberDao dao;
 
-	@Override
-	public ServiceResult authenticate(MemberVO user) {
-		MemberVO savedUser = dao.selectUser(user.getMem_id());
-		ServiceResult result = null;
-		if(savedUser != null) {
-			String inputPass = user.getMem_pass();
-			try {
-				String encodedPass = inputPass; // do not encrypt as column size is too small
-				String savedPass = savedUser.getMem_pass();
-				if(savedPass.equals(encodedPass)) {
-					try {
-						BeanUtils.copyProperties(user, savedUser);
-					} catch (IllegalAccessException | InvocationTargetException e) {
-						e.printStackTrace();
-					}
-					result = ServiceResult.OK;
-				}else {
-					result = ServiceResult.INVALIDPASSWORD;
-				}
-			}catch (Exception e) {
-				result = ServiceResult.FAIL;
-			}
-		}else {
-			result = ServiceResult.NOTEXIST;
-		}
-		return result;
-	}
-
-	@Override
-	public List<MemberVO> selectUserList() {
-		return dao.selectUserList();
-	}
-
-	@Override
-	public MemberVO selectUser(String user_id) {
-		return dao.selectUser(user_id);
-	}
+//	@Override
+//	public ServiceResult authenticate(MemberVO user) {
+//		MemberVO savedUser = dao.selectUser(user.getMem_id());
+//		ServiceResult result = null;
+//		if(savedUser != null) {
+//			String inputPass = user.getMem_pass();
+//			try {
+//				String encodedPass = inputPass; // do not encrypt as column size is too small
+//				String savedPass = savedUser.getMem_pass();
+//				if(savedPass.equals(encodedPass)) {
+//					try {
+//						BeanUtils.copyProperties(user, savedUser);
+//					} catch (IllegalAccessException | InvocationTargetException e) {
+//						e.printStackTrace();
+//					}
+//					result = ServiceResult.OK;
+//				}else {
+//					result = ServiceResult.INVALIDPASSWORD;
+//				}
+//			}catch (Exception e) {
+//				result = ServiceResult.FAIL;
+//			}
+//		}else {
+//			result = ServiceResult.NOTEXIST;
+//		}
+//		return result;
+//	}
+//
+//	@Override
+//	public List<MemberVO> selectUserList() {
+//		return dao.selectUserList();
+//	}
+//
+//	@Override
+//	public MemberVO selectUser(String user_id) {
+//		return dao.selectUser(user_id);
+//	}
 
 	@Override
 	public int enrollMember(MemberVO member) {
