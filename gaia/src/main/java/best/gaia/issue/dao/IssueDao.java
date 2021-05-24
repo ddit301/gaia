@@ -14,6 +14,12 @@ public interface IssueDao {
 	
 	/**
 	 * @param pagingVO
+	 * @return issue count
+	 */
+	public int selectIssueCount(PagingVO<IssueVO> pagingVO);
+	
+	/**
+	 * @param pagingVO
 	 * @return issue list
 	 */
 	public List<IssueVO> selectIssueList(PagingVO<IssueVO> pagingVO);
