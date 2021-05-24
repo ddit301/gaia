@@ -6,9 +6,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -20,14 +17,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import best.gaia.member.service.MemberService;
-import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.member.service.IMemberService;
 import best.gaia.vo.KakaoService;
 import best.gaia.vo.MemberVO;
 
@@ -35,7 +30,7 @@ import best.gaia.vo.MemberVO;
 public class APILoginController {
 	
 	@Inject
-	private MemberService service;
+	private IMemberService service;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
