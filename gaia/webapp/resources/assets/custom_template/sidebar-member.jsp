@@ -58,13 +58,17 @@
 	            <a class="moveButton" data-menu="help" href="javascript:void()" aria-expanded="false">
 	                <i class="icon-envelope menu-icon"></i> <span class="nav-text">Help</span>
 	            </a>
+	            <ul aria-expanded="false">
+	                <li><a class="moveButton" data-menu="help-contact" href="javascript:void()" >contact</a></li>
+	                <li><a class="moveButton" data-menu="help-FAQ" href="javascript:void()">FAQ</a></li>
+	                <li><a class="moveButton" data-menu="help-notice" href="javascript:void()">notice</a></li>
+	            </ul>
 	        </li>
 	        <li>
 	            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
 	                <i class="icon-envelope menu-icon"></i> <span class="nav-text">Settings</span>
 	            </a>
 	            <ul aria-expanded="false">
-	                <li><a class="moveButton" data-menu="setting-activity" href="javascript:void()" >activity</a></li>
 	                <li><a class="moveButton" data-menu="setting-new" href="javascript:void()">new</a></li>
 	                <li><a class="moveButton" data-menu="setting-setting" href="javascript:void()">setting</a></li>
 	            </ul>
