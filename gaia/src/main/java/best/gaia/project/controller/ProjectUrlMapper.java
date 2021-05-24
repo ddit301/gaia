@@ -17,7 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.service.ProjectService;
 @Controller
 @RequestMapping("{manager_nick:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
-public class ProjectTestController {
+public class ProjectUrlMapper {
 	
 	@Inject
 	private ProjectService service;
@@ -30,7 +30,7 @@ public class ProjectTestController {
 		application = container.getServletContext();
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(ProjectTestController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProjectUrlMapper.class);
 
 	
 @RequestMapping(value = {"","{pageParam}"})

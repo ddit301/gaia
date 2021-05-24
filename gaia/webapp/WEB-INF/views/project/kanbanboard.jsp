@@ -35,9 +35,9 @@
 /*
  * 마우스 드래그에 대한 함수입니다.
  */
-let cards = document.getElementsByClassName("kanbanCard");
-for(var i in cards){
-	dragElement(cards[i]);
+kanbanCards = document.getElementsByClassName("kanbanCard");
+for(var i in kanbanCards){
+	dragElement(kanbanCards[i]);
 }
 
 function dragElement(elmnt) {
