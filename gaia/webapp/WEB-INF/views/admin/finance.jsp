@@ -13,112 +13,9 @@
                 <h1 class="module-title font-alt">결제내역</h1>
               </div>
             </div>
-            <hr class="divider-w pt-20">
-            <div class="row">
-              <div class="col-sm-12">
-                <table class="table table-striped table-border checkout-table">
-                  <tbody>
-                    <tr class="navbar-custom">
-                      <th><i class="fa fa-check-square-o"></i></th>
-                      <th  class="dropdown">
-                      	<a class="dropdown-toggle" href="#" data-toggle="dropdown">프로젝트 SID</a>
-                      	<ul class="dropdown-menu">
-                      		<li>1 li</li>
-                      		<li>2 li</li>
-                      	</ul>
-                      </th>
-                      <th>회원 SID</th>
-                      <th>결제일</th>
-                      <th>구독 시작일</th>
-                      <th>구독 만료일</th>
-                      <th>결제 상세 정보</th>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>
-<!--                         <a href="#"><img src="main/images/shop/product-14.jpg" alt="Accessories Pack"/></a> -->
- 						<h5 class="product-title font-alt">the gom</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">123465</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td class="pr-remove"><a href="#" title="Remove">상세 정보 보기</a></td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>
-<!--                         <a href="#"><img src="main/images/shop/product-14.jpg" alt="Accessories Pack"/></a> -->
- 						<h5 class="product-title font-alt">the bromin</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">7894562</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td class="pr-remove"><a href="#" title="Remove">상세 정보 보기</a></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="form-group">
-                  <input class="form-control" type="text" id="" name="" placeholder="Coupon code"/>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="form-group">
-                  <button class="btn btn-round btn-g" type="submit">Apply</button>
-                </div>
-              </div>
-              <div class="col-sm-3 col-sm-offset-3">
-                <div class="form-group">
-                  <button class="btn btn-block btn-round btn-d pull-right" type="submit">Update Cart</button>
-                </div>
-              </div>
-            </div>
+           
             <hr class="divider-w">
-            <div class="row mt-70">
-              <div class="col-sm-5 col-sm-offset-7">
-                <div class="shop-Cart-totalbox">
-                  <h4 class="font-alt">Cart Totals</h4>
-                  <table class="table table-striped table-border checkout-table">
-                    <tbody>
-                      <tr>
-                        <th>Cart Subtotal :</th>
-                        <td>40.00</td>
-                      </tr>
-                      <tr>
-                        <th>Shipping Total :</th>
-                        <td>2.00</td>
-                      </tr>
-                      <tr class="shop-Cart-totalprice">
-                        <th>Total :</th>
-                        <td>42.00</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <button class="btn btn-lg btn-block btn-round btn-d" type="submit">Proceed to Checkout</button>
-                </div>
-              </div>
-            </div>
+            
             
             
             
@@ -153,16 +50,16 @@
             
             
             				<div class="card-body">
-                                <h4 class="card-title">Data Table</h4>
+                                <h4 class="card-title"> </h4>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
-                                                <th>프로젝트 SID</th>
-                                                <th>회원 SID</th>
-                                                <th>결제일<input type="date" class='date enchilada'></th>
-                                                <th>구독 시작일<input type="date" class='date enchilada'></th>
-                                                <th>구독 만료일<input type="date"></th>
+                                                <th>프로젝트 SID  <i class="fa  fa-angle-down"></i></th>
+                                                <th>회원 SID  <i class="fa fa-angle-down"></i></th>
+                                                <th>결제일<input type="date" class='date enchilada'>  <i class="fa fa-calendar"></i></th>
+                                                <th>구독 시작일<input type="date" class='date enchilada'>  <i class="fa fa-calendar"></i></th>
+                                                <th>구독 만료일<input type="date">  <i class="fa fa-calendar"></i></th>
                                                 <th>결제 상세 정보</th>
                                             </tr>
                                         </thead>

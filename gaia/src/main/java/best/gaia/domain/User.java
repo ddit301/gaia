@@ -1,21 +1,33 @@
-package best.gaia.vo;
+package best.gaia.domain;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@Entity
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MemberVO implements UserDetails, Serializable{
+@ToString
+public class User implements UserDetails, Serializable{
+
+
+	private static final long serialVersionUID = 5444433816838838290L;
 	
+	@Id @GeneratedValue
 	private int mem_no;             //회원 번호
 	private String mem_id;          //회원 아이디(이메일)
 	private String mem_pass;        //회원 비밀번호
@@ -75,7 +87,7 @@ public class MemberVO implements UserDetails, Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MemberVO other = (MemberVO) obj;
+		User other = (User) obj;
 		if (mem_no != other.mem_no)
 			return false;
 		if (mem_pass == null) {
