@@ -21,7 +21,7 @@
               <div class="col-sm-6 col-sm-offset-3 mb-sm-40">
                 <h4 class="font-alt">Register</h4>
                 <hr class="divider-w mb-10">
-                <form class="form">
+                <form class="form" method="post" action="${pageContext.request.contextPath }/signin/signinCheck">
                   <div class="form-group">
                     <input class="form-control" id="username" type="text" name="username" placeholder="Username"/>
                   </div>
@@ -35,10 +35,10 @@
                     <button class="btn btn-block btn-round btn-b" onclick="()"><i class="fa fa-github"></i> Login with Github</button>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-block btn-round btn-b" onclick="githubLogin()"><i class="fa fa-google"></i> Login with Google</button>
+                    <button class="btn btn-block btn-round btn-b" id="GgCustomLogin" onclick="githubLogin();"><i class="fa fa-google"></i> Login with Google</button>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-block btn-round btn-b" onclick="kakaoLogin()"><i class="fa fa-comment-o"></i> Login with Kakao</button>
+                    <button class="btn btn-block btn-round btn-b" onclick="alert('aaaa');kakaoLogin();"><i class="fa fa-comment-o"></i> Login with Kakao</button>
                   </div>
                 </form>
               </div>
@@ -50,6 +50,10 @@
     JavaScripts
     =============================================
     -->
+    
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+    
     <script src="/gaia/resources/main/lib/jquery/dist/jquery.js"></script>
     <script src="/gaia/resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/gaia/resources/main/lib/wow/dist/wow.js"></script>

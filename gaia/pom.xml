@@ -96,18 +96,7 @@
 	    <version>2.4.6</version>
 	</dependency>
 	  	
-	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
-	<dependency>
-	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-starter-thymeleaf</artifactId>
-	    <exclusions>
-	    	<exclusion>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-logging</artifactId>
-			</exclusion>
-		</exclusions>
-	    <version>2.4.5</version>
-	</dependency>
+	
 
   	
   	<!--  DATABASE CONNECT RELATED -->
@@ -329,6 +318,9 @@
 	    <version>4.2.13.RELEASE</version>
 	</dependency>
 
+	
+
+	
 		
   </dependencies>
 </project>

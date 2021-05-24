@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -41,13 +42,14 @@ public class KakaoService {
 		String access_Token = "";
 		String refresh_Token = "";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
-		String kakao_client_key = "db/signKey.properties";
+		String kakao_client_key = "a31ddbbfbc730c92670b6e2f2ead67b5";
+		String client_secret = "Q5MU08bdu0FzuBnwFb8sZ90miRDjfRlI";
 		Properties properties = new Properties();
 		
 
 		try {
-			Reader reader = Resources.getResourceAsReader(kakao_client_key);
-			properties.load(reader);
+//			Reader reader = Resources.getResourceAsReader(kakao_client_key);
+//			properties.load(reader);
 			URL url = new URL(reqURL);
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -59,7 +61,8 @@ public class KakaoService {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=").append(kakao_client_key);
-			sb.append("&redirect_uri=http://localhost/oauth");
+			sb.append("&client_secret=").append(client_secret);
+			sb.append("&redirect_uri=https://localhost/gaia/oauth/kakao");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
@@ -113,14 +116,20 @@ public class KakaoService {
 	
 	public HashMap<String, Object> getUserInfo(String access_Token) {
 
-		HashMap<String, Object> userInfo = new HashMap<>();
+		HashMap<String, Object> userInfo = null;
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
 			URL url = new URL(reqURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
 
 			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("secure_resource=true");
+			bw.write(sb.toString());
+			bw.flush();
 			
 			// standard response code
 			int responseCode = conn.getResponseCode();
@@ -145,22 +154,24 @@ public class KakaoService {
 			String line = "";
 			String result = "";
 
-			while ((line = br.readLine()) != null) {
-				result += line;
-			}
+//			while ((line = br.readLine()) != null) {
+//				result += line;
+//			}
+			ObjectMapper mapper = new ObjectMapper();
+			userInfo = mapper.readValue(br, HashMap.class);
 
-			JsonElement element = JsonParser.parseString(result).getAsJsonObject();
-
-			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
-			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
-			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-
-			userInfo.put("nickname", nickname);
-			userInfo.put("email", email);
-			userInfo.put("profile_image", profile_image);
+//			JsonElement element = JsonParser.parseString(result).getAsJsonObject();
+//
+//			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+//			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+//
+//			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+//			String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+//			String email = kakao_account.getAsJsonObject().get("email").getAsString();
+//
+//			userInfo.put("nickname", nickname);
+//			userInfo.put("email", email);
+//			userInfo.put("profile_image", profile_image);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
