@@ -13,16 +13,16 @@ import best.gaia.vo.PagingVO;
 public interface IssueDao {
 	
 	/**
-	 * @param issue_id
-	 * @return issue
-	 */
-	public IssueVO selectIssue(IssueVO search);
-	
-	/**
 	 * @param pagingVO
 	 * @return issue list
 	 */
 	public List<IssueVO> selectIssueList(PagingVO<IssueVO> pagingVO);
+	
+	/**
+	 * @param issue_id
+	 * @return issue
+	 */
+	public IssueVO selectIssue(IssueVO search);
 	
 	/**
 	 * @param issue
@@ -40,12 +40,20 @@ public interface IssueDao {
 	 * @param issue_id
 	 * @return affected rows count
 	 */
-	public int deleteIssue(String issue_id);
+	public int deleteIssue(IssueVO search);
 	
 	/**
 	 * @param pagingVO
 	 * @return MilestoneList
 	 */
 	public List<MilestoneVO> selectMilestoneList(PagingVO<MilestoneVO> pagingVO);
+	
+	public MilestoneVO selectMilestone(MilestoneVO search);
+	
+	public int insertMilestone(MilestoneVO milestone);
+	
+	public int updateMilestone(MilestoneVO milestone);
+	
+	public int deleteMilestone(MilestoneVO search);
 	
 }

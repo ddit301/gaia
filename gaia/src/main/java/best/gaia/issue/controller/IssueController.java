@@ -43,6 +43,21 @@ public class IssueController {
 		return service.selectIssueList(pagingVO);
 	}
 	
+	@RequestMapping(method=RequestMethod.POST)
+	public String insertIssue() {
+		return null;
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT)
+	public String updateIssue() {
+		return null;
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE)
+	public String deleteIssue() {
+		return null;
+	}
+	
 //	@RequestMapping(value="{issue_sid}", method=RequestMethod.GET)
 //	public IssueVO selectIssue(
 //				@PathVariable Integer issue_sid
