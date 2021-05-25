@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,21 +21,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberVO implements UserDetails, Serializable {
 
-	private int mem_no; // 회원 번호
-	@NotBlank
-	private String mem_id; // 회원 아이디(이메일)
-	@NotBlank
-	private String mem_pass; // 회원 비밀번호
-	@NotBlank
-	private String mem_nick; // 회원 닉네임
-	private String mem_tel; // 회원 전화번호
-	private String mem_pic_name; // 회원 프로필 사진 이름
-	private String mem_sign_date; // 회원 가입 일자
-	private String mem_secsn_date; // 회원 탈퇴 일자
-	private String mem_name; // 회원 이름
-	private String mem_bio; // 회원 자기소개 내용
-	private String mem_working_city;// 회원 근무 도시
-	private String mem_status; // 회원 상태
+	@NotNull @Min(0) private Integer mem_no;            // 회원 번호
+	@NotBlank@Size(max=200) private String mem_id;      // 회원 아이디(이메일)
+	@NotBlank@Size(max=1000) private String mem_pass;   // 회원 비밀번호
+	@NotBlank@Size(max=200) private String mem_nick;    // 회원 닉네임
+	@Size(max=100) private String mem_tel;              // 회원 전화번호
+	@Size(max=200) private String mem_pic_file_name;    // 회원 프로필 파일 이름
+	@Size(max=7) private String mem_sign_date;          // 회원 가입 일자
+	@Size(max=7) private String mem_quit_date;          // 회원 탈퇴 일자
+	@Size(max=200) private String mem_nm;               // 회원 이름
+	@Size(max=4000) private String mem_bio;             // 회원 자기소개 내용
+	@Size(max=200) private String mem_working_city;     // 회원 근무 도시
+	@Size(max=50) private String mem_status;          // 회원 상태
 	private List<GrantedAuthority> authorities;
 	private boolean enabled = mem_status.equals("ACTIVE") ? true : false;
 
@@ -95,10 +95,10 @@ public class MemberVO implements UserDetails, Serializable {
 		MemberVO other = (MemberVO) obj;
 		if (mem_no != other.mem_no)
 			return false;
-		if (mem_pass == null) {
-			if (other.mem_pass != null)
+		if (mem_id == null) {
+			if (other.mem_id != null)
 				return false;
-		} else if (!mem_pass.equals(other.mem_pass))
+		} else if (!mem_id.equals(other.mem_id))
 			return false;
 		return true;
 	}
@@ -108,7 +108,7 @@ public class MemberVO implements UserDetails, Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + mem_no;
-		result = prime * result + ((mem_pass == null) ? 0 : mem_pass.hashCode());
+		result = prime * result + ((mem_id == null) ? 0 : mem_id.hashCode());
 		return result;
 	}
 
