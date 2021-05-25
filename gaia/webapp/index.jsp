@@ -5,13 +5,14 @@
 <!--  Copyright (c) 2021 by Team SEED All right reserved-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <!DOCTYPE html>
 <html lang="UTF-8" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name ="google-signin-client_id" content="1033750193780-fvmn4gmbfnkd53av06di3cus2ri0j79c.apps.googleusercontent.com">
     <!--
     Document Title
     =============================================
@@ -86,10 +87,16 @@
             </ul>
             </div>
             <div class="space-between">
-           	<ul class="nav navbar-nav navbar-right
-           	">
+           	<ul class="nav navbar-nav navbar-right">
+           	<security:authorize access="!isAuthenticated()">
               <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signin');" data-toggle="">Sign in</a>
               </li>
+              </security:authorize>
+              <security:authorize access="isAuthenticated()">
+              <security:authentication property="principal" var="authUser"/>
+              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signin');" data-toggle="">${authUser.username }</a>
+              </li>
+              </security:authorize>
               <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signup');" data-toggle="">Sign up</a>
               </ul>
             </div>

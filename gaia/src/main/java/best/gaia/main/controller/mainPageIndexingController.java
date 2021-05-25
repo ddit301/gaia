@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.member.controller.LoginController;
-
 /**
  * 
  * @author Robin
@@ -61,12 +59,12 @@ public class mainPageIndexingController {
 	public String updatesPage() {
 		return "main/updates";
 	}
-	
+
 	@RequestMapping(value = "/signin")
 	public String loginPage() {
 		return "main/signin";
 	}
-	
+
 	@RequestMapping(value = "/signup")
 	public String logoutPage() {
 		return "main/signup";
@@ -76,5 +74,5 @@ public class mainPageIndexingController {
 	public String CSPage() {
 		return "main/CS";
 	}
-	
+
 }

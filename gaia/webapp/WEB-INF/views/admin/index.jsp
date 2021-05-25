@@ -61,6 +61,7 @@
     
     <!-- Main stylesheet and color file-->
     <link href="resources/main/css/style.css" rel="stylesheet">
+    <link href="resources/main/css/admin-style.css" rel="stylesheet">
     <link id="color-scheme" href="resources/main/css/colors/default.css" rel="stylesheet">
     <style type="text/css">
     .quesadilla{

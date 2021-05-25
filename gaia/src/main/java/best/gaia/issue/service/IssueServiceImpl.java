@@ -57,4 +57,34 @@ public class IssueServiceImpl implements IssueService {
 		return dao.selectMilestoneList(pagingVO);
 	}
 
+	@Override
+	public int selectMilestoneCount(PagingVO<MilestoneVO> pagingVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public MilestoneVO selectMilestone(MilestoneVO search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceResult insertMilestone(MilestoneVO milestone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceResult updateMilestone(MilestoneVO milestone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceResult deleteMilestone(MilestoneVO search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

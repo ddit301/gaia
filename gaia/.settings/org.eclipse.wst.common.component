@@ -9,7 +9,7 @@
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
                 
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/java"/>
+
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
                 
         <wb-resource deploy-path="/" source-path="/webapp" tag="defaultRootSource"/>
