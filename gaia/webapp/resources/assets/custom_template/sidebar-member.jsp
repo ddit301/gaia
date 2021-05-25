@@ -55,7 +55,7 @@
 	            </a>
 	        </li>
 	        <li>
-	            <a class="moveButton" data-menu="help" href="javascript:void()" aria-expanded="false">
+	            <a class="moveButton" href="javascript:void()" aria-expanded="false">
 	                <i class="icon-envelope menu-icon"></i> <span class="nav-text">Help</span>
 	            </a>
 	            <ul aria-expanded="false">
