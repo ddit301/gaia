@@ -7,7 +7,7 @@
 		WHERE MEM_EMAIL = #{mem_email}
 	</select>
 	
-	<select id="selectUserList" resultType="best.gaia.vo.MemberVO">
+	<select id="selectUserList" resultType="MemberVo">
 		SELECT *
 		FROM MEMBER
 	</select>
