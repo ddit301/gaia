@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.project.dao.ProjectDao">
-	<select id="projectSample"></select>
+	<select id="searchProjNumber" parameterType="java.util.Map" resultType="int">
+		SELECT PROJ_NO
+		FROM PROJECT 
+		    INNER JOIN MEMBER ON (PROJECT.MEM_NO = MEMBER.MEM_NO)
+		WHERE PROJ_TITLE =  #{proj_title}
+		    AND MEM_NICK = #{mem_nick}
+	</select>
 </mapper>

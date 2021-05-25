@@ -22,7 +22,7 @@
              <div class="container-fluid">
              	<div class="issue-title row">
             		<div class="namefield col-md-10">
-	            		<span >유스케이스 정의서 작성하기 #412</span>
+	            		<span ></span>
             		</div>
             		<div class="col-md-2">
             			<i class="icon-note menu-icon"></i>
@@ -30,67 +30,7 @@
             	</div>
             	<div class="issue-body row">
             		<div class="col-md-9">
-            			<div class="issue-reply row">
-		            		<div class="col-md-1">
-		            			<img src="/gaia/resources/assets/images/user/1.png" alt="">
-		            		</div>
-		            		<div class="rep-right col-md-10">
-            					<div class="repHeader">
-		            				<span>Shane commented 8 days ago</span>
-		            				<i class="icon-options menu-icon"></i>
-		            			</div>
-		            			<div class="repBody">
-		            				유스 케이스 정의서 문서 작업 해주세요!<br>해줘요!!<br>빨리!!
-		            			</div>
-            				</div>
-            			</div>
-            			<div class="issue-reply row">
-		            		<div class="col-md-1">
-		            			<img src="/gaia/resources/assets/images/user/2.png" alt="">
-		            		</div>
-		            		<div class="rep-right col-md-10">
-            					<div class="repHeader">
-		            				<span>Shane commented 8 days ago</span>
-		            				<i class="icon-options menu-icon"></i>
-		            			</div>
-		            			<div class="repBody">
-		            				유스 케이스 정의서 문서 작업 해주세요!<br>해줘요!!<br>빨리!!
-		            			</div>
-            				</div>
-            			</div>
-            			<div class="issue-change row">
-            				<div class="col-md-1"></div>
-            				<div class="col-md-1">
-            					<i class="icon-note menu-icon"></i>
-            				</div>
-            				<div class="col-md-6">
-            					<img src="/gaia/resources/assets/images/user/1.png" alt="">
-            					Shane Closed this 1 hour ago
-            				</div>
-            			</div>
-            			<div class="issue-change row">
-            				<div class="col-md-1"></div>
-            				<div class="col-md-1">
-            					<i class="icon-note menu-icon"></i>
-            				</div>
-            				<div class="col-md-6">
-            					<img src="/gaia/resources/assets/images/user/1.png" alt="">
-            					Shane 이 중요도를 급함 으로 변경함
-            				</div>
-            			</div>
-            			<div class="issue-reply row">
-		            		<div class="col-md-1">
-		            			<img src="/gaia/resources/assets/images/user/2.png" alt="">
-		            		</div>
-		            		<div class="rep-right col-md-10">
-            					<div class="repHeader">
-		            				<span>Shane commented 8 days ago</span>
-		            				<i class="icon-options menu-icon"></i>
-		            			</div>
-		            			<div class="repBody">
-		            				유스 케이스 정의서 문서 작업 해주세요!<br>해줘요!!<br>빨리!!
-		            			</div>
-            				</div>
+            			<div id="issue-body-cont">
             			</div>
            				<div class="repWrite issue-reply row">
 		            		<div class="col-md-1">
@@ -115,39 +55,33 @@
             			<div class="menuBox row">
 	            			<div class="col-md-10">
 		            			<p>담당자</p>
-		            			<p>
-			            			<img src="/gaia/resources/assets/images/user/1.png" alt="">
-			            			<span>Shane</span>
-			            		</p>
-		            			<p>
-			            			<img src="/gaia/resources/assets/images/user/2.png" alt="">
-			            			<span>Robin</span>
-			            		</p>
+		            			<div id="assignees">
+		            			</div>
 	            			</div>
 	           				<div class="col-md-2">
 		            			<i class="icon-settings menu-icon"></i>
 	           				</div>
 	           			</div>
            				<div class="menuBox row">
-            				<div class="col-md-10">
+            				<div id="milestone" class="col-md-10">
 		            			<p>마일스톤</p>
-		            			<span>설계구현</span>
+		            			<span></span>
             				</div>
             				<div class="col-md-2">
 		            			<i class="icon-settings menu-icon"></i>
             				</div>
             			</div>
             			<div class="menuBox row">
-            				<div class="col-md-10">
+            				<div id="label" class="col-md-10">
 		            			<p>라벨</p>
-		            			<span>할일</span>
+		            			<span></span>
             				</div>
             				<div class="col-md-2">
 		            			<i class="icon-settings menu-icon"></i>
             				</div>
             			</div>
-            				<div class="menuBox row">
-            				<div class="col-md-10">
+            			<div class="menuBox row">
+            				<div id="priority" class="col-md-10">
 		            			<p>중요도</p>
 		            			<span>즉시</span>
             				</div>
@@ -158,42 +92,100 @@
             		</div>
             	</div>
             </div>
+ 
+ <div id="issue-template" hidden="hidden" >
+ 	<!--  이슈 담당자 시작-->
+	<p>
+		<img src="/gaia/resources/assets/images/user/1.png" alt="">
+		<span></span>
+	</p>
+ 	<!--  이슈 담당자 끝-->
+	
+	<!--  이슈 댓글 시작-->
+	<div class="issue-reply row">
+		<div class="col-md-1">
+			<img src="/gaia/resources/assets/images/user/1.png" alt="">
+		</div>
+		<div class="rep-right col-md-10">
+			<div class="repHeader">
+				<span></span>
+				<span>commented 8 days ago</span>
+				<i class="icon-options menu-icon"></i>
+			</div>
+			<div class="repBody">
+			</div>
+		</div>
+	</div>
+	<!--  이슈 댓글 끝-->
+	
+	<!--  이슈 수정내역 시작-->
+	<div class="issue-change row">
+		<div class="col-md-1"></div>
+		<div class="col-md-1">
+			<i class="icon-note menu-icon"></i>
+		</div>
+		<div class="col-md-6">
+			<img src="/gaia/resources/assets/images/user/1.png" alt="">
+			<span></span>
+		</div>
+	</div>
+	<!--  이슈 수정내역 끝-->
+	
+</div>
             
             <script>
-//             	manager_nick = '${manager_nick }';
-//             	project_title = '${project_title }';
+            manager_nick = '${manager_nick}';
+            project_title = '${project_title}';
+            issue_no = '${issue_no}';
             	
-// 	            $.ajax({
-// 					url : '${cPath}/restapi/project/issue',
-// 					type : 'get',
-// 					data : {
-// 						//'manager_nick' : manager_nick
-// 					},
-// 					success : function(res) {
+	            $.ajax({
+					url : '${cPath}/restapi/project/issues/'+issue_no,
+					type : 'get',
+					data : {
+						'manager_nick' : manager_nick
+						,'project_title' : project_title
+					},
+					success : function(res) {
+						$('#assignees').empty();
+						$('#issue-body-cont').empty();
 						
-// 						$.each(res, function(i, v) {
-// 							let issueBox = $('#issue-template').children('.issueBox').clone();
-// 							issueBox.attr('issue_sid',v.issue_sid);
-// 							issueBox.children('.issue-title').text(v.issue_title);
-// 							issueBox.children('.priority').text('즉시');
-// 							issueBox.children('.issue-label').text('할일');
-// 							issueBox.children('.milestone').text('설계구현');
-// 							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
-// 							issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
-// 							issueBox.children('.reply').children('span').text('3');
-							
-// 							$('#issuelist').append(issueBox);
-// 						})
-						
-// 					},
-// 					error : function(xhr, error, msg) {
-// 						console.log(xhr);
-// 						console.log(error);
-// 						console.log(msg);
-// 					},
-// 					dataType : 'json'
-// 				})
-            </script>
+						$('.namefield').children('span').text(res.issue_title + ' #' + res.issue_no);
+						$('#milestone').children('span').text(res.milest_title);
+						$('#label').children('span').text(res.label_nm);
+						$('#priority').children('span').text(
+								res.priority == 1 ? '무시' :
+								res.priority == 2 ? '낮음' :
+								res.priority == 3 ? '보통' :
+								res.priority == 4 ? '높음' :
+								res.priority == 5 ? '긴급' : '즉시'
+							);
+						$.each(res.assigneeList, function(i,v){
+							let assigneeBox = $('#issue-template').children('p').clone();
+							assigneeBox.children('span').text(v.mem_nick);
+							$('#assignees').append(assigneeBox);
+						})
+						$.each(res.historyList, function(i,v){
+							let issue_history;
+							// 히스토리가 댓글일 경우와 댓글이 아닐 경우로 분기됩니다.
+							if(v.issue_his_type == 'RE'){
+								issue_history = $('#issue-template').children('.issue-reply').clone();
+								issue_history.find('.repHeader').children('span:first').text(v.his_writer_nick);
+								issue_history.find('.repBody').text(v.issue_his_cont);
+							}else{
+								issue_history = $('#issue-template').children('.issue-change').clone();
+								issue_history.find('span').text(v.issue_his_cont);
+							}
+							$('#issue-body-cont').append(issue_history);
+						})
+					},
+					error : function(xhr, error, msg) {
+						console.log(xhr);
+						console.log(error);
+						console.log(msg);
+					},
+					dataType : 'json'
+				})
+<!--             </script> -->
             
             
             

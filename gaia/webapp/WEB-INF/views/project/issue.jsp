@@ -106,7 +106,7 @@
 	<div class="issueBox row">                                                                                
 		<div class="col-md-1"></div>                                                                    
 		<div class="issue-title col-md-5">                                                              
-			<a class="moveButton" data-menu="issueview" href="javascript:void(0)"></a>                                                       
+			<a class="issueButton" href="javascript:void(0)"></a>                                                       
 		</div>                                                                                          
 	    <div class="issue-writer col-md-1">                                                                  
 			<img src="" alt="">      
@@ -138,7 +138,8 @@
 						
 						$.each(res, function(i, v) {
 							let issueBox = $('#issue-template').children('.issueBox').clone();
-							issueBox.attr('issue_no',v.issue_no);
+							issueBox.attr('data-issue_sid',v.issue_sid);
+							issueBox.attr('data-issue_no',v.issue_no);
 							issueBox.children('.issue-title').children('a').text(v.issue_title);
 							issueBox.children('.priority').text('즉시');
 							issueBox.children('.issue-label').text('할일');
@@ -158,6 +159,8 @@
 					},
 					dataType : 'json'
 				})
+				
+				
             </script>
             
             
