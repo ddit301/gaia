@@ -26,8 +26,8 @@
 				</div>
 		     	<div class="milestone-header">
 					<div class="mileston-chk">
-		     				<a class="btn mb-1 btn-flat btn-secondary" href="#">2 open</a>
-							<a class="btn mb-1 btn-flat btn-secondary" href="#">0 closed</a>
+		     				<a class="btn mb-1 btn-sm btn-secondary" href="#">2 Open</a>
+							<a class="btn mb-1 btn-sm btn-secondary" href="#">0 closed</a>
 					</div>
 		     	</div>
 		     	<div id="milestone-list"></div>

@@ -7,177 +7,185 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-            <div class="row page-titles mx-0">
-                <div class="col p-md-0">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li>
-                    </ol>
-                </div>
-            </div>
-            <!-- row -->
-
-     	<div class="container-fluid">
-		<h4>milestone :  ${manager_nick } / ${project_title }</h4>
-	</div>
-	
-		<div class="btn-body">
-			<a href="#" class="label label-info" style="float: right; margin-right: 5px;">New issue</a>
-			<a href="#"	class="label label-info" style="float: right; margin-right: 5px;">Edit milestone</a>
-		</div>
-		<br>
-		<br>
-	
-		<div class="table-list-cell milestone-title" style="background: white; padding:10px; margin:10px;">	
-				<div class="milestone-title" style="width:50%;float:left;box-sizing:border-box">
-					<h2 class="milestone-title-link">
-						<a href="#">설계 구현</a>
-					</h2>
+    
+    <link href="${cPath }/resources/assets/css/milestoneview.css" rel="stylesheet">
+    	<div class="container"> 
+	            <div class="row page-titles mx-0">
+	                <div class="col p-md-0">
+	                    <ol class="breadcrumb">
+	                        <li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li>
+	                        <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li>
+	                    </ol>
+	                </div>
+	            </div>
+	            <!-- row -->
+				<div class="milestoneview-btn">
+					<a href="#" class="label label-info">New issue</a>
+					<a href="#"	class="label label-info">Edit milestone</a>
 				</div>
-				<div class="milestone-bar" style="width:50%;float:right;box-sizing:border-box">
-					<div class="progress mb-3" style="height: 7px">
-						<div class="progress-bar gradient-1" style="width: 80%;"role="progressbar">
-					</div>	
-				</div>
-			</div>	
-			<br>
-			<div class="mt-4">
-				<h6>2020-05-04 ~ 2020-05-08</h6>
-					<h6>
-						<span class="pull-right">완성률 80%</span>
-					</h6>
-					<br>
-				</div>		
-			</div>
-			
-			<div class="table-list-cell milestone-title" style="background: white; padding:10px; margin:10px;">	
-				<div class="milestone-title" style="width:50%;float:left;box-sizing:border-box">
-					<h2 class="milestone-title-link">
-						<a href="#">착수발표</a>
-					</h2>
-				</div>
-				<div class="milestone-bar" style="width:50%;float:right;box-sizing:border-box">
-					<div class="progress mb-3" style="height: 7px">
-						<div class="progress-bar gradient-1" style="width: 50%;"role="progressbar">
-					</div>	
-				</div>
-			</div>	
-			<br> 
-			<div class="mt-4">
-				<h6>2020-05-09 ~ 2020-05-11</h6>
-					<h6>
-						<span class="pull-right">완성률 50%</span>
-					</h6>
-					<br>
-				</div>		
-			</div>
-			<div class="issue-dropdown-bar" style="background:gray; height:50px; margin:10px; padding:10px;">
-				<div class="issue-chk" style="float:left;">
-					<a class="btn mb-1 btn-flat btn-secondary" href="#">2 open</a>
-					<a class="btn mb-1 btn-flat btn-secondary" href="#">0 closed</a>
-				</div> 
-				
-					<div class="dropdown-btn" style="float:right; padding-right:5px;">	
-						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">담당자</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">Shane</a> 
-							<a class="dropdown-item" href="#">Robin</a> 
-							<a class="dropdown-item" href="#">Eisen</a>
+				<div id="milestoneview-template">
+					<div class="milestoneviewBox">	
+						<div class = "row">
+							<div class="milestoneview-title col-md-6">마일스톤을 클릭, 상세로 들어온 마일스톤 뷰 제목
+								<a class="moveButton" data-menu="milestoneview" href="javascript:void(0)"></a>    
+				            </div>                                                                                     
+							<div class="milestoneview-bar col-md-6">
+								<div class="progress mb-3">
+									<div class="progress-bar gradient-1" style=width:30%; role="progressbar">
+									</div>	
+								</div>
+							</div>	                                                                                         
+						</div>
+						<div class = "row">
+	                        <div class="milestoneview-date col-md-6">
+								<span>시작일 ~ 종료일</span>                            
+		                    </div>
+		                    <div class="milestoneview-percent col-md-6">
+		                        <span>30% complete 1 open 0 closed</span>
+		                    </div>                               
 						</div>
 					</div>
+				</div>
 					
-					<div class="dropdown-btn" style="float:right; padding-right:5px;">	
-								<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마일스톤</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">설계구현</a> 
-							<a class="dropdown-item" href="#">db설계</a> 
-							<a class="dropdown-item" href="#">REST API 구현</a>
+		
+				<div class="milestoneview-header">
+					<div class="milestone-issue-chk col-md-4">
+						<a class="btn mb-1 btn-sm btn-secondary" href="#">2 open</a>
+						<a class="btn mb-1 btn-sm btn-secondary" href="#">0 closed</a>
+					</div> 
+					<div class="milestone-dropdown-btn col-md-8">
+						<div class="dropdown-btn" style="float:right; padding-right:5px;">	
+							<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">정렬</button>
+							<div class="dropdown-menu" x-placement="bottom-start"
+								style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
+								<a class="dropdown-item" href="#">최신순</a> 
+								<a class="dropdown-item" href="#">오래된순</a> 
+								<a class="dropdown-item" href="#">댓글많은순</a>
+							</div>
 						</div>
-					</div>
 					
 						<div class="dropdown-btn" style="float:right; padding-right:5px;">	
-						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">라벨</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">버그</a> 
-							<a class="dropdown-item" href="#">문서</a> 
-							<a class="dropdown-item" href="#">처리완료</a>
+							<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">담당자</button>
+							<div class="dropdown-menu" x-placement="bottom-start"
+								style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
+								<a class="dropdown-item" href="#">Shane</a> 
+								<a class="dropdown-item" href="#">Robin</a> 
+								<a class="dropdown-item" href="#">Eisen</a>
+							</div>
 						</div>
-					</div>
-					
-					<div class="dropdown-btn" style="float:right; padding-right:5px;">	
-						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">중요도</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">무시</a> 
-							<a class="dropdown-item" href="#">낮음</a> 
-							<a class="dropdown-item" href="#">보통</a>
+
+						<div class="dropdown-btn" style="float:right; padding-right:5px;">	
+							<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">라벨</button>
+							<div class="dropdown-menu" x-placement="bottom-start"
+								style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
+								<a class="dropdown-item" href="#">버그</a> 
+								<a class="dropdown-item" href="#">문서</a> 
+								<a class="dropdown-item" href="#">처리완료</a>
+							</div>
 						</div>
-					</div>	
-					
-					<div class="dropdown-btn" style="float:right; padding-right:5px;">				
-						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">작성자</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">Shane</a> 
-							<a class="dropdown-item" href="#">Robin</a> 
-							<a class="dropdown-item" href="#">Eisen</a>
+						
+						<div class="dropdown-btn" style="float:right; padding-right:5px;">	
+							<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">중요도</button>
+							<div class="dropdown-menu" x-placement="bottom-start"
+								style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
+								<a class="dropdown-item" href="#">무시</a> 
+								<a class="dropdown-item" href="#">낮음</a> 
+								<a class="dropdown-item" href="#">보통</a>
+							</div>
+						</div>	
+						
+						<div class="dropdown-btn" style="float:right; padding-right:5px;">				
+							<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">작성자</button>
+							<div class="dropdown-menu" x-placement="bottom-start"
+								style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
+								<a class="dropdown-item" href="#">Shane</a> 
+								<a class="dropdown-item" href="#">Robin</a> 
+								<a class="dropdown-item" href="#">Eisen</a>
+							</div>
 						</div>
 					</div>
 				</div> 
+		
+				<div id="milestone-issuelist"></div>
+           		<div class="milestoneview-footer">
+           			<div>
+	           			<ul class="pagination justify-content-center">
+	                       <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">1</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">2</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">3</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">Next</a>
+	                       </li>
+	                   </ul>
+           			</div>
+           		</div>
+           	</div>
+				
 
-<!-- 			<div class="col-sm-12 col-md-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 11 to 20 of 57 entries</div></div> -->
-						<div class="issue-list-cell milestone-issue" style="background:white; display:inline-block; width:98%; padding:10px;margin:10px;">	
-							<div class="issue-title" style="float:left">
-								<h4 class="issue-title-link">
-									<a href="#">유스케이스 정의서 작성하기</a>
-								</h4>													
-							</div>
-							<div class="issue-member" style="float:right" style="margin:5px;">
-								<a class="issue-writer" href="#">Shane</a> &nbsp;	
-								<a class="issuepriority" href="#">즉시</a> &nbsp;	
-								<a class="issue-label" href="#">할일</a> &nbsp;	
-								<a class="issue-milestone" href="#">설계구현</a> &nbsp;	
-								<a class="issue-assignee" href="#">Shane</a> &nbsp;	
-								<a class="issue-assignee" href="#">Robin</a> &nbsp;	
-								<a class="issue-comment" href="#">댓글</a>		
-							</div>
-						</div>
-
-					<div class="issue-list-cell milestone-issue" style="background:white; display:inline-block; width:98%; padding:10px;margin:10px;">	
-							<div class="issue-title" style="float:left">
-								<h4 class="issue-title-link">
-									<a href="#">이슈 기능 구현하기</a>
-								</h4>													
-							</div>
-							<div class="issue-member" style="float:right" style="margin:5px;">
-								<a class="issue-writer" href="#">Eisen</a> &nbsp;	
-								<a class="issuepriority" href="#">보통</a> &nbsp;	
-								<a class="issue-label" href="#">할일</a> &nbsp;	
-								<a class="issue-milestone" href="#">설계구현</a> &nbsp;	
-								<a class="issue-assignee" href="#">Josh</a> &nbsp;	
-								<a class="issue-assignee" href="#">Shane</a> &nbsp;	
-								<a class="issue-comment" href="#">댓글</a>		
-							</div>
-						</div>
-							<div class="card-body">
-                                <div class="bootstrap-pagination">
-                                    <nav>
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
+			<div id="milestone-issue-template" hidden="hidden" >
+				<div class="issueBox row">                                                                                
+					<div class="col-md-1"></div>                                                                    
+					<div class="issue-title col-md-5">                                                              
+						<a class="moveButton" data-menu="issueview" href="javascript:void(0)"></a>                                                       
+					</div>  
+					<div class="col-md-1"></div>                                                                                          
+				    <div class="issue-writer col-md-1">                                                                  
+						<img src="" alt="">      
+					</div>                                                                                      
+				    <div class="priority col-md-1"></div>                                                       
+					<div class="issue-label col-md-1"></div>                                                           
+					<div class="issue-assignee col-md-1">                                                                      
+						<img src="" alt="">      
+					</div>                                                                                      
+					<div class="reply col-md-1">
+						<i class="icon-bubbles icons"></i>
+						<span></span>
+					</div>                                                            
+				</div>        
+			</div>
+            
+            <script>
+            	manager_nick = '${manager_nick }';
+            	project_title = '${project_title }';
+            	
+	            $.ajax({
+					url : '${cPath}/restapi/project/issues',
+					type : 'get',
+					data : {
+						//'manager_nick' : manager_nick
+					},
+					success : function(res) {
+						
+						$.each(res, function(i, v) {
+							let issueBox = $('#milestone-issue-template').children('.issueBox').clone();
+							issueBox.attr('issue_no',v.issue_no);
+							issueBox.children('.issue-title').children('a').text(v.issue_title);
+							issueBox.children('.priority').text('즉시');
+							issueBox.children('.issue-label').text('할일');
+							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
+							issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
+							issueBox.children('.reply').children('span').text('3');
+							
+							$('#milestone-issuelist').append(issueBox);
+						})
+						
+					},
+					error : function(xhr, error, msg) {
+						console.log(xhr);
+						console.log(error);
+						console.log(msg);
+					},
+					dataType : 'json'
+				})
+            </script>
+            
+            
+            
+            
+            
+          
 		
