@@ -139,7 +139,7 @@
             issue_no = '${issue_no}';
             	
 	            $.ajax({
-					url : '${cPath}/restapi/project/issues/'+issue_no,
+					url : getContextPath() + '/restapi/project/issues/'+issue_no,
 					type : 'get',
 					data : {
 						'manager_nick' : manager_nick
