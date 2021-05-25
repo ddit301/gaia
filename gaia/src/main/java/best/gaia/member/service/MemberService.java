@@ -3,7 +3,7 @@ package best.gaia.member.service;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.MemberVO;
 
-public interface IMemberService {
+public interface MemberService {
 
 	/**
 	 * 회원 정보 상세 조회

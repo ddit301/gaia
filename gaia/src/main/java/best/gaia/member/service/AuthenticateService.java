@@ -3,7 +3,7 @@ package best.gaia.member.service;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.MemberVO;
 
-public interface IAuthenticateService {
+public interface AuthenticateService {
 	/**
 	 * 인증 결과
 	 * 

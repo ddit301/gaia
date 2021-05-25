@@ -12,12 +12,12 @@ import best.gaia.vo.MemberVO;
 
 //import kr.or.ddit.utils.CryptoUtil;
 @Service
-public class MemberServiceImpl implements IMemberService {
+public class MemberServiceImpl implements MemberService {
 
 	@Inject
 	private MemberDao dao;
 	@Inject
-	private IAuthenticateService authService;
+	private AuthenticateService authService;
 
 	@Inject // shaPasswordEncoder를 받아야한다.
 	private PasswordEncoder encoder;
@@ -26,7 +26,7 @@ public class MemberServiceImpl implements IMemberService {
 	public MemberVO retrieveMember(String mem_id) {
 		MemberVO savedMember = dao.selectMemberDetail(mem_id);
 		if (savedMember == null) {
-			throw new RuntimeException("해당 이메일을 등록 회원이 존재하지 않음.");
+			throw new RuntimeException("해당 이메일을 등록한 회원이 존재하지 않음.");
 		}
 		return savedMember;
 	}
@@ -38,8 +38,8 @@ public class MemberServiceImpl implements IMemberService {
 			String inputPass = member.getMem_pass();
 			try {
 //				String encodedPass = CryptoUtil.sha512(inputPass);
-//				String encodedPass = encoder.encode(inputPass);
-				String encodedPass = BCrypt.hashpw(inputPass, BCrypt.gensalt(10));
+//				String encodedPass = BCrypt.hashpw(inputPass, BCrypt.gensalt(10));
+				String encodedPass = encoder.encode(inputPass);
 				member.setMem_pass(encodedPass);
 				int rowcnt = dao.insertMember(member);
 				if (rowcnt > 0) {
