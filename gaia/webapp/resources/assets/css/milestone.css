@@ -4,8 +4,8 @@
 	display: grid;
 }
 .milestone-header{
-	background-color : #FFFFFF;
-	height : 60px;
+	background-color : gray;
+	height : 50px;
 	margin : 2px;
 }
 .milestone-new-btn{
@@ -42,7 +42,7 @@
 .milestone-date{
 	height : 50px;
 	text-align: center;
-	line-height: 50px;
+/* 	line-height: 50px; */
 }
 .milestone-bar > div{
 	margin-top : 20px;
