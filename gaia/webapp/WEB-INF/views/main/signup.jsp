@@ -21,7 +21,7 @@
               <div class="col-sm-6 col-sm-offset-3 mb-sm-40">
                 <h4 class="font-alt">Register</h4>
                 <hr class="divider-w mb-10">
-                <form class="form">
+                <form class="form" method="post" action="${pageContext.request.contextPath }/signup">
                   <div class="form-group">
                     <input class="form-control" id="E-mail" type="text" name="email" placeholder="Email"/>
                   </div>

@@ -19,7 +19,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3 mb-sm-40">
-                <h4 class="font-alt">Register</h4>
+                <h4 class="font-alt">Sign in</h4>
                 <hr class="divider-w mb-10">
                 <form class="form" method="post" action="${pageContext.request.contextPath }/signin/signinCheck">
                   <div class="form-group">
