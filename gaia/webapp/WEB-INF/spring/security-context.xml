@@ -37,7 +37,7 @@
 			
 		/>
 		
-		<logout logout-url="/login/logout.do" logout-success-url="/" invalidate-session="true"/>
+		<logout logout-url="/signout" logout-success-url="/" invalidate-session="true"/>
 	
 
 

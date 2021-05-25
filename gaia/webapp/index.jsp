@@ -91,13 +91,13 @@
            	<security:authorize access="!isAuthenticated()">
               <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signin');" data-toggle="">Sign in</a>
               </li>
-              </security:authorize>
-              <security:authorize access="isAuthenticated()">
-              <security:authentication property="principal" var="authUser"/>
-              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signin');" data-toggle="">${authUser.username }</a>
-              </li>
-              </security:authorize>
               <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signup');" data-toggle="">Sign up</a>
+             </security:authorize>
+             <security:authorize access="isAuthenticated()">
+              <security:authentication property="principal" var="authUser"/>
+              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signout');" data-toggle="">${authUser.username } Sign out</a>
+              </li>
+             </security:authorize>
               </ul>
             </div>
           </div>
