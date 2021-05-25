@@ -7,13 +7,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+/**
+ * 
+ * @author Eisen
+ * @since May 24, 2021
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * Date         Modifier     Modification
+ * --------     --------    ----------------------
+ * May 24, 2021  Eisen    Initial Commit
+ * Copyright (c) 2021 by Team Gaia All right reserved
+ * </pre>
+ * .ajax로 호출할 메서드.
+ */
 @Controller
 @RequestMapping(value = "view/member/")
 public class MemberMenuController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberMenuController.class);
-	// ajax에서만 불러옴. 주소창에 직접 작성하지 않는다.
-	// 만약 주소창에 직접 작성한 경우??
 	@RequestMapping(value = "{menuname}")
 	public String menuMapper(
 			@PathVariable String menuname
