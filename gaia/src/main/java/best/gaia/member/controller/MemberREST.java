@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.member.service.IMemberService;
+import best.gaia.member.service.MemberService;
 import best.gaia.vo.MemberVO;
 
 @RestController
@@ -23,7 +23,7 @@ import best.gaia.vo.MemberVO;
 public class MemberREST {
 	
 	@Inject
-	private IMemberService service;
+	private MemberService service;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;

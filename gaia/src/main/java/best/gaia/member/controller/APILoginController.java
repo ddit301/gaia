@@ -22,7 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import best.gaia.member.service.IMemberService;
+import best.gaia.member.service.MemberService;
 import best.gaia.vo.KakaoService;
 import best.gaia.vo.MemberVO;
 
@@ -30,7 +30,7 @@ import best.gaia.vo.MemberVO;
 public class APILoginController {
 	
 	@Inject
-	private IMemberService service;
+	private MemberService service;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
@@ -81,8 +81,6 @@ public class APILoginController {
 //            "refresh_token_expires_in":25184000,
 //            "scope":"account_email profile"
 //        }
-        
-        
         
         return "redirect:/";
 	}
