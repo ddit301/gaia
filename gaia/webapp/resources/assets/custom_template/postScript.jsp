@@ -27,9 +27,41 @@
 		    }
 	 	})
 	 	
+	 	var issueView = function(issue_no){
+			let project_title = '${project_title}';
+			let manager_nick = '${manager_nick}';
+			
+			data = 'issueview';
+			title = '';
+			url = '${cPath}/${manager_nick}/${project_title}/issue/'+issue_no;
+			history.pushState(data, title, url);
+			
+			$.ajax({
+				url : '${cPath}/view/project/issueview'
+				,type : 'get'
+				,data : {
+					'manager_nick' : manager_nick
+					,'project_title' : project_title
+					,'issue_no' : issue_no
+					}
+				,success : function(res){
+					$('.content-body').html(res);
+				}
+				,error : function(xhr){
+					alert('error : ' + xhr.status);
+				},
+				dataType : 'html'
+			})
+		}
+	 	
 	 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.	
-		let pageParam = '${pageParam}'; 
-		movePageHistory(pageParam);
+		let pageParam = '${pageParam}';
+		let issue_no = '${issue_no}';
+		if(issue_no){
+			issueView(issue_no);
+		}else{
+			movePageHistory(pageParam);
+		}
 	 	
 	 	/********************************************************************
 	 	*
@@ -44,6 +76,13 @@
 				event.preventDefault();
 				let menuName = $(this).data('menu');
 				movePageHistory(menuName);
+			})
+							
+			// 특정 이슈 클릭시 불러오는 메서드
+			$('#main-wrapper').on('click', '.issueButton', function(){
+				event.preventDefault();
+				let issue_no = $(this).parents('.issueBox').data('issue_no');
+				issueView(issue_no);
 			})
 		
 		})

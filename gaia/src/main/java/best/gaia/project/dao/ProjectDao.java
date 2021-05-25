@@ -1,14 +1,17 @@
 package best.gaia.project.dao;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProjectDao {
 	
 	/**
-	 * dao-mapper 테스트 용 입니다. 메서드 추가할때 아래 Sample 메서드 삭제해주세요. 
-	 * .xml 에 있는 select sample 도 함께 삭제해주세요.
-	 * by shane
+	 * 프로젝트 생성자 닉네임과 프로젝트 이름으로 프로젝트 번호를 알아내는 함수입니다.
+	 * @param manager_nick
+	 * @param project_title
+	 * @return
 	 */
-	public String projectSample();
+	public int searchProjNumber(Map<String, String> map);
 }
