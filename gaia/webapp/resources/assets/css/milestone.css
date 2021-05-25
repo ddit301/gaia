@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+.container{
+	display: grid;
+}
+.milestone-header{
+	background-color : #FFFFFF;
+	height : 60px;
+	margin : 2px;
+}
+.milestone-new-btn{
+	margin-bottom : 10px;
+}
+.milestone-new-btn a{
+	float: right; 
+	margin-right: 5px;
+}
+.mileston-chk{
+	margin : 10px;
+}
+.milestoneBox{
+	background-color : #FFFFFF;
+	color : black;
+	margin-bottom : 10px;
+	height : 100px;
+}
+#milestone-list{
+    margin-top:10px;
+}
+.milestone-title{
+	text-align : center;
+	height : 50px;
+}
+.milestone-title a{
+	font-weight : bold;
+	font-size : 2.0em;
+	line-height: 50px;
+}
+.milestone-footer{
+	margin-top : 20px;
+}
+.milestone-date{
+	height : 50px;
+	text-align: center;
+	line-height: 50px;
+}
+.milestone-bar > div{
+	margin-top : 20px;
+	width: 90%; 
+	line-height: 50px;
+}
+.progress{
+	height: 10px;
+} 
+.milestone-percent span{
+	line-height: 50px;
+}
+
+
+
+
+
+
+
+
+
