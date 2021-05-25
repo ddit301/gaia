@@ -34,8 +34,8 @@
 	
 		<form-login login-page="/" 
 			login-processing-url="/signin/signinCheck"
-			username-parameter="username"
-			password-parameter="password"		
+			username-parameter="mem_id"
+			password-parameter="mem_pass"		
 			default-target-url="/"
 			
 		/>
