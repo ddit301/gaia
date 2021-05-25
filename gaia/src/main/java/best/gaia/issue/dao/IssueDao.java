@@ -1,6 +1,7 @@
 package best.gaia.issue.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -28,7 +29,7 @@ public interface IssueDao {
 	 * @param issue_id
 	 * @return issue
 	 */
-	public IssueVO selectIssue(IssueVO search);
+	public IssueVO selectIssue(Map<String, Object> search);
 	
 	/**
 	 * @param issue
