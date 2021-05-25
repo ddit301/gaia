@@ -12,6 +12,9 @@
 		c:strength="512"
 		p:encodeHashAsBase64="true"
 	/>
+	<beans:bean id="PasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" 
+		
+	/>
 	
 	<authentication-manager id="authenticationManager">
 <!-- 		<authentication-provider user-service-ref="authService"> -->
