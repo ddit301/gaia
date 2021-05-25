@@ -16,8 +16,22 @@ import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.service.ProjectService;
 
-//(?!admin)(?!view)(?!restapi) 다중뎁스.
-//나머지 0뎁
+/**
+ * 
+ * @author Eisen
+ * @since May 24, 2021
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * Date         Modifier     Modification
+ * --------     --------    ----------------------
+ * May 24, 2021  Eisen    Initial Commit
+ * Copyright (c) 2021 by Team Gaia All right reserved
+ * </pre>
+ * admin,view,restapi 다중뎁스.나머지 0뎁
+ */
+
 @Controller
 @RequestMapping(value = "{mem_nick:^(?:(?!admin$|restapi$|view$|intro$|demo$|sales$|updates$|signin$|signup$|CS$).)*}")
 public class MemberTestController {
