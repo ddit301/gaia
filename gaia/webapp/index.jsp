@@ -95,7 +95,7 @@
              </security:authorize>
              <security:authorize access="isAuthenticated()">
               <security:authentication property="principal" var="authUser"/>
-              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signout');" data-toggle="">${authUser.username } Sign out</a>
+              <li class=""><a class="" href="<%=request.getContextPath() %>/signout" data-toggle="">${authUser.username } Sign out</a>
               </li>
              </security:authorize>
               </ul>
