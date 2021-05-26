@@ -55,7 +55,7 @@ public interface IssueDao {
 	 */
 	public List<MilestoneVO> selectMilestoneList(PagingVO<MilestoneVO> pagingVO);
 	
-	public MilestoneVO selectMilestone(MilestoneVO search);
+	public MilestoneVO selectMilestone(Map<String, Object> search);
 	
 	public int insertMilestone(MilestoneVO milestone);
 	

@@ -56,6 +56,38 @@
 		 GROUP BY A.MILEST_TITLE, A.MILEST_START_DATE, A.MILEST_END_DATE, A.MILEST_NO
 	</select>
 	
+	<resultMap type="best.gaia.vo.MilestoneVO" id="milestoneMap" autoMapping="true">
+		<id property="milest_sid" column="MILEST_SID" />
+		<collection property="issueList" ofType="IssueVO" javaType="java.util.List" autoMapping="true">
+			<id property="issue_sid" column="ISSUE_SID"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectMilestone" parameterType="best.gaia.vo.MilestoneVO" resultMap="milestoneMap">
+		 SELECT DISTINCT A.MILEST_SID,A.PROJ_NO,A.MILEST_NO,
+		        A.MILEST_TITLE,A.MILEST_CONT,A.MILEST_DATE,
+		        TO_CHAR(A.MILEST_START_DATE,'YYYY-MM-DD') AS MILEST_START_DATE , TO_CHAR(A.MILEST_END_DATE,'YYYY-MM-DD') AS MILEST_END_DATE,A.MEM_NO AS MILESTONE_WRITER_NO,
+	            B.ISSUE_TITLE, B.ISSUE_NO,
+		        C.MEM_NICK AS MILESTONE_WRITER,
+		        D.MEM_NICK AS ISSUE_WRITER,
+		        BE.MEM_NICK AS ISSUE_ASSIGNEES,
+		        LABEL.LABEL_NM,
+		        F.ISSUE_HIS_CONT, F.ISSUE_HIS_DATE, F.ISSUE_HIS_TYPE, F.ATCH_FILE_SID
+		   FROM MILESTONE A
+			        LEFT OUTER JOIN ISSUE B ON (A.MILEST_SID = B.MILEST_SID)
+			        LEFT OUTER JOIN MEMBER C ON (A.MEM_NO = C.MEM_NO)
+			        LEFT OUTER JOIN MEMBER D ON (B.MEM_NO = D.MEM_NO)
+			        LEFT OUTER JOIN ISSUE_ASSIGNEE E ON(B.ISSUE_SID = E.ISSUE_SID)
+			        INNER JOIN MEMBER BE ON(BE.MEM_NO = E.MEM_NO)
+			        LEFT OUTER JOIN LABEL ON (B.PROJ_NO = LABEL.PROJ_NO AND B.LABEL_NO = LABEL.LABEL_NO)
+			        LEFT OUTER JOIN ISSUE_HISTORY F ON(B.ISSUE_SID = F.ISSUE_SID)
+			        INNER JOIN PROJECT ON (B.PROJ_NO = PROJECT.PROJ_NO)
+			        INNER JOIN MEMBER PM ON (PROJECT.MEM_NO = PM.MEM_NO)
+		  WHERE A.MILEST_NO = #{milest_no}  
+			       AND PM.MEM_NICK = #{mem_nick}
+			       AND PROJECT.PROJ_TITLE = #{proj_title}    
+	</select>
+	
 	
 	
 </mapper>

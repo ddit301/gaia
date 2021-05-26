@@ -26,22 +26,22 @@
 				<div id="milestoneview-template">
 					<div class="milestoneviewBox">	
 						<div class = "row">
-							<div class="milestoneview-title col-md-6">마일스톤을 클릭, 상세로 들어온 마일스톤 뷰 제목
-								<a class="moveButton" data-menu="milestoneview" href="javascript:void(0)"></a>    
+							<div class="milestoneview-title col-md-6">
+								<span></span>
 				            </div>                                                                                     
 							<div class="milestoneview-bar col-md-6">
 								<div class="progress mb-3">
-									<div class="progress-bar gradient-1" style=width:30%; role="progressbar">
+									<div class="progress-bar gradient-1" style=; role="progressbar">
 									</div>	
 								</div>
 							</div>	                                                                                         
 						</div>
 						<div class = "row">
 	                        <div class="milestoneview-date col-md-6">
-								<span>시작일 ~ 종료일</span>                            
+								<span></span>                            
 		                    </div>
 		                    <div class="milestoneview-percent col-md-6">
-		                        <span>30% complete 1 open 0 closed</span>
+		                        <span></span>
 		                    </div>                               
 						</div>
 					</div>
@@ -151,19 +151,31 @@
             <script>
             	manager_nick = '${manager_nick }';
             	project_title = '${project_title }';
+            	milest_no = '${milest_no}';
+				var open_count = 0;
+				var total_count = 0;
+				
             	
 	            $.ajax({
-					url : '${cPath}/restapi/project/issues',
-					type : 'get',
-					data : {
-						//'manager_nick' : manager_nick
+					url : getContextPath() + '/restapi/project/milestones/'+milest_no
+					,type : 'get'
+					,data : {
+						'manager_nick' : manager_nick
+						,'project_title' : project_title
 					},
 					success : function(res) {
+						$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
+						$('.milestoneview-date').children('span').text(res.milest_start_date+'~'+res.milest_end_date);
+	            		$('.progress-bar').attr('style','width: '+res.milest_percent+'%;');
+	            		$('.milestoneview-percent').children('span').text(res.milest_percent+'% complete 1 open 0 closed');
 						
-						$.each(res, function(i, v) {
+	            		total_count = Object.keys(res.issueList).length;
+	            		
+	            		
+						$.each(issueList, function(i, v) {
 							let issueBox = $('#milestone-issue-template').children('.issueBox').clone();
-							issueBox.attr('issue_no',v.issue_no);
-							issueBox.children('.issue-title').children('a').text(v.issue_title);
+							issueBox.attr('issue_no',issueList.issue_no);
+							issueBox.children('.issue-title').children('a').text(issueList.issue_title);
 							issueBox.children('.priority').text('즉시');
 							issueBox.children('.issue-label').text('할일');
 							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');

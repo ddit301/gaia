@@ -65,11 +65,11 @@ public class IssueServiceImpl implements IssueService {
 		return 0;
 	}
 
-	@Override
-	public MilestoneVO selectMilestone(MilestoneVO search) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public MilestoneVO selectMilestone(MilestoneVO search) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public ServiceResult insertMilestone(MilestoneVO milestone) {
@@ -87,6 +87,11 @@ public class IssueServiceImpl implements IssueService {
 	public ServiceResult deleteMilestone(MilestoneVO search) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public MilestoneVO selectMilestone(Map<String, Object> search) {
+		return dao.selectMilestone(search);
 	}
 
 

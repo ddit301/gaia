@@ -88,6 +88,7 @@
 						
 						$.each(res, function(i, v) {
 							let milestoneBox = $('#milestone-template').children('.milestoneBox').clone();
+							milestoneBox.attr('data-milest_no',v.milest_no);
 							milestoneBox.find('.milestone-title').children('a').text(v.milest_title);
 							milestoneBox.find('.milestone-date').children('span').text(v.milest_start_date+'~'+v.milest_end_date);
 							milestoneBox.find('.progress-bar').attr('style','width: '+v.milest_percent+'%;')
