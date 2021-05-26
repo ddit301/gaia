@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Retention(RetentionPolicy.RUNTIME)
 @ContextHierarchy({
 	@ContextConfiguration("file:webapp/WEB-INF/spring/*-context.xml")
-	, @ContextConfiguration("file:webapp/WEB-INF/spring/appServlet/servlet-context.xml")
+//	, @ContextConfiguration("file:webapp/WEB-INF/spring/appServlet/servlet-context.xml")
 })
 @WebAppConfiguration
 @Transactional

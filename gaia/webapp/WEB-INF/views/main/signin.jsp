@@ -29,7 +29,7 @@
                     <input class="form-control" id="password" type="password" name="mem_pass" placeholder="Password"/>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-block btn-round btn-b" onclick="()">Login</button>
+                    <button class="btn btn-block btn-round btn-b" type="submit">Login</button>
                   </div>
                   <div class="form-group">
                     <button class="btn btn-block btn-round btn-b" onclick="()"><i class="fa fa-github"></i> Login with Github</button>
@@ -38,7 +38,7 @@
                     <button class="btn btn-block btn-round btn-b" id="GgCustomLogin" onclick="githubLogin();"><i class="fa fa-google"></i> Login with Google</button>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-block btn-round btn-b" onclick="alert('aaaa');kakaoLogin();"><i class="fa fa-comment-o"></i> Login with Kakao</button>
+                    <button class="btn btn-block btn-round btn-b" onclick="kakaoLogin();"><i class="fa fa-comment-o"></i> Login with Kakao</button>
                   </div>
                 </form>
               </div>

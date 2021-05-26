@@ -22,8 +22,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import best.gaia.member.service.KakaoService;
 import best.gaia.member.service.MemberService;
-import best.gaia.vo.KakaoService;
 import best.gaia.vo.MemberVO;
 
 @Controller
@@ -54,10 +54,13 @@ public class APILoginController {
 	@RequestMapping("/oauth/kakao")
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, @RequestParam(value="scope", required = false) String scope) throws Exception {
         String access_Token = kakaoService.getAccessToken(code);
+        logger.info(access_Token);
+//        g08LwTOmoBUUBJT5-xNFMAIhOA7-SI_PKo8TlAo9dRsAAAF5omvkmg
         HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_Token);
+        
         Authentication authentication = new UsernamePasswordAuthenticationToken("admin", "admin");///
         Authentication newAuthentication = authenticationManager.authenticate(authentication);
-         SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 //        MemberVO member = mapper.convertValue(userInfo, MemberVO.class);
         
 //        <what u can get>

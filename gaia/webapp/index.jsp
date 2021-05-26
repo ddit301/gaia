@@ -87,15 +87,17 @@
             </ul>
             </div>
             <div class="space-between">
+            ${sessionScope }
            	<ul class="nav navbar-nav navbar-right">
            	<security:authorize access="!isAuthenticated()">
               <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signin');" data-toggle="">Sign in</a>
               </li>
               <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signup');" data-toggle="">Sign up</a>
+              
              </security:authorize>
              <security:authorize access="isAuthenticated()">
               <security:authentication property="principal" var="authUser"/>
-              <li class=""><a class="" href="<%=request.getContextPath() %>/signout" data-toggle="">${authUser.username } Sign out</a>
+              <li class=""><a class="" href="<%=request.getContextPath() %>/signout" data-toggle="">${authUser } Sign out</a>
               </li>
              </security:authorize>
               </ul>

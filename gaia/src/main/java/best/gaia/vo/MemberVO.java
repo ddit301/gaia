@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -32,9 +33,10 @@ public class MemberVO implements UserDetails, Serializable {
 	@Size(max=200) private String mem_nm;               // 회원 이름
 	@Size(max=4000) private String mem_bio;             // 회원 자기소개 내용
 	@Size(max=200) private String mem_working_city;     // 회원 근무 도시
-	@Size(max=50) private String mem_status;          // 회원 상태
+	@Size(max=50) private String mem_status;            // 회원 상태
 	private List<GrantedAuthority> authorities;
-	private boolean enabled = "ACTIVE".equals(mem_status) ? true : false;
+//	private boolean enabled = true;
+	private boolean enabled = StringUtils.isBlank(mem_quit_date) ? true : false;
 
 	public MemberVO(String mem_id, String mem_pass) {
 		super();
@@ -59,25 +61,25 @@ public class MemberVO implements UserDetails, Serializable {
 		// TODO Auto-generated method stub
 		return mem_id;
 	}
-
+///
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return enabled;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return enabled;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return enabled;
+		return true;
 	}
-
+////
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub

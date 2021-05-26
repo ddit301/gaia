@@ -1,4 +1,4 @@
-package best.gaia.vo;
+package best.gaia.member.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
