@@ -1,16 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.member.dao.MemberDao">
-	<select id="selectUser" parameterType="string" resultType="best.gaia.vo.MemberVO">
-		SELECT *
-		FROM MEMBER
-		WHERE MEM_EMAIL = #{mem_email}
+	<select id="selectMemberForAuth" parameterType="String" resultType="MemberVO">
+		SELECT MEM_NO, MEM_ID, MEM_PASS
+		FROM MEMBER                                      
+		WHERE MEM_ID = #{mem_id}  AND MEM_QUIT_DATE IS NULL
 	</select>
 	
-	<select id="selectUserList" resultType="best.gaia.vo.MemberVO">
+	<select id="selectMemberDetail" parameterType="String" resultType="MemberVO">
 		SELECT *
 		FROM MEMBER
 	</select>
 	
+	<insert id="insertMember" parameterType="MemberVO">
+		<selectKey resultType="int" keyProperty="mem_no" order="BEFORE">
+			SELECT MEM_SEQ.NEXTVAL
+			FROM DUAL
+		</selectKey>
+		INSERT INTO MEMBER (MEM_NO ,MEM_ID ,MEM_PASS ,MEM_NICK, MEM_SIGN_DATE, MEM_STATUS)
+		VALUES(#{mem_no},#{mem_id},#{mem_pass}, #{mem_nick}, SYSDATE, 'ACTIVE')
+	</insert>
+	
+	<update id="updateMember" parameterType="MemberVO">
+		UPDATE MEMBER
+			SET
+		<trim prefixOverrides=",">
+		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_nick)">
+		    , MEM_NICK = #{mem_nick}
+		    </if>
+		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_tel)">
+		    , mem_tel = #{mem_tel}
+		    </if>
+		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_pic_file_name)">
+		    , MEM_PIC_FILE_NAME = #{mem_pic_file_name}
+		    </if>
+		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_nm)">
+		    , MEM_NM = #{mem_nm}
+		    </if>
+		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_bio)">
+		    , MEM_BIO = #{mem_bio}
+		    </if>
+		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_working_city)">
+		    , MEM_WORKING_CITY = #{mem_working_city}
+		    </if>
+	    </trim>
+	        WHERE MEM_NO = #{mem_no}
+	</update>
+	
+	<update id="deleteMember" parameterType="Integer">
+<!-- 		 UPDATE MEMBER -->
+<!-- 		 	SET MEM_QUIT_DATE = SYSDATE -->
+<!-- 	        WHERE MEM_NO = #{mem_no} -->
+	</update>
 	
 </mapper>

@@ -1,4 +1,4 @@
-package best.gaia.admin.controller;
+package best.gaia.main.controller;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
-
-import best.gaia.main.controller.mainPageIndexingController;
 
 /**
  * 
@@ -29,7 +27,8 @@ import best.gaia.main.controller.mainPageIndexingController;
  */
 
 @Controller
-public class adminPageIndexingController {
+@RequestMapping("view")
+public class MainPageIndexingController {
 
 	@Inject
 	private WebApplicationContext container;
@@ -40,19 +39,41 @@ public class adminPageIndexingController {
 		application = container.getServletContext();
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(adminPageIndexingController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainPageIndexingController.class);
 
-	@RequestMapping(value = "/admin")
-	public String adminPage() {
-		return "admin/index";
+	@RequestMapping(value = "/intro")
+	public String introPage() {
+		return "main/intro";
 	}
-	@RequestMapping(value = "/admin/member")
-	public String memberListPage() {
-		return "admin/member";
+
+	@RequestMapping(value = "/demo")
+	public String demoPage() {
+		return "main/demo";
 	}
-	@RequestMapping(value = "/admin/finance")
-	public String projectPage() {
-		return "admin/finance";
+
+	@RequestMapping(value = "/sales")
+	public String salesPage() {
+		return "main/sales";
+	}
+
+	@RequestMapping(value = "/updates")
+	public String updatesPage() {
+		return "main/updates";
+	}
+
+	@RequestMapping(value = "/signin")
+	public String loginPage() {
+		return "main/signin";
+	}
+
+	@RequestMapping(value = "/signup")
+	public String logoutPage() {
+		return "main/signup";
+	}
+
+	@RequestMapping(value = "/CS")
+	public String CSPage() {
+		return "main/CS";
 	}
 
 }

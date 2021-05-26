@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService {
 	private AuthenticateService authService;
 
 	@Inject // shaPasswordEncoder를 받아야한다.
-	private PasswordEncoder encoder;
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public MemberVO retrieveMember(String mem_id) {
@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
 			try {
 //				String encodedPass = CryptoUtil.sha512(inputPass);
 //				String encodedPass = BCrypt.hashpw(inputPass, BCrypt.gensalt(10));
-				String encodedPass = encoder.encode(inputPass);
+				String encodedPass = passwordEncoder.encode(inputPass);
 				member.setMem_pass(encodedPass);
 				int rowcnt = dao.insertMember(member);
 				if (rowcnt > 0) {
@@ -59,7 +59,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ServiceResult modifyMember(MemberVO member) {
 		retrieveMember(member.getMem_id());
-		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
+		ServiceResult result= ServiceResult.OK; //인증 로직 
+//		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
 		if (ServiceResult.OK.equals(result)) {
 			int rowcnt = dao.updateMember(member);
 			if (rowcnt > 0) {
@@ -74,9 +75,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ServiceResult removeMember(MemberVO member) {
 		retrieveMember(member.getMem_id());
-		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
+		ServiceResult result= ServiceResult.OK; //인증 로직 
+//		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
 		if (ServiceResult.OK.equals(result)) {
-			int rowcnt = dao.deleteMember(member.getMem_id());
+			int rowcnt = dao.deleteMember(member.getMem_no());
 			if (rowcnt > 0) {
 				result = ServiceResult.OK;
 			} else {

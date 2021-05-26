@@ -1,6 +1,5 @@
-package best.gaia.member.controller;
+package best.gaia.project.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,23 +10,22 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.member.service.MemberService;
+import best.gaia.project.service.ProjectService;
 import best.gaia.vo.IssueVO;
-import best.gaia.vo.MemberVO;
+import best.gaia.vo.NewsVO;
+import best.gaia.vo.PagingVO;
 
 @RestController
-@RequestMapping(value="restapi/member/members", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class MemberREST {
+@RequestMapping(value="restapi/project/news", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+public class NewsREST {
 	
 	@Inject
-	private MemberService service;
+	private ProjectService service;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
@@ -37,39 +35,37 @@ public class MemberREST {
 		application = container.getServletContext();
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemberREST.class);
+	private static final Logger logger = LoggerFactory.getLogger(NewsREST.class);
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public List<MemberVO> selectMemberList() {
-		return null;
+	public List<NewsVO> selectNewsList() {
+		PagingVO<NewsVO> pagingVO = new PagingVO<>();
+		return service.selectNewsList(pagingVO);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public Map<String, Object> insertMember() {
+	public Map<String, Object> insertNews() {
 		return null;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public Map<String, Object> updateMember() {
+	public Map<String, Object> updateNews() {
 		return null;
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE)
-	public Map<String, Object> deleteMember() {
+	public Map<String, Object> deleteNews() {
 		return null;
 	}
 	
-
-	@RequestMapping(value="{mem_no}", method=RequestMethod.GET)
-	public MemberVO selectIssue(
-				@PathVariable Integer mem_no
-				,@RequestParam String manager_nick
-				,@RequestParam String project_title
-			) {
-		
-		
-		return null;
-	}
+//	@RequestMapping(value="{issue_sid}", method=RequestMethod.GET)
+//	public IssueVO selectIssue(
+//				@PathVariable Integer issue_sid
+//			) {
+//		IssueVO search = new IssueVO();
+//		search.setIssue_sid(issue_sid);
+//		return service.selectIssue(search);
+//	}
 	
 	
 	

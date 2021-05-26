@@ -17,5 +17,7 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
+	
+	<util:list id="userList" value-type="org.springframework.web.socket.WebSocketSession"/>
 
 </beans>
