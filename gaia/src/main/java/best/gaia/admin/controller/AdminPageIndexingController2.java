@@ -29,7 +29,7 @@ import best.gaia.main.controller.MainPageIndexingController;
  */
 
 @Controller
-public class adminPageIndexingController {
+public class AdminPageIndexingController2 {
 
 	@Inject
 	private WebApplicationContext container;
@@ -40,7 +40,7 @@ public class adminPageIndexingController {
 		application = container.getServletContext();
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(adminPageIndexingController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminPageIndexingController2.class);
 
 	@RequestMapping(value = "/admin")
 	public String adminPage() {
