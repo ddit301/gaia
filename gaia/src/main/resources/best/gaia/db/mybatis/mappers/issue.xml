@@ -13,30 +13,33 @@
 	</resultMap>
 	
 	<select id="selectIssue" parameterType="best.gaia.vo.IssueVO" resultMap="issueMap">
-select a.issue_sid, a.issue_no, a.label_no, label.label_nm
-        ,d.mem_no as writer_no, dm.proj_user_nick as writer_nick, d.mem_pic_file_name as writer_pic
-        ,a.milest_sid, a.proj_no, a.issue_title
-        ,a.issue_create_date, a.issue_start_date, a.issue_end_date
-        ,a.issue_status, a.priority, a.progress
-        ,c.mem_no, c.mem_id, cm.proj_user_nick as mem_nick, c.mem_pic_file_name
-        ,e.issue_his_no, e.issue_sid 
-        ,f.mem_no as his_writer_no
-        ,fm.proj_user_nick as his_writer_nick, f.mem_pic_file_name as his_writer_pic
-        , e.issue_his_cont, e.issue_his_date, e.issue_his_type, e.atch_file_no
-        ,g.milest_title
-from issue a
-    left outer join issue_assignee b on (a.issue_sid = b.issue_sid)
-    left outer join member c on (b.mem_no = c.mem_no)
-    left outer join proj_mem cm on (a.proj_no = cm.proj_no and c.mem_no = cm.mem_no)
-    left outer join member d on (a.mem_no = d.mem_no)
-    left outer join proj_mem dm on (a.proj_no = dm.proj_no and d.mem_no = dm.mem_no)
-    left outer join issue_history e on (a.issue_sid = e.issue_sid)
-    left outer join member f on (e.mem_no = f.mem_no)
-    left outer join proj_mem fm on (a.proj_no = fm.proj_no and f.mem_no = fm.mem_no)
-    left outer join milestone g on (a.milest_sid = g.milest_sid)
-    left outer join label on (a.proj_no = label.proj_no and a.label_no = label.label_no)
-		WHERE a.PROJ_NO = #{proj_no}
-			AND a.ISSUE_NO = #{issue_no}
+	SELECT A.ISSUE_SID, A.ISSUE_NO, A.LABEL_NO, LABEL.LABEL_NM
+	        ,D.MEM_NO AS WRITER_NO, DM.PROJ_USER_NICK AS WRITER_NICK, D.MEM_PIC_FILE_NAME AS WRITER_PIC
+	        ,A.MILEST_SID, A.PROJ_NO, A.ISSUE_TITLE
+	        ,A.ISSUE_CREATE_DATE, A.ISSUE_START_DATE, A.ISSUE_END_DATE
+	        ,A.ISSUE_STATUS, A.PRIORITY, A.PROGRESS
+	        ,C.MEM_NO, C.MEM_ID, CM.PROJ_USER_NICK AS MEM_NICK, C.MEM_PIC_FILE_NAME
+	        ,E.ISSUE_HIS_NO, E.ISSUE_SID 
+	        ,F.MEM_NO AS HIS_WRITER_NO
+	        ,FM.PROJ_USER_NICK AS HIS_WRITER_NICK, F.MEM_PIC_FILE_NAME AS HIS_WRITER_PIC
+	        , E.ISSUE_HIS_CONT, E.ISSUE_HIS_DATE, E.ISSUE_HIS_TYPE, E.ATCH_FILE_SID
+	        ,G.MILEST_TITLE
+	FROM ISSUE A
+	    LEFT OUTER JOIN ISSUE_ASSIGNEE B ON (A.ISSUE_SID = B.ISSUE_SID)
+	    INNER JOIN MEMBER C ON (B.MEM_NO = C.MEM_NO)
+	    LEFT OUTER JOIN PROJ_MEM CM ON (A.PROJ_NO = CM.PROJ_NO AND C.MEM_NO = CM.MEM_NO)
+	    INNER JOIN MEMBER D ON (A.MEM_NO = D.MEM_NO)
+	    LEFT OUTER JOIN PROJ_MEM DM ON (A.PROJ_NO = DM.PROJ_NO AND D.MEM_NO = DM.MEM_NO)
+	    LEFT OUTER JOIN ISSUE_HISTORY E ON (A.ISSUE_SID = E.ISSUE_SID)
+	    LEFT OUTER JOIN MEMBER F ON (E.MEM_NO = F.MEM_NO)
+	    LEFT OUTER JOIN PROJ_MEM FM ON (A.PROJ_NO = FM.PROJ_NO AND F.MEM_NO = FM.MEM_NO)
+	    LEFT OUTER JOIN MILESTONE G ON (A.MILEST_SID = G.MILEST_SID)
+	    LEFT OUTER JOIN LABEL ON (A.PROJ_NO = LABEL.PROJ_NO AND A.LABEL_NO = LABEL.LABEL_NO)
+	    INNER JOIN PROJECT ON (A.PROJ_NO = PROJECT.PROJ_NO)
+	    INNER JOIN MEMBER PM ON (PROJECT.MEM_NO = PM.MEM_NO)
+	where a.issue_no = #{issue_no}
+	        and pm.mem_nick = #{mem_nick}
+	        and project.proj_title = #{proj_title}
 	</select>
 	
 	<select id="selectIssueList" parameterType="best.gaia.vo.PagingVO" resultType="best.gaia.vo.IssueVO">

@@ -71,15 +71,12 @@ public class IssueREST {
 			) {
 		IssueVO search = new IssueVO();
 		
-		Map<String, String> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("mem_nick", manager_nick);
 		map.put("proj_title", project_title);
-		int proj_no = projDao.searchProjNumber(map);
+		map.put("issue_no", issue_no);
 		
-		search.setProj_no(proj_no);
-		search.setIssue_no(issue_no);
-		
-		return service.selectIssue(search);
+		return service.selectIssue(map);
 	}
 	
 	

@@ -129,7 +129,7 @@
             	project_title = '${project_title }';
             	
 	            $.ajax({
-					url : '${cPath}/restapi/project/issues',
+					url : getContextPath() + '/restapi/project/issues',
 					type : 'get',
 					data : {
 						//'manager_nick' : manager_nick
