@@ -80,24 +80,24 @@
               </li>
               <li class=""><a href="#" data-menu = "sales">요금안내</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/view/updates');">업데이트내역</a>
+              <li class=""><a href="#" data-menu = "updates">업데이트내역</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/view/CS');">고객센터</a>
+              <li class=""><a href="#" data-menu = "CS">고객센터</a>
               </li>
             </ul>
             </div>
             <div class="space-between">
-            ${sessionScope }
+            ${sessionScope } ${authUser } 
            	<ul class="nav navbar-nav navbar-right">
            	<security:authorize access="!isAuthenticated()">
-              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/view/signin');" data-toggle="">Sign in</a>
+              <li class=""><a class="" href="#" data-menu = "signin" data-toggle="">Sign in</a>
               </li>
-              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/view/signup');" data-toggle="">Sign up</a>
+              <li class=""><a class="" href="#" data-menu = "signup" data-toggle="">Sign up</a>
               
              </security:authorize>
              <security:authorize access="isAuthenticated()">
               <security:authentication property="principal" var="authUser"/>
-              <li class=""><a class="" href="<%=request.getContextPath() %>/signout" data-toggle="">${authUser } Sign out</a>
+              <li class=""><a class="" href="${cPath }/signout" data-toggle="">Sign out</a>
               </li>
              </security:authorize>
               </ul>
@@ -177,7 +177,6 @@
             </div>
           </div>
         </footer>
-      </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
 
@@ -209,8 +208,12 @@
     }
     
     $('.navbar-nav').on('click', 'a', function(){
-    	event.preventDefault();
+    	
     	let menu_name = $(this).data('menu');
+    	if(! menu_name){
+    		return;	
+    	}
+    	event.preventDefault();
     	var uri = '${cPath}/' + menu_name;
     	history.pushState(null, null, uri);
     	
@@ -221,7 +224,6 @@
                 dataType : "html",
                 cache : false
         };
-
         $.ajax(ajaxOption).done(function(data){
             $('#mainBody').children().remove();
             $('#mainBody').html(data);
