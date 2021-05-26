@@ -33,9 +33,9 @@ import best.gaia.project.service.ProjectService;
  */
 
 @Controller
-@RequestMapping(value = "{mem_nick:^(?:(?!admin$|restapi$|view$|intro$|demo$|sales$|updates$|signin$|signup$|CS$).)*}")
+@RequestMapping(value = "{mem_nick:^(?:(?!admin$|restapi$|echo$|view$|intro$|demo$|sales$|updates$|signin$|signup$|CS$).)*}")
 public class MemberUrlMapper {
-	
+
 	@Inject
 	private ProjectService service;
 	@Inject
