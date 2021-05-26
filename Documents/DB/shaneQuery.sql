@@ -14,15 +14,27 @@ select a.issue_sid, a.issue_no, a.label_no, label.label_nm
         ,g.milest_title
 from issue a
     left outer join issue_assignee b on (a.issue_sid = b.issue_sid)
-    left outer join member c on (b.mem_no = c.mem_no)
+    inner join member c on (b.mem_no = c.mem_no)
     left outer join proj_mem cm on (a.proj_no = cm.proj_no and c.mem_no = cm.mem_no)
-    left outer join member d on (a.mem_no = d.mem_no)
+    inner join member d on (a.mem_no = d.mem_no)
     left outer join proj_mem dm on (a.proj_no = dm.proj_no and d.mem_no = dm.mem_no)
     left outer join issue_history e on (a.issue_sid = e.issue_sid)
     left outer join member f on (e.mem_no = f.mem_no)
     left outer join proj_mem fm on (a.proj_no = fm.proj_no and f.mem_no = fm.mem_no)
     left outer join milestone g on (a.milest_sid = g.milest_sid)
     left outer join label on (a.proj_no = label.proj_no and a.label_no = label.label_no)
-where a.issue_sid = 1;
+    inner join project on (a.proj_no = project.proj_no)
+    inner join member pm on (project.mem_no = pm.mem_no)
+where a.issue_no = 1
+        and pm.mem_nick = 'kkobuk'
+        and project.proj_title = 'testproject';
 
 ------------------------------------------------------------------------
+
+
+
+select proj_no
+from project 
+    inner join member on (project.mem_no = member.mem_no)
+where proj_title = 'testproject'
+    and mem_nick = 'kkobuk'
