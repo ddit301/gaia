@@ -21,5 +21,5 @@ public class IssueHistoryVO {
 	@NotBlank@Size(max=4000) private String issue_his_cont;
 	@Size(max=7) private String issue_his_date;
 	@NotBlank@Size(max=50) private String issue_his_type;
-	 private Integer his_atch_file_no;
+	 private Integer his_atch_file_sid;
 }

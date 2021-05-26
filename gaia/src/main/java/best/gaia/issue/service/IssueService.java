@@ -1,6 +1,7 @@
 package best.gaia.issue.service;
 
 import java.util.List;
+import java.util.Map;
 
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.IssueVO;
@@ -44,7 +45,7 @@ public interface IssueService {
 	 * @param search
 	 * @return
 	 */
-	public IssueVO selectIssue(IssueVO search);
+	public IssueVO selectIssue(Map<String, Object> search);
 	
 	/**
 	 * 새로운 이슈 생성
