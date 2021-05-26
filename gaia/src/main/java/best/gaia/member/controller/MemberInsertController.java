@@ -59,6 +59,7 @@ public class MemberInsertController {
 				message = "아이디 중복";
 				break;
 			case OK:
+//				model.addAllAttributes(attributeValues)
 				view = "redirect:/"+member.getMem_nick();
 				break;
 			default:
@@ -75,8 +76,5 @@ public class MemberInsertController {
 
 		return view;
 	}
-	
-	
-	
 	
 }
