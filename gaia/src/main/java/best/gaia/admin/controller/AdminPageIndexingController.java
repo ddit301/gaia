@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.main.controller.MainPageIndexingController;
 
 /**
  * 
@@ -29,7 +28,7 @@ import best.gaia.main.controller.MainPageIndexingController;
  */
 
 @Controller
-public class AdminPageIndexingController2 {
+public class AdminPageIndexingController {
 
 	@Inject
 	private WebApplicationContext container;
@@ -40,7 +39,7 @@ public class AdminPageIndexingController2 {
 		application = container.getServletContext();
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(AdminPageIndexingController2.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminPageIndexingController.class);
 
 	@RequestMapping(value = "/admin")
 	public String adminPage() {
