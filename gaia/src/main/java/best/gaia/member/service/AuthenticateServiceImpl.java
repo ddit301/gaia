@@ -21,7 +21,7 @@ public class AuthenticateServiceImpl implements AuthenticateService, UserDetails
 	private MemberDao dao;
 
 	@Inject // shaPasswordEncoder를 받아야한다.
-	private PasswordEncoder encoder;
+	private PasswordEncoder passwordEncoder;
 
 	/**
 	 * mem_id로 검색한 memberVO객체
@@ -52,7 +52,7 @@ public class AuthenticateServiceImpl implements AuthenticateService, UserDetails
 //				String encodedPass = BCrypt.hashpw(inputPass, BCrypt.gensalt(10));
 
 //				savedPass.equals(encodedPass);
-				if (encoder.matches(member.getMem_pass(), savedMember.getMem_pass())) {
+				if (passwordEncoder.matches(member.getMem_pass(), savedMember.getMem_pass())) {
 //					try {
 //						BeanUtils.copyProperties(member, savedMember);
 //					} catch (IllegalAccessException | InvocationTargetException e) {

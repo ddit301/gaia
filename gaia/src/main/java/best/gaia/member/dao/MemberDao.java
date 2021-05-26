@@ -40,5 +40,5 @@ public interface MemberDao {
 	 * @param mem_id
 	 * @return 삭제된 row count > 0 성공
 	 */
-	public int deleteMember(String mem_no);
+	public int deleteMember(int mem_no);
 }
