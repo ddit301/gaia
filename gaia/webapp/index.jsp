@@ -63,9 +63,9 @@
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main id="mainNav">
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
+<!--       <div class="page-loader"> -->
+<!--         <div class="loader">Loading...</div> -->
+<!--       </div> -->
       <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -74,15 +74,15 @@
           <div class="collapse navbar-collapse" id="custom-collapse">
             <div class="space-between">
             <ul class="nav navbar-nav navbar-left">
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/intro');">소개</a>
+              <li class=""><a href="#" data-menu = "intro" >소개</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/demo');">데모체험</a>
+              <li class=""><a href="#" data-menu = "demo" >데모체험</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/sales');">요금안내</a>
+              <li class=""><a href="#" data-menu = "sales">요금안내</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/updates');">업데이트내역</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/view/updates');">업데이트내역</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/CS');">고객센터</a>
+              <li class=""><a href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/view/CS');">고객센터</a>
               </li>
             </ul>
             </div>
@@ -90,9 +90,9 @@
             ${sessionScope }
            	<ul class="nav navbar-nav navbar-right">
            	<security:authorize access="!isAuthenticated()">
-              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signin');" data-toggle="">Sign in</a>
+              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/view/signin');" data-toggle="">Sign in</a>
               </li>
-              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/signup');" data-toggle="">Sign up</a>
+              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('<%=request.getContextPath() %>/view/signup');" data-toggle="">Sign up</a>
               
              </security:authorize>
              <security:authorize access="isAuthenticated()">
@@ -202,21 +202,39 @@
 
     <script type="text/javascript">
     function acyncMovePage(url){
-        // ajax option
-        var ajaxOption = {
-                url : url,
+    	
+		var uri = '${cPath}/'+ url.substring(url.lastIndexOf('/')+1);
+		history.pushState(null, null, uri);
+    	
+        
+        
+    }
+    
+    $('.navbar-nav').on('click', 'a', function(){
+    	event.preventDefault();
+    	let menu_name = $(this).data('menu');
+    	var uri = '${cPath}/' + menu_name;
+    	history.pushState(null, null, uri);
+    	
+    	var ajaxOption = {
+                url : 'view/' + menu_name,
                 async : true,
                 type : "GET",
                 dataType : "html",
                 cache : false
-//                 ,contentType:'text/html; charset=UTF-8'
         };
 
         $.ajax(ajaxOption).done(function(data){
             $('#mainBody').children().remove();
             $('#mainBody').html(data);
+            
         });
-    }
+    	//화면 위로 올리기 
+    	window.scrollTo(0,0);
+    	
+    	
+    })
+    
     </script>
 
   </body>

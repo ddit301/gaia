@@ -35,7 +35,6 @@ public class MemberVO implements UserDetails, Serializable {
 	@Size(max=200) private String mem_working_city;     // 회원 근무 도시
 	@Size(max=50) private String mem_status;            // 회원 상태
 	private List<GrantedAuthority> authorities;
-//	private boolean enabled = true;
 	private boolean enabled = StringUtils.isBlank(mem_quit_date) ? true : false;
 
 	public MemberVO(String mem_id, String mem_pass) {

@@ -27,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 
 @Controller
+@RequestMapping("view")
 public class mainPageIndexingController {
 
 	@Inject
