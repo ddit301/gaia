@@ -33,7 +33,7 @@ public class ProjectUrlMapper {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUrlMapper.class);
 
 	
-@RequestMapping(value = {"","{pageParam}"})
+	@RequestMapping(value = {"","{pageParam}"})
 	public String projectMenuOverview(
 			@PathVariable String manager_nick
 			,@PathVariable String project_title
@@ -43,6 +43,19 @@ public class ProjectUrlMapper {
 		model.addAttribute("manager_nick", manager_nick);
 		model.addAttribute("project_title", project_title);
 		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null );
+		return "view/template/project";
+	}
+	
+	@RequestMapping(value = "issue/{issue_no}")
+	public String IssueViewer(
+			@PathVariable String manager_nick
+			,@PathVariable String project_title
+			,@PathVariable Integer issue_no
+			,Model model
+			) {
+		model.addAttribute("issue_no", issue_no);
+		model.addAttribute("manager_nick", manager_nick);
+		model.addAttribute("project_title", project_title);
 		return "view/template/project";
 	}
 	

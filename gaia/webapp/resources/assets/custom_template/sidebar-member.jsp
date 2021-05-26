@@ -13,7 +13,9 @@
 	var movePageHistory = function(pageParam){
 		var data = pageParam;
 		var title;
+		// 이게 주소창 끝에 변경시키는 녀석 
 		var url = '${cPath}/${mem_nick }'+(pageParam ? '/'+pageParam : '');
+// 		var url = '${cPath}/${mem_nick }'+ 'aa';
 		console.log(data);
 		history.pushState(data, title, url);
 		movePage(pageParam);
