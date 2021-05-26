@@ -1,5 +1,6 @@
 package best.gaia.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,12 +11,15 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.member.service.MemberService;
+import best.gaia.vo.IssueVO;
 import best.gaia.vo.MemberVO;
 
 @RestController
@@ -55,6 +59,17 @@ public class MemberREST {
 		return null;
 	}
 	
+
+	@RequestMapping(value="{mem_no}", method=RequestMethod.GET)
+	public MemberVO selectIssue(
+				@PathVariable Integer mem_no
+				,@RequestParam String manager_nick
+				,@RequestParam String project_title
+			) {
+		
+		
+		return null;
+	}
 	
 	
 	
