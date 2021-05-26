@@ -1,4 +1,3 @@
-<%--
 * [[개정이력(Modification Information)]]
 * Date         Modifier		Modification
 * ----------  ---------  -----------------
@@ -16,7 +15,7 @@
 	</div>
 </div>
 <div class="container-fluid">
-<h4>activity</h4>
+<h4>securityLog</h4>
 조회중인 회원명 : ${mem_nick }<br/>
 </div>
 <!-- #/ container -->

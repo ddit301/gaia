@@ -34,8 +34,8 @@ import best.gaia.project.service.ProjectService;
 
 @Controller
 @RequestMapping(value = "{mem_nick:^(?:(?!admin$|restapi$|echo$|view$|intro$|demo$|sales$|updates$|signin$|signup$|CS$).)*}")
-public class MemberTestController {
-	
+public class MemberUrlMapper {
+
 	@Inject
 	private ProjectService service;
 	@Inject
@@ -47,10 +47,10 @@ public class MemberTestController {
 		application = container.getServletContext();
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemberTestController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MemberUrlMapper.class);
 	
-	@RequestMapping(value = {"","{pageParam:^(?:(?=help$|overview$|setting-setting$|setting-new$|setting-activity$)).*}"})
-	public String projectTemplate(
+	@RequestMapping(value = {"","{pageParam:^(?:(?=help$|overview$)).*}"})
+	public String memberMenuOverview(
 			@PathVariable String mem_nick
 			, @PathVariable Optional<String> pageParam
 			, Model model
@@ -59,4 +59,17 @@ public class MemberTestController {
 		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null);
 		return "view/template/member";
 	}
+	@RequestMapping(value = {"setting","setting/{pageParam:^(?:(?=account$|accountSecurity$|projects$|securityLog$|profile$)).*}"})
+	public String memberSetting(
+			@PathVariable String mem_nick
+			, @PathVariable Optional<String> pageParam
+			, Model model
+			) {
+		model.addAttribute("mem_nick", mem_nick);
+		// false 일 때 null하면 overview로 탐. 그래서 setting을 주어야 profile로 바로 넘어감.
+		// true 일 때 setting/을 붙여주어 moveHistory함수 탈 때 /eisen/setting/account으로 넘어갈 수 있게 만듦. 없으면 eisen/account로 주소창이 찍힘.
+		model.addAttribute("pageParam", pageParam.isPresent() ? "setting/"+pageParam.get() : "setting");
+		return "view/template/member";
+	}
+	
 }
