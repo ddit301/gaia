@@ -32,6 +32,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public MemberVO retrieveMemberByNo(int mem_no) {
+		MemberVO savedMember = dao.selectMemberDetailByNo(mem_no);
+		if (savedMember == null) {
+			throw new RuntimeException("해당 이메일을 등록한 회원이 존재하지 않음.");
+		}
+		return savedMember;
+	}
+
+	
+	@Override
 	public ServiceResult enrollMember(MemberVO member) {
 		ServiceResult result = null;
 		if (dao.selectMemberForAuth(member.getMem_id()) == null) {

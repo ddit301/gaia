@@ -1,3 +1,4 @@
+<%--
 * [[개정이력(Modification Information)]]
 * Date         Modifier		Modification
 * ----------  ---------  -----------------
@@ -14,8 +15,18 @@
 		</ol>
 	</div>
 </div>
-<div class="container-fluid">
-<h4>securityLog</h4>
-조회중인 회원명 : ${mem_nick }<br/>
+<div class="container-fluid container-lg container-xl">
+	<div class="row">
+		<div class="col-lg-4 col-xl-3">
+			<jsp:include page="side-bar.jsp"/>
+		</div>
+		<div class="col-lg-8 col-xl-9">
+			<div class="card">
+				<h4>securityLog</h4>
+				조회중인 회원명 : ${mem_nick }<br/>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- #/ container -->
+
