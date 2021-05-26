@@ -16,10 +16,10 @@ public class MemberServiceImpl implements MemberService {
 
 	@Inject
 	private MemberDao dao;
-	@Inject
-	private AuthenticateService authService;
+//	@Inject
+//	private AuthenticateService authService;
 
-	@Inject // shaPasswordEncoder를 받아야한다.
+	@Inject
 	private PasswordEncoder passwordEncoder;
 
 	@Override
@@ -37,8 +37,6 @@ public class MemberServiceImpl implements MemberService {
 		if (dao.selectMemberForAuth(member.getMem_id()) == null) {
 			String inputPass = member.getMem_pass();
 			try {
-//				String encodedPass = CryptoUtil.sha512(inputPass);
-//				String encodedPass = BCrypt.hashpw(inputPass, BCrypt.gensalt(10));
 				String encodedPass = passwordEncoder.encode(inputPass);
 				member.setMem_pass(encodedPass);
 				int rowcnt = dao.insertMember(member);
