@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.main.controller.mainPageIndexingController;
+import best.gaia.main.controller.MainPageIndexingController;
 
 /**
  * 

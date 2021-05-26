@@ -205,8 +205,6 @@
     	
 		var uri = '${cPath}/'+ url.substring(url.lastIndexOf('/')+1);
 		history.pushState(null, null, uri);
-    	
-        
         
     }
     

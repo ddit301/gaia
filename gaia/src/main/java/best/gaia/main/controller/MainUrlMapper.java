@@ -14,32 +14,32 @@ public class MainUrlMapper {
 
 	@RequestMapping(value = "/demo")
 	public String demoPage() {
-		return "redirect:/index.jsp";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/sales")
 	public String salesPage() {
-		return "redirect:/index.jsp";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/updates")
 	public String updatesPage() {
-		return "redirect:/index.jsp";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/signin")
 	public String loginPage() {
-		return "redirect:/index.jsp";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/signup")
 	public String logoutPage() {
-		return "redirect:/index.jsp";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/CS")
 	public String CSPage() {
-		return "redirect:/index.jsp";
+		return "redirect:/";
 	}
 	
 }

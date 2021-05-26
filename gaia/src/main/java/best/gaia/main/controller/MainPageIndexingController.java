@@ -28,7 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @Controller
 @RequestMapping("view")
-public class mainPageIndexingController {
+public class MainPageIndexingController {
 
 	@Inject
 	private WebApplicationContext container;
@@ -39,7 +39,7 @@ public class mainPageIndexingController {
 		application = container.getServletContext();
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(mainPageIndexingController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainPageIndexingController.class);
 
 	@RequestMapping(value = "/intro")
 	public String introPage() {
