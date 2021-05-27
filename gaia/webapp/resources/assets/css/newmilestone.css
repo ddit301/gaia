@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+.container{
+	display: grid;
+}
+.compose-content{
+	padding-bottom : 10px;
+}
+.compose-content mt-5{
+	margin-top: 0px;
+}
+.milestonehead{
+	border-bottom: 1px solid gray;
+    margin-bottom: 15px;
+    padding : 10px;
+}
+.milestonehead-heading{
+	color : black;
+	font-size : 2em;
+}
+.date-box {
+	display: flex;
+	flex-direction: column;
+	border: none;
+	margin-right : 10px;
+	width :calc((100% - 10px) / 2);
+}
+.form-title-group{
+	margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 20px;	
+}
+.form-date-group{
+	margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 20px;	
+}
+.date-box:last-child{
+  	margin-right : 0;
+}
+.box-four > div:first-child {
+  	flex: 1;
+}
+.box-four > div:last-child {
+ 	 flex: 1;
+}
+.button{
+	text-align: center;
+}

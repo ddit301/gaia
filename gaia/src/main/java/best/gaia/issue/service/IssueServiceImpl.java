@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import best.gaia.issue.dao.IssueDao;
+import best.gaia.issue.dao.MilestoneDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.MilestoneVO;
@@ -18,6 +19,9 @@ public class IssueServiceImpl implements IssueService {
 	
 	@Inject
 	private IssueDao dao;
+	
+	@Inject
+	private MilestoneDao milestoneDao;
 
 	@Override
 	public ServiceResult insertIssue(IssueVO issue) {
@@ -56,7 +60,7 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public List<MilestoneVO> selecMilestoneList(PagingVO<MilestoneVO> pagingVO) {
-		return dao.selectMilestoneList(pagingVO);
+		return milestoneDao.selectMilestoneList(pagingVO);
 	}
 
 	@Override
@@ -65,11 +69,11 @@ public class IssueServiceImpl implements IssueService {
 		return 0;
 	}
 
-	@Override
-	public MilestoneVO selectMilestone(MilestoneVO search) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public MilestoneVO selectMilestone(MilestoneVO search) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public ServiceResult insertMilestone(MilestoneVO milestone) {
@@ -87,6 +91,11 @@ public class IssueServiceImpl implements IssueService {
 	public ServiceResult deleteMilestone(MilestoneVO search) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public MilestoneVO selectMilestone(Map<String, Object> search) {
+		return milestoneDao.selectMilestone(search);
 	}
 
 

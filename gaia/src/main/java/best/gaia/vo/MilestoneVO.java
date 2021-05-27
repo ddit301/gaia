@@ -1,5 +1,7 @@
 package best.gaia.vo;
 
+import java.util.List;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,4 +24,5 @@ public class MilestoneVO {
 	@Size(max=7) private String milest_end_date;
 	@NotNull @Min(0) private Integer milest_no;
 	private Integer milest_percent;
+	private List<IssueVO> issueList;
 }

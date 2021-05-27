@@ -1,5 +1,6 @@
 package best.gaia.issue.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -57,6 +59,21 @@ public class MilestoneREST {
 	@RequestMapping(method=RequestMethod.DELETE)
 	public Map<String, Object> deleteMilestone() {
 		return null;
+	}
+	@RequestMapping(value="{milest_no}", method=RequestMethod.GET)
+	public MilestoneVO selectMilestone(
+				@PathVariable Integer milest_no
+				,@RequestParam String manager_nick
+				,@RequestParam String project_title
+			) {
+		MilestoneVO search = new MilestoneVO();
+		
+		Map<String,Object>map = new HashMap<>();
+		map.put("mem_nick",manager_nick);
+		map.put("proj_title",project_title);
+		map.put("milest_no",milest_no);
+		
+		return service.selectMilestone(map);		
 	}
 	
 	
