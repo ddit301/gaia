@@ -100,7 +100,7 @@
 							let news = $('#news-template').children('.news').clone();
 							
 							news.find('.newsTitle').children('p').text(v.news_title);
-							news.find('.newsWriter').children('span').text(v.writerNickname);
+							news.find('.newsWriter').children('span').text(v.writer.mem_nick);
 							news.find('.newsTime').children('span').text(v.news_write_date);
 							news.attr('data-news_sid',v.news_sid);
 							

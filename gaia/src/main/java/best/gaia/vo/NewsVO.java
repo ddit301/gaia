@@ -17,13 +17,12 @@ import lombok.NoArgsConstructor;
 public class NewsVO {
 	@NotNull @Min(0) private Integer news_sid;
 	@NotNull @Min(0) private Integer proj_no;
-	@NotNull @Min(0) private Integer writerMemno;
-	@NotNull @Min(0) private String writerNickname;
-	@NotNull @Min(0) private String writerPicture;
+	@NotNull @Min(0) private Integer mem_no;
 	@NotNull @Min(0) private Integer news_no;
 	@NotBlank@Size(max=200) private String news_title;
 	@NotBlank@Size(max=4000) private String news_cont;
 	@Size(max=7) private String news_write_date;
 	 private Integer atch_file_sid;
+	 private MemberVO writer;
 	 private List<NewsCommentVO> commentList;
 }

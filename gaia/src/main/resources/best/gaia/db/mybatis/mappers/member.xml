@@ -12,6 +12,29 @@
 		FROM MEMBER
 	</select>
 	
+	<resultMap type="best.gaia.vo.MemberVO" id="memberMap" autoMapping="true">
+		<id property="mem_no" column="MEM_NO"/>
+		<collection property="projectList" ofType="MemberVO" javaType="java.util.List" autoMapping="true">
+			<id property="proj_no" column="PROJ_NO"/>
+		</collection>
+		<collection property="issueList" ofType="IssueVO" javaType="java.util.List" autoMapping="true">
+			<id property="issue_sid" column="ISSUE_SID"/>
+		</collection>
+		<collection property="historyList" ofType="IssueHistoryVO" javaType="java.util.List" autoMapping="true">
+			<id property="issue_his_no" column="ISSUE_HIS_NO"/>
+		</collection>
+	</resultMap>
+	
+	
+	<select id="selectMemberDetailByNo" parameterType="Integer" resultType="best.gaia.vo.MemberVO">
+		SELECT MEM_ID, MEM_PASS, MEM_NICK
+				MEM_TEL, MEM_PIC_FILE_NAME, MEM_SIGN_DATE
+				MEM_QUIT_DATE, MEM_NM, MEM_BIO
+				MEM_WORKING_CITY, MEM_STATUS
+		FROM MEMBER
+		WHERE MEM_NO = #{mem_no}
+	</select>
+	
 	<insert id="insertMember" parameterType="MemberVO">
 		<selectKey resultType="int" keyProperty="mem_no" order="BEFORE">
 			SELECT MEM_SEQ.NEXTVAL

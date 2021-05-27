@@ -22,6 +22,12 @@ public interface MemberDao {
 	 */
 	public MemberVO selectMemberDetail(String mem_id);
 	/**
+	 * 회원 정보 상세 조회
+	 * @param mem_id(e-mail)
+	 * @return 존재하지 않는 경우, null 반환.
+	 */
+	public MemberVO selectMemberDetailByNo(int mem_no);
+	/**
 	 * 신규 등록
 	 * @param member
 	 * @return 등록된 row count > 0 성공

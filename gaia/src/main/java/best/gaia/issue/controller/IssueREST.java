@@ -7,19 +7,23 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.service.IssueService;
-import best.gaia.project.dao.ProjectDao;
+import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.PagingVO;
 
@@ -29,8 +33,6 @@ public class IssueREST {
 	
 	@Inject
 	private IssueService service;
-	@Inject
-	private ProjectDao projDao;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
@@ -42,41 +44,58 @@ public class IssueREST {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IssueREST.class);
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public List<IssueVO> selectIssueList() {
+	@GetMapping
+	public List<IssueVO> selectIssueList(
+			HttpSession session
+			) {
+		
 		PagingVO<IssueVO> pagingVO = new PagingVO<IssueVO>();
+		IssueVO detailSearch = new IssueVO();
+		
+		// 조회할 issue에 대한 필터를 parameter에서 받아와 등록합니다.
+		
+		// session 에서 프로젝트 번호를 받아와 detailSearch에 등록합니다.
+		detailSearch.setProj_no((Integer)session.getAttribute("proj_no"));
+		
+		pagingVO.setDetailSearch(detailSearch);
+		
 		return service.selectIssueList(pagingVO);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@PostMapping
 	public Map<String, Object> insertIssue() {
 		return null;
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT)
+	@PutMapping
 	public Map<String, Object> updateIssue() {
 		return null;
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE)
+	@DeleteMapping
 	public Map<String, Object> deleteIssue() {
 		return null;
 	}
 	
-	@RequestMapping(value="{issue_no}", method=RequestMethod.GET)
+	@GetMapping("{issue_no}")
 	public IssueVO selectIssue(
 				@PathVariable Integer issue_no
-				,@RequestParam String manager_nick
-				,@RequestParam String project_title
+				,HttpSession session
 			) {
-		IssueVO search = new IssueVO();
+		
+		int proj_no = (Integer)session.getAttribute("proj_no");
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("mem_nick", manager_nick);
-		map.put("proj_title", project_title);
+		map.put("proj_no", proj_no);
 		map.put("issue_no", issue_no);
 		
-		return service.selectIssue(map);
+		IssueVO issue =  service.selectIssue(map);
+		
+		if(issue == null) {
+			throw new ResourceNotFoundException();
+		}
+		
+		return issue;
 	}
 	
 	

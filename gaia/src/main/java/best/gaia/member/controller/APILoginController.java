@@ -22,7 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import best.gaia.member.service.KakaoService;
+import best.gaia.member.service.KakaoLoginService;
 import best.gaia.member.service.MemberService;
 import best.gaia.vo.MemberVO;
 
@@ -41,7 +41,7 @@ public class APILoginController {
 	private static final Logger logger = LoggerFactory.getLogger(APILoginController.class);
 	
 	@Autowired
-	private KakaoService kakaoService;
+	private KakaoLoginService kakaoService;
 	
 	final ObjectMapper mapper = new ObjectMapper();
 	

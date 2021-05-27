@@ -12,7 +12,16 @@ public interface MemberService {
 	 * @return 존재하지 않으면, custom exception 발생
 	 */
 	public MemberVO retrieveMember(String mem_id);
-
+	
+	
+	/**
+	 * 회원 정보 상세 조회
+	 * 
+	 * @param mem_id
+	 * @return 존재하지 않으면, custom exception 발생
+	 */
+	public MemberVO retrieveMemberByNo(int mem_no);
+	
 	/**
 	 * 신규 등록
 	 * 
@@ -20,7 +29,7 @@ public interface MemberService {
 	 * @return PKDUPLICATED, OK, FAIL
 	 */
 	public ServiceResult enrollMember(MemberVO member);
-
+	
 	/**
 	 * 회원 정보 수정
 	 * 
