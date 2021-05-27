@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------
-이슈 상세정보 쿼리
+-- 이슈 상세정보 보기 
 ------------------------------------------------------------------------
 select a.issue_sid, a.issue_no, a.label_no, label.label_nm
         ,d.mem_no as writer_no, dm.proj_user_nick as writer_nick, d.mem_pic_file_name as writer_pic
@@ -10,7 +10,7 @@ select a.issue_sid, a.issue_no, a.label_no, label.label_nm
         ,e.issue_his_no, e.issue_sid 
         ,f.mem_no as his_writer_no
         ,fm.proj_user_nick as his_writer_nick, f.mem_pic_file_name as his_writer_pic
-        , e.issue_his_cont, e.issue_his_date, e.issue_his_type, e.atch_file_no
+        , e.issue_his_cont, e.issue_his_date, e.issue_his_type, e.atch_file_sid
         ,g.milest_title
 from issue a
     left outer join issue_assignee b on (a.issue_sid = b.issue_sid)
@@ -30,9 +30,28 @@ where a.issue_no = 1
         and project.proj_title = 'testproject';
 
 ------------------------------------------------------------------------
-
-
-
+-- 뉴스 목록 조회
+------------------------------------------------------------------------
+select news.news_sid, news.proj_no, news_no, news_title, news_cont, news_write_date
+        ,atch_file_sid
+        ,writer.mem_no as writerMemno
+        ,writer.mem_pic_file_name as writerPicture
+        ,writerp.proj_user_nick as writerNickname
+        ,news_com_no, news_com_cont, news_com_date
+        ,commenter.mem_no commenterMemno
+        ,commenter.mem_pic_file_name as commenterPicture
+        ,commenterp.proj_user_nick as commenterNickname
+from news
+    inner join member writer on (news.mem_no = writer.mem_no)
+    inner join proj_mem writerp on (news.proj_no = writerp.proj_no
+                                    and writer.mem_no = writerp.mem_no)
+    left outer join news_comment nc on (news.news_sid = nc.news_sid)
+    left outer join member commenter on (nc.mem_no = commenter.mem_no)
+    left outer join proj_mem commenterp on (news.proj_no = commenterp.proj_no
+                                    and commenter.mem_no = commenterp.mem_no)
+order by news.news_sid desc;
+-----------------------------------------------------------------------------------
+-- member 닉네임과 project 이름으로 (url) 프로젝트 번호 알아내기
 select proj_no
 from project 
     inner join member on (project.mem_no = member.mem_no)
