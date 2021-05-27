@@ -49,18 +49,4 @@ public interface IssueDao {
 	 */
 	public int deleteIssue(IssueVO search);
 	
-	/**
-	 * @param pagingVO
-	 * @return MilestoneList
-	 */
-	public List<MilestoneVO> selectMilestoneList(PagingVO<MilestoneVO> pagingVO);
-	
-	public MilestoneVO selectMilestone(Map<String, Object> search);
-	
-	public int insertMilestone(MilestoneVO milestone);
-	
-	public int updateMilestone(MilestoneVO milestone);
-	
-	public int deleteMilestone(MilestoneVO search);
-	
 }
