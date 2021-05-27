@@ -41,9 +41,12 @@ FROM ISSUE
 	</select>
 	
 	<select id="selectIssueList" parameterType="best.gaia.vo.PagingVO" resultType="best.gaia.vo.IssueVO">
-		SELECT *
+		SELECT ISSUE_SID ,ISSUE_NO ,MEM_NO ,LABEL_NO ,MILEST_SID ,PROJ_NO ,ISSUE_TITLE 
+		    ,ISSUE_CREATE_DATE ,ISSUE_START_DATE ,ISSUE_END_DATE ,ISSUE_STATUS
+		    ,ISSUE_PRIORITY ,PROGRESS
 		FROM ISSUE
 		WHERE proj_no = #{detailSearch.proj_no}
+		ORDER BY ISSUE_NO DESC
 	</select>
 	
 </mapper>
