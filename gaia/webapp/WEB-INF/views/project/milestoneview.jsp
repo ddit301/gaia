@@ -154,6 +154,7 @@
             	milest_no = '${milest_no}';
 				var open_count = 0;
 				var total_count = 0;
+				var comment_count = 0;
 				
             	
 	            $.ajax({
@@ -172,12 +173,18 @@
 	            		total_count = Object.keys(res.issueList).length;
 	            		
 	            		
-						$.each(issueList, function(i, v) {
+	            		console.log(total_count);
+						$.each(res.issueList, function(i, v) {
 							let issueBox = $('#milestone-issue-template').children('.issueBox').clone();
-							issueBox.attr('issue_no',issueList.issue_no);
-							issueBox.children('.issue-title').children('a').text(issueList.issue_title);
-							issueBox.children('.priority').text('즉시');
-							issueBox.children('.issue-label').text('할일');
+							issueBox.attr('issue_no',v.issue_no);
+							issueBox.children('.issue-title').children('a').text(v.issue_title);
+							issueBox.children('.priority').text(
+									v.priority == 1 ? '무시' :
+									v.priority == 2 ? '낮음' :
+									v.priority == 3 ? '보통' :
+									v.priority == 4 ? '높음' :
+									v.priority == 5 ? '긴급' : '즉시');
+							issueBox.children('.issue-label').text(v.label_nm);
 							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
 							issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
 							issueBox.children('.reply').children('span').text('3');
