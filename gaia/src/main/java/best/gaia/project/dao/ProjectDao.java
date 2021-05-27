@@ -14,6 +14,6 @@ public interface ProjectDao {
 	 * 		-> manager_nick, project_title
 	 * @return project number
 	 */
-	public Integer getProjNoWithMngNickkAndPrjTitle(Map<String,Object> map);
+	public Integer getProjNoByNickTitle(Map<String,Object> map);
 	
 }
