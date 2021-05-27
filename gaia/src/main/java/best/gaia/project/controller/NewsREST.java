@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +39,15 @@ public class NewsREST {
 	private static final Logger logger = LoggerFactory.getLogger(NewsREST.class);
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public List<NewsVO> selectNewsList() {
+	public List<NewsVO> selectNewsList(
+			HttpSession session
+			) {
 		PagingVO<NewsVO> pagingVO = new PagingVO<>();
+		NewsVO detailSearch = new NewsVO();
+		
+		detailSearch.setProj_no((Integer)session.getAttribute("proj_no"));
+		pagingVO.setDetailSearch(detailSearch);
+		
 		return service.selectNewsList(pagingVO);
 	}
 	
@@ -58,7 +66,7 @@ public class NewsREST {
 		return null;
 	}
 	
-//	@RequestMapping(value="{issue_sid}", method=RequestMethod.GET)
+//	@RequestMapping(value="{news_no}", method=RequestMethod.GET)
 //	public IssueVO selectIssue(
 //				@PathVariable Integer issue_sid
 //			) {
