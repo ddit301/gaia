@@ -1,0 +1,126 @@
+@@ -0,0 +1,125 @@
+/**
+ * <pre>
+ * 
+ * </pre>
+ * @author Robin
+ * @since 2021. 5. 27
+ * @version 1.0
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * Date         Modifier        Modification
+ * --------     --------    ----------------------
+ * 2021. 5. 27      Robin      Initial Commit
+ * Copyright (c) 2021 by Team SEED All right reserved
+ * </pre>
+ */ 
+
+@charset "UTF-8";
+
+    #thumb_list div {
+      float: left
+    }
+
+    .focused_thumb {
+      position: fixed;
+      border: 1px solid #227803;
+      background-color: rgba(132, 188, 4, 0.3);
+    }
+
+    .highlight {
+      border: 1px solid #344f34;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    #lnb_tree {
+      display: flex;
+      justify-content: center;
+    }
+
+    #lnb_tree>ul {
+      box-shadow: 0px 0px 8px #555555;
+      min-width: 300px;
+      padding: 20px 50px;
+      border-radius: 5px;
+    }
+
+    ul,
+    li {
+      list-style-type: none;
+    }
+
+    span {
+      left: 0;
+      top: 0px;
+      display: inline-block;
+      width: 100%;
+      height: 1.5rem;
+    }
+
+    .folder,
+    .file,
+    .empty {
+      list-style-type: none;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .folder::before {
+      font-family: 'Material Icons';
+      content: "\e2c8";
+      color: gold;
+      font-size: 1.7rem;
+      vertical-align: middle;
+    }
+
+    .file::before {
+      font-family: 'Material Icons';
+      content: "\e24d";
+      color: darkgray;
+      font-size: 1.7rem;
+      vertical-align: middle;
+    }
+
+    .folder.folder_collapsed::before {
+      font-family: 'Material Icons';
+      content: "\e2c7";
+      color: gold;
+      font-size: 1.7rem;
+    }
+
+    .folder_collapsed~ul {
+      display: none;
+    }
+
+    .empty {
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      padding: 0;
+    }
+
+    .folder-menu {
+      width: 80px;
+      box-shadow: 3px 3px 5px #888888;
+      padding: 20px 15px;
+      position: fixed;
+      display: none;
+      background-color: #dddddd;
+    }
+
+    .folder-menu-item {
+      height: 20px;
+    }
+
+    .folder-menu-item:hover {
+      background-color: #aaaaaa;
+      cursor: pointer;
+    }
+
+    .highlighted {
+      background-color: lightgray;
+    }

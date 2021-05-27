@@ -1,6 +1,7 @@
 package best.gaia.issue.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -29,16 +30,17 @@ public class IssueServiceImpl implements IssueService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public IssueVO selectIssue(Map<String, Object> search) {
+		return dao.selectIssue(search);
+	}
 
 	@Override
 	public List<IssueVO> selectIssueList(PagingVO<IssueVO> pagingVO) {
 		return dao.selectIssueList(pagingVO);
 	}
 
-	@Override
-	public IssueVO selectIssue(IssueVO search) {
-		return dao.selectIssue(search);
-	}
 
 	@Override
 	public ServiceResult updateIssue(IssueVO Issue) {
@@ -56,5 +58,36 @@ public class IssueServiceImpl implements IssueService {
 	public List<MilestoneVO> selecMilestoneList(PagingVO<MilestoneVO> pagingVO) {
 		return dao.selectMilestoneList(pagingVO);
 	}
+
+	@Override
+	public int selectMilestoneCount(PagingVO<MilestoneVO> pagingVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public MilestoneVO selectMilestone(MilestoneVO search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceResult insertMilestone(MilestoneVO milestone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceResult updateMilestone(MilestoneVO milestone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceResult deleteMilestone(MilestoneVO search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

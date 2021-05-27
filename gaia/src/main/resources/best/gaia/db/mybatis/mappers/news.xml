@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="best.gaia.project.dao.NewsDao">
+
+	<resultMap type="best.gaia.vo.NewsVO" id="newsMap" autoMapping="true">
+		<id property="news_sid" column="NEWS_SID"/>
+		<collection property="commentList" ofType="best.gaia.vo.NewsCommentVO" 
+			javaType="java.util.List" autoMapping="true"></collection>
+	</resultMap>
+
+	<select id="selectNewsList" parameterType="best.gaia.vo.PagingVO" resultMap="newsMap">
+SELECT NEWS.NEWS_SID, NEWS.PROJ_NO, NEWS_NO, NEWS_TITLE, NEWS_CONT, NEWS_WRITE_DATE
+		,ATCH_FILE_SID
+        ,WRITER.MEM_NO AS WRITERMEMNO
+        ,WRITER.MEM_PIC_FILE_NAME AS WRITERPICTURE
+        ,WRITERP.PROJ_USER_NICK AS WRITERNICKNAME
+        ,NEWS_COM_NO, NEWS_COM_CONT, NEWS_COM_DATE
+        ,COMMENTER.MEM_NO COMMENTERMEMNO
+        ,COMMENTER.MEM_PIC_FILE_NAME AS COMMENTERPICTURE
+        ,COMMENTERP.PROJ_USER_NICK AS COMMENTERNICKNAME
+FROM NEWS
+    INNER JOIN MEMBER WRITER ON (NEWS.MEM_NO = WRITER.MEM_NO)
+    INNER JOIN PROJ_MEM WRITERP ON (NEWS.PROJ_NO = WRITERP.PROJ_NO
+                                    AND WRITER.MEM_NO = WRITERP.MEM_NO)
+    LEFT OUTER JOIN NEWS_COMMENT NC ON (NEWS.NEWS_SID = NC.NEWS_SID)
+    LEFT OUTER JOIN MEMBER COMMENTER ON (NC.MEM_NO = COMMENTER.MEM_NO)
+    LEFT OUTER JOIN PROJ_MEM COMMENTERP ON (NEWS.PROJ_NO = COMMENTERP.PROJ_NO
+                                    AND COMMENTER.MEM_NO = COMMENTERP.MEM_NO)
+where proj_no = #{detailSearch.proj_no}                                       
+ORDER BY NEWS.NEWS_SID DESC                                    
+	</select>
+	
+</mapper>

@@ -7,64 +7,95 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-            <div class="row page-titles mx-0">
-                <div class="col p-md-0">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li>
-                    </ol>
-                </div>
-            </div>
+    
+    <link href="${cPath }/resources/assets/css/milestone.css" rel="stylesheet"> 
+	     	<div class="container">
+	            <div class="row page-titles mx-0">
+	                <div class="col p-md-0">
+	                    <ol class="breadcrumb">
+	                        <li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li>
+	                        <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li>
+	                    </ol>
+	                </div>
+	            </div>
             <!-- row -->
 
-	     	<div class="container-fluid">
-				<h4>milestone :  ${manager_nick } / ${project_title }</h4>
-			</div>
-	
-			<div class="btn-body">
-				<a href="#" class="label label-info" style="float: right; margin-right: 5px;">New issue</a>
-				<a href="#"	class="label label-info" style="float: right; margin-right: 5px;">Edit milestone</a>
-			</div>
-			<br><br>
-		
-			<div id="milestone-list">
-				
-			</div>
+
+	     		<div class="milestone-new-btn">
+					<a href="#" class="label label-info">New milestone</a>
+				</div>
+		     	<div class="milestone-header">
+					<div class="mileston-chk">
+		     				<a class="btn mb-1 btn-sm btn-secondary" href="#">2 Open</a>
+							<a class="btn mb-1 btn-sm btn-secondary" href="#">0 closed</a>
+					</div>
+		     	</div>
+		     	<div id="milestone-list"></div>
+		     	<div class="milestone-footer">
+		     		<div>
+	           			<ul class="pagination justify-content-center">
+	                       <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">1</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">2</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">3</a>
+	                       </li>
+	                       <li class="page-item"><a class="page-link" href="#">Next</a>
+	                       </li>
+	                   </ul>
+           			</div>
+		     	</div>
+			</div>	
 			
-			<script>
-				$.ajax({
-					url : '${cPath}/restapi/project/milestone',
+				<div id="milestone-template" hidden="hidden">
+					<div class="milestoneBox">	
+						<div class = "row">
+							<div class="milestone-title col-md-6">
+								<a class="moveButton" data-menu="milestoneview" href="javascript:void(0)"></a>    
+				            </div>                                                                                     
+							<div class="milestone-bar col-md-6">
+								<div class="progress mb-3">
+									<div class="progress-bar gradient-1" style=; role="progressbar">
+									</div>	
+								</div>
+							</div>	                                                                                         
+						</div>
+						<div class = "row">
+	                        <div class="milestone-date col-md-6">
+								<span></span>                            
+		                    </div>
+		                    <div class="milestone-percent col-md-6">
+		                        <span></span>
+		                    </div>                               
+						</div>
+					</div>
+				</div>
+			
+				
+				 <script>
+            	manager_nick = '${manager_nick }';
+            	project_title = '${project_title }';
+            	
+	            $.ajax({
+					url : '${cPath}/restapi/project/milestones',
 					type : 'get',
 					data : {
+						//'manager_nick' : manager_nick
 					},
 					success : function(res) {
+						
 						$.each(res, function(i, v) {
-							let milestone = 
-							'<div class="table-list-cell milestone-title" style="background: white; padding: 10px; margin: 10px;">'
-							+'	<div class="milestone-title" style="width: 50%; float: left; box-sizing: border-box">              '
-							+'		<h2 class="milestone-title-link">                                                              '
-							+'			<a class="moveButton" data-menu="milestoneview" href="#">'+v.milest_title+'</a>            '
-							+'		</h2>                                                                                          '
-							+'	</div>                                                                                             '
-							+'	<div class="milestone-bar" style="width: 50%; float: right; box-sizing: border-box">               '
-							+'		<div class="progress mb-3" style="height: 7px">                                                '
-							+'			<div class="progress-bar gradient-1" style="width: '+v.milest_percent+'%;" role="progressbar"></div>         '
-							+'		</div>                                                                                         '
-							+'	</div>                                                                                             '
-							+'	<br>                                                                                               '
-							+'	<div class="mt-4">                                                                                 '
-							+'		<div class="milestone-date">                                                                   '
-							+'			<span class="milestone-start">'+v.milest_start_date+'</span>                               '
-							+'			~                                                                                          '
-							+'			<span class="milestone-end">'+v.milest_end_date+'</span>                                   '
-							+'		</div>                                                                                         '
-							+'		<div class="milestone-percent">                                                                '
-							+'			<span class="pull-right">완성률 '+v.milest_percent+'%</span> <br>                            '
-							+'		</div>                                                                                         '
-							+'	</div>                                                                                             '
-							+'</div>                                                                                               '
-							$('#milestone-list').append(milestone);                                                                                                       
+							let milestoneBox = $('#milestone-template').children('.milestoneBox').clone();
+							milestoneBox.find('.milestone-title').children('a').text(v.milest_title);
+							milestoneBox.find('.milestone-date').children('span').text(v.milest_start_date+'~'+v.milest_end_date);
+							milestoneBox.find('.progress-bar').attr('style','width: '+v.milest_percent+'%;')
+							milestoneBox.find('.milestone-percent').children('span').text(v.milest_percent+'% complete 1 open 0 closed');
+							
+							$('#milestone-list').append(milestoneBox);
 						})
+						
 					},
 					error : function(xhr, error, msg) {
 						console.log(xhr);
@@ -73,5 +104,8 @@
 					},
 					dataType : 'json'
 				})
-			</script>
+            </script>
+            
+
+		
 			

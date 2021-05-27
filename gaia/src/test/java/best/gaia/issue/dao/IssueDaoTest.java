@@ -30,7 +30,7 @@ public class IssueDaoTest {
 	public void testSelectIssue() {
 		IssueVO search = new IssueVO();
 		search.setIssue_sid(1);
-		IssueVO issue = dao.selectIssue(search);
+		IssueVO issue = dao.selectIssue(null);
 		assertNotNull(issue);
 	}
 

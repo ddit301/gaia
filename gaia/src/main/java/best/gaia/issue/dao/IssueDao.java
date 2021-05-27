@@ -1,6 +1,7 @@
 package best.gaia.issue.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,16 +14,22 @@ import best.gaia.vo.PagingVO;
 public interface IssueDao {
 	
 	/**
-	 * @param issue_id
-	 * @return issue
+	 * @param pagingVO
+	 * @return issue count
 	 */
-	public IssueVO selectIssue(IssueVO search);
+	public int selectIssueCount(PagingVO<IssueVO> pagingVO);
 	
 	/**
 	 * @param pagingVO
 	 * @return issue list
 	 */
 	public List<IssueVO> selectIssueList(PagingVO<IssueVO> pagingVO);
+	
+	/**
+	 * @param issue_id
+	 * @return issue
+	 */
+	public IssueVO selectIssue(Map<String, Object> search);
 	
 	/**
 	 * @param issue
@@ -40,12 +47,20 @@ public interface IssueDao {
 	 * @param issue_id
 	 * @return affected rows count
 	 */
-	public int deleteIssue(String issue_id);
+	public int deleteIssue(IssueVO search);
 	
 	/**
 	 * @param pagingVO
 	 * @return MilestoneList
 	 */
 	public List<MilestoneVO> selectMilestoneList(PagingVO<MilestoneVO> pagingVO);
+	
+	public MilestoneVO selectMilestone(MilestoneVO search);
+	
+	public int insertMilestone(MilestoneVO milestone);
+	
+	public int updateMilestone(MilestoneVO milestone);
+	
+	public int deleteMilestone(MilestoneVO search);
 	
 }

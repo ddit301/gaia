@@ -8,12 +8,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link href="${cPath }/resources/assets/css/member.css" rel="stylesheet">
 <script type="text/javascript">
 	// 뒤로가기 상황을 제외하고는 pushState를 통해 데이터를 쌓아야합니다.
 	var movePageHistory = function(pageParam){
 		var data = pageParam;
 		var title;
-		var url = '${cPath}/${mem_nick }'+(pageParam ? '/'+pageParam : '');
+		// 이게 주소창에 찍히는 녀석임.
+		// var url = '${cPath}/${mem_nick }'+ 'aa';
+		var url = getContextPath() + '/${mem_nick }'+(pageParam ? '/'+pageParam : '');
 		console.log(data);
 		history.pushState(data, title, url);
 		movePage(pageParam);
@@ -22,10 +25,23 @@
 	// 뒤로가기 상황에서는 movePage 함수를 바로 호출합니다. 그렇지 않으면 history가 꼬이게 됩니다.
 	var movePage = function(pageParam){
 		let mem_nick = '${mem_nick}';
-		if(!pageParam)
-			pageParam = 'overview';
+		let path = getContextPath()+"/view/member/";
+		let index
+		
+		if(!pageParam){
+			pageParam = 'overview';	
+		}
+		// setting으로 요청이 들어오면 profile로 변경시키기.(setting/profile -> setting으로만 표시 )
+		if(pageParam=="setting"){
+			pageParam = 'profile';	
+		}
+		// profile.jsp에서 'setting/account'로 pageParam을 넘김.
+		if(pageParam.includes("/"))
+			index = pageParam.indexOf("/");
+			pageParam = pageParam.slice(index+1);
+		
 		$.ajax({
-			url : '${cPath}/view/member/'+pageParam,
+			url : path+pageParam ,
 			type : 'get',
 			data : {'mem_nick' : mem_nick
 				},
@@ -55,19 +71,19 @@
 	            </a>
 	        </li>
 	        <li>
-	            <a class="moveButton" data-menu="help" href="javascript:void()" aria-expanded="false">
+	            <a class="moveButton" href="javascript:void()" aria-expanded="false">
 	                <i class="icon-envelope menu-icon"></i> <span class="nav-text">Help</span>
 	            </a>
+	            <ul aria-expanded="false">
+	                <li><a class="moveButton" data-menu="help-contact" href="javascript:void()" >contact</a></li>
+	                <li><a class="moveButton" data-menu="help-FAQ" href="javascript:void()">FAQ</a></li>
+	                <li><a class="moveButton" data-menu="help-notice" href="javascript:void()">notice</a></li>
+	            </ul>
 	        </li>
 	        <li>
-	            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-	                <i class="icon-envelope menu-icon"></i> <span class="nav-text">Settings</span>
+	            <a class="moveButton" data-menu="setting" href="javascript:void()" aria-expanded="false">
+	                <i class="icon-envelope menu-icon"></i> <span class="nav-text">Setting</span>
 	            </a>
-	            <ul aria-expanded="false">
-	                <li><a class="moveButton" data-menu="setting-activity" href="javascript:void()" >activity</a></li>
-	                <li><a class="moveButton" data-menu="setting-new" href="javascript:void()">new</a></li>
-	                <li><a class="moveButton" data-menu="setting-setting" href="javascript:void()">setting</a></li>
-	            </ul>
 	        </li>
 	    </ul>
 	</div>
