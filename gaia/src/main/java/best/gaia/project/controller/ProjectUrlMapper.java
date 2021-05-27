@@ -21,7 +21,7 @@ import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.exception.ResourceNotFoundException;
 @Controller
-@RequestMapping("{manager_nick:^(?:(?!admin$|resources$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
+@RequestMapping("{manager_nick:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
 public class ProjectUrlMapper {
 	
 	@Inject
