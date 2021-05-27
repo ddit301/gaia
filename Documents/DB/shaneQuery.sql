@@ -26,8 +26,7 @@ from issue a
     inner join project on (a.proj_no = project.proj_no)
     inner join member pm on (project.mem_no = pm.mem_no)
 where a.issue_no = 1
-        and pm.mem_nick = 'kkobuk'
-        and project.proj_title = 'testproject';
+      and proj_no = 1;
 
 ------------------------------------------------------------------------
 -- 뉴스 목록 조회
@@ -52,8 +51,11 @@ from news
 order by news.news_sid desc;
 -----------------------------------------------------------------------------------
 -- member 닉네임과 project 이름으로 (url) 프로젝트 번호 알아내기
+-----------------------------------------------------------------------------------
 select proj_no
 from project 
     inner join member on (project.mem_no = member.mem_no)
 where proj_title = 'testproject'
     and mem_nick = 'kkobuk'
+-----------------------------------------------------------------------------------
+
