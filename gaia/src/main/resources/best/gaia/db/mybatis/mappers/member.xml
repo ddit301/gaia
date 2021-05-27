@@ -11,6 +11,15 @@
 		SELECT *
 		FROM MEMBER
 	</select>
+
+	<select id="selectMemberDetailByNo" parameterType="Integer" resultType="best.gaia.vo.MemberVO">
+		SELECT MEM_ID, MEM_PASS, MEM_NICK
+				MEM_TEL, MEM_PIC_FILE_NAME, MEM_SIGN_DATE
+				MEM_QUIT_DATE, MEM_NM, MEM_BIO
+				MEM_WORKING_CITY, MEM_STATUS
+		FROM MEMBER
+		WHERE MEM_NO = #{mem_no}
+	</select>
 	
 	<insert id="insertMember" parameterType="MemberVO">
 		<selectKey resultType="int" keyProperty="mem_no" order="BEFORE">
