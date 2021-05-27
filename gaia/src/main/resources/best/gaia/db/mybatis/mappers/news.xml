@@ -26,6 +26,7 @@ FROM NEWS
     LEFT OUTER JOIN MEMBER COMMENTER ON (NC.MEM_NO = COMMENTER.MEM_NO)
     LEFT OUTER JOIN PROJ_MEM COMMENTERP ON (NEWS.PROJ_NO = COMMENTERP.PROJ_NO
                                     AND COMMENTER.MEM_NO = COMMENTERP.MEM_NO)
+where proj_no = #{detailSearch.proj_no}                                       
 ORDER BY NEWS.NEWS_SID DESC                                    
 	</select>
 	

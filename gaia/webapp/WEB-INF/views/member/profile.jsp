@@ -28,9 +28,9 @@
 			            	<h2>Public profile</h2>
 			            </div>
 			            <hr>
-			            <div class="row">
-			            	<div class="col-md-8">
-			                    <form class="basic-form">
+	                    <form class="basic-form">
+			           		<div class="row">
+			            		<div class="col-md-8">
 				            		<h4 class="card-title">NickName</h4>
 			                        <div class="form-group">
 			                            <input type="text" class="form-control input-default" placeholder="Input Default">
@@ -43,6 +43,10 @@
 			                        <div class="form-group">
 			                            <input type="text" class="form-control input-default" placeholder="Input Default">
 			                        </div>
+			                        <h4 class="card-title">Tel</h4>
+			                        <div class="form-group">
+			                            <input type="text" class="form-control input-default" placeholder="Input Default">
+			                        </div>
 			                        <h4 class="card-title">Status</h4>
 			                        <div class="form-group">
 			                            <input type="text" class="form-control input-default" placeholder="Input Default">
@@ -51,15 +55,15 @@
 					                <p>
 					                	<button type="submit" class="btn btn-primary">Update profile</button>
 					                </p>
-			                    </form>
-				            </div>
-			            	<div class="col-md-4">
-			            		<div class="img-grid-right">
-				            		<label class="d-block"> Profile picture</label>
-				            		<img class="mr-3 rounded-circle" height="200" width="200" src="${cPath}/resources/assets/images/member/profile.png">
-			            		</div>
-			            	</div>
-	           			</div>
+				        	    </div>
+				            	<div class="col-md-4">
+				            		<div class="img-grid-right">
+					            		<label class="d-block"> Profile picture</label>
+					            		<img class="mr-3 rounded-circle" height="200" width="200" src="${cPath}/resources/assets/images/member/profile.png">
+				            		</div> 
+				            	</div>
+	           				</div>
+	                    </form>
 					</div>
 		    	</div>
 			</div>

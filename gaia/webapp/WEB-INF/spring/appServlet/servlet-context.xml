@@ -10,6 +10,9 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
+		<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"
+			p:order="1"
+		/>
 		<annotation-driven validator="validator"/>
 
 		<beans:bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"
@@ -17,7 +20,7 @@
 		/>
 
 		<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-		<resources location="/resources/" mapping="/resources/**" cache-period="0"></resources>
+		<resources location="/resources/" mapping="/resources/**" cache-period="0" order="0"></resources>
 
 		<beans:bean id="IRVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 			p:prefix="/WEB-INF/views/"

@@ -9,15 +9,12 @@
     pageEncoding="UTF-8"%>
 <div class="card">
 	<div class="card-body">
-		<div class="card">
+		<div class="card display-webkit-box">
 			<img class="mr-3 rounded-circle" height="48" width="48" src="${cPath}/resources/assets/images/member/profile.png">
            	<div class="flex-auto">
-				<h5 class="m-b-3">Ingredia Nutrisha</h5>
+				<h5 class="m-b-3">${mem_nick }</h5>
                 <div class="d-flex flex-items-center flex-wrap">
 	                <p class="color-text-tertiary mb-0 mr-3">Your personal account</p>
-	                <details class="dropdown details-overlay details-reset">
-	                	<summary> details</summary>
-	                </details>
                 </div>
             </div>
         </div>
