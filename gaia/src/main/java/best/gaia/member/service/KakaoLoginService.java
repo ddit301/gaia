@@ -35,7 +35,7 @@ import com.ibatis.common.resources.Resources;
  */
 
 @Service
-public class KakaoService {
+public class KakaoLoginService {
 
 //	get access_Token by authorize_code 
 	public String getAccessToken(String authorize_code) {

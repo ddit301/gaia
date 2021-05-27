@@ -92,6 +92,11 @@
                         </a>
                     </li>
                     <li>
+                        <a class="moveButton" data-menu="cloud" href="#" aria-expanded="false">
+                            <i class="icon-cloud-download"></i><span class="nav-text">Cloud</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="moveButton" data-menu="code" href="#" aria-expanded="false">
                             <i class="icon-screen-desktop"></i><span class="nav-text">Code</span>
                         </a>

@@ -14,7 +14,6 @@
 
 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.factory.PasswordEncoderFactories" factory-method="createDelegatingPasswordEncoder" 
 	/>
-
 	
 	<authentication-manager id="authenticationManager">
 		<authentication-provider user-service-ref="authService">
@@ -36,19 +35,16 @@
 		/>
 		
 		<logout logout-url="/signout" logout-success-url="/" invalidate-session="true"/>
-	
 
+		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="/intro" access="permitAll"/>
 		<intercept-url pattern="/demo" access="permitAll"/>
 		<intercept-url pattern="/sales" access="permitAll"/>
 		<intercept-url pattern="/signin" access="permitAll"/>
 		<intercept-url pattern="/signup" access="permitAll"/>
 		<intercept-url pattern="/CS" access="permitAll"/>
-		
 		<intercept-url pattern="/sigin/siginCheck" access="permitAll"/>
-		<intercept-url pattern="/" access="permitAll"/>
 
-		
 		<!-- 	관리자 -->
 		<intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')"/>
 		

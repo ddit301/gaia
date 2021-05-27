@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -41,7 +42,7 @@ public class MainPageIndexingController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainPageIndexingController.class);
 
-	@RequestMapping(value = "/intro")
+	@GetMapping(value = "/intro")
 	public String introPage() {
 		return "main/intro";
 	}
