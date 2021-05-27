@@ -53,7 +53,7 @@ public class ProjectUrlMapper {
 		Map<String, Object> map = new HashMap<>();
 		map.put("manager_nick", manager_nick);
 		map.put("project_title", project_title);
-		Integer proj_no = dao.getProjNoWithMngNickkAndPrjTitle(map);
+		Integer proj_no = dao.getProjNoByNickTitle(map);
 		
 		// 존재하는 프로젝트 인지 검사 후 존재하지 않으면 404 에러 응답.
 		if(proj_no == null) {

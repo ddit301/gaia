@@ -141,7 +141,7 @@
 							issueBox.attr('data-issue_sid',v.issue_sid);
 							issueBox.attr('data-issue_no',v.issue_no);
 							issueBox.children('.issue-title').children('a').text(v.issue_title);
-							issueBox.children('.priority').text('즉시');
+							issueBox.children('.issue_priority').text('즉시');
 							issueBox.children('.issue-label').text('할일');
 							issueBox.children('.milestone').text('설계구현');
 							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');

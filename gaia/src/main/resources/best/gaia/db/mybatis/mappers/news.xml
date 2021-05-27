@@ -4,16 +4,19 @@
 
 	<resultMap type="best.gaia.vo.NewsVO" id="newsMap" autoMapping="true">
 		<id property="news_sid" column="NEWS_SID"/>
+		<association property="writer" javaType="best.gaia.vo.MemberVO" autoMapping="true" >
+		</association>
 		<collection property="commentList" ofType="best.gaia.vo.NewsCommentVO" 
-			javaType="java.util.List" autoMapping="true"></collection>
+			javaType="java.util.List" autoMapping="true">
+		</collection>
 	</resultMap>
 
 	<select id="selectNewsList" parameterType="best.gaia.vo.PagingVO" resultMap="newsMap">
 SELECT NEWS.NEWS_SID, NEWS.PROJ_NO, NEWS_NO, NEWS_TITLE, NEWS_CONT, NEWS_WRITE_DATE
-		,ATCH_FILE_SID
-        ,WRITER.MEM_NO AS WRITERMEMNO
-        ,WRITER.MEM_PIC_FILE_NAME AS WRITERPICTURE
-        ,WRITERP.PROJ_USER_NICK AS WRITERNICKNAME
+        ,ATCH_FILE_SID
+        ,WRITER.MEM_NO
+        ,WRITER.MEM_PIC_FILE_NAME
+        ,WRITERP.PROJ_USER_NICK as mem_nick
         ,NEWS_COM_NO, NEWS_COM_CONT, NEWS_COM_DATE
         ,COMMENTER.MEM_NO COMMENTERMEMNO
         ,COMMENTER.MEM_PIC_FILE_NAME AS COMMENTERPICTURE
@@ -26,8 +29,8 @@ FROM NEWS
     LEFT OUTER JOIN MEMBER COMMENTER ON (NC.MEM_NO = COMMENTER.MEM_NO)
     LEFT OUTER JOIN PROJ_MEM COMMENTERP ON (NEWS.PROJ_NO = COMMENTERP.PROJ_NO
                                     AND COMMENTER.MEM_NO = COMMENTERP.MEM_NO)
-where proj_no = #{detailSearch.proj_no}                                       
-ORDER BY NEWS.NEWS_SID DESC                                    
+WHERE PROJ_NO = #{detailSearch.proj_no}                           
+ORDER BY NEWS.NEWS_SID DESC                                 
 	</select>
 	
 </mapper>
