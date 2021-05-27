@@ -27,7 +27,7 @@ public class ProjectDaoTest {
 		Map<String, Object> map = new HashMap<>();
 		map.put("manager_nick",manager_nick);
 		map.put("project_title",project_title);
-		Integer projno = dao.getProjNoWithMngNickkAndPrjTitle(map);
+		Integer projno = dao.getProjNoByNickTitle(map);
 //		assertNotNull(projno);
 		assertNull(projno);
 	}
