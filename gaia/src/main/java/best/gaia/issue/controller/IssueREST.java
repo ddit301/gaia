@@ -12,7 +12,11 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +44,7 @@ public class IssueREST {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IssueREST.class);
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@GetMapping
 	public List<IssueVO> selectIssueList(
 			HttpSession session
 			) {
@@ -58,22 +62,22 @@ public class IssueREST {
 		return service.selectIssueList(pagingVO);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@PostMapping
 	public Map<String, Object> insertIssue() {
 		return null;
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT)
+	@PutMapping
 	public Map<String, Object> updateIssue() {
 		return null;
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE)
+	@DeleteMapping
 	public Map<String, Object> deleteIssue() {
 		return null;
 	}
 	
-	@RequestMapping(value="{issue_no}", method=RequestMethod.GET)
+	@GetMapping("{issue_no}")
 	public IssueVO selectIssue(
 				@PathVariable Integer issue_no
 				,HttpSession session
