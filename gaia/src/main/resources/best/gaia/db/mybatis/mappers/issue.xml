@@ -12,7 +12,7 @@
 		</collection>
 	</resultMap>
 	
-	<select id="selectIssue" parameterType="best.gaia.vo.IssueVO" resultMap="issueMap">
+	<select id="selectIssue" parameterType="java.util.Map" resultMap="issueMap">
 	SELECT A.ISSUE_SID, A.ISSUE_NO, A.LABEL_NO, LABEL.LABEL_NM
 	        ,D.MEM_NO AS WRITER_NO, DM.PROJ_USER_NICK AS WRITER_NICK, D.MEM_PIC_FILE_NAME AS WRITER_PIC
 	        ,A.MILEST_SID, A.PROJ_NO, A.ISSUE_TITLE
