@@ -10043,13 +10043,12 @@ sub {
 }
 
 .content-body .container-fluid {
-  padding: 0px 30px;
+  padding: 30px 30px;
 }
 
 @media (max-width: 767px) {
   .content-body .container-fluid {
     padding: 1.5rem 1.5rem 0;
-    padding: 0.9375rem 0.9375rem 0;
   }
 }
 
@@ -11688,7 +11687,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     position: relative;
   }
   [data-sidebar-style="mini"] .nk-sidebar .metismenu li a {
-    padding: 0.8125rem 0.9375rem;
+    padding: 0.8125rem 1.39rem;
   }
   [data-sidebar-style="mini"] .nk-sidebar .metismenu li > ul {
     position: absolute;

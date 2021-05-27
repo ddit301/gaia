@@ -1,8 +1,10 @@
+
 package best.gaia.vo;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -134,5 +136,9 @@ public class MemberVO implements UserDetails, Serializable {
 		result = prime * result + ((mem_id == null) ? 0 : mem_id.hashCode());
 		return result;
 	}
+	
+	 private List<ProjectVO> projectList;
+	 private List<IssueHistoryVO> historyList;
+	 private List<IssueVO> issueList;
 
 }

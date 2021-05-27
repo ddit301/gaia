@@ -18,8 +18,8 @@ public class NewsVO {
 	@NotNull @Min(0) private Integer news_sid;
 	@NotNull @Min(0) private Integer proj_no;
 	@NotNull @Min(0) private Integer writerMemno;
-	@NotNull @Min(0) private String writerNickname;
-	@NotNull @Min(0) private String writerPicture;
+	private String writerNickname;
+	private String writerPicture;
 	@NotNull @Min(0) private Integer news_no;
 	@NotBlank@Size(max=200) private String news_title;
 	@NotBlank@Size(max=4000) private String news_cont;
