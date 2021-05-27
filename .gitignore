@@ -3,4 +3,5 @@
 */target/
 gaia/src/main/resources/best/gaia/db/dbinfo.properties
 /.svn/
-*.properties
+**/.DS_Store
+RemoteSystemsTempFiles/.project

@@ -4,26 +4,26 @@ import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import best.gaia.member.service.KakaoLoginService;
 import best.gaia.member.service.MemberService;
-import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.vo.KakaoService;
 import best.gaia.vo.MemberVO;
 
 @Controller
@@ -41,16 +41,27 @@ public class APILoginController {
 	private static final Logger logger = LoggerFactory.getLogger(APILoginController.class);
 	
 	@Autowired
-	private KakaoService kakaoService;
+	private KakaoLoginService kakaoService;
 	
 	final ObjectMapper mapper = new ObjectMapper();
+	
+	@Inject
+	@Named("authenticationManager")
+	AuthenticationManager authenticationManager;
+	
 	
 	//kakao login
 	@RequestMapping("/oauth/kakao")
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, @RequestParam(value="scope", required = false) String scope) throws Exception {
         String access_Token = kakaoService.getAccessToken(code);
+        logger.info(access_Token);
+//        g08LwTOmoBUUBJT5-xNFMAIhOA7-SI_PKo8TlAo9dRsAAAF5omvkmg
         HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_Token);
-        MemberVO member = mapper.convertValue(userInfo, MemberVO.class);
+        
+        Authentication authentication = new UsernamePasswordAuthenticationToken("admin", "admin");///
+        Authentication newAuthentication = authenticationManager.authenticate(authentication);
+        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+//        MemberVO member = mapper.convertValue(userInfo, MemberVO.class);
         
 //        <what u can get>
 //        
@@ -74,10 +85,21 @@ public class APILoginController {
 //            "scope":"account_email profile"
 //        }
         
-        return "member/overview";
+        return "redirect:/";
 	}
 	
 	
+	
+	// github login
+	@RequestMapping("/signout/success")
+	public String logOut(HttpSession session) throws Exception {
+		if(session.isNew()) {
+			return "redirect:/";
+		} else {
+			return "member/overview";
+		}
+		
+	}
 	
 	// github login
 	@RequestMapping("/oauth/github")
@@ -197,3 +219,5 @@ public class APILoginController {
 	
 
 }
+
+

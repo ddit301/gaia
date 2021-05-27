@@ -7,6 +7,9 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+     <link href="${cPath }/resources/assets/css/kanban.css" rel="stylesheet">
+     
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
@@ -23,3 +26,53 @@
 				조회중인 프로젝트 타이틀 : ${project_title }
             </div>
             <!-- #/ container -->
+            
+            <div class="kanbanCard">
+			  <p>카드입니다</p>
+			</div>
+			
+<script>
+/*
+ * 마우스 드래그에 대한 함수입니다.
+ */
+kanbanCards = document.getElementsByClassName("kanbanCard");
+for(var i in kanbanCards){
+	dragElement(kanbanCards[i]);
+}
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    elmnt.onmousedown = dragMouseDown;
+
+  function dragMouseDown(e) {
+    e = e || window.event;	// Internet Explorer에는 e가 없고 window.event를 사용
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+    alert(elmnt.style.top + "," + elmnt.style.left)
+  }
+}
+</script>

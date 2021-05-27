@@ -15,4 +15,20 @@
     <link rel="icon" type="image/png" sizes="16x16" href="${cPath }/resources/assets/images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="${cPath }/resources/assets/css/style.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/plugins/nestable/css/nestable.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-3YZPKG0D0K"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'G-3YZPKG0D0K');
+	  
+	function getContextPath() {
+   		return "<%=request.getContextPath()%>";
+	}
+	
+	</script>
+	

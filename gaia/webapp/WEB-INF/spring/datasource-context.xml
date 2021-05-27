@@ -26,8 +26,8 @@
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" 
 		p:dataSource-ref="dataSource"
+		p:typeAliasesPackage="best.gaia.**.vo"
 		p:mapperLocations="classpath:best/gaia/db/mybatis/mappers/*.xml"
-		p:typeAliasesPackage="best.gaia.vo.**"
 	/>
 	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
