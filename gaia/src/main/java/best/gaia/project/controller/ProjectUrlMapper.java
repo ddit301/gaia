@@ -16,7 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.service.ProjectService;
 @Controller
-@RequestMapping("{manager_nick:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
+@RequestMapping("{manager_nick:^(?:(?!admin$|resources$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
 public class ProjectUrlMapper {
 	
 	@Inject
