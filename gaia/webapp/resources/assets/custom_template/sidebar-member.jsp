@@ -24,6 +24,7 @@
 			})
 		},
 		error : function(xhr) {
+			console.log(xhr);
 			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
 			if(xhr.status == '404'){
 				alert("실패");				

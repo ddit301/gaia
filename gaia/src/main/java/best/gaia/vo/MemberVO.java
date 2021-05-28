@@ -138,6 +138,5 @@ public class MemberVO implements UserDetails, Serializable {
 	}
 	
 	 private List<ProjectVO> projectList;
-	 private List<IssueVO> issueList;
 
 }
