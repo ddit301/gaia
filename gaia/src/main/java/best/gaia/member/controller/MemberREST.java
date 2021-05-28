@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,14 +67,9 @@ public class MemberREST {
 	public MemberVO selectIssue(
 				@PathVariable Integer mem_no
 				,@ModelAttribute("search") MemberVO search
-				,@RequestParam String mem_nick
-				,@RequestParam String project_title
 			) {
 		search = service.retrieveMemberByNo(mem_no);
-		
-		
-		
-		return null;
+		return search;
 	}
 	
 	
