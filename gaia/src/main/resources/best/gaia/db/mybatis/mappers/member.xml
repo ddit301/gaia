@@ -14,25 +14,40 @@
 	
 	<resultMap type="best.gaia.vo.MemberVO" id="memberMap" autoMapping="true">
 		<id property="mem_no" column="MEM_NO"/>
-		<collection property="projectList" ofType="MemberVO" javaType="java.util.List" autoMapping="true">
-			<id property="proj_no" column="PROJ_NO"/>
+		<collection property="projectList" ofType="ProjectVO" javaType="java.util.List" autoMapping="true">
+			<id property="proj_no" column="MEMPROJ_NO"/>
 		</collection>
-		<collection property="issueList" ofType="IssueVO" javaType="java.util.List" autoMapping="true">
+		<collection property="issueList" ofType="IssueVO" javaType="java.util.Set" autoMapping="true">
 			<id property="issue_sid" column="ISSUE_SID"/>
-		</collection>
-		<collection property="historyList" ofType="IssueHistoryVO" javaType="java.util.List" autoMapping="true">
-			<id property="issue_his_no" column="ISSUE_HIS_NO"/>
+			<association property="project" javaType="best.gaia.vo.ProjectVO" autoMapping="true">
+				<id property="proj_no" column="PROJ_NO"/>
+			</association>
+			<collection property="historyList" ofType="IssueHistoryVO" javaType="java.util.List" autoMapping="true">
+				<id property="issue_his_no" column="ISSUE_HIS_NO"/>
+			</collection>
 		</collection>
 	</resultMap>
 	
-	
-	<select id="selectMemberDetailByNo" parameterType="Integer" resultType="best.gaia.vo.MemberVO">
-		SELECT MEM_ID, MEM_PASS, MEM_NICK
-				MEM_TEL, MEM_PIC_FILE_NAME, MEM_SIGN_DATE
-				MEM_QUIT_DATE, MEM_NM, MEM_BIO
-				MEM_WORKING_CITY, MEM_STATUS
-		FROM MEMBER
-		WHERE MEM_NO = #{mem_no}
+	<select id="selectMemberDetailByNo" parameterType="Integer" resultMap="memberMap">
+		SELECT A.MEM_NO, A.MEM_ID, A.MEM_NICK, A.MEM_TEL, A.MEM_PIC_FILE_NAME,
+	        A.MEM_NM, A.MEM_BIO, A.MEM_WORKING_CITY, A.MEM_STATUS,
+	         AP.PROJ_NO, AM.PROJ_NO AS MEMPROJ_NO, AM.PROJ_TITLE,
+	        B.ISSUE_NO, B.ISSUE_TITLE, B.LABEL_NO, B.MILEST_SID,
+	        B.ISSUE_PRIORITY AS PRIORITY, B.PROGRESS, B.ISSUE_STATUS, 
+	        C.ISSUE_HIS_DATE, CM.MEM_NICK AS HIS_WRITER_NICK, CM.MEM_PIC_FILE_NAME AS HIS_WRITER_PIC,
+            D.LABEL_NM, E.PROJ_TITLE, EM.MEM_NICK AS PROJ_MANAGER, E.PROJ_NO
+           
+        
+		FROM MEMBER A
+			LEFT OUTER JOIN ISSUE B ON (A.MEM_NO = B.MEM_NO)
+            LEFT OUTER JOIN PROJ_MEM AP ON (A.MEM_NO = AP.MEM_NO)
+            LEFT OUTER JOIN PROJECT AM ON (AP.PROJ_NO = AM.PROJ_NO) 
+			LEFT OUTER JOIN ISSUE_HISTORY C ON (B.ISSUE_SID = C.ISSUE_SID)
+			LEFT OUTER JOIN MEMBER CM ON (C.MEM_NO = CM.MEM_NO)
+            LEFT OUTER JOIN LABEL D ON (B.LABEL_NO = D.LABEL_NO)
+            LEFT OUTER JOIN PROJECT E ON (B.PROJ_NO = E.PROJ_NO)
+            LEFT OUTER JOIN MEMBER EM ON (E.MEM_NO = EM.MEM_NO)
+		WHERE A.MEM_NO = 1
 	</select>
 	
 	<insert id="insertMember" parameterType="MemberVO">
