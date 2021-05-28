@@ -137,6 +137,6 @@ public class MemberVO implements UserDetails, Serializable {
 		return result;
 	}
 	
-	 private List<ProjectVO> projectList;
+	 private Set<ProjectVO> projectList;
 
 }

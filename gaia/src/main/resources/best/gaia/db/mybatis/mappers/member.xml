@@ -14,40 +14,54 @@
 	
 	<resultMap type="best.gaia.vo.MemberVO" id="memberMap" autoMapping="true">
 		<id property="mem_no" column="MEM_NO"/>
-		<collection property="projectList" ofType="ProjectVO" javaType="java.util.List" autoMapping="true">
-			<id property="proj_no" column="MEMPROJ_NO"/>
-		</collection>
-		<collection property="issueList" ofType="IssueVO" javaType="java.util.Set" autoMapping="true">
-			<id property="issue_sid" column="ISSUE_SID"/>
-			<association property="project" javaType="best.gaia.vo.ProjectVO" autoMapping="true">
-				<id property="proj_no" column="PROJ_NO"/>
-			</association>
-			<collection property="historyList" ofType="IssueHistoryVO" javaType="java.util.List" autoMapping="true">
-				<id property="issue_his_no" column="ISSUE_HIS_NO"/>
+		<collection property="projectList" ofType="ProjectVO" javaType="java.util.Set" autoMapping="true">
+			<id property="proj_no" column="PROJECT_NO"/>
+			<collection property="issueList" ofType="IssueVO" javaType="java.util.Set" autoMapping="true">
+				<id property="issue_sid" column="ISSUE_ID"/>
+				<collection property="assigneeList" ofType="MemberVO" javaType="java.util.Set" autoMapping="true">
+					<id property="mem_no" column="ASSIGNEE"/>
+				</collection>
+				<collection property="historyList" ofType="IssueHistoryVO" javaType="java.util.List" autoMapping="true">
+					<id property="issue_his_no" column="ISSUE_HIS_NO"/>
+				</collection>
 			</collection>
 		</collection>
 	</resultMap>
 	
 	<select id="selectMemberDetailByNo" parameterType="Integer" resultMap="memberMap">
-		SELECT A.MEM_NO, A.MEM_ID, A.MEM_NICK, A.MEM_TEL, A.MEM_PIC_FILE_NAME,
-	        A.MEM_NM, A.MEM_BIO, A.MEM_WORKING_CITY, A.MEM_STATUS,
-	         AP.PROJ_NO, AM.PROJ_NO AS MEMPROJ_NO, AM.PROJ_TITLE,
-	        B.ISSUE_NO, B.ISSUE_TITLE, B.LABEL_NO, B.MILEST_SID,
-	        B.ISSUE_PRIORITY AS PRIORITY, B.PROGRESS, B.ISSUE_STATUS, 
-	        C.ISSUE_HIS_DATE, CM.MEM_NICK AS HIS_WRITER_NICK, CM.MEM_PIC_FILE_NAME AS HIS_WRITER_PIC,
-            D.LABEL_NM, E.PROJ_TITLE, EM.MEM_NICK AS PROJ_MANAGER, E.PROJ_NO
-           
-        
-		FROM MEMBER A
-			LEFT OUTER JOIN ISSUE B ON (A.MEM_NO = B.MEM_NO)
-            LEFT OUTER JOIN PROJ_MEM AP ON (A.MEM_NO = AP.MEM_NO)
-            LEFT OUTER JOIN PROJECT AM ON (AP.PROJ_NO = AM.PROJ_NO) 
-			LEFT OUTER JOIN ISSUE_HISTORY C ON (B.ISSUE_SID = C.ISSUE_SID)
-			LEFT OUTER JOIN MEMBER CM ON (C.MEM_NO = CM.MEM_NO)
-            LEFT OUTER JOIN LABEL D ON (B.LABEL_NO = D.LABEL_NO)
-            LEFT OUTER JOIN PROJECT E ON (B.PROJ_NO = E.PROJ_NO)
-            LEFT OUTER JOIN MEMBER EM ON (E.MEM_NO = EM.MEM_NO)
-		WHERE A.MEM_NO = 1
+		WITH PROJECTINFO AS (
+		    SELECT
+		        PROJ_TITLE, PROJECT.PROJ_NO, PROJ_USER_NICK, PROJ_MEM.MEM_NO,
+		        MEM_NICK AS PROD_MANAGER 
+		    FROM
+		        PROJ_MEM
+		        INNER JOIN PROJECT ON(PROJ_MEM.PROJ_NO = PROJECT.PROJ_NO)
+		        INNER JOIN MEMBER ON(PROJECT.MEM_NO = MEMBER.MEM_NO)
+		    ), 
+		ISSUEINFO AS (
+		    SELECT
+		        ISSUE.ISSUE_SID, ISSUE_ASSIGNEE.MEM_NO AS ASSIGNEE, ISSUE.ISSUE_NO,
+		        ISSUE_HISTORY.MEM_NO AS FIXER, ISSUE_HIS_NO, 
+		        LABEL_NO, PROJ_NO, ISSUE_TITLE, ISSUE_HIS_CONT, ISSUE_HIS_DATE, ISSUE_ASSIGNEE.MEM_NO
+		    FROM
+		        ISSUE_ASSIGNEE 
+		            INNER JOIN ISSUE ON (ISSUE_ASSIGNEE.ISSUE_SID = ISSUE.ISSUE_SID)
+		            INNER JOIN ISSUE_HISTORY ON (ISSUE.ISSUE_SID = ISSUE_HISTORY.ISSUE_SID)
+		)
+		
+		SELECT 
+		        MEM_NICK, MEM_ID, MEMBER.MEM_NO,
+		        PROJECTINFO.PROJ_NO AS PROJECT_NO, PROJ_TITLE,
+		        PROD_MANAGER||'/'||PROJ_TITLE AS URI,
+		        PROD_MANAGER||'/'||PROJ_TITLE||'/'||ISSUE_NO AS URL,
+		        ISSUE_SID AS ISSUE_ID,
+		        ISSUE_TITLE, FIXER, ASSIGNEE, ISSUE_HIS_CONT, ISSUE_HIS_DATE, ISSUE_HIS_NO
+		FROM MEMBER
+		        LEFT OUTER JOIN PROJECTINFO ON(MEMBER.MEM_NO = PROJECTINFO.MEM_NO)
+		        LEFT OUTER JOIN ISSUEINFO ON(PROJECTINFO.MEM_NO = ISSUEINFO.MEM_NO)
+		
+		WHERE MEMBER.MEM_NO = 1
+
 	</select>
 	
 	<insert id="insertMember" parameterType="MemberVO">
