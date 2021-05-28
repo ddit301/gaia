@@ -11,7 +11,7 @@
 	background-color : white;
 	color : black;
 	margin : 10px;
-	height : 100px;
+	height : 130px;
 }
 .milestoneview-title{
 	text-align : center;
@@ -21,6 +21,10 @@
 	font-weight : bold;
 	font-size : 2.0em;
 	line-height: 50px;
+}
+.milestone-descript{
+	text-align : center;
+	height : 50px;
 }
 .milestoneview-date{
 	height : 50px;

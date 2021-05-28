@@ -45,6 +45,14 @@
 		                        <span></span>
 		                    </div>                               
 						</div>
+						<div class="row">
+							<div class="milestone-descript col-md-6">
+								<span></span>	
+							</div>
+							<div class="col-md-6">
+								<span></span>	
+							</div>
+						</div>
 					</div>
 				</div>
 					
@@ -156,6 +164,7 @@
 					success : function(res) {
 						$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
 						$('.milestoneview-date').children('span').text(res.milest_start_date+'~'+res.milest_end_date);
+						$('.milestone-descript').children('span').text(res.milest_cont);
 	            		$('.progress-bar').attr('style','width: '+res.milest_percent+'%;');
 	            		$('.milestoneview-percent').children('span').text(res.milest_percent+'% complete '+res.open_issue_cnt+' open '+res.close_issue_cnt+' closed');
 						

@@ -77,7 +77,6 @@
 							<div class="col-md-6">
 								<span></span>	
 							</div>
-							
 						</div>
 					</div>
 				</div>
