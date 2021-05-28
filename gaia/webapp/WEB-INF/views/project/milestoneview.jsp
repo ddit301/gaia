@@ -109,7 +109,9 @@
 				</div> 
 		
 				<div id="milestone-issuelist"></div>
-           		<div class="milestoneview-footer"></div>
+           		<div class="milestoneview-footer">
+           			
+           		</div>
            	</div>
 				
 

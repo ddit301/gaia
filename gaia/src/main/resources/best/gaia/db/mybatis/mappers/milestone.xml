@@ -3,7 +3,7 @@
 <mapper namespace="best.gaia.issue.dao.MilestoneDao">
 	
 	<select id="selectMilestoneList" parameterType="best.gaia.vo.PagingVO" resultType="best.gaia.vo.MilestoneVO">
-			SELECT A.MILEST_TITLE,A.MILEST_NO
+			SELECT A.MILEST_TITLE,A.MILEST_NO,A.MILEST_CONT
                 , TO_CHAR(A.MILEST_START_DATE,'YYYY-MM-DD') AS MILEST_START_DATE 
                 , TO_CHAR(A.MILEST_END_DATE,'YYYY-MM-DD') AS MILEST_END_DATE
                 , SUM(A.ISSUE_STATUS)/COUNT(A.ISSUE_STATUS)*100 AS MILEST_PERCENT
@@ -13,7 +13,7 @@
    				 FROM MILESTONE
        				 LEFT OUTER JOIN ISSUE ON(MILESTONE.MILEST_SID = ISSUE.MILEST_SID))A
                WHERE PROJ_NO = #{detailSearch.proj_no}
-         GROUP BY A.MILEST_TITLE, A.MILEST_START_DATE, A.MILEST_END_DATE, A.MILEST_NO
+         GROUP BY A.MILEST_TITLE, A.MILEST_START_DATE, A.MILEST_END_DATE, A.MILEST_NO,A.MILEST_CONT
 	</select>
 	
 	<resultMap type="best.gaia.vo.MilestoneVO" id="milestoneMap" autoMapping="true">

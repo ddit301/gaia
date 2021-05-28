@@ -70,6 +70,15 @@
 		                        <span></span>
 		                    </div>                               
 						</div>
+						<div class="row">
+							<div class="milestone-descript col-md-6">
+								<span></span>	
+							</div>
+							<div class="col-md-6">
+								<span></span>	
+							</div>
+							
+						</div>
 					</div>
 				</div>
 			
@@ -90,6 +99,7 @@
 							let milestoneBox = $('#milestone-template').children('.milestoneBox').clone();
 							milestoneBox.attr('data-milest_no',v.milest_no);
 							milestoneBox.find('.milestone-title').children('a').text(v.milest_title);
+							milestoneBox.find('.milestone-descript').children('span').text(v.milest_cont);
 							milestoneBox.find('.milestone-date').children('span').text(v.milest_start_date+'~'+v.milest_end_date);
 							milestoneBox.find('.progress-bar').attr('style','width: '+v.milest_percent+'%;')
 							milestoneBox.find('.milestone-percent').children('span').text(v.milest_percent+'% complete '+v.open_issue_cnt+' open '+v.close_issue_cnt+' closed');
