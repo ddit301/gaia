@@ -52,6 +52,7 @@
 					<div class="milestone-issue-chk col-md-4">
 						<a class="btn mb-1 btn-sm btn-secondary" href="#">2 open</a>
 						<a class="btn mb-1 btn-sm btn-secondary" href="#">0 closed</a>
+						<a class="btn mb-1 btn-sm btn-secondary" href="#">all</a>
 					</div> 
 					<div class="milestone-dropdown-btn col-md-8">
 						<div class="dropdown-btn" style="float:right; padding-right:5px;">	
@@ -132,7 +133,7 @@
 					<div class="issue-title col-md-5">                                                              
 						<a class="moveButton" data-menu="issueview" href="javascript:void(0)"></a>                                                       
 					</div>  
-					<div class="col-md-1"></div>                                                                                          
+					<div class="col-md-1"></div>                                                                                         
 				    <div class="issue-writer col-md-1">                                                                  
 						<img src="" alt="">      
 					</div>                                                                                      
@@ -168,7 +169,7 @@
 						$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
 						$('.milestoneview-date').children('span').text(res.milest_start_date+'~'+res.milest_end_date);
 	            		$('.progress-bar').attr('style','width: '+res.milest_percent+'%;');
-	            		$('.milestoneview-percent').children('span').text(res.milest_percent+'% complete 1 open 0 closed');
+	            		$('.milestoneview-percent').children('span').text(res.milest_percent+'% complete '+res.open_issue_cnt+' open '+res.close_issue_cnt+' closed');
 						
 	            		total_count = Object.keys(res.issueList).length;
 	            		

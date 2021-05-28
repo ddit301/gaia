@@ -23,6 +23,9 @@ public class MilestoneVO {
 	@Size(max=7) private String milest_start_date;
 	@Size(max=7) private String milest_end_date;
 	@NotNull @Min(0) private Integer milest_no;
+	@NotNull @Min(0) private Integer proj_no;
 	private Integer milest_percent;
+	private Integer close_issue_cnt;
+	private Integer open_issue_cnt;
 	private List<IssueVO> issueList;
 }
