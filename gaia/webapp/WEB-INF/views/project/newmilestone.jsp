@@ -44,7 +44,7 @@
 											<div class="form-date-group row">
 									  			<div class ="date-box">
 									          		<div class="input-label">
-									          			<label for="milestone_due_on">Start date (optional)</label>
+									          			<label for="milestone_start_on">Start date (optional)</label>
 									         		</div>
 									      	 		<div>
 									            		<input type="date" pattern="\d\d\d\d-\d\d-\d\d" placeholder="yyyy-mm-dd" class="form-control" id="milestone_due_on" name="milestone[due_on]">
@@ -60,7 +60,10 @@
 									          	</div>
 											</div>
                                             <div class="form-text-group">
-                                                <textarea class="textarea_editor form-control bg-light" rows="15" placeholder="Enter text"></textarea>
+                                            	<div class="input-label">
+									          		<label for="milestone_description">Description</label>
+									         	</div>
+                                                <textarea class="textarea_editor form-control bg-light" rows="1" placeholder="Enter text"></textarea>
                                             </div>
                                         </form>
                                     </div>

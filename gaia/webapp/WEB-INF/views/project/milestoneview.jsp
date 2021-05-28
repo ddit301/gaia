@@ -131,7 +131,7 @@
 				<div class="issueBox row">                                                                                
 					<div class="col-md-1"></div>                                                                    
 					<div class="issue-title col-md-5">                                                              
-						<a class="moveButton" data-menu="issueview" href="javascript:void(0)"></a>                                                       
+						<a class="issueButton" data-menu="issueview" href="javascript:void(0)"></a>                                                       
 					</div>  
 					<div class="col-md-1"></div>                                                                                         
 				    <div class="issue-writer col-md-1">                                                                  
@@ -177,7 +177,7 @@
 	            		console.log(total_count);
 						$.each(res.issueList, function(i, v) {
 							let issueBox = $('#milestone-issue-template').children('.issueBox').clone();
-							issueBox.attr('issue_no',v.issue_no);
+							issueBox.attr('data-issue_no',v.issue_no);
 							issueBox.children('.issue-title').children('a').text(v.issue_title);
 							issueBox.children('.priority').text(
 									v.priority == 1 ? '무시' :
