@@ -20,8 +20,9 @@
 	            </div>
 	            <!-- row -->
 				<div class="milestoneview-btn">
-					<a href="#" class="label label-info">New issue</a>
-					<a href="#"	class="label label-info">Edit milestone</a>
+					<a class="label label-danger" data-menu="#" href="javascript:void(0)" >Delete milestone</a>
+					<a class="label label-info" data-menu="#" href="javascript:void(0)" >New issue</a>
+					<a class="moveButton label label-info" data-menu="editmilestone" href="javascript:void(0)" >Edit milestone</a>
 				</div>
 				<div id="milestoneview-template">
 					<div class="milestoneviewBox">	
@@ -108,22 +109,7 @@
 				</div> 
 		
 				<div id="milestone-issuelist"></div>
-           		<div class="milestoneview-footer">
-           			<div>
-	           			<ul class="pagination justify-content-center">
-	                       <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">1</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">2</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">3</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">Next</a>
-	                       </li>
-	                   </ul>
-           			</div>
-           		</div>
+           		<div class="milestoneview-footer"></div>
            	</div>
 				
 
