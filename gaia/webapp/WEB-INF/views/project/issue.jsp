@@ -161,6 +161,10 @@
 						
 					},
 					error : function(xhr, error, msg) {
+						// 조회중인 프로젝트 번호를 세션에서 못 받아 올 경우, 메인 홈페이지로 보낸다.
+						if(xhr.status == 400){
+							window.location.href = getContextPath();
+						}
 						console.log(xhr);
 						console.log(error);
 						console.log(msg);

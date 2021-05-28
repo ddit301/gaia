@@ -1,5 +1,19 @@
 ------------------------------------------------------------------------
--- 이슈 목록 조회 
+-- Shane Query list
+
+-- Index
+
+-- 1. issue
+-- 2. News
+-- 3. Kanban
+
+------------------------------------------------------------------------
+
+-----------------------------1. 이슈----------------------------------------
+-- a. 이슈 목록 조회
+-- b. 이슈 상세정보 보기 
+----------------------------------------------------------------------
+-- a. 이슈 목록 조회 
 ------------------------------------------------------------------------
 SELECT ISSUE.ISSUE_SID AS ISSUE_ID ,ISSUE_NO ,ISSUE.PROJ_NO ,ISSUE_TITLE 
     ,ISSUE_CREATE_DATE ,ISSUE_START_DATE ,ISSUE_END_DATE ,ISSUE_STATUS
@@ -22,7 +36,7 @@ FROM ISSUE
 WHERE ISSUE.proj_no = 1
 order by ISSUE.issue_no desc;
 ------------------------------------------------------------------------
--- 이슈 상세정보 보기 
+-- b. 이슈 상세정보 보기 
 ------------------------------------------------------------------------
 select issue.issue_sid, issue_no, issue_title, progress, issue_status, issue_priority
         ,issue_create_date, issue_start_date, issue_end_date
@@ -50,7 +64,15 @@ from issue
 where issue.issue_no = 1 and issue.proj_no = 1;
 
 ------------------------------------------------------------------------
--- 뉴스 목록 조회
+
+
+
+
+-----------------------------2. 뉴스------------------------------------
+--a. 뉴스 목록 조회
+
+----------------------------------------------------------------------
+-- a. 뉴스 목록 조회
 ------------------------------------------------------------------------
 select news.news_sid, news.proj_no, news_no, news_title, news_cont, news_write_date
         ,atch_file_sid
@@ -78,6 +100,21 @@ select proj_no
 from project 
     inner join member on (project.mem_no = member.mem_no)
 where proj_title = 'testproject'
-    and mem_nick = 'kkobuk'
+    and mem_nick = 'kkobuk';
 -----------------------------------------------------------------------------------
 
+
+
+
+-----------------------------3. Kanban--------------------------------------------------
+-- a. 칸반 불러오기
+
+-----------------------------------------------------------------------------------
+
+-- a. 칸반 불러오기
+select * 
+from kanban_col
+where proj_no = 1
+start with kb_col_priv_no is null
+connect by prior kb_col_no = kb_col_priv_no;
+-----------------------------------------------------------------------------------
