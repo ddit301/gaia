@@ -88,7 +88,7 @@ public interface IssueService {
 	 * @param search
 	 * @return
 	 */
-	public MilestoneVO selectMilestone(MilestoneVO search);
+//	public MilestoneVO selectMilestone(MilestoneVO search);
 	
 	/**
 	 * 새로운 마일스톤 생성
@@ -111,4 +111,6 @@ public interface IssueService {
 	 * @return
 	 */
 	public ServiceResult deleteMilestone(MilestoneVO search);
+
+	public MilestoneVO selectMilestone(Map<String, Object> search);
 }

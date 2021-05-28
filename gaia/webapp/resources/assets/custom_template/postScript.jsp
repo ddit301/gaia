@@ -61,6 +61,34 @@
 		}else{
 			movePageHistory(pageParam);
 		}
+		
+		// milestoneView
+		var milestoneView = function(milest_no){
+			let project_title = '${project_title}';
+			let manager_nick = '${manager_nick}';
+			
+			data = 'milestoneview';
+			title = '';
+			url = '${cPath}/${manager_nick}/${project_title}/milestone/'+milest_no;
+			history.pushState(data,title,url);
+			
+			$.ajax({
+				url : '${cPath}/view/project/milestoneview'
+				,type : 'get'
+				,data : {
+					'manager_nick' : manager_nick
+					,'project_title' : project_title
+					,'milest_no' : milest_no
+					}
+				,success : function(res) {
+					$('.content-body').html(res);
+				}
+				,error : function(xhr){
+					alert('error : ' + xhr.status);
+				},
+				dataType : 'html'
+			})
+		}
 	 	
 	 	/********************************************************************
 	 	*
@@ -82,6 +110,13 @@
 				event.preventDefault();
 				let issue_no = $(this).parents('.issueBox').data('issue_no');
 				issueView(issue_no);
+			})
+			
+			// 특정 마일스톤 클릭시 불러오는 메서드
+			$('#main-wrapper').on('click','.milestoneButton',function(){
+				event.preventDefault();
+				let milest_no = $(this).parents('.milestoneBox').data('milest_no');
+				milestoneView(milest_no);
 			})
 		
 		})

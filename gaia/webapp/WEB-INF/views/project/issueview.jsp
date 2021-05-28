@@ -134,16 +134,12 @@
 </div>
             
             <script>
-            manager_nick = '${manager_nick}';
-            project_title = '${project_title}';
             issue_no = '${issue_no}';
             	
 	            $.ajax({
 					url : getContextPath() + '/restapi/project/issues/'+issue_no,
 					type : 'get',
 					data : {
-						'manager_nick' : manager_nick
-						,'project_title' : project_title
 					},
 					success : function(res) {
 						$('#assignees').empty();

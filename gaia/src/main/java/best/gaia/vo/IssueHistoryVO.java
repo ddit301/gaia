@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IssueHistoryVO {
-	@NotNull @Min(0) private Integer his_issue_sid;
+	@NotNull @Min(0) private Integer issue_sid;
 	@NotNull @Min(0) private Integer issue_his_no;
 	@NotNull @Min(0) private Integer his_writer_no;
 	private String his_writer_nick;

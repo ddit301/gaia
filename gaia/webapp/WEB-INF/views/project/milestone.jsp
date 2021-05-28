@@ -53,7 +53,7 @@
 					<div class="milestoneBox">	
 						<div class = "row">
 							<div class="milestone-title col-md-6">
-								<a class="moveButton" data-menu="milestoneview" href="javascript:void(0)"></a>    
+								<a class="milestoneButton" data-menu="milestoneview" href="javascript:void(0)"></a>    
 				            </div>                                                                                     
 							<div class="milestone-bar col-md-6">
 								<div class="progress mb-3">
@@ -88,6 +88,7 @@
 						
 						$.each(res, function(i, v) {
 							let milestoneBox = $('#milestone-template').children('.milestoneBox').clone();
+							milestoneBox.attr('data-milest_no',v.milest_no);
 							milestoneBox.find('.milestone-title').children('a').text(v.milest_title);
 							milestoneBox.find('.milestone-date').children('span').text(v.milest_start_date+'~'+v.milest_end_date);
 							milestoneBox.find('.progress-bar').attr('style','width: '+v.milest_percent+'%;')
