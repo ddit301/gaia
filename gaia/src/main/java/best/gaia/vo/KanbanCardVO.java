@@ -1,0 +1,22 @@
+package best.gaia.vo;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class KanbanCardVO {
+	@NotNull @Min(0) private Integer kb_card_no;
+	 private Integer kb_card_priv_no;
+	 private Integer mem_no;
+	@NotNull @Min(0) private Integer kb_col_no;
+	 private Integer issue_sid;
+	@Size(max=4000) private String kb_card_cont;
+	@Size(max=7) private String kb_card_write_date;
+}

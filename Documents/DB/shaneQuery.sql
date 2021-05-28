@@ -112,9 +112,31 @@ where proj_title = 'testproject'
 -----------------------------------------------------------------------------------
 
 -- a. 칸반 불러오기
-select * 
-from kanban_col
+with cards as (
+    select rownum rn, kb_col_no, kb_card_no 
+            ,kb_card_priv_no, mem_no, issue_sid, kb_card_cont, kb_card_write_date
+    from  kanban_card
+    start with kb_card_priv_no is null
+    connect by prior kb_card_no = kb_card_priv_no
+)
+select kanban.KB_COL_NO
+        , KB_COL_PRIV_NO , PROJ_NO , KB_COL_NM 
+        , cards.*
+from kanban_col kanban
+        left outer join cards on (kanban.kb_col_no =cards.kb_col_no)
 where proj_no = 1
-start with kb_col_priv_no is null
-connect by prior kb_col_no = kb_col_priv_no;
+start with kanban.kb_col_priv_no is null
+connect by prior kanban.kb_col_no = kanban.kb_col_priv_no
+order siblings by rn;
 -----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
