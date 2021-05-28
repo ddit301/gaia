@@ -14,20 +14,13 @@
         <div class="col-lg-4 col-xl-3">
             <div class="card"> 
                 <div class="card-body">
-                <div class="card">
-	                <form action="#" class="form-profile">
-	                	<div class="form-group">
-	                    	<ul>
-                    			<li id="projectList" hidden="hidden">
-                    				<strong class="text-dark mr-4">
-                    					<i class="fa fa-check text-info"></i>
-                    				</strong>
-                    				<a href="javascript:void(0)">project list1</a>
-                    			</li>
-	                    	</ul>
-	                    </div>
-                    </form>
-	            </div>
+	                <div class="card">
+		               	<div class="form-group">
+		                   	<ul id="projectList">
+	                  			
+		                   	</ul>
+	                   </div>
+		            </div>
                     <div class="media align-items-center mb-4">
                         <img class="mr-3" src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
                         <div class="media-body">
@@ -88,7 +81,7 @@
 			            </div>
 			            <div class="col">
 			                <div class="card">
-			                    <div class="card-body">
+			                    <div class="card-body issue_clone">
 				                    <div>
 				                    	<div>
 					                        <h5 class="mb-sm-0">Gaia > Project > MileStone > Issue </h5>
@@ -200,3 +193,22 @@
         </div>
     </div>
 </div>
+<script>
+	if(!memberInfo){
+		loadMemberInfo();
+	}
+	console.log(memberInfo);
+	let projects = "";
+	getContextPath()
+	// todo 
+	// 1. 3가지만 화면에 출력하기.
+	// 2. more page 클릭 시 가입된 모든 프로젝트 보여주기.
+	// 3. 문자 길이 설정.
+	$.each(memberInfo.projectList, function(i, v){
+		projects += '<li><a href="'+getContextPath()+"/"+ v.uri+'" class="projectName">'+ v.proj_title +"</a></li>";
+	})
+	$("#projectList").html(projects);
+		
+	
+	
+</script>
