@@ -1,6 +1,6 @@
 package best.gaia.vo;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -23,5 +23,5 @@ public class ProjectVO {
 	@Size(max=7) private String proj_est_end_date;
 	@NotNull @Min(0) private Integer issue_priority_set;
 	@NotNull @Min(0) private Integer proj_module_set;
-	private List<IssueVO> issueList;
+	private Set<IssueVO> issueList;
 }

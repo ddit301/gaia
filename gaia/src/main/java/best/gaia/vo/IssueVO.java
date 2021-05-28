@@ -33,7 +33,7 @@ public class IssueVO {
 	@Size(max=7) private String issue_end_date;
 	@NotBlank@Size(max=1) private String issue_status;
 	@NotNull @Min(0) private Integer issue_priority;
-	 private Integer progress;
+	 private Integer progress; 
 	 private Set<MemberVO> assigneeList;
 	 private List<IssueHistoryVO> historyList;
 }
