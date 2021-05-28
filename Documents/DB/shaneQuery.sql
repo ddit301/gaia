@@ -1,13 +1,42 @@
 ------------------------------------------------------------------------
--- 이슈 목록 조회 
+-- Shane Query list
+
+-- Index
+
+-- 1. issue
+-- 2. News
+-- 3. Kanban
+
 ------------------------------------------------------------------------
-SELECT ISSUE_SID ,ISSUE_NO ,MEM_NO ,LABEL_NO ,MILEST_SID ,PROJ_NO ,ISSUE_TITLE 
+
+-----------------------------1. 이슈----------------------------------------
+-- a. 이슈 목록 조회
+-- b. 이슈 상세정보 보기 
+----------------------------------------------------------------------
+-- a. 이슈 목록 조회 
+------------------------------------------------------------------------
+SELECT ISSUE.ISSUE_SID AS ISSUE_ID ,ISSUE_NO ,ISSUE.PROJ_NO ,ISSUE_TITLE 
     ,ISSUE_CREATE_DATE ,ISSUE_START_DATE ,ISSUE_END_DATE ,ISSUE_STATUS
     ,ISSUE_PRIORITY ,PROGRESS
+    ,MILESTONE.MILEST_SID, milestone.milest_title AS MILEST_TITLE
+    ,WRITER.MEM_NO AS writer_no, writer.mem_pic_file_name AS writer_pic
+    ,label.label_no, label.label_nm
+    ,ASSIGNEE.mem_no, assignee.mem_pic_file_name
+    ,(select count(*) -1
+        from issue_history
+        where issue_history.issue_sid = ISSUE.issue_sid
+                and issue_history.issue_his_type = 'RE'
+    ) as replyCount
 FROM ISSUE
-WHERE proj_no = 1;
+    LEFT OUTER JOIN MILESTONE ON (ISSUE.MILEST_SID = milestone.milest_sid)
+    INNER JOIN MEMBER WRITER ON (ISSUE.MEM_NO = WRITER.MEM_NO)
+    LEFT OUTER JOIN LABEL ON (issue.label_no = label.label_no)
+    LEFT OUTER JOIN issue_assignee ON (issue.issue_sid = issue_assignee.issue_sid)
+    LEFT OUTER JOIN MEMBER ASSIGNEE ON (issue_assignee.mem_no = assignee.mem_no)
+WHERE ISSUE.proj_no = 1
+order by ISSUE.issue_no desc;
 ------------------------------------------------------------------------
--- 이슈 상세정보 보기 
+-- b. 이슈 상세정보 보기 
 ------------------------------------------------------------------------
 select issue.issue_sid, issue_no, issue_title, progress, issue_status, issue_priority
         ,issue_create_date, issue_start_date, issue_end_date
@@ -35,7 +64,15 @@ from issue
 where issue.issue_no = 1 and issue.proj_no = 1;
 
 ------------------------------------------------------------------------
--- 뉴스 목록 조회
+
+
+
+
+-----------------------------2. 뉴스------------------------------------
+--a. 뉴스 목록 조회
+
+----------------------------------------------------------------------
+-- a. 뉴스 목록 조회
 ------------------------------------------------------------------------
 select news.news_sid, news.proj_no, news_no, news_title, news_cont, news_write_date
         ,atch_file_sid
@@ -63,6 +100,43 @@ select proj_no
 from project 
     inner join member on (project.mem_no = member.mem_no)
 where proj_title = 'testproject'
-    and mem_nick = 'kkobuk'
+    and mem_nick = 'kkobuk';
 -----------------------------------------------------------------------------------
+
+
+
+
+-----------------------------3. Kanban--------------------------------------------------
+-- a. 칸반 불러오기
+
+-----------------------------------------------------------------------------------
+
+-- a. 칸반 불러오기
+with cards as (
+    select rownum rn, kb_col_no, kb_card_no 
+            ,kb_card_priv_no, mem_no, issue_sid, kb_card_cont, kb_card_write_date
+    from  kanban_card
+    start with kb_card_priv_no is null
+    connect by prior kb_card_no = kb_card_priv_no
+)
+select kanban.KB_COL_NO
+        , KB_COL_PRIV_NO , PROJ_NO , KB_COL_NM 
+        , cards.*
+from kanban_col kanban
+        left outer join cards on (kanban.kb_col_no =cards.kb_col_no)
+where proj_no = 1
+start with kanban.kb_col_priv_no is null
+connect by prior kanban.kb_col_no = kanban.kb_col_priv_no
+order siblings by rn;
+-----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 

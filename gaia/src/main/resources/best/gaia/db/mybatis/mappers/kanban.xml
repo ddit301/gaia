@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="best.gaia.project.dao.KanbanDao">
+
+	<resultMap type="best.gaia.vo.KanbanColumnVO" id="kanbanMap" autoMapping="true">
+		<id property="kb_col_no" column="KB_COL_NO"/>
+		<collection property="cardList" ofType="best.gaia.vo.KanbanCardVO" 
+			javaType="java.util.List" autoMapping="true">
+			<id property="kb_card_no" column="KB_CARD_NO"/>
+		</collection>
+	</resultMap>
+
+	<select id="selectKanbanColumnList" parameterType="int" resultMap="kanbanMap">
+		WITH CARDS AS (
+		    SELECT ROWNUM RN, KB_COL_NO, KB_CARD_NO 
+		            ,KB_CARD_PRIV_NO, MEM_NO, ISSUE_SID, KB_CARD_CONT, KB_CARD_WRITE_DATE
+		    FROM  KANBAN_CARD
+		    START WITH KB_CARD_PRIV_NO IS NULL
+		    CONNECT BY PRIOR KB_CARD_NO = KB_CARD_PRIV_NO
+		)
+		SELECT KANBAN.KB_COL_NO
+		        , KB_COL_PRIV_NO , PROJ_NO , KB_COL_NM 
+		        , CARDS.*
+		FROM KANBAN_COL KANBAN
+		        LEFT OUTER JOIN CARDS ON (KANBAN.KB_COL_NO =CARDS.KB_COL_NO)
+		WHERE PROJ_NO = #{proj_no}
+		START WITH KANBAN.KB_COL_PRIV_NO IS NULL
+		CONNECT BY PRIOR KANBAN.KB_COL_NO = KANBAN.KB_COL_PRIV_NO
+		ORDER SIBLINGS BY RN
+	</select>
+	
+</mapper>

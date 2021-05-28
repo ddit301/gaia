@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.service.IssueService;
+import best.gaia.utils.exception.ProjNoNotExistInSessionException;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.PagingVO;
@@ -55,7 +55,8 @@ public class IssueREST {
 		// 조회할 issue에 대한 필터를 parameter에서 받아와 등록합니다.
 		
 		// session 에서 프로젝트 번호를 받아와 detailSearch에 등록합니다.
-		detailSearch.setProj_no((Integer)session.getAttribute("proj_no"));
+		Integer proj_no = getProjNoFromSession(session);
+		detailSearch.setProj_no(proj_no);
 		
 		pagingVO.setDetailSearch(detailSearch);
 		
@@ -83,7 +84,7 @@ public class IssueREST {
 				,HttpSession session
 			) {
 		
-		int proj_no = (Integer)session.getAttribute("proj_no");
+		Integer proj_no = getProjNoFromSession(session);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("proj_no", proj_no);
@@ -96,6 +97,14 @@ public class IssueREST {
 		}
 		
 		return issue;
+	}
+	
+	Integer getProjNoFromSession(HttpSession session){
+		Integer proj_no = (Integer)session.getAttribute("proj_no");
+		if(proj_no == null) {
+			throw new ProjNoNotExistInSessionException();
+		}
+		return proj_no;
 	}
 	
 	

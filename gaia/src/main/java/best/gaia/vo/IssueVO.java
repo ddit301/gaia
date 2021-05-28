@@ -36,4 +36,5 @@ public class IssueVO {
 	 private Integer progress;
 	 private Set<MemberVO> assigneeList;
 	 private List<IssueHistoryVO> historyList;
+	 private int replyCount;
 }

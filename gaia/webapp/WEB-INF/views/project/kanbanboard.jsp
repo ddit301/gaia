@@ -189,3 +189,29 @@
         //console.log(item);
       });
     </script>
+    
+			<script>
+			
+	            $.ajax({
+					url : getContextPath() + '/restapi/project/kanban-columns',
+					type : 'get',
+					data : {
+						
+					},
+					success : function(res) {
+						
+					},
+					error : function(xhr, error, msg) {
+						console.log(xhr);
+						console.log(error);
+						console.log(msg);
+					},
+					dataType : 'json'
+				})
+				
+			</script> 
+             
+             
+             
+             
+             
