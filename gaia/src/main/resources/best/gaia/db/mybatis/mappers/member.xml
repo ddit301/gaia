@@ -15,9 +15,9 @@
 	<resultMap type="best.gaia.vo.MemberVO" id="memberMap" autoMapping="true">
 		<id property="mem_no" column="MEM_NO"/>
 		<collection property="projectList" ofType="ProjectVO" javaType="java.util.Set" autoMapping="true">
-			<id property="proj_no" column="PROJ_NO"/>
+			<id property="proj_no" column="PROJECT_NO"/>
 			<collection property="issueList" ofType="IssueVO" javaType="java.util.Set" autoMapping="true">
-				<id property="issue_sid" column="ISSUE_SID"/>
+				<id property="issue_sid" column="ISSUE_ID"/>
 				<collection property="assigneeList" ofType="MemberVO" javaType="java.util.Set" autoMapping="true">
 					<id property="mem_no" column="ASSIGNEE"/>
 				</collection>
@@ -26,7 +26,6 @@
 				</collection>
 			</collection>
 		</collection>
-		
 	</resultMap>
 	
 	<select id="selectMemberDetailByNo" parameterType="Integer" resultMap="memberMap">
@@ -52,15 +51,16 @@
 		
 		SELECT 
 		        MEM_NICK, MEM_ID, MEMBER.MEM_NO,
-		        PROJECTINFO.PROJ_NO, 
-		        'getContextPath()/'||PROD_MANAGER||'/'||PROJ_TITLE||'/'||ISSUE_NO AS URL,
-		        ISSUE_SID,
+		        PROJECTINFO.PROJ_NO AS PROJECT_NO, PROJ_TITLE,
+		        PROD_MANAGER||'/'||PROJ_TITLE AS URI,
+		        PROD_MANAGER||'/'||PROJ_TITLE||'/'||ISSUE_NO AS URL,
+		        ISSUE_SID AS ISSUE_ID,
 		        ISSUE_TITLE, FIXER, ASSIGNEE, ISSUE_HIS_CONT, ISSUE_HIS_DATE, ISSUE_HIS_NO
 		FROM MEMBER
 		        LEFT OUTER JOIN PROJECTINFO ON(MEMBER.MEM_NO = PROJECTINFO.MEM_NO)
 		        LEFT OUTER JOIN ISSUEINFO ON(PROJECTINFO.MEM_NO = ISSUEINFO.MEM_NO)
 		
-		WHERE MEMBER.MEM_NO = 2
+		WHERE MEMBER.MEM_NO = 1
 
 	</select>
 	
