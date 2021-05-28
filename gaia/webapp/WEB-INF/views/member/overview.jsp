@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="row justify-content-end">
 	<div class="col col-md-3">
 		<ol class="breadcrumb">
@@ -17,9 +18,12 @@
 	                <form action="#" class="form-profile">
 	                	<div class="form-group">
 	                    	<ul>
-	                    		<li><strong class="text-dark mr-4"><i class="fa fa-check text-info"></i></strong><a href="javascript:void(0)">project list1</a></span></li>
-	                    		<li><strong class="text-dark mr-4"><i class="fa fa-check text-info"></i></strong><a href="javascript:void(0)">project list1</a></li>
-	                    		<li><strong class="text-dark mr-4"><i class="fa fa-check text-info"></i></strong><a href="javascript:void(0)">project list1</a></li>
+                    			<li id="projectList" hidden="hidden">
+                    				<strong class="text-dark mr-4">
+                    					<i class="fa fa-check text-info"></i>
+                    				</strong>
+                    				<a href="javascript:void(0)">project list1</a>
+                    			</li>
 	                    	</ul>
 	                    </div>
                     </form>
@@ -32,7 +36,7 @@
                         </div>
                     </div>
                     <h4>About Me</h4>
-                    <p class="text-muted">A smarter universe</p>
+                    <p class="text-muted" id="mem_bio">${model.mem_bio }</p>
                     <ul class="card-profile__info">
                         <li class="mb-1"><strong class="text-dark mr-4"><i class="fa fa-star gradient-1-text"></i></strong> <span>ddit301</span></li>
                         <li><strong class="text-dark mr-4"><i class="mdi mdi-email-outline"></i></strong> <span>name@domain.com</span></li>

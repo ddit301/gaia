@@ -25,6 +25,7 @@ public class IssueVO {
 	 private String label_nm;
 	 private Integer milest_sid;
 	 private String milest_title;
+	 private String url;
 	@NotNull @Min(0) private Integer proj_no;
 	@NotBlank@Size(max=200) private String issue_title;
 	@Size(max=7) private String issue_create_date;
