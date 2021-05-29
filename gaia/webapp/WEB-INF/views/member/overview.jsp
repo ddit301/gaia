@@ -56,8 +56,8 @@
 		<div class="col-lg-8 col-xl-9">
 			<div class="card">
 		    	<div class="container-fluid">
-			        <div class="row">
-			            <div class="col">
+			        <div class="row" id="issues">
+			            <div class="col" id="issueInfo">
 			                <div class="card">
 			                    <div class="card-body">
 				                    <div>
@@ -79,31 +79,7 @@
 			                	</div>
 			                </div>
 			            </div>
-			            <div class="col">
-			                <div class="card">
-			                    <div class="card-body issue_clone">
-				                    <div>
-				                    	<div>
-					                        <h5 class="mb-sm-0">Gaia > Project > MileStone > Issue </h5>
-				                       	</div> 
-				                        <div class="row">
-				                        	<div class="col-md-7">
-						                        <small class="text-muted">about 3 days ago</small>
-				                        	</div>
-				                        	<div class="col-md-5 media-reply__link">
-					                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-					                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-					                            <button class="btn btn-transparent p-0 ml-3 font-weight-bold">by ${mem_nick }</button>
-				                        	</div>
-				                        </div>
-				                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores repellendus molestiae exercitationem voluptatem tempora quo dolore nostrum dolor consequuntur itaque, alias fugit. Architecto rerum animi velit, beatae corrupti quos nam saepe asperiores aliquid quae culpa ea reiciendis ipsam numquam laborum aperiam. Id tempore consequuntur velit vitae corporis, aspernatur praesentium ratione!</p>
-				                    </div>
-			                	</div>
-			                </div>
-			            </div>
-			        </div>
-				    <div class="row">
-				        <div class="col">
+			            <div class="col issueInfo">
 			                <div class="card">
 			                    <div class="card-body">
 				                    <div>
@@ -125,72 +101,10 @@
 			                	</div>
 			                </div>
 			            </div>
-				        <div class="col">
-			                <div class="card">
-			                    <div class="card-body">
-				                    <div>
-				                    	<div>
-					                        <h5 class="mb-sm-0">Gaia > Project > MileStone > Issue </h5>
-				                       	</div> 
-				                        <div class="row">
-				                        	<div class="col-md-7">
-						                        <small class="text-muted">about 3 days ago</small>
-				                        	</div>
-				                        	<div class="col-md-5 media-reply__link">
-					                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-					                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-					                            <button class="btn btn-transparent p-0 ml-3 font-weight-bold"><small>by</small> ${mem_nick }</button>
-				                        	</div>
-				                        </div>
-				                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores repellendus molestiae exercitationem voluptatem tempora quo dolore nostrum dolor consequuntur itaque, alias fugit. Architecto rerum animi velit, beatae corrupti quos nam saepe asperiores aliquid quae culpa ea reiciendis ipsam numquam laborum aperiam. Id tempore consequuntur velit vitae corporis, aspernatur praesentium ratione!</p>
-				                    </div>
-			                	</div>
-			                </div>
-			            </div>
-				    </div>
-			    </div>
-            </div> <!-- End first card -->
-            
-            <div class="card">
-	            <div class="media media-reply">
-	            	<div class="col-md-1">
-		                <img class="mr-3 circle-rounded" src="${cPath}/resources/assets/images/avatar/2.jpg" width="50" height="50" alt="Generic placeholder image">
-	            	</div>
-	            	<div class="col-md-11">
-		                <div class="media-body">
-		                    <div class="d-sm-flex justify-content-between mb-2">
-		                        <h5 class="mb-sm-0">Gaia > Project > MileStone > Issue <small class="text-muted ml-3">about 3 days ago</small></h5>
-		                        <div class="media-reply__link">
-		                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-		                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-		                            <button class="btn btn-transparent p-0 ml-3 font-weight-bold">Reply</button>
-		                        </div>
-		                    </div>
-		                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-		                </div>
-	            	</div>
-	            </div>
-	             <!-- first issue end -->
-	            <div class="media media-reply">
-	            	<div class="col-md-1">
-		                <img class="mr-3 circle-rounded" src="${cPath}/resources/assets/images/avatar/2.jpg" width="50" height="50" alt="Generic placeholder image">
-	            	</div>
-	            	<div class="col-md-11">
-		                <div class="media-body">
-		                    <div class="d-sm-flex justify-content-between mb-2">
-		                        <h5 class="mb-sm-0">Gaia > Project > MileStone > Issue <small class="text-muted ml-3">about 3 days ago</small></h5>
-		                        <div class="media-reply__link">
-		                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-		                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-		                            <button class="btn btn-transparent p-0 ml-3 font-weight-bold">Reply</button>
-		                        </div>
-		                    </div>
-		                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-		                </div>
-	            	</div>
-	            </div>
-           </div>
-        </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
     </div>
 </div>
 <script>
@@ -199,13 +113,19 @@
 	}
 	console.log(memberInfo);
 	let projects = "";
-	getContextPath()
+	let issues[];
 	// todo 
 	// 1. 3가지만 화면에 출력하기.
 	// 2. more page 클릭 시 가입된 모든 프로젝트 보여주기.
 	// 3. 문자 길이 설정.
 	$.each(memberInfo.projectList, function(i, v){
 		projects += '<li><a href="'+getContextPath()+"/"+ v.uri+'" class="projectName">'+ v.proj_title +"</a></li>";
+		console.log(v.issueList);
+		issues[i] = v.issueList;
+	})
+	$.each(memberInfo.projectList.issueList, function(i, v){
+		$("#issues").clone().appendTo("#issueInfo");
+		
 	})
 	$("#projectList").html(projects);
 		
