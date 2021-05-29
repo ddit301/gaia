@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +42,17 @@ public class MilestoneREST {
 	private static final Logger logger = LoggerFactory.getLogger(MilestoneREST.class);
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public List<MilestoneVO> selectMilestoneList() {
+	public List<MilestoneVO> selectMilestoneList(
+			HttpSession session
+			) {
+		
 		PagingVO<MilestoneVO> pagingVO = new PagingVO<MilestoneVO>();
+		MilestoneVO detailSearch = new MilestoneVO();
+		
+		detailSearch.setProj_no((Integer)session.getAttribute("proj_no"));
+		
+		pagingVO.setDetailSearch(detailSearch);
+		
 		return service.selecMilestoneList(pagingVO);
 	}
 	

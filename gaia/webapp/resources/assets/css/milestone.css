@@ -22,7 +22,7 @@
 	background-color : #FFFFFF;
 	color : black;
 	margin-bottom : 10px;
-	height : 100px;
+	height : 130px;
 }
 #milestone-list{
     margin-top:10px;
@@ -36,13 +36,17 @@
 	font-size : 2.0em;
 	line-height: 50px;
 }
+.milestone-descript{
+	text-align : center;
+	height : 50px;
+}
 .milestone-footer{
 	margin-top : 20px;
 }
 .milestone-date{
 	height : 50px;
 	text-align: center;
-/* 	line-height: 50px; */
+	line-height: 50px;
 }
 .milestone-bar > div{
 	margin-top : 20px;

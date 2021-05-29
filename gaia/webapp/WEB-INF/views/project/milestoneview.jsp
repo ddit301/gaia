@@ -20,8 +20,9 @@
 	            </div>
 	            <!-- row -->
 				<div class="milestoneview-btn">
-					<a href="#" class="label label-info">New issue</a>
-					<a href="#"	class="label label-info">Edit milestone</a>
+					<a class="label label-danger" data-menu="#" href="javascript:void(0)" >Delete milestone</a>
+					<a class="label label-info" data-menu="#" href="javascript:void(0)" >New issue</a>
+					<a class="moveButton label label-info" data-menu="editmilestone" href="javascript:void(0)" >Edit milestone</a>
 				</div>
 				<div id="milestoneview-template">
 					<div class="milestoneviewBox">	
@@ -44,6 +45,14 @@
 		                        <span></span>
 		                    </div>                               
 						</div>
+						<div class="row">
+							<div class="milestone-descript col-md-6">
+								<span></span>	
+							</div>
+							<div class="col-md-6">
+								<span></span>	
+							</div>
+						</div>
 					</div>
 				</div>
 					
@@ -52,6 +61,7 @@
 					<div class="milestone-issue-chk col-md-4">
 						<a class="btn mb-1 btn-sm btn-secondary" href="#">2 open</a>
 						<a class="btn mb-1 btn-sm btn-secondary" href="#">0 closed</a>
+						<a class="btn mb-1 btn-sm btn-secondary" href="#">all</a>
 					</div> 
 					<div class="milestone-dropdown-btn col-md-8">
 						<div class="dropdown-btn" style="float:right; padding-right:5px;">	
@@ -108,20 +118,7 @@
 		
 				<div id="milestone-issuelist"></div>
            		<div class="milestoneview-footer">
-           			<div>
-	           			<ul class="pagination justify-content-center">
-	                       <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">1</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">2</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">3</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">Next</a>
-	                       </li>
-	                   </ul>
-           			</div>
+           			
            		</div>
            	</div>
 				
@@ -130,9 +127,9 @@
 				<div class="issueBox row">                                                                                
 					<div class="col-md-1"></div>                                                                    
 					<div class="issue-title col-md-5">                                                              
-						<a class="moveButton" data-menu="issueview" href="javascript:void(0)"></a>                                                       
+						<a class="issueButton" data-menu="issueview" href="javascript:void(0)"></a>                                                       
 					</div>  
-					<div class="col-md-1"></div>                                                                                          
+					<div class="col-md-1"></div>                                                                                         
 				    <div class="issue-writer col-md-1">                                                                  
 						<img src="" alt="">      
 					</div>                                                                                      
@@ -167,8 +164,9 @@
 					success : function(res) {
 						$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
 						$('.milestoneview-date').children('span').text(res.milest_start_date+'~'+res.milest_end_date);
+						$('.milestone-descript').children('span').text(res.milest_cont);
 	            		$('.progress-bar').attr('style','width: '+res.milest_percent+'%;');
-	            		$('.milestoneview-percent').children('span').text(res.milest_percent+'% complete 1 open 0 closed');
+	            		$('.milestoneview-percent').children('span').text(res.milest_percent+'% complete '+res.open_issue_cnt+' open '+res.close_issue_cnt+' closed');
 						
 	            		total_count = Object.keys(res.issueList).length;
 	            		
@@ -176,7 +174,7 @@
 	            		console.log(total_count);
 						$.each(res.issueList, function(i, v) {
 							let issueBox = $('#milestone-issue-template').children('.issueBox').clone();
-							issueBox.attr('issue_no',v.issue_no);
+							issueBox.attr('data-issue_no',v.issue_no);
 							issueBox.children('.issue-title').children('a').text(v.issue_title);
 							issueBox.children('.priority').text(
 									v.priority == 1 ? '무시' :

@@ -30,8 +30,8 @@
                                 <div class="newmilestonebox">
                                     <div class="compose-content mt-5">                                  
 	                                    <div class="milestonehead">
-											  <div class="milestonehead-heading">New milestone</div>
-										  <div class="milestonehead-description">Create a new milestone to help organize your issues and pull requests.</div>
+											  <div class="milestonehead-heading">Edit milestone</div>
+										  <div class="milestonehead-description">edit your milestone</div>
 										</div>
                                         <form action="#">
                                             <div class="form-title-group">
@@ -68,7 +68,7 @@
                                         </form>
                                     </div>
                                     <div class="button m-t-15">
-                                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-check m-r-5"></i> create milestone</button>
+                                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-check m-r-5"></i> edit milestone</button>
                                         <button class="btn btn-dark m-b-30 m-t-15 f-s-14 p-l-20 p-r-20" type="button"><i class="ti-close m-r-5 f-s-12"></i> close</button>
                                     </div>
                                 </div>
