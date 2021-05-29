@@ -131,10 +131,16 @@ order siblings by rn;
 -----------------------------------------------------------------------------------
 
 
+-----------------------------4. Milestone--------------------------------------------------
+-- a. milestone 완성도 조회
 
-
-
-
+-----------------------------------------------------------------------------------
+-- a. milestone 완성도 조회
+select milest_title, sum(issue.issue_status)/count(issue.issue_status) * 100 as milest_percent
+from milestone
+    left outer join issue on (milestone.milest_sid = issue.milest_sid)
+where milestone.proj_no = 1
+group by milest_title;
 
 
 
