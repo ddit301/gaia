@@ -57,78 +57,66 @@
 			<div class="card">
 		    	<div class="container-fluid">
 			        <div class="row" id="issues">
-			            <div class="col" id="issueInfo">
-			                <div class="card">
-			                    <div class="card-body">
-				                    <div>
-				                    	<div>
-					                        <h5 class="mb-sm-0">Gaia > Project > MileStone > Issue </h5>
-				                       	</div> 
-				                        <div class="row">
-				                        	<div class="col-md-7">
-						                        <small class="text-muted">about 3 days ago</small>
-				                        	</div>
-				                        	<div class="col-md-5 media-reply__link">
-					                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-					                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-					                            <button class="btn btn-transparent p-0 ml-3 font-weight-bold">by ${mem_nick }</button>
-				                        	</div>
-				                        </div>
-				                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores repellendus molestiae exercitationem voluptatem tempora quo dolore nostrum dolor consequuntur itaque, alias fugit. Architecto rerum animi velit, beatae corrupti quos nam saepe asperiores aliquid quae culpa ea reiciendis ipsam numquam laborum aperiam. Id tempore consequuntur velit vitae corporis, aspernatur praesentium ratione!</p>
-				                    </div>
-			                	</div>
-			                </div>
-			            </div>
-			            <div class="col issueInfo">
-			                <div class="card">
-			                    <div class="card-body">
-				                    <div>
-				                    	<div>
-					                        <h5 class="mb-sm-0">Gaia > Project > MileStone > Issue </h5>
-				                       	</div> 
-				                        <div class="row">
-				                        	<div class="col-md-7">
-						                        <small class="text-muted">about 3 days ago</small>
-				                        	</div>
-				                        	<div class="col-md-5 media-reply__link">
-					                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-					                            <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-					                            <button class="btn btn-transparent p-0 ml-3 font-weight-bold">by ${mem_nick }</button>
-				                        	</div>
-				                        </div>
-				                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores repellendus molestiae exercitationem voluptatem tempora quo dolore nostrum dolor consequuntur itaque, alias fugit. Architecto rerum animi velit, beatae corrupti quos nam saepe asperiores aliquid quae culpa ea reiciendis ipsam numquam laborum aperiam. Id tempore consequuntur velit vitae corporis, aspernatur praesentium ratione!</p>
-				                    </div>
-			                	</div>
-			                </div>
-			            </div>
+			            
+			            
 		            </div>
 		        </div>
 		    </div>
 		</div>
     </div>
 </div>
+<!-- hidden -->
+<div class="col" id="issueInfo" hidden = "hidden">
+    <div class="card">
+        <div class="card-body">
+         <div>
+         	<div id = "issue_url">
+              <h5 class="mb-sm-0">Gaia > Project > MileStone > Issue </h5>
+            </div> 
+             <div class="row">
+             	<div class="col-md-6" id="issue_date">
+               <small class="text-muted">about 3 days ago</small>
+             	</div>
+             	<div class="col-md-6 media-reply__link">
+                  <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
+                  <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
+                  <button class="btn btn-transparent p-0 ml-3 font-weight-bold" id="fixer">by ${mem_nick }</button>
+             	</div>
+             </div>
+             <p id="issue_his_cont">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores repellendus molestiae exercitationem voluptatem tempora quo dolore nostrum dolor consequuntur itaque, alias fugit. Architecto rerum animi velit, beatae corrupti quos nam saepe asperiores aliquid quae culpa ea reiciendis ipsam numquam laborum aperiam. Id tempore consequuntur velit vitae corporis, aspernatur praesentium ratione!</p>
+         </div>
+    	</div>
+    </div>
+</div>
 <script>
 	if(!memberInfo){
 		loadMemberInfo();
 	}
-	console.log(memberInfo);
 	let projects = "";
-	let issues[];
+	let issueSize=0;
+	let latest_historie = new Array;
 	// todo 
 	// 1. 3가지만 화면에 출력하기.
 	// 2. more page 클릭 시 가입된 모든 프로젝트 보여주기.
 	// 3. 문자 길이 설정.
 	$.each(memberInfo.projectList, function(i, v){
-		projects += '<li><a href="'+getContextPath()+"/"+ v.uri+'" class="projectName">'+ v.proj_title +"</a></li>";
-		console.log(v.issueList);
-		issues[i] = v.issueList;
+		$("#projectList").html('<li><a href="'+getContextPath()+"/"+ v.uri+'" class="projectName">'+ v.proj_title +"</a></li>");
+		issueSize += v.issueList.length;
+		$.each(v.issueList, function(j, iss){
+			$("#issueInfo").clone().appendTo("#issues").removeAttr("hidden");
+			$("#issue_url").children().html(iss.url+"<br>"+iss.issue_title);
+			$("#issue_his_cont").text(iss.historyList[0].issue_his_cont);
+		})
 	})
-	$.each(memberInfo.projectList.issueList, function(i, v){
-		$("#issues").clone().appendTo("#issueInfo");
-		
-	})
-	$("#projectList").html(projects);
-		
+	let history = new Array;
+// 	$.each(issues, function(i, v){
+// 		$("#issueInfo").clone().appendTo("#issues").removeAttr("hidden");
+// 		$("#issue_url").children().text(v.historyList);
+// 	})
+// 	if(issueLength){
+// 		$("#issueInfo").clone().appendTo("#issues").removeAttr("hidden");
+// 	}
+	
 	
 	
 </script>
