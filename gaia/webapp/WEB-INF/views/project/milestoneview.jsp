@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <link href="${cPath }/resources/assets/css/milestoneview.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/css/milestone.css" rel="stylesheet">
     	<div class="container"> 
 	            <div class="row page-titles mx-0">
 	                <div class="col p-md-0">
@@ -59,9 +59,9 @@
 		
 				<div class="milestoneview-header">
 					<div class="milestone-issue-chk col-md-4">
-						<a class="btn mb-1 btn-sm btn-secondary" href="#">2 open</a>
-						<a class="btn mb-1 btn-sm btn-secondary" href="#">0 closed</a>
-						<a class="btn mb-1 btn-sm btn-secondary" href="#">all</a>
+						<a class="open-btn mb-1 btn-sm btn-secondary" href="#"> open</a>
+						<a class="close-btn mb-1 btn-sm btn-secondary" href="#">0 closed</a>
+						<a class="all-btn mb-1 btn-sm btn-secondary" href="#">all</a>
 					</div> 
 					<div class="milestone-dropdown-btn col-md-8">
 						<div class="dropdown-btn" style="float:right; padding-right:5px;">	
@@ -133,14 +133,12 @@
 				    <div class="issue-writer col-md-1">                                                                  
 						<img src="" alt="">      
 					</div>                                                                                      
-				    <div class="priority col-md-1"></div>                                                       
+				    <div class="issue-priority col-md-1"></div>                                                       
 					<div class="issue-label col-md-1"></div>                                                           
 					<div class="issue-assignee col-md-1">                                                                      
 						<img src="" alt="">      
 					</div>                                                                                      
 					<div class="reply col-md-1">
-						<i class="icon-bubbles icons"></i>
-						<span></span>
 					</div>                                                            
 				</div>        
 			</div>
@@ -176,22 +174,31 @@
 							let issueBox = $('#milestone-issue-template').children('.issueBox').clone();
 							issueBox.attr('data-issue_no',v.issue_no);
 							issueBox.children('.issue-title').children('a').text(v.issue_title);
-							issueBox.children('.priority').text(
-									v.priority == 1 ? '무시' :
-									v.priority == 2 ? '낮음' :
-									v.priority == 3 ? '보통' :
-									v.priority == 4 ? '높음' :
-									v.priority == 5 ? '긴급' : '즉시');
+							issueBox.children('.issue-priority').text(
+									v.issue_priority == 1 ? '무시' :
+									v.issue_priority == 2 ? '낮음' :
+									v.issue_priority == 3 ? '보통' :
+									v.issue_priority == 4 ? '높음' :
+									v.issue_priority == 5 ? '긴급' : '즉시');
 							issueBox.children('.issue-label').text(v.label_nm);
 							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
 							issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
 							issueBox.children('.reply').children('span').text('3');
-							
+							if(v.replyCount > 0){
+								issueBox.children('.reply').html(
+										'<i class="icon-bubbles icons"></i><span>'+v.replyCount+'</span>'
+									);
+								
+							}
 							$('#milestone-issuelist').append(issueBox);
 						})
 						
 					},
 					error : function(xhr, error, msg) {
+						// 조회중인 프로젝트 번호를 세션에서 못 받아 올 경우, 메인 홈페이지로 보낸다.
+						if(xhr.status == 400){
+							window.location.href = getContextPath();
+						}
 						console.log(xhr);
 						console.log(error);
 						console.log(msg);

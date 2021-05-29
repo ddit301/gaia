@@ -59,6 +59,89 @@
 .milestone-percent span{
 	line-height: 50px;
 }
+.milestoneview-btn a{
+	float: right; 
+	margin-right: 5px;
+}
+.milestoneviewBox{
+	background-color : white;
+	color : black;
+	margin : 10px;
+	height : 130px;
+}
+.milestoneview-title{
+	text-align : center;
+	height : 50px;
+}
+.milestoneview-title span{
+	font-weight : bold;
+	font-size : 2.0em;
+	line-height: 50px;
+}
+.milestone-descript{
+	text-align : center;
+	height : 50px;
+}
+.milestoneview-date{
+	height : 50px;
+	text-align: center;
+	line-height: 50px;
+}
+.milestoneview-bar > div{
+	margin-top : 20px;
+	width: 90%; 
+	line-height: 50px;
+}
+.progress{
+	height: 10px;
+} 
+.milestoneview-percent span{
+	line-height: 50px;
+}
+.milestoneview-header{
+	grid-template-columns: 150px 150px;
+	background:gray;
+	height:50px; 
+	margin:10px; 
+	padding:10px;
+}
+.milestone-issue-chk{
+	float:left;
+	line-height: 50%;
+}
+.milestone-dropdown-btn{
+	float : right;
+	height : 30px;
+	line-height: 50%;
+}
+#milestone-issuelist{
+    padding : 10px;
+   
+}
+.issueBox{
+	background-color : #FFFFFF;
+	color : black;
+	margin-left : auto;
+	margin-right : auto;
+	margin-bottom : 10px;
+
+}
+.issue-title {
+	text-align : center;
+}
+.issue-title a{
+	font-weight : bold;
+	font-size : 1.5em;
+	line-height : 60px;
+}
+.priority{
+	text-align: center;
+	line-height: 60px;
+}
+.issue-label{
+	text-align: center;
+	line-height: 60px;
+}
 
 
 
