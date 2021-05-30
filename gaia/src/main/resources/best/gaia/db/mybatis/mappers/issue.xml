@@ -4,12 +4,26 @@
 	
 	<resultMap type="best.gaia.vo.IssueVO" id="issueMap" autoMapping="true">
 		<id property="issue_sid" column="ISSUE_ID"/>
+		<association property="writer" javaType="best.gaia.vo.MemberVO" autoMapping="false">
+			<id column="MEM_NO" property="mem_no"/>
+			<result column="WRITER_PIC" property="mem_pic_file_name"/>
+		</association>
+		<association property="milestone" javaType="best.gaia.vo.MilestoneVO" autoMapping="false">
+			<id column="MILEST_SID" property="milest_sid"/>
+			<result column="MILEST_TITLE" property="milest_title"/>
+		</association>
+		<association property="label" javaType="java.util.Map" autoMapping="false">
+			<result column="LABEL_NO" property="label_no"></result>
+			<result column="LABEL_NM" property="label_nm"></result>
+		</association>
+		
 		<collection property="assigneeList" ofType="MemberVO" javaType="java.util.Set" autoMapping="true">
 			<id property="mem_no" column="MEM_NO"/>
 		</collection>
 		<collection property="historyList" ofType="IssueHistoryVO" javaType="java.util.List" autoMapping="true">
 			<id property="issue_his_no" column="ISSUE_HIS_NO"/>
 		</collection>
+		
 	</resultMap>
 	
 	<select id="selectIssue" parameterType="java.util.Map" resultMap="issueMap">

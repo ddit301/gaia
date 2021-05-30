@@ -146,8 +146,12 @@
 								v.issue_priority == 4 ? '높음' :
 								v.issue_priority == 5 ? '긴급' : '즉시'
 								);
-							issueBox.children('.issue-label').text(v.label_nm);
-							issueBox.children('.milestone').text(v.milest_title);
+							if(v.label){
+								issueBox.children('.issue-label').text(v.label.label_nm);
+							}
+							if(v.milestone){
+								issueBox.children('.milestone').text(v.milestone.milest_title);
+							}
 							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
 							issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
 							if(v.replyCount > 0){
