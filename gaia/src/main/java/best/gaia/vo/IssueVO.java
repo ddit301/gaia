@@ -37,13 +37,17 @@ public class IssueVO {
 	 private Integer progress;
 	
 	/**
-	 * 위 COLUMN 중 FK 에 해당하는 값들의 관계를 위한 객체 입니다.
-	 */
+	 * Association 관계의 객체 입니다.
+	 */	  
 	 private MemberVO writer;
 	 private MilestoneVO milestone;
+	 private Map<String, Object> label;
+	 
+	/**
+	 * Collnection 관계의 객체입니다.
+	 */
 	 private Set<MemberVO> assigneeList;
 	 private List<IssueHistoryVO> historyList;
-	 private Map<String, Object> label;
 	 
 	/**
 	 * 필요에 따라 추가된 프로퍼티 입니다.

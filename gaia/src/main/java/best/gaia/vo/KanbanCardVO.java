@@ -12,11 +12,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KanbanCardVO {
+	
+	/**
+	 * TABLE에 존재하는 COLUMN들 입니다.
+	 */
 	@NotNull @Min(0) private Integer kb_card_no;
 	 private Integer kb_card_priv_no;
 	 private Integer mem_no;
-	@NotNull @Min(0) private Integer kb_col_no;
+	 private Integer kb_col_no;
 	 private Integer issue_sid;
 	@Size(max=4000) private String kb_card_cont;
 	@Size(max=7) private String kb_card_write_date;
+	
+	/**
+	 * Association 관계의 객체 입니다.
+	 */	  	
+	private MemberVO writer;
+	private IssueVO issue;
+	
 }

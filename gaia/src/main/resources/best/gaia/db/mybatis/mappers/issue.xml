@@ -22,6 +22,11 @@
 		</collection>
 		<collection property="historyList" ofType="IssueHistoryVO" javaType="java.util.List" autoMapping="true">
 			<id property="issue_his_no" column="ISSUE_HIS_NO"/>
+			<association property="historyWriter">
+				<id column="HIS_WRITER_NO" property="mem_no"/>
+				<result column="HIS_WRITER_NICK" property="mem_nick"/>
+				<result column="HIS_WRITER_PIC" property="mem_pic_file_name"/>
+			</association>
 		</collection>
 		
 	</resultMap>
