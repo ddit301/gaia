@@ -23,33 +23,27 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
 
 	private RequestCache requestCache = new HttpSessionRequestCache();
 	private RedirectStrategy redirectStratgy = new DefaultRedirectStrategy();
-	
+
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
 		SavedRequest savedRequest = requestCache.getRequest(request, response);
-		
+
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		
+
 		if (savedRequest == null) {
-			if(userDetails instanceof MemberVO) {
-				
-				redirectStratgy.sendRedirect(request, response, "/"+authentication.getName());
-				
-//				super.onAuthenticationSuccess(request, response, authentication);
-				
-			} else if(userDetails instanceof ProviderVO) {
-				
+			if (userDetails instanceof MemberVO) {
+				MemberVO member = (MemberVO) userDetails;
+				redirectStratgy.sendRedirect(request, response, "/" + member.getMem_nick());
+			} else if (userDetails instanceof ProviderVO) {
 				redirectStratgy.sendRedirect(request, response, "/admin");
-//				super.onAuthenticationSuccess(request, response, authentication);
 			}
 
 			return;
 		}
 		String targetUrlParameter = getTargetUrlParameter();
 		if (isAlwaysUseDefaultTargetUrl()
-				|| (targetUrlParameter != null && StringUtils.hasText(request
-						.getParameter(targetUrlParameter)))) {
+				|| (targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter)))) {
 			requestCache.removeRequest(request, response);
 			super.onAuthenticationSuccess(request, response, authentication);
 

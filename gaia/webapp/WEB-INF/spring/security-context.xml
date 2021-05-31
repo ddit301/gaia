@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans
-	xmlns="http://www.springframework.org/schema/security" 
+	xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:c="http://www.springframework.org/schema/c"
@@ -8,61 +8,64 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
-<!-- 	<headers> -->
-<!-- 		<xss-protection block="true" enabled="true"/> -->
-<!-- 	</headers> -->
+	<!-- <headers> -->
+	<!-- <xss-protection block="true" enabled="true"/> -->
+	<!-- </headers> -->
 
-	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.factory.PasswordEncoderFactories" factory-method="createDelegatingPasswordEncoder" 
-	/>
-	<beans:bean id="userService" class="best.gaia.member.service.AuthenticateService"/>
-	<beans:bean id="successHandler" class="best.gaia.main.controller.SuccessHandler"></beans:bean>
-	
-	
-	<authentication-manager id="authenticationManager">
-		<authentication-provider user-service-ref="userService">
+	<beans:bean id="passwordEncoder"
+		class="org.springframework.security.crypto.factory.PasswordEncoderFactories"
+		factory-method="createDelegatingPasswordEncoder" />
+	<beans:bean id="userService"
+		class="best.gaia.member.service.AuthenticateService" />
+	<beans:bean id="successHandler"
+		class="best.gaia.main.controller.SuccessHandler"></beans:bean>
+
+
+	<authentication-manager
+		id="authenticationManager">
+		<authentication-provider
+			user-service-ref="userService">
 			<password-encoder ref="passwordEncoder" />
 		</authentication-provider>
-		
+
 	</authentication-manager>
-	
+
 	<http pattern="/resources/**" security="none" />
-	
-	<http auto-config="true" use-expressions="true" authentication-manager-ref="authenticationManager">
-	
-		<form-login login-page="/" 
+
+	<http auto-config="true" use-expressions="true"
+		authentication-manager-ref="authenticationManager">
+
+		<form-login login-page="/signin"
 			login-processing-url="/signin/signinCheck"
-			username-parameter="mem_id"
-			password-parameter="mem_pass"		
+			username-parameter="mem_id" password-parameter="mem_pass"
 			authentication-failure-url="/signin"
 			always-use-default-target="false"
-			authentication-success-handler-ref="successHandler"
-		/>
-		
-		<logout logout-url="/signout" logout-success-url="/" invalidate-session="true"/>
+			authentication-success-handler-ref="successHandler" />
 
-		<intercept-url pattern="/" access="permitAll"/>
-		<intercept-url pattern="/intro" access="permitAll"/>
-		<intercept-url pattern="/demo" access="permitAll"/>
-		<intercept-url pattern="/sales" access="permitAll"/>
-		<intercept-url pattern="/signin" access="permitAll"/>
-		<intercept-url pattern="/signup" access="permitAll"/>
-		<intercept-url pattern="/CS" access="permitAll"/>
-		<intercept-url pattern="/sigin/siginCheck" access="permitAll"/>
+		<logout logout-url="/signout" logout-success-url="/"
+			invalidate-session="true" />
 
-		<!-- 	관리자 -->
-		<intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')"/>
-		
-		<!-- 	회원? -->
-<!-- 		<intercept-url pattern="/**" access="isAuthenticated()"/> -->
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/intro" access="permitAll" />
+		<intercept-url pattern="/demo" access="permitAll" />
+		<intercept-url pattern="/sales" access="permitAll" />
+		<intercept-url pattern="/signin" access="permitAll" />
+		<intercept-url pattern="/signup" access="permitAll" />
+		<intercept-url pattern="/CS" access="permitAll" />
+		<intercept-url pattern="/sigin/siginCheck" access="permitAll" />
+
+		<!-- 관리자 -->
+		<intercept-url pattern="/admin/**"
+			access="hasAnyRole('ROLE_ADMIN')" />
+
+		<!-- 회원? -->
+		<!-- <intercept-url pattern="/**" access="isAuthenticated()"/> -->
 		<session-management>
-			<concurrency-control
-			max-sessions="1"
-			expired-url="/signin"
-			error-if-maximum-exceeded="true"
-			/>
+			<concurrency-control max-sessions="1"
+				expired-url="/signin" error-if-maximum-exceeded="true" />
 		</session-management>
-		
-		<csrf disabled="true"/>
+
+		<csrf disabled="true" />
 	</http>
 
 </beans:beans>
