@@ -14,9 +14,15 @@
 
 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.factory.PasswordEncoderFactories" factory-method="createDelegatingPasswordEncoder" 
 	/>
+	<beans:bean id="authService" class="best.gaia.vo.CustomAuthenticationProvider"/>
+	<beans:bean id="userService" class="best.gaia.member.service.AuthenticateService"/>
+	
 	
 	<authentication-manager id="authenticationManager">
-		<authentication-provider user-service-ref="authService">
+		<authentication-provider user-service-ref="detailService">
+			<password-encoder ref="passwordEncoder" />
+		</authentication-provider>
+		<authentication-provider user-service-ref="userService">
 			<password-encoder ref="passwordEncoder" />
 		</authentication-provider>
 		
