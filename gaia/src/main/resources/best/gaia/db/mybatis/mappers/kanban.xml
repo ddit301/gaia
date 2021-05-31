@@ -3,7 +3,7 @@
 <mapper namespace="best.gaia.project.dao.KanbanDao">
 
 	<resultMap type="best.gaia.vo.KanbanColumnVO" id="kanbanMap" autoMapping="true">
-		<id property="kb_col_no" column="KB_COL_NO"/>
+		<id property="kb_col_no" column="KB_COL_ID"/>
 		<collection property="cardList" ofType="best.gaia.vo.KanbanCardVO" 
 			javaType="java.util.List" autoMapping="true">
 			<id property="kb_card_no" column="KB_CARD_NO"/>
@@ -41,48 +41,81 @@
 	</resultMap>
 
 	<select id="selectKanbanColumnList" parameterType="int" resultMap="kanbanMap">
-		WITH CARDS AS (
-		    SELECT ROWNUM RN, KB_COL_NO, KB_CARD_NO 
-		            ,KB_CARD_PRIV_NO, ISSUE_SID, KB_CARD_CONT, KB_CARD_WRITE_DATE
-		            , MEM_NO
-		    FROM  KANBAN_CARD 
-		    START WITH KB_CARD_PRIV_NO IS NULL
-		    CONNECT BY PRIOR KB_CARD_NO = KB_CARD_PRIV_NO
+		with cards as (
+		    select rownum rn, kb_col_no as kb_col_no, kb_card_no 
+		            ,kb_card_priv_no, issue_sid, kb_card_cont, kb_card_write_date
+		            , mem_no
+		    from  kanban_card 
+		    start with kb_card_priv_no is null
+		    connect by prior kb_card_no = kb_card_priv_no
 		)
-		, ISSUES AS (
-		    SELECT ISSUE.ISSUE_SID, ISSUE.ISSUE_NO
-		            ,ISSUE_TITLE, ISSUE_END_DATE, ISSUE_STATUS, ISSUE_PRIORITY
-		            ,WRITER.MEM_NO AS ISSUE_WRITER_NO
-		            ,WRITER.MEM_PIC_FILE_NAME AS ISSUE_WRITER_PIC
-		            ,WRITER_PM.PROJ_USER_NICK AS ISSUE_WRITER_NICK
-		            ,MILESTONE.MILEST_SID, MILESTONE.MILEST_TITLE
-		            ,LABEL.LABEL_NO, LABEL.LABEL_NM
-		            ,ASSIGNEE_PM.MEM_NO AS ASSIGNEE_MEM_NO
-		            ,ASSIGNEE_PM.PROJ_USER_NICK AS ASSIGNEE_MEM_NICK
-		    FROM ISSUE
-		        INNER JOIN MEMBER WRITER ON (ISSUE.MEM_NO = WRITER.MEM_NO)
-		        LEFT OUTER JOIN PROJ_MEM WRITER_PM ON (WRITER.MEM_NO = WRITER_PM.MEM_NO AND ISSUE.PROJ_NO = WRITER_PM.PROJ_NO)
-		        LEFT OUTER JOIN MILESTONE ON (ISSUE.MILEST_SID = MILESTONE.MILEST_SID)
-		        LEFT OUTER JOIN LABEL ON (ISSUE.LABEL_NO = LABEL.LABEL_NO)
-		        LEFT OUTER JOIN ISSUE_ASSIGNEE ON (ISSUE.ISSUE_SID = ISSUE_ASSIGNEE.ISSUE_SID)
-		        LEFT OUTER JOIN MEMBER ASSIGNEE ON (ISSUE_ASSIGNEE.MEM_NO = ASSIGNEE.MEM_NO)
-		        LEFT OUTER JOIN PROJ_MEM ASSIGNEE_PM ON (ASSIGNEE.MEM_NO = ASSIGNEE_PM.MEM_NO AND ISSUE.PROJ_NO = ASSIGNEE_PM.PROJ_NO)
+		, issues as (
+		    select issue.issue_sid, issue.issue_no
+		            ,issue_title, issue_end_date, issue_status, issue_priority
+		            ,writer.mem_no as issue_writer_no
+		            ,writer.mem_pic_file_name as issue_writer_pic
+		            ,writer_pm.proj_user_nick as issue_writer_nick
+		            ,milestone.milest_sid, milestone.milest_title
+		            ,label.label_no, label.label_nm
+		            ,assignee_pm.mem_no as assignee_mem_no
+		            ,assignee_pm.proj_user_nick as assignee_mem_nick
+		    from issue
+		        inner join member writer on (issue.mem_no = writer.mem_no)
+		        left outer join proj_mem writer_pm on (writer.mem_no = writer_pm.mem_no and issue.proj_no = writer_pm.proj_no)
+		        left outer join milestone on (issue.milest_sid = milestone.milest_sid)
+		        left outer join label on (issue.label_no = label.label_no)
+		        left outer join issue_assignee on (issue.issue_sid = issue_assignee.issue_sid)
+		        left outer join member assignee on (issue_assignee.mem_no = assignee.mem_no)
+		        left outer join proj_mem assignee_pm on (assignee.mem_no = assignee_pm.mem_no and issue.proj_no = assignee_pm.proj_no)
 		)
-		SELECT KANBAN.KB_COL_NO
-		        , KB_COL_PRIV_NO , KANBAN.PROJ_NO , KB_COL_NM 
-		        , CARDS.*
-		        , CARD_WRITER.MEM_NO AS CARD_WRITER_MEM_NO
-		        , CARD_WRITER_PROJ.PROJ_USER_NICK AS CARD_WRITER_NICK
-		        , ISSUES.*
-		FROM KANBAN_COL KANBAN
-		        LEFT OUTER JOIN CARDS ON (KANBAN.KB_COL_NO =CARDS.KB_COL_NO)
-		        LEFT OUTER JOIN MEMBER CARD_WRITER ON (CARDS.MEM_NO = CARD_WRITER.MEM_NO)
-		        LEFT OUTER JOIN PROJ_MEM CARD_WRITER_PROJ ON (CARD_WRITER.MEM_NO = CARD_WRITER_PROJ.MEM_NO AND KANBAN.PROJ_NO = CARD_WRITER_PROJ.PROJ_NO)
-		        LEFT OUTER JOIN ISSUES ON (CARDS.ISSUE_SID = ISSUES.ISSUE_SID)
-		WHERE KANBAN.PROJ_NO = #{proj_no}
-		START WITH KANBAN.KB_COL_PRIV_NO IS NULL
-		CONNECT BY PRIOR KANBAN.KB_COL_NO = KANBAN.KB_COL_PRIV_NO
-		ORDER SIBLINGS BY RN
+		select kanban.KB_COL_NO as kb_col_id
+		        , KB_COL_PRIV_NO , kanban.PROJ_NO , KB_COL_NM
+		        , cards.*
+		        , card_writer.mem_no as card_writer_mem_no
+		        , card_writer_proj.proj_user_nick as card_writer_nick
+		        , issues.*
+		from kanban_col kanban
+		        left outer join cards on (kanban.kb_col_no =cards.kb_col_no)
+		        left outer join member card_writer on (cards.mem_no = card_writer.mem_no)
+		        left outer join proj_mem card_writer_proj on (card_writer.mem_no = card_writer_proj.mem_no and kanban.proj_no = card_writer_proj.proj_no)
+		        left outer join issues on (cards.issue_sid = issues.issue_sid)
+		where kanban.proj_no = #{proj_no}
+		start with kanban.kb_col_priv_no is null
+		connect by prior kanban.kb_col_no = kanban.kb_col_priv_no
+		order siblings by rn
 	</select>
 	
+	<select id="selectCard" parameterType="int" resultType="best.gaia.vo.KanbanCardVO">
+		select card.kb_card_no, card.kb_card_priv_no, card.mem_no, card.kb_col_no
+      	  ,card.issue_sid, card.kb_card_cont, to_char(card.kb_card_write_date, 'yyyy-mm-dd hh24-mi-ss') as kb_card_write_date
+      	  , next.kb_card_no as kb_card_next_no
+		from kanban_card card
+		    left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
+		where card.kb_card_no = #{kb_card_no}
+	</select>
+	
+	<select id="getLastCardNo" parameterType="int" resultType="Integer">
+		select kb_card_no
+		from (
+		    select card.kb_card_no, next.kb_card_no as next_no
+		    from kanban_card card
+		            left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
+		    where card.kb_col_no = #{kb_col_no})
+		where next_no is null
+	</select>
+	
+	<update id="updateCard" parameterType="best.gaia.vo.KanbanCardVO">
+		UPDATE KANBAN_CARD
+		SET
+		    KB_CARD_PRIV_NO = #{kb_card_priv_no,jdbcType=NUMERIC}
+		    ,MEM_NO = #{mem_no,jdbcType=NUMERIC}
+		    ,KB_COL_NO = #{kb_col_no,jdbcType=NUMERIC}
+		    ,ISSUE_SID = #{issue_sid,jdbcType=NUMERIC}
+		    ,KB_CARD_CONT = #{kb_card_cont,jdbcType=VARCHAR}
+		    ,KB_CARD_WRITE_DATE = TO_DATE(#{kb_card_write_date,jdbcType=VARCHAR},'yyyy-mm-dd hh24-mi-ss')
+   		WHERE
+	        KB_CARD_NO = #{kb_card_no}
+	</update>
+	
 </mapper>
+

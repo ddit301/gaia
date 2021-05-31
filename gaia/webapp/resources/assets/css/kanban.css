@@ -1,44 +1,5 @@
 @charset "UTF-8";
-
-.kanbanCard {
-  cursor: move;
-  position: absolute;
-  background-color: #2196F3;
-  color : white;
-  border: 1px solid #d3d3d3;
-  text-align: center;
+.issue_title a{
+	color : blue;
+	font-weight : bold;
 }
-
-
-  #myKanban {
-        overflow-x: auto;
-        padding: 20px 0;
-      }
-
-      .success {
-        background: #00b961;
-      }
-
-      .info {
-        background: #2a92bf;
-      }
-
-      .warning {
-        background: #f4ce46;
-      }
-
-      .error {
-        background: #fb7d44;
-      }
-
-      .custom-button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 7px 15px;
-        margin: 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-      }      

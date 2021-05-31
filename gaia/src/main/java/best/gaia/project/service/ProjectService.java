@@ -18,4 +18,11 @@ public interface ProjectService {
 	public ServiceResult updateNewsComment(NewsCommentVO news);
 	public ServiceResult deleteNewsComment(NewsCommentVO news);
 	
+	/**
+	 * @param droppedCardNo
+	 * @param nextCardNo
+	 * @return
+	 */
+	public ServiceResult moveCard(Integer droppedCardNo, Integer newColumnNo , Integer nextCardNo);
+	
 }
