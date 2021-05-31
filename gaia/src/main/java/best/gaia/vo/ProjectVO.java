@@ -23,6 +23,18 @@ public class ProjectVO {
 	@Size(max=7) private String proj_est_end_date;
 	@NotNull @Min(0) private Integer issue_priority_set;
 	@NotNull @Min(0) private Integer proj_module_set;
-	private String uri;
+	
+	/**
+	 * Association 관계의 객체 입니다.
+	 */	  
+	private MemberVO projectManager;
+	/**
+	 * Collnection 관계의 객체입니다.
+	 */
 	private Set<IssueVO> issueList;
+	
+	/**
+	 * 필요에 따라 추가된 프로퍼티 입니다.
+	 */
+	private String uri;
 }

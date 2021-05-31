@@ -25,7 +25,6 @@
 	            <a href="javascript:void()" class="list-group-item text-primary p-r-2 moveButton" data-menu="setting/account">Account</a>  
 	            <a href="javascript:void()" class="list-group-item p-r-0 moveButton" data-menu="setting/accountSecurity">Account security <span class="badge badge-danger badge-sm float-right m-t-5">47</span> </a>
 	            <a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting/securityLog">Security log</a>
-	            <a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting/projects">Projects</a>
         	</div>
         </div>
 	</div>
