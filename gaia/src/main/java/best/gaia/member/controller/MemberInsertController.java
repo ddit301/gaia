@@ -6,7 +6,14 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,8 +30,11 @@ import best.gaia.vo.MemberVO;
 @Controller
 public class MemberInsertController {
 
+	private static final Logger logger = LoggerFactory.getLogger(MemberInsertController.class);
 	@Inject
 	private MemberService service;
+	@Inject
+	private AuthenticationManager authenticationManager;
 
 	@RequestMapping(value="/signup/idCheck"
 			, method=RequestMethod.POST
@@ -59,8 +69,14 @@ public class MemberInsertController {
 				message = "아이디 중복";
 				break;
 			case OK:
-//				model.addAllAttributes(attributeValues)
-				view = "redirect:/"+member.getMem_nick();
+				
+				UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(member.getMem_id(), member.getMem_pass());
+			    Authentication authentication = authenticationManager.authenticate(token);
+			    SecurityContext context = SecurityContextHolder.getContext();
+			    context.setAuthentication(authentication);
+			    SecurityContextHolder.getContext().setAuthentication(token);
+				
+				view = "/redirect:" + member.getMem_nick();
 				break;
 			default:
 				message = "서버 오류, 잠시 뒤 다시 시도하세요.";
