@@ -66,21 +66,21 @@
     </div>
 </div>
 <!-- hidden -->
-<div class="col" id="issueInfo" hidden = "hidden">
+<div class="col-xl-6" id="issueInfo" hidden = "hidden">
     <div class="card">
         <div class="card-body">
          <div>
          	<div id = "issue_url">
-              <h5 class="mb-sm-0">Gaia > Project > MileStone > Issue </h5>
+              <p class="mb-sm-0">Gaia > Project > MileStone > Issue </p>
             </div> 
              <div class="row">
-             	<div class="col-md-6" id="issue_date">
-               <small class="text-muted">about 3 days ago</small>
+             	<div class="col-md-6">
+                	<small class="text-muted" id="issue_date">about 3 days ago</small>
              	</div>
-             	<div class="col-md-6 media-reply__link">
-                  <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-                  <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-                  <button class="btn btn-transparent p-0 ml-3 font-weight-bold" id="fixer">by ${mem_nick }</button>
+             	 <div class="col-md-6 media-reply__link">
+	                  <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
+	                  <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
+	                  <button class="btn btn-transparent p-0 ml-3 font-weight-bold" id="fixer">by ${mem_nick }</button>
              	</div>
              </div>
              <p id="issue_his_cont">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores repellendus molestiae exercitationem voluptatem tempora quo dolore nostrum dolor consequuntur itaque, alias fugit. Architecto rerum animi velit, beatae corrupti quos nam saepe asperiores aliquid quae culpa ea reiciendis ipsam numquam laborum aperiam. Id tempore consequuntur velit vitae corporis, aspernatur praesentium ratione!</p>
@@ -104,10 +104,12 @@
 		issueSize += v.issueList.length;
 		$.each(v.issueList, function(j, iss){
 			$("#issueInfo").clone().appendTo("#issues").removeAttr("hidden");
-			$("#issue_url").children().html(iss.url+"<br>"+iss.issue_title);
+			$("#issue_url").children().html(iss.url+"<br>"+"<h3>"+iss.issue_title+"</h3>");
+			$("#issue_date").text(iss.historyList[0].issue_his_date);
 			$("#issue_his_cont").text(iss.historyList[0].issue_his_cont);
 		})
 	})
+	$("#mem_bio").text(memberInfo.mem_bio);
 	let history = new Array;
 // 	$.each(issues, function(i, v){
 // 		$("#issueInfo").clone().appendTo("#issues").removeAttr("hidden");
