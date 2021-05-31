@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.service.IssueService;
+import best.gaia.utils.exception.ProjNoNotExistInSessionException;
+import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
 
@@ -49,7 +51,9 @@ public class MilestoneREST {
 		PagingVO<MilestoneVO> pagingVO = new PagingVO<MilestoneVO>();
 		MilestoneVO detailSearch = new MilestoneVO();
 		
-		detailSearch.setProj_no((Integer)session.getAttribute("proj_no"));
+		Integer proj_no = getProjNoFromSession(session);
+		
+		detailSearch.setProj_no(proj_no);
 		
 		pagingVO.setDetailSearch(detailSearch);
 		
@@ -73,20 +77,33 @@ public class MilestoneREST {
 	@RequestMapping(value="{milest_no}", method=RequestMethod.GET)
 	public MilestoneVO selectMilestone(
 				@PathVariable Integer milest_no
-				,@RequestParam String manager_nick
-				,@RequestParam String project_title
+				,HttpSession session
 			) {
-		MilestoneVO search = new MilestoneVO();
+		
+		Integer proj_no = getProjNoFromSession(session);
+		
 		
 		Map<String,Object>map = new HashMap<>();
-		map.put("mem_nick",manager_nick);
-		map.put("proj_title",project_title);
+		
+		map.put("proj_no", proj_no);
 		map.put("milest_no",milest_no);
 		
-		return service.selectMilestone(map);		
+		MilestoneVO milestone = service.selectMilestone(map);
+		
+		if(milestone == null) {
+			throw new ResourceNotFoundException();
+		}
+		
+		return milestone;
 	}
 	
-	
+	Integer getProjNoFromSession(HttpSession session){
+		Integer proj_no = (Integer)session.getAttribute("proj_no");
+		if(proj_no == null) {
+			throw new ProjNoNotExistInSessionException();
+		}
+		return proj_no;
+	}
 	
 
 }

@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewsVO {
+	/**
+	 * TABLE에 존재하는 COLUMN들 입니다.
+	 */	
 	@NotNull @Min(0) private Integer news_sid;
 	@NotNull @Min(0) private Integer proj_no;
 	@NotNull @Min(0) private Integer mem_no;
@@ -23,6 +26,14 @@ public class NewsVO {
 	@NotBlank@Size(max=4000) private String news_cont;
 	@Size(max=7) private String news_write_date;
 	 private Integer atch_file_sid;
+	 
+	/**
+	 * Association 관계의 객체 입니다.
+	 */	  
 	 private MemberVO writer;
+	 
+	/**
+	 * Collnection 관계의 객체입니다.
+	 */
 	 private List<NewsCommentVO> commentList;
 }

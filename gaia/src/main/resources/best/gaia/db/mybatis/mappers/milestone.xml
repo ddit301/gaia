@@ -19,18 +19,22 @@
 	<resultMap type="best.gaia.vo.MilestoneVO" id="milestoneMap" autoMapping="true">
 			<id property="milest_sid" column="MILEST_SID" />
 		<collection property="issueList" ofType="IssueVO" javaType="java.util.List" autoMapping="true">
-			<id property="issue_sid" column="ISSUE_SID"/>
+			<id property="issue_sid" column="ISSUE_ID"/>
+			<collection property="assigneeList" ofType="MemberVO" javaType="java.util.Set" autoMapping="true">
+				<id property="mem_no" column="MEM_NO" />	
+			</collection>
 		</collection>
 	</resultMap>
 	
 	<select id="selectMilestone" parameterType="best.gaia.vo.MilestoneVO" resultMap="milestoneMap">
- SELECT DISTINCT ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,ISSUE.ISSUE_STATUS,ISSUE.PROGRESS,ISSUE.ISSUE_PRIORITY,
+SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,ISSUE.ISSUE_STATUS,ISSUE.PROGRESS,ISSUE.ISSUE_PRIORITY,
         MILEST.MILEST_SID, MILEST.MILEST_NO, MILEST.MILEST_TITLE,MILEST.MILEST_CONT,MILEST.MILEST_CONT,MILEST.MILEST_DATE,
         TO_CHAR(MILEST.MILEST_START_DATE,'YYYY-MM-DD') AS MILEST_START_DATE , TO_CHAR(MILEST.MILEST_END_DATE,'YYYY-MM-DD') AS MILEST_END_DATE,
         LABEL.LABEL_NO, LABEL.LABEL_NM,
-        ISSUE.MEM_NO, ISSUE_WRI_NICK.PROJ_USER_NICK AS ISSUE_WRITER,
+        ISSUE_WRI_MEM.MEM_PIC_FILE_NAME AS ISSUE_WRI_MEM_PIC,ISSUE.MEM_NO AS ISSUE_WRI_MEM_NO, ISSUE_WRI_NICK.PROJ_USER_NICK AS ISSUE_WRITER,
         MILEST.MEM_NO, MILEST_WRI_NICK.PROJ_USER_NICK AS MILEST_WRITER,
         IS_ASSIGNEE.MEM_NO AS ISSUE_ASSIN_MEM_NO,
+        ISSUE_ASSIGN_MEM.MEM_PIC_FILE_NAME AS ISSUE_ASSIGN_MEM_PIC,
         IS_ASSIGN_MEM_NICK.PROJ_USER_NICK AS ISSUE_ASIGN_MEM,
          (SELECT SUM(A.ISSUE_STATUS)/COUNT(A.ISSUE_STATUS)*100
                    FROM(SELECT MILESTONE.*, ISSUE.ISSUE_TITLE, ISSUE.ISSUE_STATUS
@@ -48,7 +52,13 @@
                 FROM MILESTONE
                    LEFT OUTER JOIN ISSUE ON(MILESTONE.MILEST_SID = ISSUE.MILEST_SID)
                    WHERE MILESTONE.MILEST_NO = #{milest_no})A
-        	WHERE ISSUE_STATUS = 0) AS OPEN_ISSUE_CNT                             
+         WHERE ISSUE_STATUS = 0) AS OPEN_ISSUE_CNT,
+         (SELECT COUNT(*) -1
+		        FROM ISSUE_HISTORY
+		        WHERE ISSUE_HISTORY.ISSUE_SID = ISSUE.ISSUE_SID
+		                AND ISSUE_HISTORY.ISSUE_HIS_TYPE = 'RE'
+		    ) AS REPLYCOUNT
+                               
    FROM MILESTONE MILEST
         LEFT OUTER JOIN ISSUE ISSUE ON (MILEST.MILEST_SID = ISSUE.MILEST_SID)
         LEFT OUTER JOIN LABEL LABEL ON (ISSUE.PROJ_NO = LABEL.PROJ_NO AND LABEL.LABEL_NO = ISSUE.LABEL_NO)
@@ -62,8 +72,8 @@
         INNER JOIN PROJECT ON (ISSUE.PROJ_NO = PROJECT.PROJ_NO)
         INNER JOIN MEMBER PM ON (PROJECT.MEM_NO = PM.MEM_NO)
         WHERE MILEST.MILEST_NO = #{milest_no}  
-			       AND PM.MEM_NICK = #{mem_nick}
-			       AND PROJECT.PROJ_TITLE = #{proj_title}    
+			       AND MILEST.PROJ_NO = #{proj_no}
+			       ORDER BY ISSUE_NO DESC    
 	</select>
 	
 
