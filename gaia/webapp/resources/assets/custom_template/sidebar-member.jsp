@@ -10,29 +10,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${cPath }/resources/assets/css/member.css" rel="stylesheet">
 <script type="text/javascript">
-	memberInfo = null;
-	loadMemberInfo = function(){
-		let mem_no = 1;
-		$.ajax({
-			url : getContextPath()+"/restapi/member/members/"+mem_no ,
-			type : 'get',
-			success : function(res) {
-				memberInfo = res;
-			},
-			async : false
-			,error : function(xhr) {
-				console.log(xhr);
-				// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-				if(xhr.status == '404'){
-					alert("실패");				
-				}else{
-					alert("status : " + xhr.status);
-				}
-			},
-			dataType : 'json'
-		})
-	}
-	loadMemberInfo();
+	
 	// 뒤로가기 상황을 제외하고는 pushState를 통해 데이터를 쌓아야합니다.
 	var movePageHistory = function(pageParam){
 		var data = pageParam;
@@ -40,7 +18,6 @@
 		// 이게 주소창에 찍히는 녀석임.
 		// var url = '${cPath}/${mem_nick }'+ 'aa';
 		var url = getContextPath() + '/${mem_nick }'+(pageParam ? '/'+pageParam : '');
-		console.log(data);
 		history.pushState(data, title, url);
 		movePage(pageParam);
 	}
@@ -84,7 +61,7 @@
 	}
 	
 </script>
- <div class="nk-sidebar">           
+<div class="nk-sidebar">           
 	<div class="nk-nav-scroll">
 	    <ul class="metismenu" id="menu">
 	        <li class="nav-label">Dashboard</li>
