@@ -91,49 +91,63 @@
 	</div>
 </div>
 <script>
-	let projects = "";
-	let latest_historie = new Array;
 	// todo 
 	// 1. 3가지만 화면에 출력하기.
 	// 2. more page 클릭 시 가입된 모든 프로젝트 보여주기.
 	// 3. 문자 길이 설정.
-	let length =0;
-	let uri = "";
-	let proj_manager ="";
-	let projectList="";
-	$.each(memberInfo.projectList, function(i, v){
-		uri = v.uri;
-		proj_manager = v.projectManager.mem_nick;
-		projectList += '<li><a href="'+getContextPath()+"/"+ v.uri+'" class="projectName">'+ v.proj_title +"</a></li>";
-		
-		$.each(v.issueList, function(j, iss){
-			let issue = $("#issueTemplate").children(".issue").clone();
-			let timeUploaded = iss.historyList[0].issue_his_date;
-			let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
-			let proj_manager_link = "<a href="+getContextPath()+"/"+proj_manager+">"+proj_manager+"</a>"; 
-			let proj_link = "<a href="+uri+">"+"/"+v.proj_title+"</a>";
-			let issue_link = "<a href="+iss.url+">"+"/"+iss.issue_sid+"</a>";
-			
-			issue.attr("data-issue_sid", iss.issue_sid);
-			issue.find(".issue-card-top").children().first().html(proj_manager_link + proj_link + issue_link);
-			
-			issue.find(".issue-card-top").children().last().text(iss.issue_title);
-			issue.find(".issue-card-mid").find(".issue_date").text(timeAgo);
-			issue.find(".issue-card-mid").find(".fixer_nick").text("by "+iss.historyList[0].historyWriter.mem_nick);
-			issue.find('.issue-card-bot').text(iss.historyList[0].issue_his_cont);
-			https://localhost/gaia/kkobuk/testproject/issue/1
-			issue.appendTo("#issues");
+	var loadMemberInfo = function(){
+		let mem_no = 1;
+		$.ajax({
+			url : getContextPath()+"/restapi/member/members/"+mem_no ,
+			type : 'get',
+			success : function(res) {
+				let memberInfo = res;
+				let projectList="";
+				let length;
+				let proj_manager ="";
+				$.each(memberInfo.projectList, function(i, v){
+					let uri = v.uri;
+					proj_manager = v.projectManager.mem_nick;
+					projectList += '<li><a href="'+getContextPath()+"/"+ v.uri+'" class="projectName">'+ v.proj_title +"</a></li>";
+					
+					$.each(v.issueList, function(j, iss){
+						let issue = $("#issueTemplate").children(".issue").clone();
+						let timeUploaded = iss.historyList[0].issue_his_date;
+						let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
+						let proj_manager_link = "<a href="+getContextPath()+"/"+proj_manager+">"+proj_manager+"</a>"; 
+						let proj_link = "<a href="+uri+">"+"/"+v.proj_title+"</a>";
+						let issue_link = "<a href="+iss.url+">"+"/"+iss.issue_sid+"</a>";
+						
+						issue.attr("data-issue_sid", iss.issue_sid);
+						issue.find(".issue-card-top").children().first().html(proj_manager_link + proj_link + issue_link);
+						
+						issue.find(".issue-card-top").children().last().text(iss.issue_title);
+						issue.find(".issue-card-mid").find(".issue_date").text(timeAgo);
+						issue.find(".issue-card-mid").find(".fixer_nick").text("by "+iss.historyList[0].historyWriter.mem_nick);
+						issue.find('.issue-card-bot').text(iss.historyList[0].issue_his_cont);
+						https://localhost/gaia/kkobuk/testproject/issue/1
+						issue.appendTo("#issues");
+					})
+					length = v.issueList.length+1
+					if(length%2){
+						$("#issueTemplate").children(".issue").clone().appendTo("#issues");
+					}
+				})
+				$("#projectList").html(projectList);
+				$("#mem_bio").text(memberInfo.mem_bio);
+			},
+			async : false
+			,error : function(xhr) {
+				console.log(xhr);
+				// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
+				if(xhr.status == '404'){
+					alert("실패");				
+				}else{
+					alert("status : " + xhr.status);
+				}
+			},
+			dataType : 'json'
 		})
-		length = v.issueList.length+1
-		if(length%2){
-			$("#issueTemplate").children(".issue").clone().appendTo("#issues");
-		}
-	})
-	$("#projectList").html(projectList);
-	$("#mem_bio").text(memberInfo.mem_bio);
-	let history = new Array;
-// 	$.each(issues, function(i, v){
-// 		$("#issueInfo").clone().appendTo("#issues").removeAttr("hidden");
-// 		$("#issue_url").children().text(v.historyList);
-// 	})
+	}
+	loadMemberInfo();
 </script>

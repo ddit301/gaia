@@ -10,6 +10,7 @@
 	<select id="selectMemberDetail" parameterType="String" resultType="MemberVO">
 		SELECT *
 		FROM MEMBER
+		WHERE MEM_NO = ${mem_no}
 	</select>
 	
 	<resultMap type="best.gaia.vo.MemberVO" id="memberMap" autoMapping="true">
@@ -61,7 +62,6 @@
 		            INNER JOIN ISSUE_HISTORY ON (ISSUE.ISSUE_SID = ISSUE_HISTORY.ISSUE_SID)
                     INNER JOIN MEMBER ON (ISSUE_HISTORY.MEM_NO = MEMBER.MEM_NO)
 		)
-		
 		SELECT 
 		        MEM_NICK, MEM_ID, MEMBER.MEM_NO, MEM_BIO,
 		        PROJECTINFO.PROJ_NO AS PROJECT_NO, PROJ_TITLE, PROJ_MANAGER_NO, PROJ_MANAGER_NICK,
