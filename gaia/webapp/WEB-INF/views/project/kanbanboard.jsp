@@ -8,8 +8,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-     <link href="${cPath }/resources/assets/css/kanban.css" rel="stylesheet">
      <link href="${cPath }/resources/dist/jkanban.min.css" rel="stylesheet" >
+     <link href="${cPath }/resources/assets/css/kanban.css" rel="stylesheet">
      
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
@@ -28,6 +28,29 @@
             
             <div id="myKanban">
             </div>
+
+<div id="kanban-template" hidden="hidden" >
+	<div class="kanban_card row">
+		<div class="col-md-1">
+			<i class="icon-speech"></i>
+		</div>
+		<div class="col-md-9">
+			<div class="card_content">
+				<div class="issue_title">
+					<a href="#"></a>
+				</div>
+				<div class="issue_writer">
+					#<span></span> opened by <span></span>
+				</div>
+				<div class="issue_label"></div>
+				<div class="issue_milestone"></div>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<i class="icon-options menu-icon"></i>
+		</div>
+	</div>
+</div>
 			    
 <script type="text/javascript" src="${cPath }/resources/dist/jkanban.js"></script>         
   
@@ -49,7 +72,27 @@
 					for(j in res[i].cardList){
 						let card = new Object();
 						card.id = '_'+res[i].cardList[j].kb_card_no;
-						card.title = res[i].cardList[j].kb_card_cont;
+						// 해당 카드가 이슈에 연관된 카드 일 경우
+						let cardCont = $('#kanban-template').children('.kanban_card').clone();
+						let issue = res[i].cardList[j].issue
+						if(issue){
+							cardCont.children('div:first').find('i').removeClass('icon-speech');
+							cardCont.children('div:first').find('i').addClass('icon-fire');
+							// div clas""kanban-item" 에 data-issue-sid 로 이슈 번호를 기록해둔다.
+							card.issue_sid = issue.issue_sid;
+							cardCont.find('.issue_title a').text(issue.issue_title);
+							cardCont.find('.issue_writer span:first').text(issue.issue_no);
+							cardCont.find('.issue_writer span:last').text(issue.writer.mem_nick);
+							if(issue.label){
+								cardCont.find('.issue_label').text(issue.label.label_nm);
+							}
+							if(issue.milestone){
+								cardCont.find('.issue_milestone').html('<i class="icon-directions"></i> '+issue.milestone.milest_title);
+							}
+						}else{
+							cardCont.find('.card_content').text(res[i].cardList[j].kb_card_cont);
+						}
+						card.title = cardCont.wrap("<div/>").parent().html();
 						column.item.push(card);
 					}
 					boards.push(column);
