@@ -33,7 +33,7 @@
 	<div id="eventMessage"></div>
 	</div>   
 	
-	<script type="text/javascript" src="${cPath }/resources/ganttapi/jquery-1.4.2.js"></script>
+<%-- 	<script type="text/javascript" src="${cPath }/resources/ganttapi/jquery-1.4.2.js"></script> --%>
 	<script type="text/javascript" src="${cPath }/resources/ganttapi/date.js"></script>
 	<script type="text/javascript" src="${cPath }/resources/ganttapi/jquery-ui-1.8.4.js"></script>
 	<script type="text/javascript" src="${cPath }/resources/ganttapi/jquery.ganttView.js"></script>
