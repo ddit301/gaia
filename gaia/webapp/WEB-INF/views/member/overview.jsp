@@ -65,60 +65,75 @@
 		</div>
     </div>
 </div>
+
 <!-- hidden -->
-<div class="col-xl-6" id="issueInfo" hidden = "hidden">
-    <div class="card">
-        <div class="card-body">
-         <div>
-         	<div id = "issue_url">
-              <p class="mb-sm-0">Gaia > Project > MileStone > Issue </p>
-            </div> 
-             <div class="row">
-             	<div class="col-md-6">
-                	<small class="text-muted" id="issue_date">about 3 days ago</small>
-             	</div>
-             	 <div class="col-md-6 media-reply__link">
-	                  <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-	                  <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-	                  <button class="btn btn-transparent p-0 ml-3 font-weight-bold" id="fixer">by ${mem_nick }</button>
-             	</div>
-             </div>
-             <p id="issue_his_cont">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores repellendus molestiae exercitationem voluptatem tempora quo dolore nostrum dolor consequuntur itaque, alias fugit. Architecto rerum animi velit, beatae corrupti quos nam saepe asperiores aliquid quae culpa ea reiciendis ipsam numquam laborum aperiam. Id tempore consequuntur velit vitae corporis, aspernatur praesentium ratione!</p>
-         </div>
-    	</div>
-    </div>
+<div id="issueTemplate" hidden = "hidden">
+	<div class="col-xl-6 issue" >
+	    <div class="card">
+	        <div class="card-body">
+	         	<div class = "issue-card-top">
+	            	<p class="mb-sm-0">You/don't/have/more/issues</p>
+	            	<h3>?</h3>
+	            </div> 
+	            <div class="row issue-card-mid">
+	             	<div class="col-md-6">
+	                	<small class="text-muted issue_date"></small>
+	             	</div>
+	           	 	<div class="col-md-6 media-reply__link">
+		                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
+		                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
+		                <button class="btn btn-transparent p-0 ml-3 font-weight-bold fixer_nick">by ${mem_nick }</button>
+	             	</div>
+	             </div>
+	             <p class="issue-card-bot">담당하고 있는 이슈에 새로운 소식이 존재하지 않습니다.</p>
+	    	</div>
+	    </div>
+	</div>
 </div>
 <script>
-	if(!memberInfo){
-		loadMemberInfo();
-	}
 	let projects = "";
-	let issueSize=0;
 	let latest_historie = new Array;
 	// todo 
 	// 1. 3가지만 화면에 출력하기.
 	// 2. more page 클릭 시 가입된 모든 프로젝트 보여주기.
 	// 3. 문자 길이 설정.
+	let length =0;
+	let uri = "";
+	let proj_manager ="";
+	let projectList="";
 	$.each(memberInfo.projectList, function(i, v){
-		$("#projectList").html('<li><a href="'+getContextPath()+"/"+ v.uri+'" class="projectName">'+ v.proj_title +"</a></li>");
-		issueSize += v.issueList.length;
+		uri = v.uri;
+		proj_manager = v.projectManager.mem_nick;
+		projectList += '<li><a href="'+getContextPath()+"/"+ v.uri+'" class="projectName">'+ v.proj_title +"</a></li>";
+		
 		$.each(v.issueList, function(j, iss){
-			$("#issueInfo").clone().appendTo("#issues").removeAttr("hidden");
-			$("#issue_url").children().html(iss.url+"<br>"+"<h3>"+iss.issue_title+"</h3>");
-			$("#issue_date").text(iss.historyList[0].issue_his_date);
-			$("#issue_his_cont").text(iss.historyList[0].issue_his_cont);
+			let issue = $("#issueTemplate").children(".issue").clone();
+			let timeUploaded = iss.historyList[0].issue_his_date;
+			let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
+			let proj_manager_link = "<a href="+getContextPath()+"/"+proj_manager+">"+proj_manager+"</a>"; 
+			let proj_link = "<a href="+uri+">"+"/"+v.proj_title+"</a>";
+			let issue_link = "<a href="+iss.url+">"+"/"+iss.issue_sid+"</a>";
+			
+			issue.attr("data-issue_sid", iss.issue_sid);
+			issue.find(".issue-card-top").children().first().html(proj_manager_link + proj_link + issue_link);
+			
+			issue.find(".issue-card-top").children().last().text(iss.issue_title);
+			issue.find(".issue-card-mid").find(".issue_date").text(timeAgo);
+			issue.find(".issue-card-mid").find(".fixer_nick").text("by "+iss.historyList[0].historyWriter.mem_nick);
+			issue.find('.issue-card-bot').text(iss.historyList[0].issue_his_cont);
+			https://localhost/gaia/kkobuk/testproject/issue/1
+			issue.appendTo("#issues");
 		})
+		length = v.issueList.length+1
+		if(length%2){
+			$("#issueTemplate").children(".issue").clone().appendTo("#issues");
+		}
 	})
+	$("#projectList").html(projectList);
 	$("#mem_bio").text(memberInfo.mem_bio);
 	let history = new Array;
 // 	$.each(issues, function(i, v){
 // 		$("#issueInfo").clone().appendTo("#issues").removeAttr("hidden");
 // 		$("#issue_url").children().text(v.historyList);
 // 	})
-// 	if(issueLength){
-// 		$("#issueInfo").clone().appendTo("#issues").removeAttr("hidden");
-// 	}
-	
-	
-	
 </script>
