@@ -7,23 +7,79 @@
 		<collection property="cardList" ofType="best.gaia.vo.KanbanCardVO" 
 			javaType="java.util.List" autoMapping="true">
 			<id property="kb_card_no" column="KB_CARD_NO"/>
+			<association property="writer" javaType="best.gaia.vo.MemberVO" autoMapping="false">
+				<id column="CARD_WRITER_MEM_NO" property="mem_no"/>
+				<result column="CARD_WRITER_NICK" property="mem_nick"/>
+			</association>
+			<association property="issue" javaType="best.gaia.vo.IssueVO" autoMapping="false">
+				<id column="ISSUE_SID" property="issue_sid"/>
+				<result column="ISSUE_NO" property="issue_no"/>
+				<result column="ISSUE_WRITER_NO" property="mem_no"/>
+				<result column="ISSUE_TITLE" property="issue_title"/>
+				<result column="ISSUE_END_DATE" property="issue_end_date"/>
+				<result column="ISSUE_STATUS" property="issue_status"/>
+				<result column="ISSUE_PRIORITY" property="issue_priority"/>
+				<association property="writer" javaType="best.gaia.vo.MemberVO" autoMapping="false">
+					<id column="ISSUE_WRITER_NO" property="mem_no"/>
+					<result column="ISSUE_WRITER_NICK" property="mem_nick"/>
+					<result column="ISSUE_WRITER_PIC" property="mem_pic_file_name"/>
+				</association>
+				<association property="milestone" javaType="best.gaia.vo.MilestoneVO" autoMapping="false">
+					<id column="MILEST_SID" property="milest_sid"/>
+					<result column="MILEST_TITLE" property="milest_title"/>
+				</association>
+				<association property="label" javaType="java.util.Map" autoMapping="false">
+					<result column="LABEL_NO" property="label_no"/>
+					<result column="LABEL_NM" property="label_nm"/>
+				</association>
+				<collection property="assigneeList" ofType="MemberVO" javaType="java.util.Set" autoMapping="false">
+					<id column="ASSIGNEE_MEM_NO" property="mem_no"/>
+					<result column="ASSIGNEE_MEM_NICK" property="mem_nick"/>
+				</collection>
+			</association>
 		</collection>
 	</resultMap>
 
 	<select id="selectKanbanColumnList" parameterType="int" resultMap="kanbanMap">
 		WITH CARDS AS (
 		    SELECT ROWNUM RN, KB_COL_NO, KB_CARD_NO 
-		            ,KB_CARD_PRIV_NO, MEM_NO, ISSUE_SID, KB_CARD_CONT, KB_CARD_WRITE_DATE
-		    FROM  KANBAN_CARD
+		            ,KB_CARD_PRIV_NO, ISSUE_SID, KB_CARD_CONT, KB_CARD_WRITE_DATE
+		            , MEM_NO
+		    FROM  KANBAN_CARD 
 		    START WITH KB_CARD_PRIV_NO IS NULL
 		    CONNECT BY PRIOR KB_CARD_NO = KB_CARD_PRIV_NO
 		)
+		, ISSUES AS (
+		    SELECT ISSUE.ISSUE_SID, ISSUE.ISSUE_NO
+		            ,ISSUE_TITLE, ISSUE_END_DATE, ISSUE_STATUS, ISSUE_PRIORITY
+		            ,WRITER.MEM_NO AS ISSUE_WRITER_NO
+		            ,WRITER.MEM_PIC_FILE_NAME AS ISSUE_WRITER_PIC
+		            ,WRITER_PM.PROJ_USER_NICK AS ISSUE_WRITER_NICK
+		            ,MILESTONE.MILEST_SID, MILESTONE.MILEST_TITLE
+		            ,LABEL.LABEL_NO, LABEL.LABEL_NM
+		            ,ASSIGNEE_PM.MEM_NO AS ASSIGNEE_MEM_NO
+		            ,ASSIGNEE_PM.PROJ_USER_NICK AS ASSIGNEE_MEM_NICK
+		    FROM ISSUE
+		        INNER JOIN MEMBER WRITER ON (ISSUE.MEM_NO = WRITER.MEM_NO)
+		        LEFT OUTER JOIN PROJ_MEM WRITER_PM ON (WRITER.MEM_NO = WRITER_PM.MEM_NO AND ISSUE.PROJ_NO = WRITER_PM.PROJ_NO)
+		        LEFT OUTER JOIN MILESTONE ON (ISSUE.MILEST_SID = MILESTONE.MILEST_SID)
+		        LEFT OUTER JOIN LABEL ON (ISSUE.LABEL_NO = LABEL.LABEL_NO)
+		        LEFT OUTER JOIN ISSUE_ASSIGNEE ON (ISSUE.ISSUE_SID = ISSUE_ASSIGNEE.ISSUE_SID)
+		        LEFT OUTER JOIN MEMBER ASSIGNEE ON (ISSUE_ASSIGNEE.MEM_NO = ASSIGNEE.MEM_NO)
+		        LEFT OUTER JOIN PROJ_MEM ASSIGNEE_PM ON (ASSIGNEE.MEM_NO = ASSIGNEE_PM.MEM_NO AND ISSUE.PROJ_NO = ASSIGNEE_PM.PROJ_NO)
+		)
 		SELECT KANBAN.KB_COL_NO
-		        , KB_COL_PRIV_NO , PROJ_NO , KB_COL_NM 
+		        , KB_COL_PRIV_NO , KANBAN.PROJ_NO , KB_COL_NM 
 		        , CARDS.*
+		        , CARD_WRITER.MEM_NO AS CARD_WRITER_MEM_NO
+		        , CARD_WRITER_PROJ.PROJ_USER_NICK AS CARD_WRITER_NICK
+		        , ISSUES.*
 		FROM KANBAN_COL KANBAN
 		        LEFT OUTER JOIN CARDS ON (KANBAN.KB_COL_NO =CARDS.KB_COL_NO)
-		WHERE PROJ_NO = #{proj_no}
+		        LEFT OUTER JOIN MEMBER CARD_WRITER ON (CARDS.MEM_NO = CARD_WRITER.MEM_NO)
+		        LEFT OUTER JOIN PROJ_MEM CARD_WRITER_PROJ ON (CARD_WRITER.MEM_NO = CARD_WRITER_PROJ.MEM_NO AND KANBAN.PROJ_NO = CARD_WRITER_PROJ.PROJ_NO)
+		        LEFT OUTER JOIN ISSUES ON (CARDS.ISSUE_SID = ISSUES.ISSUE_SID)
+		WHERE KANBAN.PROJ_NO = #{proj_no}
 		START WITH KANBAN.KB_COL_PRIV_NO IS NULL
 		CONNECT BY PRIOR KANBAN.KB_COL_NO = KANBAN.KB_COL_PRIV_NO
 		ORDER SIBLINGS BY RN

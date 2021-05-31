@@ -146,8 +146,12 @@
 						$('#issue-body-cont').empty();
 						
 						$('.namefield').children('span').text(res.issue_title + ' #' + res.issue_no);
-						$('#milestone').children('span').text(res.milest_title);
-						$('#label').children('span').text(res.label_nm);
+						if(res.milestone){
+							$('#milestone').children('span').text(res.milestone.milest_title);
+						}
+						if(res.label){
+							$('#label').children('span').text(res.label.label_nm);
+						}
 						$('#priority').children('span').text(
 								res.priority == 1 ? '무시' :
 								res.priority == 2 ? '낮음' :
@@ -165,11 +169,11 @@
 							// 히스토리가 댓글일 경우와 댓글이 아닐 경우로 분기됩니다.
 							if(v.issue_his_type == 'RE'){
 								issue_history = $('#issue-template').children('.issue-reply').clone();
-								issue_history.find('.repHeader').children('span:first').text(v.his_writer_nick);
+								issue_history.find('.repHeader').children('span:first').text(v.historyWriter.mem_nick);
 								issue_history.find('.repBody').text(v.issue_his_cont);
 							}else{
 								issue_history = $('#issue-template').children('.issue-change').clone();
-								issue_history.find('span').text(v.issue_his_cont);
+								issue_history.find('span').text('(히스토리타입/멤버닉네임 :' + v.issue_his_type +'/' + v.historyWriter.mem_nick +  ') ' + v.issue_his_cont);
 							}
 							$('#issue-body-cont').append(issue_history);
 						})

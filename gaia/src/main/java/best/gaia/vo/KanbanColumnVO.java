@@ -14,10 +14,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class KanbanColumnVO {
+public class KanbanColumnVO {	
+	
+	/**
+	 * TABLE에 존재하는 COLUMN들 입니다.
+	 */
 	@NotNull @Min(0) private Integer kb_col_no;
 	 private Integer kb_col_priv_no;
 	@NotNull @Min(0) private Integer proj_no;
 	@NotBlank@Size(max=500) private String kb_col_nm;
+	
+	/**
+	 * Collnection 관계의 객체입니다.
+	 */
 	private List<KanbanCardVO> cardList;
+	
 }
