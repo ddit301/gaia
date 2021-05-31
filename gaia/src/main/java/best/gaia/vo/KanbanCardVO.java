@@ -30,4 +30,9 @@ public class KanbanCardVO {
 	private MemberVO writer;
 	private IssueVO issue;
 	
+	/**
+	 * 필요에 따라 추가된 프로퍼티 입니다.
+	 */
+	private Integer kb_card_next_no;
+	
 }

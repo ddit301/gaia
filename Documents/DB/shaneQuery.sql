@@ -101,13 +101,14 @@ order by news.news_sid desc;
 
 
 -----------------------------3. Kanban--------------------------------------------------
--- a. 칸반 불러오기
-
+-- a. 칸반 컬럼들 불러오기
+-- b. 칸반 카드 불러오기
+-- c. 특정 컬럼의 마지막 카드 번호 구하기
 -----------------------------------------------------------------------------------
 
--- a. 칸반 불러오기
+-- a. 칸반 컬럼들 불러오기
 with cards as (
-    select rownum rn, kb_col_no, kb_card_no 
+    select rownum rn, kb_col_no as kb_col_no, kb_card_no 
             ,kb_card_priv_no, issue_sid, kb_card_cont, kb_card_write_date
             , mem_no
     from  kanban_card 
@@ -133,8 +134,8 @@ with cards as (
         left outer join member assignee on (issue_assignee.mem_no = assignee.mem_no)
         left outer join proj_mem assignee_pm on (assignee.mem_no = assignee_pm.mem_no and issue.proj_no = assignee_pm.proj_no)
 )
-select kanban.KB_COL_NO
-        , KB_COL_PRIV_NO , kanban.PROJ_NO , KB_COL_NM 
+select kanban.KB_COL_NO as kb_col_id
+        , KB_COL_PRIV_NO , kanban.PROJ_NO , KB_COL_NM
         , cards.*
         , card_writer.mem_no as card_writer_mem_no
         , card_writer_proj.proj_user_nick as card_writer_nick
@@ -149,6 +150,41 @@ start with kanban.kb_col_priv_no is null
 connect by prior kanban.kb_col_no = kanban.kb_col_priv_no
 order siblings by rn;
 -----------------------------------------------------------------------------------
+
+-- b. 칸반 카드 정보 불러오기
+select card.kb_card_no, card.kb_card_priv_no, card.mem_no, card.kb_col_no
+        ,card.issue_sid, card.kb_card_cont, to_char(card.kb_card_write_date, 'yyyy-mm-dd hh24-mi-ss') as kb_card_write_date
+        , next.kb_card_no as kb_card_next_no
+from kanban_card card
+    left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
+where card.kb_card_no = 7;
+
+-----------------------------------------------------------------------------------
+
+-- c. 특정 컬럼의 마지막 카드 번호 구하기
+select kb_card_no
+from (
+    select card.kb_card_no, next.kb_card_no as next_no
+    from kanban_card card
+            left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
+    where card.kb_col_no = 1)
+where next_no is null;
+
+
+------------------------------------------------------------------------------------- 
+
+-- d. 칸반 카드 업데이트
+UPDATE KANBAN_CARD
+		SET
+		    KB_CARD_PRIV_NO = 9
+		    ,MEM_NO = 3
+		    ,KB_COL_NO = 1
+		    ,ISSUE_SID = 3
+		    ,KB_CARD_CONT = '네번째 칸반카드 내용 progress'
+		    ,KB_CARD_WRITE_DATE = TO_DATE('2021-05-03 00-00-00','yyyy-mm-dd hh24-mi-ss')
+   		WHERE
+	        KB_CARD_NO = 4;
+
 
 
 -----------------------------4. Milestone------------------------------------------

@@ -129,14 +129,42 @@
         }
       	// 카드 드랍 이벤트
         ,dropEl: function(el, target, source, sibling){
-          console.log('변경 한 카드 번호 : '+el.getAttribute('data-eid').substring(1));
-          console.log('변경 전 컬럼 번호 : '+source.parentElement.getAttribute('data-id').substring(1));
-          console.log('변경 후 컬럼 번호 : '+target.parentElement.getAttribute('data-id').substring(1));
-          console.log('변경 후 다음 카드 번호 : '+sibling.getAttribute('data-eid').substring(1));
-          console.log(el)
-          console.log(target)
-          console.log(source)
-          console.log(sibling)
+            
+        	let droppedCardNo = el.getAttribute('data-eid').substring(1);
+        	let newColumnNo = target.parentElement.getAttribute('data-id').substring(1);
+        	let nextCardNo = null;
+        	if(sibling){
+	        	nextCardNo = sibling.getAttribute('data-eid').substring(1);
+        	}
+        	
+			$.ajax({
+				url : getContextPath()+'/restapi/project/kanban/moveCard.do',
+				type : 'post',
+				data : {
+					'droppedCardNo' : droppedCardNo
+					,'newColumnNo' : newColumnNo
+					,'nextCardNo' : nextCardNo
+				},
+				success : function(res) {
+					if(res.result != 'OK'){
+						alert('kanban Card 이동에 실패했습니다. 상황을 Shane 에게 알려주세요.');
+					}
+				}
+				,error : function(xhr, error, msg) {
+					console.log(xhr);
+					console.log(error);
+					console.log(msg);
+				},
+				dataType : 'json',
+				async : false
+			})
+			
+          console.log('변경 한 카드 번호 : ' + droppedCardNo);
+          console.log('변경 후 다음 카드 번호 : ' + nextCardNo);
+          console.log(el);
+          console.log(target);
+          console.log(source);
+          console.log(sibling);
         }
         ,buttonClick: function(el, boardId) {
           console.log(el);
@@ -161,13 +189,12 @@
             formItem.parentNode.removeChild(formItem);
           };
         }
-//         itemAddOptions: {
-//           enabled: true,
-//           content: '+ 카드 추가',
-//           class: 'custom-button',
-//           footer: true
-//         }
-        	
+        ,itemAddOptions: {
+          enabled: true,
+          content: '+ 카드 추가',
+          class: 'btn btn-success',
+          footer: true
+        }
 
       });
     </script>
