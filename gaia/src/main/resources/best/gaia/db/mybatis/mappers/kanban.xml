@@ -117,5 +117,27 @@
 	        KB_CARD_NO = #{kb_card_no}
 	</update>
 	
+	<insert id="insertCard" parameterType="best.gaia.vo.KanbanCardVO">
+		<selectKey resultType="int" keyProperty="kb_card_no" order="BEFORE">
+			SELECT MAX(KB_CARD_NO)+1
+			FROM KANBAN_CARD
+		</selectKey>
+			INSERT INTO kanban_card (
+			    kb_card_no,
+			    kb_card_priv_no,
+			    mem_no,
+			    kb_col_no,
+			    kb_card_cont,
+			    kb_card_write_date
+			) VALUES (
+			    #{kb_card_no}
+			    ,#{kb_card_priv_no,jdbcType=NUMERIC}
+			    ,#{mem_no,jdbcType=NUMERIC}
+			    ,#{kb_col_no,jdbcType=NUMERIC}
+			    ,#{kb_card_cont,jdbcType=VARCHAR}
+			    ,sysdate
+			)
+	</insert>
+	
 </mapper>
 

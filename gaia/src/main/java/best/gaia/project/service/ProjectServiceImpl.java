@@ -122,4 +122,20 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 	}
 
+	@Override
+	public ServiceResult insertKanbanCard(KanbanCardVO card) {
+		
+		// 카드에는 kb_col_no, kb_card_cont, mem_no 정보가 담겨서 넘어왔다.
+		
+		// card_priv_no 를 먼저 받아와서 카드 객체에 넣어준다.
+		// 속한 컬럼의 마지막 카드 번호가 priv_no 가 된다. null이 있을 수 있으니 꼭 Integer로 해야 한다.
+		Integer card_priv_no = kanbanDao.getLastCardNo(card.getKb_col_no());
+		card.setKb_card_priv_no(card_priv_no);
+		
+		// kanbanDao 의 insert 문을 실행한다.
+		int result = kanbanDao.insertCard(card);
+		
+		return result==1? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
 }

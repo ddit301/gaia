@@ -18,6 +18,8 @@ public interface KanbanDao {
 	
 	public KanbanCardVO selectCard(int kb_card_no);
 	public Integer getLastCardNo(int kb_col_no);
+	public int insertCard(KanbanCardVO card);
 	public int updateCard(KanbanCardVO card);
+	
 	
 }

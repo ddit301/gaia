@@ -167,24 +167,54 @@
           console.log(sibling);
         }
         ,buttonClick: function(el, boardId) {
-          console.log(el);
-          console.log(boardId);
+        
+          // 카드 추가 중이던 기존의 모든 작성 폼 먼저 삭제 ( 폼 2개 있을때 취소/작성 버그가 있는걸 발견해서 추가 했음)
+          $('form').remove();
+          kb_col_no = boardId.substring(1);
           
-          // create a form to enter element
+          // 카드 추가를 위한 폼을 생성한다.
           var formItem = document.createElement("form");
           formItem.setAttribute("class", "itemform");
           formItem.innerHTML =
-            '<div class="form-group"><textarea class="form-control" rows="2" autofocus></textarea></div><div class="form-group"><button type="submit" class="btn btn-primary btn-xs pull-right">Submit</button><button type="button" id="CancelBtn" class="btn btn-default btn-xs pull-right">Cancel</button></div>';
-
+            '<div class="form-group"><textarea class="form-control" rows="2" autofocus></textarea></div><div class="form-group"><button type="submit" class="btn btn-primary btn-xs pull-right">저장</button><button type="button" id="CancelBtn" class="btn btn-default btn-xs pull-right">취소</button></div>';
           KanbanTest.addForm(boardId, formItem);
+          
+          // 카드 정보 입력 다 하고 실제 등록시 이벤트
           formItem.addEventListener("submit", function(e) {
             e.preventDefault();
             var text = e.target[0].value;
-            KanbanTest.addElement(boardId, {
-              title: text
-            });
+            
+            // ajax에서 새 카드 추가 한 뒤에, 새로운 카드의 id를 받아온다.
+            $.ajax({
+				url : '${cPath}/restapi/project/kanban-cards',
+				method : 'post',
+				data : {
+					'kb_col_no' : kb_col_no
+					,'kb_card_cont' : text
+				},
+				success : function(res) {
+		            // 카드 템플릿을 받아와 새로운 카드 객체를 만든다.
+		            let cardCont = $('#kanban-template').children('.kanban_card').clone();
+		            cardCont.find('.card_content').text(text);
+		            KanbanTest.addElement(boardId, {
+		            	// 위에서 받아온 아이디로 엘리먼트를 만들어서 넣는다.
+		           	  id : '_'+res.kb_card_no
+		              ,title: cardCont.wrap("<div/>").parent().html()
+		            });
+				},
+				error : function(xhr, error, msg) {
+					console.log(xhr);
+					console.log(error);
+					console.log(msg);
+				},
+				dataType : 'json'
+				,async : false
+			})
             formItem.parentNode.removeChild(formItem);
+            
           });
+          
+          // 카드 추가 취소 버튼 누를때 formitem 삭제
           document.getElementById("CancelBtn").onclick = function() {
             formItem.parentNode.removeChild(formItem);
           };

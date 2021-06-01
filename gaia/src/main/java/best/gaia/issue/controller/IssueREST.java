@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.service.IssueService;
-import best.gaia.utils.exception.ProjNoNotExistInSessionException;
+import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.PagingVO;
@@ -102,7 +102,7 @@ public class IssueREST {
 	Integer getProjNoFromSession(HttpSession session){
 		Integer proj_no = (Integer)session.getAttribute("proj_no");
 		if(proj_no == null) {
-			throw new ProjNoNotExistInSessionException();
+			throw new NotValidSessionException();
 		}
 		return proj_no;
 	}

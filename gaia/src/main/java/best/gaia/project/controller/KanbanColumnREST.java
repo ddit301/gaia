@@ -22,7 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.project.dao.NewsDao;
 import best.gaia.project.service.ProjectService;
-import best.gaia.utils.exception.ProjNoNotExistInSessionException;
+import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.vo.KanbanColumnVO;
 
 @RestController
@@ -70,7 +70,7 @@ public class KanbanColumnREST {
 	Integer getProjNoFromSession(HttpSession session){
 		Integer proj_no = (Integer)session.getAttribute("proj_no");
 		if(proj_no == null) {
-			throw new ProjNoNotExistInSessionException();
+			throw new NotValidSessionException();
 		}
 		return proj_no;
 	}
