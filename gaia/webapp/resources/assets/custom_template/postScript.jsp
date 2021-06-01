@@ -14,6 +14,7 @@
     <script src="${cPath }/resources/assets/js/gleek${empty project_title? '_horizontal' : ''}.js"></script>
     <script src="${cPath }/resources/assets/js/styleSwitcher.js"></script>
 	<script src="${cPath }/resources/js/moment.js"></script>
+	<script src="${cPath }/resources/js/jquery.serializejson.js"></script>
 <script type="text/javascript">
    	
 		// 뒤로가기 이벤트 binding 하기
