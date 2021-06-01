@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.dao.MilestoneDao;
@@ -24,9 +25,13 @@ public class IssueServiceImpl implements IssueService {
 	private MilestoneDao milestoneDao;
 
 	@Override
+	@Transactional
 	public ServiceResult insertIssue(IssueVO issue) {
-		// TODO Auto-generated method stub
-		return null;
+		int result = dao.insertIssue(issue);
+		if(result == 1) {
+			// 이슈 댓글에 내용 넣기
+		}
+		return result == 1? ServiceResult.OK : ServiceResult.FAIL; 
 	}
 
 	@Override

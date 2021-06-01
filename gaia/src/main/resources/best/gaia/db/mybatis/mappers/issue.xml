@@ -82,4 +82,42 @@ FROM ISSUE
 		ORDER BY ISSUE_NO DESC
 	</select>
 	
+	<insert id="insertIssue" parameterType="best.gaia.vo.IssueVO">
+		<selectKey keyProperty="issue_sid,issue_no" resultType="best.gaia.vo.IssueVO" order="BEFORE" >
+			select *
+			from
+				(select max(issue_sid)+1 as issue_sid
+				from issue) a,
+				(select max(issue_no)+1 as issue_no
+				from issue
+				where proj_no = #{proj_no})b
+		</selectKey>
+			INSERT INTO issue (
+			    issue_sid,
+			    issue_no,
+			    mem_no,
+			    label_no,
+			    milest_sid,
+			    proj_no,
+			    issue_title,
+			    issue_create_date,
+			    issue_start_date,
+			    issue_end_date,
+			    issue_priority
+			) VALUES (
+			    #{issue_sid}
+			    ,#{issue_no}
+			    ,#{mem_no,jdbcType=NUMERIC}
+			    ,#{label_no,jdbcType=NUMERIC}
+			    ,#{milest_sid,jdbcType=NUMERIC}
+			    ,#{proj_no,jdbcType=NUMERIC}
+			    ,#{issue_title,jdbcType=VARCHAR}
+			    ,sysdate
+			    ,#{issue_start_date,jdbcType=VARCHAR}
+			    ,#{issue_end_date,jdbcType=VARCHAR}
+			    ,#{issue_priority, jdbcType=VARCHAR}
+			)
+	
+	</insert>
+	
 </mapper>

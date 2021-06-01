@@ -119,7 +119,8 @@ $(function(){
 				,'issue_priority' : issue_priority
 			},
 			success : function(res) {
-				movePage(issue) 
+				// 작성 성공시에는 이슈 페이지로 넘겨버린다.
+				movePage('issue') 
 			},
 			error : function(xhr, error, msg) {
 				console.log(xhr);
@@ -130,9 +131,21 @@ $(function(){
 		})
 	})
 	
+	// datePicker 동작시키기
     $('.menuBox').find('input').bootstrapMaterialDatePicker({
+    	// 시간은 설정 안하고 날짜만 선택할 것
         time: false
+        // 설정은 최소 오늘 이후의 날자만 가능
+        ,minDate : new Date()
     });
+	
+	// startDate 가 정해 진 후에는 endDate는 그 이후로만 적용할 수 있도록 막기
+	$('#issueStartDate').children('input').on('change', function(){
+		let startDate = $('#issueStartDate').children('input').val();
+		$('#issueEndDate').children('input').bootstrapMaterialDatePicker("setMinDate", startDate);
+	})
+	
+	
 	
 })
 
