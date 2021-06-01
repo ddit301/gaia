@@ -44,10 +44,11 @@
     -->
     <!-- Default stylesheets-->
     <link href="resources/main/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <!-- Template specific stylesheets-->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,600,700,800" rel="stylesheet">
     <link href="resources/main/lib/animate.css/animate.css" rel="stylesheet">
     <link href="resources/main/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="resources/main/lib/et-line-font/et-line-font.css" rel="stylesheet">
@@ -63,6 +64,8 @@
     <link href="resources/main/css/style.css" rel="stylesheet">
     <link href="resources/main/css/admin-style.css" rel="stylesheet">
     <link id="color-scheme" href="resources/main/css/colors/default.css" rel="stylesheet">
+<!--     <link rel="stylesheet" href="resources/main/css/jquery.dataTables.css"> -->
+<!--     <link rel="stylesheet" href="resources/main/css/dataTables.jqueryui.min.css"> -->
     <style type="text/css">
     .quesadilla{
 	  position:relative;
@@ -122,10 +125,16 @@
       </nav>
 
 
+<table id="table01">
+
+</table>
+
+
+
 	</main>
 	<main id="mainBody">
 
-	<!-- default included page -->
+<!-- 	default included page -->
 	<jsp:include page="member.jsp"></jsp:include>
 
     </main>
@@ -202,20 +211,23 @@
     -->
 
     <script src="resources/main/lib/jquery/dist/jquery.js"></script>
-    <script src="resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="resources/main/lib/wow/dist/wow.js"></script>
-    <script src="resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="resources/main/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="resources/main/lib/smoothscroll.js"></script>
-    <script src="resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="resources/main/js/plugins.js"></script>
-    <script src="resources/main/js/main.js"></script>
+    <script defer src="resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script defer src="resources/main/lib/wow/dist/wow.js"></script>
+    <script defer src="resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script defer src="resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script defer src="resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script defer src="resources/main/lib/flexslider/jquery.flexslider.js"></script>
+    <script defer src="resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script defer src="resources/main/lib/smoothscroll.js"></script>
+    <script defer src="resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script defer src="resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script defer src="resources/main/js/plugins.js"></script>
+    <script defer src="resources/main/js/main.js"></script>
+<!-- 	<script defer type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script> -->
+	<script defer src="resources/main/js/jquery.dataTables.min.js"></script>
 
     <script type="text/javascript">
+    $(document).ready( function () {
     function acyncMovePage(url){
         // ajax option
         var ajaxOption = {
@@ -232,6 +244,38 @@
             $('#mainBody').html(data);
         });
     }
+    	function Employee ( name, position, salary, office, a, b, c ) {
+    	    this.name = name;
+    	    this.position = position;
+    	    this.salary = salary;
+    	    this._office = office;
+    	    this.a = a;
+    	    this.b = b;
+    	    this.c = c;
+    	 
+    	    this.office = function () {
+    	        return this._office;
+    	    }
+    	};
+    	
+        $('#member-table').DataTable({
+        	data: [
+                new Employee( "Tiger Nixon", "System Architect", "$3,120", "Edinburgh" , "Edinburgh" , "Edinburgh", "Edinburgh" ),
+                new Employee( "Garrett Winters", "Director", "$5,300", "Edinburgh", "Edinburgh" , "Edinburgh" , "Edinburgh" )
+            ],
+        	columns: [
+    	        { data: 'name' },
+    	        { data: 'position' },
+    	        { data: 'salary' },
+    	        { data: 'office' },
+    	        { data: 'b' },
+    	        { data: 'a' },
+    	        { data: 'c' }
+    	        
+    	    ]
+        });
+        
+    });
     </script>
 
   </body>

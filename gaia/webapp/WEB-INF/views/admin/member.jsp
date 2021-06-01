@@ -16,22 +16,26 @@
             <hr class="divider-w pt-20">
             <div class="row">
               <div class="col-sm-12">
-                <table class="table table-striped table-border checkout-table">
-                  <tbody>
+                <table id="member-table" class="table table-striped table-border checkout-table">
+                  <thead>
                     <tr class="navbar-custom">
                       <th><i class="fa fa-check-square-o"></i></th>
-                      <th class="dropdown">
-                      	<a class="dropdown-toggle" href="#" data-toggle="dropdown">ICON</a>
-                      	<ul class="dropdown-menu">
-                      		<li><input type="checkbox">1 li</li>
-                      		<li><input type="checkbox">2 li</li>
-                      	</ul>
-                      </th>
-                      <th>회원 SID</th>
+<!--                       <th class="dropdown"> -->
+<!--                       	<a class="dropdown-toggle" href="#" data-toggle="dropdown">ICON</a> -->
+<!--                       	<ul class="dropdown-menu"> -->
+<!--                       		<li><input type="checkbox">1 li</li> -->
+<!--                       		<li><input type="checkbox">2 li</li> -->
+<!--                       	</ul> -->
+<!--                       </th> -->
+                      <th>ICON</th>
+                      <th>SID</th>
+                      <th>EMAIL ID</th>
+                      <th>닉네임</th>
                       <th>가입일</th>
-                      <th>상태</th>
-                      <th>Total</th>
+                      <th>탈퇴일</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <tr>
                       <td><input type="checkbox"></td>
                       <td>
@@ -43,6 +47,9 @@
                       </td>
                       <td>
                         <input class="form-control" type="number" name="" value="1" max="50" min="1"/>
+                      </td>
+                      <td>
+                        <h5 class="product-title font-alt">2019.05.09</h5>
                       </td>
                       <td>
                         <h5 class="product-title font-alt">2019.05.09</h5>
@@ -60,6 +67,9 @@
                       </td>
                       <td>
                         <input class="form-control" type="number" name="" value="1" max="50" min="1"/>
+                      </td>
+                      <td>
+                        <h5 class="product-title font-alt">2019.05.09</h5>
                       </td>
                       <td>
                         <h5 class="product-title font-alt">2019.05.09</h5>
@@ -119,16 +129,47 @@
     JavaScripts
     =============================================
     -->
-    <script src="/gaia/resources/main/lib/jquery/dist/jquery.js"></script>
-    <script src="/gaia/resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/gaia/resources/main/lib/wow/dist/wow.js"></script>
-    <script src="/gaia/resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="/gaia/resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="/gaia/resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="/gaia/resources/main/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="/gaia/resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="/gaia/resources/main/lib/smoothscroll.js"></script>
-    <script src="/gaia/resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="/gaia/resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="/gaia/resources/main/js/plugins.js"></script>
-    <script src="/gaia/resources/main/js/main.js"></script>
+<!--     <script defer src="/gaia/resources/main/lib/jquery/dist/jquery.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/wow/dist/wow.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/isotope/dist/isotope.pkgd.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/flexslider/jquery.flexslider.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/smoothscroll.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/js/plugins.js"></script> -->
+<!--     <script defer src="/gaia/resources/main/js/main.js"></script> -->
+<!--     <script defer type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script> -->
+<!--     <script async type="text/javascript"> -->
+// 	    $(document).ready( function () {
+// 	    	function Employee ( name, position, salary, office, a, b ) {
+// 	    	    this.name = name;
+// 	    	    this.position = position;
+// 	    	    this.salary = salary;
+// 	    	    this._office = office;
+// 	    	    this.a = a;
+// 	    	    this.b = b;
+	    	 
+// 	    	    this.office = function () {
+// 	    	        return this._office;
+// 	    	    }
+// 	    	};
+	    	
+// 	        $('.checkout-table').DataTable({
+// 	        	data: [
+// 	                new Employee( "Tiger Nixon", "System Architect", "$3,120", "Edinburgh" , "Edinburgh" , "Edinburgh" ),
+// 	                new Employee( "Garrett Winters", "Director", "$5,300", "Edinburgh", "Edinburgh" , "Edinburgh"  )
+// 	            ],
+// 	        	columns: [
+//         	        { data: 'MEM_NO' },
+//         	        { data: 'MEM_ID' },
+//         	        { data: 'MEM_NICK' },
+//         	        { data: 'MEM_SIGN_DATE' },
+//         	        { data: 'MEM_QUIT_DATE' }
+//         	    ]
+// 	        });
+// 	    } );
+<!--     </script> -->
