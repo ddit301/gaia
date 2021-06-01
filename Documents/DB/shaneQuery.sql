@@ -145,7 +145,7 @@ from kanban_col kanban
         left outer join member card_writer on (cards.mem_no = card_writer.mem_no)
         left outer join proj_mem card_writer_proj on (card_writer.mem_no = card_writer_proj.mem_no and kanban.proj_no = card_writer_proj.proj_no)
         left outer join issues on (cards.issue_sid = issues.issue_sid)
-where kanban.proj_no = 1
+where kanban.proj_no = 1 --#{proj_no}
 start with kanban.kb_col_priv_no is null
 connect by prior kanban.kb_col_no = kanban.kb_col_priv_no
 order siblings by rn;
