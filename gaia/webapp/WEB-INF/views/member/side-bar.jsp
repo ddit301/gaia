@@ -23,7 +23,6 @@
      			<span class="list-group-item menu-heading p-r-0">Account setting</span>
 	         	<a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting"> Profile <span class="badge badge-primary badge-sm float-right m-t-5">198</span> </a>
 	            <a href="javascript:void()" class="list-group-item text-primary p-r-2 moveButton" data-menu="setting/account">Account</a>  
-	            <a href="javascript:void()" class="list-group-item p-r-0 moveButton" data-menu="setting/accountSecurity">Account security <span class="badge badge-danger badge-sm float-right m-t-5">47</span> </a>
 	            <a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting/securityLog">Security log</a>
         	</div>
         </div>

@@ -8,6 +8,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="container-fluid container-lg container-xl">
+<div class = "alert">
+	<p> update success</p>
+</div>
 	<div class="row justify-content-end page-path">
 		<div class="col col-md-3">
 			<ol class="breadcrumb">
@@ -16,7 +19,7 @@
 			</ol>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row menu">
 		<div class="col-lg-4 col-xl-3">
 			<jsp:include page="side-bar.jsp"/>
 		</div>
@@ -65,6 +68,7 @@
 					            		<img class="mr-3 rounded-circle" height="200" width="200" src="${cPath}/resources/assets/images/member/profile.png">
 				            		</div> 
 				            	</div>
+				            	
 	           				</div>
 	                    </form>
 					</div>
@@ -75,9 +79,8 @@
 </div>
 <script>
 var loadMemberInfo = function(){
-	let mem_no = 1;
 	$.ajax({
-		url : getContextPath()+"/restapi/member/members/member/"+mem_no ,
+		url : getContextPath()+"/restapi/member/members/member" ,
 		type : 'get',
 		success : function(res) {
 			console.log(JSON.stringify(res));
@@ -100,34 +103,33 @@ var loadMemberInfo = function(){
 		dataType : 'json'
 	})
 }
-	function updateProfile(){
-		event.preventDefault();
-		var profile  = $(".basic-form").serializeJSON();
-		alert(JSON.stringify(profile));
-		var aa = "aa"
-// 		var mem_nick = $(".form-control.input-default").attr(name="mem_nick").val;
-// 		alert(mem_nick);
-// 		console.log(form);
-		$.ajax({
-			url : getContextPath()+"/restapi/member/members/",
-			method : 'post',
-			data : profile,
-			success : function(res) {
-				console.log(res);
-			},
-			async : false,
-			error : function(xhr) {
-				console.log(xhr);
-				// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-				if(xhr.status == '404'){
-					alert("실패");				
-				}else{
-					alert("status : " + xhr.status);
-				}
-			},
-			dataType : 'json'
-// 			contentType : 'application/json'
-		})
-	}
 loadMemberInfo();
+function updateProfile(){
+	event.preventDefault();
+	var profile  = $(".basic-form").serializeJSON();
+	$.ajax({
+		url : getContextPath()+"/restapi/member/members/",
+		method : 'post',
+		data : profile,
+		success : function(res) {
+			console.log(res);
+			window.scrollTo({top:0, left:0, behavior:'smooth'});
+			$(".alert").slideToggle(1000)
+						.delay(2000)
+						.slideUp(500);
+		},
+		async : false,
+		error : function(xhr) {
+			console.log(xhr);
+			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
+			if(xhr.status == '404'){
+				alert("실패");				
+			}else{
+				alert("status : " + xhr.status);
+			}
+		},
+		dataType : 'json'
+	})
+}
+
 </script>

@@ -54,15 +54,9 @@ public class MemberREST {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public Map<String, Object> insertMember(
-			HttpSession session,
-			@ModelAttribute("profile") MemberVO profile
 			) {
-		int mem_no = 1;
-		logger.info("ㄷ르어오긴 함_post");
-		logger.info("{}", profile.toString());
-		Map<String, Object> member = new HashMap<String, Object>();
-		member.put("member", profile);
-		return member;
+		
+		return null;
 	}
 	
 	@PutMapping
@@ -79,11 +73,7 @@ public class MemberREST {
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE)
-	public Map<String, Object> deleteMember(	HttpSession session,
-			MemberVO profile) {
-		int mem_no = 1;
-		logger.info("ㄷ르어오긴 함_del");
-		logger.info("{}", profile.toString()); 
+	public Map<String, Object> deleteMember(	) {
 		return null;
 	}
 	
@@ -96,16 +86,12 @@ public class MemberREST {
 		search = service.retrieveMemberProjectIssue(mem_no);
 		return search;
 	}
-	@RequestMapping(value="/member/{mem_no}", method=RequestMethod.GET)
+	@RequestMapping(value="/member", method=RequestMethod.GET)
 	public MemberVO selectMemberVO(
-				@PathVariable Integer mem_no
-				,@ModelAttribute("search") MemberVO search
+				@ModelAttribute("search") MemberVO search
 			) {
+		int mem_no = 1;
 		search = service.retrieveMemberByNo(mem_no);
 		return search;
 	}
-	
-	
-	
-
 }
