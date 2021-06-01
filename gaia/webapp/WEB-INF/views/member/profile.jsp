@@ -54,6 +54,10 @@
 				                        </div>
 				                        <div class="card mem_status">
 				                        	<h4 class="card-title">Status</h4>
+				                        	  <input type="radio" id="huey" name="drone" value="huey" checked><label for="huey">Huey</label>
+				                        	  <input type="radio" id="huey" name="drone" value="huey" checked><label for="huey">Huey</label>
+				                        	  <input type="radio" id="huey" name="drone" value="huey" checked><label for="huey">Huey</label>
+										
 				                            <input type="text" class="form-control input-default" name="" placeholder="Input Default">
 				                        </div>
 						                <hr>
@@ -107,12 +111,13 @@ loadMemberInfo();
 function updateProfile(){
 	event.preventDefault();
 	var profile  = $(".basic-form").serializeJSON();
+	profile.AA = "BB";
+	console.log(profile);
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members/",
 		method : 'post',
-		data : profile,
+		data : profile, 
 		success : function(res) {
-			console.log(res);
 			window.scrollTo({top:0, left:0, behavior:'smooth'});
 			$(".alert").slideToggle(1000)
 						.delay(2000)

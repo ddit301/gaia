@@ -26,21 +26,21 @@
 		<div class="col-lg-8 col-xl-9">
 			<div class="card">
 				<div class="card-body">
-				    <div class="basic-list-group ">
-			            <div class="toolbar Subhead mt-4 mb-5 my-5" role="toolbar">
+				    <div class="basic-list-group form-group ">
+			            <div class="toolbar Subhead mt-4 " role="toolbar">
 			            	<h2>Change username</h2>
 			            </div>
 			            <div class="card input-control">
 				            <h4 class="card-title">Name</h4>
-			            	<input type="text" placeholder="input default" class="form-control mem_nm">
+			            	<input type="text" placeholder="input default" class="form-control input-default mem_nm">
 			            </div>
-                     	<div class="toolbar Subhead mt-4 mb-5 my-5" role="toolbar">
+                     	<div class="toolbar Subhead mt-4 " role="toolbar">
 			            	<h2>Change password</h2>
 		            	</div>
 		            	<form class="basic-form input-control" name="profile">
 		            		<div class="card oldPassword">
 		         		    	<h4 class="card-title">Old passowrd</h4>
-                            	<input type="text" name="old_password" class="form-control " placeholder="Input Default">
+                            	<input type="text" name="old_password" class="form-control input-default" placeholder="Input Default">
 		            		</div>
 		            		<div class="card newPassword">
 		         		    	<h4 class="card-title">New passowrd</h4>
@@ -51,7 +51,7 @@
                             	<input type="text" name="confirm_pass" class="form-control input-default" placeholder="Input Default">
 		            		</div>
 		            	</form>
-	                    <div class="toolbar Subhead mt-4 mb-5 my-5" role="toolbar">
+	                    <div class="toolbar Subhead mt-4" role="toolbar">
 			            	<h2>Delete Account</h2>
 			            	<p>Your account is currently an owner in these organizations: DDIDTeam1, DDITHelloWorld, and ddit301
 								You must remove yourself, transfer ownership, or delete these organizations before you can delete your user.</p>
@@ -63,6 +63,7 @@
 	</div>
 </div>
 <script>
+
 var loadMemberInfo = function(){
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members/member/",
