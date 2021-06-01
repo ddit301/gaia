@@ -54,18 +54,23 @@ public class MemberREST {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public Map<String, Object> insertMember(
-			) {
-		
-		return null;
-	}
-	
-	@PutMapping
-	public Map<String, Object> updateMember(
-			HttpSession session,
-			@ModelAttribute("profile") MemberVO profile
+			@RequestBody MemberVO profile
 			) {
 		int mem_no = 1;
 		logger.info("ㄷ르어오긴 함_up");
+		logger.info("{}", profile.toString());
+		Map<String, Object> member = new HashMap<String, Object>();
+		member.put("member", profile);
+		return member;
+	}
+	@PutMapping
+	public Map<String, Object> updateMember(
+			HttpSession session,
+			@ModelAttribute("profile") MemberVO profile,
+			@RequestParam String AA
+			) {
+		int mem_no = 1;
+		logger.info("ㄷ르어오긴 함_up"+AA);
 		logger.info("{}", profile.toString());
 		Map<String, Object> member = new HashMap<String, Object>();
 		member.put("member", profile);

@@ -73,3 +73,7 @@ textarea {
     max-width: 100%;
     margin-right: 5px;
 }
+.input-size{
+	height : 400px;
+	max-height : 100%;
+}
