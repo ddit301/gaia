@@ -14,10 +14,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -64,7 +66,15 @@ public class IssueREST {
 	}
 	
 	@PostMapping
-	public Map<String, Object> insertIssue() {
+	public Map<String, Object> insertIssue(
+			HttpSession session
+			,@ModelAttribute IssueVO issue
+			,@RequestParam String issue_content
+			) {
+		
+		System.err.println(issue);
+		System.err.println(issue_content);
+		
 		return null;
 	}
 	

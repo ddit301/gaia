@@ -83,7 +83,7 @@
             			<div class="menuBox row">
             				<div id="priority" class="col-md-10">
 		            			<p>중요도</p>
-		            			<span>즉시</span>
+		            			<span></span>
             				</div>
             				<div class="col-md-2">
 		            			<i class="icon-settings menu-icon"></i>

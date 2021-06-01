@@ -15,8 +15,14 @@
     <link rel="icon" type="image/png" sizes="16x16" href="${cPath }/resources/main/images/favicons/favicon-16x16.png">
     <!-- Custom Stylesheet -->
     <link href="${cPath }/resources/assets/css/style.css" rel="stylesheet">
+    <!-- DateTimePicker CSS-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+    <!-- Toast UI Editor -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-3YZPKG0D0K"></script>
 	<script>

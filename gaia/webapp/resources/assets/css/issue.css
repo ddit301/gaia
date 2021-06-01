@@ -117,7 +117,19 @@
 .repWrite .repFoot{
 	float : right;
 }
-
-
+.issueTitle input{
+	margin-bottom : 10px;
+	font-size : 1.5em;
+	width : 100%;
+	padding : 5px;
+	padding-left : 15px;
+}
+.btnDiv button{
+	margin-top : 15px;
+	float : right;
+}
+.menuBox input{
+	border : none;
+}
 
 
