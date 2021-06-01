@@ -14,3 +14,17 @@
         </svg>
     </div>
 </div>
+
+<div id="main-list">
+	<div id="project__list">
+	    <div class="squre__box img-rounded">
+	        123
+	    </div>
+	    <div class="squre__box img-rounded">
+	        456
+	    </div>
+	     <div class="squre__box img-rounded">
+	        +
+	    </div>
+    </div>
+</div>
