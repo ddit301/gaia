@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 .flex-items-center {
     align-items: center!important;
@@ -45,4 +46,10 @@
 }
 .projectName{
 	font-size: x-large;
+}
+textarea {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding :0.375rem 0.75rem;
 }
