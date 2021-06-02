@@ -100,9 +100,6 @@ $(function(){
 		issue_content = editor.getMarkdown();
 		issue_start_date = $('#issueStartDate').children('input').val();
 		issue_end_date = $('#issueEndDate').children('input').val();
-		if(issue_start_date < issue_end_date){
-			alert('이슈 시작')
-		}
 		issue_priority = 3;
 		
 		$.ajax({
