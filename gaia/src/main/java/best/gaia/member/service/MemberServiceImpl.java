@@ -30,12 +30,21 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return savedMember;
 	}
-
+	
 	@Override
 	public MemberVO retrieveMemberByNo(int mem_no) {
 		MemberVO savedMember = dao.selectMemberDetailByNo(mem_no);
 		if (savedMember == null) {
-			throw new RuntimeException("해당 이메일을 등록한 회원이 존재하지 않음.");
+			throw new RuntimeException("해당 mem_no 회원이 존재하지 않음.");
+		}
+		return savedMember;
+	}
+
+	@Override
+	public MemberVO retrieveMemberProjectIssue(int mem_no) {
+		MemberVO savedMember = dao.selectMemberDetailProject_issue(mem_no);
+		if (savedMember == null) {
+			throw new RuntimeException("해당 mem_no 회원이 존재하지 않음.");
 		}
 		return savedMember;
 	}
@@ -95,5 +104,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+
+	
 
 }

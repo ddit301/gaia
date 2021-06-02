@@ -17,17 +17,21 @@ public interface MemberDao {
 	public MemberVO selectMemberForAuth(String mem_id);
 
 	/**
-	 * 회원 정보 상세 조회
-	 * 
+	 * 회원 정보 상세 조회(profile)
 	 * @param mem_id(e-mail)
 	 * @return 존재하지 않는 경우, null 반환.
 	 */
 	public MemberVO selectMemberDetail(String mem_id);
 
 	/**
-	 * 회원 정보 상세 조회
-	 * 
-	 * @param mem_id(e-mail)
+	 * 회원 정보 상세 조회(profile+project+issues)
+	 * @param mem_no(int)
+	 * @return 존재하지 않는 경우, null 반환.
+	 */
+	public MemberVO selectMemberDetailProject_issue(int mem_no);
+	/**
+	 * 회원 정보 상세 조회(profile)
+	 * @param mem_no(int)
 	 * @return 존재하지 않는 경우, null 반환.
 	 */
 	public MemberVO selectMemberDetailByNo(int mem_no);
