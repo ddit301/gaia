@@ -14,20 +14,6 @@
         </svg>
     </div>
 </div>
-
-<div id="main-list"><div id="project__list">
-    <div class="squre__box img-rounded">
-        123
-    </div>
-    <div class="squre__box img-rounded">
-        456
-    </div>
-    <div class="squre__box">
-        <div class="img-rounded">
-            <button type="button" class="btn btn-adder" data-toggle="modal"
-                data-target=".bd-example-modal-lg">+</button>
-        </div>
-    </div>
     <!-- modal -->
 
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
@@ -109,6 +95,22 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+
+<div id="main-list">
+	<div id="project__list">
+	
+    <div class="square__box img-rounded">
+        123
+    </div>
+    <div class="square__box img-rounded">
+        456
+    </div>
+    <div class="square__box">
+        <div class="img-rounded">
+            <button type="button" class="btn btn-adder" data-toggle="modal"
+                data-target=".bd-example-modal-lg">+</button>
         </div>
     </div>
 </div>
