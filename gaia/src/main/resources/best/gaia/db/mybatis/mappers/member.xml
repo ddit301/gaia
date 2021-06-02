@@ -109,6 +109,9 @@
 		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_working_city)">
 		    , MEM_WORKING_CITY = #{mem_working_city}
 		    </if>
+		    <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_working_city)">
+		    , MEM_STATUS = #{mem_status}
+		    </if>
 	    </trim>
 	        WHERE MEM_NO = #{mem_no}
 	</update>

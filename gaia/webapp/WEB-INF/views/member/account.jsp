@@ -89,6 +89,7 @@ loadMemberInfo();
 function updateProfile(){
 	event.preventDefault();
 	var profile  = $(".basic-form").serializeJSON();
+	profile.AA = "BB";
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members/",
 		method : 'post',

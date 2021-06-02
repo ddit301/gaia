@@ -54,11 +54,16 @@
 				                        </div>
 				                        <div class="card mem_status">
 				                        	<h4 class="card-title">Status</h4>
-				                        	  <input type="radio" id="huey" name="drone" value="huey" checked><label for="huey">Huey</label>
-				                        	  <input type="radio" id="huey" name="drone" value="huey" checked><label for="huey">Huey</label>
-				                        	  <input type="radio" id="huey" name="drone" value="huey" checked><label for="huey">Huey</label>
-										
-				                            <input type="text" class="form-control input-default" name="" placeholder="Input Default">
+				                        	  <label for="huey"><input type="radio" id="vs" name="mem_status" value="va" >휴가중</label>
+				                        	  <label for="huey"><input type="radio" id="si" name="mem_status" value="si" >아픔</label>
+				                        	  <label for="huey"><input type="radio" id="wh" name="mem_status" value="wh" >재택 근무</label>
+				                        	  <label for="huey"><input type="radio" id="fc" name="mem_status" value="fc" >방해금지</label>
+				                        	  <label for="huey"><input type="radio" id="ab" name="mem_status" value="ab" >부재중</label>
+				                        	  <label for="huey"><input type="radio" id="ow" name="mem_status" value="ow" >외근</label>
+				                        	  <label for="huey"><input type="radio" id="wf" name="mem_status" value="wf" >가족과의 시간</label>
+				                        	  <label for="huey"><input type="radio" id="rm" name="mem_status" value="rm" >휴면회원 </label>
+				                        	  <label for="huey"><input type="radio" id="active" name="mem_status" value="active" checked>활동중</label>
+				                        	  <label for="huey"><input type="radio" id="off" name="mem_status" value="off" >비활동중</label>
 				                        </div>
 						                <hr>
 						                <p>
@@ -111,7 +116,7 @@ loadMemberInfo();
 function updateProfile(){
 	event.preventDefault();
 	var profile  = $(".basic-form").serializeJSON();
-	profile.AA = "BB";
+	var status = $("input[type='radio'][name='status']:checked").val();
 	console.log(profile);
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members/",
