@@ -81,7 +81,7 @@
            			<div class="row">
 		           		<div class="col-md-11"></div>
 	           			<div class="col-md-1">
-		           			<button type="button" class="btn mb-1 btn-rounded btn-outline-dark">이슈등록</button>
+		           			<button type="button" id="newIssueBtn" class="btn mb-1 btn-rounded btn-outline-dark">이슈등록</button>
 	           			</div>
            			</div>
            			<div>

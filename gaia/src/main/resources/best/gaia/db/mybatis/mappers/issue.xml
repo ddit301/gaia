@@ -5,7 +5,8 @@
 	<resultMap type="best.gaia.vo.IssueVO" id="issueMap" autoMapping="true">
 		<id property="issue_sid" column="ISSUE_ID"/>
 		<association property="writer" javaType="best.gaia.vo.MemberVO" autoMapping="false">
-			<id column="MEM_NO" property="mem_no"/>
+			<id column="WRITER_NO" property="mem_no"/>
+			<result column="WRITER_NICK" property="mem_nick"/>
 			<result column="WRITER_PIC" property="mem_pic_file_name"/>
 		</association>
 		<association property="milestone" javaType="best.gaia.vo.MilestoneVO" autoMapping="false">
@@ -40,7 +41,8 @@ SELECT ISSUE.ISSUE_SID as ISSUE_ID, ISSUE_NO, ISSUE_TITLE, PROGRESS, ISSUE_STATU
         ,WRITER.MEM_NO AS WRITER_NO, WRITER.MEM_PIC_FILE_NAME AS WRITER_PIC
         ,WRITER_PM.PROJ_USER_NICK AS WRITER_NICK
         ,ASSIGNEE.MEM_NO, ASSIGNEE.MEM_ID, ASSIGNEE.MEM_PIC_FILE_NAME, ASSIGNEE_PM.PROJ_USER_NICK AS MEM_NICK
-        ,ISSUE_HISTORY.ISSUE_HIS_NO, ISSUE_HISTORY.ISSUE_HIS_CONT, ISSUE_HISTORY.ISSUE_HIS_DATE
+        ,ISSUE_HISTORY.ISSUE_HIS_NO, ISSUE_HISTORY.ISSUE_HIS_CONT
+        ,issue_history.issue_his_date
         ,ISSUE_HISTORY.ISSUE_HIS_TYPE, ISSUE_HISTORY.ATCH_FILE_SID
         ,HIS_WRITER.MEM_NO AS HIS_WRITER_NO, HIS_WRITER.MEM_PIC_FILE_NAME AS HIS_WRITER_PIC
         ,HIS_WRITER_PM.PROJ_USER_NICK AS HIS_WRITER_NICK
@@ -81,5 +83,67 @@ FROM ISSUE
 		WHERE ISSUE.proj_no = #{detailSearch.proj_no}
 		ORDER BY ISSUE_NO DESC
 	</select>
+	
+	<insert id="insertIssue" parameterType="best.gaia.vo.IssueVO">
+		<selectKey keyProperty="issue_sid,issue_no" resultType="best.gaia.vo.IssueVO" order="BEFORE" >
+			select *
+			from
+				(select max(issue_sid)+1 as issue_sid
+				from issue) a,
+				(select max(issue_no)+1 as issue_no
+				from issue
+				where proj_no = #{proj_no})b
+		</selectKey>
+			INSERT INTO issue (
+			    issue_sid,
+			    issue_no,
+			    mem_no,
+			    label_no,
+			    milest_sid,
+			    proj_no,
+			    issue_title,
+			    issue_create_date,
+			    issue_start_date,
+			    issue_end_date,
+			    issue_priority
+			) VALUES (
+			    #{issue_sid}
+			    ,#{issue_no}
+			    ,#{mem_no,jdbcType=NUMERIC}
+			    ,#{label_no,jdbcType=NUMERIC}
+			    ,#{milest_sid,jdbcType=NUMERIC}
+			    ,#{proj_no,jdbcType=NUMERIC}
+			    ,#{issue_title,jdbcType=VARCHAR}
+			    ,sysdate
+			    ,#{issue_start_date,jdbcType=VARCHAR}
+			    ,#{issue_end_date,jdbcType=VARCHAR}
+			    ,#{issue_priority, jdbcType=VARCHAR}
+			)
+	
+	</insert>
+	
+	<insert id="insertIssueHistory" parameterType="best.gaia.vo.IssueHistoryVO">
+		<selectKey resultType="int" keyProperty="issue_his_no" order="BEFORE">
+			select max(issue_his_no)+1
+			from issue_history	
+		</selectKey>
+			INSERT INTO issue_history (
+			    issue_his_no,
+			    issue_sid,
+			    mem_no,
+			    issue_his_cont,
+			    issue_his_date,
+			    issue_his_type,
+			    atch_file_sid
+			) VALUES (
+			    #{issue_his_no}
+			    ,#{issue_sid, jdbcType=NUMERIC}
+			    ,#{mem_no, jdbcType=NUMERIC}
+			    ,#{issue_his_cont, jdbcType=VARCHAR}
+			    ,sysdate
+			    ,#{issue_his_type, jdbcType=VARCHAR}
+			    ,#{atch_file_sid, jdbcType=NUMERIC}
+			)
+	</insert>
 	
 </mapper>

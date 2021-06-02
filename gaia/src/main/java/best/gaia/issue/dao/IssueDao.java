@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
@@ -48,5 +49,9 @@ public interface IssueDao {
 	 * @return affected rows count
 	 */
 	public int deleteIssue(IssueVO search);
+	
+	public int insertIssueHistory(IssueHistoryVO history);
+	public int updateIssueHistory(IssueHistoryVO history);
+	public int deleteIssueHistory(IssueHistoryVO history);
 	
 }

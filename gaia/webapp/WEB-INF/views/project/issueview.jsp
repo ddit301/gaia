@@ -22,10 +22,19 @@
              <div class="container-fluid">
              	<div class="issue-title row">
             		<div class="namefield col-md-10">
-	            		<span ></span>
+            			<span></span>
             		</div>
             		<div class="col-md-2">
             			<i class="icon-note menu-icon"></i>
+            		</div>
+            	</div>
+            	<div class="issue-info row">
+            		<div class="issue-status col-md-1">
+            		</div>
+            		<div class="writerinfo col-md-11">
+	            		<span></span>
+	            		this issue 
+	            		<span></span>
             		</div>
             	</div>
             	<div class="issue-body row">
@@ -83,7 +92,7 @@
             			<div class="menuBox row">
             				<div id="priority" class="col-md-10">
 		            			<p>중요도</p>
-		            			<span>즉시</span>
+		            			<span></span>
             				</div>
             				<div class="col-md-2">
 		            			<i class="icon-settings menu-icon"></i>
@@ -109,7 +118,7 @@
 		<div class="rep-right col-md-10">
 			<div class="repHeader">
 				<span></span>
-				<span>commented 8 days ago</span>
+				commented <span></span>
 				<i class="icon-options menu-icon"></i>
 			</div>
 			<div class="repBody">
@@ -159,6 +168,18 @@
 								res.priority == 4 ? '높음' :
 								res.priority == 5 ? '긴급' : '즉시'
 							);
+						
+						$('.writerinfo').children('span:first').text(res.writer.mem_nick + ' opened ');
+						$('.writerinfo').children('span:last').text(moment(res.issue_create_date).fromNow());
+						let statusLabel;
+						if(res.issue_status = '0'){
+							statusLabel = '<span class="label label-success">Oepn</span>'
+						}else{
+							statusLabel = '<span class="label label-danger">Closed</span>'
+						}
+						$('.issue-status').html(statusLabel);
+	            		
+						
 						$.each(res.assigneeList, function(i,v){
 							let assigneeBox = $('#issue-template').children('p').clone();
 							assigneeBox.children('span').text(v.mem_nick);
@@ -170,6 +191,7 @@
 							if(v.issue_his_type == 'RE'){
 								issue_history = $('#issue-template').children('.issue-reply').clone();
 								issue_history.find('.repHeader').children('span:first').text(v.historyWriter.mem_nick);
+								issue_history.find('.repHeader').children('span:last').text(moment(v.issue_his_date).fromNow());
 								issue_history.find('.repBody').text(v.issue_his_cont);
 							}else{
 								issue_history = $('#issue-template').children('.issue-change').clone();
