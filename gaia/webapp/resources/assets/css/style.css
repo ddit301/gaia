@@ -2787,10 +2787,28 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(117, 113, 249, 0.5);
 }
 
-.btn-secondary {
+.btn-adder,
+.btn-adder.disabled,
+.btn-adder:disabled {
+  padding: 5px 11.8px !important;
+  border-radius: 5rem;
+  color: #212529;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.btn-secondary,
+.btn-secondary.disabled,
+.btn-secondary:disabled {
   color: #212529;
   background-color: #9097c4;
   border-color: #9097c4;
+}
+
+.btn-adder:hover {
+  color: #fff;
+  background-color: #227803;
+  border-color: #227803;
 }
 
 .btn-secondary:hover {
@@ -2799,17 +2817,22 @@ fieldset:disabled a.btn {
   border-color: #6f78b2;
 }
 
+.btn-adder:focus,
+.btn-adder.focus,
+.btn-adder:not(:disabled):not(.disabled):active:focus,
+.btn-adder:not(:disabled):not(.disabled).active:focus,
+.show>.btn-adder.dropdown-toggle:focus  {
+  box-shadow: 0 0 0 0.2rem rgba(144, 196, 157, 0.5);
+}
+
 .btn-secondary:focus,
-.btn-secondary.focus {
+.btn-secondary.focus,
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-secondary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(144, 151, 196, 0.5);
 }
 
-.btn-secondary.disabled,
-.btn-secondary:disabled {
-  color: #212529;
-  background-color: #9097c4;
-  border-color: #9097c4;
-}
 
 .btn-secondary:not(:disabled):not(.disabled):active,
 .btn-secondary:not(:disabled):not(.disabled).active,
@@ -2819,11 +2842,6 @@ fieldset:disabled a.btn {
   border-color: #6670ae;
 }
 
-.btn-secondary:not(:disabled):not(.disabled):active:focus,
-.btn-secondary:not(:disabled):not(.disabled).active:focus,
-.show>.btn-secondary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(144, 151, 196, 0.5);
-}
 
 .btn-success {
   color: #212529;
@@ -11080,7 +11098,7 @@ body {
 }
 
 #project__list {
-  position: fixed;
+  position: relative;
 }
 
 .squre__box {
@@ -11089,7 +11107,10 @@ body {
   line-height: 3.5rem;
   text-align: center;
   margin: 0.25rem;
-  background: #fff;
+  
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 #main-wrapper {
@@ -11144,6 +11165,7 @@ li {
 
 .img-rounded {
   border-radius: 0.4rem;
+  background: #fff;
 }
 
 .img-flag {
