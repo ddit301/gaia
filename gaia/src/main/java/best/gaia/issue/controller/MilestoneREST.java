@@ -111,8 +111,6 @@ public class MilestoneREST {
 			
 		}
 		
-		System.err.println(milestone);
-		
 		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
 		milestone.setMem_no(member.getMem_no());
 		
