@@ -108,7 +108,7 @@
 					},
 					error : function(xhr, error, msg) {
 						if(xhr.status == 404){
-							alert('해당하는 이슈 번호가 존재하지 않습니다. shane 에게 버그 report 해주세요.');
+							alert('해당하는 마일스톤 번호가 존재하지 않습니다. shane 에게 버그 report 해주세요.');
 						}
 						console.log(xhr);
 						console.log(error);

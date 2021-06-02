@@ -20,15 +20,17 @@
 	            </div>
 	            <!-- row -->
 				<div class="milestoneview-btn">
-					<a class="label label-danger" data-menu="#" href="javascript:void(0)" >Delete milestone</a>
-					<a class="label label-info" data-menu="#" href="javascript:void(0)" >New issue</a>
-					<a class="moveButton label label-info" data-menu="editmilestone" href="javascript:void(0)" >Edit milestone</a>
+					<a class="delete-milestone-btn label label-danger" data-menu="#" href="javascript:void(0)" >Delete milestone</a>
+					
+					<a class="edit-milestone-btn label label-info" data-menu="editmilestone" href="javascript:void(0)" >Edit milestone</a>
 				</div>
 				<div id="milestoneview-template">
+				<div class="milestone-no" hidden = "hidden"></div>
 					<div class="milestoneviewBox">	
 						<div class = "row">
 							<div class="milestoneview-title col-md-6">
 								<span></span>
+								<input type="text" hidden="hidden">
 				            </div>                                                                                     
 							<div class="milestoneview-bar col-md-6">
 								<div class="progress mb-3">
@@ -39,10 +41,21 @@
 						</div>
 						<div class = "row">
 	                        <div class="milestoneview-date col-md-6">
-								<span></span>                            
-		                    </div>
+								<span></span>
+							</div>	
+								<!--append date -->
+								<div class="form-date-group row"></div>
+								<!-- close append date -->
+		                    
 		                    <div class="milestoneview-percent col-md-6">
 		                        <span></span>
+		                        
+		                        <!--  append button -->
+		                       <div class="button" >
+			                        <div class="save-changes-btn"></div>
+			                        <div class="cancle-btn"></div>
+		                        </div>  
+		                        <!--  close append button -->
 		                    </div>                               
 						</div>
 						<div class="row">
@@ -143,10 +156,14 @@
 				</div>        
 			</div>
             
+            
+            
+            
             <script>
             	manager_nick = '${manager_nick }';
             	project_title = '${project_title }';
             	milest_no = '${milest_no}';
+            	milestObject = null;
 				var open_count = 0;
 				var total_count = 0;
 				var comment_count = 0;
@@ -159,6 +176,7 @@
 						
 					},
 					success : function(res) {
+						milestObject = res;
 						$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
 						$('.milestoneview-date').children('span').text(res.milest_start_date+'~'+res.milest_end_date);
 						$('.milestone-descript').children('span').text(res.milest_cont);
@@ -167,8 +185,6 @@
 						
 	            		total_count = Object.keys(res.issueList).length;
 	            		
-	            		
-	            		console.log(total_count);
 						$.each(res.issueList, function(i, v) {
 							let issueBox = $('#milestone-issue-template').children('.issueBox').clone();
 							issueBox.attr('data-issue_no',v.issue_no);
@@ -206,6 +222,85 @@
 						console.log(msg);
 					},
 					dataType : 'json'
+				})
+				
+				</script>
+				
+				<script>
+					
+// 			// edit milestone
+// 			var editmilestone = function(milest_no){
+// 			let project_title = '${project_title}';
+// 			let manager_nick = '${manager_nick}';
+			
+// 			data = 'editmilestone';
+// 			title = '';
+// 			url = '${cPath}/${manager_nick}/${project_title}/editmilestone/'+milest_no;
+// 			history.pushState(data,title,url);
+			
+// 			$.ajax({
+// 				url : '${cPath}/view/project/editmilestone'
+// 				,type : 'get'
+// 				,data : {
+// 					'manager_nick' : manager_nick
+// 					,'project_title' : project_title
+// 					,'milest_no' : milest_no
+// 					}
+// 				,success : function(res) {
+// 					$('.content-body').html(res);
+// 				}
+// 				,error : function(xhr){
+// 					alert('error : ' + xhr.status);
+// 				},
+// 				dataType : 'html'
+// 			})
+// 			}
+				
+// 				$(function(){
+// 					// 특정 마일스톤 수정시 데이터 값 넘기기
+// 					$('#main-wrapper').on('click','.editMilestoneButton',function(){
+						
+// 						alert(milest_no);
+						
+// 					})
+// 				}
+
+				$('.edit-milestone-btn').on('click',function(){
+// 					alert(milest_no);
+// 					$('.milestoneview-title').children('span').attr('hidden','hidden');
+// 					$('.milestoneview-title').children('input').removeAttr('hidden');
+// 					$('.milestoneview-date').children('span').attr('hidden','hidden');
+// 					$('.milestone-descript').children('span'C).attr('hidden','hidden');
+// 					$('.milestoneview-bar').attr('hidden','hidden');
+// 					$('.milestoneview-percent').children('span').attr('hidden','hidden');
+					
+// 					$('.delete-milestone-btn').attr('hidden','hidden');
+// 					$('.edit-milestone-btn').attr('hidden','hidden');
+					
+
+					
+					
+// 					$('.save-changes-btn').append('<button class="save-changes-btn btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-check m-r-5"></i> save changes </button>');
+// 					$('.cancle-btn').append(' <button class="cancle-btn btn btn-dark m-b-30 m-t-15 f-s-14 p-l-20 p-r-20" type="button"><i class="ti-close m-r-5 f-s-12"></i> close </button>');
+
+
+// 					$('.milestoneview-title').append('<label>Title : </label><input class="edit-milestone-title" type="text" placeholder="text" ></input>');
+						$.ajax({
+							url : '${cPath}/view/project/editmilestone'
+							,type : 'get'
+							,data : {
+								'manager_nick' : manager_nick
+								,'project_title' : project_title
+								,'milest_no' : milest_no
+								}
+							,success : function(res) {
+								$('.content-body').html(res);
+							}
+							,error : function(xhr){
+								alert('error : ' + xhr.status);
+							},
+							dataType : 'html'
+						})
 				})
             </script>
             

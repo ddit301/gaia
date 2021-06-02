@@ -47,16 +47,16 @@
 										          		<div class="input-label">
 										          			<label for="milestone_start_on">Start date (optional)</label>
 										         		</div>
-										      	 		<div id="milestoneStartDate">
-										            		<input type="text" class="result" placeholder="yyyy/mm/dd">
+										      	 	<div class = "milest-start-date">
+										            		<input type="date" pattern="\d\d\d\d-\d\d-\d\d" placeholder="yyyy-mm-dd" class="form-control" id="milest-start-date" name="mmilest-start-date">
 										          		</div>
 										          	</div>
 										          	<div class ="date-box">
 										          		<div class="input-label">
 										          			<label for="milestone_due_on">Due date (optional)</label>
 										         		</div>
-										      	 		<div id="milestoneEndDate">
-										            		<input type="text" class="result" placeholder="yyyy/mm/dd">
+										      	 		<div class="milest-end-date">
+										            			<input type="date" pattern="\d\d\d\d-\d\d-\d\d" placeholder="yyyy-mm-dd" class="form-control" id="milest-end-date" name="milest-end-date">
 										            	</div>
 										          	</div>
 												</div>
@@ -88,8 +88,8 @@
 				
 		
 				milest_title = $('#newmilestone-form').find('#milest_title').val();
-				milest_start_date = $('#milestoneStartDate').children('input').val();
-				milest_end_date = $('#milestoneEndDate').children('input').val();
+				milest_start_date = $('.milest-start-date').children('input').val();
+				milest_end_date = $('.milest-end-date').children('input').val();
 				milest_cont = $('#newmilestone-form').find('#milest_cont').val();
 
 				alert(milest_end_date);
@@ -119,7 +119,8 @@
 				})
 			
 			})
-			// datePicker 동작시키기
+			
+      		// datePicker 동작시키기
 		    $('.date-box').find('input').bootstrapMaterialDatePicker({
 		    	// 시간은 설정 안하고 날짜만 선택할 것
 		        time: false
@@ -128,16 +129,16 @@
 		    });
 			
 			// startDate 가 정해 진 후에는 endDate는 그 이후로만 적용할 수 있도록 막기
-			$('#milestoneStartDate').children('input').on('change', function(){
-				let startDate = $('#issueStartDate').children('input').val();
-				$('#milestoneEndDate').children('input').bootstrapMaterialDatePicker("setMinDate", startDate);
+			$('.milest-start-date').children('input').on('change', function(){
+				let startDate = $('.milest-start-date').children('input').val();
+				$('.milest-end-date').children('input').bootstrapMaterialDatePicker("setMinDate", startDate);
 			})
+	
 			
-			
-			
-		})
 
 
+      	})
+	
 
 		</script>
 		            

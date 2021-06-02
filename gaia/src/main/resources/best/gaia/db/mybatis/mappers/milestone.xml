@@ -115,6 +115,19 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
                 )
 	
 	</insert>
+	
+	<update id="updateMilestone" parameterType="best.gaia.vo.MilestoneVO">
+			update milestone
+		       set  milest_title = #{milest_title,jdbcType=VARCHAR}
+		           ,milest_cont = #{milest_cont,jdbcType=VARCHAR}
+		           ,milest_date = sysdate
+		           ,milest_start_date = TO_DATE(#{milest_start_date,jdbcType=VARCHAR},'YYYY-MM-DD')
+		           ,milest_end_date = TO_DATE(#{milest_end_date,jdbcType=VARCHAR},'YYYY-MM-DD')
+		      where milest_sid = #{milest_sid,jdbcType=NUMERIC}
+	
+	</update>
+	
+	
 
 	
 	

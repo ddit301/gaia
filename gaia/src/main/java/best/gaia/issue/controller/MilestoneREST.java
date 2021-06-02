@@ -98,9 +98,38 @@ public class MilestoneREST {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public Map<String, Object> updateMilestone() {
-		return null;
+	public Map<String, Object> updateMilestone(
+			HttpSession session
+			, @ModelAttribute MilestoneVO milestone
+			, Authentication authentication
+			) {
+		
+		MemberVO member = (MemberVO) authentication.getPrincipal();
+		// 로그인 정보가 없을 경우 예외 처리
+		if(member == null) {
+			throw new NotValidSessionException();
+			
+		}
+		
+		System.err.println(milestone);
+		
+		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
+		milestone.setMem_no(member.getMem_no());
+		
+		// proj_no 를 milestone VO 에 넣기 
+		int proj_no = getProjNoFromSession(session);
+		milestone.setProj_no(proj_no);
+		
+		ServiceResult result = service.updateMilestone(milestone);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("milest_no",milestone.getMilest_no());
+		map.put("result",result);
+
+		return map;
 	}
+	
 	
 	@RequestMapping(method=RequestMethod.DELETE)
 	public Map<String, Object> deleteMilestone() {

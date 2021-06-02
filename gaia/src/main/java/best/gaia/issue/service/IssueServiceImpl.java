@@ -94,8 +94,9 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public ServiceResult updateMilestone(MilestoneVO milestone) {
-		// TODO Auto-generated method stub
-		return null;
+		int result = milestoneDao.updateMilestone(milestone);
+		
+		return result==1? ServiceResult.OK : ServiceResult.FAIL;	
 	}
 
 	@Override
