@@ -48,7 +48,8 @@ select issue.issue_sid, issue_no, issue_title, progress, issue_status, issue_pri
         ,writer.mem_no as writer_no, writer.mem_pic_file_name as writer_pic
         ,writer_pm.proj_user_nick as writer_nick
         ,assignee.mem_no, assignee.mem_id, assignee.mem_pic_file_name, assignee_pm.proj_user_nick as mem_nick
-        ,issue_history.issue_his_no, issue_history.issue_his_cont, issue_history.issue_his_date
+        ,issue_history.issue_his_no, issue_history.issue_his_cont
+        ,issue_history.issue_his_date
         ,issue_history.issue_his_type, issue_history.atch_file_sid
         ,his_writer.mem_no as his_writer_no, his_writer.mem_pic_file_name as his_writer_pic
         ,his_writer_pm.proj_user_nick as his_writer_nick

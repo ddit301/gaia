@@ -6,10 +6,12 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.dao.MilestoneDao;
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
@@ -24,9 +26,17 @@ public class IssueServiceImpl implements IssueService {
 	private MilestoneDao milestoneDao;
 
 	@Override
+	@Transactional
 	public ServiceResult insertIssue(IssueVO issue) {
-		// TODO Auto-generated method stub
-		return null;
+		int result = dao.insertIssue(issue);
+		if(result == 1) {
+			IssueHistoryVO history = issue.getHistoryList().get(0);
+			history.setMem_no(issue.getMem_no());
+			history.setIssue_sid(issue.getIssue_sid());
+			history.setIssue_his_type("RE");
+			result *= dao.insertIssueHistory(history);
+		}
+		return result == 1? ServiceResult.OK : ServiceResult.FAIL; 
 	}
 
 	@Override
