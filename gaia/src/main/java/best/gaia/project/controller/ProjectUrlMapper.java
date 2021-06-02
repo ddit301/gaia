@@ -75,7 +75,7 @@ public class ProjectUrlMapper {
 	public String IssueViewer(
 			@PathVariable String manager_nick
 			,@PathVariable String project_title
-			,@PathVariable Integer issue_no
+			,@PathVariable String issue_no
 			,Model model
 			) {
 		model.addAttribute("issue_no", issue_no);
@@ -83,6 +83,7 @@ public class ProjectUrlMapper {
 		model.addAttribute("project_title", project_title);
 		return "view/template/project";
 	}
+	
 	
 
 }

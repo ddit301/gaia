@@ -10,16 +10,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IssueViewController {
 	
 	@RequestMapping(value = "view/project/issueview")
-	public String menuMapper(
+	public String issueViewPage(
 			@RequestParam Integer issue_no
-			,@RequestParam String manager_nick
-			,@RequestParam String project_title
 			,Model model
 			) {
 		model.addAttribute("issue_no", issue_no);
-		model.addAttribute("manager_nick", manager_nick);
-		model.addAttribute("project_title", project_title);
 		return "project/issueview";
+	}
+	
+	@RequestMapping(value = "view/project/newissue")
+	public String newIssuePage(
+			) {
+		return "project/newissue";
 	}
 		
 }

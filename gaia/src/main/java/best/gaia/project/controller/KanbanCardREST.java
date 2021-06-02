@@ -25,6 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.MemberVO;
 
@@ -65,7 +66,7 @@ public class KanbanCardREST {
 		MemberVO member = (MemberVO) authentication.getPrincipal();
 		// 로그인 정보가 없을 경우 예외 처리
 		if(member == null) {
-			
+			throw new NotValidSessionException();
 		}
 		
 		// 새로운 카드 객체를 생성해서 service에 논리 로직을 태운다.
