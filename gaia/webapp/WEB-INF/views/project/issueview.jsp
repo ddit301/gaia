@@ -153,6 +153,12 @@
 				  placeholder : 'markdown 문법을 지원합니다'
 				});
 				
+				viewer = toastui.Editor.factory({
+			         el: document.querySelector('.repBody')
+			         ,height : 'auto'
+			         ,viewer : true
+			       });
+				
 	            $.ajax({
 					url : getContextPath() + '/restapi/project/issues/'+issue_no,
 					type : 'get',
@@ -202,18 +208,19 @@
 							let issue_history;
 							// 히스토리가 댓글일 경우와 댓글이 아닐 경우로 분기됩니다.
 							if(v.issue_his_type == 'RE'){
+								// markdown 을 html로 변환 한 후 템플릿에 미리 출력한다.
+								viewer.setMarkdown(v.issue_his_cont);
 								issue_history = $('#issue-template').children('.issue-reply').clone();
 								issue_history.attr('data-issue_his_no', v.issue_his_no);
 								issue_history.find('.repHeader').children('span:first').text(v.historyWriter.mem_nick);
 								issue_history.find('.repHeader').children('span:last').text(moment(v.issue_his_date).fromNow());
-								// markdown 을 html로 번역해서 출력한다.
-								issue_history.find('.repBody').html(converter.makeHtml(v.issue_his_cont));
 							}else{
 								issue_history = $('#issue-template').children('.issue-change').clone();
 								issue_history.find('span').text('(히스토리타입/멤버닉네임 :' + v.issue_his_type +'/' + v.historyWriter.mem_nick +  ') ' + v.issue_his_cont);
 							}
 							$('#issue-body-cont').append(issue_history);
 						})
+						
 					},
 					error : function(xhr, error, msg) {
 						if(xhr.status == 404){
@@ -224,9 +231,8 @@
 						console.log(msg);
 					},
 					dataType : 'json'
+					,async : false
 				})
-				
-
 				
 				// document ready 됐을때 함수들 
 				$(function(){
@@ -246,12 +252,13 @@
 							success : function(res) {
 								let v= res.issueHistory;
 								let issue_history;
+									// markdown 을 html로 번역해서 출력한다.
+									viewer.setMarkdown(v.issue_his_cont);
+									
 									issue_history = $('#issue-template').children('.issue-reply').clone();
 									issue_history.attr('data-issue_his_no', v.issue_his_no);
 									issue_history.find('.repHeader').children('span:first').text('You');
 									issue_history.find('.repHeader').children('span:last').text(moment(new Date()).fromNow());
-									// markdown 을 html로 번역해서 출력한다.
-									issue_history.find('.repBody').html(converter.makeHtml(v.issue_his_cont));
 								$('#issue-body-cont').append(issue_history);
 								// editor 비우기
 								editor.reset()
