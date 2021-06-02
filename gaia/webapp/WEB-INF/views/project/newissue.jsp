@@ -88,10 +88,6 @@ editor = new toastui.Editor({
 	  placeholder : 'markdown 문법을 지원합니다'
 	});
 	
-	$.sampleFunction = function(){
-		
-	}
-
 $(function(){
 	// 화면 위로 올리기
 	window.scrollTo({top:0, left:0, behavior:'smooth'});

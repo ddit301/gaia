@@ -15,11 +15,17 @@
     <script src="${cPath }/resources/assets/js/styleSwitcher.js"></script>
 	<script src="${cPath }/resources/js/moment.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
+	<!-- showdown -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.js" integrity="sha512-bvV1V1YSjP1fbfKJjTlNmdnUO2XpsLYUdKwmz5UXBi5U+x40rx9JpA0ooQUMZfpz1MaaBC0ydNLoC6r0sitPUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.js"></script>	
 	<script src="${cPath }/resources/js/jquery.serializejson.js"></script>
 <script type="text/javascript">
 	let project_title = '${project_title}';
-	let manager_nick = '${manager_nick}';   	
+	let manager_nick = '${manager_nick}';
+	
+	// 페이지 내에서 계속 사용할 markdown Converter 입니다.
+	// converter.makeHtml(mdtext)를 통해 html 데이터를 받아 올 수 있습니다.
+	let converter = new showdown.Converter();
 	
 		// 뒤로가기 이벤트 binding 하기
 		$(window).bind("popstate", function(event) {
@@ -41,7 +47,7 @@
 	 	
 	 	var newIssue = function(){
 			// 화면 위로 올리기
-			window.scrollTo({top:0, left:0, behavior:'smooth'});
+			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
 			data = 'newIssue'
 			title = '';
@@ -63,7 +69,7 @@
 	 	
 	 	var issueView = function(issue_no){
 			// 화면 위로 올리기
-			window.scrollTo({top:0, left:0, behavior:'smooth'});
+			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
 			data = 'issueView'+issue_no;
 			title = '';

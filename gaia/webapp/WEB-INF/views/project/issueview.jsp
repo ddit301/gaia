@@ -41,21 +41,17 @@
             		<div class="col-md-9">
             			<div id="issue-body-cont">
             			</div>
-           				<div class="repWrite issue-reply row">
+           				<div class="repWrite row">
 		            		<div class="col-md-1">
 		            			<img src="/gaia/resources/assets/images/user/2.png" alt="">
 		            		</div>
 		            		<div class="rep-right col-md-10">
-            					<div class="repHeader">
-		            				<button type="button" class="btn mb-1 btn-flat btn-dark">Write</button>
-		            				<button type="button" class="btn mb-1 btn-flat btn-outline-light">Preview</button>
-		            			</div>
-		            			<div class="repBody">
-		            				<textarea rows="4"></textarea>
+		            			<div class="editorBody">
+		            				<div id="editor"></div>
 		            			</div>
 		            			<div class="repFoot">
 		            				<button type="button" class="btn mb-1 btn-warning">Close issue</button>
-		            				<button type="button" class="btn mb-1 btn-success">Comment</button>
+		            				<button id="issue-comment" type="button" class="btn mb-1 btn-success">Comment</button>
 		            			</div>
             				</div>
             			</div>
@@ -143,14 +139,25 @@
 </div>
             
             <script>
-            issue_no = '${issue_no}';
-            	
+          		issue_no = '${issue_no}';
+          		issue_sid = null;
+          		
+				// ToastUI Editor 에디터 적용시키기
+				editor = new toastui.Editor({
+				  el: document.querySelector('#editor'),
+				  height: '200px',
+				  initialEditType: 'markdown',
+				  previewStyle: 'tab',
+				  placeholder : 'markdown 문법을 지원합니다'
+				});
+				
 	            $.ajax({
 					url : getContextPath() + '/restapi/project/issues/'+issue_no,
 					type : 'get',
 					data : {
 					},
 					success : function(res) {
+						issue_sid = res.issue_sid;
 						$('#assignees').empty();
 						$('#issue-body-cont').empty();
 						
@@ -190,9 +197,11 @@
 							// 히스토리가 댓글일 경우와 댓글이 아닐 경우로 분기됩니다.
 							if(v.issue_his_type == 'RE'){
 								issue_history = $('#issue-template').children('.issue-reply').clone();
+								issue_history.attr('data-issue_his_no', v.issue_his_no);
 								issue_history.find('.repHeader').children('span:first').text(v.historyWriter.mem_nick);
 								issue_history.find('.repHeader').children('span:last').text(moment(v.issue_his_date).fromNow());
-								issue_history.find('.repBody').text(v.issue_his_cont);
+								// markdown 을 html로 번역해서 출력한다.
+								issue_history.find('.repBody').html(converter.makeHtml(v.issue_his_cont));
 							}else{
 								issue_history = $('#issue-template').children('.issue-change').clone();
 								issue_history.find('span').text('(히스토리타입/멤버닉네임 :' + v.issue_his_type +'/' + v.historyWriter.mem_nick +  ') ' + v.issue_his_cont);
@@ -210,6 +219,48 @@
 					},
 					dataType : 'json'
 				})
+				
+
+				
+				// document ready 됐을때 함수들 
+				$(function(){
+					// 이슈 코멘트 작성 이벤트
+					$('#issue-comment').on('click', function(){
+						let issue_his_cont = editor.getMarkdown();
+						
+						$.ajax({
+							url : getContextPath() + '/restapi/project/issue-history',
+							method : 'post',
+							data : {
+								'issue_sid' : issue_sid
+								,'issue_his_cont' : issue_his_cont
+								,'issue_his_type' : 'RE'
+							},
+							success : function(res) {
+								let v= res.issueHistory;
+								let issue_history;
+									issue_history = $('#issue-template').children('.issue-reply').clone();
+									issue_history.attr('data-issue_his_no', v.issue_his_no);
+									issue_history.find('.repHeader').children('span:first').text('You');
+									issue_history.find('.repHeader').children('span:last').text(moment(new Date()).fromNow());
+									// markdown 을 html로 번역해서 출력한다.
+									issue_history.find('.repBody').html(converter.makeHtml(v.issue_his_cont));
+								$('#issue-body-cont').append(issue_history);
+								// editor 비우기
+								editor.reset()
+							},
+							error : function(xhr, error, msg) {
+								console.log(xhr);
+								console.log(error);
+								console.log(msg);
+							},
+							dataType : 'json'
+						})
+						
+					})
+	            })
+				
+				
              </script> 
             
             
