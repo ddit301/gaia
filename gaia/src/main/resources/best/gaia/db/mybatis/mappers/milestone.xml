@@ -20,9 +20,13 @@
 			<id property="milest_sid" column="MILEST_SID" />
 		<collection property="issueList" ofType="IssueVO" javaType="java.util.List" autoMapping="true">
 			<id property="issue_sid" column="ISSUE_ID"/>
-			<collection property="assigneeList" ofType="MemberVO" javaType="java.util.Set" autoMapping="true">
+			<association property="label" javaType="java.util.Map" autoMapping="false">
+				<result column="LABEL_NO" property="label_no"></result>
+				<result column="LABEL_NM" property="label_nm"></result>
+			</association>
+		<collection property="assigneeList" ofType="MemberVO" javaType="java.util.Set" autoMapping="true">
 				<id property="mem_no" column="MEM_NO" />	
-			</collection>
+		</collection>
 		</collection>
 	</resultMap>
 	
@@ -76,6 +80,41 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
 			       ORDER BY ISSUE_NO DESC    
 	</select>
 	
+	
+	<insert id="insertMilestone" parameterType="best.gaia.vo.MilestoneVO">
+		<selectKey resultType = "best.gaia.vo.MilestoneVO" keyProperty="milest_sid,milest_no" order="BEFORE">
+			   SELECT *
+  				 FROM
+				    (SELECT MAX(MILEST_SID)+1 AS MILEST_SID
+				    FROM MILESTONE)A,
+				    (SELECT MAX(MILEST_NO)+1 AS MILEST_NO
+                   	 FROM MILESTONE MILESTONE
+                     LEFT OUTER JOIN PROJECT PROJ ON (PROJ.PROJ_NO = MILESTONE.PROJ_NO)
+                     WHERE MILESTONE.PROJ_NO = #{proj_no})B
+		</selectKey>
+			 INSERT INTO MILESTONE(
+                MILEST_SID
+                ,MEM_NO
+                ,PROJ_NO
+                ,MILEST_NO
+                ,MILEST_TITLE
+                ,MILEST_CONT
+                ,MILEST_DATE
+                ,MILEST_START_DATE
+                ,MILEST_END_DATE
+                ) VALUES (
+                #{milest_sid}
+                , #{mem_no,jdbcType=NUMERIC}
+                , #{proj_no,jdbcType=NUMERIC}
+                , #{milest_no} 
+                , #{milest_title,jdbcType=VARCHAR}
+                ,#{milest_cont,jdbcType=VARCHAR}
+                , sysdate
+                , TO_DATE(#{milest_start_date,jdbcType=VARCHAR},'YYYY-MM-DD')
+                , TO_DATE(#{milest_end_date,jdbcType=VARCHAR},'YYYY-MM-DD')
+                )
+	
+	</insert>
 
 	
 	

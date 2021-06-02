@@ -156,8 +156,7 @@
 					url : getContextPath() + '/restapi/project/milestones/'+milest_no
 					,type : 'get'
 					,data : {
-						'manager_nick' : manager_nick
-						,'project_title' : project_title
+						
 					},
 					success : function(res) {
 						$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
@@ -180,7 +179,10 @@
 									v.issue_priority == 3 ? '보통' :
 									v.issue_priority == 4 ? '높음' :
 									v.issue_priority == 5 ? '긴급' : '즉시');
-							issueBox.children('.issue-label').text(v.label_nm);
+							
+							if(v.label){
+							issueBox.children('.issue-label').text(v.label.label_nm);								
+							}
 							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
 							issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
 							issueBox.children('.reply').children('span').text('3');
