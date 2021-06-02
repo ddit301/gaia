@@ -1,3 +1,5 @@
+
+
 @charset "UTF-8";
 .flex-items-center {
     align-items: center!important;
@@ -45,4 +47,33 @@
 }
 .projectName{
 	font-size: x-large;
+}
+textarea {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding :0.375rem 0.75rem;
+}
+.alert{
+  padding: 20px; 
+  display:none;
+  animation-duration: 1s;
+  animation-delay: 1s;
+}
+
+.Subhead {
+    display: flex;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #21262d;
+    flex-flow: row wrap;
+}
+.input-control {
+    width: 440px;
+    max-width: 100%;
+    margin-right: 5px;
+}
+.input-size{
+	height : 400px;
+	max-height : 100%;
 }
