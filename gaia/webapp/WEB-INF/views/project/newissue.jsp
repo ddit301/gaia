@@ -93,6 +93,9 @@ editor = new toastui.Editor({
 	}
 
 $(function(){
+	// 화면 위로 올리기
+	window.scrollTo({top:0, left:0, behavior:'smooth'});
+	
 	// 작성한 이슈 등록
 	$('#saveIssue').on('click', function(){
 		label_no = null;
@@ -119,8 +122,8 @@ $(function(){
 				,'issue_priority' : issue_priority
 			},
 			success : function(res) {
-				// 작성 성공시에는 이슈 페이지로 넘겨버린다.
-				movePage('issue') 
+				// 작성 성공시에는 작성한 이슈 페이지로 넘겨버린다.
+				issueView(res.issue_no);
 			},
 			error : function(xhr, error, msg) {
 				console.log(xhr);

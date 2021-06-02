@@ -40,6 +40,9 @@
 	 	})
 	 	
 	 	var newIssue = function(){
+			// 화면 위로 올리기
+			window.scrollTo({top:0, left:0, behavior:'smooth'});
+			
 			data = 'newIssue'
 			title = '';
 			url = '${cPath}/${manager_nick}/${project_title}/issue/new'
@@ -59,6 +62,8 @@
 		}
 	 	
 	 	var issueView = function(issue_no){
+			// 화면 위로 올리기
+			window.scrollTo({top:0, left:0, behavior:'smooth'});
 			
 			data = 'issueView'+issue_no;
 			title = '';

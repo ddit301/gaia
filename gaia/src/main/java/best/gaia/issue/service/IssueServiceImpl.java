@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.dao.MilestoneDao;
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
@@ -29,7 +30,11 @@ public class IssueServiceImpl implements IssueService {
 	public ServiceResult insertIssue(IssueVO issue) {
 		int result = dao.insertIssue(issue);
 		if(result == 1) {
-			// 이슈 댓글에 내용 넣기
+			IssueHistoryVO history = issue.getHistoryList().get(0);
+			history.setMem_no(issue.getMem_no());
+			history.setIssue_sid(issue.getIssue_sid());
+			history.setIssue_his_type("RE");
+			result *= dao.insertIssueHistory(history);
 		}
 		return result == 1? ServiceResult.OK : ServiceResult.FAIL; 
 	}

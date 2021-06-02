@@ -1,5 +1,6 @@
 package best.gaia.issue.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import best.gaia.issue.service.IssueService;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.ResourceNotFoundException;
+import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
@@ -84,6 +86,13 @@ public class IssueREST {
 		
 		int proj_no = getProjNoFromSession(session);
 		issue.setProj_no(proj_no);
+		
+		// issue에 issue_content를 history 형태로 담는다.
+		List<IssueHistoryVO> histories = new ArrayList<>();
+		IssueHistoryVO history = new IssueHistoryVO();
+		history.setIssue_his_cont(issue_content);
+		histories.add(history);
+		issue.setHistoryList(histories);
 		
 		ServiceResult result = service.insertIssue(issue);
 		
