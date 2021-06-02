@@ -71,15 +71,17 @@
 						                </p>
 					                </div>
 				        	    </div>
+				        	    </form>
 				            	<div class="col-md-4">
-				            		<div class="img-grid-right">
-					            		<label class="d-block"> Profile picture</label>
-					            		<img class="mr-3 rounded-circle" height="200" width="200" src="${cPath}/resources/assets/images/member/profile.png">
-				            		</div> 
+				            		 <form class="basic-form" name="profile_img"  >
+					            		<div class="img-grid-right">
+						            		<label class="d-block"> Profile picture</label>
+						            		<img class="mr-3 rounded-circle" height="200" width="200" id="profile_img"src="${cPath}/resources/assets/images/member/profile.png">
+						            		<button type="button" class="btn mb-1 btn-outline-info edit-profile">Edit</button>
+						            		<input class="form-control btn mb-1 btn-outline-info" id="upload_image" type="file" name="mem_pic_file_name" accept="image/*" hidden="hidden"/>
+					            		</div>
+				            		</form> 
 				            	</div>
-				            	
-	           				</div>
-	                    </form>
 					</div>
 		    	</div>
 			</div>
@@ -87,6 +89,32 @@
 	</div>
 </div>
 <script>
+$(".edit-profile").on("click", function(){
+	$("#upload_image").click();
+})
+let imageSelect = $("#upload_image").on("change", function(){
+	imagePath = $("#upload_image").val()
+	$.ajax({
+		url : getContextPath()+"/restapi/member/members/member" ,
+		method : 'post',
+		data : imagePath, 
+		success : function(res) {
+			$("#profile_img").attr("src", res);
+		},
+		async : false,
+		error : function(xhr) {
+			console.log(xhr);
+			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
+			if(xhr.status == '404'){
+				alert("실패");				
+			}else{
+				alert("status : " + xhr.status);
+			}
+		},
+		dataType : 'json'
+	})
+})
+
 var loadMemberInfo = function(){
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members/member" ,

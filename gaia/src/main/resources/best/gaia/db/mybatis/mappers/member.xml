@@ -100,9 +100,6 @@
 		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_pic_file_name)">
 		    , MEM_PIC_FILE_NAME = #{mem_pic_file_name}
 		    </if>
-		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_nm)">
-		    , MEM_NM = #{mem_nm}
-		    </if>
 		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(mem_bio)">
 		    , MEM_BIO = #{mem_bio}
 		    </if>
@@ -113,6 +110,13 @@
 		    , MEM_STATUS = #{mem_status}
 		    </if>
 	    </trim>
+	        WHERE MEM_NO = #{mem_no}
+	</update>
+	
+	<update id="updateMember" parameterType="MemberVO">
+		UPDATE MEMBER
+			SET
+		    MEM_PIC_FILE_NAME = #{mem_pic_file_name}
 	        WHERE MEM_NO = #{mem_no}
 	</update>
 	

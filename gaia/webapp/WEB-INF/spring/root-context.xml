@@ -18,6 +18,10 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
 	
+	<!-- inject로 주입 받아서 사용하기위해. WebSocketEchoHandler.java-->
 	<util:list id="userList" value-type="org.springframework.web.socket.WebSocketSession"/>
+
+	<!-- properties 등록 -->
+	<util:properties id="appInfo" location="classpath:kr/or/ddit/appInfo.properties" />
 
 </beans>

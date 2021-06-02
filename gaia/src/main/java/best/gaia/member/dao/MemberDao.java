@@ -48,6 +48,13 @@ public interface MemberDao {
 	public int updateMember(MemberVO member);
 	
 	/**
+	 * 회원 프로필 사진 수정
+	 * @param mem_no, imagePath
+	 * @return 수정된 row count > 0 성공
+	 */
+	public int updateMemberProfileImage(MemberVO member);
+	
+	/**
 	 * 회원 정보 삭제
 	 * @param mem_id
 	 * @return 삭제된 row count > 0 성공
