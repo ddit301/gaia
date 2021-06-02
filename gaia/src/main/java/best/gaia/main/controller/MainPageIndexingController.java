@@ -47,32 +47,32 @@ public class MainPageIndexingController {
 		return "main/intro";
 	}
 
-	@RequestMapping(value = "/demo")
+	@GetMapping(value = "/demo")
 	public String demoPage() {
 		return "main/demo";
 	}
 
-	@RequestMapping(value = "/sales")
+	@GetMapping(value = "/sales")
 	public String salesPage() {
 		return "main/sales";
 	}
 
-	@RequestMapping(value = "/updates")
+	@GetMapping(value = "/updates")
 	public String updatesPage() {
 		return "main/updates";
 	}
 
-	@RequestMapping(value = "/signin")
+	@GetMapping(value = "/signin")
 	public String loginPage() {
 		return "main/signin";
 	}
 
-	@RequestMapping(value = "/signup")
+	@GetMapping(value = "/signup")
 	public String logoutPage() {
 		return "main/signup";
 	}
 
-	@RequestMapping(value = "/CS")
+	@GetMapping(value = "/CS")
 	public String CSPage() {
 		return "main/CS";
 	}

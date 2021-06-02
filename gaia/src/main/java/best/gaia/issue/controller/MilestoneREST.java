@@ -12,7 +12,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,8 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.service.IssueService;
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.ResourceNotFoundException;
+import best.gaia.vo.MemberVO;
 import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
 
@@ -61,14 +66,68 @@ public class MilestoneREST {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public Map<String, Object> insertMilestone() {
-		return null;
+	public Map<String, Object> insertMilestone(
+			HttpSession session
+			, @ModelAttribute MilestoneVO milestone
+			, Authentication authentication
+			) {
+		
+		MemberVO member = (MemberVO) authentication.getPrincipal();
+		// 로그인 정보가 없을 경우 예외 처리
+		if(member == null) {
+			throw new NotValidSessionException();
+			
+		}
+		
+		System.err.println(milestone);
+		
+		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
+		milestone.setMem_no(member.getMem_no());
+		
+		// proj_no 를 milestone VO 에 넣기 
+		int proj_no = getProjNoFromSession(session);
+		milestone.setProj_no(proj_no);
+		
+		ServiceResult result = service.insertMilestone(milestone);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("milest_no",milestone.getMilest_no());
+		map.put("result",result);
+
+		return map;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public Map<String, Object> updateMilestone() {
-		return null;
+	public Map<String, Object> updateMilestone(
+			HttpSession session
+			, @ModelAttribute MilestoneVO milestone
+			, Authentication authentication
+			) {
+		
+		MemberVO member = (MemberVO) authentication.getPrincipal();
+		// 로그인 정보가 없을 경우 예외 처리
+		if(member == null) {
+			throw new NotValidSessionException();
+			
+		}
+		
+		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
+		milestone.setMem_no(member.getMem_no());
+		
+		// proj_no 를 milestone VO 에 넣기 
+		int proj_no = getProjNoFromSession(session);
+		milestone.setProj_no(proj_no);
+		
+		ServiceResult result = service.updateMilestone(milestone);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("milest_no",milestone.getMilest_no());
+		map.put("result",result);
+
+		return map;
 	}
+	
 	
 	@RequestMapping(method=RequestMethod.DELETE)
 	public Map<String, Object> deleteMilestone() {

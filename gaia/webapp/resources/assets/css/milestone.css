@@ -143,7 +143,14 @@
 	line-height: 60px;
 }
 
+.edit-milestone-title{
+	border : 1px solid red;
+	
+}
 
+.button{
+	text-align: center;
+}
 
 
 
