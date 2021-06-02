@@ -60,6 +60,18 @@
     <!-- Main stylesheet and color file-->
     <link href="resources/main/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="resources/main/css/colors/default.css" rel="stylesheet">
+    
+    <script type="text/javascript">
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'G-3YZPKG0D0K');
+	  
+	function getContextPath() {
+   		return "<%=request.getContextPath()%>";
+	}
+	</script>
+	
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main id="mainNav">
@@ -199,43 +211,6 @@
     <script src="resources/main/js/plugins.js"></script>
     <script src="resources/main/js/main.js"></script>
 
-    <script type="text/javascript">
-    function acyncMovePage(url){
-    	
-		var uri = '${cPath}/'+ url.substring(url.lastIndexOf('/')+1);
-		history.pushState(null, null, uri);
-        
-    }
-    
-    $('.navbar-nav').on('click', 'a', function(){
-    	
-    	let menu_name = $(this).data('menu');
-    	if(! menu_name){
-    		return;	
-    	}
-    	event.preventDefault();
-    	var uri = '${cPath}/' + menu_name;
-    	history.pushState(null, null, uri);
-    	
-    	var ajaxOption = {
-                url : 'view/' + menu_name,
-                async : true,
-                type : "GET",
-                dataType : "html",
-                cache : false
-        };
-        $.ajax(ajaxOption).done(function(data){
-            $('#mainBody').children().remove();
-            $('#mainBody').html(data);
-            
-        });
-    	//화면 위로 올리기 
-    	window.scrollTo(0,0);
-    	
-    	
-    })
-    
-    </script>
 
   </body>
 </html>

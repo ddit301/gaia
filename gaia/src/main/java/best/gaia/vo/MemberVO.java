@@ -141,7 +141,7 @@ public class MemberVO implements UserDetails, Serializable {
 		result = prime * result + ((mem_id == null) ? 0 : mem_id.hashCode());
 		return result;
 	}
-	
-	 private Set<ProjectVO> projectList;
+
+	private Set<ProjectVO> projectList;
 
 }

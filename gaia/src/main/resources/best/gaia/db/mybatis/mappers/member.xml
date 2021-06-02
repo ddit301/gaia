@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.member.dao.MemberDao">
 	<select id="selectMemberForAuth" parameterType="String" resultType="MemberVO">
-		SELECT MEM_NO, MEM_ID, MEM_PASS
+		SELECT MEM_NO, MEM_ID, MEM_PASS, MEM_NICK
 		FROM MEMBER                                      
 		WHERE MEM_ID = #{mem_id}  AND MEM_QUIT_DATE IS NULL
 	</select>

@@ -70,13 +70,7 @@ public class MemberInsertController {
 				break;
 			case OK:
 				
-				UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(member.getMem_id(), member.getMem_pass());
-			    Authentication authentication = authenticationManager.authenticate(token);
-			    SecurityContext context = SecurityContextHolder.getContext();
-			    context.setAuthentication(authentication);
-			    SecurityContextHolder.getContext().setAuthentication(token);
-				
-				view = "/redirect:" + member.getMem_nick();
+				view = "redirect:/";
 				break;
 			default:
 				message = "서버 오류, 잠시 뒤 다시 시도하세요.";
@@ -94,3 +88,5 @@ public class MemberInsertController {
 	}
 	
 }
+
+
