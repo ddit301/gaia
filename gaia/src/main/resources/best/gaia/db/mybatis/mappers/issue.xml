@@ -59,6 +59,7 @@ FROM ISSUE
     LEFT OUTER JOIN PROJ_MEM HIS_WRITER_PM ON (ISSUE.PROJ_NO = HIS_WRITER_PM.PROJ_NO AND HIS_WRITER.MEM_NO = HIS_WRITER_PM.MEM_NO)
 	where issue.issue_no = #{issue_no}
 	        and issue.proj_no = #{proj_no}
+	order by issue_his_no
 	</select>
 	
 	<select id="selectIssueList" parameterType="best.gaia.vo.PagingVO" resultMap="issueMap">
@@ -145,5 +146,17 @@ FROM ISSUE
 			    ,#{atch_file_sid, jdbcType=NUMERIC}
 			)
 	</insert>
+	
+	<update id="updateIssue">
+		UPDATE ISSUE
+			SET
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(issue_status)">
+					ISSUE_STATUS = #{issue_status, jdbcType=NUMERIC}
+				</if>
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(issue_title)">
+					ISSUE_TITLE = #{issue_title, jdbcType=VARCHAR}
+				</if>
+			WHERE ISSUE_SID = #{issue_sid, jdbcType=NUMERIC}
+	</update>
 	
 </mapper>

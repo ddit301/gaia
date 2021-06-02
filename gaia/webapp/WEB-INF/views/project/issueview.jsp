@@ -30,6 +30,7 @@
             	</div>
             	<div class="issue-info row">
             		<div class="issue-status col-md-1">
+            			<span class="label label-success">Open</span>
             		</div>
             		<div class="writerinfo col-md-11">
 	            		<span></span>
@@ -50,7 +51,7 @@
 		            				<div id="editor"></div>
 		            			</div>
 		            			<div class="repFoot">
-		            				<button type="button" class="btn mb-1 btn-warning">Close issue</button>
+		            				<button id="closeBtn" type="button" class="btn mb-1 btn-warning">Close issue</button>
 		            				<button id="issue-comment" type="button" class="btn mb-1 btn-success">Comment</button>
 		            			</div>
             				</div>
@@ -141,6 +142,7 @@
             <script>
           		issue_no = '${issue_no}';
           		issue_sid = null;
+          		issue_status = null;
           		
 				// ToastUI Editor 에디터 적용시키기
 				editor = new toastui.Editor({
@@ -158,6 +160,7 @@
 					},
 					success : function(res) {
 						issue_sid = res.issue_sid;
+						issue_status = res.issue_status;
 						$('#assignees').empty();
 						$('#issue-body-cont').empty();
 						
@@ -179,12 +182,15 @@
 						$('.writerinfo').children('span:first').text(res.writer.mem_nick + ' opened ');
 						$('.writerinfo').children('span:last').text(moment(res.issue_create_date).fromNow());
 						let statusLabel;
-						if(res.issue_status = '0'){
-							statusLabel = '<span class="label label-success">Oepn</span>'
-						}else{
-							statusLabel = '<span class="label label-danger">Closed</span>'
+						// 이슈가 닫힌 상태면 그에 맞게 라벨과 버튼을 바꿔준다.
+						if(issue_status == 1){
+							$('.issue-status').children('span').text('Closed');
+							$('.issue-status').children('span').removeClass('label-success');
+							$('.issue-status').children('span').addClass('label-danger');
+							$('#closeBtn').text('Reopen issue');
+							$('#closeBtn').removeClass('btn-warning');
+							$('#closeBtn').addClass('btn-primary');
 						}
-						$('.issue-status').html(statusLabel);
 	            		
 						
 						$.each(res.assigneeList, function(i,v){
@@ -224,6 +230,7 @@
 				
 				// document ready 됐을때 함수들 
 				$(function(){
+					
 					// 이슈 코멘트 작성 이벤트
 					$('#issue-comment').on('click', function(){
 						let issue_his_cont = editor.getMarkdown();
@@ -258,6 +265,51 @@
 						})
 						
 					})
+					
+					// 이슈 열기/닫기 이벤트
+					$('#closeBtn').on('click', function(){
+						
+						issue_status = issue_status == 0 ? 1 : 0;
+								
+						$.ajax({
+							url : getContextPath() + '/restapi/project/issues',
+							method : 'post',
+							data : {
+								'issue_sid' : issue_sid
+								,'issue_status' : issue_status
+								,'_method' : 'put'		
+							},
+							success : function(res) {
+								if(res.issue.issue_status == 0){
+									//상위 라벨
+									$('.issue-status').children('span').text('Open');
+									$('.issue-status').children('span').removeClass('label-danger');
+									$('.issue-status').children('span').addClass('label-success');
+									//바닥 버튼
+									$('#closeBtn').text('Close issue');
+									$('#closeBtn').removeClass('btn-primary');
+									$('#closeBtn').addClass('btn-warning');
+								}else{
+									//상위 라벨
+									$('.issue-status').children('span').text('Closed');
+									$('.issue-status').children('span').removeClass('label-success');
+									$('.issue-status').children('span').addClass('label-danger');
+									// 바닥 버튼 
+									$('#closeBtn').text('Reopen issue');
+									$('#closeBtn').removeClass('btn-warning');
+									$('#closeBtn').addClass('btn-primary');
+								}
+							},
+							error : function(xhr, error, msg) {
+								console.log(xhr);
+								console.log(error);
+								console.log(msg);
+							},
+							dataType : 'json'
+						})
+						
+					});
+					
 	            })
 				
 				

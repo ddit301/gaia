@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.function.Failable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.service.IssueService;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.NotValidSessionException;
@@ -40,6 +42,8 @@ public class IssueREST {
 	
 	@Inject
 	private IssueService service;
+	@Inject
+	private IssueDao dao;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
@@ -104,8 +108,17 @@ public class IssueREST {
 	}
 	
 	@PutMapping
-	public Map<String, Object> updateIssue() {
-		return null;
+	public Map<String, Object> updateIssue(
+			@ModelAttribute IssueVO issue
+		) {
+		
+		ServiceResult result = dao.updateIssue(issue) == 1 ? ServiceResult.OK : ServiceResult.FAIL;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("issue", issue);
+		map.put("result", result);
+		
+		return map;
 	}
 	
 	@DeleteMapping
