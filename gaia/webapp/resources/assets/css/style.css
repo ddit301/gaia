@@ -11095,6 +11095,7 @@ body {
 #main-list {
   position: relative;
   width: 4rem;
+  margin-right: 0.26rem;
 }
 
 #project__list {
@@ -11114,7 +11115,7 @@ body {
 }
 
 #main-wrapper {
-  width: auto;
+  width: 100%;
   opacity: 0;
   transition: all 0.25s ease-in;
   overflow: hidden;
