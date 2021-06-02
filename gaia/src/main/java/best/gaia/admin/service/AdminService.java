@@ -7,7 +7,8 @@ import best.gaia.vo.PagingVO;
 
 public interface AdminService {
 	
-	public int retrieveBoardCount(PagingVO<MemberVO> pagingVO);
-	public List<MemberVO> retrieveBoardList(PagingVO<MemberVO> pagingVO);
+	public int retrieveMemberCount(PagingVO<MemberVO> pagingVO);
+	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO);
+	public List<MemberVO> retrieveAllMember();
 	
 }

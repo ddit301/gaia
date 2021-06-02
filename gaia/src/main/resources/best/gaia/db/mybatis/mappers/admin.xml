@@ -50,12 +50,12 @@
 		</trim>
 	</sql>
 	
-	<select id="selectBoardCount" parameterType="PagingVO" resultType="Integer">
+	<select id="selectMemberCount" parameterType="PagingVO" resultType="Integer">
 		SELECT COUNT(*)
 		FROM MEMBER
 		<include refid="searchFrag" />
 	</select>
-	<select id="selectBoardList" parameterType="PagingVO" resultType="MemberVO">
+	<select id="selectMemberList" parameterType="PagingVO" resultType="MemberVO">
 		SELECT MEM_NO,
 				MEM_ID,
 				MEM_NICK,
@@ -65,5 +65,15 @@
 				MEM_STATUS
 		FROM MEMBER
 		<include refid="searchFrag" />
+	</select>
+	<select id="selectAllMemberList" resultType="MemberVO">
+		SELECT MEM_NO,
+				MEM_ID,
+				MEM_NICK,
+				MEM_PIC_FILE_NAME,
+				MEM_SIGN_DATE,
+				MEM_QUIT_DATE,
+				MEM_STATUS
+		FROM MEMBER
 	</select>
 </mapper>

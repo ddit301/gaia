@@ -11,7 +11,8 @@ import best.gaia.vo.PagingVO;
 @Repository
 public interface AdminDao {
 	
-	public int selectBoardCount(PagingVO<MemberVO> pagingVO);
-	public List<MemberVO> selectBoardList(PagingVO<MemberVO> pagingVO);
+	public int selectMemberCount(PagingVO<MemberVO> pagingVO);
+	public List<MemberVO> selectMemberList(PagingVO<MemberVO> pagingVO);
+	public List<MemberVO> selectAllMemberList();
 	
 }

@@ -20,13 +20,17 @@ public class AdminServiceImpl implements AdminService {
 	private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
 	@Override
-	public int retrieveBoardCount(PagingVO<MemberVO> pagingVO) {
-		return dao.selectBoardCount(pagingVO);
+	public List<MemberVO> retrieveAllMember() {
+		return dao.selectAllMemberList();
+	}
+	@Override
+	public int retrieveMemberCount(PagingVO<MemberVO> pagingVO) {
+		return dao.selectMemberCount(pagingVO);
 	}
 
 	@Override
-	public List<MemberVO> retrieveBoardList(PagingVO<MemberVO> pagingVO) {
-		return dao.selectBoardList(pagingVO);
+	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO) {
+		return dao.selectMemberList(pagingVO);
 	}
 
 }

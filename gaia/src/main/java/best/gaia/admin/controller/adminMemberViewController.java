@@ -1,16 +1,11 @@
 package best.gaia.admin.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +18,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.admin.service.AdminService;
 import best.gaia.vo.MemberVO;
-import best.gaia.vo.PagingVO;
 
 /**
  * 
@@ -65,7 +59,7 @@ public class adminMemberViewController {
 			@RequestParam(value = "listLength", required = false, defaultValue = "20") int listLength
 			, Model model
 		) {
-		PagingVO<MemberVO> pagingVO = listForAjax(currentPage, searchType, searchWord, listLength);
+		List<MemberVO> pagingVO = listForAjax(listLength);
 		
 		model.addAttribute("pagingVO", pagingVO);
 		
@@ -73,27 +67,27 @@ public class adminMemberViewController {
 		
 	}
 
-	@PostMapping(value = "ListView", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value = "ListView", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public PagingVO<MemberVO> listForAjax(
-			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value = "searchType", required = false) String searchType,
-			@RequestParam(value = "searchWord", required = false) String searchWord,
+	public List<MemberVO> listForAjax(
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
+//			@RequestParam(value = "searchType", required = false) String searchType,
+//			@RequestParam(value = "searchWord", required = false) String searchWord,
 			@RequestParam(value = "listLength", required = false, defaultValue = "20") int listLength) {
-		PagingVO<MemberVO> pagingVO = new PagingVO<>(listLength, 5);
-		pagingVO.setCurrentPage(currentPage);
-		Map<String, Object> searchMap = new HashMap<>();
-		searchMap.put("searchType", searchType);
-		searchMap.put("searchWord", searchWord);
-		pagingVO.setSearchMap(searchMap);
+		List<MemberVO> memberList = service.retrieveAllMember();
+//		pagingVO.setCurrentPage(currentPage);
+//		Map<String, Object> searchMap = new HashMap<>();
+//		searchMap.put("searchType", searchType);
+//		searchMap.put("searchWord", searchWord);
+//		pagingVO.setSearchMap(searchMap);
+//
+//		int totalRecord = service.retrieveBoardCount(pagingVO);
+//		pagingVO.setTotalRecord(totalRecord);
+//		
+//		List<MemberVO> memberList = service.retrieveBoardList(pagingVO);
+//		pagingVO.setDataList(memberList);
 
-		int totalRecord = service.retrieveBoardCount(pagingVO);
-		pagingVO.setTotalRecord(totalRecord);
-		
-		List<MemberVO> memberList = service.retrieveBoardList(pagingVO);
-		pagingVO.setDataList(memberList);
-
-		return pagingVO;
+		return memberList;
 	}
 
 }

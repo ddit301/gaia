@@ -34,48 +34,9 @@
                       <th>가입일</th>
                       <th>탈퇴일</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>
-<!--                         <a href="#"><img src="main/images/shop/product-14.jpg" alt="Accessories Pack"/></a> -->
- 						<h5 class="product-title font-alt">123456789</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.02</h5>
-                      </td>
-                      <td>
-                        <input class="form-control" type="number" name="" value="1" max="50" min="1"/>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td class="pr-remove"><a href="#" title="Remove"><i class="fa fa-times"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>
-<!--                         <a href="#"><img src="main/images/shop/product-14.jpg" alt="Accessories Pack"/></a> -->
- 						<h5 class="product-title font-alt">123456789</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.02</h5>
-                      </td>
-                      <td>
-                        <input class="form-control" type="number" name="" value="1" max="50" min="1"/>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td>
-                        <h5 class="product-title font-alt">2019.05.09</h5>
-                      </td>
-                      <td class="pr-remove"><a href="#" title="Remove"><i class="fa fa-times"></i></a></td>
-                    </tr>
+                  </thead>
+                  <tbody>
+                    
                   </tbody>
                 </table>
               </div>
@@ -129,47 +90,76 @@
     JavaScripts
     =============================================
     -->
-<!--     <script defer src="/gaia/resources/main/lib/jquery/dist/jquery.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/wow/dist/wow.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/isotope/dist/isotope.pkgd.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/flexslider/jquery.flexslider.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/smoothscroll.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/js/plugins.js"></script> -->
-<!--     <script defer src="/gaia/resources/main/js/main.js"></script> -->
-<!--     <script defer type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script> -->
-<!--     <script async type="text/javascript"> -->
-// 	    $(document).ready( function () {
-// 	    	function Employee ( name, position, salary, office, a, b ) {
-// 	    	    this.name = name;
-// 	    	    this.position = position;
-// 	    	    this.salary = salary;
-// 	    	    this._office = office;
-// 	    	    this.a = a;
-// 	    	    this.b = b;
-	    	 
-// 	    	    this.office = function () {
-// 	    	        return this._office;
-// 	    	    }
-// 	    	};
-	    	
-// 	        $('.checkout-table').DataTable({
-// 	        	data: [
-// 	                new Employee( "Tiger Nixon", "System Architect", "$3,120", "Edinburgh" , "Edinburgh" , "Edinburgh" ),
-// 	                new Employee( "Garrett Winters", "Director", "$5,300", "Edinburgh", "Edinburgh" , "Edinburgh"  )
-// 	            ],
-// 	        	columns: [
-//         	        { data: 'MEM_NO' },
-//         	        { data: 'MEM_ID' },
-//         	        { data: 'MEM_NICK' },
-//         	        { data: 'MEM_SIGN_DATE' },
-//         	        { data: 'MEM_QUIT_DATE' }
-//         	    ]
-// 	        });
-// 	    } );
-<!--     </script> -->
+	<script type="text/javascript">
+    $(document).ready( function () {
+    	
+	    function acyncMovePage(url){
+	        // ajax option
+	        let ajaxOption = {
+	                url : url,
+	                async : true,
+	                type : "GET",
+	                dataType : "html",
+	                cache : false
+	//                 ,contentType:'text/html; charset=UTF-8'
+	        };
+	
+	        $.ajax(ajaxOption).done(function(data){
+	            $('#mainBody').children().remove();
+	            $('#mainBody').html(data);
+	        });
+	    }
+	    
+	    function getMember(){
+        console.log();
+	    	$.ajax({
+	    		url : getContextPath()+"/admin/member/ListView" ,
+	    		type : 'get',
+	    		success : function(res) {
+	    			let data = res
+            console.log(data);
+	    			$('#member-table').DataTable({
+              data : data,
+              columns: [
+                  { data: 'mem_status' },
+                  { data: 'mem_pic_file_name' },
+                  { data: 'mem_no' },
+                  { data: 'mem_id' },
+                  { data: 'mem_nick' },
+                  { data: 'mem_sign_date' },
+                  { data: 'mem_quit_date' }
+              ]
+            });
+	    		},
+	    		async : true
+	    		,error : function(xhr) {
+	    			console.log(xhr);
+	    			if(xhr.status == '404'){
+	    				alert("실패");				
+	    			}else{
+	    				alert("status : " + xhr.status);
+	    			}
+	    		},
+	    		dataType : 'json'
+	    	})
+	    }
+      getMember();
+    
+    	function Employee ( name, position, salary, office, a, b, c ) {
+    	    this.name = name;
+    	    this.position = position;
+    	    this.salary = salary;
+    	    this._office = office;
+    	    this.a = a;
+    	    this.b = b;
+    	    this.c = c;
+    	 
+    	    this.office = function () {
+    	        return this._office;
+    	    }
+    	};
+    	
+        
+        
+    });
+    </script>
