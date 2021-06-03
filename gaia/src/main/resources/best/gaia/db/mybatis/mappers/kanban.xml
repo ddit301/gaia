@@ -95,13 +95,10 @@
 	</select>
 	
 	<select id="getLastCardNo" parameterType="int" resultType="Integer">
-		select kb_card_no
-		from (
-		    select card.kb_card_no, next.kb_card_no as next_no
-		    from kanban_card card
-		            left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
-		    where card.kb_col_no = #{kb_col_no})
-		where next_no is null
+		select card.kb_card_no
+		from kanban_card card
+       	 left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
+		where card.kb_col_no = #{kb_col_no} and next.kb_card_no is null
 	</select>
 	
 	<update id="updateCard" parameterType="best.gaia.vo.KanbanCardVO">
@@ -135,6 +132,39 @@
 			    ,#{mem_no,jdbcType=NUMERIC}
 			    ,#{kb_col_no,jdbcType=NUMERIC}
 			    ,#{kb_card_cont,jdbcType=VARCHAR}
+			    ,sysdate
+			)
+	</insert>
+	
+	<insert id="insertCardWithIssue" parameterType="best.gaia.vo.KanbanCardVO">
+		<selectKey keyProperty="kb_card_no,kb_card_priv_no,kb_col_no" resultType="best.gaia.vo.KanbanCardVO" order="BEFORE">
+			select *
+			from(
+			    select max(kb_card_no)+1 as kb_card_no
+			    from kanban_card)a
+			    ,
+			    (select card.kb_card_no as kb_card_priv_no, card.kb_col_no
+			    from kanban_card card
+			            left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
+			    where card.kb_col_no in (select kb_col_no
+			                                from kanban_col
+			                                where proj_no=1
+			                                    and kb_col_priv_no is null)
+			        and next.kb_card_no is null)c
+		</selectKey>
+			INSERT INTO kanban_card (
+			    kb_card_no,
+			    kb_card_priv_no,
+			    mem_no,
+			    kb_col_no,
+			    issue_sid,
+			    kb_card_write_date
+			) VALUES (
+			    #{kb_card_no}
+			    ,#{kb_card_priv_no}
+			    ,#{mem_no,jdbcType=NUMERIC}
+			    ,#{kb_col_no}
+			    ,#{issue_sid,jdbcType=NUMERIC}
 			    ,sysdate
 			)
 	</insert>

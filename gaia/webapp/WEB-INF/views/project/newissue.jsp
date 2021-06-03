@@ -61,7 +61,7 @@
             			<div class="menuBox row">
             				<div id="issueStartDate" class="col-md-10">
 		            			<p>이슈 시작일</p>
-		            			<input type="text" class="result" placeholder="yyyy-mm-dd">
+		            			<input class="datePick" type="text" class="result" placeholder="yyyy-mm-dd">
             				</div>
             				<div class="col-md-2">
 		            			<i class="icon-settings menu-icon"></i>
@@ -70,10 +70,18 @@
             			<div class="menuBox row">
             				<div id="issueEndDate" class="col-md-10">
 		            			<p>이슈 마감일</p>
-		            			<input type="text" class="result" placeholder="yyyy-mm-dd">
+		            			<input class="datePick" type="text" class="result" placeholder="yyyy-mm-dd">
             				</div>
             				<div class="col-md-2">
 		            			<i class="icon-settings menu-icon"></i>
+            				</div>
+            			</div>
+            			<div class="menuBox row">
+            				<div class="col-md-9">
+		            			<p>칸반에 바로 등록</p>
+            				</div>
+            				<div class="issKanban col-md-3">
+		            			<input id="addToKanban" type="checkbox" checked>
             				</div>
             			</div>
             		</div>
@@ -102,6 +110,8 @@ editor = new toastui.Editor({
 			issue_end_date = $('#issueEndDate').children('input').val();
 			issue_priority = 3;
 			
+			let addToKanban = $('#addToKanban').is(':checked');
+			
 			$.ajax({
 				url : '${cPath}/restapi/project/issues',
 				method : 'post',
@@ -113,6 +123,7 @@ editor = new toastui.Editor({
 					,'issue_start_date' : issue_start_date
 					,'issue_end_date' : issue_end_date
 					,'issue_priority' : issue_priority
+					,'addToKanban' : addToKanban
 				},
 				success : function(res) {
 					// toastr 알람
@@ -131,7 +142,7 @@ editor = new toastui.Editor({
 		})
 		
 		// datePicker 동작시키기
-	    $('.menuBox').find('input').bootstrapMaterialDatePicker({
+	    $('.datePick').bootstrapMaterialDatePicker({
 	    	// 시간은 설정 안하고 날짜만 선택할 것
 	        time: false
 	        // 설정은 최소 오늘 이후의 날자만 가능
