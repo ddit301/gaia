@@ -20,7 +20,8 @@
 	
 	<!-- inject로 주입 받아서 사용하기위해. WebSocketEchoHandler.java-->
 	<util:list id="userList" value-type="org.springframework.web.socket.WebSocketSession"/>
-
+	<!-- filter가 제대로 작동하기 위해 상위 컨테이너에 등록시킴. -->
+	<bean id="filterMultipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
 	<!-- properties 등록 -->
 	<util:properties id="appInfo" location="classpath:best/gaia/db/appInfo.properties" />
 </beans>

@@ -31,10 +31,10 @@
 			            	<h2>Public profile</h2>
 			            </div>
 			            <hr>
-			           		<div class="row">
-			            		<div class="col-md-8">
-	                    <form class="basic-form" name="profile" >
-	                    	<input type="hidden" value="put" name="_method">
+		           		<div class="row">
+		            		<div class="col-md-8">
+			                    <form class="basic-form" name="profile" >
+			                    	<input type="hidden" value="put" name="_method">
 				            		<div class="ml-3 form-group">
 				                        <div class="card mem_nick">
 						            		<h4 class="card-title">NickName</h4>
@@ -70,19 +70,20 @@
 						                	<button type="submit" onclick="updateProfile();" class="btn btn-primary">Update profile</button>
 						                </p>
 					                </div>
-		        	    </form>
-				        	    </div>
-				            	<div class="col-md-4">
+	        	   				</form>
+			        	    </div>
+			            	<div class="col-md-4">
 				            	<form class="basic-form profile_image" id="profile_imageForm" name="member" enctype="multipart/form-data" >
+				            		<input type="hidden" value="put" name="_method">
 				            		<div class="img-grid-right">
 					            		<label class="d-block"> Profile picture</label>
-					            		<img class="mr-3 rounded-circle" height="200" width="200" id="profile_img"src="${cPath}/resources/profiles/1.jpeg">
+					            		<img class="mr-3 rounded-circle" height="200" width="200" id="profile_img"src= "${cPath}/resources/profiles/1.jpeg" = null :  >
 					            		<button type="button" class="btn mb-1 btn-outline-info edit-profile">Edit</button>
 					            		<input class="form-control btn mb-1 btn-outline-info" id="upload_image" type="file" name="files" accept="image/*" hidden="hidden" />
 				            		</div>
 			            		</form>
-				            	</div>
-			        	    </div>
+			            	</div>
+		        	    </div>
 					</div>
 		    	</div>
 			</div>
@@ -90,24 +91,24 @@
 	</div>
 </div>
 <script>
+// 프로필 사진 변경 ajax
 $(".edit-profile").on("click", function(){
 	$("#upload_image").click();
 })
-let imageSelect = $("#upload_image").on("change", function(){
+var imageSelect = $("#upload_image").on("change", function(){
 	var formdata = $("#profile_imageForm")[0];
 	var form_data = new FormData(formdata);
-	console.log(form_data);
-// 	console.log("imagePath"+JSON.stringify(imagePath));
+	// need로 분별하기.
+	form_data.append("need", "profileImg");
 	$.ajax({
-		url : getContextPath()+"/restapi/member/members/member" ,
+		url : getContextPath()+"/restapi/member/members" ,
 		type : 'post',
 		data : form_data,
 		processData: false,
 		contentType: false,
 		success : function(res) {
-			console.log(res);
 			$("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.fileName);
-			$("#side-bar-profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.fileName);
+			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.fileName);
 		},
 		error : function(xhr) {
 			console.log(xhr);
@@ -121,10 +122,10 @@ let imageSelect = $("#upload_image").on("change", function(){
 		dataType : 'json'
 	})
 })
-
+// 페이지로딩 ajax
 var loadMemberInfo = function(){
 	$.ajax({
-		url : getContextPath()+"/restapi/member/members/member" ,
+		url : getContextPath()+"/restapi/member/members" ,
 		type : 'get',
 		success : function(res) {
 			console.log(JSON.stringify(res));
@@ -148,11 +149,10 @@ var loadMemberInfo = function(){
 	})
 }
 loadMemberInfo();
+// 프로필 설정 ajax
 function updateProfile(){
 	event.preventDefault();
 	var profile  = $(".basic-form").serializeJSON();
-	var status = $("input[type='radio'][name='status']:checked").val();
-	console.log(profile);
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members/",
 		method : 'post',

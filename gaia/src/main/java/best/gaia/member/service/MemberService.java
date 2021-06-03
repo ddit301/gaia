@@ -46,14 +46,6 @@ public interface MemberService {
 	public ServiceResult modifyMember(MemberVO member);
 	
 	/**
-	 * 회원 프로필 사진 수정
-	 * 
-	 * @param member
-	 * @return 존재하지 않으면, custom exception 발생 INVALIDPASSWORD, OK, FAIL
-	 */
-	public ServiceResult modifyMemberProfileImage(MemberVO member);
-
-	/**
 	 * 회원 탈퇴
 	 * 
 	 * @param member

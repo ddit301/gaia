@@ -10,7 +10,7 @@
 <div class="card">
 	<div class="card-body">
 		<div class="card display-webkit-box">
-			<img class="mr-3 rounded-circle" id="side-bar-profile_img"height="48" width="48" src="${cPath}/resources/profiles/1.jpeg">
+			<img class="mr-3 rounded-circle" id="side_bar_profile_img" height="48" width="48" src="${cPath}/resources/profiles/1.jpeg">
            	<div class="flex-auto">
 				<h5 class="m-b-3">${mem_nick }</h5>
                 <div class="d-flex flex-items-center flex-wrap">

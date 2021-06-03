@@ -43,8 +43,9 @@
     	</beans:bean>
 		<!-- Tiles END -->
 
-
-		<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
+<!-- 		filter에서 작동하기 위해 root-context로 이동 -->
+<!-- 		<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean> -->
+		
 
 		<context:component-scan base-package="best.gaia" use-default-filters="false">
 			<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>

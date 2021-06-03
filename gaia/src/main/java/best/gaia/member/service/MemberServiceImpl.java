@@ -75,7 +75,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ServiceResult modifyMember(MemberVO member) {
-		retrieveMember(member.getMem_id());
 		ServiceResult result= ServiceResult.OK; //인증 로직 
 //		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
 		if (ServiceResult.OK.equals(result)) {
@@ -88,20 +87,6 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
-	@Override
-	public ServiceResult modifyMemberProfileImage(MemberVO member) {
-		ServiceResult result= ServiceResult.OK; //인증 로직 
-		if (ServiceResult.OK.equals(result)) {
-			int rowcnt = dao.updateMemberProfileImage(member);
-			if (rowcnt > 0) {
-				result = ServiceResult.OK;
-			} else {
-				result = ServiceResult.FAIL;
-			}
-		}
-		return result;
-	}
-
 
 	@Override
 	public ServiceResult removeMember(MemberVO member) {
@@ -118,6 +103,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+
 
 	
 	
