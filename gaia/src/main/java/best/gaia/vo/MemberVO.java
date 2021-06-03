@@ -33,6 +33,10 @@ import lombok.ToString;
 @Builder
 public class MemberVO implements UserDetails, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@NotNull
 	@Min(0)
 	private Integer mem_no; // 회원 번호
