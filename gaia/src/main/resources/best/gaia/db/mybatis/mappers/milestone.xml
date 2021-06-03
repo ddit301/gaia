@@ -126,7 +126,11 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
 	</update>
 	
 	
-
+	<delete id="deleteMilestone" parameterType="best.gaia.vo.MilestoneVO">
+			 delete from milestone
+   			 where milest_sid = #{milest_sid ,jdbcType=NUMERIC}
+	
+	</delete>
 	
 	
 </mapper>
