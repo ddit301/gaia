@@ -20,10 +20,35 @@
 	            </div>
 	            <!-- row -->
 				<div class="milestoneview-btn">
-					<a class="delete-milestone-btn label label-danger" data-menu="#" href="javascript:void(0)" >Delete milestone</a>
-					
+				 <!-- Button trigger modal -->
+					<a class="delete-milestone-btn label label-danger" data-toggle="modal" data-target="#basicModal" href="javascript:void(0)" >Delete milestone</a>
 					<a class="edit-milestone-btn label label-info" data-menu="editmilestone" href="javascript:void(0)" >Edit milestone</a>
 				</div>
+				
+				<div class="bootstrap-modal">
+                            <!-- Modal -->
+                    <div class="modal fade" id="basicModal" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete milestone</h5>
+                                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                	<div class = "milest-title">
+                                	[ <span></span> ] 을/를 삭제 하시겠습니까?
+                                	</div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                                    <button type="button" id = "delete-milest-btn" class="btn btn-danger" data-dismiss="modal" >Delete milestone</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
 				<div id="milestoneview-template">
 				<div class="milestone-no" hidden = "hidden"></div>
 					<div class="milestoneviewBox">	
@@ -43,19 +68,9 @@
 	                        <div class="milestoneview-date col-md-6">
 								<span></span>
 							</div>	
-								<!--append date -->
-								<div class="form-date-group row"></div>
-								<!-- close append date -->
-		                    
 		                    <div class="milestoneview-percent col-md-6">
 		                        <span></span>
 		                        
-		                        <!--  append button -->
-		                       <div class="button" >
-			                        <div class="save-changes-btn"></div>
-			                        <div class="cancle-btn"></div>
-		                        </div>  
-		                        <!--  close append button -->
 		                    </div>                               
 						</div>
 						<div class="row">
@@ -177,11 +192,13 @@
 					},
 					success : function(res) {
 						milestObject = res;
+
 						$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
+						$('.milest-title').children('span').text(res.milest_title);
 						$('.milestoneview-date').children('span').text(res.milest_start_date+'~'+res.milest_end_date);
 						$('.milestone-descript').children('span').text(res.milest_cont);
 	            		$('.progress-bar').attr('style','width: '+res.milest_percent+'%;');
-	            		$('.milestoneview-percent').children('span').text(res.milest_percent+'% complete '+res.open_issue_cnt+' open '+res.close_issue_cnt+' closed');
+	            		$('.milestoneview-percent').children('span').text((res.milest_percent == null ? 0 : res.milest_percent)+'% complete '+res.open_issue_cnt+' open '+res.close_issue_cnt+' closed');
 						
 	            		total_count = Object.keys(res.issueList).length;
 	            		
@@ -227,64 +244,9 @@
 				</script>
 				
 				<script>
-					
-// 			// edit milestone
-// 			var editmilestone = function(milest_no){
-// 			let project_title = '${project_title}';
-// 			let manager_nick = '${manager_nick}';
-			
-// 			data = 'editmilestone';
-// 			title = '';
-// 			url = '${cPath}/${manager_nick}/${project_title}/editmilestone/'+milest_no;
-// 			history.pushState(data,title,url);
-			
-// 			$.ajax({
-// 				url : '${cPath}/view/project/editmilestone'
-// 				,type : 'get'
-// 				,data : {
-// 					'manager_nick' : manager_nick
-// 					,'project_title' : project_title
-// 					,'milest_no' : milest_no
-// 					}
-// 				,success : function(res) {
-// 					$('.content-body').html(res);
-// 				}
-// 				,error : function(xhr){
-// 					alert('error : ' + xhr.status);
-// 				},
-// 				dataType : 'html'
-// 			})
-// 			}
-				
-// 				$(function(){
-// 					// 특정 마일스톤 수정시 데이터 값 넘기기
-// 					$('#main-wrapper').on('click','.editMilestoneButton',function(){
-						
-// 						alert(milest_no);
-						
-// 					})
-// 				}
-
+				// 마일스톤 수정 버튼 클릭 시 
 				$('.edit-milestone-btn').on('click',function(){
-// 					alert(milest_no);
-// 					$('.milestoneview-title').children('span').attr('hidden','hidden');
-// 					$('.milestoneview-title').children('input').removeAttr('hidden');
-// 					$('.milestoneview-date').children('span').attr('hidden','hidden');
-// 					$('.milestone-descript').children('span'C).attr('hidden','hidden');
-// 					$('.milestoneview-bar').attr('hidden','hidden');
-// 					$('.milestoneview-percent').children('span').attr('hidden','hidden');
-					
-// 					$('.delete-milestone-btn').attr('hidden','hidden');
-// 					$('.edit-milestone-btn').attr('hidden','hidden');
-					
 
-					
-					
-// 					$('.save-changes-btn').append('<button class="save-changes-btn btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-check m-r-5"></i> save changes </button>');
-// 					$('.cancle-btn').append(' <button class="cancle-btn btn btn-dark m-b-30 m-t-15 f-s-14 p-l-20 p-r-20" type="button"><i class="ti-close m-r-5 f-s-12"></i> close </button>');
-
-
-// 					$('.milestoneview-title').append('<label>Title : </label><input class="edit-milestone-title" type="text" placeholder="text" ></input>');
 						$.ajax({
 							url : '${cPath}/view/project/editmilestone'
 							,type : 'get'
@@ -302,8 +264,47 @@
 							dataType : 'html'
 						})
 				})
+				
+				// 마일스톤 수정 취소 버튼 클릭 시 
+				$('#milest-edit-close-btn').on('click',function(){
+          			milestoneView(milestObject.milest_no);
+          		})
+	          		
+				
             </script>
             
+            <script>
+            
+            $(function(){
+            	// 모달창에서 마일스톤 삭제 버튼 클릭 시	 
+				$('#delete-milest-btn').on('click',function(){
+					
+					$.ajax({
+						url : getContextPath() + '/restapi/project/milestones',
+						type : 'post',
+						data : {
+								'_method' : "delete"
+								, 'milest_no' : milest_no
+							
+						},
+						success : function(res) {
+							$('.modal-backdrop').removeClass('show').css("display","none");
+							movePageHistory("milestone");
+							
+						},
+						error : function(xhr, error, msg) {
+							console.log(xhr);
+							console.log(error);
+							console.log(msg);
+						},
+						dataType : 'json'
+						,async : false
+					})
+				
+          		})
+
+            })
+			</script>
             
             
             

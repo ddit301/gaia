@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -128,10 +129,27 @@ public class MilestoneREST {
 		return map;
 	}
 	
+	@DeleteMapping()
+	public Map<String, Object> deleteMilestone(
+			HttpSession session
+			,@RequestParam (required=false) Integer milest_no
+			, @ModelAttribute MilestoneVO search
+				) {
+		
+		System.err.println(milest_no);
 	
-	@RequestMapping(method=RequestMethod.DELETE)
-	public Map<String, Object> deleteMilestone() {
-		return null;
+		Integer proj_no = getProjNoFromSession(session);
+		search.setProj_no(proj_no);
+		
+		
+		ServiceResult result = service.deleteMilestone(search);
+		Map<String,Object>map = new HashMap<>();
+		
+		map.put("result",result);
+		
+		return map;
+		
+		
 	}
 	@RequestMapping(value="{milest_no}", method=RequestMethod.GET)
 	public MilestoneVO selectMilestone(

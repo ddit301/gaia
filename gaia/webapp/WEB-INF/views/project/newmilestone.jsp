@@ -92,7 +92,7 @@
 				milest_end_date = $('.milest-end-date').children('input').val();
 				milest_cont = $('#newmilestone-form').find('#milest_cont').val();
 
-				alert(milest_end_date);
+
 			
 				
 				$.ajax({
@@ -107,8 +107,8 @@
 						
 					},
 					success : function(res) {
-						alert("success");
-						movePage('milestone')
+						
+						milestoneView(res.milest_no);
 					},
 					error : function(xhr, error, msg) {
 						console.log(xhr);
