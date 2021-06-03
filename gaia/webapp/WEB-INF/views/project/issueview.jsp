@@ -30,6 +30,7 @@
             	</div>
             	<div class="issue-info row">
             		<div class="issue-status col-md-1">
+            			<span class="label label-success">Open</span>
             		</div>
             		<div class="writerinfo col-md-11">
 	            		<span></span>
@@ -41,21 +42,17 @@
             		<div class="col-md-9">
             			<div id="issue-body-cont">
             			</div>
-           				<div class="repWrite issue-reply row">
+           				<div class="repWrite row">
 		            		<div class="col-md-1">
 		            			<img src="/gaia/resources/assets/images/user/2.png" alt="">
 		            		</div>
 		            		<div class="rep-right col-md-10">
-            					<div class="repHeader">
-		            				<button type="button" class="btn mb-1 btn-flat btn-dark">Write</button>
-		            				<button type="button" class="btn mb-1 btn-flat btn-outline-light">Preview</button>
-		            			</div>
-		            			<div class="repBody">
-		            				<textarea rows="4"></textarea>
+		            			<div class="editorBody">
+		            				<div id="editor"></div>
 		            			</div>
 		            			<div class="repFoot">
-		            				<button type="button" class="btn mb-1 btn-warning">Close issue</button>
-		            				<button type="button" class="btn mb-1 btn-success">Comment</button>
+		            				<button id="closeBtn" type="button" class="btn mb-1 btn-warning">Close issue</button>
+		            				<button id="issue-comment" type="button" class="btn mb-1 btn-success" disabled>Comment</button>
 		            			</div>
             				</div>
             			</div>
@@ -143,14 +140,33 @@
 </div>
             
             <script>
-            issue_no = '${issue_no}';
-            	
+          		issue_no = '${issue_no}';
+          		issue_sid = null;
+          		issue_status = null;
+          		
+				// ToastUI Editor 에디터 적용시키기
+				editor = new toastui.Editor({
+				  el: document.querySelector('#editor'),
+				  height: '200px',
+				  initialEditType: 'markdown',
+				  previewStyle: 'tab',
+				  placeholder : 'markdown 문법을 지원합니다'
+				});
+				
+				viewer = toastui.Editor.factory({
+			         el: document.querySelector('.repBody')
+			         ,height : 'auto'
+			         ,viewer : true
+			       });
+				
 	            $.ajax({
 					url : getContextPath() + '/restapi/project/issues/'+issue_no,
 					type : 'get',
 					data : {
 					},
 					success : function(res) {
+						issue_sid = res.issue_sid;
+						issue_status = res.issue_status;
 						$('#assignees').empty();
 						$('#issue-body-cont').empty();
 						
@@ -172,12 +188,15 @@
 						$('.writerinfo').children('span:first').text(res.writer.mem_nick + ' opened ');
 						$('.writerinfo').children('span:last').text(moment(res.issue_create_date).fromNow());
 						let statusLabel;
-						if(res.issue_status = '0'){
-							statusLabel = '<span class="label label-success">Oepn</span>'
-						}else{
-							statusLabel = '<span class="label label-danger">Closed</span>'
+						// 이슈가 닫힌 상태면 그에 맞게 라벨과 버튼을 바꿔준다.
+						if(issue_status == 1){
+							$('.issue-status').children('span').text('Closed');
+							$('.issue-status').children('span').removeClass('label-success');
+							$('.issue-status').children('span').addClass('label-danger');
+							$('#closeBtn').text('Reopen issue');
+							$('#closeBtn').removeClass('btn-warning');
+							$('#closeBtn').addClass('btn-primary');
 						}
-						$('.issue-status').html(statusLabel);
 	            		
 						
 						$.each(res.assigneeList, function(i,v){
@@ -189,16 +208,19 @@
 							let issue_history;
 							// 히스토리가 댓글일 경우와 댓글이 아닐 경우로 분기됩니다.
 							if(v.issue_his_type == 'RE'){
+								// markdown 을 html로 변환 한 후 템플릿에 미리 출력한다.
+								viewer.setMarkdown(v.issue_his_cont);
 								issue_history = $('#issue-template').children('.issue-reply').clone();
+								issue_history.attr('data-issue_his_no', v.issue_his_no);
 								issue_history.find('.repHeader').children('span:first').text(v.historyWriter.mem_nick);
 								issue_history.find('.repHeader').children('span:last').text(moment(v.issue_his_date).fromNow());
-								issue_history.find('.repBody').text(v.issue_his_cont);
 							}else{
 								issue_history = $('#issue-template').children('.issue-change').clone();
 								issue_history.find('span').text('(히스토리타입/멤버닉네임 :' + v.issue_his_type +'/' + v.historyWriter.mem_nick +  ') ' + v.issue_his_cont);
 							}
 							$('#issue-body-cont').append(issue_history);
 						})
+						
 					},
 					error : function(xhr, error, msg) {
 						if(xhr.status == 404){
@@ -209,7 +231,128 @@
 						console.log(msg);
 					},
 					dataType : 'json'
+					,async : false
 				})
+				
+				// document ready 됐을때 함수들 
+				$(function(){
+					
+					// editor의 내용이 있을 때만 Comment 버튼 활성화
+					editor.on('change', function(){
+						if((editor.getMarkdown()).length > 0 ){
+							$('#issue-comment').attr('disabled', false);
+						}else{
+							$('#issue-comment').attr('disabled', true);
+						}
+					})
+					
+					// 이슈 코멘트 작성 이벤트
+					$('#issue-comment').on('click', function(){
+						let issue_his_cont = editor.getMarkdown();
+						
+						$.ajax({
+							url : getContextPath() + '/restapi/project/issue-history',
+							method : 'post',
+							data : {
+								'issue_sid' : issue_sid
+								,'issue_his_cont' : issue_his_cont
+								,'issue_his_type' : 'RE'
+							},
+							success : function(res) {
+								let v= res.issueHistory;
+								let issue_history;
+									// markdown 을 html로 번역해서 출력한다.
+									viewer.setMarkdown(v.issue_his_cont);
+									
+									issue_history = $('#issue-template').children('.issue-reply').clone();
+									issue_history.attr('data-issue_his_no', v.issue_his_no);
+									issue_history.find('.repHeader').children('span:first').text('You');
+									issue_history.find('.repHeader').children('span:last').text(moment(new Date()).fromNow());
+								$('#issue-body-cont').append(issue_history);
+								// editor 비우기
+								editor.reset()
+								// toastr 알람
+								toastr.success('댓글 등록에 성공했습니다.')
+							},
+							error : function(xhr, error, msg) {
+								console.log(xhr);
+								console.log(error);
+								console.log(msg);
+							},
+							dataType : 'json'
+						})
+						
+					})
+					
+					// 이슈 열기/닫기 이벤트
+					$('#closeBtn').on('click', function(){
+						
+						issue_status = issue_status == 0 ? 1 : 0;
+								
+						$.ajax({
+							url : getContextPath() + '/restapi/project/issues',
+							method : 'post',
+							data : {
+								'issue_sid' : issue_sid
+								,'issue_status' : issue_status
+								,'_method' : 'put'		
+							},
+							success : function(res) {
+								if(res.issue.issue_status == 0){
+									//상위 라벨
+									$('.issue-status').children('span').text('Open');
+									$('.issue-status').children('span').removeClass('label-danger');
+									$('.issue-status').children('span').addClass('label-success');
+									//바닥 버튼
+									$('#closeBtn').text('Close issue');
+									$('#closeBtn').removeClass('btn-primary');
+									$('#closeBtn').addClass('btn-warning');
+									// toastr 알람
+									toastr.success('issue를 Open 했습니다.')
+									
+								}else{
+									//상위 라벨
+									$('.issue-status').children('span').text('Closed');
+									$('.issue-status').children('span').removeClass('label-success');
+									$('.issue-status').children('span').addClass('label-danger');
+									// 바닥 버튼 
+									$('#closeBtn').text('Reopen issue');
+									$('#closeBtn').removeClass('btn-warning');
+									$('#closeBtn').addClass('btn-primary');
+									// toastr 알람
+									toastr.options = {
+										  "closeButton": false,
+										  "debug": false,
+										  "newestOnTop": false,
+										  "progressBar": false,
+										  "positionClass": "toast-top-right",
+										  "preventDuplicates": false,
+										  "onclick": null,
+										  "showDuration": "100",
+										  "hideDuration": "1000",
+										  "timeOut": "1000",
+										  "extendedTimeOut": "1000",
+										  "showEasing": "swing",
+										  "hideEasing": "linear",
+										  "showMethod": "fadeIn",
+										  "hideMethod": "fadeOut"
+										}
+									toastr.warning('issue를 Close 했습니다.')
+								}
+							},
+							error : function(xhr, error, msg) {
+								console.log(xhr);
+								console.log(error);
+								console.log(msg);
+							},
+							dataType : 'json'
+						})
+						
+					});
+					
+	            })
+				
+				
              </script> 
             
             

@@ -84,6 +84,19 @@ public class ProjectUrlMapper {
 		return "view/template/project";
 	}
 	
+	@RequestMapping(value = "milestone/{milest_no}")
+	public String MilestoneViewer(
+			@PathVariable String manager_nick
+			,@PathVariable String project_title
+			,@PathVariable String milest_no
+			,Model model
+			) {
+		model.addAttribute("milest_no", milest_no);
+		model.addAttribute("manager_nick", manager_nick);
+		model.addAttribute("project_title", project_title);
+		return "view/template/project";
+	}
+	
 	
 
 }

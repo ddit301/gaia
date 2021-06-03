@@ -16,10 +16,30 @@
 	<script src="${cPath }/resources/js/moment.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
 	<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="${cPath }/resources/js/jquery.serializejson.js"></script>
 <script type="text/javascript">
 	let project_title = '${project_title}';
-	let manager_nick = '${manager_nick}';   	
+	let manager_nick = '${manager_nick}';
+	
+	// toastr 알람 설정
+	toastr.options = {
+			  "closeButton": false,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": false,
+			  "positionClass": "toast-top-right",
+			  "preventDuplicates": false,
+			  "onclick": null,
+			  "showDuration": "100",
+			  "hideDuration": "1000",
+			  "timeOut": "1500",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
 	
 		// 뒤로가기 이벤트 binding 하기
 		$(window).bind("popstate", function(event) {
@@ -30,6 +50,9 @@
 		    		issueView(issue_no);
 		    	}else if(data == 'newIssue'){
 		    		newIssue();
+		    	}else if(data.startsWith("milestoneView")){
+		    		let milest_no = data.substring("milestoneView".length);
+		    		milestoneView(milest_no);
 		    	}else{
 			    	movePage(data);
 		    	}
@@ -41,7 +64,7 @@
 	 	
 	 	var newIssue = function(){
 			// 화면 위로 올리기
-			window.scrollTo({top:0, left:0, behavior:'smooth'});
+			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
 			data = 'newIssue'
 			title = '';
@@ -63,7 +86,7 @@
 	 	
 	 	var issueView = function(issue_no){
 			// 화면 위로 올리기
-			window.scrollTo({top:0, left:0, behavior:'smooth'});
+			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
 			data = 'issueView'+issue_no;
 			title = '';
@@ -86,25 +109,12 @@
 			})
 		}
 	 	
-	 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.	
-		let pageParam = '${pageParam}';
-		let issue_no = '${issue_no}';
-		if(issue_no){
-			if(issue_no == 'new'){
-				newIssue();
-			}else{
-				issueView(issue_no);
-			}
-		}else{
-			movePageHistory(pageParam);
-		}
-		
 		// milestoneView
 		var milestoneView = function(milest_no){
 			let project_title = '${project_title}';
 			let manager_nick = '${manager_nick}';
 			
-			data = 'milestoneview';
+			data = 'milestoneView'+milest_no;
 			title = '';
 			url = '${cPath}/${manager_nick}/${project_title}/milestone/'+milest_no;
 			history.pushState(data,title,url);
@@ -125,6 +135,23 @@
 				},
 				dataType : 'html'
 			})
+		}
+	 	
+	 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.	
+		let pageParam = '${pageParam}';
+		let issue_no = '${issue_no}';
+		let milest_no = '${milest_no}';
+		if(issue_no){
+			if(issue_no == 'new'){
+				newIssue();
+			}else{
+				issueView(issue_no);
+			}
+		}else if(milest_no){
+			milestoneView(milest_no);
+		}else{
+		
+			movePageHistory(pageParam);
 		}
 	 	
 	 	/********************************************************************

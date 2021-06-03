@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.function.Failable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -25,12 +26,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.service.IssueService;
+import best.gaia.project.dao.KanbanDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
+import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
 
@@ -40,6 +44,10 @@ public class IssueREST {
 	
 	@Inject
 	private IssueService service;
+	@Inject
+	private IssueDao dao;
+	@Inject
+	private KanbanDao kanbanDao;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
@@ -52,22 +60,22 @@ public class IssueREST {
 	private static final Logger logger = LoggerFactory.getLogger(IssueREST.class);
 	
 	@GetMapping
-	public List<IssueVO> selectIssueList(
+	public PagingVO<IssueVO> selectIssueList(
 			HttpSession session
+			,@ModelAttribute PagingVO<IssueVO> pagingVO
+			,@ModelAttribute IssueVO detailSearch
 			) {
-		
-		PagingVO<IssueVO> pagingVO = new PagingVO<IssueVO>();
-		IssueVO detailSearch = new IssueVO();
-		
-		// 조회할 issue에 대한 필터를 parameter에서 받아와 등록합니다.
-		
 		// session 에서 프로젝트 번호를 받아와 detailSearch에 등록합니다.
 		Integer proj_no = getProjNoFromSession(session);
 		detailSearch.setProj_no(proj_no);
-		
 		pagingVO.setDetailSearch(detailSearch);
 		
-		return service.selectIssueList(pagingVO);
+		// issueList 를 받아와 pagingVO 에 담는다.
+		List<IssueVO> issueList = service.selectIssueList(pagingVO);
+		pagingVO.setDataList(issueList);
+		
+		// pagingVO 형태로 값을 반환한다.
+		return pagingVO;
 	}
 	
 	@PostMapping
@@ -76,6 +84,7 @@ public class IssueREST {
 			,Authentication authentication
 			,@ModelAttribute IssueVO issue
 			,@RequestParam String issue_content
+			,@RequestParam Boolean addToKanban
 			) {
 		MemberVO member = (MemberVO) authentication.getPrincipal();
 		// 로그인 정보가 없을 경우 예외 처리
@@ -96,6 +105,16 @@ public class IssueREST {
 		
 		ServiceResult result = service.insertIssue(issue);
 		
+		// 칸반에 바로 추가하도록 설정되어 있으면 이슈 등록후 카드도 추가해준다.
+		if(result == ServiceResult.OK) {
+			if(addToKanban) {
+				KanbanCardVO card = new KanbanCardVO();
+				card.setIssue_sid(issue.getIssue_sid());
+				card.setMem_no(issue.getMem_no());
+				kanbanDao.insertCardWithIssue(card);
+			}
+		}
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("issue_no", issue.getIssue_no());
 		map.put("result", result);
@@ -104,8 +123,17 @@ public class IssueREST {
 	}
 	
 	@PutMapping
-	public Map<String, Object> updateIssue() {
-		return null;
+	public Map<String, Object> updateIssue(
+			@ModelAttribute IssueVO issue
+		) {
+		
+		ServiceResult result = dao.updateIssue(issue) == 1 ? ServiceResult.OK : ServiceResult.FAIL;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("issue", issue);
+		map.put("result", result);
+		
+		return map;
 	}
 	
 	@DeleteMapping

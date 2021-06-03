@@ -17,26 +17,30 @@
 ----------------------------------------------------------------------
 -- a. 이슈 목록 조회 
 ------------------------------------------------------------------------
-SELECT ISSUE.ISSUE_SID AS ISSUE_ID ,ISSUE_NO ,ISSUE.PROJ_NO ,ISSUE_TITLE 
-    ,ISSUE_CREATE_DATE ,ISSUE_START_DATE ,ISSUE_END_DATE ,ISSUE_STATUS
-    ,ISSUE_PRIORITY ,PROGRESS
-    ,MILESTONE.MILEST_SID, milestone.milest_title AS MILEST_TITLE
-    ,WRITER.MEM_NO AS writer_no, writer.mem_pic_file_name AS writer_pic
-    ,label.label_no, label.label_nm
-    ,ASSIGNEE.mem_no, assignee.mem_pic_file_name
-    ,(select count(*) -1
-        from issue_history
-        where issue_history.issue_sid = ISSUE.issue_sid
-                and issue_history.issue_his_type = 'RE'
-    ) as replyCount
-FROM ISSUE
-    LEFT OUTER JOIN MILESTONE ON (ISSUE.MILEST_SID = milestone.milest_sid)
-    INNER JOIN MEMBER WRITER ON (ISSUE.MEM_NO = WRITER.MEM_NO)
-    LEFT OUTER JOIN LABEL ON (issue.label_no = label.label_no)
-    LEFT OUTER JOIN issue_assignee ON (issue.issue_sid = issue_assignee.issue_sid)
-    LEFT OUTER JOIN MEMBER ASSIGNEE ON (issue_assignee.mem_no = assignee.mem_no)
-WHERE ISSUE.proj_no = 1
-order by ISSUE.issue_no desc;
+select  a.*
+from (
+    SELECT dense_rank() over(order by issue.issue_sid desc) as dr
+        ,ISSUE.ISSUE_SID AS ISSUE_ID ,ISSUE_NO ,ISSUE.PROJ_NO ,ISSUE_TITLE 
+        ,ISSUE_CREATE_DATE ,ISSUE_START_DATE ,ISSUE_END_DATE ,ISSUE_STATUS
+        ,ISSUE_PRIORITY ,PROGRESS
+        ,MILESTONE.MILEST_SID, milestone.milest_title AS MILEST_TITLE
+        ,WRITER.MEM_NO AS writer_no, writer.mem_pic_file_name AS writer_pic
+        ,label.label_no, label.label_nm
+        ,ASSIGNEE.mem_no, assignee.mem_pic_file_name
+        ,(select count(*) -1
+            from issue_history
+            where issue_history.issue_sid = ISSUE.issue_sid
+                    and issue_history.issue_his_type = 'RE'
+        ) as replyCount
+    FROM ISSUE
+        LEFT OUTER JOIN MILESTONE ON (ISSUE.MILEST_SID = milestone.milest_sid)
+        INNER JOIN MEMBER WRITER ON (ISSUE.MEM_NO = WRITER.MEM_NO)
+        LEFT OUTER JOIN LABEL ON (issue.label_no = label.label_no)
+        LEFT OUTER JOIN issue_assignee ON (issue.issue_sid = issue_assignee.issue_sid)
+        LEFT OUTER JOIN MEMBER ASSIGNEE ON (issue_assignee.mem_no = assignee.mem_no)
+    WHERE ISSUE.proj_no = 1
+            and issue_status = 0) a;
+    --WHERE DR BETWEEN 5 AND 10;
 ------------------------------------------------------------------------
 -- b. 이슈 상세정보 보기 
 ------------------------------------------------------------------------
@@ -64,7 +68,8 @@ from issue
     left outer join issue_history on (issue.issue_sid = issue_history.issue_sid)
     left outer join member his_writer on (issue_history.mem_no = his_writer.mem_no)
     left outer join proj_mem his_writer_pm on (issue.proj_no = his_writer_pm.proj_no and his_writer.mem_no = his_writer_pm.mem_no)
-where issue.issue_no = 1 and issue.proj_no = 1;
+where issue.issue_no = 1 and issue.proj_no = 1
+order by issue_his_no;
 
 ------------------------------------------------------------------------
 
@@ -105,6 +110,7 @@ order by news.news_sid desc;
 -- a. 칸반 컬럼들 불러오기
 -- b. 칸반 카드 불러오기
 -- c. 특정 컬럼의 마지막 카드 번호 구하기
+-- d. 칸반에 이슈 추가하기 위한 selectkey
 -----------------------------------------------------------------------------------
 
 -- a. 칸반 컬럼들 불러오기
@@ -163,29 +169,27 @@ where card.kb_card_no = 7;
 -----------------------------------------------------------------------------------
 
 -- c. 특정 컬럼의 마지막 카드 번호 구하기
-select kb_card_no
-from (
-    select card.kb_card_no, next.kb_card_no as next_no
-    from kanban_card card
-            left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
-    where card.kb_col_no = 1)
-where next_no is null;
+select card.kb_card_no
+from kanban_card card
+        left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
+where card.kb_col_no = 2 and next.kb_card_no is null;
 
 
 ------------------------------------------------------------------------------------- 
-
--- d. 칸반 카드 업데이트
-UPDATE KANBAN_CARD
-		SET
-		    KB_CARD_PRIV_NO = 9
-		    ,MEM_NO = 3
-		    ,KB_COL_NO = 1
-		    ,ISSUE_SID = 3
-		    ,KB_CARD_CONT = '네번째 칸반카드 내용 progress'
-		    ,KB_CARD_WRITE_DATE = TO_DATE('2021-05-03 00-00-00','yyyy-mm-dd hh24-mi-ss')
-   		WHERE
-	        KB_CARD_NO = 4;
-
+-- d. 칸반에 이슈를 카드로 추가하기 위한 selectkey
+select *
+from(
+    select max(kb_card_no)+1 as kb_card_no
+    from kanban_card)a
+    ,
+    (select card.kb_card_no as kb_card_priv_no, card.kb_col_no
+    from kanban_card card
+            left outer join kanban_card next on (card.kb_card_no = next.kb_card_priv_no)
+    where card.kb_col_no in (select kb_col_no
+                                from kanban_col
+                                where proj_no=1
+                                    and kb_col_priv_no is null)
+        and next.kb_card_no is null)c;
 
 
 -----------------------------4. Milestone------------------------------------------
