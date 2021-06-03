@@ -99,6 +99,15 @@ FROM ISSUE
 		        LEFT OUTER JOIN MEMBER ASSIGNEE ON (issue_assignee.mem_no = assignee.mem_no)
 			<include refid="searchFrag" /> 
 			)a
+		<![CDATA[
+			WHERE DR >= #{startRow} AND DR <= #{endRow}
+		]]>			
+	</select>
+	
+	<select id="selectIssueCount" parameterType="best.gaia.vo.PagingVO" resultType="int">
+		SELECT COUNT(*)
+		FROM ISSUE
+		<include refid="searchFrag" /> 
 	</select>
 	
 	<insert id="insertIssue" parameterType="best.gaia.vo.IssueVO">

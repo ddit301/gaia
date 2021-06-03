@@ -87,16 +87,6 @@
            			</div>
            			<div>
 	           			<ul class="pagination justify-content-center">
-	                       <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">1</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">2</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">3</a>
-	                       </li>
-	                       <li class="page-item"><a class="page-link" href="#">Next</a>
-	                       </li>
 	                   </ul>
            			</div>
            		</div>
@@ -129,6 +119,9 @@
             	manager_nick = '${manager_nick }';
             	project_title = '${project_title }';
             	issue_status = null;
+            	currentPage = 1;
+            	startPage = null;
+            	endPage = null;
             
 	            loadIssueList = function(){
 		            $.ajax({
@@ -136,11 +129,39 @@
 						type : 'get',
 						data : {
 							'issue_status' : issue_status
+							,'currentPage' : currentPage
 						},
 						success : function(res) {
 							$('#issuelist').empty();
+							startPage = res.startPage;
+							endPage = res.endPage;
 							
-							$.each(res, function(i, v) {
+							// pagination 만들어주기
+							let prevBtn;
+							let nextBtn;
+							if(res.startPage <= 1){
+								prevBtn = '<li class="page-item disabled"><a class="page-link" data-btn="prev" href="#" tabindex="-1">Previous</a></li>';
+							}else{
+								prevBtn = '<li class="page-item"><a class="page-link" data-btn="prev" href="#" tabindex="-1">Previous</a></li>';
+							}
+							if(res.endPage < res.totalPage){
+								nextBtn = '<li class="page-item"><a class="page-link" data-btn="next" href="#">Next</a></li>';
+							}else{
+								nextBtn = '<li class="page-item disabled"><a class="page-link" data-btn="next" href="#">Next</a></li>';
+							}
+							
+							let pageNation = prevBtn;
+							for(i=res.startPage; i<=res.endPage && i<=res.totalPage; i++){
+								if(res.currentPage == i){
+									pageNation += '<li class="page-item active"><a class="page-link" href="#">'+ i +'</a></li>'
+								}else{
+									pageNation += '<li class="page-item"><a class="page-link" href="#">'+ i +'</a></li>'
+								}
+							}
+							pageNation += nextBtn;
+							$('.pagination').html(pageNation);
+							
+							$.each(res.dataList, function(i, v) {
 								let issueBox = $('#issue-template').children('.issueBox').clone();
 								issueBox.attr('data-issue_sid',v.issue_sid);
 								issueBox.attr('data-issue_no',v.issue_no);
@@ -191,8 +212,24 @@
 	            **/ 
 	            $(function(){
 	            	
+	            	$('.pagination').on('click', '.page-link', function(){
+	            		event.preventDefault();
+	            		let dataBtn = $(this).data('btn');
+	            		if(dataBtn== 'prev'){
+	            			currentPage = parseInt(startPage) - 1;
+	            		}else if(dataBtn == 'next'){
+	            			currentPage = parseInt(endPage) + 1;
+	            		}else{
+	            			currentPage = $(this).text();
+	            		}
+	            		window.scrollTo({top:0, left:0, behavior:'auto'});
+	            		loadIssueList();
+	            	})
+	            	
 	            	$('#iss-filter-btn').children('button').on('click', function(){
 	            		issue_status = $(this).data('status');
+	            		currentPage = 1;
+	            		window.scrollTo({top:0, left:0, behavior:'auto'});
 	            		loadIssueList();
 	            	});
 	            	
