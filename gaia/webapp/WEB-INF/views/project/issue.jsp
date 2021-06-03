@@ -23,9 +23,9 @@
             	<div class="row issue-header">
             		<div class="col-md-1"></div>
             		<div id="iss-filter-btn" class="col-md-5">
-	            		<button type="button" class="btn mb-1 btn-flat btn-grey">All</button>
+	            		<button type="button" class="btn mb-1 btn-flat btn-light">All</button>
 	            		<button data-status="0" type="button" class="btn mb-1 btn-flat btn-success">Open</button>
-	            		<button data-status="1" type="button" class="btn mb-1 btn-flat btn-warning">Closed</button>
+	            		<button data-status="1" type="button" class="btn mb-1 btn-flat btn-light">Closed</button>
             		</div>
            			<div class="dropdown col-md-1">
                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">작성자</button>
@@ -231,6 +231,11 @@
 	            	})
 	            	
 	            	$('#iss-filter-btn').children('button').on('click', function(){
+	            		$('#iss-filter-btn').children('button').removeClass('btn-success');
+	            		$('#iss-filter-btn').children('button').addClass('btn-light');
+	            		$(this).removeClass("btn-light");
+	            		$(this).addClass("btn-success");
+	            		
 	            		issue_status = $(this).data('status');
 	            		currentPage = 1;
 	            		window.scrollTo({top:0, left:0, behavior:'auto'});

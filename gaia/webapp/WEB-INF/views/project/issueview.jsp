@@ -271,6 +271,8 @@
 								$('#issue-body-cont').append(issue_history);
 								// editor 비우기
 								editor.reset()
+								// toastr 알람
+								toastr.success('댓글 등록에 성공했습니다.')
 							},
 							error : function(xhr, error, msg) {
 								console.log(xhr);
@@ -306,23 +308,6 @@
 									$('#closeBtn').removeClass('btn-primary');
 									$('#closeBtn').addClass('btn-warning');
 									// toastr 알람
-									toastr.options = {
-										  "closeButton": false,
-										  "debug": false,
-										  "newestOnTop": false,
-										  "progressBar": false,
-										  "positionClass": "toast-top-right",
-										  "preventDuplicates": false,
-										  "onclick": null,
-										  "showDuration": "100",
-										  "hideDuration": "1000",
-										  "timeOut": "1000",
-										  "extendedTimeOut": "1000",
-										  "showEasing": "swing",
-										  "hideEasing": "linear",
-										  "showMethod": "fadeIn",
-										  "hideMethod": "fadeOut"
-										}
 									toastr.success('issue를 Open 했습니다.')
 									
 								}else{
