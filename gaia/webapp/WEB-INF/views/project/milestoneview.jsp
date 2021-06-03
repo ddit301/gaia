@@ -196,7 +196,7 @@
 						
 						$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
 						$('.milest-title').children('span').text(res.milest_title);
-						$('.milestoneview-date').children('span').text(res.milest_start_date+'~'+res.milest_end_date);
+						$('.milestoneview-date').children('span').text((res.milest_start_date == null ? "시작일 없음." : res.milest_start_date) +' - '+(res.milest_end_date == null ? "종료일 없음." : res.milest_end_date));
 						$('.milestone-descript').children('span').text(res.milest_cont);
 	            		$('.progress-bar').attr('style','width: '+res.milest_percent+'%;');
 	            		$('.milestoneview-percent').children('span').text((res.milest_percent == null ? 0 : res.milest_percent)+'% complete '+res.open_issue_cnt+' open '+res.close_issue_cnt+' closed');

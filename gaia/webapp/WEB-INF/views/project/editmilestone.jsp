@@ -129,7 +129,7 @@
 				})
 			
           		})
-          		
+          		// 마일스톤 수정 중 close 버튼 누른 경우
           		$('#milest-edit-close-btn').on('click',function(){
           			milestoneView(milestObject.milest_no);
           		})

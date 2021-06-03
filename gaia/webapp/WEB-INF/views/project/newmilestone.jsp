@@ -45,7 +45,7 @@
 											
 												<input type="text" class="milest-input form-control bg-transparent"
 													id="milest_title" name="milest_title" placeholder=" Title" required>
-													<span></span>
+												
 											</div>
 		
 											<div class="form-date-group row">
@@ -76,12 +76,13 @@
 												</div>
 												<textarea class="milest-input textarea_editor form-control bg-light"
 													id="milest_cont" name="milest_cont" rows="1" placeholder="Enter text" required></textarea>
-												<span></span>
+												
 											</div>
 									
 		
 									</div>
 									<div class="button m-t-15">
+										<button type ="submit" hidden = "hidden"></button>
 										<button
 											class="create-btn btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" disabled >
 											<i class="fa fa-check m-r-5"></i> create milestone
@@ -102,32 +103,36 @@
 
 <script>
 $(function(){
-	
-// 	 $('#newmilestone-form').validate({
-// 		 onfocusout: false,
-// 		 rules: {
-// 			 milest_title : {
-// 				 required: true
+			$('#newmilestone-form').validate({
+						 onfocusout: false,
+						 rules: {
+							 milest_title : {
+								 required: true
+								 
+							 }, milest_cont : {
+								 required: true
+								 
+							 }
+						 }, messages : {
+							 milest_title : {
+								 required : "This field is required."
+							
+							 }, milest_cont : {
+								 required : "This field is required."
+							 }
+						 }
+				 })
+
+		$('newmilestone-form:input').on('change',function(){
+					$('#newmilestone-form').valid();
 				 
-// 			 }, milest_cont : {
-// 				 required: true
-				 
-// 			 }
-// 		 }, messages : {
-// 			 milest_title : {
-// 				 required : "This field is required."
+			}) 
+
 			
-// 			 }, milest_cont : {
-// 				 required : "This field is required."
-// 			 }
-// 		 }
-// 	 })
-	
-	
 		milestTitleArea = $('#newmilestone-form').find('#milest_title')
 		milestContArea = $('#newmilestone-form').find('#milest_cont')
 		
-		$('.milest-input').on('change',function(){
+		$('.milest-input').on('input',function(){
 			
 			milest_title = milestTitleArea.val();
 			milest_cont = milestContArea.val();
@@ -141,8 +146,9 @@ $(function(){
 			}
 		
 		})
+		
 	
-		// 작성 마일스톤 등록
+		// 작성된  마일스톤 등록
 		$('.create-btn').on('click', function() {
 	
 			milest_title = $('#newmilestone-form').find('#milest_title').val();
@@ -174,6 +180,10 @@ $(function(){
 			})
 	
 		})
+		// 마일스톤 닫기 버튼 누른 경우
+		$('.close-btn').on('click',function(){
+			movePage("milestone");
+		})
 	
 		// datePicker 동작시키기
 		$('.date-box').find('input').bootstrapMaterialDatePicker({
@@ -189,11 +199,8 @@ $(function(){
 				.on(
 						'change',
 						function() {
-							let startDate = $('.milest-start-date').children(
-									'input').val();
-							$('.milest-end-date').children('input')
-									.bootstrapMaterialDatePicker("setMinDate",
-											startDate);
+							let startDate = $('.milest-start-date').children('input').val();
+							$('.milest-end-date').children('input').bootstrapMaterialDatePicker("setMinDate",startDate);
 						})
 					
 	})
