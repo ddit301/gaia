@@ -32,6 +32,9 @@
 		    		issueView(issue_no);
 		    	}else if(data == 'newIssue'){
 		    		newIssue();
+		    	}else if(data.startsWith("milestoneView")){
+		    		let milest_no = data.substring("milestoneView".length);
+		    		milestoneView(milest_no);
 		    	}else{
 			    	movePage(data);
 		    	}
@@ -88,25 +91,12 @@
 			})
 		}
 	 	
-	 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.	
-		let pageParam = '${pageParam}';
-		let issue_no = '${issue_no}';
-		if(issue_no){
-			if(issue_no == 'new'){
-				newIssue();
-			}else{
-				issueView(issue_no);
-			}
-		}else{
-			movePageHistory(pageParam);
-		}
-		
 		// milestoneView
 		var milestoneView = function(milest_no){
 			let project_title = '${project_title}';
 			let manager_nick = '${manager_nick}';
 			
-			data = 'milestoneview';
+			data = 'milestoneView'+milest_no;
 			title = '';
 			url = '${cPath}/${manager_nick}/${project_title}/milestone/'+milest_no;
 			history.pushState(data,title,url);
@@ -127,6 +117,23 @@
 				},
 				dataType : 'html'
 			})
+		}
+	 	
+	 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.	
+		let pageParam = '${pageParam}';
+		let issue_no = '${issue_no}';
+		let milest_no = '${milest_no}';
+		if(issue_no){
+			if(issue_no == 'new'){
+				newIssue();
+			}else{
+				issueView(issue_no);
+			}
+		}else if(milest_no){
+			milestoneView(milest_no);
+		}else{
+		
+			movePageHistory(pageParam);
 		}
 	 	
 	 	/********************************************************************

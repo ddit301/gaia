@@ -52,6 +52,11 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public List<IssueVO> selectIssueList(PagingVO<IssueVO> pagingVO) {
+		
+		// totalRecord를 조회한 후 setter를 호출하여 등록 한다.
+		int totalRecord = dao.selectIssueCount(pagingVO);
+		pagingVO.setTotalRecord(totalRecord);
+		
 		return dao.selectIssueList(pagingVO);
 	}
 
