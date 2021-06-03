@@ -56,20 +56,22 @@ public class IssueREST {
 	private static final Logger logger = LoggerFactory.getLogger(IssueREST.class);
 	
 	@GetMapping
-	public List<IssueVO> selectIssueList(
+	public PagingVO<IssueVO> selectIssueList(
 			HttpSession session
+			,@ModelAttribute PagingVO<IssueVO> pagingVO
 			,@ModelAttribute IssueVO detailSearch
 			) {
-		PagingVO<IssueVO> pagingVO = new PagingVO<IssueVO>();
-		// 조회할 issue에 대한 필터를 parameter에서 받아와 등록합니다.
-		
 		// session 에서 프로젝트 번호를 받아와 detailSearch에 등록합니다.
 		Integer proj_no = getProjNoFromSession(session);
 		detailSearch.setProj_no(proj_no);
-		
 		pagingVO.setDetailSearch(detailSearch);
 		
-		return service.selectIssueList(pagingVO);
+		// issueList 를 받아와 pagingVO 에 담는다.
+		List<IssueVO> issueList = service.selectIssueList(pagingVO);
+		pagingVO.setDataList(issueList);
+		
+		// pagingVO 형태로 값을 반환한다.
+		return pagingVO;
 	}
 	
 	@PostMapping
