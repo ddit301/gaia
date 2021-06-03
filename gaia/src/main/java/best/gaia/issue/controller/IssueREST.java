@@ -58,11 +58,9 @@ public class IssueREST {
 	@GetMapping
 	public List<IssueVO> selectIssueList(
 			HttpSession session
+			,@ModelAttribute IssueVO detailSearch
 			) {
-		
 		PagingVO<IssueVO> pagingVO = new PagingVO<IssueVO>();
-		IssueVO detailSearch = new IssueVO();
-		
 		// 조회할 issue에 대한 필터를 parameter에서 받아와 등록합니다.
 		
 		// session 에서 프로젝트 번호를 받아와 detailSearch에 등록합니다.
