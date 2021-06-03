@@ -8,9 +8,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="container-fluid container-lg container-xl">
-<div class = "alert">
-	<p> update success</p>
-</div>
 	<div class="row justify-content-end page-path">
 		<div class="col col-md-3">
 			<ol class="breadcrumb">
@@ -54,16 +51,16 @@
 				                        </div>
 				                        <div class="card mem_status">
 				                        	<h4 class="card-title">Status</h4>
-				                        	  <label for="huey"><input type="radio" id="vs" name="mem_status" value="va" >휴가중</label>
-				                        	  <label for="huey"><input type="radio" id="si" name="mem_status" value="si" >아픔</label>
-				                        	  <label for="huey"><input type="radio" id="wh" name="mem_status" value="wh" >재택 근무</label>
-				                        	  <label for="huey"><input type="radio" id="fc" name="mem_status" value="fc" >방해금지</label>
-				                        	  <label for="huey"><input type="radio" id="ab" name="mem_status" value="ab" >부재중</label>
-				                        	  <label for="huey"><input type="radio" id="ow" name="mem_status" value="ow" >외근</label>
-				                        	  <label for="huey"><input type="radio" id="wf" name="mem_status" value="wf" >가족과의 시간</label>
-				                        	  <label for="huey"><input type="radio" id="rm" name="mem_status" value="rm" >휴면회원 </label>
-				                        	  <label for="huey"><input type="radio" id="active" name="mem_status" value="active" checked>활동중</label>
-				                        	  <label for="huey"><input type="radio" id="off" name="mem_status" value="off" >비활동중</label>
+				                        	  <label for="huey"><input type="radio" id="VS" name="mem_status" value="va" >휴가중</label>
+				                        	  <label for="huey"><input type="radio" id="SI" name="mem_status" value="si" >아픔</label>
+				                        	  <label for="huey"><input type="radio" id="WH" name="mem_status" value="wh" >재택 근무</label>
+				                        	  <label for="huey"><input type="radio" id="FC" name="mem_status" value="fc" >방해금지</label>
+				                        	  <label for="huey"><input type="radio" id="AB" name="mem_status" value="ab" >부재중</label>
+				                        	  <label for="huey"><input type="radio" id="OW" name="mem_status" value="ow" >외근</label>
+				                        	  <label for="huey"><input type="radio" id="WF" name="mem_status" value="wf" >가족과의 시간</label>
+				                        	  <label for="huey"><input type="radio" id="RM" name="mem_status" value="rm" >휴면회원 </label>
+				                        	  <label for="huey"><input type="radio" id="ACTIVE" name="mem_status" value="active">활동중</label>
+				                        	  <label for="huey"><input type="radio" id="OFF" name="mem_status" value="off" >비활동중</label>
 				                        </div>
 						                <hr>
 						                <p>
@@ -109,6 +106,7 @@ var imageSelect = $("#upload_image").on("change", function(){
 		success : function(res) {
 			$("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.fileName);
 			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.fileName);
+			toastr.success('Update에 성공했습니다.')
 		},
 		error : function(xhr) {
 			console.log(xhr);
@@ -128,12 +126,16 @@ var loadMemberInfo = function(){
 		url : getContextPath()+"/restapi/member/members" ,
 		type : 'get',
 		success : function(res) {
+			res = res.search;
 			console.log(JSON.stringify(res));
 			let placeholder = $(".card.mem_nick").children('input').attr('placeholder', res.mem_nick);
 			let bio = $(".card.mem_bio").children('textarea').attr('placeholder', res.mem_bio);
 			let workingCity = $(".card.mem_working_city").children('input').attr('placeholder', res.mem_working_city);
 			let tel = $(".card.mem_tel").children('input').attr('placeholder', res.mem_tel);
 			let status = $(".card.mem_status").children('input').attr('placeholder', res.mem_status);
+			$("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
+			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
+			$("#"+res.mem_status+"").prop('checked', true);
 		},
 		async : false
 		,error : function(xhr) {
@@ -159,9 +161,7 @@ function updateProfile(){
 		data : profile, 
 		success : function(res) {
 			window.scrollTo({top:0, left:0, behavior:'smooth'});
-			$(".alert").slideToggle(1000)
-						.delay(2000)
-						.slideUp(500);
+			toastr.success('Update에 성공했습니다.')
 		},
 		async : false,
 		error : function(xhr) {

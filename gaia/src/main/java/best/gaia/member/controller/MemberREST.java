@@ -48,6 +48,7 @@ public class MemberREST {
 		logger.info("{}", application.getRealPath("profiles"));
 	}
 	
+	int mem_no = 3;
 	/**
 	 * need가 없을 시 memberVO에 대한 값만 조회합니다.
 	 * if(need=MemberProjectIssue) 
@@ -63,7 +64,6 @@ public class MemberREST {
 			) {
 		logger.info("GET 들어옴, need : {}", need);
 		// session 불러오기
-		int mem_no = 3;
 		
 		// need로 특정 요청 판단하기
 		if("MemberProjectIssue".equals(need)) {
@@ -77,6 +77,9 @@ public class MemberREST {
 		if(search.getMem_pic_file_name() == null) {
 			search.setMem_pic_file_name("default.jpeg");  
 		}
+		if(search.getMem_status() == null) {
+			search.setMem_status("active");  
+		}
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("search", search);
 		return result;
@@ -86,7 +89,6 @@ public class MemberREST {
 	public Map<String, Object> insertMember(
 			@RequestBody MemberVO profile
 			) {
-		int mem_no = 1;
 		logger.info("ㄷ르어오긴 함_up");
 		logger.info("{}", profile.toString());
 		Map<String, Object> member = new HashMap<String, Object>();
@@ -108,8 +110,7 @@ public class MemberREST {
 			@RequestParam(required=false) String need
 			) throws IOException {
 		// session에서 mem_no 받아오기
-		int mem_no = 1;
-		
+		form_data.setMem_no(mem_no);
 		// need로 특정 요청 판단하기
 		if("profileImg".equals(need)) {
 			// member/profile.jsp
@@ -126,7 +127,7 @@ public class MemberREST {
 				fileName = mem_no+mime;
 				file.saveTo(saveFolderPath, fileName);
 				filePath = saveFolderPath+"/"+fileName;
-				form_data.setMem_no(mem_no);
+				
 				form_data.setMem_pic_file_name(fileName);
 			}
 			service.modifyMember(form_data);
