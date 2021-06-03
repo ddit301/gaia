@@ -59,7 +59,21 @@ FROM ISSUE
     LEFT OUTER JOIN PROJ_MEM HIS_WRITER_PM ON (ISSUE.PROJ_NO = HIS_WRITER_PM.PROJ_NO AND HIS_WRITER.MEM_NO = HIS_WRITER_PM.MEM_NO)
 	where issue.issue_no = #{issue_no}
 	        and issue.proj_no = #{proj_no}
+	order by issue_his_no
 	</select>
+	
+	<sql id="searchFrag">
+		<trim prefix="WHERE" prefixOverrides="AND">
+			ISSUE.proj_no = #{detailSearch.proj_no}
+			<trim prefix="AND (" suffix=")">
+				<if test="detailSearch neq null">
+					<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailSearch.issue_status)">
+						ISSUE_STATUS = #{detailSearch.issue_status} 
+					</if>
+				</if>
+			</trim>
+		</trim>
+	</sql>
 	
 	<select id="selectIssueList" parameterType="best.gaia.vo.PagingVO" resultMap="issueMap">
 		SELECT ISSUE.ISSUE_SID AS ISSUE_ID ,ISSUE_NO ,ISSUE.PROJ_NO ,ISSUE_TITLE 
@@ -80,7 +94,7 @@ FROM ISSUE
 		    LEFT OUTER JOIN LABEL ON (issue.label_no = label.label_no)
 		    LEFT OUTER JOIN issue_assignee ON (issue.issue_sid = issue_assignee.issue_sid)
 		    LEFT OUTER JOIN MEMBER ASSIGNEE ON (issue_assignee.mem_no = assignee.mem_no)
-		WHERE ISSUE.proj_no = #{detailSearch.proj_no}
+		<include refid="searchFrag" />    
 		ORDER BY ISSUE_NO DESC
 	</select>
 	
@@ -145,5 +159,17 @@ FROM ISSUE
 			    ,#{atch_file_sid, jdbcType=NUMERIC}
 			)
 	</insert>
+	
+	<update id="updateIssue">
+		UPDATE ISSUE
+			SET
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(issue_status)">
+					ISSUE_STATUS = #{issue_status, jdbcType=NUMERIC}
+				</if>
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(issue_title)">
+					ISSUE_TITLE = #{issue_title, jdbcType=VARCHAR}
+				</if>
+			WHERE ISSUE_SID = #{issue_sid, jdbcType=NUMERIC}
+	</update>
 	
 </mapper>

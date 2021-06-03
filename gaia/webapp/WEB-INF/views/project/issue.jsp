@@ -22,9 +22,10 @@
             <div class="container-fluid">
             	<div class="row issue-header">
             		<div class="col-md-1"></div>
-            		<div class="col-md-5">
-	            		<button type="button" class="btn mb-1 btn-flat btn-grey">Open</button>
-	            		<button type="button" class="btn mb-1 btn-flat btn-dark">Closed</button>
+            		<div id="iss-filter-btn" class="col-md-5">
+	            		<button type="button" class="btn mb-1 btn-flat btn-grey">All</button>
+	            		<button data-status="0" type="button" class="btn mb-1 btn-flat btn-success">Open</button>
+	            		<button data-status="1" type="button" class="btn mb-1 btn-flat btn-warning">Closed</button>
             		</div>
            			<div class="dropdown col-md-1">
                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">작성자</button>
@@ -104,7 +105,9 @@
 
 <div id="issue-template" hidden="hidden" >
 	<div class="issueBox row">                                                                                
-		<div class="col-md-1"></div>                                                                    
+		<div class="iss-chkbox col-md-1">
+			<input type="checkbox">
+		</div>                                                                    
 		<div class="issue-title col-md-5">                                                              
 			<a class="issueButton" href="javascript:void(0)"></a>                                                       
 		</div>                                                                                          
@@ -125,56 +128,73 @@
             <script>
             	manager_nick = '${manager_nick }';
             	project_title = '${project_title }';
-            	
-	            $.ajax({
-					url : getContextPath() + '/restapi/project/issues',
-					type : 'get',
-					data : {
-						//'manager_nick' : manager_nick
-					},
-					success : function(res) {
-						
-						$.each(res, function(i, v) {
-							let issueBox = $('#issue-template').children('.issueBox').clone();
-							issueBox.attr('data-issue_sid',v.issue_sid);
-							issueBox.attr('data-issue_no',v.issue_no);
-							issueBox.children('.issue-title').children('a').text(v.issue_title);
-							issueBox.children('.issue-priority').text(
-								v.issue_priority == 1 ? '무시' :
-								v.issue_priority == 2 ? '낮음' :
-								v.issue_priority == 3 ? '보통' :
-								v.issue_priority == 4 ? '높음' :
-								v.issue_priority == 5 ? '긴급' : '즉시'
-								);
-							if(v.label){
-								issueBox.children('.issue-label').text(v.label.label_nm);
-							}
-							if(v.milestone){
-								issueBox.children('.milestone').text(v.milestone.milest_title);
-							}
-							issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
-							issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
-							if(v.replyCount > 0){
-								issueBox.children('.reply').html(
-										'<i class="icon-bubbles icons"></i><span>'+v.replyCount+'</span>'
-									);
-							}
+            	issue_status = null;
+            
+	            loadIssueList = function(){
+		            $.ajax({
+						url : getContextPath() + '/restapi/project/issues',
+						type : 'get',
+						data : {
+							'issue_status' : issue_status
+						},
+						success : function(res) {
+							$('#issuelist').empty();
 							
-							$('#issuelist').append(issueBox);
-						})
-						
-					},
-					error : function(xhr, error, msg) {
-						// 조회중인 프로젝트 번호를 세션에서 못 받아 올 경우, 메인 홈페이지로 보낸다.
-						if(xhr.status == 400){
-							window.location.href = getContextPath();
-						}
-						console.log(xhr);
-						console.log(error);
-						console.log(msg);
-					},
-					dataType : 'json'
-				})
+							$.each(res, function(i, v) {
+								let issueBox = $('#issue-template').children('.issueBox').clone();
+								issueBox.attr('data-issue_sid',v.issue_sid);
+								issueBox.attr('data-issue_no',v.issue_no);
+								issueBox.children('.issue-title').children('a').text(v.issue_title);
+								issueBox.children('.issue-priority').text(
+									v.issue_priority == 1 ? '무시' :
+									v.issue_priority == 2 ? '낮음' :
+									v.issue_priority == 3 ? '보통' :
+									v.issue_priority == 4 ? '높음' :
+									v.issue_priority == 5 ? '긴급' : '즉시'
+									);
+								if(v.label){
+									issueBox.children('.issue-label').text(v.label.label_nm);
+								}
+								if(v.milestone){
+									issueBox.children('.milestone').text(v.milestone.milest_title);
+								}
+								issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
+								issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
+								if(v.replyCount > 0){
+									issueBox.children('.reply').html(
+											'<i class="icon-bubbles icons"></i><span>&nbsp;'+v.replyCount+'</span>'
+										);
+								}
+								
+								$('#issuelist').append(issueBox);
+							})
+							
+						},
+						error : function(xhr, error, msg) {
+							// 조회중인 프로젝트 번호를 세션에서 못 받아 올 경우, 메인 홈페이지로 보낸다.
+							if(xhr.status == 400){
+								window.location.href = getContextPath();
+							}
+							console.log(xhr);
+							console.log(error);
+							console.log(msg);
+						},
+						dataType : 'json'
+					})
+	            }
+	            
+	            // 페이지 로딩시 이슈 리스트를 한번 불러온다.
+	            loadIssueList();
+	            
+	            $(function(){
+	            	$('#iss-filter-btn').children('button').on('click', function(){
+	            		issue_status = $(this).data('status');
+	            		loadIssueList();
+	            	});
+	            	
+	            	
+	            })
+            	
 				
 				
             </script>

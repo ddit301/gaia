@@ -64,7 +64,8 @@ from issue
     left outer join issue_history on (issue.issue_sid = issue_history.issue_sid)
     left outer join member his_writer on (issue_history.mem_no = his_writer.mem_no)
     left outer join proj_mem his_writer_pm on (issue.proj_no = his_writer_pm.proj_no and his_writer.mem_no = his_writer_pm.mem_no)
-where issue.issue_no = 1 and issue.proj_no = 1;
+where issue.issue_no = 1 and issue.proj_no = 1
+order by issue_his_no;
 
 ------------------------------------------------------------------------
 

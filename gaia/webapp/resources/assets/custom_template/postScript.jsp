@@ -16,10 +16,11 @@
 	<script src="${cPath }/resources/js/moment.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
 	<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="${cPath }/resources/js/jquery.serializejson.js"></script>
 <script type="text/javascript">
 	let project_title = '${project_title}';
-	let manager_nick = '${manager_nick}';   	
+	let manager_nick = '${manager_nick}';
 	
 		// 뒤로가기 이벤트 binding 하기
 		$(window).bind("popstate", function(event) {
@@ -41,7 +42,7 @@
 	 	
 	 	var newIssue = function(){
 			// 화면 위로 올리기
-			window.scrollTo({top:0, left:0, behavior:'smooth'});
+			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
 			data = 'newIssue'
 			title = '';
@@ -63,7 +64,7 @@
 	 	
 	 	var issueView = function(issue_no){
 			// 화면 위로 올리기
-			window.scrollTo({top:0, left:0, behavior:'smooth'});
+			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
 			data = 'issueView'+issue_no;
 			title = '';
