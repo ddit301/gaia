@@ -102,17 +102,12 @@
 				milest_cont = $('.form-text-group').children('textarea').val();
 				milest_sid =  milestObject.milest_sid;
 				
-
-				alert(milest_title);
-				alert(milest_start_date);
-				
 				$.ajax({
 					url : getContextPath() + '/restapi/project/milestones',
 					type : 'post',
 					data : {
 							'_method' : 'put'
 							,'milest_sid' : milest_sid
-							,'milest_no' : milestObject.milest_no
 			                ,'milest_title' : milest_title
 			                ,'milest_start_date' : milest_start_date
 			                ,'milest_end_date' : milest_end_date

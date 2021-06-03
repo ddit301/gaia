@@ -80,7 +80,6 @@ public class MilestoneREST {
 			
 		}
 		
-		System.err.println(milestone);
 		
 		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
 		milestone.setMem_no(member.getMem_no());
@@ -100,8 +99,7 @@ public class MilestoneREST {
 	
 	@RequestMapping(method=RequestMethod.PUT)
 	public Map<String, Object> updateMilestone(
-			HttpSession session
-			, @ModelAttribute MilestoneVO milestone
+			 @ModelAttribute MilestoneVO milestone
 			, Authentication authentication
 			) {
 		
@@ -115,15 +113,10 @@ public class MilestoneREST {
 		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
 		milestone.setMem_no(member.getMem_no());
 		
-		// proj_no 를 milestone VO 에 넣기 
-		int proj_no = getProjNoFromSession(session);
-		milestone.setProj_no(proj_no);
-		
 		ServiceResult result = service.updateMilestone(milestone);
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("milest_no",milestone.getMilest_no());
 		map.put("result",result);
 
 		return map;
@@ -131,16 +124,16 @@ public class MilestoneREST {
 	
 	@DeleteMapping()
 	public Map<String, Object> deleteMilestone(
-			HttpSession session
-			,@RequestParam (required=false) Integer milest_no
-			, @ModelAttribute MilestoneVO search
+			 @ModelAttribute MilestoneVO search
+			 , Authentication authentication
 				) {
 		
-		System.err.println(milest_no);
-	
-		Integer proj_no = getProjNoFromSession(session);
-		search.setProj_no(proj_no);
-		
+		MemberVO member = (MemberVO) authentication.getPrincipal();
+		// 로그인 정보가 없을 경우 예외 처리
+		if(member == null) {
+			throw new NotValidSessionException();
+			
+		}
 		
 		ServiceResult result = service.deleteMilestone(search);
 		Map<String,Object>map = new HashMap<>();
@@ -148,7 +141,6 @@ public class MilestoneREST {
 		map.put("result",result);
 		
 		return map;
-		
 		
 	}
 	@RequestMapping(value="{milest_no}", method=RequestMethod.GET)

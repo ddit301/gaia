@@ -178,6 +178,7 @@
             	manager_nick = '${manager_nick }';
             	project_title = '${project_title }';
             	milest_no = '${milest_no}';
+				   	
             	milestObject = null;
 				var open_count = 0;
 				var total_count = 0;
@@ -192,7 +193,7 @@
 					},
 					success : function(res) {
 						milestObject = res;
-
+						
 						$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
 						$('.milest-title').children('span').text(res.milest_title);
 						$('.milestoneview-date').children('span').text(res.milest_start_date+'~'+res.milest_end_date);
@@ -284,7 +285,7 @@
 						type : 'post',
 						data : {
 								'_method' : "delete"
-								, 'milest_no' : milest_no
+								, 'milest_sid' : milestObject.milest_sid
 							
 						},
 						success : function(res) {
