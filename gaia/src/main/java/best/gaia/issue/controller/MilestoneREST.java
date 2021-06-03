@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,7 +80,6 @@ public class MilestoneREST {
 			
 		}
 		
-		System.err.println(milestone);
 		
 		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
 		milestone.setMem_no(member.getMem_no());
@@ -99,8 +99,7 @@ public class MilestoneREST {
 	
 	@RequestMapping(method=RequestMethod.PUT)
 	public Map<String, Object> updateMilestone(
-			HttpSession session
-			, @ModelAttribute MilestoneVO milestone
+			 @ModelAttribute MilestoneVO milestone
 			, Authentication authentication
 			) {
 		
@@ -114,24 +113,35 @@ public class MilestoneREST {
 		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
 		milestone.setMem_no(member.getMem_no());
 		
-		// proj_no 를 milestone VO 에 넣기 
-		int proj_no = getProjNoFromSession(session);
-		milestone.setProj_no(proj_no);
-		
 		ServiceResult result = service.updateMilestone(milestone);
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("milest_no",milestone.getMilest_no());
 		map.put("result",result);
 
 		return map;
 	}
 	
-	
-	@RequestMapping(method=RequestMethod.DELETE)
-	public Map<String, Object> deleteMilestone() {
-		return null;
+	@DeleteMapping()
+	public Map<String, Object> deleteMilestone(
+			 @ModelAttribute MilestoneVO search
+			 , Authentication authentication
+				) {
+		
+		MemberVO member = (MemberVO) authentication.getPrincipal();
+		// 로그인 정보가 없을 경우 예외 처리
+		if(member == null) {
+			throw new NotValidSessionException();
+			
+		}
+		
+		ServiceResult result = service.deleteMilestone(search);
+		Map<String,Object>map = new HashMap<>();
+		
+		map.put("result",result);
+		
+		return map;
+		
 	}
 	@RequestMapping(value="{milest_no}", method=RequestMethod.GET)
 	public MilestoneVO selectMilestone(

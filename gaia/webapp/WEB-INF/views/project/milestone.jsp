@@ -99,9 +99,9 @@
 							milestoneBox.attr('data-milest_no',v.milest_no);
 							milestoneBox.find('.milestone-title').children('a').text(v.milest_title);
 							milestoneBox.find('.milestone-descript').children('span').text(v.milest_cont);
-							milestoneBox.find('.milestone-date').children('span').text(v.milest_start_date+'~'+v.milest_end_date);
+							milestoneBox.find('.milestone-date').children('span').text((res.milest_start_date == null ? "시작일 없음." : res.milest_start_date) +' - '+(res.milest_end_date == null ? "종료일 없음." : res.milest_end_date));
 							milestoneBox.find('.progress-bar').attr('style','width: '+v.milest_percent+'%;')
-							milestoneBox.find('.milestone-percent').children('span').text(v.milest_percent+'% complete '+v.open_issue_cnt+' open '+v.close_issue_cnt+' closed');
+							milestoneBox.find('.milestone-percent').children('span').text((v.milest_percent == null ? 0 : v.milest_percent )+ '% complete '+(v.open_issue_cnt == null ? 0 : v.open_issue_cnt)+' open '+(v.close_issue_cnt == null ? 0 : v.close_issue_cnt)+' closed');
 							$('#milestone-list').append(milestoneBox);
 						})
 						

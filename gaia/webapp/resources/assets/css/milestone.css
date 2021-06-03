@@ -37,6 +37,11 @@
 	line-height: 50px;
 }
 .milestone-descript{
+
+	overflow:hidden; 
+	padding-left : 40px;
+	text-overflow:ellipsis; 
+	white-space:nowrap;
 	text-align : center;
 	height : 50px;
 }
