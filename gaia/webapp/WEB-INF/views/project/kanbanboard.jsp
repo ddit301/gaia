@@ -146,6 +146,8 @@
 					,'nextCardNo' : nextCardNo
 				},
 				success : function(res) {
+					toastr.success('카드 이동에 성공했습니다.')
+					
 					if(res.result != 'OK'){
 						alert('kanban Card 이동에 실패했습니다. 상황을 Shane 에게 알려주세요.');
 					}
