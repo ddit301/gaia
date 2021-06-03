@@ -186,7 +186,11 @@
 	            // 페이지 로딩시 이슈 리스트를 한번 불러온다.
 	            loadIssueList();
 	            
+	            /*
+	             * document.ready
+	            **/ 
 	            $(function(){
+	            	
 	            	$('#iss-filter-btn').children('button').on('click', function(){
 	            		issue_status = $(this).data('status');
 	            		loadIssueList();
