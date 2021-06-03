@@ -28,11 +28,13 @@ import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.service.IssueService;
+import best.gaia.project.dao.KanbanDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
+import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
 
@@ -44,6 +46,8 @@ public class IssueREST {
 	private IssueService service;
 	@Inject
 	private IssueDao dao;
+	@Inject
+	private KanbanDao kanbanDao;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
@@ -80,6 +84,7 @@ public class IssueREST {
 			,Authentication authentication
 			,@ModelAttribute IssueVO issue
 			,@RequestParam String issue_content
+			,@RequestParam Boolean addToKanban
 			) {
 		MemberVO member = (MemberVO) authentication.getPrincipal();
 		// 로그인 정보가 없을 경우 예외 처리
@@ -99,6 +104,16 @@ public class IssueREST {
 		issue.setHistoryList(histories);
 		
 		ServiceResult result = service.insertIssue(issue);
+		
+		// 칸반에 바로 추가하도록 설정되어 있으면 이슈 등록후 카드도 추가해준다.
+		if(result == ServiceResult.OK) {
+			if(addToKanban) {
+				KanbanCardVO card = new KanbanCardVO();
+				card.setIssue_sid(issue.getIssue_sid());
+				card.setMem_no(issue.getMem_no());
+				kanbanDao.insertCardWithIssue(card);
+			}
+		}
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("issue_no", issue.getIssue_no());

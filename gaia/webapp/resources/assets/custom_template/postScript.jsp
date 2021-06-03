@@ -22,6 +22,25 @@
 	let project_title = '${project_title}';
 	let manager_nick = '${manager_nick}';
 	
+	// toastr 알람 설정
+	toastr.options = {
+			  "closeButton": false,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": false,
+			  "positionClass": "toast-top-right",
+			  "preventDuplicates": false,
+			  "onclick": null,
+			  "showDuration": "100",
+			  "hideDuration": "1000",
+			  "timeOut": "1500",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
+	
 		// 뒤로가기 이벤트 binding 하기
 		$(window).bind("popstate", function(event) {
 		    var data = event.originalEvent.state;
