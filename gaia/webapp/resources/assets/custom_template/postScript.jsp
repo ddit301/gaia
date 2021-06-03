@@ -16,6 +16,7 @@
 	<script src="${cPath }/resources/js/moment.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
 	<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="${cPath }/resources/js/jquery.serializejson.js"></script>
 <script type="text/javascript">
 	let project_title = '${project_title}';

@@ -52,7 +52,7 @@
 		            			</div>
 		            			<div class="repFoot">
 		            				<button id="closeBtn" type="button" class="btn mb-1 btn-warning">Close issue</button>
-		            				<button id="issue-comment" type="button" class="btn mb-1 btn-success">Comment</button>
+		            				<button id="issue-comment" type="button" class="btn mb-1 btn-success" disabled>Comment</button>
 		            			</div>
             				</div>
             			</div>
@@ -237,6 +237,15 @@
 				// document ready 됐을때 함수들 
 				$(function(){
 					
+					// editor의 내용이 있을 때만 Comment 버튼 활성화
+					editor.on('change', function(){
+						if((editor.getMarkdown()).length > 0 ){
+							$('#issue-comment').attr('disabled', false);
+						}else{
+							$('#issue-comment').attr('disabled', true);
+						}
+					})
+					
 					// 이슈 코멘트 작성 이벤트
 					$('#issue-comment').on('click', function(){
 						let issue_his_cont = editor.getMarkdown();
@@ -296,6 +305,26 @@
 									$('#closeBtn').text('Close issue');
 									$('#closeBtn').removeClass('btn-primary');
 									$('#closeBtn').addClass('btn-warning');
+									// toastr 알람
+									toastr.options = {
+										  "closeButton": false,
+										  "debug": false,
+										  "newestOnTop": false,
+										  "progressBar": false,
+										  "positionClass": "toast-top-right",
+										  "preventDuplicates": false,
+										  "onclick": null,
+										  "showDuration": "100",
+										  "hideDuration": "1000",
+										  "timeOut": "1000",
+										  "extendedTimeOut": "1000",
+										  "showEasing": "swing",
+										  "hideEasing": "linear",
+										  "showMethod": "fadeIn",
+										  "hideMethod": "fadeOut"
+										}
+									toastr.success('issue를 Open 했습니다.')
+									
 								}else{
 									//상위 라벨
 									$('.issue-status').children('span').text('Closed');
@@ -305,6 +334,25 @@
 									$('#closeBtn').text('Reopen issue');
 									$('#closeBtn').removeClass('btn-warning');
 									$('#closeBtn').addClass('btn-primary');
+									// toastr 알람
+									toastr.options = {
+										  "closeButton": false,
+										  "debug": false,
+										  "newestOnTop": false,
+										  "progressBar": false,
+										  "positionClass": "toast-top-right",
+										  "preventDuplicates": false,
+										  "onclick": null,
+										  "showDuration": "100",
+										  "hideDuration": "1000",
+										  "timeOut": "1000",
+										  "extendedTimeOut": "1000",
+										  "showEasing": "swing",
+										  "hideEasing": "linear",
+										  "showMethod": "fadeIn",
+										  "hideMethod": "fadeOut"
+										}
+									toastr.warning('issue를 Close 했습니다.')
 								}
 							},
 							error : function(xhr, error, msg) {
