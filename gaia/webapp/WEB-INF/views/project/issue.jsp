@@ -153,9 +153,9 @@
 							let pageNation = prevBtn;
 							for(i=res.startPage; i<=res.endPage && i<=res.totalPage; i++){
 								if(res.currentPage == i){
-									pageNation += '<li class="page-item active"><a class="page-link" href="#">'+ i +'</a></li>'
+									pageNation += '<li class="page-item active"><a class="page-link">'+ i +'</a></li>'
 								}else{
-									pageNation += '<li class="page-item"><a class="page-link" href="#">'+ i +'</a></li>'
+									pageNation += '<li class="page-item"><a class="page-link">'+ i +'</a></li>'
 								}
 							}
 							pageNation += nextBtn;
@@ -220,7 +220,11 @@
 	            		}else if(dataBtn == 'next'){
 	            			currentPage = parseInt(endPage) + 1;
 	            		}else{
-	            			currentPage = $(this).text();
+	            			if(currentPage == $(this).text()){
+	            				return false;
+	            			}else{
+		            			currentPage = $(this).text();
+	            			}
 	            		}
 	            		window.scrollTo({top:0, left:0, behavior:'auto'});
 	            		loadIssueList();
