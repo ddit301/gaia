@@ -22,7 +22,7 @@
 	// 뒤로가기 상황에서는 movePage 함수를 바로 호출합니다. 그렇지 않으면 history가 꼬이게 됩니다.
 	var movePage = function(pageParam){
 		// 화면 위로 올리기
-		window.scrollTo({top:0, left:0, behavior:'smooth'});
+		window.scrollTo({top:0, left:0, behavior:'auto'});
 		
 		let project_title = '${project_title}';
 		let manager_nick = '${manager_nick}';

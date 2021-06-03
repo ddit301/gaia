@@ -1,5 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.admin.dao.AdminDao">
-	<select id="adminSample"></select>
+	<sql id="searchFrag">
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides="OR"> 
+			BO_SORT = 1 OR 1 = 1
+			<trim prefix="AND (" suffix=")">
+				<if test="searchMap!=null and @org.apache.commons.lang3.StringUtils@isNotBlank(searchMap.searchWord)">
+					<choose>
+						<when test="searchMap.searchType eq 'mem_status'">
+							MEM_STATUS = #{searchMap.searchWord}
+						</when>
+						<when test="searchMap.searchType eq 'mem_id'">
+							INSTR(MEM_ID, #{searchMap.searchWord}) > 0
+						</when>
+						<when test="searchMap.searchType eq 'mem_nick'">
+							INSTR(MEM_NICK, #{searchMap.searchWord}) > 0
+						</when>
+						<when test="searchMap.searchType eq 'mem_no'">
+							MEM_NO = #{searchMap.searchWord}
+						</when>
+						<otherwise>
+							MEM_STATUS = #{searchMap.searchWord}
+							OR 
+							INSTR(MEM_ID, #{searchMap.searchWord}) > 0
+							OR
+							INSTR(MEM_NICK, #{searchMap.searchWord}) > 0
+							OR
+							MEM_NO = #{searchMap.searchWord}
+						</otherwise>
+					</choose>
+				</if>
+			</trim>
+			<trim prefix="AND (" suffix=")" prefixOverrides="AND">
+		<!-- <when test="searchMap.searchType eq 'content'"> -->
+		<!-- 	INSTR(MEM_SIGN_DATE, #{searchMap.searchWord}) > 0 -->
+		<!-- </when> -->
+		<!-- <when test="searchMap.searchType eq 'content'"> -->
+		<!-- 	INSTR(MEM_QUIT_DATE, #{searchMap.searchWord}) > 0 -->
+		<!-- </when> -->
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchMap.minDate)">
+					AND BO_DATE >= TO_DATE(#{searchMap.minDate}, 'YYYY-MM-DD') 
+				</if>
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchMap.maxDate)">
+					<![CDATA[
+					AND BO_DATE <= TO_DATE(#{searchMap.maxDate}, 'YYYY-MM-DD')
+					]]> 
+				</if>
+			</trim>	
+		</trim>
+	</sql>
+	
+	<select id="selectMemberCount" parameterType="PagingVO" resultType="Integer">
+		SELECT COUNT(*)
+		FROM MEMBER
+		<include refid="searchFrag" />
+	</select>
+	<select id="selectMemberList" parameterType="PagingVO" resultType="MemberVO">
+		SELECT MEM_NO,
+				MEM_ID,
+				MEM_NICK,
+				MEM_PIC_FILE_NAME,
+				MEM_SIGN_DATE,
+				MEM_QUIT_DATE,
+				MEM_STATUS
+		FROM MEMBER
+		<include refid="searchFrag" />
+	</select>
+	<select id="selectAllMemberList" resultType="MemberVO">
+		SELECT MEM_NO,
+				MEM_ID,
+				MEM_NICK,
+				MEM_PIC_FILE_NAME,
+				MEM_SIGN_DATE,
+				MEM_QUIT_DATE,
+				MEM_STATUS
+		FROM MEMBER
+	</select>
 </mapper>

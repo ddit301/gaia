@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.function.Failable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.service.IssueService;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.NotValidSessionException;
@@ -41,6 +43,8 @@ public class IssueREST {
 	@Inject
 	private IssueService service;
 	@Inject
+	private IssueDao dao;
+	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
 	
@@ -54,11 +58,9 @@ public class IssueREST {
 	@GetMapping
 	public List<IssueVO> selectIssueList(
 			HttpSession session
+			,@ModelAttribute IssueVO detailSearch
 			) {
-		
 		PagingVO<IssueVO> pagingVO = new PagingVO<IssueVO>();
-		IssueVO detailSearch = new IssueVO();
-		
 		// 조회할 issue에 대한 필터를 parameter에서 받아와 등록합니다.
 		
 		// session 에서 프로젝트 번호를 받아와 detailSearch에 등록합니다.
@@ -104,8 +106,17 @@ public class IssueREST {
 	}
 	
 	@PutMapping
-	public Map<String, Object> updateIssue() {
-		return null;
+	public Map<String, Object> updateIssue(
+			@ModelAttribute IssueVO issue
+		) {
+		
+		ServiceResult result = dao.updateIssue(issue) == 1 ? ServiceResult.OK : ServiceResult.FAIL;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("issue", issue);
+		map.put("result", result);
+		
+		return map;
 	}
 	
 	@DeleteMapping

@@ -78,7 +78,7 @@
 .issue-body .col-md-9{
 	padding-top : 30px;
 }
-.issue-reply{
+.issue-reply, .repWrite{
 	padding-left : 20px;
 	margin-bottom : 20px;
 }
@@ -139,5 +139,7 @@
 	text-align : center;
 	font-size : 1.5em;
 }
-
+.iss-chkbox{
+	text-align : center;
+}
 

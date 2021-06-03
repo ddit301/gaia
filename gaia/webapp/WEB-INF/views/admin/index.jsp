@@ -43,11 +43,12 @@
     =============================================
     -->
     <!-- Default stylesheets-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <link href="resources/main/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Template specific stylesheets-->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,600,700,800" rel="stylesheet">
     <link href="resources/main/lib/animate.css/animate.css" rel="stylesheet">
     <link href="resources/main/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="resources/main/lib/et-line-font/et-line-font.css" rel="stylesheet">
@@ -63,6 +64,42 @@
     <link href="resources/main/css/style.css" rel="stylesheet">
     <link href="resources/main/css/admin-style.css" rel="stylesheet">
     <link id="color-scheme" href="resources/main/css/colors/default.css" rel="stylesheet">
+<!--     <link rel="stylesheet" href="resources/main/css/jquery.dataTables.css"> -->
+<!--     <link rel="stylesheet" href="resources/main/css/dataTables.jqueryui.min.css"> -->
+
+
+
+
+	<script src="resources/main/lib/jquery/dist/jquery.js"></script>
+    <script defer src="resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script defer src="resources/main/lib/wow/dist/wow.js"></script>
+    <script defer src="resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script defer src="resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script defer src="resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script defer src="resources/main/lib/flexslider/jquery.flexslider.js"></script>
+    <script defer src="resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script defer src="resources/main/lib/smoothscroll.js"></script>
+    <script defer src="resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script defer src="resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script defer src="resources/main/js/plugins.js"></script>
+    <script defer src="resources/main/js/main.js"></script>
+<!-- 	<script defer type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script> -->
+    <script defer src="resources/main/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3YZPKG0D0K');
+      
+    function getContextPath() {
+        return "<%=request.getContextPath()%>";
+    }
+    </script>
+
+
+
+
+
     <style type="text/css">
     .quesadilla{
 	  position:relative;
@@ -98,22 +135,22 @@
           <div class="collapse navbar-collapse" id="custom-collapse">
             <div class="space-between">
             <ul class="nav navbar-nav navbar-left">
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/admin/member');">회원조회</a>
+              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/member');">회원조회</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/admin/finance');">결제내역확인</a>
+              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/finance');">결제내역확인</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/sales');">1:1문의 관리</a>
+              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/CS');">1:1문의 관리</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/updates');">통계</a>
+              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/statics');">통계</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:acyncMovePage('${cPath}/CS');">서버환경 조회</a>
+              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/setting');">서버환경 조회</a>
               </li>
             </ul>
             </div>
             <div class="space-between">
            	<ul class="nav navbar-nav navbar-right
            	">
-              <li class=""><a class="" href="#" onclick="javascript:acyncMovePage('{cPath}/signup');" data-toggle="">Sign up</a>
+              <li class=""><a class="" href="#" onclick="javascript:asyncMovePage('${cPath}/signout');" data-toggle="">Sign out</a>
               </ul>
             </div>
           </div>
@@ -122,10 +159,16 @@
       </nav>
 
 
+<table id="table01">
+
+</table>
+
+
+
 	</main>
 	<main id="mainBody">
 
-	<!-- default included page -->
+<!-- 	default included page -->
 	<jsp:include page="member.jsp"></jsp:include>
 
     </main>
@@ -192,47 +235,11 @@
             </div>
           </div>
         </footer>
-      </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
 
-    <!--
-    JavaScripts
-    =============================================
-    -->
 
-    <script src="resources/main/lib/jquery/dist/jquery.js"></script>
-    <script src="resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="resources/main/lib/wow/dist/wow.js"></script>
-    <script src="resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="resources/main/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="resources/main/lib/smoothscroll.js"></script>
-    <script src="resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="resources/main/js/plugins.js"></script>
-    <script src="resources/main/js/main.js"></script>
-
-    <script type="text/javascript">
-    function acyncMovePage(url){
-        // ajax option
-        var ajaxOption = {
-                url : url,
-                async : true,
-                type : "GET",
-                dataType : "html",
-                cache : false
-//                 ,contentType:'text/html; charset=UTF-8'
-        };
-
-        $.ajax(ajaxOption).done(function(data){
-            $('#mainBody').children().remove();
-            $('#mainBody').html(data);
-        });
-    }
-    </script>
+   
 
   </body>
 </html>
