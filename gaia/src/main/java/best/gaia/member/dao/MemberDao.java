@@ -52,6 +52,7 @@ public interface MemberDao {
 	 */
 	public int updateMember(MemberVO member);
 
+	
 	/**
 	 * 회원 정보 삭제
 	 * 

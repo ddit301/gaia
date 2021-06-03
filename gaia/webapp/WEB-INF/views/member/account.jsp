@@ -7,6 +7,12 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <style>
+    .btn-dark:hover{
+    	background-color:#7b7b7b;
+    }
+    </style>
 <div class="container-fluid container-lg container-xl">
 <div class = "alert">
 	<p> update success</p>
@@ -26,13 +32,17 @@
 		<div class="col-lg-8 col-xl-9">
 			<div class="card">
 				<div class="card-body">
-				    <div class="basic-list-group form-group ">
+				    <div class="form-group ">
 			            <div class="toolbar Subhead mt-4 " role="toolbar">
 			            	<h2>Change username</h2>
 			            </div>
+			            <p style="font-weight:bold">Changing your username can have unintended side effects.</p>
 			            <div class="card input-control">
 				            <h4 class="card-title">Name</h4>
 			            	<input type="text" placeholder="input default" class="form-control input-default mem_nm">
+			            </div>
+			            <div class="outline-button">
+			            	<button type="button" class="btn mb-1 btn-dark changeAccountBtn" id="changeUserNameBtn">Change username</button>
 			            </div>
                      	<div class="toolbar Subhead mt-4 " role="toolbar">
 			            	<h2>Change password</h2>
@@ -50,6 +60,9 @@
 		         		    	<h4 class="card-title">Confirm new passowrd</h4>
                             	<input type="text" name="confirm_pass" class="form-control input-default" placeholder="Input Default">
 		            		</div>
+		            		<div class="outline-button">
+				            	<button type="button" class="btn mb-1 btn-dark changeAccountBtn" id="changePassBtn">Change password</button>
+				            </div>
 		            	</form>
 	                    <div class="toolbar Subhead mt-4" role="toolbar">
 			            	<h2>Delete Account</h2>
@@ -64,9 +77,49 @@
 </div>
 <script>
 
+var changeUserNameBtn = $(".changeAccountBtn").on("click",function(){
+	url = getContextPath()+"/restapi/member/members/member/";
+	console.log(url);
+	const swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+		    confirmButton: 'btn btn-success',
+		    cancelButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+		})
+
+		swalWithBootstrapButtons.fire({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: 'Yes, delete it!',
+		  cancelButtonText: 'No, cancel!',
+		  reverseButtons: false
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    swalWithBootstrapButtons.fire(
+		      'Deleted!',
+		      'Your file has been deleted.',
+		      'success'
+		    )
+		  } else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === Swal.DismissReason.cancel
+		  ) {
+		    swalWithBootstrapButtons.fire(
+		      'Cancelled',
+		      'Your imaginary file is safe :)',
+		      'error'
+		    )
+		  }
+		})
+	
+})
+// retrieveMemberByNo 요청.
 var loadMemberInfo = function(){
 	$.ajax({
-		url : getContextPath()+"/restapi/member/members/member/",
+		url : getContextPath()+"/restapi/member/members",
 		type : 'get',
 		success : function(res) {
 			console.log(JSON.stringify(res));
@@ -88,11 +141,11 @@ var loadMemberInfo = function(){
 loadMemberInfo();
 function updateProfile(){
 	event.preventDefault();
-	var profile  = $(".basic-form").serializeJSON();
+	var form_data  = $(".basic-form").serializeJSON();
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members/",
 		method : 'post',
-		data : profile,
+		data : form_data,
 		success : function(res) {
 			console.log(res);
 			window.scrollTo({top:0, left:0, behavior:'smooth'});
@@ -113,5 +166,4 @@ function updateProfile(){
 		dataType : 'json'
 	})
 }
-
 </script>

@@ -32,7 +32,28 @@
 	  			<warSourceDirectory>${basedir}/webapp</warSourceDirectory>
 	  		</configuration>
 	  	</plugin>
+  		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>3.2.0</version>
+		</plugin>
   	</plugins>
+	<resources>
+	   <resource>
+	      <directory>src/main/resources</directory>
+	      <excludes>
+	         <exclude>best/gaia/db/appInfo.properties</exclude>
+	      </excludes>
+	      
+	   </resource>
+	   <resource>
+	      <directory>src/main/resources</directory>
+	      <includes>
+	         <include>best/gaia/db/appInfo.properties</include>
+	      </includes>
+	      <filtering>true</filtering>
+	   </resource>
+	</resources>
   </build>
   <repositories>
   	<repository>

@@ -44,7 +44,7 @@ public interface MemberService {
 	 * @return 존재하지 않으면, custom exception 발생 INVALIDPASSWORD, OK, FAIL
 	 */
 	public ServiceResult modifyMember(MemberVO member);
-
+	
 	/**
 	 * 회원 탈퇴
 	 * 

@@ -75,7 +75,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ServiceResult modifyMember(MemberVO member) {
-		retrieveMember(member.getMem_id());
 		ServiceResult result= ServiceResult.OK; //인증 로직 
 //		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
 		if (ServiceResult.OK.equals(result)) {
@@ -105,6 +104,8 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+
+	
 	
 
 }
