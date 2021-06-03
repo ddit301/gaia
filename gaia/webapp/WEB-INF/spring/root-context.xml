@@ -22,6 +22,5 @@
 	<util:list id="userList" value-type="org.springframework.web.socket.WebSocketSession"/>
 
 	<!-- properties 등록 -->
-	<util:properties id="appInfo" location="classpath:kr/or/ddit/appInfo.properties" />
-
+	<util:properties id="appInfo" location="classpath:best/gaia/db/appInfo.properties" />
 </beans>

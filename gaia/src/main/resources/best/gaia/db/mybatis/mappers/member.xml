@@ -113,7 +113,7 @@
 	        WHERE MEM_NO = #{mem_no}
 	</update>
 	
-	<update id="updateMember" parameterType="MemberVO">
+	<update id="updateMemberProfileImage" parameterType="MemberVO">
 		UPDATE MEMBER
 			SET
 		    MEM_PIC_FILE_NAME = #{mem_pic_file_name}

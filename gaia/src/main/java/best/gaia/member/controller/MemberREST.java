@@ -1,9 +1,7 @@
 package best.gaia.member.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,14 +9,12 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,22 +22,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.multipart.MultipartFile;
 
 import best.gaia.member.service.MemberService;
-import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.ResourceNotFoundException;
-import best.gaia.utils.exception.UnsupportedMediaTypeException;
-import best.gaia.vo.IssueVO;
+import best.gaia.vo.AttachFileVO;
 import best.gaia.vo.MemberVO;
 
 @RestController
 @RequestMapping(value="restapi/member/members", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class MemberREST {
 	
+	private static final Logger logger = LoggerFactory.getLogger(MemberREST.class);
 	@Inject
 	private MemberService service;
 	
@@ -49,22 +41,20 @@ public class MemberREST {
 	private WebApplicationContext container;
 	private ServletContext application;
 	
-	@Value("#{appInfo.attatchPath}")
-	private File folder;
-	private transient MultipartFile file;
+//	@Value("#{appInfo.attatchPath}")
+//	private File folder;
 	
 	@PostConstruct
 	public void init() {
 		application = container.getServletContext();
+		logger.info("{}", application.getRealPath("profiles"));
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemberREST.class);
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<MemberVO> selectMemberList() {
 		return null;
 	}
-	
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public Map<String, Object> insertMember(
@@ -80,11 +70,10 @@ public class MemberREST {
 	@PutMapping
 	public Map<String, Object> updateMember(
 			HttpSession session,
-			@ModelAttribute("profile") MemberVO profile,
-			@RequestParam String AA
+			@ModelAttribute("profile") MemberVO profile
 			) {
 		int mem_no = 1;
-		logger.info("ㄷ르어오긴 함_up"+AA);
+		logger.info("method_post");
 		logger.info("{}", profile.toString());
 		Map<String, Object> member = new HashMap<String, Object>();
 		member.put("member", profile);
@@ -123,38 +112,36 @@ public class MemberREST {
 		search = service.retrieveMemberProjectIssue(mem_no);
 		return search;
 	}
-	
-	@PutMapping(value="/member")
-	public String updateMemberProfilePicture(
-			HttpSession session,
-			@ModelAttribute("member") MemberVO member
+	/**
+	 * 프로필사진 업로드 하기.
+	 * @param form_data
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/member", method=RequestMethod.POST)
+	public Map<String, Object> updateMemberProfilePicture(
+				@ModelAttribute("form_data") MemberVO form_data	
 			) throws IllegalStateException, IOException {
-		logger.info("ㄷ르어오긴 함_up");
-		logger.info("{}", member.toString());
 		// session에서 mem_no 받아오기
-		int mem_no = 1;
-		member.setMem_no(mem_no);
-		
-		// request로 받은 파일의 이름을 mem_no로 변경.
-//		member.setMem_pic_file_name(Integer.toString(mem_no));
-		// mem_pic_file_name => ${user.home}/Documents/GitHub/gaia/attachFiles/1.jsp...로 저장되어야함.
-		String imageFilename = member.getMem_pic_file_name();
-		logger.info("{}", imageFilename);
-		
-		// update profile_img 실행
-		ServiceResult result = service.modifyMemberProfileImage(member);
-		
-		// filesystem에 저장
-		File imageFile = new File(folder, imageFilename);
-		if(!imageFile.exists()) {
-			throw new ResourceNotFoundException();
+		int mem_no = 2;
+		logger.info("{post 들어}");
+		// file 객체 하나 뽑기 
+		String filePath = "";
+		String saveFolder = "resources/profiles";
+		String saveFolderPath = application.getRealPath(saveFolder);
+		String fileName = "";
+		List<AttachFileVO> files = form_data.getAttachFileList();
+		for(AttachFileVO file : files) {
+			int dot = file.getFile_nm().lastIndexOf(".");
+			String mime= file.getFile_nm().substring(dot);
+			fileName = mem_no+mime;
+			file.saveTo(saveFolderPath, fileName);
+			filePath = saveFolderPath+"/"+fileName;
 		}
-		String mime = application.getMimeType(imageFilename);
-		if(mime==null || !mime.startsWith("image/")) {
-			throw new UnsupportedMediaTypeException();
-		}
-		file.transferTo(new File(imageFile, imageFilename));
-		
-		return member.getMem_pic_file_name();
+		logger.info("{}", filePath);
+		Map<String, Object> file = new HashMap<String, Object>();
+		file.put("fileName", fileName);
+		return file;
 	}
 }
