@@ -116,8 +116,6 @@
 </div>
             
             <script>
-            	manager_nick = '${manager_nick }';
-            	project_title = '${project_title }';
             	issue_status = null;
             	currentPage = 1;
             	startPage = null;

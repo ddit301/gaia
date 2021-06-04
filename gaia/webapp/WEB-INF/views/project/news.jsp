@@ -124,6 +124,7 @@
 </div>
 
  <script>
+	currentPage = 1;
  
  	// toastUI 설정 초기화
 	 editor = new toastui.Editor({
@@ -142,27 +143,44 @@
 	
 	 // 에디터를 modal 안에서 생성했더니 에러가 발생해서 modal 밖에서 생성 후 modal 에 넣어줍니다.
 	$('#editor').appendTo('#editorArea');
-           	
-	 /////////// 뉴스 목록 불러오기 
-	$.ajax({
-		url : '${cPath}/restapi/project/news',
-		type : 'get',
-		data : {
-		},
-		success : function(res) {
-			$.each(res, function(i,v){
-				let news = getNewsObectWithJson(v);
-				$('#newsContainer').append(news);
-			})
-		},
-		error : function(xhr, error, msg) {
-			console.log(xhr);
-			console.log(error);
-			console.log(msg);
-		},
-		dataType : 'json'
-	})
 	
+	loadNews = function(currentPage){
+		$.ajax({
+			url : getContextPath() + '/restapi/project/news',
+			type : 'get',
+			data : {
+				'currentPage' : currentPage
+			},
+			success : function(res) {
+				$.each(res, function(i,v){
+					let news = getNewsObectWithJson(v);
+					$('#newsContainer').append(news);
+				})
+			},
+			error : function(xhr, error, msg) {
+				console.log(xhr);
+				console.log(error);
+				console.log(msg);
+			},
+			dataType : 'json'
+		})
+	}
+	
+	//스크롤 바닥 감지 무한스크롤 코드 
+	window.onscroll = function(e) {
+	    //window height + window scrollY 값이 document height보다 클 경우,
+	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+	    	//실행할 로직 (콘텐츠 추가)
+	        currentPage = currentPage + 1;
+	        loadNews(currentPage);
+	    }
+	};
+	
+
+           	
+	
+	// 페이지 로드시 일단 뉴스 1페이지 로드
+	loadNews(1);
 	
  	///////////////////////////////////////////////////////////////
  	//////////								///////////////////////

@@ -49,8 +49,8 @@ public class NewsREST {
 	@RequestMapping(method=RequestMethod.GET)
 	public List<NewsVO> selectNewsList(
 			HttpSession session
+			,@ModelAttribute PagingVO<NewsVO> pagingVO
 			) {
-		PagingVO<NewsVO> pagingVO = new PagingVO<>();
 		NewsVO detailSearch = new NewsVO();
 		
 		detailSearch.setProj_no((Integer)session.getAttribute("proj_no"));
