@@ -5,3 +5,5 @@ gaia/src/main/resources/best/gaia/db/dbinfo.properties
 /.svn/
 **/.DS_Store
 RemoteSystemsTempFiles/.project
+gaia/src/test/java/best/gaia/*/*.java
+gaia/.classpath

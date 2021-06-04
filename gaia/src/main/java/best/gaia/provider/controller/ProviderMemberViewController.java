@@ -48,43 +48,12 @@ public class ProviderMemberViewController {
 	public void init() {
 		application = container.getServletContext();
 	}
-	
-	
-	@GetMapping("ListView")
-	public String listForHTML(
-			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value = "searchType", required = false) String searchType,
-			@RequestParam(value = "searchWord", required = false) String searchWord,
-			@RequestParam(value = "listLength", required = false, defaultValue = "20") int listLength
-			, Model model
-		) {
-		List<MemberVO> pagingVO = listForAjax(listLength);
-		
-		model.addAttribute("pagingVO", pagingVO);
-		
-		return "board/boardList";
-		
-	}
 
 	@GetMapping(value = "ListView", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public List<MemberVO> listForAjax(
-//			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
-//			@RequestParam(value = "searchType", required = false) String searchType,
-//			@RequestParam(value = "searchWord", required = false) String searchWord,
 			@RequestParam(value = "listLength", required = false, defaultValue = "20") int listLength) {
 		List<MemberVO> memberList = service.retrieveAllMember();
-//		pagingVO.setCurrentPage(currentPage);
-//		Map<String, Object> searchMap = new HashMap<>();
-//		searchMap.put("searchType", searchType);
-//		searchMap.put("searchWord", searchWord);
-//		pagingVO.setSearchMap(searchMap);
-//
-//		int totalRecord = service.retrieveBoardCount(pagingVO);
-//		pagingVO.setTotalRecord(totalRecord);
-//		
-//		List<MemberVO> memberList = service.retrieveBoardList(pagingVO);
-//		pagingVO.setDataList(memberList);
 
 		return memberList;
 	}
