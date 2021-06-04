@@ -3,6 +3,7 @@ package best.gaia.issue.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import best.gaia.vo.IssueVO;
@@ -24,7 +25,8 @@ public interface MilestoneDao {
 	 * @param search
 	 * @return
 	 */
-	public MilestoneVO selectMilestone(Map<String, Object> search);
+	// Map 에 @Param 으로 search 라는 이름을 줌.
+	public MilestoneVO selectMilestone(@Param("search") Map<String, Object> search);
 	
 	public int insertMilestone(MilestoneVO milestone);
 	

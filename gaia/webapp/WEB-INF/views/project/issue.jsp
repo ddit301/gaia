@@ -20,6 +20,12 @@
             </div>
 
             <div class="container-fluid">
+           	    <div class="row">
+	           		<div class="col-md-11"></div>
+           			<div class="col-md-1">
+	           			<button type="button" id="newIssueBtn" class="btn mb-1 btn-rounded btn-outline-dark">이슈등록</button>
+           			</div>
+       			</div>
             	<div class="row issue-header">
             		<div class="col-md-1"></div>
             		<div id="iss-filter-btn" class="col-md-5">
@@ -79,12 +85,6 @@
             	
            		<div id="issuelist"></div>
            		<div class="issue-footer">
-           			<div class="row">
-		           		<div class="col-md-11"></div>
-	           			<div class="col-md-1">
-		           			<button type="button" id="newIssueBtn" class="btn mb-1 btn-rounded btn-outline-dark">이슈등록</button>
-	           			</div>
-           			</div>
            			<div>
 	           			<ul class="pagination justify-content-center">
 	                   </ul>
@@ -116,8 +116,6 @@
 </div>
             
             <script>
-            	manager_nick = '${manager_nick }';
-            	project_title = '${project_title }';
             	issue_status = null;
             	currentPage = 1;
             	startPage = null;
