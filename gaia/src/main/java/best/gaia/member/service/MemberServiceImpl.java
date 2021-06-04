@@ -94,13 +94,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public ServiceResult modifyMemberPass(MemberVO member) {
+	public ServiceResult modifyMemberPass(MemberVO member, String old_pass) {
 		ServiceResult result= ServiceResult.OK; //인증 로직 
 //		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
 		if (ServiceResult.OK.equals(result)) {
-			if(member.getMem_pass() !=null) {
+			result = ServiceResult.NOTEXIST;
+			if(member.getMem_pass() !=null && !old_pass.isEmpty()) {
+				result = ServiceResult.INVALIDPASSWORD;
 				MemberVO dbMember = dao.selectMemberDetailByNo(member.getMem_no());
-				if(passwordEncoder.matches(member.getMem_pass(), dbMember.getMem_pass())) {
+				System.out.println(old_pass);
+				System.out.println(passwordEncoder.encode(old_pass));
+				System.out.println(dbMember.getMem_pass());
+				
+				if(passwordEncoder.matches(old_pass, dbMember.getMem_pass())) {
 					String inputPass = member.getMem_pass();
 					String encodedPass = passwordEncoder.encode(inputPass);
 					member.setMem_pass(encodedPass);
@@ -111,9 +117,7 @@ public class MemberServiceImpl implements MemberService {
 						result = ServiceResult.FAIL;
 					}
 				}
-				result = ServiceResult.INVALIDPASSWORD;
 			}
-			result = ServiceResult.NOTEXIST;
 		}
 		return result;
 	}

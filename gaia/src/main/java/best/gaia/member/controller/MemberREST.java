@@ -112,46 +112,74 @@ public class MemberREST {
 		// session에서 mem_no 받아오기
 		form_data.setMem_no(mem_no);
 		
-		// need로 특정 요청 판단하기
-		if("profileImg".equals(need)) {
-			// member/profile.jsp
-			logger.info("PUT, {}", need);
-			// file 객체 하나 뽑기 
-			String filePath = "";
-			String saveFolder = "resources/profiles";
-			String saveFolderPath = application.getRealPath(saveFolder);
-			String fileName = "";
-			List<AttachFileVO> files = form_data.getAttachFileList();
-			for(AttachFileVO file : files) {
-				int dot = file.getFile_nm().lastIndexOf(".");
-				String mime= file.getFile_nm().substring(dot);
-				fileName = mem_no+mime;
-				file.saveTo(saveFolderPath, fileName);
-				filePath = saveFolderPath+"/"+fileName;
-				form_data.setMem_pic_file_name(fileName);
-				result.put("member", form_data);
-			}
-			service.modifyMember(form_data);
-		}else if("mem_nm".equals(need)) {
-			logger.info("mem_nm으로 들어옴");
-			if(form_data.getMem_nm().isEmpty()) {
-				form_data.setMem_nm("anonymous");
-			}
-			service.modifyMember(form_data);
-			result.put("member", form_data);
-		}else if("mem_password".equals(need)) {
-			logger.info("mem_password로 들어옴");
-			if(form_data.getMem_nm().isEmpty()) {
-				form_data.setMem_nm("anonymous");
-			}
-			service.modifyMemberPass(form_data);
-			result.put("member", form_data);
-		}else {
-			// member/profile.jsp, account.jsp
-			ServiceResult serviceResult = service.modifyMember(form_data);
-		}
+		logger.info("PUT, {}", need);
+		ServiceResult serviceResult = service.modifyMember(form_data);
 		return result;
 	}
+	@RequestMapping(method=RequestMethod.PUT, params = {"need=profileImg"})
+	public Map<String, Object> updateMemberProfileImg(
+			HttpSession session,
+			@ModelAttribute("form_data") MemberVO form_data,
+			@RequestParam(required=false) String need
+			) throws IOException {
+		logger.info("PUT, {}", need);
+		// session에서 mem_no 받아오기
+		form_data.setMem_no(mem_no);
+		
+		// file 객체 하나 뽑기 
+		String filePath = "";
+		String saveFolder = "resources/profiles";
+		String saveFolderPath = application.getRealPath(saveFolder);
+		String fileName = "";
+		List<AttachFileVO> files = form_data.getAttachFileList();
+		for(AttachFileVO file : files) {
+			int dot = file.getFile_nm().lastIndexOf(".");
+			String mime= file.getFile_nm().substring(dot);
+			fileName = mem_no+mime;
+			file.saveTo(saveFolderPath, fileName);
+			filePath = saveFolderPath+"/"+fileName;
+			form_data.setMem_pic_file_name(fileName);
+		}
+		service.modifyMember(form_data);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("member", form_data);
+		return result;
+	}
+	@RequestMapping(method=RequestMethod.PUT, params = {"need=mem_nm"})
+	public Map<String, Object> updateMemberNm(
+			HttpSession session,
+			@ModelAttribute("form_data") MemberVO form_data,
+			@RequestParam(required=false) String need
+			) throws IOException {
+		logger.info("mem_nm으로 들어옴");
+		// session에서 mem_no 받아오기
+		form_data.setMem_no(mem_no);
+		if(form_data.getMem_nm().isEmpty()) {
+			form_data.setMem_nm("anonymous");
+		}
+		service.modifyMember(form_data);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("member", form_data);
+		return result;
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT, params = {"need=mem_password"})
+	public Map<String, Object> updateMemberPass(
+			HttpSession session,
+			@ModelAttribute("form_data") MemberVO form_data,
+			@RequestParam(required=false) String need,
+			@RequestParam() String old_pass
+			) throws IOException {
+		logger.info("mem_password로 들어옴 {}  /  {}", form_data.getMem_pass(), old_pass);
+		// session에서 mem_no 받아오기
+		form_data.setMem_no(mem_no);
+		ServiceResult sr = service.modifyMemberPass(form_data, old_pass);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("member", form_data);
+		result.put("sr", sr);
+		return result;
+	}
+	
 	@RequestMapping(method=RequestMethod.DELETE)
 	public Map<String, Object> deleteMember(	) {
 		return null;

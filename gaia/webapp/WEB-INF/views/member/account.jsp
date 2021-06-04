@@ -50,7 +50,7 @@
 		            	<form class="basic-form input-control password_form" name="password">
 		            		<div class="card oldPassword">
 		         		    	<h4 class="card-title">Old passowrd</h4>
-                            	<input type="text" name="old_pass" class="form-control input-default" placeholder="Input Default">
+                            	<input type="text" name="old_pass" id="old_pass" class="form-control input-default" placeholder="Input Default">
 		            		</div>
 		            		<div class="card newPassword">
 		         		    	<h4 class="card-title">New passowrd</h4>
@@ -123,11 +123,33 @@ var changeUserNameBtn = $(".changeAccountBtn").on("click",function(){
 		// 2. oldpass와 db패스가 동일한지
 		// 3. new pass가 제대로된 값인지.
 		let form_data = $(".password_form").serializeJSON();
-		form_data["mem_pass"] = $("#"+$(this).val()+"").val();
+		form_data["_method"] = "put";
+		form_data["need"] = "mem_password";
 		// 1. confirm이 성공했는지
-		if(!$(".confirmNewPassword").find("span").prop("hidden")){
+// 		&& $("#old_pass").
+		if(!$(".confirmNewPassword").find("span").prop("hidden") ){
 			console.log(form_data);
-			
+			$.ajax({
+				url : getContextPath()+"/restapi/member/members/",
+				method : 'post',
+				data : form_data,
+				success : function(res) {
+					console.log(res);
+					window.scrollTo({top:0, left:0, behavior:'smooth'});
+					console.log(res.sr);
+					if(res.sr =="OK"){
+						toastr.success('Update에 성공했습니다.')
+					}else{
+						toastr.error('Update실패했습니다!<br>'+res.sr)
+					}
+				},
+				enctype: 'multipart/form-data', 
+				async : false,
+				error : function(xhr) {
+					toastr.error("이름을 제대로 작성해 주세요!")
+				},
+				dataType : 'json'
+			})
 			
 		}
 	}
