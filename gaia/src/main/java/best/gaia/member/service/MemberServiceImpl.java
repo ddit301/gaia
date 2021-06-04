@@ -78,6 +78,11 @@ public class MemberServiceImpl implements MemberService {
 		ServiceResult result= ServiceResult.OK; //인증 로직 
 //		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
 		if (ServiceResult.OK.equals(result)) {
+			if(member.getMem_pass() !=null) {
+				String inputPass = member.getMem_pass();
+				String encodedPass = passwordEncoder.encode(inputPass);
+				member.setMem_pass(encodedPass);
+			}
 			int rowcnt = dao.updateMember(member);
 			if (rowcnt > 0) {
 				result = ServiceResult.OK;
@@ -87,6 +92,32 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+	
+	@Override
+	public ServiceResult modifyMemberPass(MemberVO member) {
+		ServiceResult result= ServiceResult.OK; //인증 로직 
+//		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
+		if (ServiceResult.OK.equals(result)) {
+			if(member.getMem_pass() !=null) {
+				MemberVO dbMember = dao.selectMemberDetailByNo(member.getMem_no());
+				if(passwordEncoder.matches(member.getMem_pass(), dbMember.getMem_pass())) {
+					String inputPass = member.getMem_pass();
+					String encodedPass = passwordEncoder.encode(inputPass);
+					member.setMem_pass(encodedPass);
+					int rowcnt = dao.updateMember(member);
+					if (rowcnt > 0) {
+						result = ServiceResult.OK;
+					} else {
+						result = ServiceResult.FAIL;
+					}
+				}
+				result = ServiceResult.INVALIDPASSWORD;
+			}
+			result = ServiceResult.NOTEXIST;
+		}
+		return result;
+	}
+	
 
 	@Override
 	public ServiceResult removeMember(MemberVO member) {

@@ -64,7 +64,7 @@ public class MemberREST {
 			) {
 		logger.info("GET 들어옴, need : {}", need);
 		// session 불러오기
-		
+		 
 		// need로 특정 요청 판단하기
 		if("MemberProjectIssue".equals(need)) {
 			logger.info("{}", need);
@@ -106,11 +106,12 @@ public class MemberREST {
 	public Map<String, Object> updateMember(
 			HttpSession session,
 			@ModelAttribute("form_data") MemberVO form_data,
-			HttpServletRequest res,
 			@RequestParam(required=false) String need
 			) throws IOException {
+		Map<String, Object> result = new HashMap<String, Object>();
 		// session에서 mem_no 받아오기
 		form_data.setMem_no(mem_no);
+		
 		// need로 특정 요청 판단하기
 		if("profileImg".equals(need)) {
 			// member/profile.jsp
@@ -127,21 +128,29 @@ public class MemberREST {
 				fileName = mem_no+mime;
 				file.saveTo(saveFolderPath, fileName);
 				filePath = saveFolderPath+"/"+fileName;
-				
 				form_data.setMem_pic_file_name(fileName);
+				result.put("member", form_data);
 			}
 			service.modifyMember(form_data);
-			Map<String, Object> file = new HashMap<String, Object>();
-			file.put("fileName", fileName);
-			return file;
+		}else if("mem_nm".equals(need)) {
+			logger.info("mem_nm으로 들어옴");
+			if(form_data.getMem_nm().isEmpty()) {
+				form_data.setMem_nm("anonymous");
+			}
+			service.modifyMember(form_data);
+			result.put("member", form_data);
+		}else if("mem_password".equals(need)) {
+			logger.info("mem_password로 들어옴");
+			if(form_data.getMem_nm().isEmpty()) {
+				form_data.setMem_nm("anonymous");
+			}
+			service.modifyMemberPass(form_data);
+			result.put("member", form_data);
 		}else {
 			// member/profile.jsp, account.jsp
-			ServiceResult result = service.modifyMember(form_data);
-			Map<String, Object> member = new HashMap<String, Object>();
-			member.put("member", form_data);
-			return member;
-			// member/overview.jsp
+			ServiceResult serviceResult = service.modifyMember(form_data);
 		}
+		return result;
 	}
 	@RequestMapping(method=RequestMethod.DELETE)
 	public Map<String, Object> deleteMember(	) {
