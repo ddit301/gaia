@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -113,7 +114,11 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public MilestoneVO selectMilestone(Map<String, Object> search) {
+		
+//		System.out.println(search);
 		return milestoneDao.selectMilestone(search);
+		
+
 	}
 
 
