@@ -12,6 +12,7 @@ import best.gaia.vo.PagingVO;
 public interface NewsDao {
 	
 	public List<NewsVO> selectNewsList(PagingVO<NewsVO> pagingVO);
+	public int selectNewsCount(PagingVO<NewsVO> pagingVO);
 	public int insertNews(NewsVO news);
 	public int updateNews(NewsVO news);
 	public int deleteNews(NewsVO news);

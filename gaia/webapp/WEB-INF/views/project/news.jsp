@@ -123,64 +123,25 @@
 	
 </div>
 
+
  <script>
-	currentPage = 1;
  
- 	// toastUI 설정 초기화
-	 editor = new toastui.Editor({
-		  el: document.querySelector('#editor'),
-		  height: '400px',
-		  initialEditType: 'markdown',
-		  previewStyle: 'tab',
-		  placeholder : 'markdown 문법을 지원합니다'
-	});
-	 
-	viewer = toastui.Editor.factory({
-         el: document.querySelector('.newsContent')
-         ,height : 'auto'
-         ,viewer : true
-       });
-	
-	 // 에디터를 modal 안에서 생성했더니 에러가 발생해서 modal 밖에서 생성 후 modal 에 넣어줍니다.
-	$('#editor').appendTo('#editorArea');
-	
-	loadNews = function(currentPage){
-		$.ajax({
-			url : getContextPath() + '/restapi/project/news',
-			type : 'get',
-			data : {
-				'currentPage' : currentPage
-			},
-			success : function(res) {
-				$.each(res, function(i,v){
-					let news = getNewsObectWithJson(v);
-					$('#newsContainer').append(news);
-				})
-			},
-			error : function(xhr, error, msg) {
-				console.log(xhr);
-				console.log(error);
-				console.log(msg);
-			},
-			dataType : 'json'
-		})
-	}
-	
+	// 페이지 초기화
+	currentPage = 1;
+	totalPage = null;
+ 	
 	//스크롤 바닥 감지 무한스크롤 코드 
 	window.onscroll = function(e) {
 	    //window height + window scrollY 값이 document height보다 클 경우,
 	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-	    	//실행할 로직 (콘텐츠 추가)
-	        currentPage = currentPage + 1;
-	        loadNews(currentPage);
+	    	if(currentPage < totalPage ){
+		    	//실행할 로직 (콘텐츠 추가)
+		        currentPage = currentPage + 1;
+		        loadNews(currentPage);
+	    	}
 	    }
 	};
-	
-
            	
-	
-	// 페이지 로드시 일단 뉴스 1페이지 로드
-	loadNews(1);
 	
  	///////////////////////////////////////////////////////////////
  	//////////								///////////////////////
@@ -188,6 +149,27 @@
  	//////////								///////////////////////
  	///////////////////////////////////////////////////////////////
 	$(function(){
+		
+		// toastUI 설정 초기화
+		 editor = new toastui.Editor({
+			  el: document.querySelector('#editor'),
+			  height: '400px',
+			  initialEditType: 'markdown',
+			  previewStyle: 'tab',
+			  placeholder : 'markdown 문법을 지원합니다'
+		});
+		 
+		viewer = toastui.Editor.factory({
+	         el: document.querySelector('.newsContent')
+	         ,height : 'auto'
+	         ,viewer : true
+	       });
+		
+		// 에디터를 modal 안에서 생성했더니 에러가 발생해서 modal 밖에서 생성 후 modal 에 넣어줍니다.
+		$('#editor').appendTo('#editorArea');
+		
+		// 페이지 로드시 일단 뉴스 1페이지 로드
+		loadNews(1);
 		
 		$('#saveNewsBtn').on('click', function(){
 			news_title = $('#news-title-input').val();
@@ -225,7 +207,6 @@
 							window.location.href=getContextPath()
 							}, 2000);
 					}
-					
 				},
 				dataType : 'json'
 			})
@@ -282,10 +263,14 @@
 			})
 		});
 		
-		
-		
 	})
-
+	
+///////////////////////////////////////////////////////////////
+//////////								///////////////////////
+//////////		declared functions 		///////////////////////
+//////////								///////////////////////
+///////////////////////////////////////////////////////////////
+ 	
 // 뉴스 글 작성할때 제목, 내용 둘다 있는지 확인	
 var checkValidation = function(){
 	let titleLength = $('#news-title-input').val().length;
@@ -339,6 +324,30 @@ var getNewsCommentObjectWithJson = function(comm){
 		newsComm.find('span').text('작성자 쿠키에서 받아오세요');
 	}
 	return newsComm;
+}
+
+// news 불러와 화면에 출력하는 함수
+loadNews = function(currentPage){
+	$.ajax({
+		url : getContextPath() + '/restapi/project/news',
+		type : 'get',
+		data : {
+			'currentPage' : currentPage
+		},
+		success : function(res) {
+			totalPage = res.totalPage;
+			$.each(res.dataList, function(i,v){
+				let news = getNewsObectWithJson(v);
+				$('#newsContainer').append(news);
+			})
+		},
+		error : function(xhr, error, msg) {
+			console.log(xhr);
+			console.log(error);
+			console.log(msg);
+		},
+		dataType : 'json'
+	})
 }
 				
  </script>

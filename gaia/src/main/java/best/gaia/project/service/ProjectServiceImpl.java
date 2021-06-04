@@ -28,6 +28,10 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public List<NewsVO> selectNewsList(PagingVO<NewsVO> pagingVO) {
+		// totalRecord를 조회한 후 setter를 호출하여 등록 한다.
+		int totalRecord = newsDao.selectNewsCount(pagingVO);
+		pagingVO.setTotalRecord(totalRecord);
+		
 		return newsDao.selectNewsList(pagingVO);
 	}
 

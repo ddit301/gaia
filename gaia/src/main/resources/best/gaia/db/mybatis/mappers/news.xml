@@ -16,7 +16,19 @@
 			</association>
 		</collection>
 	</resultMap>
-
+	
+	<select id="selectNewsCount" parameterType="best.gaia.vo.PagingVO" resultType="int">
+		SELECT COUNT(*)
+		FROM NEWS
+		<include refid="searchFrag" />
+	</select>
+	
+	<sql id="searchFrag">
+		<trim prefix="WHERE" prefixOverrides="AND">
+			news.proj_no = #{detailSearch.proj_no}
+		</trim>
+	</sql>
+	
 	<select id="selectNewsList" parameterType="best.gaia.vo.PagingVO" resultMap="newsMap">
 	select  a.*
 	from (
@@ -38,7 +50,7 @@
 	            left outer join member commenter on (nc.mem_no = commenter.mem_no)
 	            left outer join proj_mem commenterp on (news.proj_no = commenterp.proj_no
 	                                            and commenter.mem_no = commenterp.mem_no)
-	        where news.proj_no = #{detailSearch.proj_no}
+	        <include refid="searchFrag" />                                    
 	       )a    
     	<![CDATA[
 			WHERE DR >= #{startRow} AND DR <= #{endRow}
