@@ -46,7 +46,7 @@ public class NewsCommentREST {
 	private static final Logger logger = LoggerFactory.getLogger(NewsCommentREST.class);
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public Map<String, Object> insertNews(
+	public Map<String, Object> insertNewsComment(
 		HttpSession session
 		,Authentication authentication
 		,@ModelAttribute NewsCommentVO newsComment
@@ -76,12 +76,12 @@ public class NewsCommentREST {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public Map<String, Object> updateNews() {
+	public Map<String, Object> updateNewsComment() {
 		return null;
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE)
-	public Map<String, Object> deleteNews() {
+	public Map<String, Object> deleteNewsComment() {
 		return null;
 	}
 	
