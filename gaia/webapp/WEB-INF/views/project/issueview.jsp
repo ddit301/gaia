@@ -270,7 +270,7 @@
 									issue_history.find('.repHeader').children('span:last').text(moment(new Date()).fromNow());
 								$('#issue-body-cont').append(issue_history);
 								// editor 비우기
-								editor.reset()
+								editor.reset();
 								// toastr 알람
 								toastr.success('댓글 등록에 성공했습니다.')
 							},
@@ -278,6 +278,13 @@
 								console.log(xhr);
 								console.log(error);
 								console.log(msg);
+								
+								// 401 에러 발생시에는 로그인 페이지로 이동시킨다.
+								if(xhr.status == 401){
+									toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
+									setTimeout(() => window.location.href=getContextPath(), 2000);
+								}
+								
 							},
 							dataType : 'json'
 						})
