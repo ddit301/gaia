@@ -93,7 +93,7 @@
       							<input type="text">
       						</div>
       						<div class="col-md-2">
-      							<button type="button" class="btn">등록</button>
+      							<button class="news-rep-reg btn" type="button" class="btn">등록</button>
       						</div>
       					</div>
        			</div>
@@ -116,6 +116,7 @@
 			<span>Josh</span>
 		</div>
 		<div class="repcont col-md-10">
+			<p></p>
 		</div>
 	</div>
 	<!-- news reply template end-->
@@ -182,6 +183,9 @@
 					,'news_cont' : news_content
 				},
 				success : function(res) {
+					// toastr 알람
+					toastr.success('새로운 뉴스 등록에 성공했습니다.')
+					
 					// 에디터 비우기
 					$('#news-title-input').val('');
 					editor.reset();
@@ -211,16 +215,60 @@
 		})
 		
 		
-		
 		// title과 editor의 내용이 있을 때만 save 버튼 활성화
 		editor.on('change', function(){
 			checkValidation();
-		})
+		});
 		$('#news-title-input').on('input', function(){
 			checkValidation();
-		})
+		});
+		
+		// 뉴스 댓글 등록 이벤트
+		$('#newsContainer').on('click', '.news-rep-reg', function(){
+			let selectedNews = $(this).parents('.news');
+			let news_sid = selectedNews.data('news_sid');
+			let news_com_cont =  selectedNews.find('.news-writebox').find('input').val();
+			// 댓글 내용이 없으면 댓글 등록이 되지 않는다.
+			if(news_com_cont.length == 0){
+				toastr.error('댓글 내용을 입력해주세요.');
+				return false;
+			}
+			$.ajax({
+				url : getContextPath() + '/restapi/project/news-comments',
+				method : 'post',
+				data : {
+					'news_sid' : news_sid
+					,'news_com_cont' : news_com_cont
+				},
+				success : function(res) {
+					// toastr 알람
+					toastr.success('새로운 댓글 등록에 성공했습니다.')
+					
+					let comm = getNewsCommentObjectWithJson(res.newsComment);
+					selectedNews.find('.newsReplyArea').append(comm);
+					selectedNews.find('.news-writebox').find('input').val('');
+				},
+				error : function(xhr, error, msg) {
+					console.log(xhr);
+					console.log(error);
+					console.log(msg);
+					if (xhr.status == 401) {
+						toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
+						setTimeout(function() {
+							window.location.href = getContextPath()
+						}, 2000);
+					}
+
+				},
+				dataType : 'json'
+			})
+		});
+		
+		
 		
 	})
+
+// 뉴스 글 작성할때 제목, 내용 둘다 있는지 확인	
 var checkValidation = function(){
 	let titleLength = $('#news-title-input').val().length;
 	let contLength = editor.getMarkdown().length;
@@ -230,16 +278,17 @@ var checkValidation = function(){
 		$('#saveNewsBtn').prop('disabled', true);
 	}
 }	
-	
+
+// 뉴스 불러올때와 뉴스 새로 작성했을때 화면에 뉴스 객체 렌더링 용
 var getNewsObectWithJson = function(v){
 	let news = $('#news-template').children('.news').clone();
 	
 	news.find('.newsTitle').children('p').text(v.news_title);
-	// 새로 작성한 글에는 v.writer 가 없습니다. 쿠키에서 내 정보를 받아와 기록해야 합니다.
+	// 새로 작성한 글에는 v.writer 가 없습니다. 쿠키에서 접속자의 프로젝트 닉네임 정보를 받아와 기록해야 합니다.
 	if(v.writer){
 		news.find('.newsWriter').children('span').text(v.writer.mem_nick);
 	}else{
-		news.find('.newsWriter').children('span').text('내가쓴글');
+		news.find('.newsWriter').children('span').text('쿠키에서 닉네임 받아오기');
 	}
 	news.find('.newsTime').children('span').text(moment(v.news_write_date == null ? new Date() : v.news_write_date).fromNow());
 	news.attr('data-news_sid',v.news_sid);
@@ -254,16 +303,24 @@ var getNewsObectWithJson = function(v){
 	}
 	
 	$.each(v.commentList, function(j, comm){
-		let newsComm = $('#news-template').children('.news-reply').clone();
-		newsComm.children('.repcont').children('p').text(comm.news_com_cont);
-		newsComm.find('span').text(comm.commentWriter.mem_nick);
-		newsComm.attr('data-com_no',comm.news_com_no);
-		newsComm.attr('data-commenter_no',comm.commentWriter.mem_no);
-		
+		let newsComm = getNewsCommentObjectWithJson(comm);
 		news.find('.newsReplyArea').append(newsComm);
 	})
 	
 	return news;
+}
+// 뉴스 댓글 렌더링 하는 함수도 따로 만들어서 재활용 가능하게끔 
+var getNewsCommentObjectWithJson = function(comm){
+	let newsComm = $('#news-template').children('.news-reply').clone();
+	newsComm.children('.repcont').children('p').text(comm.news_com_cont);
+	newsComm.attr('data-com_no',comm.news_com_no);
+	// 댓글 불러오는게 아닌 새로운 댓글 작성시에는 commentWriter 가 비어있다. 
+	if(comm.commentWriter){
+		newsComm.find('span').text(comm.commentWriter.mem_nick);
+	}else{
+		newsComm.find('span').text('작성자 쿠키에서 받아오세요');
+	}
+	return newsComm;
 }
 				
  </script>

@@ -71,4 +71,24 @@
 		)
 	</insert>
 	
+	<insert id="insertNewsComment" parameterType="best.gaia.vo.NewsCommentVO">
+		<selectKey keyProperty="news_com_no" resultType="int" order="BEFORE">
+			select max(news_com_no) + 1
+			from news_comment
+		</selectKey>
+			INSERT INTO news_comment (
+			    news_com_no,
+			    news_sid,
+			    mem_no,
+			    news_com_cont,
+			    news_com_date
+			) VALUES (
+			    #{news_com_no}
+			    ,#{news_sid, jdbcType=NUMERIC}
+			    ,#{mem_no, jdbcType=NUMERIC}
+			    ,#{news_com_cont, jdbcType=NUMERIC}
+			    ,sysdate
+		)
+	</insert>
+	
 </mapper>
