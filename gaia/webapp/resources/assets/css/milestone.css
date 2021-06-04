@@ -30,6 +30,12 @@
 .milestone-title{
 	text-align : center;
 	height : 50px;
+	overflow:hidden; 
+	padding-left : 40px;
+	text-overflow:ellipsis; 
+	white-space:nowrap;
+
+	
 }
 .milestone-title a{
 	font-weight : bold;
@@ -37,7 +43,6 @@
 	line-height: 50px;
 }
 .milestone-descript{
-
 	overflow:hidden; 
 	padding-left : 40px;
 	text-overflow:ellipsis; 
@@ -75,6 +80,10 @@
 	height : 130px;
 }
 .milestoneview-title{
+	overflow:hidden; 
+	padding-left : 40px;
+	text-overflow:ellipsis; 
+	white-space:nowrap;
 	text-align : center;
 	height : 50px;
 }
@@ -114,8 +123,8 @@
 	float:left;
 	line-height: 50%;
 }
-.milestone-dropdown-btn{
-	float : right;
+.dropdown-btn{
+	padding-right : 5px;
 	height : 30px;
 	line-height: 50%;
 }

@@ -24,10 +24,11 @@
 	     		<div class="milestone-new-btn">
 					<a class="moveButton label label-info" data-menu="newmilestone" href="javascript:void(0)">New milestone</a>
 				</div>
-		     	<div class="milestone-header">
-					<div class="mileston-chk">
-		     				<a class="btn mb-1 btn-sm btn-secondary" href="#">2 Open</a>
-							<a class="btn mb-1 btn-sm btn-secondary" href="#">0 closed</a>
+		     	<div class="milestone-header row">
+					<div class="mileston-chk col-md-5">
+						<button type="button" class="btn mb-1 btn-sm btn-flat btn-success ">All</button>
+		            	<button type="button" class="btn mb-1 btn-sm btn-flat btn-light">Open</button>
+		            	<button type="button" class="btn mb-1 btn-sm btn-flat btn-light">Closed</button>
 					</div>
 		     	</div>
 		     	<div id="milestone-list"></div>
@@ -99,7 +100,7 @@
 							milestoneBox.attr('data-milest_no',v.milest_no);
 							milestoneBox.find('.milestone-title').children('a').text(v.milest_title);
 							milestoneBox.find('.milestone-descript').children('span').text(v.milest_cont);
-							milestoneBox.find('.milestone-date').children('span').text((res.milest_start_date == null ? "시작일 없음." : res.milest_start_date) +' - '+(res.milest_end_date == null ? "종료일 없음." : res.milest_end_date));
+							milestoneBox.find('.milestone-date').children('span').text((v.milest_start_date == null ? "시작일 없음." : v.milest_start_date) +' - '+(v.milest_end_date == null ? "종료일 없음." : v.milest_end_date));
 							milestoneBox.find('.progress-bar').attr('style','width: '+v.milest_percent+'%;')
 							milestoneBox.find('.milestone-percent').children('span').text((v.milest_percent == null ? 0 : v.milest_percent )+ '% complete '+(v.open_issue_cnt == null ? 0 : v.open_issue_cnt)+' open '+(v.close_issue_cnt == null ? 0 : v.close_issue_cnt)+' closed');
 							$('#milestone-list').append(milestoneBox);
