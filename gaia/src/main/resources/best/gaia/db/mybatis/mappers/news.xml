@@ -5,31 +5,96 @@
 	<resultMap type="best.gaia.vo.NewsVO" id="newsMap" autoMapping="true">
 		<id property="news_sid" column="NEWS_SID"/>
 		<association property="writer" javaType="best.gaia.vo.MemberVO" autoMapping="true" />
-		<collection property="commentList" ofType="best.gaia.vo.NewsCommentVO" 
-			javaType="java.util.List" autoMapping="true">
+		<collection property="commentList" ofType="best.gaia.vo.NewsCommentVO" javaType="java.util.List" autoMapping="false">
+			<id property="news_com_no" column="NEWS_COM_NO"/>
+			<result column="NEWS_COM_CONT" property="news_com_cont"/>
+			<result column="NEWS_COM_DATE" property="news_com_date"/>
+			<association property="commentWriter" javaType="best.gaia.vo.MemberVO">
+				<id column="COMMENTERMEMNO" property="mem_no"/>
+				<result column="COMMENTERNICKNAME" property="mem_nick"/>
+				<result column="COMMENTERPICTURE" property="mem_pic_file_name"/>
+			</association>
 		</collection>
 	</resultMap>
 
 	<select id="selectNewsList" parameterType="best.gaia.vo.PagingVO" resultMap="newsMap">
-		SELECT NEWS.NEWS_SID, NEWS.PROJ_NO, NEWS_NO, NEWS_TITLE, NEWS_CONT, NEWS_WRITE_DATE
-		        ,ATCH_FILE_SID
-		        ,WRITER.MEM_NO
-		        ,WRITER.MEM_PIC_FILE_NAME
-		        ,WRITERP.PROJ_USER_NICK as mem_nick
-		        ,NEWS_COM_NO, NEWS_COM_CONT, NEWS_COM_DATE
-		        ,COMMENTER.MEM_NO COMMENTERMEMNO
-		        ,COMMENTER.MEM_PIC_FILE_NAME AS COMMENTERPICTURE
-		        ,COMMENTERP.PROJ_USER_NICK AS COMMENTERNICKNAME
-		FROM NEWS
-		    INNER JOIN MEMBER WRITER ON (NEWS.MEM_NO = WRITER.MEM_NO)
-		    INNER JOIN PROJ_MEM WRITERP ON (NEWS.PROJ_NO = WRITERP.PROJ_NO
-		                                    AND WRITER.MEM_NO = WRITERP.MEM_NO)
-		    LEFT OUTER JOIN NEWS_COMMENT NC ON (NEWS.NEWS_SID = NC.NEWS_SID)
-		    LEFT OUTER JOIN MEMBER COMMENTER ON (NC.MEM_NO = COMMENTER.MEM_NO)
-		    LEFT OUTER JOIN PROJ_MEM COMMENTERP ON (NEWS.PROJ_NO = COMMENTERP.PROJ_NO
-		                                    AND COMMENTER.MEM_NO = COMMENTERP.MEM_NO)
-		WHERE PROJ_NO = #{detailSearch.proj_no}                           
-		ORDER BY NEWS.NEWS_SID DESC                                 
+	select  a.*
+	from (
+	        SELECT dense_rank() over(order by news.news_sid desc) as dr
+	            ,news.news_sid, news.proj_no, news_no, news_title, news_cont, news_write_date
+	            ,atch_file_sid
+	            ,writer.mem_no
+	            ,writer.mem_pic_file_name
+	            ,writerp.proj_user_nick as mem_nick
+	            ,news_com_no, news_com_cont, news_com_date
+	            ,commenter.mem_no commenterMemno
+	            ,commenter.mem_pic_file_name as commenterPicture
+	            ,commenterp.proj_user_nick as commenterNickname
+	        from news
+	            inner join member writer on (news.mem_no = writer.mem_no)
+	            inner join proj_mem writerp on (news.proj_no = writerp.proj_no
+	                                            and writer.mem_no = writerp.mem_no)
+	            left outer join news_comment nc on (news.news_sid = nc.news_sid)
+	            left outer join member commenter on (nc.mem_no = commenter.mem_no)
+	            left outer join proj_mem commenterp on (news.proj_no = commenterp.proj_no
+	                                            and commenter.mem_no = commenterp.mem_no)
+	        where news.proj_no = #{detailSearch.proj_no}
+	       )a    
+    	<![CDATA[
+			WHERE DR >= #{startRow} AND DR <= #{endRow}
+		]]>			                    
 	</select>
+	
+	<insert id="insertNews" parameterType="best.gaia.vo.NewsVO">
+		<selectKey keyProperty="news_sid,news_no" resultType="best.gaia.vo.NewsVO" order="BEFORE" >
+			select *
+			from
+			    (select max(news_sid)+1 as news_sid
+			        from news) a,
+			    (select max(news_no)+1 as news_no
+			       from news
+			       where proj_no = #{proj_no}
+			    )b
+		</selectKey>
+		INSERT INTO news (
+		    news_sid,
+		    proj_no,
+		    mem_no,
+		    news_no,
+		    news_title,
+		    news_cont,
+		    news_write_date,
+		    atch_file_sid
+		) VALUES (
+		    #{news_sid}
+		    ,#{proj_no,jdbcType=NUMERIC}
+		    ,#{mem_no,jdbcType=NUMERIC}
+		    ,#{news_no}
+		    ,#{news_title,jdbcType=VARCHAR}
+		    ,#{news_cont,jdbcType=VARCHAR}
+		    ,sysdate
+		    ,#{atch_file_sid,jdbcType=NUMERIC}
+		)
+	</insert>
+	
+	<insert id="insertNewsComment" parameterType="best.gaia.vo.NewsCommentVO">
+		<selectKey keyProperty="news_com_no" resultType="int" order="BEFORE">
+			select max(news_com_no) + 1
+			from news_comment
+		</selectKey>
+			INSERT INTO news_comment (
+			    news_com_no,
+			    news_sid,
+			    mem_no,
+			    news_com_cont,
+			    news_com_date
+			) VALUES (
+			    #{news_com_no}
+			    ,#{news_sid, jdbcType=NUMERIC}
+			    ,#{mem_no, jdbcType=NUMERIC}
+			    ,#{news_com_cont, jdbcType=NUMERIC}
+			    ,sysdate
+		)
+	</insert>
 	
 </mapper>
