@@ -1,4 +1,4 @@
-package best.gaia.admin.controller;
+package best.gaia.provider.controller;
 
 import java.util.List;
 
@@ -10,13 +10,12 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.admin.service.AdminService;
+import best.gaia.provider.service.ProviderService;
 import best.gaia.vo.MemberVO;
 
 /**
@@ -37,10 +36,10 @@ import best.gaia.vo.MemberVO;
 
 @Controller
 @RequestMapping("admin/member")
-public class adminMemberViewController {
+public class ProviderMemberViewController {
 
 	@Inject
-	private AdminService service;
+	private ProviderService service;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
