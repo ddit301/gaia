@@ -24,6 +24,14 @@
 	let project_title = '${project_title}';
 	let manager_nick = '${manager_nick}';
 	
+	// 쿠키 값 얻어오는 function
+	var getCookie = function(name) {
+		let CookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+		return CookieValue? decodeURI(CookieValue[2]) : null;
+	};
+	// 접속 회원의 프로젝트 내 닉네임 입니다. 글 작성시 활용해주세요.
+	let proj_user_nick = getCookie('proj_user_nick');
+	
 	// toastr 알람 설정
 	toastr.options = {
 			  "closeButton": false,

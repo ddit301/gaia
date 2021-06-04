@@ -1,6 +1,8 @@
 package best.gaia.project.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -140,6 +142,14 @@ public class ProjectServiceImpl implements ProjectService {
 		int result = kanbanDao.insertCard(card);
 		
 		return result==1? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public String getProjectNick(int proj_no, int mem_no) {
+		Map<String, Object> projnoMemno = new HashMap<>();
+		projnoMemno.put("proj_no", proj_no);
+		projnoMemno.put("mem_no", mem_no);
+		return dao.getProjectNickNameByMemNo(projnoMemno);
 	}
 
 }

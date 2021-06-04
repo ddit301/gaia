@@ -31,4 +31,11 @@ public interface ProjectService {
 	public ServiceResult moveCard(Integer droppedCardNo, Integer newColumnNo , Integer nextCardNo);
 	public ServiceResult insertKanbanCard(KanbanCardVO card);
 	
+	/**
+	 * @param proj_no
+	 * @param mem_no
+	 * @return 특정 proj_no 에 속한 mem_no 회원의 프로젝트 내 닉네임
+	 */
+	public String getProjectNick(int proj_no, int mem_no);
+	
 }

@@ -291,7 +291,7 @@ var getNewsObectWithJson = function(v){
 	if(v.writer){
 		news.find('.newsWriter').children('span').text(v.writer.mem_nick);
 	}else{
-		news.find('.newsWriter').children('span').text('쿠키에서 닉네임 받아오기');
+		news.find('.newsWriter').children('span').text(proj_user_nick);
 	}
 	news.find('.newsTime').children('span').text(moment(v.news_write_date == null ? new Date() : v.news_write_date).fromNow());
 	news.attr('data-news_sid',v.news_sid);
@@ -321,7 +321,7 @@ var getNewsCommentObjectWithJson = function(comm){
 	if(comm.commentWriter){
 		newsComm.find('span').text(comm.commentWriter.mem_nick);
 	}else{
-		newsComm.find('span').text('작성자 쿠키에서 받아오세요');
+		newsComm.find('span').text(proj_user_nick);
 	}
 	return newsComm;
 }
