@@ -11,8 +11,9 @@ public class CookieUtil {
 		try {
 			value = URLEncoder.encode(value, "utf-8").replaceAll("\\+", "%20");
 		} catch (UnsupportedEncodingException e) {}
-		
-		resp.addCookie(new Cookie(cookieName,value));
+		Cookie cookie = new Cookie(cookieName,value);
+		cookie.setPath("/");
+		resp.addCookie(cookie);
 	}
 	
 }
