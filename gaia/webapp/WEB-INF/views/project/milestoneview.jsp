@@ -78,9 +78,9 @@
 								<span></span>	
 							</div>
 							<div class="milestone-status row col-md-6">
-								<div class ="col-md-9"></div>
+								<div class ="col-md-8"></div>
 <!-- 								<button type="button" id="open-milest" class="milest-status-btn btn btn-sm btn-outline-secondary col-md-2">open</button> -->
-                                <button type="button" id ="close-milest-btn" class="milest-status-btn btn btn-sm btn-outline-danger col-md-2">close</button>
+                                <button type="button" id ="close-milest-btn" class="milest-status-btn btn btn-sm btn-outline-danger col-md-3">close</button>
 							</div>
 						</div>
 					</div>
@@ -348,82 +348,76 @@
             
             // milestone open / close 이벤트
             	 $(function(){
-					 $('#close-milest').on('click',function(){
+					 $('#close-milest-btn').on('click',function(){
+						
+						  milestObject.milest_status = milestObject.milest_status == 0 ? 1 : 0;
 						 
-						 alert("click");
-						 
-// 						milest_status == 0 ? 1 : 0;
-						 
-// 						$.ajax({
-// 							url : getContextPath() + '/restapi/project/milestones',
-// 							type : 'post',
-// 							data : {
-// 								'_method' : 'put'
-// 								,'milest_sid' : milestObject.milest_sid
-// 								,'milest_status' : milest_status
-// 							},
-// 							success : function(res) {
-								
-// 								// open milestone 인 경우
-// 								if(milest_status == 0) {
-// 									//상위 라벨
-// 									$('.milest-status').children('span').text('Open');
-// 									$('.milest-statuss').children('span').removeClass('label-danger');
-// 									$('.milest-status').children('span').addClass('label-success');
-// 									//바닥 버튼
-// 									$('.milest-status').text('Close milestone');
-// 									$('#close-milest-btn').removeClass('btn-primary');
-// 									$('#close-milest-btn').addClass('btn-warning');
-// 									// toastr 알람
-// 									toastr.success('Milestone을 Open 했습니다.')
-									
-// 								}else{
-// 									//상위 라벨
-// 									$('.milest-status').children('span').text('Closed');
-// 									$('.milest-status').children('span').removeClass('label-success');
-// 									$('.milest-status').children('span').addClass('label-danger');
-// 									// 바닥 버튼 
-// 									$('.milest-status').text('Reopen issue');
-// 									$('.milest-status').removeClass('btn-warning');
-// 									$('.milest-status').addClass('btn-primary');
-// 									// toastr 알람
-// 									toastr.options = {
-// 										  "closeButton": false,
-// 										  "debug": false,
-// 										  "newestOnTop": false,
-// 										  "progressBar": false,
-// 										  "positionClass": "toast-top-right",
-// 										  "preventDuplicates": false,
-// 										  "onclick": null,
-// 										  "showDuration": "100",
-// 										  "hideDuration": "1000",
-// 										  "timeOut": "1000",
-// 										  "extendedTimeOut": "1000",
-// 										  "showEasing": "swing",
-// 										  "hideEasing": "linear",
-// 										  "showMethod": "fadeIn",
-// 										  "hideMethod": "fadeOut"
-// 										}
-// 									toastr.warning('Milestone을 Close 했습니다.')
-// 								}
-// 							},
-// 							error : function(xhr, error, msg) {
-// 								console.log(xhr);
-// 								console.log(error);
-// 								console.log(msg);
-// 							},
-// 							dataType : 'json'
-// 						})
-						 
-						 
-// // 						 toastr.success("click");
-// // 						 toastr.warning("click");
-// // 						 toastr.error("click");
-// // 						 toastr.info("click");
-// 					 })	
+						$.ajax({
+							url : getContextPath() + '/restapi/project/milestones',
+							type : 'post',
+							data : {
+								'_method' : 'put'
+								,'milest_sid' : milestObject.milest_sid
+								,'milest_status' : milestObject.milest_status
+								,'milest_title' : milestObject.milest_title
+					            ,'milest_start_date' : milestObject.milest_start_date
+					            ,'milest_end_date' : milestObject.milest_end_date
+					            ,'milest_cont' : milestObject.milest_cont
+							},
+							success : function(res) {
+								// open milestone 인 경우
+								if(milestObject.milest_status == 0) {
+									//상위 라벨
+									$('.milest-status').children('span').text('Open');
+									$('.milest-status').children('span').removeClass('label-danger');
+									$('.milest-status').children('span').addClass('label-success');
+									//바닥 버튼
+									$('#close-milest-btn').text('Close milestone');
+									$('#close-milest-btn').removeClass('btn-primary');
+									$('#close-milest-btn').addClass('btn-warning');
+									// toastr 알람
+									toastr.success('Milestone을 Open 했습니다.')
+								// close milestone 인 경우	
+								}else{
+									//상위 라벨
+									$('.milest-status').children('span').text('Closed');
+									$('.milest-status').children('span').removeClass('label-success');
+									$('.milest-status').children('span').addClass('label-danger');
+									// 바닥 버튼 
+									$('#close-milest-btn').text('Reopen milestone');
+									$('#close-milest-btn').removeClass('btn-warning');
+									$('#close-milest-btn').addClass('btn-primary');
+									// toastr 알람
+									toastr.options = {
+										  "closeButton": false,
+										  "debug": false,
+										  "newestOnTop": false,
+										  "progressBar": false,
+										  "positionClass": "toast-top-right",
+										  "preventDuplicates": false,
+										  "onclick": null,
+										  "showDuration": "100",
+										  "hideDuration": "1000",
+										  "timeOut": "1000",
+										  "extendedTimeOut": "1000",
+										  "showEasing": "swing",
+										  "hideEasing": "linear",
+										  "showMethod": "fadeIn",
+										  "hideMethod": "fadeOut"
+										}
+									toastr.warning('Milestone을 Close 했습니다.')
+								}
+							},
+							error : function(xhr, error, msg) {
+								console.log(xhr);
+								console.log(error);
+								console.log(msg);
+							},
+							dataType : 'json'
+						})
+				
+					 })	
 				 })
-
-				})
 
 			</script>
             
