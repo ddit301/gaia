@@ -32,6 +32,7 @@ import best.gaia.project.dao.KanbanDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.ResourceNotFoundException;
+import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.KanbanCardVO;
@@ -86,6 +87,9 @@ public class IssueREST {
 			,@RequestParam String issue_content
 			,@RequestParam Boolean addToKanban
 			) {
+		if(authentication == null) {
+			throw new UnauthorizedException();
+		}
 		MemberVO member = (MemberVO) authentication.getPrincipal();
 		// 로그인 정보가 없을 경우 예외 처리
 		if(member == null) {

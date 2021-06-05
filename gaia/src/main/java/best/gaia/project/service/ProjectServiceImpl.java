@@ -33,8 +33,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public ServiceResult insertNews(NewsVO news) {
-		// TODO Auto-generated method stub
-		return null;
+		int result = newsDao.insertNews(news);
+		return result == 1? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override

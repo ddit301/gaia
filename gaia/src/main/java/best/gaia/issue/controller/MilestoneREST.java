@@ -13,8 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -146,6 +144,7 @@ public class MilestoneREST {
 	@RequestMapping(value="{milest_no}", method=RequestMethod.GET)
 	public MilestoneVO selectMilestone(
 				@PathVariable Integer milest_no
+				, @RequestParam(required=false) Integer issue_status
 				,HttpSession session
 			) {
 		
@@ -156,6 +155,10 @@ public class MilestoneREST {
 		
 		map.put("proj_no", proj_no);
 		map.put("milest_no",milest_no);
+		
+		if(issue_status != null) {
+			map.put("issue_status",issue_status);			
+		}
 		
 		MilestoneVO milestone = service.selectMilestone(map);
 		
