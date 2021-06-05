@@ -170,7 +170,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Map<String, Object> projnoMemno = new HashMap<>();
 		projnoMemno.put("proj_no", proj_no);
 		projnoMemno.put("mem_no", mem_no);
-		return dao.getProjectNickNameByMemNo(projnoMemno);
+		return projectDao.getProjectNickNameByMemNo(projnoMemno);
 	}
 
 	@Override
