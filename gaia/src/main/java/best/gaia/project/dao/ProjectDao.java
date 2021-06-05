@@ -15,5 +15,11 @@ public interface ProjectDao {
 	 * @return project number
 	 */
 	public Integer getProjNoByNickTitle(Map<String,Object> map);
+	/**
+	 * @param map
+	 * 		-> proj_no, mem_no
+	 * @return
+	 */
+	public String getProjectNickNameByMemNo(Map<String, Object>map);
 	
 }

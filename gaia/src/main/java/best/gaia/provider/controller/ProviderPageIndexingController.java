@@ -1,4 +1,4 @@
-package best.gaia.admin.controller;
+package best.gaia.provider.controller;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -27,7 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 
 @Controller
-public class AdminPageIndexingController {
+public class ProviderPageIndexingController {
 
 	@Inject
 	private WebApplicationContext container;
@@ -38,7 +38,7 @@ public class AdminPageIndexingController {
 		application = container.getServletContext();
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(AdminPageIndexingController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProviderPageIndexingController.class);
 
 	@RequestMapping(value = "/admin")
 	public String adminPage() {

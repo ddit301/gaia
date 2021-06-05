@@ -29,6 +29,7 @@
             <div id="myKanban">
             </div>
 
+
 <div id="kanban-template" hidden="hidden" >
 	<div class="kanban_card row">
 		<div class="col-md-1">
@@ -54,7 +55,7 @@
 			    
 <script type="text/javascript" src="${cPath }/resources/dist/jkanban.js"></script>         
   
- 	<script>
+ <script>
 	 // ajax로 칸반 컬럼들 먼저 받아오기
 	 boards = new Array();
 	 $.ajax({
@@ -80,6 +81,8 @@
 							cardCont.children('div:first').find('i').addClass('icon-fire');
 							// div clas""kanban-item" 에 data-issue-sid 로 이슈 번호를 기록해둔다.
 							card.issue_sid = issue.issue_sid;
+							cardCont.find('.issue_title a').attr('href','issue/'+issue.issue_no);
+							cardCont.find('.issue_title a').attr('issue_no',issue.issue_no);
 							cardCont.find('.issue_title a').text(issue.issue_title);
 							cardCont.find('.issue_writer span:first').text(issue.issue_no);
 							cardCont.find('.issue_writer span:last').text(issue.writer.mem_nick);
@@ -122,10 +125,13 @@
         // 카드 클릭 이벤트
         ,click: function(el) {
           console.log("Trigger on all items click!");
+          console.log(el);
         }
       	// 카드 우클릭 이벤트
         ,context: function(el, e) {
           console.log("Trigger on all items right-click!");
+          console.log(el);
+          rightClickedCard = el;
         }
       	// 카드 드랍 이벤트
         ,dropEl: function(el, target, source, sibling){
@@ -229,7 +235,126 @@
         }
 
       });
-    </script>
+ 
+ 	/********************************************************************
+ 	*
+	*	When document is ready
+	*		문서가 준비되고 나서 호출되어야 하는 함수들은 아래 기재합니다.
+	*	
+	*********************************************************************/	 
+	$(function(){
+		let rightClickedCard = null;		
+		
+		// contextMenu (우클릭)에 대한 설정
+	    $.contextMenu({
+	        selector: '.kanban-item', 
+	        items: {
+	            editCard: {
+	                name: "카드 수정",
+	                callback: function(key, opt){
+	                   	editCard();
+	                }
+	            },deleteCard: {
+	                name: "카드 삭제",
+	                callback: function(key, opt){
+	                	delCard();
+	                }
+	            }
+	        }, 
+	        events: {
+	            show: function(opt) {
+	                // this is the trigger element
+	                var $this = this;
+	                // import states from data store 
+	                $.contextMenu.setInputValues(opt, $this.data());
+	                // this basically fills the input commands from an object
+	                // like {name: "foo", yesno: true, radio: "3", &hellip;}
+	            }, 
+	            hide: function(opt) {
+	                // this is the trigger element
+	                var $this = this;
+	                // export states to data store
+	                $.contextMenu.getInputValues(opt, $this.data());
+	                // this basically dumps the input commands' values to an object
+	                // like {name: "foo", yesno: true, radio: "3", &hellip;}
+	            }
+	        }
+	    });
+	});	 
+	 
+// sweetAlert 버튼 초기화
+ swalWithBootstrapButtons = Swal.mixin({
+	  customClass: {
+		cancelButton: 'btn btn-light',
+	   	confirmButton: 'btn btn-danger'
+	  },
+	  buttonsStyling: false
+	})	 
+
+// 카드 삭제하는 Function 입니다.
+delCard = function(){
+	swalWithBootstrapButtons.fire({
+		  title: '정말 카드를 삭제하시겠습니까?',
+		  text: "삭제시 되돌릴 수 없습니다!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: '삭제',
+		  cancelButtonText: '취소',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    swalWithBootstrapButtons.fire(
+		      'Deleted!',
+		      '카드를 삭제했습니다.',
+		      'success'
+		    )
+		    let kb_card_no = rightClickedCard.dataset.eid.substring(1);
+		    
+		    $.ajax({
+				url : getContextPath() + '/restapi/project/kanban-cards',
+				method : 'post',
+				data : {
+					'kb_card_no' : kb_card_no
+					,'_method' : 'delete'
+				},
+				success : function(res) {
+					if(res.result == "OK"){
+						rightClickedCard.remove();
+					}else{
+						alert('삭제에 실패했습니다. 지속해서 문제 발생시 관리자에게 문의해주세요.');				
+					}
+				},
+				error : function(xhr, error, msg) {
+					console.log(xhr);
+					console.log(error);
+					console.log(msg);
+					if (xhr.status == 401) {
+						toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
+						setTimeout(function() {
+							window.location.href = getContextPath()
+						}, 2000);
+					}
+
+				},
+				dataType : 'json'
+			})
+		    
+		  } else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === Swal.DismissReason.cancel
+		  ) {
+		  }
+		})
+
+}
+
+// 카드 수정하는 Function 입니다.
+editCard = function(){
+	cardNo = rightClickedCard.dataset.eid.substring(1);
+	alert(cardNo + '수정');
+}
+	 
+</script>
     
              
              
