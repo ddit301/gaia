@@ -15,6 +15,12 @@
       <location>/WEB-INF/views/main/404.jsp</location>
   </error-page>
   
+<!--   401 에러에서는 (Unauthorized) 401.jsp를 이용해 메인 페이지로 보내겠습니다. -->
+  <error-page>
+      <error-code>401</error-code>
+      <location>/WEB-INF/views/main/401.jsp</location>
+  </error-page>
+  
   <!--	상위 컨테이너용 설정  -->
 <!-- needed for ContextLoaderListener -->
 	<context-param>
