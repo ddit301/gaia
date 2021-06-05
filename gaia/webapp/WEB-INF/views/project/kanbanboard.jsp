@@ -164,15 +164,12 @@
 					console.log(msg);
 				},
 				dataType : 'json',
-				async : false
+				// async false 이면 카드 드랍시에 딜레이가 발생합니다만 안정성이 보장됩니다.
+				// async true 로 해 둘 경우에는 카드 이동시 렉은 발생하지 않지만 렉이 걸리면 꼬일 수가 있습니다.
+				// 일단 async true로 해두고, 지켜보고 카드 순서가 꼬이는 문제가 발생하면 async를 다시 false로 바꾸겠습니다.
+				// 여러명의 유저가 하나의 칸반을 같이 사용할때의 경우도 고려를 해야 합니다 - web socket 사용
+				async : true
 			})
-			
-          console.log('변경 한 카드 번호 : ' + droppedCardNo);
-          console.log('변경 후 다음 카드 번호 : ' + nextCardNo);
-          console.log(el);
-          console.log(target);
-          console.log(source);
-          console.log(sibling);
         }
         ,buttonClick: function(el, boardId) {
         
@@ -302,6 +299,8 @@
 	            }
 	        }
 	    });
+		
+		
 	});	 
 	 
 // sweetAlert 버튼 초기화
