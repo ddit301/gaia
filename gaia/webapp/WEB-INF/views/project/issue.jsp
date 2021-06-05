@@ -102,13 +102,12 @@
 			<a class="issueButton" href="javascript:void(0)"></a>                                                       
 		</div>                                                                                          
 	    <div class="issue-writer col-md-1">                                                                  
-			<img src="" alt="">      
+			<img class="profile">
 		</div>                                                                                      
 	    <div class="issue-priority col-md-1"></div>                                                       
 		<div class="issue-label col-md-1"></div>                                                           
 		<div class="milestone col-md-1"></div>                                                        
 		<div class="issue-assignee col-md-1">                                                                      
-			<img src="" alt="">      
 		</div>                                                                                      
 		<div class="reply col-md-1">
 		</div>                                                            
@@ -177,8 +176,13 @@
 								if(v.milestone){
 									issueBox.children('.milestone').text(v.milestone.milest_title);
 								}
-								issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
-								issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
+								let assigneeSize = v.assigneeList.length;
+								$.each(v.assigneeList, function(j, assignee){
+									if(assigneeSize == 1) j=99;
+									issueBox.children('.issue-assignee').append(
+											'<img class="profile assignee assignee'+j+'" src="'+getProfilePath(assignee.mem_pic_file_name)+'">');
+								})
+								issueBox.children('.issue-writer').children('img').attr('src',getProfilePath(v.writer.mem_pic_file_name));
 								if(v.replyCount > 0){
 									issueBox.children('.reply').html(
 											'<i class="icon-bubbles icons"></i><span>&nbsp;'+v.replyCount+'</span>'

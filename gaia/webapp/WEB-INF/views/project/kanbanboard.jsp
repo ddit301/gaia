@@ -81,6 +81,7 @@
 							cardCont.children('div:first').find('i').addClass('icon-fire');
 							// div clas""kanban-item" 에 data-issue-sid 로 이슈 번호를 기록해둔다.
 							card.issue_sid = issue.issue_sid;
+							card.class = ['issueCard', 'card'];
 							cardCont.find('.issue_title a').attr('href','issue/'+issue.issue_no);
 							cardCont.find('.issue_title a').attr('issue_no',issue.issue_no);
 							cardCont.find('.issue_title a').text(issue.issue_title);
@@ -94,6 +95,7 @@
 							}
 						}else{
 							cardCont.find('.card_content').text(res[i].cardList[j].kb_card_cont);
+							card.class = ['normalCard', 'card'];
 						}
 						card.title = cardCont.wrap("<div/>").parent().html();
 						column.item.push(card);
@@ -129,8 +131,6 @@
         }
       	// 카드 우클릭 이벤트
         ,context: function(el, e) {
-          console.log("Trigger on all items right-click!");
-          console.log(el);
           rightClickedCard = el;
         }
       	// 카드 드랍 이벤트
@@ -164,15 +164,12 @@
 					console.log(msg);
 				},
 				dataType : 'json',
-				async : false
+				// async false 이면 카드 드랍시에 딜레이가 발생합니다만 안정성이 보장됩니다.
+				// async true 로 해 둘 경우에는 카드 이동시 렉은 발생하지 않지만 렉이 걸리면 꼬일 수가 있습니다.
+				// 일단 async true로 해두고, 지켜보고 카드 순서가 꼬이는 문제가 발생하면 async를 다시 false로 바꾸겠습니다.
+				// 여러명의 유저가 하나의 칸반을 같이 사용할때의 경우도 고려를 해야 합니다 - web socket 사용
+				async : true
 			})
-			
-          console.log('변경 한 카드 번호 : ' + droppedCardNo);
-          console.log('변경 후 다음 카드 번호 : ' + nextCardNo);
-          console.log(el);
-          console.log(target);
-          console.log(source);
-          console.log(sibling);
         }
         ,buttonClick: function(el, boardId) {
         
@@ -245,9 +242,9 @@
 	$(function(){
 		let rightClickedCard = null;		
 		
-		// contextMenu (우클릭)에 대한 설정
+		// contextMenu (우클릭)에 대한 설정 - 일반 카드 : 수정 삭제 모두 가능
 	    $.contextMenu({
-	        selector: '.kanban-item', 
+	        selector: '.normalCard', 
 	        items: {
 	            editCard: {
 	                name: "카드 수정",
@@ -280,6 +277,30 @@
 	            }
 	        }
 	    });
+		// contextMenu (우클릭)에 대한 설정 - 이슈 카드 : 수정은 안되고 삭제만 된다.
+	    $.contextMenu({
+	        selector: '.issueCard', 
+	        items: {
+	            deleteCard: {
+	                name: "카드 삭제",
+	                callback: function(key, opt){
+	                	delCard();
+	                }
+	            }
+	        }, 
+	        events: {
+	            show: function(opt) {
+	                var $this = this;
+	                $.contextMenu.setInputValues(opt, $this.data());
+	            }, 
+	            hide: function(opt) {
+	                var $this = this;
+	                $.contextMenu.getInputValues(opt, $this.data());
+	            }
+	        }
+	    });
+		
+		
 	});	 
 	 
 // sweetAlert 버튼 초기화
