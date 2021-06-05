@@ -20,6 +20,13 @@ public interface ProjectDao {
 	
 	/**
 	 * @param map
+	 * 		-> proj_no, mem_no
+	 * @return
+	 */
+	public String getProjectNickNameByMemNo(Map<String, Object>map);
+
+	/**
+	 * @param map
 	 * 		-> manager_nick, project_title
 	 * @return project number
 	 */

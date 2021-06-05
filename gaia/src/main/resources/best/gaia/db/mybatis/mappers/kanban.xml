@@ -103,15 +103,23 @@
 	
 	<update id="updateCard" parameterType="best.gaia.vo.KanbanCardVO">
 		UPDATE KANBAN_CARD
-		SET
+		<set>
 		    KB_CARD_PRIV_NO = #{kb_card_priv_no,jdbcType=NUMERIC}
-		    ,MEM_NO = #{mem_no,jdbcType=NUMERIC}
-		    ,KB_COL_NO = #{kb_col_no,jdbcType=NUMERIC}
-		    ,ISSUE_SID = #{issue_sid,jdbcType=NUMERIC}
-		    ,KB_CARD_CONT = #{kb_card_cont,jdbcType=VARCHAR}
-		    ,KB_CARD_WRITE_DATE = TO_DATE(#{kb_card_write_date,jdbcType=VARCHAR},'yyyy-mm-dd hh24-mi-ss')
+			<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(kb_col_no)">
+			    ,KB_COL_NO = #{kb_col_no,jdbcType=NUMERIC}
+			</if>
+		</set>
    		WHERE
 	        KB_CARD_NO = #{kb_card_no}
+	</update>
+	
+	<update id="updateCardContent" parameterType="best.gaia.vo.KanbanCardVO">
+		UPDATE KANBAN_CARD
+		<set>
+		    KB_CARD_CONT = #{kb_card_cont,jdbcType=VARCHAR}
+		</set>
+   		WHERE
+	        KB_CARD_NO = #{kb_card_no}	
 	</update>
 	
 	<insert id="insertCard" parameterType="best.gaia.vo.KanbanCardVO">
@@ -168,6 +176,11 @@
 			    ,sysdate
 			)
 	</insert>
+	
+	<delete id="deleteCard" parameterType="best.gaia.vo.KanbanCardVO">
+		delete from kanban_card
+		where kb_card_no = #{kb_card_no}
+	</delete>
 	
 </mapper>
 

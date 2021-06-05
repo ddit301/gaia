@@ -47,7 +47,7 @@ public class NewsREST {
 	private static final Logger logger = LoggerFactory.getLogger(NewsREST.class);
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public List<NewsVO> selectNewsList(
+	public PagingVO<NewsVO> selectNewsList(
 			HttpSession session
 			,@ModelAttribute PagingVO<NewsVO> pagingVO
 			) {
@@ -55,8 +55,9 @@ public class NewsREST {
 		
 		detailSearch.setProj_no((Integer)session.getAttribute("proj_no"));
 		pagingVO.setDetailSearch(detailSearch);
+		pagingVO.setDataList(service.selectNewsList(pagingVO));
 		
-		return service.selectNewsList(pagingVO);
+		return pagingVO;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
