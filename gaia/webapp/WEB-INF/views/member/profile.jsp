@@ -74,7 +74,7 @@
 				            		<input type="hidden" value="put" name="_method">
 				            		<div class="img-grid-right">
 					            		<label class="d-block"> Profile picture</label>
-					            		<img class="mr-3 rounded-circle" height="200" width="200" id="profile_img"src= "${cPath}/resources/profiles/1.jpeg" = null :  >
+					            		<img class="mr-3 rounded-circle" height="200" width="200" id="profile_img" src= "${cPath}/resources/profiles/1.jpeg" >
 					            		<button type="button" class="btn mb-1 btn-outline-info edit-profile">Edit</button>
 					            		<input class="form-control btn mb-1 btn-outline-info" id="upload_image" type="file" name="files" accept="image/*" hidden="hidden" />
 				            		</div>
@@ -95,6 +95,7 @@ $(".edit-profile").on("click", function(){
 var imageSelect = $("#upload_image").on("change", function(){
 	var formdata = $("#profile_imageForm")[0];
 	var form_data = new FormData(formdata);
+	// input으로 put을 줌. 
 	// need로 분별하기.
 	form_data.append("need", "profileImg");
 	$.ajax({
@@ -133,7 +134,7 @@ var loadMemberInfo = function(){
 			let workingCity = $(".card.mem_working_city").children('input').attr('placeholder', res.mem_working_city);
 			let tel = $(".card.mem_tel").children('input').attr('placeholder', res.mem_tel);
 			let status = $(".card.mem_status").children('input').attr('placeholder', res.mem_status);
-			$("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
+			let img = $("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
 			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
 			$("#"+res.mem_status+"").prop('checked', true);
 		},
@@ -160,6 +161,7 @@ function updateProfile(){
 		method : 'post',
 		data : profile, 
 		success : function(res) {
+
 			window.scrollTo({top:0, left:0, behavior:'smooth'});
 			toastr.success('Update에 성공했습니다.')
 		},

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.member.service.MemberService;
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.AttachFileVO;
 import best.gaia.vo.MemberVO;
+import best.gaia.utils.authentication.AuthenticationUtil;
 
 @RestController
 @RequestMapping(value="restapi/member/members", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -48,10 +51,9 @@ public class MemberREST {
 		logger.info("{}", application.getRealPath("profiles"));
 	}
 	
-	int mem_no = 3;
 	/**
-	 * need가 없을 시 memberVO에 대한 값만 조회합니다.
-	 * if(need=MemberProjectIssue) 
+	 * need 따라 조회하는 결과물이 다릅니다.
+	 * if(need="MemberProjectIssue") 
 	 * 		memberVO, ProjectVO, Issue에 대한 정보들을 조회합니다.
 	 * if(...)
 	 * @param MemberVO search
@@ -61,42 +63,41 @@ public class MemberREST {
 	public Map<String, Object> selectMemberList(		
 				@RequestParam(required=false) String need
 				,@ModelAttribute("search") MemberVO search
+				,Authentication authentication
 			) {
 		logger.info("GET 들어옴, need : {}", need);
-		// session 불러오기
+		int mem_no = AuthenticationUtil.getMemberNoFromAuthentication(authentication);
 		
-		// need로 특정 요청 판단하기
+		// member/overview.jsp
 		if("MemberProjectIssue".equals(need)) {
-			logger.info("{}", need);
-			// member/overview.jsp
 			search = service.retrieveMemberProjectIssue(mem_no);
 		}else {
-			// member/profile.jsp, member/account.jsp
+		// member/profile.jsp, member/account.jsp
 			search = service.retrieveMemberByNo(mem_no);
 		}
-		if(search.getMem_pic_file_name() == null) {
-			search.setMem_pic_file_name("default.jpeg");  
-		}
-		if(search.getMem_status() == null) {
-			search.setMem_status("active");  
-		}
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("search", search);
 		return result;
 	}
-	
+	/**
+	 *  맴버 추가하기(사용안함)
+	 * @param profile
+	 * @param authentication
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public Map<String, Object> insertMember(
 			@RequestBody MemberVO profile
+			,Authentication authentication
 			) {
-		logger.info("ㄷ르어오긴 함_up");
-		logger.info("{}", profile.toString());
+		int mem_no = AuthenticationUtil.getMemberNoFromAuthentication(authentication);
 		Map<String, Object> member = new HashMap<String, Object>();
 		member.put("member", profile);
 		return member;
 	}
 	/**
-	 * 프로필사진 업로드 하기.
+	 * 프로필 설정 업로드 하기.
 	 * @param form_data
 	 * @return
 	 * @throws IllegalStateException
@@ -104,47 +105,94 @@ public class MemberREST {
 	 */
 	@RequestMapping(method=RequestMethod.PUT)
 	public Map<String, Object> updateMember(
-			HttpSession session,
-			@ModelAttribute("form_data") MemberVO form_data,
-			HttpServletRequest res,
-			@RequestParam(required=false) String need
+			HttpSession session
+			, @ModelAttribute("form_data") MemberVO form_data
+			, @RequestParam(required=false) String need
+			, Authentication authentication
 			) throws IOException {
-		// session에서 mem_no 받아오기
+		int mem_no = AuthenticationUtil.getMemberNoFromAuthentication(authentication);
 		form_data.setMem_no(mem_no);
-		// need로 특정 요청 판단하기
-		if("profileImg".equals(need)) {
-			// member/profile.jsp
-			logger.info("PUT, {}", need);
-			// file 객체 하나 뽑기 
-			String filePath = "";
-			String saveFolder = "resources/profiles";
-			String saveFolderPath = application.getRealPath(saveFolder);
-			String fileName = "";
-			List<AttachFileVO> files = form_data.getAttachFileList();
-			for(AttachFileVO file : files) {
-				int dot = file.getFile_nm().lastIndexOf(".");
-				String mime= file.getFile_nm().substring(dot);
-				fileName = mem_no+mime;
-				file.saveTo(saveFolderPath, fileName);
-				filePath = saveFolderPath+"/"+fileName;
-				
-				form_data.setMem_pic_file_name(fileName);
-			}
-			service.modifyMember(form_data);
-			Map<String, Object> file = new HashMap<String, Object>();
-			file.put("fileName", fileName);
-			return file;
-		}else {
-			// member/profile.jsp, account.jsp
-			ServiceResult result = service.modifyMember(form_data);
-			Map<String, Object> member = new HashMap<String, Object>();
-			member.put("member", form_data);
-			return member;
-			// member/overview.jsp
-		}
+		
+		ServiceResult sr = service.modifyMember(form_data);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("sr", sr);
+		return result;
 	}
+	@RequestMapping(method=RequestMethod.PUT, params = {"need=profileImg"})
+	public Map<String, Object> updateMemberProfileImg(
+			HttpSession session
+			, @ModelAttribute("form_data") MemberVO form_data
+			, @RequestParam(required=false) String need
+			, Authentication authentication
+			) throws IOException {
+		int mem_no = AuthenticationUtil.getMemberNoFromAuthentication(authentication);
+		form_data.setMem_no(mem_no);
+		
+		// file 객체 하나 뽑기 
+		String filePath = "";
+		String saveFolder = "resources/profiles";
+		String saveFolderPath = application.getRealPath(saveFolder);
+		String fileName = "";
+		List<AttachFileVO> files = form_data.getAttachFileList();
+		for(AttachFileVO file : files) {
+			int dot = file.getFile_nm().lastIndexOf(".");
+			String mime= file.getFile_nm().substring(dot);
+			fileName = mem_no+mime;
+			file.saveTo(saveFolderPath, fileName);
+			filePath = saveFolderPath+"/"+fileName;
+			form_data.setMem_pic_file_name(fileName);
+		}
+		
+		ServiceResult sr = service.modifyMember(form_data);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("member", form_data);
+		result.put("sr", sr);
+		return result;
+	}
+	@RequestMapping(method=RequestMethod.PUT, params = {"need=mem_nm"})
+	public Map<String, Object> updateMemberNm(
+			HttpSession session
+			, @ModelAttribute("form_data") MemberVO form_data
+			, @RequestParam(required=false) String need
+			, Authentication authentication
+			) throws IOException {
+		int mem_no = AuthenticationUtil.getMemberNoFromAuthentication(authentication);
+		form_data.setMem_no(mem_no);
+		if(form_data.getMem_nm().isEmpty()) {
+			form_data.setMem_nm("anonymous");
+		}
+		ServiceResult sr = service.modifyMember(form_data);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("member", form_data);
+		result.put("sr", sr);
+		return result;
+	}
+	@RequestMapping(method=RequestMethod.PUT, params = {"need=mem_password"})
+	public Map<String, Object> updateMemberPass(
+			HttpSession session
+			, @ModelAttribute("form_data") MemberVO form_data
+			, @RequestParam(required=false) String need
+			, @RequestParam() String old_pass
+			, Authentication authentication
+			) throws IOException {
+		int mem_no = AuthenticationUtil.getMemberNoFromAuthentication(authentication);
+		form_data.setMem_no(mem_no);
+		
+		ServiceResult sr = service.modifyMemberPass(form_data, old_pass);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("member", form_data);
+		result.put("sr", sr);
+		return result;
+	}
+	
+	/**
+	 * 맴버 삭제하기(사용안함)
+	 * @param authentication
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.DELETE)
-	public Map<String, Object> deleteMember(	) {
+	public Map<String, Object> deleteMember(	
+			Authentication authentication) {
 		return null;
 	}
 }
