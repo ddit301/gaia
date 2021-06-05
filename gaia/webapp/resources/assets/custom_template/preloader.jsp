@@ -103,16 +103,16 @@
 
 <div id="main-list">
 	<div id="project__list">
-	
 	<c:if test="${not empty member.projectList  && fn:length(member.projectList) > 0}">
 		<c:forEach items="${member.projectList }" var="project">
 		<c:set var = "title" value = "${my:initializeName(project.proj_title)}" />
+		<c:if test="${not empty title }">
 		<div class="square__box">
 			<div class="img-rounded">
 	  			${title }
 	  		</div>
 	    </div>
-			
+		</c:if>
 		</c:forEach>
 	</c:if>
     
