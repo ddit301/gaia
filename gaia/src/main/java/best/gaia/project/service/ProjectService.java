@@ -29,7 +29,8 @@ public interface ProjectService {
 	 *  칸반 관련 service
 	 **********************************************************************/
 	public ServiceResult moveCard(Integer droppedCardNo, Integer newColumnNo , Integer nextCardNo);
-	public ServiceResult insertKanbanCard(KanbanCardVO card);
+	public ServiceResult insertCard(KanbanCardVO card);
+	public ServiceResult deleteCard(KanbanCardVO card);
 	
 	/**
 	 * @param proj_no
