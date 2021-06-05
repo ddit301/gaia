@@ -19,20 +19,68 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="${cPath }/resources/js/jquery.serializejson.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="${cPath }/resources/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+	<script src="${cPath }/resources/assets/plugins/jquery-validation/jquery.validate.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.js" integrity="sha512-2ABKLSEpFs5+UK1Ol+CgAVuqwBCHBA0Im0w4oRCflK/n8PUVbSv5IY7WrKIxMynss9EKLVOn1HZ8U/H2ckimWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script type="text/javascript">
 	let project_title = '${project_title}';
 	let manager_nick = '${manager_nick}';
-	
-	// 쿠키 값 얻어오는 function
+	var data = {}
+	// Swal Alert 설정
+	var swal = {
+		error : function(data){
+			console.log(data);
+			if(!data){data = { };}
+			Swal.fire({
+				icon: 'error',
+				title: typeof data.title !=='undefined' ? data.title : 'Oops...', 
+				text: !!data.text ? data.text : 'Something went wrong!',
+				showConfirmButton : !!data.confirm ? true : false,
+				timer: 1500
+			})
+		},
+		success : function(data){
+			if(!data){data = { };}
+				Swal.fire({
+					icon: 'success',
+					title: !!data.title ? data.title : 'Success!!',
+					text: !!data.text ? data.text : 'Your work has been saved!',
+					showConfirmButton : !!data.confirm ? true : false,
+					timer: 1500
+				})
+		},
+		warning : function(data){
+			if(!data){data = { };}
+			Swal.fire({
+				icon: 'warning',
+				title: !!data.title ? data.title : 'Oops...', 
+				text: !!data.text ? data.text : 'You should do someting first!',
+				showConfirmButton : !!data.confirm ? true : false,
+				timer: 1500
+			})
+		},
+		info : function(data){
+			if(!data){data = { };}
+			Swal.fire({
+				icon: 'info',
+				title: !!data.title ? data.title : 'Have to know!', 
+				text: !!data.text ? data.text : 'blablabla',
+				showConfirmButton : !!data.confirm ? true : false,
+				timer: 1500
+			})
+		}
+	}
+  
+  // 쿠키 값 얻어오는 function
 	var getCookie = function(name) {
 		let CookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
 		return CookieValue? decodeURI(CookieValue[2]) : null;
 	};
 	// 접속 회원의 프로젝트 내 닉네임 입니다. 글 작성시 활용해주세요.
 	let proj_user_nick = getCookie('proj_user_nick');
-	
+  
 	// toastr 알람 설정
 	toastr.options = {
 			  "closeButton": false,

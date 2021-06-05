@@ -39,29 +39,29 @@
 			            <p style="font-weight:bold">Changing your username can have unintended side effects.</p>
 			            <div class="card input-control">
 				            <h4 class="card-title">Name</h4>
-			            	<input type="text" placeholder="input default" class="form-control input-default mem_nm">
+			            	<input type="text" placeholder="input default" id="mem_nm" class="form-control input-default">
 			            </div>
 			            <div class="outline-button">
-			            	<button type="button" class="btn mb-1 btn-dark changeAccountBtn" id="changeUserNameBtn">Change username</button>
+			            	<button type="button" class="btn mb-1 btn-dark changeAccountBtn" id="changeUserNameBtn" value="mem_nm">Change username</button>
 			            </div>
                      	<div class="toolbar Subhead mt-4 " role="toolbar">
 			            	<h2>Change password</h2>
 		            	</div>
-		            	<form class="basic-form input-control" name="profile">
+		            	<form class="basic-form input-control password_form" name="password">
 		            		<div class="card oldPassword">
 		         		    	<h4 class="card-title">Old passowrd</h4>
-                            	<input type="text" name="old_password" class="form-control input-default" placeholder="Input Default">
+                            	<input type="text" name="old_pass" id="old_pass" class="form-control input-default" placeholder="Input Default" required>
 		            		</div>
 		            		<div class="card newPassword">
 		         		    	<h4 class="card-title">New passowrd</h4>
-                            	<input type="text" name="mem_pass" class="form-control input-default" placeholder="Input Default">
+                            	<input type="text" name="mem_pass" id ="mem_pass" class="form-control input-default password" placeholder="Input Default" required>
 		            		</div>
 		            		<div class="card confirmNewPassword">
-		         		    	<h4 class="card-title">Confirm new passowrd</h4>
-                            	<input type="text" name="confirm_pass" class="form-control input-default" placeholder="Input Default">
+	         		    		<h4 class="card-title">Confirm new passowrd <span hidden="hidden">✓</span></h4>
+                            	<input type="text" name="confirm_pass" id="confirm_pass" class="form-control input-default password" placeholder="Input Default"required>
 		            		</div>
 		            		<div class="outline-button">
-				            	<button type="button" class="btn mb-1 btn-dark changeAccountBtn" id="changePassBtn">Change password</button>
+				            	<button type="button" class="btn mb-1 btn-dark changeAccountBtn" id="changePassBtn" value="mem_pass">Change password</button>
 				            </div>
 		            	</form>
 	                    <div class="toolbar Subhead mt-4" role="toolbar">
@@ -77,53 +77,58 @@
 </div>
 <script>
 
-var changeUserNameBtn = $(".changeAccountBtn").on("click",function(){
-	url = getContextPath()+"/restapi/member/members/member/";
-	console.log(url);
-	const swalWithBootstrapButtons = Swal.mixin({
-		  customClass: {
-		    confirmButton: 'btn btn-success',
-		    cancelButton: 'btn btn-danger'
-		  },
-		  buttonsStyling: false
-		})
 
-		swalWithBootstrapButtons.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonText: 'Yes, delete it!',
-		  cancelButtonText: 'No, cancel!',
-		  reverseButtons: false
-		}).then((result) => {
-		  if (result.isConfirmed) {
-		    swalWithBootstrapButtons.fire(
-		      'Deleted!',
-		      'Your file has been deleted.',
-		      'success'
-		    )
-		  } else if (
-		    /* Read more about handling dismissals below */
-		    result.dismiss === Swal.DismissReason.cancel
-		  ) {
-		    swalWithBootstrapButtons.fire(
-		      'Cancelled',
-		      'Your imaginary file is safe :)',
-		      'error'
-		    )
-		  }
-		})
-	
+function confirmAlert(ajaxEvent, form_data){
+	swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+	    	confirmButton: 'btn btn-success',
+		    cancelButton: 'btn btn-danger'
+	    },
+	    buttonsStyling: false
+	})
+	swalWithBootstrapButtons.fire({
+		title: 'Are you sure?',
+		text: "You won't be able to revert this!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Yes, change it!',
+		cancelButtonText: 'No, cancel!',
+		reverseButtons: false
+	}).then((result) => {
+		if (result.isConfirmed) {
+			console.log(ajaxEvent)
+			ajaxEvent : ajaxEvent=="name" ? updateName(form_data) : updatePass(form_data);
+		} 
+	})
+}
+//이름 변경.
+var changeUserNameBtn = $(".changeAccountBtn").on("click",function(){
+	event.preventDefault();
+	let form_data = {"_method" : "put"};
+	if($(this).val() =="mem_nm" ){
+		form_data["mem_nm"] = $("#"+$(this).val()+"").val();
+		confirmAlert("name", form_data);
+	}else{
+		// 2. oldpass와 db패스가 동일한지
+		// 3. new pass가 제대로된 값인지.
+		let form_data = $(".password_form").serializeJSON();
+		form_data["_method"] = "put";
+		form_data["need"] = "mem_password";
+		// 1. confirm이 성공했는지
+		console.log($(".confirmNewPassword").find("span").prop("hidden"))
+		confirmAlert("pass",form_data);
+	}
 })
-// retrieveMemberByNo 요청.
+// 페이지로딩 ajax / no need
 var loadMemberInfo = function(){
+	let imgPath = getContextPath()+"/resources/profiles/";
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members",
 		type : 'get',
 		success : function(res) {
-			console.log(JSON.stringify(res));
-			let nm = $(".mem_nm").attr('placeholder', res.mem_nm);
+			console.log(JSON.stringify(res.search));
+			let nm = $("#mem_nm").attr('placeholder', res.search.mem_nm);
+			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.search.mem_pic_file_name);
 		},
 		async : false
 		,error : function(xhr) {
@@ -139,31 +144,82 @@ var loadMemberInfo = function(){
 	})
 }
 loadMemberInfo();
-function updateProfile(){
-	event.preventDefault();
-	var form_data  = $(".basic-form").serializeJSON();
+
+function updateName(form_data){
+	form_data["need"]="mem_nm"; 
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members/",
 		method : 'post',
 		data : form_data,
 		success : function(res) {
-			console.log(res);
 			window.scrollTo({top:0, left:0, behavior:'smooth'});
-			$(".alert").slideToggle(1000)
-						.delay(2000)
-						.slideUp(500);
+			$("#mem_nm").val("");
+			$("#mem_nm").attr("placeholder", res.member.mem_nm);
+			toastr.success('이름 변경에 성공했습니다.')
+			swal.success();
 		},
+		enctype: 'multipart/form-data', 
 		async : false,
 		error : function(xhr) {
-			console.log(xhr);
-			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-			if(xhr.status == '404'){
-				alert("실패");				
-			}else{
-				alert("status : " + xhr.status);
-			}
+			swalert.error();
 		},
 		dataType : 'json'
 	})
 }
+// password
+function updatePass(form_data){
+	if(!$(".confirmNewPassword").find("span").prop("hidden") && !!$("#old_pass").val()){
+		console.log(form_data);
+		$.ajax({
+			url : getContextPath()+"/restapi/member/members/",
+			method : 'post',
+			data : form_data,
+			success : function(res) {
+				if(res.sr =="OK"){
+					window.scrollTo({top:0, left:0, behavior:'smooth'});
+					toastr.success('Update에 성공했습니다.')
+				}else{
+					swal.error({
+						text : res.sr 
+					});
+				}
+			},
+			enctype: 'multipart/form-data', 
+			async : false,
+			error : function(xhr) {
+				toastr.error("이름을 제대로 작성해 주세요!")
+			},
+			dataType : 'json'
+		})
+	}else if(!$("#old_pass").val()) {
+		swal.warning({
+			text : "빈칸을 모두 채워주세요!!"
+		});
+	}else if(!$(".confirmNewPassword").val() && $(".confirmNewPassword").find("span").prop("hidden")) {
+		swal.warning({
+			text : "new password와 confirm new password가 다릅니다!!"
+		});
+	}
+	else if($(".confirmNewPassword").find("span").prop("hidden")) {
+		swal.warning({
+			text : "confirm new password를 확인해 주세요!!"
+		});
+	}
+}
+
+$(".password_form").validate({
+	  errorElement: "span"
+});
+$(".password").on("keyup", function(){
+	let mem_pass = $("#mem_pass").val();
+	let confirm_pass = $("#confirm_pass").val();
+	if(mem_pass){
+		if(mem_pass == confirm_pass){
+			$(".confirmNewPassword").find("span").prop("hidden", false)
+		}else{
+			$(".confirmNewPassword").find("span").prop("hidden", true)
+		}
+	}
+})
+
 </script>
