@@ -1,15 +1,17 @@
 package best.gaia.provider.service;
 
+import java.util.List;
+
+import best.gaia.vo.MemberVO;
+import best.gaia.vo.PagingVO;
 import best.gaia.vo.ProviderVO;
 
 public interface ProviderService {
-
-	/**
-	 * 회원 정보 상세 조회
-	 * 
-	 * @param mem_id
-	 * @return 존재하지 않으면, custom exception 발생
-	 */
+	
 	public ProviderVO retrieveProvider(String prov_id);
-
+	
+	public int retrieveMemberCount(PagingVO<MemberVO> pagingVO);
+	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO);
+	public List<MemberVO> retrieveAllMember();
+	
 }
