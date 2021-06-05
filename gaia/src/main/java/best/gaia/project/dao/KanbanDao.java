@@ -22,6 +22,8 @@ public interface KanbanDao {
 	public int insertCard(KanbanCardVO card);
 	public int insertCardWithIssue(KanbanCardVO card);
 	public int updateCard(KanbanCardVO card);
+	public int updateCardContent(KanbanCardVO card);
+	public int deleteCard(KanbanCardVO card);
 	
 	
 }

@@ -1,6 +1,8 @@
 package best.gaia.project.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -34,6 +36,10 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public List<NewsVO> selectNewsList(PagingVO<NewsVO> pagingVO) {
+		// totalRecord를 조회한 후 setter를 호출하여 등록 한다.
+		int totalRecord = newsDao.selectNewsCount(pagingVO);
+		pagingVO.setTotalRecord(totalRecord);
+		
 		return newsDao.selectNewsList(pagingVO);
 	}
 
@@ -129,7 +135,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ServiceResult insertKanbanCard(KanbanCardVO card) {
+	public ServiceResult insertCard(KanbanCardVO card) {
 		
 		// 카드에는 kb_col_no, kb_card_cont, mem_no 정보가 담겨서 넘어왔다.
 		
@@ -166,6 +172,31 @@ public class ProjectServiceImpl implements ProjectService {
 	public int deleteWiki(WikiVO wiki) {
 		// TODO Auto-generated method stub
 		return 0;
+	public String getProjectNick(int proj_no, int mem_no) {
+		Map<String, Object> projnoMemno = new HashMap<>();
+		projnoMemno.put("proj_no", proj_no);
+		projnoMemno.put("mem_no", mem_no);
+		return dao.getProjectNickNameByMemNo(projnoMemno);
+	}
+
+	@Override
+	@Transactional
+	public ServiceResult deleteCard(KanbanCardVO card) {
+		int validChecker = 1;
+		// 삭제할 카드의 정보를 조회하고
+		card = kanbanDao.selectCard(card.getKb_card_no());
+		
+		// 삭제할 카드의 다음 카드의 previousCard 에 삭제할 카드의 previousCard 값을 넣어 업데이트 하고
+		if(card.getKb_card_next_no() != null) {
+			KanbanCardVO nextCard = new KanbanCardVO();
+			nextCard.setKb_card_no(card.getKb_card_next_no());
+			nextCard.setKb_card_priv_no(card.getKb_card_priv_no());
+			validChecker *= kanbanDao.updateCard(nextCard);
+		}
+		
+		// 삭제할 카드를 삭제해준다.
+		validChecker *= kanbanDao.deleteCard(card);
+		return validChecker == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

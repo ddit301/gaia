@@ -8,4 +8,11 @@
 		where proj_title = #{project_title}
 		    and mem_nick = #{manager_nick}
 	</select>
+	
+	<select id="getProjectNickNameByMemNo" parameterType="java.util.Map" resultType="String">
+		select proj_user_nick
+		from proj_mem
+		where mem_no = #{mem_no}
+			and proj_no = #{proj_no}
+	</select>
 </mapper>
