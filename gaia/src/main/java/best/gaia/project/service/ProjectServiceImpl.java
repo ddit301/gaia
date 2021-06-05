@@ -13,11 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.project.dao.NewsDao;
 import best.gaia.project.dao.ProjectDao;
+import best.gaia.project.dao.WikiDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.NewsCommentVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
+import best.gaia.vo.WikiVO;
 import best.gaia.vo.ProjectVO;
 
 @Service
@@ -29,7 +31,11 @@ public class ProjectServiceImpl implements ProjectService {
 	private NewsDao newsDao;
 	@Inject
 	private KanbanDao kanbanDao;
-
+	@Inject
+	private WikiDao wikiDao;
+	
+	
+	
 	@Override
 	public List<NewsVO> selectNewsList(PagingVO<NewsVO> pagingVO) {
 		// totalRecord를 조회한 후 setter를 호출하여 등록 한다.
@@ -166,6 +172,28 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
+	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertWiki(WikiVO wiki) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateWiki(WikiVO wiki) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteWiki(WikiVO wiki) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	public String getProjectNick(int proj_no, int mem_no) {
 		Map<String, Object> projnoMemno = new HashMap<>();
 		projnoMemno.put("proj_no", proj_no);

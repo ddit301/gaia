@@ -28,6 +28,7 @@
        				 LEFT OUTER JOIN ISSUE ON(MILESTONE.MILEST_SID = ISSUE.MILEST_SID))A
             <include refid="searchFrag" />    
          GROUP BY A.MILEST_TITLE, A.MILEST_START_DATE, A.MILEST_END_DATE, A.MILEST_NO,A.MILEST_CONT, A.MILEST_STATUS
+         ORDER BY A.MILEST_NO DESC
 	</select>
 	
 	<resultMap type="best.gaia.vo.MilestoneVO" id="milestoneMap" autoMapping="true">

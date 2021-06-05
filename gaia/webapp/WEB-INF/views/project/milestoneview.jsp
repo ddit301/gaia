@@ -222,7 +222,7 @@
 									$('.milest-status').children('span').text('Closed');
 									$('.milest-status').children('span').removeClass('label-success');
 									$('.milest-status').children('span').addClass('label-danger');
-									$('#close-milest-btn').text('Reopen issue');
+									$('#close-milest-btn').text('Reopen milestone');
 									$('#close-milest-btn').removeClass('btn-warning');
 									$('#close-milest-btn').addClass('btn-primary');
 								}
