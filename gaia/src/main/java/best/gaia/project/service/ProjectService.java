@@ -8,6 +8,7 @@ import best.gaia.vo.NewsCommentVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
 import best.gaia.vo.WikiVO;
+import best.gaia.vo.ProjectVO;
 
 public interface ProjectService {
 	
@@ -47,5 +48,8 @@ public interface ProjectService {
 	public int insertWiki(WikiVO wiki);
 	public int updateWiki(WikiVO wiki);
 	public int deleteWiki(WikiVO wiki);
+	
+	
+	public ServiceResult enrollProject(ProjectVO project);
 	
 }
