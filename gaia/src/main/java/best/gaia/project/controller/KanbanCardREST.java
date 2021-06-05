@@ -15,10 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -36,7 +36,7 @@ public class KanbanCardREST {
 	@Inject
 	private ProjectService service;
 	@Inject
-	private KanbanDao kanbanDao;
+	private KanbanDao dao;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
@@ -59,8 +59,7 @@ public class KanbanCardREST {
 	@PostMapping
 	public Map<String, Object> insertKanbanCard(
 			HttpSession session
-			,@RequestParam Integer kb_col_no 
-			,@RequestParam String kb_card_cont 
+			,@ModelAttribute KanbanCardVO card
 			,Authentication authentication
 			) {
 		MemberVO member = (MemberVO) authentication.getPrincipal();
@@ -68,14 +67,9 @@ public class KanbanCardREST {
 		if(member == null) {
 			throw new NotValidSessionException();
 		}
-		
-		// 새로운 카드 객체를 생성해서 service에 논리 로직을 태운다.
-		KanbanCardVO card = new KanbanCardVO();
-		card.setKb_col_no(kb_col_no);
-		card.setKb_card_cont(kb_card_cont);
 		card.setMem_no(member.getMem_no());
 		
-		ServiceResult result = service.insertKanbanCard(card);
+		ServiceResult result = service.insertCard(card);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("kb_card_no", card.getKb_card_no());
@@ -90,8 +84,13 @@ public class KanbanCardREST {
 	}
 	
 	@DeleteMapping
-	public Map<String, Object> deleteKanbanCard() {
-		return null;
+	public Map<String, Object> deleteKanbanCard(
+			@ModelAttribute KanbanCardVO card
+			) {
+		ServiceResult result = service.deleteCard(card);
+		Map<String, Object> map = new HashMap<>();
+		map.put("result", result);
+		return map;
 	}
 	
 }
