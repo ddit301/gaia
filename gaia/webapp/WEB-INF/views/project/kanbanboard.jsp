@@ -81,6 +81,7 @@
 							cardCont.children('div:first').find('i').addClass('icon-fire');
 							// div clas""kanban-item" 에 data-issue-sid 로 이슈 번호를 기록해둔다.
 							card.issue_sid = issue.issue_sid;
+							card.class = ['issueCard', 'card'];
 							cardCont.find('.issue_title a').attr('href','issue/'+issue.issue_no);
 							cardCont.find('.issue_title a').attr('issue_no',issue.issue_no);
 							cardCont.find('.issue_title a').text(issue.issue_title);
@@ -94,6 +95,7 @@
 							}
 						}else{
 							cardCont.find('.card_content').text(res[i].cardList[j].kb_card_cont);
+							card.class = ['normalCard', 'card'];
 						}
 						card.title = cardCont.wrap("<div/>").parent().html();
 						column.item.push(card);
@@ -129,8 +131,6 @@
         }
       	// 카드 우클릭 이벤트
         ,context: function(el, e) {
-          console.log("Trigger on all items right-click!");
-          console.log(el);
           rightClickedCard = el;
         }
       	// 카드 드랍 이벤트
@@ -245,9 +245,9 @@
 	$(function(){
 		let rightClickedCard = null;		
 		
-		// contextMenu (우클릭)에 대한 설정
+		// contextMenu (우클릭)에 대한 설정 - 일반 카드 : 수정 삭제 모두 가능
 	    $.contextMenu({
-	        selector: '.kanban-item', 
+	        selector: '.normalCard', 
 	        items: {
 	            editCard: {
 	                name: "카드 수정",
@@ -277,6 +277,28 @@
 	                $.contextMenu.getInputValues(opt, $this.data());
 	                // this basically dumps the input commands' values to an object
 	                // like {name: "foo", yesno: true, radio: "3", &hellip;}
+	            }
+	        }
+	    });
+		// contextMenu (우클릭)에 대한 설정 - 이슈 카드 : 수정은 안되고 삭제만 된다.
+	    $.contextMenu({
+	        selector: '.issueCard', 
+	        items: {
+	            deleteCard: {
+	                name: "카드 삭제",
+	                callback: function(key, opt){
+	                	delCard();
+	                }
+	            }
+	        }, 
+	        events: {
+	            show: function(opt) {
+	                var $this = this;
+	                $.contextMenu.setInputValues(opt, $this.data());
+	            }, 
+	            hide: function(opt) {
+	                var $this = this;
+	                $.contextMenu.getInputValues(opt, $this.data());
 	            }
 	        }
 	    });
