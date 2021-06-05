@@ -266,7 +266,7 @@
 									
 									issue_history = $('#issue-template').children('.issue-reply').clone();
 									issue_history.attr('data-issue_his_no', v.issue_his_no);
-									issue_history.find('.repHeader').children('span:first').text('You');
+									issue_history.find('.repHeader').children('span:first').text(proj_user_nick);
 									issue_history.find('.repHeader').children('span:last').text(moment(new Date()).fromNow());
 								$('#issue-body-cont').append(issue_history);
 								// editor 비우기

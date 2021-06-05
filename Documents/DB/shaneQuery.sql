@@ -82,26 +82,30 @@ order by issue_his_no;
 ----------------------------------------------------------------------
 -- a. 뉴스 목록 조회
 ------------------------------------------------------------------------
-select news.news_sid, news.proj_no, news_no, news_title, news_cont, news_write_date
-        ,atch_file_sid
-        ,writer.mem_no
-        ,writer.mem_pic_file_name
-        ,writerp.proj_user_nick as mem_nick
-        ,news_com_no, news_com_cont, news_com_date
-        ,commenter.mem_no commenterMemno
-        ,commenter.mem_pic_file_name as commenterPicture
-        ,commenterp.proj_user_nick as commenterNickname
-from news
-    inner join member writer on (news.mem_no = writer.mem_no)
-    inner join proj_mem writerp on (news.proj_no = writerp.proj_no
-                                    and writer.mem_no = writerp.mem_no)
-    left outer join news_comment nc on (news.news_sid = nc.news_sid)
-    left outer join member commenter on (nc.mem_no = commenter.mem_no)
-    left outer join proj_mem commenterp on (news.proj_no = commenterp.proj_no
-                                    and commenter.mem_no = commenterp.mem_no)
-where news.proj_no = 1                               
-order by news.news_sid desc;
-
+select  a.*
+from (
+        SELECT dense_rank() over(order by news.news_sid desc) as dr
+            ,news.news_sid, news.proj_no, news_no, news_title, news_cont, news_write_date
+            ,atch_file_sid
+            ,writer.mem_no
+            ,writer.mem_pic_file_name
+            ,writerp.proj_user_nick as mem_nick
+            ,news_com_no, news_com_cont, news_com_date
+            ,commenter.mem_no commenterMemno
+            ,commenter.mem_pic_file_name as commenterPicture
+            ,commenterp.proj_user_nick as commenterNickname
+        from news
+            inner join member writer on (news.mem_no = writer.mem_no)
+            inner join proj_mem writerp on (news.proj_no = writerp.proj_no
+                                            and writer.mem_no = writerp.mem_no)
+            left outer join news_comment nc on (news.news_sid = nc.news_sid)
+            left outer join member commenter on (nc.mem_no = commenter.mem_no)
+            left outer join proj_mem commenterp on (news.proj_no = commenterp.proj_no
+                                            and commenter.mem_no = commenterp.mem_no)
+        where news.proj_no = 1 --#{detailSearch.proj_no}
+    )a                            
+--WHERE DR BETWEEN 5 AND 10
+;
 -----------------------------------------------------------------------------------
 --b. 뉴스 작성용 select key
 select *

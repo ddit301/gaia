@@ -50,17 +50,18 @@
                 </div>
                 
 				<div id="milestoneview-template">
-				<div class="milestone-no" hidden = "hidden"></div>
 					<div class="milestoneviewBox">	
 						<div class = "row">
-							<div class="milestoneview-title col-md-6">
+							<div class ="milest-status col-md-1">
+								<span class="label label-success">Open</span>
+							</div>
+							<div class="milestoneview-title col-md-5">
 								<span></span>
-								<input type="text" hidden="hidden">
-				            </div>                                                                                     
+				            </div>  
+				                                                                                  
 							<div class="milestoneview-bar col-md-6">
 								<div class="progress mb-3">
-									<div class="progress-bar gradient-1" style=; role="progressbar">
-									</div>	
+									<div class="progress-bar gradient-1" style=; role="progressbar"></div>	
 								</div>
 							</div>	                                                                                         
 						</div>
@@ -70,15 +71,16 @@
 							</div>	
 		                    <div class="milestoneview-percent col-md-6">
 		                        <span></span>
-		                        
 		                    </div>                               
 						</div>
 						<div class="row">
 							<div class="milestone-descript col-md-6">
 								<span></span>	
 							</div>
-							<div class="col-md-6">
-								<span></span>	
+							<div class="milestone-status row col-md-6">
+								<div class ="col-md-8"></div>
+<!-- 								<button type="button" id="open-milest" class="milest-status-btn btn btn-sm btn-outline-secondary col-md-2">open</button> -->
+                                <button type="button" id ="close-milest-btn" class="milest-status-btn btn btn-sm btn-outline-danger col-md-3">close</button>
 							</div>
 						</div>
 					</div>
@@ -185,6 +187,8 @@
             	project_title = '${project_title }';
             	milest_no = '${milest_no}';
 				
+//             	milest_status = null;
+            	
             	issue_status = null;
             	milestObject = null;
             	
@@ -205,9 +209,24 @@
 							,data : data
 							
 							,success : function(res) {
+								
+							
+														
 								$('#milestone-issuelist').empty();
 								
 								milestObject = res;
+								
+								console.log(res.milest_status);
+								// 마일스톤이 닫혀있는 경우 close 버튼으로 변경해둔다.
+								if(res.milest_status == 1) {
+									$('.milest-status').children('span').text('Closed');
+									$('.milest-status').children('span').removeClass('label-success');
+									$('.milest-status').children('span').addClass('label-danger');
+									$('#close-milest-btn').text('Reopen issue');
+									$('#close-milest-btn').removeClass('btn-warning');
+									$('#close-milest-btn').addClass('btn-primary');
+								}
+								
 								
 								$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
 								$('.milest-title').children('span').text(res.milest_title);
@@ -274,7 +293,6 @@
 	            		$(this).addClass("btn-success");
 	            		
 	            		let issue_status = $(this).data('status');
-	            		console.log(issue_status);
 	            		window.scrollTo({top:0, left:0, behavior:'auto'});
 	            		milestoneissuelist(issue_status);
 	            	});
@@ -339,7 +357,79 @@
           		})
           		
             })
-
+            
+            // milestone open / close 이벤트
+            	 $(function(){
+					 $('#close-milest-btn').on('click',function(){
+						
+						  milestObject.milest_status = milestObject.milest_status == 0 ? 1 : 0;
+						 
+						$.ajax({
+							url : getContextPath() + '/restapi/project/milestones',
+							type : 'post',
+							data : {
+								'_method' : 'put'
+								,'milest_sid' : milestObject.milest_sid
+								,'milest_status' : milestObject.milest_status
+								,'milest_title' : milestObject.milest_title
+					            ,'milest_start_date' : milestObject.milest_start_date
+					            ,'milest_end_date' : milestObject.milest_end_date
+					            ,'milest_cont' : milestObject.milest_cont
+							},
+							success : function(res) {
+								// open milestone 인 경우
+								if(milestObject.milest_status == 0) {
+									//상위 라벨
+									$('.milest-status').children('span').text('Open');
+									$('.milest-status').children('span').removeClass('label-danger');
+									$('.milest-status').children('span').addClass('label-success');
+									//바닥 버튼
+									$('#close-milest-btn').text('Close milestone');
+									$('#close-milest-btn').removeClass('btn-primary');
+									$('#close-milest-btn').addClass('btn-warning');
+									// toastr 알람
+									toastr.success('Milestone을 Open 했습니다.')
+								// close milestone 인 경우	
+								}else{
+									//상위 라벨
+									$('.milest-status').children('span').text('Closed');
+									$('.milest-status').children('span').removeClass('label-success');
+									$('.milest-status').children('span').addClass('label-danger');
+									// 바닥 버튼 
+									$('#close-milest-btn').text('Reopen milestone');
+									$('#close-milest-btn').removeClass('btn-warning');
+									$('#close-milest-btn').addClass('btn-primary');
+									// toastr 알람
+									toastr.options = {
+										  "closeButton": false,
+										  "debug": false,
+										  "newestOnTop": false,
+										  "progressBar": false,
+										  "positionClass": "toast-top-right",
+										  "preventDuplicates": false,
+										  "onclick": null,
+										  "showDuration": "100",
+										  "hideDuration": "1000",
+										  "timeOut": "1000",
+										  "extendedTimeOut": "1000",
+										  "showEasing": "swing",
+										  "hideEasing": "linear",
+										  "showMethod": "fadeIn",
+										  "hideMethod": "fadeOut"
+										}
+									toastr.warning('Milestone을 Close 했습니다.')
+								}
+							},
+							error : function(xhr, error, msg) {
+								console.log(xhr);
+								console.log(error);
+								console.log(msg);
+							},
+							dataType : 'json'
+						})
+				
+					 })	
+				 })
 
 			</script>
             

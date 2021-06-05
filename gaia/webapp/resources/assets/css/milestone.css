@@ -15,14 +15,15 @@
 	float: right; 
 	margin-right: 5px;
 }
-.mileston-chk{
+.milestone-chk{
 	margin : 10px;
+	padding-right : 5px;
 }
 .milestoneBox{
 	background-color : #FFFFFF;
 	color : black;
 	margin-bottom : 10px;
-	height : 130px;
+	height : 150px;
 }
 #milestone-list{
     margin-top:10px;
@@ -50,6 +51,18 @@
 	text-align : center;
 	height : 50px;
 }
+.milestone-status {
+	text-align : center;
+}
+
+.milest-status-btn{
+/* 	width : 100px; */
+	height : 30px;
+	padding : 15px;
+	margin-right  : 10px;
+	text-align : center;
+}
+
 .milestone-footer{
 	margin-top : 20px;
 }
@@ -77,11 +90,10 @@
 	background-color : white;
 	color : black;
 	margin : 10px;
-	height : 130px;
+	height : 150px;
 }
 .milestoneview-title{
 	overflow:hidden; 
-	padding-left : 40px;
 	text-overflow:ellipsis; 
 	white-space:nowrap;
 	text-align : center;

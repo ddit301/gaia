@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd ">
+  <tlib-version>1.0</tlib-version>
+  <short-name>my</short-name>
+  
+  <function>
+  	<name>getAvailableIDs</name>
+  	<function-class>java.util.TimeZone</function-class>
+  	<function-signature>java.lang.String[] getAvailableIDs()</function-signature>
+  	<example>
+  		${my:getAvailableIDs() }
+  	</example>
+  </function>
+  <function>
+  	<name>getTimeZone</name>
+  	<function-class>java.util.TimeZone</function-class>
+  	<function-signature>java.util.TimeZone getTimeZone(java.lang.String)</function-signature>
+  	<example>
+  		${my:getTimeZone("id") }
+  	</example>
+  </function>
+  <function>
+  	<name>getDefaultTimeZone</name>
+  	<function-class>java.util.TimeZone</function-class>
+  	<function-signature>java.util.TimeZone getDefault()</function-signature>
+  	<example>
+  		${my:getDefaultTimeZone() }
+  	</example>
+  </function>
+  
+  
+  <function>
+	  <name>initializeName</name>
+	  <function-class>best.gaia.utils.InitializeString</function-class>
+	  <function-signature>java.lang.String initializer(java.lang.String)</function-signature>
+  </function>
+  
+</taglib>

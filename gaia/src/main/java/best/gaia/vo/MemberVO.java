@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +31,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "mem_pass")
-@Builder
+@EqualsAndHashCode(of= {"mem_no", "mem_id"})
 public class MemberVO implements UserDetails, Serializable {
 
 	/**
@@ -65,6 +66,7 @@ public class MemberVO implements UserDetails, Serializable {
 	private String mem_working_city; // 회원 근무 도시
 	@Size(max = 50)
 	private String mem_status; // 회원 상태
+	
 	private List<GrantedAuthority> authorities;
 	private boolean enabled = StringUtils.isBlank(mem_quit_date) ? true : false;
 
@@ -119,33 +121,6 @@ public class MemberVO implements UserDetails, Serializable {
 		return enabled;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MemberVO other = (MemberVO) obj;
-		if (mem_no != other.mem_no)
-			return false;
-		if (mem_id == null) {
-			if (other.mem_id != null)
-				return false;
-		} else if (!mem_id.equals(other.mem_id))
-			return false;
-		return true;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + mem_no;
-		result = prime * result + ((mem_id == null) ? 0 : mem_id.hashCode());
-		return result;
-	}
 	/**
 	 * Association 관계의 객체 입니다.
 	 */	 
@@ -153,7 +128,7 @@ public class MemberVO implements UserDetails, Serializable {
 	 * Collnection 관계의 객체입니다.
 	 */
 	private List<AttachFileVO> attachFileList;
-	private Set<ProjectVO> projectList;
+	private List<ProjectVO> projectList;
 	/**
 	 * 필요에 따라 추가된 프로퍼티 입니다.
 	 */
