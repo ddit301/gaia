@@ -20,10 +20,55 @@
 	<script src="${cPath }/resources/js/jquery.serializejson.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="${cPath }/resources/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+	<script src="${cPath }/resources/assets/plugins/jquery-validation/jquery.validate.js"></script>
 <script type="text/javascript">
 	let project_title = '${project_title}';
 	let manager_nick = '${manager_nick}';
-	
+	var data = {}
+	// Swal Alert 설정
+	var swal = {
+		error : function(data){
+			console.log(data);
+			if(!data){data = { };}
+			Swal.fire({
+				icon: 'error',
+				title: typeof data.title !=='undefined' ? data.title : 'Oops...', 
+				text: !!data.text ? data.text : 'Something went wrong!',
+				showConfirmButton : !!data.confirm ? true : false,
+				timer: 1500
+			})
+		},
+		success : function(data){
+			if(!data){data = { };}
+				Swal.fire({
+					icon: 'success',
+					title: !!data.title ? data.title : 'Success!!',
+					text: !!data.text ? data.text : 'Your work has been saved!',
+					showConfirmButton : !!data.confirm ? true : false,
+					timer: 1500
+				})
+		},
+		warning : function(data){
+			if(!data){data = { };}
+			Swal.fire({
+				icon: 'warning',
+				title: !!data.title ? data.title : 'Oops...', 
+				text: !!data.text ? data.text : 'You should do someting first!',
+				showConfirmButton : !!data.confirm ? true : false,
+				timer: 1500
+			})
+		},
+		info : function(data){
+			if(!data){data = { };}
+			Swal.fire({
+				icon: 'info',
+				title: !!data.title ? data.title : 'Have to know!', 
+				text: !!data.text ? data.text : 'blablabla',
+				showConfirmButton : !!data.confirm ? true : false,
+				timer: 1500
+			})
+		}
+	}
 	// toastr 알람 설정
 	toastr.options = {
 			  "closeButton": false,
