@@ -50,6 +50,7 @@ public class MilestoneREST {
 	@RequestMapping(method=RequestMethod.GET)
 	public List<MilestoneVO> selectMilestoneList(
 			HttpSession session
+			, @RequestParam(required=false) String milest_status
 			) {
 		
 		PagingVO<MilestoneVO> pagingVO = new PagingVO<MilestoneVO>();
@@ -58,6 +59,7 @@ public class MilestoneREST {
 		Integer proj_no = getProjNoFromSession(session);
 		
 		detailSearch.setProj_no(proj_no);
+		detailSearch.setMilest_status(milest_status);
 		
 		pagingVO.setDetailSearch(detailSearch);
 		
