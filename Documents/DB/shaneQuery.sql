@@ -78,7 +78,7 @@ order by issue_his_no;
 
 -----------------------------2. News ------------------------------------
 --a. 뉴스 목록 조회
-
+--b. 뉴스 작성용 select key
 ----------------------------------------------------------------------
 -- a. 뉴스 목록 조회
 ------------------------------------------------------------------------
@@ -99,12 +99,22 @@ from news
     left outer join member commenter on (nc.mem_no = commenter.mem_no)
     left outer join proj_mem commenterp on (news.proj_no = commenterp.proj_no
                                     and commenter.mem_no = commenterp.mem_no)
-where proj_no = 1                               
+where news.proj_no = 1                               
 order by news.news_sid desc;
+
 -----------------------------------------------------------------------------------
+--b. 뉴스 작성용 select key
+select *
+from
+    (select max(news_sid)+1 as news_sid
+        from news) a,
+    (select max(news_no)+1 as news_no
+       from news
+       where proj_no = 1--#{proj_no}
+    )b;
 
 
-
+-----------------------------------------------------------------------------------
 
 -----------------------------3. Kanban--------------------------------------------------
 -- a. 칸반 컬럼들 불러오기

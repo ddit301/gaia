@@ -1,5 +1,7 @@
 package best.gaia.project.controller;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,13 +13,19 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.service.ProjectService;
+import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.utils.exception.NotValidSessionException;
+import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.IssueVO;
+import best.gaia.vo.MemberVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
 
@@ -41,8 +49,8 @@ public class NewsREST {
 	@RequestMapping(method=RequestMethod.GET)
 	public List<NewsVO> selectNewsList(
 			HttpSession session
+			,@ModelAttribute PagingVO<NewsVO> pagingVO
 			) {
-		PagingVO<NewsVO> pagingVO = new PagingVO<>();
 		NewsVO detailSearch = new NewsVO();
 		
 		detailSearch.setProj_no((Integer)session.getAttribute("proj_no"));
@@ -52,8 +60,34 @@ public class NewsREST {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public Map<String, Object> insertNews() {
-		return null;
+	public Map<String, Object> insertNews(
+		HttpSession session
+		,Authentication authentication
+		,@ModelAttribute NewsVO news
+		) {
+		
+		if(authentication == null) {
+			throw new UnauthorizedException();
+		}
+		
+		MemberVO member = (MemberVO) authentication.getPrincipal();
+		// 로그인 정보가 없을 경우 예외 처리
+		if(member == null) {
+			throw new NotValidSessionException();
+		}
+		news.setMem_no(member.getMem_no());
+		
+		Integer proj_no = getProjNoFromSession(session);
+		news.setProj_no(proj_no);
+		
+		// service 호출해 그 결과 result 에 담기
+		ServiceResult result = service.insertNews(news);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("news", news);
+		map.put("result", result);
+		
+		return map;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
@@ -74,6 +108,14 @@ public class NewsREST {
 //		search.setIssue_sid(issue_sid);
 //		return service.selectIssue(search);
 //	}
+	
+	Integer getProjNoFromSession(HttpSession session){
+		Integer proj_no = (Integer)session.getAttribute("proj_no");
+		if(proj_no == null) {
+			throw new NotValidSessionException();
+		}
+		return proj_no;
+	}
 	
 	
 	

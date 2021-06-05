@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import best.gaia.vo.NewsCommentVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
 
@@ -14,5 +15,9 @@ public interface NewsDao {
 	public int insertNews(NewsVO news);
 	public int updateNews(NewsVO news);
 	public int deleteNews(NewsVO news);
+	
+	public int insertNewsComment(NewsCommentVO newsComment);
+	public int updateNewsComment(NewsCommentVO newsComment);
+	public int deleteNewsComment(NewsCommentVO newsComment);
 	
 }
