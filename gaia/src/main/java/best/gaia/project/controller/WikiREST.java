@@ -42,7 +42,7 @@ public class WikiREST {
 		
 		return null;
 	}
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="{wiki_no}", method=RequestMethod.GET)
 	public WikiVO selectWiki() {
 		
 		return null;
