@@ -7,6 +7,7 @@ import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.NewsCommentVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
+import best.gaia.vo.ProjectVO;
 
 public interface ProjectService {
 	
@@ -30,5 +31,9 @@ public interface ProjectService {
 	 **********************************************************************/
 	public ServiceResult moveCard(Integer droppedCardNo, Integer newColumnNo , Integer nextCardNo);
 	public ServiceResult insertKanbanCard(KanbanCardVO card);
+	
+	
+	
+	public ServiceResult enrollProject(ProjectVO project);
 	
 }

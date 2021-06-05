@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.member.service.MemberService;
+import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.MemberVO;
 
 /**
@@ -59,9 +60,11 @@ public class MemberUrlMapper {
 		model.addAttribute("mem_nick", mem_nick);
 		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null);
 
+		if(authUser == null) throw new UnauthorizedException();
+		
 		MemberVO auth = (MemberVO) authUser.getPrincipal();
 		MemberVO member = service.retrieveMemberProjectIssue(auth.getMem_no());
-		model.addAttribute("member",member);
+		model.addAttribute("member", member);
 		logger.info("MemberUrlMapper GET 들어옴, need : {}", member);
 
 		return "view/template/member";

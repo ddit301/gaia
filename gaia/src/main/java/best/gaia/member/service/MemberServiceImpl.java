@@ -52,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public ServiceResult enrollMember(MemberVO member) {
-		ServiceResult result = null;
+		ServiceResult result = ServiceResult.FAIL;
 		if (dao.selectMemberForAuth(member.getMem_id()) == null) {
 			String inputPass = member.getMem_pass();
 			try {

@@ -9,6 +9,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/tlds/myFunctions.tld" prefix="my"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <div id="preloader">
     <div class="loader">
         <svg class="circular" viewBox="25 25 50 50">
@@ -26,7 +27,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                     </button>
                 </div>
-                <form class="form-valide" action="#" method="post">
+                <form class="form-valide" action="/restapi/project/projects" method="post">
                     <div class="modal-body">
 
 
@@ -102,11 +103,14 @@
 
 <div id="main-list">
 	<div id="project__list">
-	<c:if test="${not empty member.projectList }">
+	
+	<c:if test="${not empty member.projectList  && fn:length(member.projectList) > 0}">
 		<c:forEach items="${member.projectList }" var="project">
 		<c:set var = "title" value = "${my:initializeName(project.proj_title)}" />
-		<div class="square__box img-rounded">
+		<div class="square__box">
+			<div class="img-rounded">
 	  			${title }
+	  		</div>
 	    </div>
 			
 		</c:forEach>
