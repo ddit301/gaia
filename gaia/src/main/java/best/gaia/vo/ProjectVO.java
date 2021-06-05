@@ -1,5 +1,6 @@
 package best.gaia.vo;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.validation.constraints.Min;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectVO {
+public class ProjectVO implements Serializable{
 	@NotNull @Min(0) private Integer proj_no;
 	 private Integer mem_no;
 	@NotBlank@Size(max=200) private String proj_title;

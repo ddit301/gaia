@@ -7,6 +7,8 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/tlds/myFunctions.tld" prefix="my"%>
 <div id="preloader">
     <div class="loader">
         <svg class="circular" viewBox="25 25 50 50">
@@ -100,13 +102,16 @@
 
 <div id="main-list">
 	<div id="project__list">
-	
-    <div class="square__box img-rounded">
-        123
-    </div>
-    <div class="square__box img-rounded">
-        456
-    </div>
+	<c:if test="${not empty member.projectList }">
+		<c:forEach items="${member.projectList }" var="project">
+		<c:set var = "title" value = "${my:initializeName(project.proj_title)}" />
+		<div class="square__box img-rounded">
+	  			${title }
+	    </div>
+			
+		</c:forEach>
+	</c:if>
+    
     <div class="square__box">
         <div class="img-rounded">
             <button type="button" class="btn btn-adder" data-toggle="modal"
