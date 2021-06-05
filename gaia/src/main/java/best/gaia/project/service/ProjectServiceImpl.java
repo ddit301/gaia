@@ -10,11 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.project.dao.NewsDao;
 import best.gaia.project.dao.ProjectDao;
+import best.gaia.project.dao.WikiDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.NewsCommentVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
+import best.gaia.vo.WikiVO;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -25,7 +27,11 @@ public class ProjectServiceImpl implements ProjectService {
 	private NewsDao newsDao;
 	@Inject
 	private KanbanDao kanbanDao;
-
+	@Inject
+	private WikiDao wikiDao;
+	
+	
+	
 	@Override
 	public List<NewsVO> selectNewsList(PagingVO<NewsVO> pagingVO) {
 		return newsDao.selectNewsList(pagingVO);
@@ -136,6 +142,30 @@ public class ProjectServiceImpl implements ProjectService {
 		int result = kanbanDao.insertCard(card);
 		
 		return result==1? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertWiki(WikiVO wiki) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateWiki(WikiVO wiki) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteWiki(WikiVO wiki) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

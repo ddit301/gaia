@@ -7,6 +7,7 @@ import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.NewsCommentVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
+import best.gaia.vo.WikiVO;
 
 public interface ProjectService {
 	
@@ -30,5 +31,13 @@ public interface ProjectService {
 	 **********************************************************************/
 	public ServiceResult moveCard(Integer droppedCardNo, Integer newColumnNo , Integer nextCardNo);
 	public ServiceResult insertKanbanCard(KanbanCardVO card);
+	
+	/**********************************************************************
+	 *  위키 관련 service
+	 **********************************************************************/	
+	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO);
+	public int insertWiki(WikiVO wiki);
+	public int updateWiki(WikiVO wiki);
+	public int deleteWiki(WikiVO wiki);
 	
 }
