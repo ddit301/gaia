@@ -29,6 +29,7 @@ public class MilestoneVO {
 	@Size(max=7) private String milest_date;
 	@Size(max=7) private String milest_start_date;
 	@Size(max=7) private String milest_end_date;
+	@Size(max=1) private String milest_status;
 	
 	/**
 	 *	Association 관계 

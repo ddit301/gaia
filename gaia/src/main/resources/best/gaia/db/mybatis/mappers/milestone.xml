@@ -32,7 +32,7 @@
 	
 	<select id="selectMilestone" resultMap="milestoneMap">
 SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,ISSUE.ISSUE_STATUS,ISSUE.PROGRESS,ISSUE.ISSUE_PRIORITY,
-        MILEST.MILEST_SID, MILEST.MILEST_NO, MILEST.MILEST_TITLE,MILEST.MILEST_CONT,MILEST.MILEST_CONT,MILEST.MILEST_DATE,
+        MILEST.MILEST_SID, MILEST.MILEST_NO, MILEST.MILEST_TITLE,MILEST.MILEST_CONT,MILEST.MILEST_CONT,MILEST.MILEST_DATE,MILEST.MILEST_STATUS,
         TO_CHAR(MILEST.MILEST_START_DATE,'YYYY-MM-DD') AS MILEST_START_DATE , TO_CHAR(MILEST.MILEST_END_DATE,'YYYY-MM-DD') AS MILEST_END_DATE,
         LABEL.LABEL_NO, LABEL.LABEL_NM,
         ISSUE_WRI_MEM.MEM_PIC_FILE_NAME AS ISSUE_WRI_MEM_PIC,ISSUE.MEM_NO AS ISSUE_WRI_MEM_NO, ISSUE_WRI_NICK.PROJ_USER_NICK AS ISSUE_WRITER,
@@ -121,7 +121,6 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
                 , TO_DATE(#{milest_start_date,jdbcType=VARCHAR},'YYYY-MM-DD')
                 , TO_DATE(#{milest_end_date,jdbcType=VARCHAR},'YYYY-MM-DD')
                 )
-	
 	</insert>
 	
 	<update id="updateMilestone" parameterType="best.gaia.vo.MilestoneVO">
@@ -131,15 +130,14 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
 		           ,milest_date = sysdate
 		           ,milest_start_date = TO_DATE(#{milest_start_date,jdbcType=VARCHAR},'YYYY-MM-DD')
 		           ,milest_end_date = TO_DATE(#{milest_end_date,jdbcType=VARCHAR},'YYYY-MM-DD')
+		           ,milest_status = #{milest_status,jdbcType=NUMERIC}
 		      where milest_sid = #{milest_sid,jdbcType=NUMERIC}
-	
 	</update>
 	
 	
 	<delete id="deleteMilestone" parameterType="best.gaia.vo.MilestoneVO">
 			 delete from milestone
    			 where milest_sid = #{milest_sid ,jdbcType=NUMERIC}
-	
 	</delete>
 	
 	

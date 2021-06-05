@@ -115,7 +115,6 @@ public class IssueServiceImpl implements IssueService {
 	@Override
 	public MilestoneVO selectMilestone(Map<String, Object> search) {
 		
-//		System.out.println(search);
 		return milestoneDao.selectMilestone(search);
 		
 

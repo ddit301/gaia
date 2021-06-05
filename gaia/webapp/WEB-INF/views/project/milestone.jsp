@@ -75,11 +75,13 @@
 							<div class="milestone-descript col-md-6">
 								<span></span>	
 							</div>
-							<div class="col-md-6">
-								<span></span>	
-							</div>
+<!-- 							<div class="milestone-status row col-md-6"> -->
+<!-- 								<div class ="col-md-7"></div> -->
+<!-- 								<button type="button" id="open-milest" class="milest-status-btn btn btn-sm btn-outline-secondary col-md-2">open</button> -->
+<!--                                 <button type="button" id ="close-milest" class="milest-status-btn btn btn-sm btn-outline-danger col-md-2">close</button> -->
+<!-- 							</div> -->
 						</div>
-					</div>
+					</div>     
 				</div>
 			
 				
