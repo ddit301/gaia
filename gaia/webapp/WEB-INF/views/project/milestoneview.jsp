@@ -216,6 +216,18 @@
 								
 								milestObject = res;
 								
+								console.log(res.milest_status);
+								// 마일스톤이 닫혀있는 경우 close 버튼으로 변경해둔다.
+								if(res.milest_status == 1) {
+									$('.milest-status').children('span').text('Closed');
+									$('.milest-status').children('span').removeClass('label-success');
+									$('.milest-status').children('span').addClass('label-danger');
+									$('#close-milest-btn').text('Reopen issue');
+									$('#close-milest-btn').removeClass('btn-warning');
+									$('#close-milest-btn').addClass('btn-primary');
+								}
+								
+								
 								$('.milestoneview-title').children('span').text(res.milest_title + ' #' + res.milest_no);
 								$('.milest-title').children('span').text(res.milest_title);
 								$('.milestoneview-date').children('span').text((res.milest_start_date == null ? "시작일 없음." : res.milest_start_date) +' - '+(res.milest_end_date == null ? "종료일 없음." : res.milest_end_date));

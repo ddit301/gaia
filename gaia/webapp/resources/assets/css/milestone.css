@@ -15,8 +15,9 @@
 	float: right; 
 	margin-right: 5px;
 }
-.mileston-chk{
+.milestone-chk{
 	margin : 10px;
+	padding-right : 5px;
 }
 .milestoneBox{
 	background-color : #FFFFFF;

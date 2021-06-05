@@ -2,8 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.issue.dao.MilestoneDao">
 	
+		<sql id="searchFrag">
+		<trim prefix="WHERE" prefixOverrides="AND">
+			PROJ_NO = #{detailSearch.proj_no}
+			<trim prefix="AND (" suffix=")">
+				<if test="detailSearch neq null">
+					<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailSearch.milest_status)">
+						MILEST_STATUS = #{detailSearch.milest_status,jdbcType=VARCHAR}
+					</if>
+				</if>
+			</trim>
+		</trim>
+	</sql>
+	
+	
 	<select id="selectMilestoneList" parameterType="best.gaia.vo.PagingVO" resultType="best.gaia.vo.MilestoneVO">
-			SELECT A.MILEST_TITLE,A.MILEST_NO,A.MILEST_CONT
+			SELECT A.MILEST_TITLE,A.MILEST_NO,A.MILEST_CONT, A.MILEST_STATUS
                 , TO_CHAR(A.MILEST_START_DATE,'YYYY-MM-DD') AS MILEST_START_DATE 
                 , TO_CHAR(A.MILEST_END_DATE,'YYYY-MM-DD') AS MILEST_END_DATE
                 , SUM(A.ISSUE_STATUS)/COUNT(A.ISSUE_STATUS)*100 AS MILEST_PERCENT
@@ -12,8 +26,8 @@
 		  FROM(SELECT MILESTONE.*, ISSUE.ISSUE_TITLE, ISSUE.ISSUE_STATUS
    				 FROM MILESTONE
        				 LEFT OUTER JOIN ISSUE ON(MILESTONE.MILEST_SID = ISSUE.MILEST_SID))A
-               WHERE PROJ_NO = #{detailSearch.proj_no}
-         GROUP BY A.MILEST_TITLE, A.MILEST_START_DATE, A.MILEST_END_DATE, A.MILEST_NO,A.MILEST_CONT
+            <include refid="searchFrag" />    
+         GROUP BY A.MILEST_TITLE, A.MILEST_START_DATE, A.MILEST_END_DATE, A.MILEST_NO,A.MILEST_CONT, A.MILEST_STATUS
 	</select>
 	
 	<resultMap type="best.gaia.vo.MilestoneVO" id="milestoneMap" autoMapping="true">
