@@ -78,8 +78,11 @@
 		let CookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
 		return CookieValue? decodeURI(CookieValue[2]) : null;
 	};
+	
 	// 접속 회원의 프로젝트 내 닉네임 입니다. 글 작성시 활용해주세요.
-	let proj_user_nick = getCookie('proj_user_nick');
+	// 일단 다른 페이지들에서 해당 변수 못쓰게 const 로 막고, 추후 프로필 데이터 변경 고려해 코드 완성 단계에 let 으로 풀겠습니다. 
+	const proj_user_nick = getCookie('proj_user_nick');
+	const mem_pic_file_name = getCookie('mem_pic_file_name');
   
 	// toastr 알람 설정
 	toastr.options = {

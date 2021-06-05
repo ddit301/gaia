@@ -22329,4 +22329,11 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   color: #fff;
 }
 
+.profile{
+    width: 57px; height: 57px;
+    object-fit: cover;
+    object-position: bottom;
+    border-radius: 50%;
+}
+
 /*# sourceMappingURL=style.css.map */
