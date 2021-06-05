@@ -3,7 +3,7 @@
 <mapper namespace="best.gaia.member.dao.MemberDao">
 	<select id="selectMemberForAuth" parameterType="String" resultType="MemberVO">
 		SELECT MEM_NO, MEM_ID, MEM_PASS, MEM_NICK
-		FROM MEMBER                                      
+		FROM MEMBER
 		WHERE MEM_ID = #{mem_id}  AND MEM_QUIT_DATE IS NULL
 	</select>
 	
@@ -15,7 +15,7 @@
 	
 	<resultMap type="best.gaia.vo.MemberVO" id="memberMap" autoMapping="true">
 		<id property="mem_no" column="MEM_NO"/>
-		<collection property="projectList" ofType="ProjectVO" javaType="java.util.Set" autoMapping="true">
+		<collection property="projectList" ofType="ProjectVO" javaType="java.util.List" autoMapping="true">
 			<id property="proj_no" column="PROJECT_NO"/>
 			<association property="projectManager" javaType="best.gaia.vo.MemberVO" autoMapping="false">
 				<id property="mem_no" column="PROJ_MANAGER_NO"/>
@@ -63,7 +63,7 @@
                     INNER JOIN MEMBER ON (ISSUE_HISTORY.MEM_NO = MEMBER.MEM_NO)
 		)
 		SELECT 
-		        MEM_NICK, MEM_ID, MEMBER.MEM_NO, MEM_BIO, MEM_PIC_FILE_NAME,
+		        MEM_NICK, MEM_ID, MEMBER.MEM_NO AS MEM_NO, MEM_BIO, MEM_PIC_FILE_NAME,
 		        PROJECTINFO.PROJ_NO AS PROJECT_NO, PROJ_TITLE, PROJ_MANAGER_NO, PROJ_MANAGER_NICK,
 		        PROJ_MANAGER_NICK||'/'||PROJ_TITLE AS URI,
 		        PROJ_MANAGER_NICK||'/'||PROJ_TITLE||'/issue/'||ISSUE_NO AS URL,
@@ -125,5 +125,11 @@
 <!-- 		 	SET MEM_QUIT_DATE = SYSDATE -->
 <!-- 	        WHERE MEM_NO = #{mem_no} -->
 	</update>
+	
+	<select id="selectMemberDetail" parameterType="Integer">
+<!-- 		 UPDATE MEMBER -->
+<!-- 		 	SET MEM_QUIT_DATE = SYSDATE -->
+<!-- 	        WHERE MEM_NO = #{mem_no} -->
+	</select>
 	
 </mapper>

@@ -11,7 +11,7 @@
     <script src="${cPath }/resources/assets/plugins/common/common.min.js"></script>
     <script src="${cPath }/resources/assets/js/custom.min.js"></script>
     <script src="${cPath }/resources/assets/js/settings.js"></script>
-    <script src="${cPath }/resources/assets/js/gleek${empty project_title? '_horizontal' : ''}.js"></script>
+    <script src="${cPath }/resources/assets/js/gleek.js"></script>
     <script src="${cPath }/resources/assets/js/styleSwitcher.js"></script>
 	<script src="${cPath }/resources/js/moment.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
