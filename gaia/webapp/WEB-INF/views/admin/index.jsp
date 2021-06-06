@@ -237,6 +237,24 @@
         </footer>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
+<script>
+	$(function(){
+		// 이슈 등록 버튼 이벤트
+		$('#main-wrapper').on('click', '#newIssueBtn', function(){
+			event.preventDefault();
+			newIssue();
+		})
+		
+		// 특정 이슈 클릭시 불러오는 메서드
+		$('#main-wrapper').on('click', '.issueButton', function(){
+			event.preventDefault();
+			let issue_no = $(this).parents('.issueBox').data('issue_no');
+			issueView(issue_no);
+		})
+	})
+
+</script>
+
    
 
   </body>
