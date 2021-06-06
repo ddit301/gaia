@@ -1,8 +1,8 @@
 package best.gaia.project.controller;
 
-import java.util.Date;
+import static best.gaia.utils.SessionUtil.*;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -22,10 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.UnauthorizedException;
-import best.gaia.vo.IssueVO;
-import best.gaia.vo.MemberVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
 
@@ -53,7 +50,7 @@ public class NewsREST {
 			) {
 		NewsVO detailSearch = new NewsVO();
 		
-		detailSearch.setProj_no((Integer)session.getAttribute("proj_no"));
+		detailSearch.setProj_no(getProjNoFromSession(session));
 		pagingVO.setDetailSearch(detailSearch);
 		pagingVO.setDataList(service.selectNewsList(pagingVO));
 		
@@ -71,15 +68,8 @@ public class NewsREST {
 			throw new UnauthorizedException();
 		}
 		
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		// 로그인 정보가 없을 경우 예외 처리
-		if(member == null) {
-			throw new NotValidSessionException();
-		}
-		news.setMem_no(member.getMem_no());
-		
-		Integer proj_no = getProjNoFromSession(session);
-		news.setProj_no(proj_no);
+		news.setMem_no(getMemberNoFromAuthentication(authentication));
+		news.setProj_no(getProjNoFromSession(session));
 		
 		// service 호출해 그 결과 result 에 담기
 		ServiceResult result = service.insertNews(news);
@@ -109,15 +99,6 @@ public class NewsREST {
 //		search.setIssue_sid(issue_sid);
 //		return service.selectIssue(search);
 //	}
-	
-	Integer getProjNoFromSession(HttpSession session){
-		Integer proj_no = (Integer)session.getAttribute("proj_no");
-		if(proj_no == null) {
-			throw new NotValidSessionException();
-		}
-		return proj_no;
-	}
-	
 	
 	
 

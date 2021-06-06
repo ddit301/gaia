@@ -30,7 +30,6 @@ import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.service.IssueService;
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.IssueHistoryVO;
@@ -38,6 +37,7 @@ import best.gaia.vo.IssueVO;
 import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
+import static best.gaia.utils.SessionUtil.*;
 
 @RestController
 @RequestMapping(value="restapi/project/issues", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -67,8 +67,7 @@ public class IssueREST {
 			,@ModelAttribute IssueVO detailSearch
 			) {
 		// session 에서 프로젝트 번호를 받아와 detailSearch에 등록합니다.
-		Integer proj_no = getProjNoFromSession(session);
-		detailSearch.setProj_no(proj_no);
+		detailSearch.setProj_no(getProjNoFromSession(session));
 		pagingVO.setDetailSearch(detailSearch);
 		
 		// issueList 를 받아와 pagingVO 에 담는다.
@@ -87,18 +86,8 @@ public class IssueREST {
 			,@RequestParam String issue_content
 			,@RequestParam Boolean addToKanban
 			) {
-		if(authentication == null) {
-			throw new UnauthorizedException();
-		}
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		// 로그인 정보가 없을 경우 예외 처리
-		if(member == null) {
-			throw new NotValidSessionException();
-		}
-		issue.setMem_no(member.getMem_no());
-		
-		int proj_no = getProjNoFromSession(session);
-		issue.setProj_no(proj_no);
+		issue.setMem_no(getMemberNoFromAuthentication(authentication));
+		issue.setProj_no(getProjNoFromSession(session));
 		
 		// issue에 issue_content를 history 형태로 담는다.
 		List<IssueHistoryVO> histories = new ArrayList<>();
@@ -151,10 +140,8 @@ public class IssueREST {
 				,HttpSession session
 			) {
 		
-		Integer proj_no = getProjNoFromSession(session);
-		
 		Map<String, Object> map = new HashMap<>();
-		map.put("proj_no", proj_no);
+		map.put("proj_no", getProjNoFromSession(session));
 		map.put("issue_no", issue_no);
 		
 		IssueVO issue =  service.selectIssue(map);
@@ -165,15 +152,6 @@ public class IssueREST {
 		
 		return issue;
 	}
-	
-	Integer getProjNoFromSession(HttpSession session){
-		Integer proj_no = (Integer)session.getAttribute("proj_no");
-		if(proj_no == null) {
-			throw new NotValidSessionException();
-		}
-		return proj_no;
-	}
-	
 	
 	
 

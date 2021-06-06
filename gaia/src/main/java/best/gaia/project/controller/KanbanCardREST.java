@@ -26,9 +26,8 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.vo.KanbanCardVO;
-import best.gaia.vo.MemberVO;
+import static best.gaia.utils.SessionUtil.*;
 
 @RestController
 @RequestMapping(value="restapi/project/kanban-cards", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -64,12 +63,8 @@ public class KanbanCardREST {
 			,Authentication authentication
 			,@RequestParam String kb_card_cont
 			) {
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		// 로그인 정보가 없을 경우 예외 처리
-		if(member == null) {
-			throw new NotValidSessionException();
-		}
-		card.setMem_no(member.getMem_no());
+		
+		card.setMem_no(getMemberNoFromAuthentication(authentication));
 		
 		ServiceResult result = service.insertCard(card);
 		

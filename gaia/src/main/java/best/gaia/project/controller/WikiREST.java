@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.service.ProjectService;
-import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.vo.WikiVO;
 
 @RestController
@@ -63,12 +61,5 @@ public class WikiREST {
 		return null;
 	}
 	
-	Integer getProjNoFromSession(HttpSession session){
-		Integer proj_no = (Integer)session.getAttribute("proj_no");
-		if(proj_no == null) {
-			throw new NotValidSessionException();
-		}
-		return proj_no;
-	}
 	
 }

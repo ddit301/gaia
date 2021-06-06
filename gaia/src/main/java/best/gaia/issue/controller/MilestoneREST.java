@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.service.IssueService;
+import static best.gaia.utils.SessionUtil.*;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.MilestoneVO;
@@ -73,16 +73,8 @@ public class MilestoneREST {
 			, Authentication authentication
 			) {
 		
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		// 로그인 정보가 없을 경우 예외 처리
-		if(member == null) {
-			throw new NotValidSessionException();
-			
-		}
-		
-		
 		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
-		milestone.setMem_no(member.getMem_no());
+		milestone.setMem_no(getMemberNoFromAuthentication(authentication));
 		
 		// proj_no 를 milestone VO 에 넣기 
 		int proj_no = getProjNoFromSession(session);
@@ -103,15 +95,8 @@ public class MilestoneREST {
 			, Authentication authentication
 			) {
 		
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		// 로그인 정보가 없을 경우 예외 처리
-		if(member == null) {
-			throw new NotValidSessionException();
-			
-		}
-		
 		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
-		milestone.setMem_no(member.getMem_no());
+		milestone.setMem_no(getMemberNoFromAuthentication(authentication));
 		
 		ServiceResult result = service.updateMilestone(milestone);
 		
@@ -127,13 +112,6 @@ public class MilestoneREST {
 			 @ModelAttribute MilestoneVO search
 			 , Authentication authentication
 				) {
-		
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		// 로그인 정보가 없을 경우 예외 처리
-		if(member == null) {
-			throw new NotValidSessionException();
-			
-		}
 		
 		ServiceResult result = service.deleteMilestone(search);
 		Map<String,Object>map = new HashMap<>();
@@ -171,13 +149,4 @@ public class MilestoneREST {
 		return milestone;
 	}
 	
-	Integer getProjNoFromSession(HttpSession session){
-		Integer proj_no = (Integer)session.getAttribute("proj_no");
-		if(proj_no == null) {
-			throw new NotValidSessionException();
-		}
-		return proj_no;
-	}
-	
-
 }

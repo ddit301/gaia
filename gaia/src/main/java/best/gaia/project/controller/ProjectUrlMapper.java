@@ -1,7 +1,6 @@
 package best.gaia.project.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -9,7 +8,6 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +27,7 @@ import best.gaia.utils.CookieUtil;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.MemberVO;
+import static best.gaia.utils.SessionUtil.*;
 @Controller
 @RequestMapping("{manager_nick:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
 public class ProjectUrlMapper {
@@ -77,10 +75,7 @@ public class ProjectUrlMapper {
 			throw new ResourceNotFoundException();
 		
 		// 접속중인 유저가 해당 proj_no에 대해 조회할 수 있는 권한이 있는지 체크
-		if(authentication == null)
-			throw new UnauthorizedException();
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		int mem_no = member.getMem_no();
+		int mem_no = getMemberNoFromAuthentication(authentication);
 		/* 코드 작성 필요*/
 		
 		// 조회중인 프로젝트의 proj_no 를 세션에 저장하기
