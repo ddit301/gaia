@@ -97,6 +97,7 @@
 	// 일단 다른 페이지들에서 해당 변수 못쓰게 const 로 막고, 추후 프로필 데이터 변경 고려해 코드 완성 단계에 let 으로 풀겠습니다. 
 	const proj_user_nick = getCookie('proj_user_nick');
 	const mem_pic_file_name = getCookie('mem_pic_file_name');
+	$('.user-img').children('img').attr('src', getProfilePath(mem_pic_file_name));
   
 	// toastr 알람 설정
 	toastr.options = {
@@ -231,7 +232,6 @@
 		}else if(milest_no){
 			milestoneView(milest_no);
 		}else{
-		
 			movePageHistory(pageParam);
 		}
 	 	
@@ -244,10 +244,17 @@
 		$(function(){
 			
 			// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
-			$('#main-wrapper').on('click', '.moveButton', function(){
+			$('.nk-sidebar').on('click', '.moveButton', function(){
 				event.preventDefault();
 				let menuName = $(this).data('menu');
 				movePageHistory(menuName);
+			})
+			
+			// 우측 상단 profile 관련 메뉴에 대한 처리
+			$('.dropdown-profile').on('click', '.moveButton', function(){
+				event.preventDefault();
+				let menuName = $(this).data('menu');
+				alert(menuName);
 			})
 		
 		})

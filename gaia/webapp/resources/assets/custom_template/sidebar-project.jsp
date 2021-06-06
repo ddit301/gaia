@@ -14,13 +14,19 @@
 	var movePageHistory = function(pageParam){
 		var data = pageParam;
 		var title;
-		var url = '${cPath}/${manager_nick}/${project_title}'+ (pageParam ? '/'+pageParam : '') ;
+		var url = getContextPath() + '/${manager_nick}/${project_title}'+ (pageParam ? '/'+pageParam : '') ;
 		history.pushState(data, title, url);
 		movePage(pageParam);
 	}
 	
 	// 뒤로가기 상황에서는 movePage 함수를 바로 호출합니다. 그렇지 않으면 history가 꼬이게 됩니다.
 	var movePage = function(pageParam){
+		
+		// project 페이지에서는 vertical로만 보여줍니다.
+		new quixSettings({
+		    layout: "vertical" // vertical or horizontal
+		});
+		
 		// 화면 위로 올리기
 		window.scrollTo({top:0, left:0, behavior:'auto'});
 		
@@ -39,18 +45,15 @@
 			},
 			error : function(xhr) {
 				// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-				if(xhr.status == '404'){
+				if(xhr.status == '404')
 					alert('등록되지 않는 버튼 : ' + pageParam);				
-				}else{
-					alert("status : " + xhr.status);
-				}
+				ajaxError(xhr, error, msg);
 			},
 			dataType : 'html'
 		})
 	}
 	
 </script>
-
   <div class="nk-sidebar">           
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
@@ -58,16 +61,6 @@
                         <a class="moveButton" data-menu="" href="#" aria-expanded="false">
                             <i class="icon-home menu-icon"></i><span class="nav-text">Overview</span>
                         </a>
-                    </li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-docs menu-icon"></i><span class="nav-text">Projects</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href=".">다른프로젝트1</a></li>
-                            <li><a href=".">다른프로젝트2</a></li>
-                            <li><a href=".">다른프로젝트3</a></li>
-                        </ul>
                     </li>
                     <li>
                         <a class="moveButton" data-menu="milestone" href="#" aria-expanded="false">
@@ -148,3 +141,4 @@
                 </ul>
             </div>
         </div>
+        

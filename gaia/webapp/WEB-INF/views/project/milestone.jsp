@@ -93,7 +93,6 @@
             	// milestonelist 을 불러오는 함수
             	milestonelist = function(milest_status){
             		
-            		console.log(milest_status);
 //             		let data = {}
 //             		if(milest_status || milest_status == 0){
 //             			data.milest_status = milest_status

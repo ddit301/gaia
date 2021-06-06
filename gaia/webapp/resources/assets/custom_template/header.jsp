@@ -154,7 +154,7 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="${cPath}/resources/assets/images/user/1.png" height="40" width="40" alt="">
+                                <img height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile   dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -163,7 +163,7 @@
                                             <a href="app-profile.html"><i class="icon-user"></i> <span>img : ${member.mem_pic_file_name}</span></a>
                                         </li>
                                         <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                            <a href="#" class="moveButton" data-menu="profile"><i class="icon-user"></i> <span>Profile</span></a>
                                         </li>
                                         <li>
                                             <a href="email-inbox.html"><i class="icon-envelope-open"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill badge-primary">3</div></a>
@@ -182,3 +182,7 @@
                 </div>
             </div>
         </div>
+        
+<script>
+
+</script>

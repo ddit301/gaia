@@ -87,6 +87,7 @@
 		</div> <!-- col-lg-8 col-xl-9 END -->
 	</div>
 </div>
+
 <script>
 // 프로필 사진 변경 ajax
 $(".edit-profile").on("click", function(){
