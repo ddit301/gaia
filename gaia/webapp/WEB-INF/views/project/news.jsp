@@ -31,7 +31,7 @@
             </div>
             
             
-뉴스 작성 Modal
+<!-- 뉴스 작성 Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -132,6 +132,10 @@
  	
 	//스크롤 바닥 감지 무한스크롤 코드 
 	window.onscroll = function(e) {
+		let currUrl = window.location.href;
+		//news 페이지가 아니면 동작하지 않게끔 한다.
+		if(currUrl.substring(currUrl.lastIndexOf('/')+1) != 'news') 
+			return false;
 	    //window height + window scrollY 값이 document height보다 클 경우,
 	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 	    	if(currentPage < totalPage ){

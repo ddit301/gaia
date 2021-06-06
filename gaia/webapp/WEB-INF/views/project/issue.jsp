@@ -208,6 +208,17 @@
 	            **/ 
 	            $(function(){
 	            	
+	    			// 이슈 등록 버튼 이벤트
+	    			$('#main-wrapper').on('click', '#newIssueBtn', function(){
+	    				newIssue();
+	    			})
+	    			
+	    			// 특정 이슈 클릭시 불러오는 메서드
+	    			$('#main-wrapper').on('click', '.issueButton', function(){
+	    				let issue_no = $(this).parents('.issueBox').data('issue_no');
+	    				issueView(issue_no);
+	    			})
+	            	
 	            	$('.pagination').on('click', '.page-link', function(){
 	            		event.preventDefault();
 	            		let dataBtn = $(this).data('btn');

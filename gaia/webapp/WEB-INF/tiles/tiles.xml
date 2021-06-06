@@ -12,8 +12,8 @@
   	<put-attribute name="postScript" value="/resources/assets/custom_template/postScript.jsp" />
   </definition>
   
-  <definition name="view/template/*" extends="menuTemplate">
-  	<put-attribute name="sidebar" value="/resources/assets/custom_template/sidebar-{1}.jsp"></put-attribute>
+  <definition name="view/template/project" extends="menuTemplate">
+  	<put-attribute name="sidebar" value="/resources/assets/custom_template/sidebar.jsp"></put-attribute>
   </definition>
   
 </tiles-definitions>
