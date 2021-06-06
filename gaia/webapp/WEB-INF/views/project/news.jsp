@@ -198,15 +198,7 @@
 					
 				},
 				error : function(xhr, error, msg) {
-					console.log(xhr);
-					console.log(error);
-					console.log(msg);
-					if(xhr.status == 401){
-						toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-						setTimeout(function(){
-							window.location.href=getContextPath()
-							}, 2000);
-					}
+					ajaxError(xhr, error, msg);
 				},
 				dataType : 'json'
 			})
@@ -345,9 +337,7 @@ loadNews = function(currentPage){
 			})
 		},
 		error : function(xhr, error, msg) {
-			console.log(xhr);
-			console.log(error);
-			console.log(msg);
+			ajaxError(xhr, error, msg);
 		},
 		dataType : 'json'
 	})
