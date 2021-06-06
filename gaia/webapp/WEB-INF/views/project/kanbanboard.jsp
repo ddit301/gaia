@@ -369,10 +369,55 @@ delCard = function(){
 
 }
 
-// 카드 수정하는 Function 입니다.
+// 카드 수정하는 Function 입니다. jquery ajax 대신 Vanilla JS Fetch API를 사용했습니다. 
 editCard = function(){
-	cardNo = rightClickedCard.dataset.eid.substring(1);
-	alert(cardNo + '수정');
+	let kb_card_no = rightClickedCard.dataset.eid.substring(1);
+	let kb_card_cont = rightClickedCard.getElementsByClassName('card_content')[0].innerText;
+	
+	Swal.fire({
+		  title: '칸반 카드 수정',
+		  input: 'textarea',
+		  inputValue : kb_card_cont,
+		  inputPlaceholder : '카드 내용을 입력해주세요.',
+		  inputValidator : (value) => {
+			  if(!value || value.trim() === ''){
+				  return '내용을 입력해주세요.'
+			  }
+		  },
+		  showCancelButton: true,
+		  confirmButtonText: 'Save',
+		  showLoaderOnConfirm: true,
+		  preConfirm: (newCont) => {
+			  kb_card_cont = newCont;
+			  // formData 로 만들어서 ajax 전송 한다. _method로 put 요청을 보낸다.
+				let formData = new FormData();
+				formData.append('kb_card_no',kb_card_no);
+				formData.append('_method','put');
+			    formData.append('kb_card_cont',kb_card_cont);
+		        return fetch(getContextPath() + '/restapi/project/kanban-cards',{
+			    	method : 'post'
+			    	,body : formData
+		    })
+		      .then(response => {
+		        if (!response.ok) {
+		          throw new Error(response.statusText)
+		        }
+		        return response.json()
+		      })
+		      .catch(error => {
+		        Swal.showValidationMessage(
+		          `Request failed: ${error}`
+		        )
+		      })
+		  },
+		  allowOutsideClick: () => !Swal.isLoading()
+		}).then((result) => {
+		  if (result.isConfirmed) {
+			  // 새로 수정한 카드 내용으로 기존 카드 내용 변경하기
+			  rightClickedCard.getElementsByClassName('card_content')[0].innerText = kb_card_cont;
+		    swal.success();
+		  }
+		})
 }
 	 
 </script>
