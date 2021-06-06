@@ -27,6 +27,20 @@
 <script type="text/javascript">
 	let project_title = '${project_title}';
 	let manager_nick = '${manager_nick}';
+	
+	// ajaxError 설정
+	function ajaxError(xhr, error, msg){
+		console.log(xhr);
+		console.log(error);
+		console.log(msg);
+		if (xhr.status == 401) {
+			toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
+			setTimeout(function() {
+				window.location.href = getContextPath()
+			}, 2000);
+		}
+	}
+	
 	var data = {}
 	// Swal Alert 설정
 	var swal = {

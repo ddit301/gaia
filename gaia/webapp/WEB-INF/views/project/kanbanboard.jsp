@@ -104,19 +104,12 @@
 				}
 			},
 			error : function(xhr, error, msg) {
-				console.log(xhr);
-				console.log(error);
-				console.log(msg);
-				if (xhr.status == 401) {
-					toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-					setTimeout(function() {
-						window.location.href = getContextPath()
-					}, 2000);
-				}
+				ajaxError(xhr, error, msg);
 			},
 			dataType : 'json'
 			,async : false
 		})
+		
 		
       var KanbanTest = new jKanban({
     	  
@@ -165,9 +158,7 @@
 					}
 				}
 				,error : function(xhr, error, msg) {
-					console.log(xhr);
-					console.log(error);
-					console.log(msg);
+					ajaxError(xhr, error, msg)
 				},
 				dataType : 'json',
 				// async false 이면 카드 드랍시에 딜레이가 발생합니다만 안정성이 보장됩니다.
@@ -215,9 +206,7 @@
 		            });
 				},
 				error : function(xhr, error, msg) {
-					console.log(xhr);
-					console.log(error);
-					console.log(msg);
+					ajaxError(xhr, error, msg)
 				},
 				dataType : 'json'
 				,async : false
@@ -353,16 +342,7 @@ delCard = function(){
 					}
 				},
 				error : function(xhr, error, msg) {
-					console.log(xhr);
-					console.log(error);
-					console.log(msg);
-					if (xhr.status == 401) {
-						toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-						setTimeout(function() {
-							window.location.href = getContextPath()
-						}, 2000);
-					}
-
+					ajaxError(xhr, error, msg)
 				},
 				dataType : 'json'
 			})
