@@ -93,7 +93,6 @@
             	// milestonelist 을 불러오는 함수
             	milestonelist = function(milest_status){
             		
-            		console.log(milest_status);
 //             		let data = {}
 //             		if(milest_status || milest_status == 0){
 //             			data.milest_status = milest_status
@@ -143,6 +142,13 @@
             	
             	// 마일스톤 이슈 all / open /closed 버튼
 				$(function(){
+					
+					// 특정 마일스톤 클릭시 불러오는 메서드
+					$('#main-wrapper').on('click','.milestoneButton',function(){
+						event.preventDefault();
+						let milest_no = $(this).parents('.milestoneBox').data('milest_no');
+						milestoneView(milest_no);
+					})
 				
 				$('.status-btn').on('click', function(){
 					

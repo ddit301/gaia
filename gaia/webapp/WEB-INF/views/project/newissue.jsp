@@ -133,15 +133,7 @@ editor = new toastui.Editor({
 					issueView(res.issue_no);
 				},
 				error : function(xhr, error, msg) {
-					console.log(xhr);
-					console.log(error);
-					console.log(msg);
-					
-					// 401 에러 발생시에는 로그인 페이지로 이동시킨다.
-					if(xhr.status == 401){
-						toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-						setTimeout(() => window.location.href=getContextPath(), 2000);
-					}
+					ajaxError(xhr, error, msg);
 				},
 				dataType : 'json'
 			})

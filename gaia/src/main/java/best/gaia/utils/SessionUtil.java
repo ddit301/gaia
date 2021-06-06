@@ -1,12 +1,14 @@
-package best.gaia.utils.authentication;
+package best.gaia.utils;
 
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
 
 import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.MemberVO;
 
-public class AuthenticationUtil {
+public class SessionUtil {
 	static public int getMemberNoFromAuthentication(Authentication authentication) {
 		if(authentication == null) {
 			throw new UnauthorizedException();
@@ -17,7 +19,14 @@ public class AuthenticationUtil {
 			throw new UnauthorizedException();
 		}
 		
-		int mem_no = member.getMem_no();
-		return mem_no;
+		return member.getMem_no();
+	}
+	
+	static public Integer getProjNoFromSession(HttpSession session){
+		Integer proj_no = (Integer)session.getAttribute("proj_no");
+		if(proj_no == null) {
+			throw new UnauthorizedException();
+		}
+		return proj_no;
 	}
 }

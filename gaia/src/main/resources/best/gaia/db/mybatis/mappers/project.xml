@@ -8,6 +8,42 @@
 		where proj_title = #{project_title}
 		    and mem_nick = #{manager_nick}
 	</select>
+	<select id="getProjCount" parameterType="java.util.Map" resultType="Integer">
+		select count(*)
+		from project 
+		    inner join member on (project.mem_no = member.mem_no)
+		where proj_title = #{project_title}
+		    and mem_nick = #{manager_nick}
+	</select>
+	
+	
+	<insert id="insertProject" parameterType="ProjectVO">
+		<selectKey resultType="int" keyProperty="proj_no" order="BEFORE">
+			SELECT PROJ_SEQ.nextval
+			FROM DUAL
+		</selectKey>
+	 INSERT INTO PROJECT (
+	    PROJ_NO,
+	    MEM_NO,
+	    PROJ_TITLE,
+	    PROJ_CONT,
+	    PROJ_START_DATE,
+	    PROJ_EST_END_DATE,
+	    ISSUE_PRIORITY_SET,
+	    PROJ_MODULE_SET
+	) VALUES (
+	    #{proj_no},
+	    #{mem_no},
+	    #{proj_title},
+	    #{proj_cont},
+	    #{proj_start_date},
+	    #{proj_est_end_date},
+	    #{issue_priority_set},
+	    #{proj_module_set}
+	)
+	</insert>
+	
+	
 	
 	<select id="getProjectNickNameByMemNo" parameterType="java.util.Map" resultType="String">
 		select proj_user_nick

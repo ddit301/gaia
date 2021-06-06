@@ -21,10 +21,10 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.dao.NewsDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.utils.exception.UnauthorizedException;
-import best.gaia.vo.MemberVO;
 import best.gaia.vo.NewsCommentVO;
+
+import static best.gaia.utils.SessionUtil.*;
 
 @RestController
 @RequestMapping(value="restapi/project/news-comments", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -56,15 +56,10 @@ public class NewsCommentREST {
 			throw new UnauthorizedException();
 		}
 		
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		// 로그인 정보가 없을 경우 예외 처리
-		if(member == null) {
-			throw new NotValidSessionException();
-		}
-		newsComment.setMem_no(member.getMem_no());
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		newsComment.setMem_no(mem_no);
 		
 		// service 호출해 그 결과 result 에 담기
-		System.err.println(newsComment);
 		ServiceResult result = 
 				dao.insertNewsComment(newsComment) == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 		

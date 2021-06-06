@@ -12091,7 +12091,6 @@ svg.pulse-svg .third-circle {
   float: right;
   line-height: 3rem;
   margin-top: 0;
-  margin-right: 60px;
   height: 100%;
 }
 
@@ -22327,6 +22326,13 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 
 [data-theme-version="dark"] .footer .copyright p {
   color: #fff;
+}
+
+.profile{
+    width: 57px; height: 57px;
+    object-fit: cover;
+    object-position: bottom;
+    border-radius: 50%;
 }
 
 /*# sourceMappingURL=style.css.map */

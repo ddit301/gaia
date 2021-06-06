@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.NotValidSessionException;
 import best.gaia.vo.KanbanCardVO;
-import best.gaia.vo.MemberVO;
+import static best.gaia.utils.SessionUtil.*;
 
 @RestController
 @RequestMapping(value="restapi/project/kanban-cards", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -61,13 +61,10 @@ public class KanbanCardREST {
 			HttpSession session
 			,@ModelAttribute KanbanCardVO card
 			,Authentication authentication
+			,@RequestParam String kb_card_cont
 			) {
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		// 로그인 정보가 없을 경우 예외 처리
-		if(member == null) {
-			throw new NotValidSessionException();
-		}
-		card.setMem_no(member.getMem_no());
+		
+		card.setMem_no(getMemberNoFromAuthentication(authentication));
 		
 		ServiceResult result = service.insertCard(card);
 		
@@ -79,8 +76,16 @@ public class KanbanCardREST {
 	}
 	
 	@PutMapping
-	public Map<String, Object> updateKanbanCard() {
-		return null;
+	public Map<String, Object> updateKanbanCard(
+			@ModelAttribute KanbanCardVO card
+			) {
+		
+		ServiceResult result = dao.updateCardContent(card) == 1 ? ServiceResult.OK : ServiceResult.FAIL;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("card", card);
+		map.put("result", result);
+		return map;
 	}
 	
 	@DeleteMapping

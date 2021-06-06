@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.member.service.MemberService;
+import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.MemberVO;
 
 /**
@@ -59,12 +60,14 @@ public class MemberUrlMapper {
 		model.addAttribute("mem_nick", mem_nick);
 		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null);
 
+		if(authUser == null) throw new UnauthorizedException();
+		
 		MemberVO auth = (MemberVO) authUser.getPrincipal();
 		MemberVO member = service.retrieveMemberProjectIssue(auth.getMem_no());
-		model.addAttribute("member",member);
+		model.addAttribute("member", member);
 		logger.info("MemberUrlMapper GET 들어옴, need : {}", member);
 
-		return "view/template/member";
+		return "view/template/project";
 	}
 
 	@RequestMapping(value = { "setting",
@@ -75,7 +78,7 @@ public class MemberUrlMapper {
 		// true 일 때 setting/을 붙여주어 moveHistory함수 탈 때 /eisen/setting/account으로 넘어갈 수 있게
 		// 만듦. 없으면 eisen/account로 주소창이 찍힘.
 		model.addAttribute("pageParam", pageParam.isPresent() ? "setting/" + pageParam.get() : "setting");
-		return "view/template/member";
+		return "view/template/project";
 	}
 
 }

@@ -31,7 +31,7 @@
             </div>
             
             
-뉴스 작성 Modal
+<!-- 뉴스 작성 Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -67,7 +67,7 @@
 	 	<div class="news">
        		<div class="newsheader row">
        			<div class="newsWriter col-md-2">
-       				<img src="/gaia/resources/assets/images/user/1.png" alt="">
+       				<img class="profile" alt="newsWriter">
        				<span></span>
        			</div>
        			<div class="newsTitle col-md-6">
@@ -111,7 +111,7 @@
 	<div class="news-reply row">
 		<div class="col-md-2">
 			<div class="repwriter row">
-				<img src="/gaia/resources/assets/images/user/1.png" alt="">
+				<img class="profile" alt="repwriter">
 			</div>
 			<span>Josh</span>
 		</div>
@@ -132,6 +132,10 @@
  	
 	//스크롤 바닥 감지 무한스크롤 코드 
 	window.onscroll = function(e) {
+		let currUrl = window.location.href;
+		//news 페이지가 아니면 동작하지 않게끔 한다.
+		if(currUrl.substring(currUrl.lastIndexOf('/')+1) != 'news') 
+			return false;
 	    //window height + window scrollY 값이 document height보다 클 경우,
 	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 	    	if(currentPage < totalPage ){
@@ -169,7 +173,7 @@
 		$('#editor').appendTo('#editorArea');
 		
 		// 페이지 로드시 일단 뉴스 1페이지 로드
-		loadNews(1);
+		loadNews(currentPage);
 		
 		$('#saveNewsBtn').on('click', function(){
 			news_title = $('#news-title-input').val();
@@ -198,15 +202,7 @@
 					
 				},
 				error : function(xhr, error, msg) {
-					console.log(xhr);
-					console.log(error);
-					console.log(msg);
-					if(xhr.status == 401){
-						toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-						setTimeout(function(){
-							window.location.href=getContextPath()
-							}, 2000);
-					}
+					ajaxError(xhr, error, msg);
 				},
 				dataType : 'json'
 			})
@@ -242,7 +238,6 @@
 				success : function(res) {
 					// toastr 알람
 					toastr.success('새로운 댓글 등록에 성공했습니다.')
-					
 					let comm = getNewsCommentObjectWithJson(res.newsComment);
 					selectedNews.find('.newsReplyArea').append(comm);
 					selectedNews.find('.news-writebox').find('input').val('');
@@ -287,11 +282,13 @@ var getNewsObectWithJson = function(v){
 	let news = $('#news-template').children('.news').clone();
 	
 	news.find('.newsTitle').children('p').text(v.news_title);
-	// 새로 작성한 글에는 v.writer 가 없습니다. 쿠키에서 접속자의 프로젝트 닉네임 정보를 받아와 기록해야 합니다.
+	// 새로 작성한 글에는 v.writer 가 없습니다. 쿠키에서 접속자의 프로젝트 닉네임 정보를 받아와 기록해야 합니다. 프로필 사진 이름도 쿠키에서 받아옵니다.
 	if(v.writer){
 		news.find('.newsWriter').children('span').text(v.writer.mem_nick);
+		news.find('.newsWriter').children('img').attr('src', getProfilePath(v.writer.mem_pic_file_name));
 	}else{
 		news.find('.newsWriter').children('span').text(proj_user_nick);
+		news.find('.newsWriter').children('img').attr('src', getProfilePath(mem_pic_file_name));
 	}
 	news.find('.newsTime').children('span').text(moment(v.news_write_date == null ? new Date() : v.news_write_date).fromNow());
 	news.attr('data-news_sid',v.news_sid);
@@ -320,8 +317,10 @@ var getNewsCommentObjectWithJson = function(comm){
 	// 댓글 불러오는게 아닌 새로운 댓글 작성시에는 commentWriter 가 비어있다. 
 	if(comm.commentWriter){
 		newsComm.find('span').text(comm.commentWriter.mem_nick);
+		newsComm.find('.repwriter').children('img').attr('src', getProfilePath(comm.commentWriter.mem_pic_file_name));
 	}else{
 		newsComm.find('span').text(proj_user_nick);
+		newsComm.find('.repwriter').children('img').attr('src', getProfilePath(mem_pic_file_name));
 	}
 	return newsComm;
 }
@@ -342,9 +341,7 @@ loadNews = function(currentPage){
 			})
 		},
 		error : function(xhr, error, msg) {
-			console.log(xhr);
-			console.log(error);
-			console.log(msg);
+			ajaxError(xhr, error, msg);
 		},
 		dataType : 'json'
 	})

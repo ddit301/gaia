@@ -7,6 +7,8 @@ import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.NewsCommentVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
+import best.gaia.vo.WikiVO;
+import best.gaia.vo.ProjectVO;
 
 public interface ProjectService {
 	
@@ -38,5 +40,16 @@ public interface ProjectService {
 	 * @return 특정 proj_no 에 속한 mem_no 회원의 프로젝트 내 닉네임
 	 */
 	public String getProjectNick(int proj_no, int mem_no);
+	
+	/**********************************************************************
+	 *  위키 관련 service
+	 **********************************************************************/	
+	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO);
+	public int insertWiki(WikiVO wiki);
+	public int updateWiki(WikiVO wiki);
+	public int deleteWiki(WikiVO wiki);
+	
+	
+	public ServiceResult enrollProject(ProjectVO project);
 	
 }
