@@ -107,6 +107,12 @@
 				console.log(xhr);
 				console.log(error);
 				console.log(msg);
+				if (xhr.status == 401) {
+					toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
+					setTimeout(function() {
+						window.location.href = getContextPath()
+					}, 2000);
+				}
 			},
 			dataType : 'json'
 			,async : false
@@ -205,6 +211,7 @@
 		            	// 위에서 받아온 아이디로 엘리먼트를 만들어서 넣는다.
 		           	  id : '_'+res.kb_card_no
 		              ,title: cardCont.wrap("<div/>").parent().html()
+		              ,class : ['normalCard', 'card']
 		            });
 				},
 				error : function(xhr, error, msg) {
