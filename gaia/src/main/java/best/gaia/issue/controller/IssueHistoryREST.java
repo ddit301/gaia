@@ -19,16 +19,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.service.IssueService;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.IssueHistoryVO;
-import best.gaia.vo.MemberVO;
 import static best.gaia.utils.SessionUtil.*;
 
 @RestController

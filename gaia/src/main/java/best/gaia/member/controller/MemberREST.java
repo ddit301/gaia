@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -24,11 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.member.service.MemberService;
-import best.gaia.utils.SessionUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.AttachFileVO;
 import best.gaia.vo.MemberVO;
+import static best.gaia.utils.SessionUtil.*;
 
 @RestController
 @RequestMapping(value="restapi/member/members", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -66,7 +64,7 @@ public class MemberREST {
 				,Authentication authentication
 			) {
 		logger.info("GET 들어옴, need : {}", need);
-		int mem_no = SessionUtil.getMemberNoFromAuthentication(authentication);
+		int mem_no = getMemberNoFromAuthentication(authentication);
 		
 		// member/overview.jsp
 		if("MemberProjectIssue".equals(need)) {
@@ -91,7 +89,7 @@ public class MemberREST {
 			@RequestBody MemberVO profile
 			,Authentication authentication
 			) {
-		int mem_no = SessionUtil.getMemberNoFromAuthentication(authentication);
+		int mem_no = getMemberNoFromAuthentication(authentication);
 		Map<String, Object> member = new HashMap<String, Object>();
 		member.put("member", profile);
 		return member;
@@ -110,7 +108,7 @@ public class MemberREST {
 			, @RequestParam(required=false) String need
 			, Authentication authentication
 			) throws IOException {
-		int mem_no = SessionUtil.getMemberNoFromAuthentication(authentication);
+		int mem_no = getMemberNoFromAuthentication(authentication);
 		form_data.setMem_no(mem_no);
 		
 		ServiceResult sr = service.modifyMember(form_data);
@@ -125,7 +123,7 @@ public class MemberREST {
 			, @RequestParam(required=false) String need
 			, Authentication authentication
 			) throws IOException {
-		int mem_no = SessionUtil.getMemberNoFromAuthentication(authentication);
+		int mem_no = getMemberNoFromAuthentication(authentication);
 		form_data.setMem_no(mem_no);
 		
 		// file 객체 하나 뽑기 
@@ -156,7 +154,7 @@ public class MemberREST {
 			, @RequestParam(required=false) String need
 			, Authentication authentication
 			) throws IOException {
-		int mem_no = SessionUtil.getMemberNoFromAuthentication(authentication);
+		int mem_no = getMemberNoFromAuthentication(authentication);
 		form_data.setMem_no(mem_no);
 		if(form_data.getMem_nm().isEmpty()) {
 			form_data.setMem_nm("anonymous");
@@ -175,7 +173,7 @@ public class MemberREST {
 			, @RequestParam() String old_pass
 			, Authentication authentication
 			) throws IOException {
-		int mem_no = SessionUtil.getMemberNoFromAuthentication(authentication);
+		int mem_no = getMemberNoFromAuthentication(authentication);
 		form_data.setMem_no(mem_no);
 		
 		ServiceResult sr = service.modifyMemberPass(form_data, old_pass);

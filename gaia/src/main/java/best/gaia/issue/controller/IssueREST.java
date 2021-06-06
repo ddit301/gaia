@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.function.Failable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -31,11 +30,9 @@ import best.gaia.issue.service.IssueService;
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.ResourceNotFoundException;
-import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.KanbanCardVO;
-import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
 import static best.gaia.utils.SessionUtil.*;
 

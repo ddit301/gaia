@@ -26,7 +26,6 @@ import best.gaia.issue.service.IssueService;
 import static best.gaia.utils.SessionUtil.*;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.ResourceNotFoundException;
-import best.gaia.vo.MemberVO;
 import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
 
