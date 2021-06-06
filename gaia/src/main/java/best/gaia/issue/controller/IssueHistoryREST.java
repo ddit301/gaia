@@ -19,17 +19,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.service.IssueService;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.NotValidSessionException;
-import best.gaia.utils.exception.UnauthorizedException;
 import best.gaia.vo.IssueHistoryVO;
-import best.gaia.vo.MemberVO;
+import static best.gaia.utils.SessionUtil.*;
 
 @RestController
 @RequestMapping(value="restapi/project/issue-history", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -62,15 +59,7 @@ public class IssueHistoryREST {
 			,Authentication authentication
 			,@ModelAttribute IssueHistoryVO issueHistory
 			) {
-		if(authentication == null) {
-			throw new UnauthorizedException();
-		}
-		MemberVO member = (MemberVO) authentication.getPrincipal();
-		// 로그인 정보가 없을 경우 예외 처리
-		if(member == null) {
-			throw new NotValidSessionException();
-		}
-		issueHistory.setMem_no(member.getMem_no());
+		issueHistory.setMem_no(getMemberNoFromAuthentication(authentication));
 		
 		// 해당 history를 insert 한다.
 		ServiceResult result = dao.insertIssueHistory(issueHistory)==1? ServiceResult.OK : ServiceResult.FAIL;
