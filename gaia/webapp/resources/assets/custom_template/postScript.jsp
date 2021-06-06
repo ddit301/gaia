@@ -138,6 +138,11 @@
 		    }
 	 	})
 	 	
+	 	
+		/*
+		*	issueView, milestoneView, newIssue는 URL을 타고 들어올 수도 있으니 반드시 postScript에 있어야 합니다.
+		*/
+	 	
 	 	var newIssue = function(){
 			// 화면 위로 올리기
 			window.scrollTo({top:0, left:0, behavior:'auto'});
@@ -243,26 +248,6 @@
 				event.preventDefault();
 				let menuName = $(this).data('menu');
 				movePageHistory(menuName);
-			})
-							
-			// 이슈 등록 버튼 이벤트
-			$('#main-wrapper').on('click', '#newIssueBtn', function(){
-				event.preventDefault();
-				newIssue();
-			})
-			
-			// 특정 이슈 클릭시 불러오는 메서드
-			$('#main-wrapper').on('click', '.issueButton', function(){
-				event.preventDefault();
-				let issue_no = $(this).parents('.issueBox').data('issue_no');
-				issueView(issue_no);
-			})
-			
-			// 특정 마일스톤 클릭시 불러오는 메서드
-			$('#main-wrapper').on('click','.milestoneButton',function(){
-				event.preventDefault();
-				let milest_no = $(this).parents('.milestoneBox').data('milest_no');
-				milestoneView(milest_no);
 			})
 		
 		})
