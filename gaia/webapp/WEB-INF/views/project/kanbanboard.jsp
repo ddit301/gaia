@@ -80,7 +80,7 @@
 							cardCont.children('div:first').find('i').removeClass('icon-speech');
 							cardCont.children('div:first').find('i').addClass('icon-fire');
 							// div clas""kanban-item" 에 data-issue-sid 로 이슈 번호를 기록해둔다.
-							card.issue_sid = issue.issue_sid;
+							card.issue_no = issue.issue_no;
 							card.class = ['issueCard', 'card'];
 							cardCont.find('.issue_title a').attr('href','issue/'+issue.issue_no);
 							cardCont.find('.issue_title a').attr('issue_no',issue.issue_no);
@@ -277,6 +277,12 @@
 	    $.contextMenu({
 	        selector: '.issueCard', 
 	        items: {
+	            issueView: {
+	                name: "이슈 보기",
+	                callback: function(key, opt){
+	                	jumpToIssue();
+	                }
+	            },
 	            deleteCard: {
 	                name: "카드 삭제",
 	                callback: function(key, opt){
@@ -308,6 +314,11 @@
 	  buttonsStyling: false
 	})	 
 
+// 카드 이슈로 이동하는 funciton
+jumpToIssue = function(){
+	issueView(rightClickedCard.dataset.issue_no);
+}
+	
 // 카드 삭제하는 Function 입니다.
 delCard = function(){
 	swalWithBootstrapButtons.fire({
