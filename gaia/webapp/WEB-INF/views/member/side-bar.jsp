@@ -33,7 +33,6 @@
 	$('.moveButton').on('click',  function(){
 		event.preventDefault();
 		let menuName = $(this).data('menu');
-		movePageHistory(menuName);
+		movePageHistoryMember(menuName);
 	})
-	$()
 </script>
