@@ -64,17 +64,17 @@ public class MemberREST {
 				,Authentication authentication
 			) {
 		logger.info("GET 들어옴, need : {}", need);
+		Map<String, Object> result = new HashMap<String, Object>();
 		int mem_no = getMemberNoFromAuthentication(authentication);
-		
 		// member/overview.jsp
 		if("MemberProjectIssue".equals(need)) {
 			search = service.retrieveMemberProjectIssue(mem_no);
 		}else {
 		// member/profile.jsp, member/account.jsp
 			search = service.retrieveMemberByNo(mem_no);
+			List<Map<String, Object>> memberStatusList = service.memberStatusList();
+			result.put("memberStatusList", memberStatusList);
 		}
-		
-		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("search", search);
 		return result;
 	}

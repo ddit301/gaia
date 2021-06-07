@@ -1,5 +1,8 @@
 package best.gaia.member.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import best.gaia.vo.MemberVO;
@@ -35,6 +38,7 @@ public interface MemberDao {
 	 * @return 존재하지 않는 경우, null 반환.
 	 */
 	public MemberVO selectMemberDetailByNo(int mem_no);
+	public List<Map<String, Object>> memberStatusList();
 
 	/**
 	 * 신규 등록
