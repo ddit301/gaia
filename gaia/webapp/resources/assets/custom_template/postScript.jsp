@@ -96,7 +96,7 @@
 	// 일단 다른 페이지들에서 해당 변수 못쓰게 const 로 막고, 추후 프로필 데이터 변경 고려해 코드 완성 단계에 let 으로 풀겠습니다. 
 	const proj_user_nick = getCookie('proj_user_nick');
 	const mem_pic_file_name = getCookie('mem_pic_file_name');
-	const mem_nick = getCookie('mem_nick');
+	const mem_id = getCookie('mem_id');
 	$('.user-img').children('img').attr('src', getProfilePath(mem_pic_file_name));
   
 	// toastr 알람 설정
@@ -264,7 +264,7 @@
 		var movePageHistoryMember = function(pageParam){
 			var data = pageParam;
 			var title;
-			var url = getContextPath() +'/' + mem_nick + '/' +pageParam;
+			var url = getContextPath() +'/' + mem_id + '/' +pageParam;
 			history.pushState(data, title, url);
 			movePageMember(pageParam);
 		}
@@ -296,7 +296,7 @@
 			$.ajax({
 				url : path+pageParam ,
 				type : 'get',
-				data : {'mem_nick' : mem_nick
+				data : {'mem_id' : mem_id
 					},
 				success : function(res) {
 					$('.content-body').html(res);

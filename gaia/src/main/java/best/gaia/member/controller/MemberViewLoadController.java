@@ -29,10 +29,10 @@ public class MemberViewLoadController {
 	@RequestMapping(value = {"{menuname}"})
 	public String menuMapper(
 			@PathVariable String menuname
-			,@RequestParam String mem_nick
+			,@RequestParam String mem_id
 			,Model model
 			) {
-		model.addAttribute("mem_nick", mem_nick);
+		model.addAttribute("mem_id", mem_id);
 		model.addAttribute("menuname", menuname);
 		// setting일 경우
 		return "member/"+menuname;
