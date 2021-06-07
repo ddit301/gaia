@@ -131,7 +131,6 @@ var loadMemberInfo = function(){
 				})
 				length = v.issueList.length
 				if(length%2){
-					console.log("아니 근ㄷ ㅔ 왜 안찍히는");
 					$("#issueTemplate").children(".issue").clone().appendTo("#issues");
 				}
 			})

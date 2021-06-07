@@ -76,8 +76,6 @@
 	</div>
 </div>
 <script>
-
-
 function confirmAlert(ajaxEvent, form_data){
 	swalWithBootstrapButtons = Swal.mixin({
 		customClass: {
@@ -87,12 +85,12 @@ function confirmAlert(ajaxEvent, form_data){
 	    buttonsStyling: false
 	})
 	swalWithBootstrapButtons.fire({
-		title: 'Are you sure?',
-		text: "You won't be able to revert this!",
+		title: '변경하시겠습니까?',
+		text: "변경하면 되돌릴 수 없습니다!",
 		icon: 'warning',
 		showCancelButton: true,
-		confirmButtonText: 'Yes, change it!',
-		cancelButtonText: 'No, cancel!',
+		confirmButtonText: '네',
+		cancelButtonText: '아니오',
 		reverseButtons: false
 	}).then((result) => {
 		if (result.isConfirmed) {
@@ -105,18 +103,19 @@ function confirmAlert(ajaxEvent, form_data){
 var changeUserNameBtn = $(".changeAccountBtn").on("click",function(){
 	event.preventDefault();
 	let form_data = {"_method" : "put"};
+	let pass = false;
 	if($(this).val() =="mem_nm" ){
 		form_data["mem_nm"] = $("#"+$(this).val()+"").val();
 		confirmAlert("name", form_data);
 	}else{
-		// 2. oldpass와 db패스가 동일한지
-		// 3. new pass가 제대로된 값인지.
 		let form_data = $(".password_form").serializeJSON();
 		form_data["_method"] = "put";
 		form_data["need"] = "mem_password";
-		// 1. confirm이 성공했는지
-		console.log($(".confirmNewPassword").find("span").prop("hidden"))
-		confirmAlert("pass",form_data);
+		
+		if(valid(pass) == true){
+			console.log("in")
+			confirmAlert("pass",form_data);
+		}
 	}
 })
 // 페이지로딩 ajax / no need
@@ -132,12 +131,11 @@ var loadMemberInfo = function(){
 		},
 		async : false
 		,error : function(xhr) {
-			console.log(xhr);
-			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-			if(xhr.status == '404'){
-				alert("실패");				
+			if(xhr.status == 401){
+				toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
+				setTimeout(function(){window.location.href=getContextPath()}, 2000);
 			}else{
-				alert("status : " + xhr.status);
+				toastr.error("Error!! try it later!")
 			}
 		},
 		dataType : 'json'
@@ -161,7 +159,12 @@ function updateName(form_data){
 		enctype: 'multipart/form-data', 
 		async : false,
 		error : function(xhr) {
-			swalert.error();
+			if(xhr.status == 401){
+				toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
+				setTimeout(function(){window.location.href=getContextPath()}, 2000);
+			}else{
+				toastr.error("Error!! try it later!")
+			}
 		},
 		dataType : 'json'
 	})
@@ -178,38 +181,60 @@ function updatePass(form_data){
 				if(res.sr =="OK"){
 					window.scrollTo({top:0, left:0, behavior:'smooth'});
 					toastr.success('Update에 성공했습니다.')
-				}else{
+					swal.success();
+				}else if(res.sr =="NOTEXIST"){
 					swal.error({
-						text : res.sr 
+						title : res.sr,
+						text : "비밀번호를 제대로 입력하세요."
+					});
+				}else {
+					swal.error({
+						title : res.sr,
+						text : "잘못된 비밀번호입니다."
 					});
 				}
 			},
 			enctype: 'multipart/form-data', 
 			async : false,
 			error : function(xhr) {
-				toastr.error("이름을 제대로 작성해 주세요!")
+				if(xhr.status == 401){
+					toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
+					setTimeout(function(){window.location.href=getContextPath()}, 2000);
+				}else{
+					toastr.error("형식에 맞게 작성해 주세요!")
+				}
 			},
 			dataType : 'json'
 		})
-	}else if(!$("#old_pass").val()) {
+	}
+}
+
+function valid(){
+	if(!$("#old_pass").val() || !$("#mem_pass").val() || !$("#confirm_pass").val()) {
 		swal.warning({
 			text : "빈칸을 모두 채워주세요!!"
 		});
+		return false;
 	}else if(!$(".confirmNewPassword").val() && $(".confirmNewPassword").find("span").prop("hidden")) {
 		swal.warning({
 			text : "new password와 confirm new password가 다릅니다!!"
 		});
+		return false;
 	}
 	else if($(".confirmNewPassword").find("span").prop("hidden")) {
 		swal.warning({
 			text : "confirm new password를 확인해 주세요!!"
 		});
+		return false;
+	}else{
+		return pass = true;
 	}
 }
 
 $(".password_form").validate({
 	  errorElement: "span"
 });
+
 $(".password").on("keyup", function(){
 	let mem_pass = $("#mem_pass").val();
 	let confirm_pass = $("#confirm_pass").val();
@@ -221,5 +246,4 @@ $(".password").on("keyup", function(){
 		}
 	}
 })
-
 </script>

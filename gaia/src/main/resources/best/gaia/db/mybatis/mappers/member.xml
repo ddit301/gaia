@@ -21,8 +21,12 @@
 				<id property="mem_no" column="PROJ_MANAGER_NO"/>
 				<result property="mem_nick" column="PROJ_MANAGER_NICK" />
 			</association>
-			<collection property="issueList" ofType="IssueVO" javaType="java.util.Set" autoMapping="true">
+			<collection property="issueList" ofType="IssueVO" javaType="java.util.Set" autoMapping="false">
 				<id property="issue_sid" column="ISSUE_ID"/>
+				<result property="issue_title" column="ISSUE_TITLE" />
+				<result property="issue_status" column="ISSUE_STATUS" />
+				
+				
 				<association property="label" javaType="java.util.Map" autoMapping="false">
 					<result column="LABEL_NO" property="label_no"></result>
 					<result column="LABEL_NM" property="label_nm"></result>
@@ -53,22 +57,24 @@
 		    ), 
 		ISSUEINFO AS (
 		    SELECT
-		        ISSUE_ASSIGNEE.MEM_NO AS ASSIGNEE, ISSUE.ISSUE_SID, ISSUE.ISSUE_NO,
-		        ISSUE_HIS_NO, ISSUE_HISTORY.MEM_NO AS FIXER_NO, MEMBER.MEM_NICK AS FIXER_NICK, 
-		        LABEL_NO, PROJ_NO, ISSUE_TITLE, ISSUE_HIS_CONT, ISSUE_HIS_DATE, ISSUE_ASSIGNEE.MEM_NO
-		    FROM
-		        ISSUE_ASSIGNEE
-		            INNER JOIN ISSUE ON (ISSUE_ASSIGNEE.ISSUE_SID = ISSUE.ISSUE_SID)
-		            INNER JOIN ISSUE_HISTORY ON (ISSUE.ISSUE_SID = ISSUE_HISTORY.ISSUE_SID)
-                    INNER JOIN MEMBER ON (ISSUE_HISTORY.MEM_NO = MEMBER.MEM_NO)
+			    ISSUE_ASSIGNEE.MEM_NO AS ASSIGNEE, ISSUE.ISSUE_SID, ISSUE.ISSUE_NO, ISSUE.PROJ_NO,
+			    ISSUE_HIS_NO, ISSUE_HISTORY.MEM_NO AS FIXER_NO, MEMBER.MEM_NICK AS FIXER_NICK, 
+			    ISSUE_TITLE, ISSUE_HIS_CONT, ISSUE_HIS_DATE, ISSUE_ASSIGNEE.MEM_NO,
+			    ISSUE.LABEL_NO, LABEL.LABEL_NM
+			FROM
+			    ISSUE_ASSIGNEE
+			        INNER JOIN ISSUE ON (ISSUE_ASSIGNEE.ISSUE_SID = ISSUE.ISSUE_SID)
+			        INNER JOIN ISSUE_HISTORY ON (ISSUE.ISSUE_SID = ISSUE_HISTORY.ISSUE_SID)
+			        INNER JOIN MEMBER ON (ISSUE_HISTORY.MEM_NO = MEMBER.MEM_NO)
+			        LEFT OUTER JOIN LABEL ON (ISSUE.LABEL_NO = LABEL.LABEL_NO)
 		)
 		SELECT 
 		        MEM_NICK, MEM_ID, MEMBER.MEM_NO AS MEM_NO, MEM_BIO, MEM_PIC_FILE_NAME,
 		        PROJECTINFO.PROJ_NO AS PROJECT_NO, PROJ_TITLE, PROJ_MANAGER_NO, PROJ_MANAGER_NICK,
 		        PROJ_MANAGER_NICK||'/'||PROJ_TITLE AS URI,
 		        PROJ_MANAGER_NICK||'/'||PROJ_TITLE||'/issue/'||ISSUE_NO AS URL,
-		        ISSUE_SID AS ISSUE_ID, 
-		        ISSUE_TITLE, FIXER_NO, FIXER_NICK, ASSIGNEE, ISSUE_HIS_CONT, ISSUE_HIS_DATE, ISSUE_HIS_NO
+		        ISSUE_SID AS ISSUE_ID, ISSUE_TITLE, FIXER_NO, FIXER_NICK, ASSIGNEE, ISSUE_HIS_CONT, ISSUE_HIS_DATE, ISSUE_HIS_NO,
+		        LABEL_NO, LABEL_NM
 		FROM MEMBER
 		        LEFT OUTER JOIN PROJECTINFO ON(MEMBER.MEM_NO = PROJECTINFO.MEM_NO)
 		        LEFT OUTER JOIN ISSUEINFO ON(PROJECTINFO.PROJ_NO = ISSUEINFO.PROJ_NO AND MEMBER.MEM_NO = ISSUEINFO.MEM_NO)
