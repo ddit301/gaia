@@ -270,7 +270,7 @@
 		var movePageHistoryMember = function(pageParam){
 			var data = pageParam;
 			var title;
-			var url = getContextPath() +'/${mem_id}/' +pageParam;
+			var url = getContextPath() +'/'+mem_id+'/' +pageParam;
 			history.pushState(data, title, url);
 			movePageMember(pageParam);
 		}
