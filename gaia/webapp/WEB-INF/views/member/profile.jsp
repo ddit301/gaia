@@ -59,7 +59,7 @@
 				                        	  <label for="huey"><input type="radio" id="OW" name="mem_status" value="ow" >외근</label>
 				                        	  <label for="huey"><input type="radio" id="WF" name="mem_status" value="wf" >가족과의 시간</label>
 				                        	  <label for="huey"><input type="radio" id="RM" name="mem_status" value="rm" >휴면회원 </label>
-				                        	  <label for="huey"><input type="radio" id="ACTIVE" name="mem_status" value="active">활동중</label>
+				                        	  <label for="huey"><input type="radio" id="ON" name="mem_status" value="on" checked>활동중</label>
 				                        	  <label for="huey"><input type="radio" id="OFF" name="mem_status" value="off" >비활동중</label>
 				                        </div>
 						                <hr>
@@ -134,7 +134,6 @@ var loadMemberInfo = function(){
 			let bio = $(".card.mem_bio").children('textarea').attr('placeholder', res.mem_bio);
 			let workingCity = $(".card.mem_working_city").children('input').attr('placeholder', res.mem_working_city);
 			let tel = $(".card.mem_tel").children('input').attr('placeholder', res.mem_tel);
-			let status = $(".card.mem_status").children('input').attr('placeholder', res.mem_status);
 			let img = $("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
 			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
 			$("#"+res.mem_status+"").prop('checked', true);

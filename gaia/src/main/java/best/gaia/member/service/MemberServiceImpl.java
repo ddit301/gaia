@@ -37,12 +37,6 @@ public class MemberServiceImpl implements MemberService {
 		if (savedMember == null) {
 			throw new RuntimeException("해당 mem_no 회원이 존재하지 않음.");
 		}
-		if(savedMember.getMem_pic_file_name() == null) {
-			savedMember.setMem_pic_file_name("default.jpeg");  
-		}
-		if(savedMember.getMem_status() == null) {
-			savedMember.setMem_status("active");  
-		}
 		return savedMember;
 	}
 
@@ -51,12 +45,6 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO savedMember = dao.selectMemberDetailProject_issue(mem_no);
 		if (savedMember == null) {
 			throw new RuntimeException("해당 mem_no 회원이 존재하지 않음.");
-		}
-		if(savedMember.getMem_pic_file_name() == null) {
-			savedMember.setMem_pic_file_name("default.jpeg");  
-		}
-		if(savedMember.getMem_status() == null) {
-			savedMember.setMem_status("active");  
 		}
 		return savedMember;
 	}
@@ -114,10 +102,6 @@ public class MemberServiceImpl implements MemberService {
 			if(member.getMem_pass() !=null && !old_pass.isEmpty()) {
 				result = ServiceResult.INVALIDPASSWORD;
 				MemberVO dbMember = dao.selectMemberDetailByNo(member.getMem_no());
-				System.out.println(old_pass);
-				System.out.println(passwordEncoder.encode(old_pass));
-				System.out.println(dbMember.getMem_pass());
-				
 				if(passwordEncoder.matches(old_pass, dbMember.getMem_pass())) {
 					String inputPass = member.getMem_pass();
 					String encodedPass = passwordEncoder.encode(inputPass);
