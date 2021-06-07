@@ -98,7 +98,7 @@ var imageSelect = $("#upload_image").on("change", function(){
 		processData: false,
 		contentType: false,
 		success : function(res) {
-			$("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.fileName);
+			$("#profile_img").attr("src", getProfilePath(res.fileName));
 			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.fileName);
 			toastr.success('Update에 성공했습니다.')
 		},

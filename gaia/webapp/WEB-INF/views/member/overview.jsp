@@ -24,7 +24,7 @@
                     <div class="media align-items-center mb-4">
                         <img class="mr-3 rounded-circle" id="profile_img"src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
                         <div class="media-body">
-                            <h3 class="mb-0">${mem_nick }</h3>
+                            <h3 class="mb-0">${mem_id }</h3>
                             <p class="text-muted mb-0">Deutch</p>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
 	           	 	<div class="col-md-6 media-reply__link">
 		                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
 		                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-		                <button class="btn btn-transparent p-0 ml-3 font-weight-bold fixer_nick">by ${mem_nick }</button>
+		                <button class="btn btn-transparent p-0 ml-3 font-weight-bold fixer_id">by ${mem_id }</button>
 	             	</div>
 	             </div>
 	             <p class="issue-card-bot">담당하고 있는 이슈에 새로운 소식이 존재하지 않습니다.</p>
@@ -104,27 +104,26 @@ var loadMemberInfo = function(){
 			let projectList="";
 			let length;
 			let proj_manager ="";
-			let profile_img =$("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+memberInfo.mem_pic_file_name);
-			console.log();
+			let profile_img =$("#profile_img").attr("src", getProfilePath(memberInfo.mem_pic_file_name));
 			$.each(memberInfo.projectList, function(i, v){
-				let uri = v.uri;
-				proj_manager = v.projectManager.mem_nick;
-				projectList += '<li><a href="'+getContextPath()+"/"+ v.uri+'" class="projectName">'+ v.proj_title +"</a></li>";
+				let url = v.url;
+				proj_manager = v.projectManager.mem_id;
+				projectList += '<li><a href="'+getContextPath()+"/"+ v.url+'" class="projectName">'+ v.proj_title +"</a></li>";
 				
 				$.each(v.issueList, function(j, iss){
 					let issue = $("#issueTemplate").children(".issue").clone();
 					let timeUploaded = iss.historyList[0].issue_his_date;
 					let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
 					let proj_manager_link = "<a href="+getContextPath()+"/"+proj_manager+">"+proj_manager+"</a>"; 
-					let proj_link = "<a href="+uri+">"+"/"+v.proj_title+"</a>";
-					let issue_link = "<a href="+iss.url+">"+"/"+iss.issue_sid+"</a>";
+					let proj_link = "<a href="+getContextPath()+"/"+url+">"+"/"+v.proj_title+"</a>";
+					let issue_link = "<a href="+getContextPath()+"/"+iss.url+">"+"/"+iss.issue_sid+"</a>";
 					
 					issue.attr("data-issue_sid", iss.issue_sid);
 					issue.find(".issue-card-top").children().first().html(proj_manager_link + proj_link + issue_link);
 					
 					issue.find(".issue-card-top").children().last().text(iss.issue_title);
 					issue.find(".issue-card-mid").find(".issue_date").text(timeAgo);
-					issue.find(".issue-card-mid").find(".fixer_nick").text("by "+iss.historyList[0].historyWriter.mem_nick);
+					issue.find(".issue-card-mid").find(".fixer_id").text("by "+iss.historyList[0].historyWriter.mem_nick);
 					issue.find('.issue-card-bot').text(iss.historyList[0].issue_his_cont);
 						
 					issue.appendTo("#issues");
