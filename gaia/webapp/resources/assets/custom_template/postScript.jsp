@@ -92,6 +92,12 @@
 		return CookieValue? decodeURI(CookieValue[2]) : null;
 	};
 	
+	// 현 URL에서 contextPath 빼고 구하는 function
+	var getCurrentUrl = function(){
+		let hostIndex = location.href.indexOf( location.host ) + location.host.length;
+		return location.href.substring(hostIndex);
+	}
+	
 	// 접속 회원의 프로젝트 내 닉네임 입니다. 글 작성시 활용해주세요.
 	// 일단 다른 페이지들에서 해당 변수 못쓰게 const 로 막고, 추후 프로필 데이터 변경 고려해 코드 완성 단계에 let 으로 풀겠습니다. 
 	const proj_user_nick = getCookie('proj_user_nick');

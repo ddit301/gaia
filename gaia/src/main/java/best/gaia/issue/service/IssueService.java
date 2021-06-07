@@ -69,6 +69,8 @@ public interface IssueService {
 	 */
 	public ServiceResult deleteIssue(IssueVO search);
 	
+	public ServiceResult insertIssueHistory(IssueVO issue);
+	
 	/**
 	 * 페이징 처리를 위한 마일스톤 갯수 카운팅
 	 * @param pagingVO

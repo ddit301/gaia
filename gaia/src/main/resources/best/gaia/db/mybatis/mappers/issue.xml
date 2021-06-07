@@ -18,10 +18,10 @@
 			<result column="LABEL_NM" property="label_nm"></result>
 		</association>
 		
-		<collection property="assigneeList" ofType="MemberVO" javaType="java.util.Set" autoMapping="true">
+		<collection property="assigneeList" ofType="best.gaia.vo.MemberVO" javaType="java.util.Set" autoMapping="true">
 			<id property="mem_no" column="MEM_NO"/>
 		</collection>
-		<collection property="historyList" ofType="IssueHistoryVO" javaType="java.util.List" autoMapping="true">
+		<collection property="historyList" ofType="best.gaia.vo.IssueHistoryVO" javaType="java.util.List" autoMapping="true">
 			<id property="issue_his_no" column="ISSUE_HIS_NO"/>
 			<association property="historyWriter">
 				<id column="HIS_WRITER_NO" property="mem_no"/>

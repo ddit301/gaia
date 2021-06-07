@@ -1,16 +1,29 @@
 package best.gaia.issue.service;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.annotations.Param;
+import org.elasticsearch.client.ElasticsearchClient;
+import org.elasticsearch.common.Strings;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.bind.JsonTreeWriter;
+
+import best.gaia.alarm.dao.AlarmDao;
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.dao.MilestoneDao;
+import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
@@ -22,6 +35,9 @@ public class IssueServiceImpl implements IssueService {
 	
 	@Inject
 	private IssueDao dao;
+	
+	@Inject
+	private AlarmDao alarmDao;
 	
 	@Inject
 	private MilestoneDao milestoneDao;
@@ -118,6 +134,39 @@ public class IssueServiceImpl implements IssueService {
 		return milestoneDao.selectMilestone(search);
 		
 
+	}
+
+	@Override
+	@Transactional
+	public ServiceResult insertIssueHistory(IssueVO issue) {
+		// 일단 새로 생성한 history 를 insert 합니다.
+		IssueHistoryVO issueHistory = issue.getHistoryList().get(0);
+		int result = dao.insertIssueHistory(issueHistory);
+		
+		// 이슈에 댓글을 다는 경우에는 해당 이슈 작성자에게 알람을 보냅니다.
+		if(result==1 && "RE".equals(issueHistory.getIssue_his_type())){
+			
+			// alarm 내용을 만들어 담아 issue 작성자에게 알람을 만들어 보낸다.
+			XContentBuilder alarm;
+			try {
+				alarm = XContentFactory.jsonBuilder()
+						.startObject()
+							.field("mem_no",issue.getMem_no())
+							.field("alarm_type", "IC")
+							.field("url",issue.getUrl())
+							.field("proj_usernick",issueHistory.getHistoryWriter().getMem_nick())
+							.field("issue_title",issue.getIssue_title())
+							.field("issue_his_cont",issueHistory.getIssue_his_cont() )
+						.endObject();
+				
+				// 해당 Alarm을 elastic Search에 post 해야함. 
+				System.out.println(Strings.toString(alarm));
+				/////// 코드 작성중 //////
+				
+			} catch (IOException e) {}
+			
+		}
+		return result == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 
