@@ -38,7 +38,7 @@ import best.gaia.vo.MemberVO;
  */
 
 @Controller
-@RequestMapping(value = "{mem_nick:^(?:(?!admin$|restapi$|echo$|view$|intro$|demo$|sales$|updates$|signin$|signup$|CS$).)*}")
+@RequestMapping(value = "{mem_id:^(?:(?!admin$|restapi$|echo$|view$|intro$|demo$|sales$|updates$|signin$|signup$|CS$).)*}")
 public class MemberUrlMapper {
 
 	@Inject
@@ -55,9 +55,12 @@ public class MemberUrlMapper {
 	private static final Logger logger = LoggerFactory.getLogger(MemberUrlMapper.class);
 
 	@RequestMapping(value = { "", "{pageParam:^(?:(?=help$|overview$)).*}" })
-	public String memberMenuOverview(@PathVariable String mem_nick, @PathVariable Optional<String> pageParam,
-			Model model, Authentication authUser) {
-		model.addAttribute("mem_nick", mem_nick);
+	public String memberMenuOverview(
+				@PathVariable String mem_id
+				, @PathVariable Optional<String> pageParam
+				, Model model, Authentication authUser
+			) {
+		model.addAttribute("mem_id", mem_id);
 		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null);
 
 		if(authUser == null) throw new UnauthorizedException();
@@ -72,8 +75,11 @@ public class MemberUrlMapper {
 
 	@RequestMapping(value = { "setting",
 			"setting/{pageParam:^(?:(?=account$|accountSecurity$|projects$|securityLog$|profile$)).*}" })
-	public String memberSetting(@PathVariable String mem_nick, @PathVariable Optional<String> pageParam, Model model) {
-		model.addAttribute("mem_nick", mem_nick);
+	public String memberSetting(
+				@PathVariable String mem_id
+				, @PathVariable Optional<String> pageParam
+				, Model model) {
+		model.addAttribute("mem_id", mem_id);
 		// false 일 때 null하면 overview로 탐. 그래서 setting을 주어야 profile로 바로 넘어감.
 		// true 일 때 setting/을 붙여주어 moveHistory함수 탈 때 /eisen/setting/account으로 넘어갈 수 있게
 		// 만듦. 없으면 eisen/account로 주소창이 찍힘.
