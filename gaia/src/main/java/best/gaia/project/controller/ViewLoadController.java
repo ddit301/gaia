@@ -13,11 +13,11 @@ public class ViewLoadController {
 	@RequestMapping(value = "{menuname}")
 	public String menuMapper(
 			@PathVariable String menuname
-			,@RequestParam String manager_nick
+			,@RequestParam String manager_id
 			,@RequestParam String project_title
 			,Model model
 			) {
-		model.addAttribute("manager_nick", manager_nick);
+		model.addAttribute("manager_id", manager_id);
 		model.addAttribute("project_title", project_title);
 		model.addAttribute("menuname", menuname);
 		return "project/"+menuname;

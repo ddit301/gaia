@@ -156,7 +156,7 @@ public class ProjectServiceImpl implements ProjectService {
 		ServiceResult result = ServiceResult.FAIL;
 		Map<String, String> map = new HashedMap();
 		map.put("project_title", project.getProj_title());
-		map.put("manager_nick", project.getProjectManager().getMem_nick());
+		map.put("manager_id", project.getProjectManager().getMem_id());
 		int proj_no = projectDao.getProjCount(map);
 
 		if (proj_no == 0) {

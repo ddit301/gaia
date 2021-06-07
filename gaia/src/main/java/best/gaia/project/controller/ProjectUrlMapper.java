@@ -27,7 +27,7 @@ import best.gaia.utils.CookieUtil;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import static best.gaia.utils.SessionUtil.*;
 @Controller
-@RequestMapping("{manager_nick:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
+@RequestMapping("{manager_id:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
 public class ProjectUrlMapper {
 	
 	@Inject
@@ -51,7 +51,7 @@ public class ProjectUrlMapper {
 		,"milestone/{milest_no}"
 		})
 	public String projectMenuOverview(
-			@PathVariable String manager_nick
+			@PathVariable String manager_id
 			,@PathVariable String project_title
 			,@PathVariable Optional<String> pageParam 
 			,@PathVariable Optional<String> issue_no 
@@ -62,11 +62,11 @@ public class ProjectUrlMapper {
 			,HttpServletResponse resp
 			) throws UnsupportedEncodingException {
 		
-		// manager_nick 이랑 project_title로 proj_no 찾아 내기
+		// manager_id랑 project_title로 proj_no 찾아 내기
 		Map<String, Object> map = new HashMap<>();
-		map.put("manager_nick", manager_nick);
+		map.put("manager_id", manager_id);
 		map.put("project_title", project_title);
-		Integer proj_no = dao.getProjNoByNickTitle(map);
+		Integer proj_no = dao.getProjNoFromIdAndTitle(map);
 		
 		// 존재하는 프로젝트 인지 검사 후 존재하지 않으면 404 에러 응답.
 		if(proj_no == null)
@@ -83,7 +83,7 @@ public class ProjectUrlMapper {
 		String proj_user_nick = service.getProjectNick(proj_no, mem_no);
 		CookieUtil.addCookie("proj_user_nick", proj_user_nick, resp);
 				
-		model.addAttribute("manager_nick", manager_nick);
+		model.addAttribute("manager_id", manager_id);
 		model.addAttribute("project_title", project_title);
 		model.addAttribute("issue_no", issue_no.isPresent() ? issue_no.get() : null);
 		model.addAttribute("milest_no", milest_no.isPresent() ? milest_no.get() : null);

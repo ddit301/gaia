@@ -19,7 +19,7 @@
 
             <div class="container-fluid">
 				<h4>Code</h4>
-				조회중인 프로젝트 생성자 : ${manager_nick }<br/>
+				조회중인 프로젝트 생성자 : ${manager_id }<br/>
 				조회중인 프로젝트 타이틀 : ${project_title }
             </div>
             <!-- #/ container -->

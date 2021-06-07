@@ -13,10 +13,10 @@ public interface ProjectDao {
 	
 	/**
 	 * @param map
-	 * 		-> manager_nick, project_title
+	 * 		-> manager_id, project_title
 	 * @return project number
 	 */
-	public Integer getProjNoByNickTitle(Map<String, Object> map);
+	public Integer getProjNoFromIdAndTitle(Map<String, Object> map);
 	
 	/**
 	 * @param map
@@ -27,7 +27,7 @@ public interface ProjectDao {
 
 	/**
 	 * @param map
-	 * 		-> manager_nick, project_title
+	 * 		-> manager_id, project_title
 	 * @return project number
 	 */
 	public int getProjCount(Map<String, String> map);
