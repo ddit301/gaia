@@ -105,6 +105,7 @@ from (
         where news.proj_no = 1 --#{detailSearch.proj_no}
     )a                            
 --WHERE DR BETWEEN 5 AND 10
+order by dr, news_com_no
 ;
 -----------------------------------------------------------------------------------
 --b. 뉴스 작성용 select key

@@ -237,7 +237,6 @@
 ///////////////////////////////////////////////////////////////
 	$(function(){
 		
-		
 		$('#myProfile').attr('src',getProfilePath(mem_pic_file_name));
 		
 		// editor의 내용이 있을 때만 Comment 버튼 활성화
@@ -257,9 +256,8 @@
 				url : getContextPath() + '/restapi/project/issue-history',
 				method : 'post',
 				data : {
-					'proj_no' : issue.proj_no
-					,'issue_no' : issue.issue_no
-					,'issue_title' : issue.issue_title
+					'issue_title' : issue.issue_title
+					, 'url' : getCurrentUrl()
 					,'mem_no' : issue.writer.mem_no
 					,'issue_sid' : issue.issue_sid
 					,'issue_his_cont' : issue_his_cont

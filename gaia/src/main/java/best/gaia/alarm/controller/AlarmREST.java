@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.alarm.service.AlarmService;
-import best.gaia.vo.AlarmVO;
 import best.gaia.vo.PagingVO;
 
 @RestController
@@ -38,7 +37,7 @@ public class AlarmREST {
 	private static final Logger logger = LoggerFactory.getLogger(AlarmREST.class);
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public List<AlarmVO> selectAlarmList() {
+	public Map<String, Object> selectAlarmList() {
 		return null;
 	}
 	
