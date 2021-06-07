@@ -108,9 +108,9 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
 		<selectKey resultType = "best.gaia.vo.MilestoneVO" keyProperty="milest_sid,milest_no" order="BEFORE">
 			   SELECT *
   				 FROM
-				    (SELECT MAX(MILEST_SID)+1 AS MILEST_SID
+				    (SELECT nvl(MAX(MILEST_SID),0)+1 AS MILEST_SID
 				    FROM MILESTONE)A,
-				    (SELECT MAX(MILEST_NO)+1 AS MILEST_NO
+				    (SELECT nvl(MAX(MILEST_NO),0)+1 AS MILEST_NO
                    	 FROM MILESTONE
                      LEFT OUTER JOIN PROJECT PROJ ON (PROJ.PROJ_NO = MILESTONE.PROJ_NO)
                      WHERE MILESTONE.PROJ_NO = #{proj_no})B

@@ -53,6 +53,6 @@ public class IssueVO {
 	 * 필요에 따라 추가된 프로퍼티 입니다.
 	 */
 	 
-	 private int replyCount;
+	 private Integer replyCount;
 	 private String url;
 }

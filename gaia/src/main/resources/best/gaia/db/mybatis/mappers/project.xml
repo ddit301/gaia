@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.project.dao.ProjectDao">
-	<select id="getProjNoByNickTitle" parameterType="java.util.Map" resultType="Integer">
+	<select id="getProjNoFromIdAndTitle" parameterType="java.util.Map" resultType="Integer">
 		select proj_no
 		from project 
 		    inner join member on (project.mem_no = member.mem_no)
 		where proj_title = #{project_title}
-		    and mem_nick = #{manager_nick}
+		    and mem_id = #{manager_id}
 	</select>
 	<select id="getProjCount" parameterType="java.util.Map" resultType="Integer">
 		select count(*)
 		from project 
 		    inner join member on (project.mem_no = member.mem_no)
 		where proj_title = #{project_title}
-		    and mem_nick = #{manager_nick}
+		    and mem_id = #{manager_id}
 	</select>
 	
 	

@@ -25,7 +25,7 @@
 
 <script type="text/javascript">
 	let project_title = '${project_title}';
-	let manager_nick = '${manager_nick}';
+	let manager_id = '${manager_id}';
 	
 	// ajaxError 설정
 	function ajaxError(xhr, error, msg){
@@ -149,7 +149,7 @@
 			
 			data = 'newIssue'
 			title = '';
-			url = '${cPath}/${manager_nick}/${project_title}/issue/new'
+			url = '${cPath}/${manager_id}/${project_title}/issue/new'
 			history.pushState(data, title, url);
 			
 			$.ajax({
@@ -170,7 +170,7 @@
 			
 			data = 'issueView'+issue_no;
 			title = '';
-			url = '${cPath}/${manager_nick}/${project_title}/issue/'+issue_no;
+			url = '${cPath}/${manager_id}/${project_title}/issue/'+issue_no;
 			history.pushState(data, title, url);
 			
 			$.ajax({
@@ -194,18 +194,18 @@
 			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
 			let project_title = '${project_title}';
-			let manager_nick = '${manager_nick}';
+			let manager_id = '${manager_id}';
 			
 			data = 'milestoneView'+milest_no;
 			title = '';
-			url = '${cPath}/${manager_nick}/${project_title}/milestone/'+milest_no;
+			url = '${cPath}/${manager_id}/${project_title}/milestone/'+milest_no;
 			history.pushState(data,title,url);
 			
 			$.ajax({
 				url : '${cPath}/view/project/milestoneview'
 				,type : 'get'
 				,data : {
-					'manager_nick' : manager_nick
+					'manager_id' : manager_id
 					,'project_title' : project_title
 					,'milest_no' : milest_no
 					}
@@ -223,7 +223,7 @@
 		var movePageHistory = function(pageParam){
 			var data = pageParam;
 			var title;
-			var url = getContextPath() + '/${manager_nick}/${project_title}'+ (pageParam ? '/'+pageParam : '') ;
+			var url = getContextPath() + '/${manager_id}/${project_title}'+ (pageParam ? '/'+pageParam : '') ;
 			history.pushState(data, title, url);
 			movePage(pageParam);
 		}
@@ -239,14 +239,14 @@
 			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
 			let project_title = '${project_title}';
-			let manager_nick = '${manager_nick}';
+			let manager_id = '${manager_id}';
 			if(!pageParam)
 				pageParam = 'code';
 			
 			$.ajax({
 				url : '${cPath}/view/project/'+pageParam,
 				type : 'get',
-				data : {'manager_nick' : manager_nick,'project_title' : project_title
+				data : {'manager_id' : manager_id,'project_title' : project_title
 					},
 				success : function(res) {
 					$('.content-body').html(res);

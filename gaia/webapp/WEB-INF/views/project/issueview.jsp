@@ -141,8 +141,7 @@
             
 <script>
 	issue_no = '${issue_no}';
-	issue_sid = null;
-	issue_status = null;
+	issue = null;
        		
 	// ToastUI Editor 에디터 적용시키기
 	editor = new toastui.Editor({
@@ -165,8 +164,7 @@
 		data : {
 		},
 		success : function(res) {
-			issue_sid = res.issue_sid;
-			issue_status = res.issue_status;
+			issue = res;
 			$('#assignees').empty();
 			$('#issue-body-cont').empty();
 			
@@ -189,7 +187,7 @@
 			$('.writerinfo').children('span:last').text(moment(res.issue_create_date).fromNow());
 			let statusLabel;
 			// 이슈가 닫힌 상태면 그에 맞게 라벨과 버튼을 바꿔준다.
-			if(issue_status == 1){
+			if(issue.issue_status == 1){
 				$('.issue-status').children('span').text('Closed');
 				$('.issue-status').children('span').removeClass('label-success');
 				$('.issue-status').children('span').addClass('label-danger');
@@ -259,7 +257,11 @@
 				url : getContextPath() + '/restapi/project/issue-history',
 				method : 'post',
 				data : {
-					'issue_sid' : issue_sid
+					'proj_no' : issue.proj_no
+					,'issue_no' : issue.issue_no
+					,'issue_title' : issue.issue_title
+					,'mem_no' : issue.writer.mem_no
+					,'issue_sid' : issue.issue_sid
 					,'issue_his_cont' : issue_his_cont
 					,'issue_his_type' : 'RE'
 				},
@@ -291,14 +293,14 @@
 		// 이슈 열기/닫기 이벤트
 		$('#closeBtn').on('click', function(){
 			
-			issue_status = issue_status == 0 ? 1 : 0;
+			issue.issue_status = issue.issue_status == 0 ? 1 : 0;
 					
 			$.ajax({
 				url : getContextPath() + '/restapi/project/issues',
 				method : 'post',
 				data : {
-					'issue_sid' : issue_sid
-					,'issue_status' : issue_status
+					'issue_sid' : issue.issue_sid
+					,'issue_status' : issue.issue_status
 					,'_method' : 'put'		
 				},
 				success : function(res) {
