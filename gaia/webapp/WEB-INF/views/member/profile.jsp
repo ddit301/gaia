@@ -51,16 +51,8 @@
 				                        </div>
 				                        <div class="card mem_status">
 				                        	<h4 class="card-title">Status</h4>
-				                        	  <label for="huey"><input type="radio" id="VS" name="mem_status" value="va" >휴가중</label>
-				                        	  <label for="huey"><input type="radio" id="SI" name="mem_status" value="si" >아픔</label>
-				                        	  <label for="huey"><input type="radio" id="WH" name="mem_status" value="wh" >재택 근무</label>
-				                        	  <label for="huey"><input type="radio" id="FC" name="mem_status" value="fc" >방해금지</label>
-				                        	  <label for="huey"><input type="radio" id="AB" name="mem_status" value="ab" >부재중</label>
-				                        	  <label for="huey"><input type="radio" id="OW" name="mem_status" value="ow" >외근</label>
-				                        	  <label for="huey"><input type="radio" id="WF" name="mem_status" value="wf" >가족과의 시간</label>
-				                        	  <label for="huey"><input type="radio" id="RM" name="mem_status" value="rm" >휴면회원 </label>
-				                        	  <label for="huey"><input type="radio" id="ON" name="mem_status" value="on" checked>활동중</label>
-				                        	  <label for="huey"><input type="radio" id="OFF" name="mem_status" value="off" >비활동중</label>
+				                        	<div>
+				                        	</div>
 				                        </div>
 						                <hr>
 						                <p>
@@ -127,16 +119,25 @@ var loadMemberInfo = function(){
 	$.ajax({
 		url : getContextPath()+"/restapi/member/members" ,
 		type : 'get',
-		success : function(res) {
-			res = res.search;
-			console.log(JSON.stringify(res));
+		success : function(data) {
+			res = data.search;
+			msl = data.memberStatusList
 			let placeholder = $(".card.mem_nick").children('input').attr('placeholder', res.mem_nick);
 			let bio = $(".card.mem_bio").children('textarea').attr('placeholder', res.mem_bio);
 			let workingCity = $(".card.mem_working_city").children('input').attr('placeholder', res.mem_working_city);
 			let tel = $(".card.mem_tel").children('input').attr('placeholder', res.mem_tel);
 			let img = $("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
 			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
-			$("#"+res.mem_status+"").prop('checked', true);
+			let memList = ""
+			for(i in msl){
+				if(i%4==0){memList +='<br>'}
+				if(res.mem_status == msl[i].COM_CODE_NM){
+					memList += '<label for="'+msl[i].COM_CODE+'""><input type="radio" id="'+msl[i].COM_CODE+'" name="mem_status" value='+msl[i].COM_CODE+' checked>&nbsp'+msl[i].COM_CODE_NM+'</label>&nbsp&nbsp';
+				}else{
+					memList += '<label for="'+msl[i].COM_CODE+'""><input type="radio" id="'+msl[i].COM_CODE+'" name="mem_status" value='+msl[i].COM_CODE+' >&nbsp'+msl[i].COM_CODE_NM+'</label>&nbsp&nbsp';
+				}
+			}
+			$(".mem_status").children("div").html(memList);
 		},
 		async : false
 		,error : function(xhr) {
@@ -168,7 +169,6 @@ function updateProfile(){
 		async : false,
 		error : function(xhr) {
 			console.log(xhr);
-			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
 			if(xhr.status == '404'){
 				alert("실패");				
 			}else{

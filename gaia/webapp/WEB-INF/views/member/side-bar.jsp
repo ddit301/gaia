@@ -28,3 +28,12 @@
         </div>
 	</div>
 </div>
+
+<script>
+	$('.moveButton').on('click',  function(){
+		event.preventDefault();
+		let menuName = $(this).data('menu');
+		movePageHistory(menuName);
+	})
+	$()
+</script>

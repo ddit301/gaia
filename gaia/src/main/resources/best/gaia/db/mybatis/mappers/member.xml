@@ -22,6 +22,12 @@
 		WHERE MEM_NO = ${mem_no}
 	</select>
 	
+	<select id="memberStatusList" resultType="java.util.Map">
+		SELECT COM_CODE, COM_CODE_NM 
+		FROM COM_CODE
+		WHERE COM_CODE_GRP = 'MS' 
+		ORDER BY COM_CODE
+	</select>
 	
 	<resultMap type="best.gaia.vo.MemberVO" id="memberMap" autoMapping="true">
 		<id property="mem_no" column="MEM_NO"/>

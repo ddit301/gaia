@@ -1,5 +1,8 @@
 package best.gaia.member.service;
 
+import java.util.List;
+import java.util.Map;
+
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.MemberVO;
 
@@ -28,6 +31,8 @@ public interface MemberService {
 	 * @return 존재하지 않으면, custom exception 발생
 	 */
 	public MemberVO retrieveMemberProjectIssue(int mem_no);
+	
+	public List<Map<String, Object>> memberStatusList();
 	
 	/**
 	 * 신규 등록

@@ -2,6 +2,9 @@ package best.gaia.member.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -28,7 +31,12 @@ public class MemberDaoTest {
 	public void testSelectMemberDetailByNo() {
 		MemberVO member = dao.selectMemberDetailByNo(41);
 		assertNotNull(member);
-		
+	}
+	@Test
+	public void testmemberStatusList() {
+		List<Map<String,Object>> member = dao.memberStatusList();
+		System.out.println(member);
+		assertNotNull(member);
 	}
 
 }

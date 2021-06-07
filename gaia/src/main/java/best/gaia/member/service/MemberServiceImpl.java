@@ -1,5 +1,8 @@
 package best.gaia.member.service;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -135,8 +138,9 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
-
-	
-	
+	@Override
+	public List<Map<String, Object>> memberStatusList() {
+		return dao.memberStatusList();
+	}
 
 }
