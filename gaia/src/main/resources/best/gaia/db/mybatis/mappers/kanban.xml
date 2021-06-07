@@ -124,7 +124,7 @@
 	
 	<insert id="insertCard" parameterType="best.gaia.vo.KanbanCardVO">
 		<selectKey resultType="int" keyProperty="kb_card_no" order="BEFORE">
-			SELECT MAX(KB_CARD_NO)+1
+			SELECT nvl(MAX(KB_CARD_NO),0)+1
 			FROM KANBAN_CARD
 		</selectKey>
 			INSERT INTO kanban_card (
@@ -148,7 +148,7 @@
 		<selectKey keyProperty="kb_card_no,kb_card_priv_no,kb_col_no" resultType="best.gaia.vo.KanbanCardVO" order="BEFORE">
 			select *
 			from(
-			    select max(kb_card_no)+1 as kb_card_no
+			    select nvl(max(kb_card_no),0)+1 as kb_card_no
 			    from kanban_card)a
 			    ,
 			    (select card.kb_card_no as kb_card_priv_no, card.kb_col_no

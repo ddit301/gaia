@@ -61,9 +61,9 @@
 		<selectKey keyProperty="news_sid,news_no" resultType="best.gaia.vo.NewsVO" order="BEFORE" >
 			select *
 			from
-			    (select max(news_sid)+1 as news_sid
+			    (select nvl(max(news_sid),0)+1 as news_sid
 			        from news) a,
-			    (select max(news_no)+1 as news_no
+			    (select nvl(max(news_no),0)+1 as news_no
 			       from news
 			       where proj_no = #{proj_no}
 			    )b
@@ -91,7 +91,7 @@
 	
 	<insert id="insertNewsComment" parameterType="best.gaia.vo.NewsCommentVO">
 		<selectKey keyProperty="news_com_no" resultType="int" order="BEFORE">
-			select max(news_com_no) + 1
+			select nvl(max(news_com_no),0) + 1
 			from news_comment
 		</selectKey>
 			INSERT INTO news_comment (

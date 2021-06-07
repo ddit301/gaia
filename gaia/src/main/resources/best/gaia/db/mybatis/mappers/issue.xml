@@ -114,9 +114,9 @@ FROM ISSUE
 		<selectKey keyProperty="issue_sid,issue_no" resultType="best.gaia.vo.IssueVO" order="BEFORE" >
 			select *
 			from
-				(select max(issue_sid)+1 as issue_sid
+				(select nvl(max(issue_sid),0)+1 as issue_sid
 				from issue) a,
-				(select max(issue_no)+1 as issue_no
+				(select nvl(max(issue_no),0)+1 as issue_no
 				from issue
 				where proj_no = #{proj_no})b
 		</selectKey>
@@ -150,7 +150,7 @@ FROM ISSUE
 	
 	<insert id="insertIssueHistory" parameterType="best.gaia.vo.IssueHistoryVO">
 		<selectKey resultType="int" keyProperty="issue_his_no" order="BEFORE">
-			select max(issue_his_no)+1
+			select nvl(max(issue_his_no),0)+1
 			from issue_history	
 		</selectKey>
 			INSERT INTO issue_history (
