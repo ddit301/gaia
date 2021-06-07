@@ -54,7 +54,8 @@
 	       )a    
     	<![CDATA[
 			WHERE DR >= #{startRow} AND DR <= #{endRow}
-		]]>			                    
+		]]>
+		order by dr, news_com_no
 	</select>
 	
 	<insert id="insertNews" parameterType="best.gaia.vo.NewsVO">
