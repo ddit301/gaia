@@ -285,8 +285,6 @@
 			$('.nk-sidebar').prop('hidden','true');
 			$('.nav-control').prop('hidden','true');
 			
-			let index
-			
 			if(!pageParam){
 				pageParam = 'overview';	
 			}
@@ -354,7 +352,7 @@
 			}else if(milest_no){
 				milestoneView(milest_no);
 			}else{
-				if(pageParam == 'overview' || pageParam=='setting'){
+				if(pageParam == 'overview' || pageParam=='setting' || pageParam == 'setting/account'){
 					movePageHistoryMember(pageParam);
 				}
 				movePageHistory(pageParam);
