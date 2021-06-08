@@ -30,7 +30,7 @@
                     </br>
                     <button id="loginSubmit" class="btn btn-block btn-round btn-b" type="submit">Login</button>
                     <button id="testMemBtn" class="btn btn-block btn-round btn-b">TEST 멤버 로그인</button>
-                    <button class="btn btn-block btn-round btn-b">TEST ADMIN 로그인</button>
+                    <button id="testAdminBtn" class="btn btn-block btn-round btn-b">TEST ADMIN 로그인</button>
                   </div>
 <!--                   <div class="form-group"> -->
 <!--                     <button class="btn btn-block btn-round btn-b" onclick="()"><i class="fa fa-github"></i> Login with Github</button> -->
@@ -54,6 +54,10 @@
     		$('#username').val('kkobuk');
     		$('#password').val('java');
     		$('#loginSubmit').click();
+    	})
+    	$('#testAdminBtn').on('click', function(){
+    		event.preventDefault();
+    		window.location.href = '/admin'; 
     	})
     </script>   
        
