@@ -15,48 +15,33 @@
 	<beans:bean id="passwordEncoder"
 		class="org.springframework.security.crypto.factory.PasswordEncoderFactories"
 		factory-method="createDelegatingPasswordEncoder" />
-	<beans:bean id="userService"
-		class="best.gaia.member.service.AuthenticateService" />
 	<beans:bean id="successHandler"
 		class="best.gaia.main.controller.SuccessHandler"></beans:bean>
 
 
-	<authentication-manager
-		id="authenticationManager">
-		<authentication-provider
-			user-service-ref="userService">
+	<authentication-manager>
+		<authentication-provider user-service-ref="authService">
 			<password-encoder ref="passwordEncoder" />
 		</authentication-provider>
-
 	</authentication-manager>
 
 	<http pattern="/resources/**" security="none" />
 
-	<http auto-config="true" use-expressions="true"
-		authentication-manager-ref="authenticationManager">
+	<http auto-config="true" use-expressions="true">
 
 		<form-login login-page="/signin"
 			login-processing-url="/signin/signinCheck"
-			username-parameter="mem_id" password-parameter="mem_pass"
+			username-parameter="mem_id"
+			password-parameter="mem_pass"
 			authentication-failure-url="/signin"
 			always-use-default-target="false"
 			authentication-success-handler-ref="successHandler" />
 
-		<logout logout-url="/signout" logout-success-url="/"
+		<logout logout-url="/signout" 
+			logout-success-url="/"
 			invalidate-session="true" />
 
 		<intercept-url pattern="/" access="permitAll" />
-		<intercept-url pattern="/intro" access="permitAll" />
-		<intercept-url pattern="/demo" access="permitAll" />
-		<intercept-url pattern="/sales" access="permitAll" />
-		<intercept-url pattern="/signin" access="permitAll" />
-		<intercept-url pattern="/signup" access="permitAll" />
-		<intercept-url pattern="/CS" access="permitAll" />
-		<intercept-url pattern="/sigin/siginCheck" access="permitAll" />
-
-		<!-- 관리자 -->
-		<intercept-url pattern="/admin/**"
-			access="hasAnyRole('ROLE_ADMIN')" />
 
 		<!-- 회원? -->
 		<!-- <intercept-url pattern="/**" access="isAuthenticated()"/> -->
