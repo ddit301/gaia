@@ -133,6 +133,12 @@ public class MemberVO implements UserDetails, Serializable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * Authority 관련 추가 . role 관련 기능 나중에 추가해야함.
+	 */
+	
+	private String mem_role ="ROLE";
 
 
 }
