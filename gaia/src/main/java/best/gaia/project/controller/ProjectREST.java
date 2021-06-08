@@ -37,9 +37,6 @@ public class ProjectREST {
 	private WebApplicationContext container;
 	private ServletContext application;
 
-	@Inject
-	private AuthenticationManager authenticationManager;
-
 	@PostConstruct
 	public void init() {
 		application = container.getServletContext();
@@ -53,40 +50,8 @@ public class ProjectREST {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String insertProject(@ModelAttribute("project") ProjectVO project, BindingResult errors, Model model,
-			Authentication authUser) throws IOException {
-		String view = null;
-		String message = null;
-
-		if (authUser == null)
-			throw new UnauthorizedException();
-
-		MemberVO projectManager = (MemberVO) authUser.getPrincipal();
-		project.setProjectManager(projectManager);
-
-		if (!errors.hasErrors()) {
-			ServiceResult result = service.enrollProject(project);
-			switch (result) {
-			case PKDUPLICATED:
-				view = "/" + projectManager.getMem_nick();
-				message = "프로젝트 생성 실패 - 이름 중복";
-				break;
-			case OK:
-				view = "redirect:/" + projectManager.getMem_nick() + project.getProj_title();
-				break;
-			default:
-				message = "서버 오류, 잠시 뒤 다시 시도하세요.";
-				view = "/" + projectManager.getMem_nick();
-				break;
-			}
-		} else {
-			// 검증 불통
-			view = "/signup";
-		}
-
-		model.addAttribute("message", message);
-
-		return view;
+	public Map<String, Object> insertProject() {
+		return null;
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
