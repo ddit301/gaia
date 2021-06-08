@@ -66,7 +66,7 @@
 				            		<input type="hidden" value="put" name="_method">
 				            		<div class="img-grid-right">
 					            		<label class="d-block"> Profile picture</label>
-					            		<img class="mr-3 rounded-circle" height="200" width="200" id="profile_img" src= "${cPath}/resources/profiles/1.jpeg" >
+					            		<img class="mr-3 rounded-circle profile_img" height="200" width="200" src= "${cPath}/resources/profiles/1.jpeg" >
 					            		<button type="button" class="btn mb-1 btn-outline-info edit-profile">Edit</button>
 					            		<input class="form-control btn mb-1 btn-outline-info" id="upload_image" type="file" name="files" accept="image/*" hidden="hidden" />
 				            		</div>
@@ -98,8 +98,7 @@ var imageSelect = $("#upload_image").on("change", function(){
 		processData: false,
 		contentType: false,
 		success : function(res) {
-			$("#profile_img").attr("src", getProfilePath(res.fileName));
-			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.fileName);
+			$(".profile_img").attr("src", getProfilePath(mem_pic_file_name));
 			toastr.success('Update에 성공했습니다.')
 		},
 		error : function(xhr) {
@@ -126,8 +125,7 @@ var loadMemberInfo = function(){
 			let bio = $(".card.mem_bio").children('textarea').attr('placeholder', res.mem_bio);
 			let workingCity = $(".card.mem_working_city").children('input').attr('placeholder', res.mem_working_city);
 			let tel = $(".card.mem_tel").children('input').attr('placeholder', res.mem_tel);
-			let img = $("#profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
-			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.mem_pic_file_name);
+			$(".profile_img").attr("src", getProfilePath(mem_pic_file_name));
 			let memList = ""
 			for(i in msl){
 				if(i%4==0){memList +='<br>'}

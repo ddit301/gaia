@@ -151,10 +151,9 @@
 						</div>
 					</div></li>
 				<li class="icons dropdown">
-					<div class="user-img c-pointer position-relative"
-						data-toggle="dropdown">
-						<span class="activity active"></span> <img height="40" width="40"
-							alt="">
+					<div class="user-img c-pointer position-relative" data-toggle="dropdown">
+						<span class="activity active"></span> 
+						<img class="profile_img" height="40" width="40"alt="">
 					</div>
 					<div class="drop-down dropdown-profile   dropdown-menu">
 						<div class="dropdown-content-body">

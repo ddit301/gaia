@@ -18,6 +18,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -127,11 +129,13 @@ public class MemberVO implements UserDetails, Serializable {
 	/**
 	 * Collnection 관계의 객체입니다.
 	 */
+	@JsonIgnore
 	private List<AttachFileVO> attachFileList;
 	private List<ProjectVO> projectList;
 	/**
 	 * 필요에 따라 추가된 프로퍼티 입니다.
 	 */
+	@JsonIgnore
 	private transient MultipartFile[] files; // 회원 프로필 파일 얻기 위한 multipart
 	
 	// profile을 위한 메서드 file

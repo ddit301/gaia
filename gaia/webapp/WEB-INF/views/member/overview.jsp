@@ -91,6 +91,26 @@
 	</div>
 </div>
 <script>
+$.ajax({
+	url: 'https://222.114.124.74:9200/gaia/message/_search',
+	type: 'get',
+	dataType: 'json',
+	success : function(data){
+		let messages = data.hits.hits;
+		console.log(messages)
+		let result = ''
+		$.each(messages, function(i, data){
+			let sender = data['_source'].sender;
+			let message = data['_source'].message;
+			result += sender + " : " + message + '<br>';
+		})
+		$('body').html(result);
+	},
+	error: function(xhr){
+		alert(xhr.status);
+	}
+})
+
 // retrieveMemberProjectIssue(mem_no) 요청
 var loadMemberInfo = function(){
 	let need = "MemberProjectIssue";
