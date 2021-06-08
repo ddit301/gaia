@@ -7,7 +7,8 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div class="nav-header">
+	<div class="header-fixed">
+<div class="nav-header ">
      <div class="brand-logo">
          <a href="#">
              <b class="logo-abbr"><img src="${cPath }/resources/assets/images/logo-text.png" alt=""> </b>
@@ -18,6 +19,7 @@
          </a>
      </div>
  </div>
+ 
 <div class="header">
 	<div class="header-content clearfix">
 		<div class="nav-control">
@@ -42,60 +44,9 @@
 		</div>
 		<div class="header-right">
 			<ul class="clearfix">
-				<li class="icons dropdown"><a href="javascript:void(0)"
-					data-toggle="dropdown"> <i class="mdi mdi-email-outline"></i> <span
-						class="badge gradient-1 badge-pill badge-primary">3</span>
-				</a>
-					<div class="drop-down animated fadeIn dropdown-menu">
-						<div
-							class="dropdown-content-heading d-flex justify-content-between">
-							<span class="">3 New Messages</span>
-
-						</div>
-						<div class="dropdown-content-body">
-							<ul>
-								<li class="notification-unread"><a href="javascript:void()">
-										<img class="float-left mr-3 avatar-img"
-										src="${cPath }/resources/assets/images/avatar/1.jpg" alt="">
-										<div class="notification-content">
-											<div class="notification-heading">Saiful Islam</div>
-											<div class="notification-timestamp">08 Hours ago</div>
-											<div class="notification-text">Hi Teddy, Just wanted to
-												let you ...</div>
-										</div>
-								</a></li>
-								<li class="notification-unread"><a href="javascript:void()">
-										<img class="float-left mr-3 avatar-img"
-										src="${cPath }/resources/assets/images/avatar/2.jpg" alt="">
-										<div class="notification-content">
-											<div class="notification-heading">Adam Smith</div>
-											<div class="notification-timestamp">08 Hours ago</div>
-											<div class="notification-text">Can you do me a favour?</div>
-										</div>
-								</a></li>
-								<li><a href="javascript:void()"> <img
-										class="float-left mr-3 avatar-img"
-										src="${cPath }/resources/assets/images/avatar/3.jpg" alt="">
-										<div class="notification-content">
-											<div class="notification-heading">Barak Obama</div>
-											<div class="notification-timestamp">08 Hours ago</div>
-											<div class="notification-text">Hi Teddy, Just wanted to
-												let you ...</div>
-										</div>
-								</a></li>
-								<li><a href="javascript:void()"> <img
-										class="float-left mr-3 avatar-img"
-										src="${cPath }/resources/assets/images/avatar/4.jpg" alt="">
-										<div class="notification-content">
-											<div class="notification-heading">Hilari Clinton</div>
-											<div class="notification-timestamp">08 Hours ago</div>
-											<div class="notification-text">Hello</div>
-										</div>
-								</a></li>
-							</ul>
-
-						</div>
-					</div></li>
+				<li class="icons dropdown">
+					<jsp:include page="/WEB-INF/views/header/messenger.jsp"></jsp:include>
+				</li>
 				<li class="icons dropdown"><a href="javascript:void(0)"
 					data-toggle="dropdown"> <i class="mdi mdi-bell-outline"></i> <span
 						class="badge badge-pill gradient-2 badge-primary">3</span>
@@ -192,7 +143,7 @@
 		</div>
 	</div>
 </div>
-
+</div>
 <script>
 	
 </script>

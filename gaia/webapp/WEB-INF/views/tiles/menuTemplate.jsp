@@ -10,13 +10,6 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %> 
 <!DOCTYPE html>
 <html lang="en">
-<style>
-.header-fixed{
-	position : fixed !important;
-	width : 95%;
-	z-index:10;
-}
-</style>
 <head>
 <meta charset="UTF-8">
 	<tiles:insertAttribute name="preScript" />
@@ -24,10 +17,9 @@
 <body>
 	<tiles:insertAttribute name="preloader" />
     <div id="main-wrapper">
-		<div class="row header-fixed">
-	    	<tiles:insertAttribute name="header" />
-	    	<tiles:insertAttribute name="sidebar" />
-    	</div>
+    	<tiles:insertAttribute name="header" />
+   	
+    	<tiles:insertAttribute name="sidebar" />
 		<div class="content-body content-margin">
 		</div>
         <tiles:insertAttribute name="footer" />

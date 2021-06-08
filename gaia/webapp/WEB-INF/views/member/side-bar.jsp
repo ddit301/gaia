@@ -5,11 +5,10 @@
 * May 26, 2021   Eisen      Initial Commit
 * Copyright (c) 2021 by Team Gaia All right reserved
  --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<div class="card">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<div class="card side-position-fixed">
 	<div class="card-body">
-		<div class="card display-webkit-box">
+		<div class="card">
 		<div class="row">
 			<div class="col-md-4">
 				<img class="mr-3 rounded-circle profile_img" height="48" width="48" src="${mem_pic_file_name}">
@@ -18,12 +17,8 @@
 				<h5 class="m-b-3">${mem_id }</h5>
 			</div>
 		</div>
-           	<div class="flex-auto">
-                <div class="d-flex flex-items-center flex-wrap">
-	                <p class="color-text-tertiary mb-0 mr-3">Your personal account</p>
-                </div>
-            </div>
         </div>
+        <p class="color-text-tertiary">Your personal account</p>
         <div class="card">
         	<div class="list-group mem-setting-side-bar">
      			<span class="list-group-item menu-heading p-r-0">Account setting</span>

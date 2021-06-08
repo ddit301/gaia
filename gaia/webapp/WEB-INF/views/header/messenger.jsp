@@ -13,8 +13,7 @@
 </a>
 
 <div class="drop-down dropdown-menu position-fixed" style="position:fixed">
-	<div
-		class="dropdown-content-heading d-flex justify-content-between">
+	<div class="dropdown-content-heading d-flex justify-content-between">
 		<span class="">3 New Messages</span>
 	</div>
 	<div class="dropdown-content-body">
@@ -59,6 +58,11 @@
 					</div>
 				</a>
 			</li>
+			<li>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="#">see more chats ...</a>
+		</li>
 		</ul>
 	</div>
 </div>
+
