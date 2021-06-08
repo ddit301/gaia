@@ -491,20 +491,4 @@
           </div>
         </section>
         
-    <!--  
-    JavaScripts
-    =============================================
-    -->
-    <script src="resources/main/lib/jquery/dist/jquery.js"></script>
-    <script src="resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="resources/main/lib/wow/dist/wow.js"></script>
-    <script src="resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="resources/main/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="resources/main/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="resources/main/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="resources/main/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="resources/main/lib/smoothscroll.js"></script>
-    <script src="resources/main/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="resources/main/js/plugins.js"></script>
-    <script src="resources/main/js/main.js"></script>
+   
