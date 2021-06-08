@@ -30,7 +30,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "mem_pass")
-@EqualsAndHashCode(of= "mem_id")
+@EqualsAndHashCode(of= {"mem_no", "mem_id"})
 public class MemberVO implements UserDetails, Serializable {
 
 	private static final long serialVersionUID = 1L;
