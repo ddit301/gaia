@@ -1,30 +1,15 @@
 package best.gaia.issue.service;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.annotations.Param;
-import org.elasticsearch.client.ElasticsearchClient;
-import org.elasticsearch.common.Strings;
-import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.common.xcontent.XContentFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.internal.bind.JsonTreeWriter;
-
-import best.gaia.alarm.dao.AlarmDao;
 import best.gaia.alarm.service.AlarmService;
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.dao.MilestoneDao;
-import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
