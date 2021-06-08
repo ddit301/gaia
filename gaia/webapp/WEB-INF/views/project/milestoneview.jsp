@@ -251,8 +251,8 @@
 									if(v.label){
 									issueBox.children('.issue-label').text(v.label.label_nm);								
 									}
-									issueBox.children('.issue-assignee').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
-									issueBox.children('.issue-writer').children('img').attr('src','/gaia/resources/assets/images/user/1.png');
+									issueBox.children('.issue-assignee').children('img').attr('src',getContextPath()+'/resources/assets/images/user/1.png');
+									issueBox.children('.issue-writer').children('img').attr('src',getContextPath()+'/resources/assets/images/user/1.png');
 									issueBox.children('.reply').children('span').text('3');
 									if(v.replyCount > 0){
 										issueBox.children('.reply').html(

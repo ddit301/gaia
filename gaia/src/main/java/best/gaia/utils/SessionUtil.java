@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 
 import best.gaia.utils.exception.UnauthorizedException;
+import best.gaia.vo.MemberUserDetails;
 import best.gaia.vo.MemberVO;
 
 public class SessionUtil {
@@ -14,7 +15,7 @@ public class SessionUtil {
 			throw new UnauthorizedException();
 		}
 		
-		MemberVO member = (MemberVO) authentication.getPrincipal();
+		MemberVO member = ((MemberUserDetails) authentication.getPrincipal()).getAdaptee();
 		if(member == null) {
 			throw new UnauthorizedException();
 		}
