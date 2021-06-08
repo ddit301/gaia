@@ -24,8 +24,7 @@
 <body>
 	<tiles:insertAttribute name="preloader" />
     <div id="main-wrapper">
-		<div class="header-fixed">
-<%--     	<tiles:insertAttribute name="navheader" /> --%>
+		<div class="row header-fixed">
 	    	<tiles:insertAttribute name="header" />
 	    	<tiles:insertAttribute name="sidebar" />
     	</div>
