@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.member.service.MemberService;
+import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.AttachFileVO;
 import best.gaia.vo.MemberVO;
@@ -63,9 +66,9 @@ public class MemberREST {
 				,@ModelAttribute("search") MemberVO search
 				,Authentication authentication
 			) {
-		logger.info("GET 들어옴, need : {}", need);
 		Map<String, Object> result = new HashMap<String, Object>();
 		int mem_no = getMemberNoFromAuthentication(authentication);
+		logger.info("GET 들어옴, need : {}", need);
 		// member/overview.jsp
 		if("MemberProjectIssue".equals(need)) {
 			search = service.retrieveMemberProjectIssue(mem_no);
@@ -122,28 +125,32 @@ public class MemberREST {
 			, @ModelAttribute("form_data") MemberVO form_data
 			, @RequestParam(required=false) String need
 			, Authentication authentication
+			, HttpServletResponse response
 			) throws IOException {
 		int mem_no = getMemberNoFromAuthentication(authentication);
 		form_data.setMem_no(mem_no);
 		
 		// file 객체 하나 뽑기 
-		String filePath = "";
 		String saveFolder = "resources/profiles";
+		
+		// webResourcePath로 경로 잡기.(tomcatserver에 저장)
 		String saveFolderPath = application.getRealPath(saveFolder);
 		String fileName = "";
 		List<AttachFileVO> files = form_data.getAttachFileList();
 		for(AttachFileVO file : files) {
-			int dot = file.getFile_nm().lastIndexOf(".");
-			String mime= file.getFile_nm().substring(dot);
-			fileName = mem_no+mime;
+			fileName = String.valueOf(mem_no);
 			file.saveTo(saveFolderPath, fileName);
-			filePath = saveFolderPath+"/"+fileName;
 			form_data.setMem_pic_file_name(fileName);
 		}
 		
 		ServiceResult sr = service.modifyMember(form_data);
+		
+		// cookie에 저장하기.
+		if(ServiceResult.OK.equals(sr)) {
+			CookieUtil.addCookie("mem_pic_file_name", fileName, response);
+		}
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("member", form_data);
 		result.put("sr", sr);
 		return result;
 	}

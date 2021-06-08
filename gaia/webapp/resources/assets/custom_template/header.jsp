@@ -151,10 +151,9 @@
 						</div>
 					</div></li>
 				<li class="icons dropdown">
-					<div class="user-img c-pointer position-relative"
-						data-toggle="dropdown">
-						<span class="activity active"></span> <img height="40" width="40"
-							alt="">
+					<div class="user-img c-pointer position-relative" data-toggle="dropdown">
+						<span class="activity active"></span> 
+						<img class="profile_img" height="40" width="40"alt="">
 					</div>
 					<div class="drop-down dropdown-profile   dropdown-menu">
 						<div class="dropdown-content-body">
@@ -163,11 +162,13 @@
 										class="icon-user"></i> <span>Overview</span></a></li>
 								<li><a href="#" class="moveButton" data-menu="setting"><i
 										class="icon-user"></i> <span>Setting</span></a></li>
-								<li><a href="email-inbox.html"><i
-										class="icon-envelope-open"></i> <span>Inbox</span>
-										<div class="badge gradient-3 badge-pill badge-primary">3</div></a>
+								<li>
+									<a href="email-inbox.html">
+										<i class="icon-envelope-open"></i> 
+										<span>Inbox</span>
+										<div class="badge gradient-3 badge-pill badge-primary">3</div>
+									</a>
 								</li>
-
 								<hr class="my-2" />
 								<li><a href="page-lock.html"><i class="icon-lock"></i>
 										<span>Lock Screen</span></a></li>

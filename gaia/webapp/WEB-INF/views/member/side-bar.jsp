@@ -10,9 +10,9 @@
 <div class="card">
 	<div class="card-body">
 		<div class="card display-webkit-box">
-			<img class="mr-3 rounded-circle" id="side_bar_profile_img" height="48" width="48" src="${cPath}/resources/profiles/1.jpeg">
+			<img class="mr-3 rounded-circle profile_img" height="48" width="48" src="${mem_pic_file_name}">
            	<div class="flex-auto">
-				<h5 class="m-b-3">${mem_nick }</h5>
+				<h5 class="m-b-3">${mem_id }</h5>
                 <div class="d-flex flex-items-center flex-wrap">
 	                <p class="color-text-tertiary mb-0 mr-3">Your personal account</p>
                 </div>

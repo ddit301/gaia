@@ -16,6 +16,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -68,17 +70,20 @@ public class MemberVO implements UserDetails, Serializable {
 		this.mem_id = mem_id;
 		this.mem_pass = mem_pass;
 	}
-
+  
 	/**
 	 * Collnection 관계의 객체입니다.
 	 */
+  @JsonIgnore
 	private List<AttachFileVO> attachFileList;
 	private List<ProjectVO> projectList;
+  
 	/**
 	 * 필요에 따라 추가된 프로퍼티 입니다.
 	 */
+	@JsonIgnore
 	private transient MultipartFile[] files; // 회원 프로필 파일 얻기 위한 multipart
-	
+  
 	// profile을 위한 메서드 file
 	// multipart와 attatchList와 연동시킬 값들을 구해주는 메서드 
 	public void setFiles(MultipartFile[] files) {  
@@ -137,6 +142,7 @@ public class MemberVO implements UserDetails, Serializable {
 	/**
 	 * Authority 관련 추가 . role 관련 기능 나중에 추가해야함.
 	 */
+
 	
 	private String mem_role ="ROLE";
 
