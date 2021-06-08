@@ -1,11 +1,9 @@
 package best.gaia.alarm.dao;
 
-import java.util.List;
+import java.util.Map;
 
-import org.springframework.stereotype.Repository;
-
-
-@Repository
 public interface AlarmDao {
+	
+	public int insertAlarm(int mem_no, Map<String,Object> alarm);
 	
 }
