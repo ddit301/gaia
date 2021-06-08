@@ -7,9 +7,19 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<div class="nav-header">
+     <div class="brand-logo">
+         <a href="#">
+             <b class="logo-abbr"><img src="${cPath }/resources/assets/images/logo-text.png" alt=""> </b>
+             <span class="logo-compact"><img src="${cPath }/resources/assets/images/logo-compact.png" alt=""></span>
+             <span class="brand-title">
+                 <img src="${cPath }/resources/assets/images/logo-text.png" alt="">
+             </span>
+         </a>
+     </div>
+ </div>
 <div class="header">
 	<div class="header-content clearfix">
-
 		<div class="nav-control">
 			<div class="hamburger">
 				<span class="toggle-icon"><i class="icon-menu"></i></span>

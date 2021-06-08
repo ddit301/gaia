@@ -277,6 +277,7 @@
 		
 		var movePageMember = function(pageParam){
 			let path = getContextPath()+"/view/member/";
+			let index;
 			// member 페이지에서는 horizontal로만 보여줍니다.
 			new quixSettings({
 			    layout: "horizontal" // vertical or horizontal

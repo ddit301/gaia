@@ -77,3 +77,14 @@ textarea {
 	height : 400px;
 	max-height : 100%;
 }
+.position-fixed{
+	position : fixed !important;
+}
+.header-fixed{
+	position : fixed !important;
+	width : 95%;
+	z-index:10;
+}
+.content-margin{
+	margin-top: 8% !important;
+}

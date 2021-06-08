@@ -11793,7 +11793,7 @@ sub {
   width: 20rem;
   top: 0rem !important;
   position: absolute;
-  right: 0 !important;
+  right: 2% !important;
   left: auto !important;
   transform: translate3d(0px, 75px, 0px) !important;
   transition: all 0.4s ease-in-out;
