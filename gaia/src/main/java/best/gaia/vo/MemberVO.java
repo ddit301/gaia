@@ -70,17 +70,20 @@ public class MemberVO implements UserDetails, Serializable {
 		this.mem_id = mem_id;
 		this.mem_pass = mem_pass;
 	}
-
+  
 	/**
 	 * Collnection 관계의 객체입니다.
 	 */
+  @JsonIgnore
 	private List<AttachFileVO> attachFileList;
 	private List<ProjectVO> projectList;
+  
 	/**
 	 * 필요에 따라 추가된 프로퍼티 입니다.
 	 */
+	@JsonIgnore
 	private transient MultipartFile[] files; // 회원 프로필 파일 얻기 위한 multipart
-	
+  
 	// profile을 위한 메서드 file
 	// multipart와 attatchList와 연동시킬 값들을 구해주는 메서드 
 	public void setFiles(MultipartFile[] files) {  
