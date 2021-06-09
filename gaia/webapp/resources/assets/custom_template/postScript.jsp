@@ -394,7 +394,7 @@
 				milestoneView(milest_no);
 			}else{
 				if(pageParam == 'overview' || pageParam=='setting' || pageParam == 'setting/account'
-						|| pageParam == 'chatting'){
+						|| pageParam == 'chat'){
 					movePageHistoryMember(pageParam);
 				}
 				movePageHistory(pageParam);
