@@ -11923,7 +11923,7 @@ sub {
 
 /* .dropdown-notfication li:nth-child(4) .avatar-icon { */
 /*   background-color: #3375e1; */
-}
+/* } */
 
 .dropdown-notfication .avatar-icon {
   top: 0.9625rem;
