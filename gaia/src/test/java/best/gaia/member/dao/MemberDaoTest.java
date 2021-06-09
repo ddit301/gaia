@@ -1,7 +1,8 @@
 package best.gaia.member.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,20 +24,28 @@ public class MemberDaoTest {
 
 	@Inject
 	MemberDao dao;
+	@Inject
+	LogDao logDao;
 	
 	@Inject
 	WebApplicationContext container;
 	
+//	@Test
+//	public void testSelectMemberDetailByNo() {
+//		MemberVO member = dao.selectMemberDetailByNo(41);
+//		assertNotNull(member);
+//	}
+//	@Test
+//	public void testmemberStatusList() {
+//		List<Map<String,Object>> member = dao.memberStatusList();
+//		System.out.println(member);
+//		assertNotNull(member);
+//	}
 	@Test
-	public void testSelectMemberDetailByNo() {
-		MemberVO member = dao.selectMemberDetailByNo(41);
-		assertNotNull(member);
+	public void testMemberLog() {
+		Map<String, Object> log = new HashMap<>();
+		log.put("ip", "192.168.0.1");
+		int result = logDao.insertLog(1, log);
+		System.out.println(result);
 	}
-	@Test
-	public void testmemberStatusList() {
-		List<Map<String,Object>> member = dao.memberStatusList();
-		System.out.println(member);
-		assertNotNull(member);
-	}
-
 }
