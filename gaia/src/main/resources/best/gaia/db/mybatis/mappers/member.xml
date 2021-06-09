@@ -119,8 +119,8 @@
 			SELECT MEM_SEQ.NEXTVAL
 			FROM DUAL
 		</selectKey>
-		INSERT INTO MEMBER (MEM_NO ,MEM_ID ,MEM_PASS ,MEM_NICK, MEM_SIGN_DATE, MEM_STATUS)
-		VALUES(#{mem_no},#{mem_id},#{mem_pass}, #{mem_nick}, SYSDATE, 'ACTIVE')
+		INSERT INTO MEMBER (MEM_NO ,MEM_ID ,MEM_PASS ,MEM_NICK, MEM_SIGN_DATE)
+		VALUES(#{mem_no},#{mem_id},#{mem_pass}, #{mem_nick}, SYSDATE)
 	</insert>
 	
 	<update id="updateMember" parameterType="MemberVO">

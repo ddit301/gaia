@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="best.gaia.project.dao.WikiDao">
+	
+		<select id="selectWikiList" parameterType = "best.gaia.vo.PagingVO" resultType="best.gaia.vo.WikiVO">
+		
+		   SELECT WIKI.WIKI_SID, WIKI.MEM_NO, WIKI.WIKI_TITLE, WIKI.PROJ_NO, WIKI.WIKI_NO, WIKI.WIKI_CONT, WIKI.WIKI_WRITE_DATE, WIKI_WRI_NICK.PROJ_USER_NICK
+ 		     FROM WIKI WIKI
+       			 LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO)
+       			 LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO)
+   		   WHERE WIKI.WIKI_SID = 
+  			 (select min(wiki.wiki_sid)
+     		    from wiki
+           		where wiki.proj_no = #{detailSearch.proj_no})
+		
+		</select>
+		
+		
+		<insert id="insertWiki" parameterType="best.gaia.vo.WikiVO">
+			<selectKey keyProperty = "wiki_sid,wiki_no" resultType="best.gaia.vo.WikiVO" order = "BEFORE">
+				select *
+			from
+			    (select nvl(max(wiki_sid),0)+1 as wiki_sid
+			        from wiki) a,
+			    (select nvl(max(wiki_no),0)+1 as wiki_no
+			       from wiki
+			       where proj_no = #{proj_no, jdbcType=NUMERIC}
+			    )b
+			</selectKey>
+			INSERT INTO WIKI(
+                WIKI_SID
+                ,WIKI_TITLE
+                ,MEM_NO
+                ,PROJ_NO
+                ,WIKI_NO
+                ,WIKI_CONT
+                ,WIKI_WRITE_DATE
+                )VALUES(
+				 #{wiki_sid}
+                ,#{wiki_title, jdbcType=VARCHAR}
+                ,#{mem_no, jdbcType=NUMERIC}
+                ,#{proj_no, jdbcType=NUMERIC}
+                ,#{wiki_no}
+                ,#{wiki_cont,jdbcType=VARCHAR}
+                , sysdate
+                )
+		</insert>
+		
+		<select id="selectWiki" resultType="best.gaia.vo.WikiVO">
+		    SELECT WIKI.WIKI_SID,WIKI.WIKI_TITLE, WIKI.MEM_NO, WIKI.PROJ_NO, WIKI.WIKI_NO, WIKI.WIKI_CONT, WIKI.WIKI_WRITE_DATE, WIKI_WRI_NICK.PROJ_USER_NICK
+		    FROM WIKI WIKI
+		        LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO)
+		        LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO)
+		    WHERE WIKI.PROJ_NO = 1 AND WIKI.WIKI_NO = 1;
+		
+		</select>
+</mapper>

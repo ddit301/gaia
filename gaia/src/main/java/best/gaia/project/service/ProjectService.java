@@ -1,6 +1,7 @@
 package best.gaia.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.KanbanCardVO;
@@ -45,11 +46,12 @@ public interface ProjectService {
 	 *  위키 관련 service
 	 **********************************************************************/	
 	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO);
-	public int insertWiki(WikiVO wiki);
-	public int updateWiki(WikiVO wiki);
-	public int deleteWiki(WikiVO wiki);
-	
+	public ServiceResult insertWiki(WikiVO wiki);
+	public ServiceResult updateWiki(WikiVO wiki);
+	public ServiceResult deleteWiki(WikiVO wiki);
+	public WikiVO selectWiki(Map<String, Object> search);
 	
 	public ServiceResult enrollProject(ProjectVO project);
+
 	
 }
