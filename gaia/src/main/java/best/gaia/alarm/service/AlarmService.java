@@ -10,5 +10,6 @@ public interface AlarmService {
 	
 	public ServiceResult insertIssueCommentAlarm(IssueVO issue);
 	public List<AlarmVO> selectAlarmList(int mem_no);
+	public int updateUnreadAlarms(int mem_no);
 	
 }

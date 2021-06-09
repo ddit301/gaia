@@ -12,5 +12,6 @@ public interface AlarmDao {
 	
 	public int insertAlarm(AlarmVO alarm);
 	public List<AlarmVO> getAlarmList(int mem_no);
+	public int updateUnreadAlarms(int mem_no);
 	
 }

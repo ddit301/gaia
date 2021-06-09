@@ -49,14 +49,13 @@
 				</li>
 <!------------------------ 	알람 드랍다운 시작 -->
 				<li class="icons dropdown">
-					<a href="javascript:void(0)" data-toggle="dropdown"> 
+					<a id="alarmIcon" href="javascript:void(0)" data-toggle="dropdown"> 
 						<i class="mdi mdi-bell-outline"></i> 
-						<span class="newAlarmCount badge badge-pill gradient-2 badge-primary">3</span>
+						<span class="newAlarmCount badge badge-pill gradient-2 badge-primary"></span>
 					</a>
 					<div class="drop-down animated fadeIn dropdown-menu position-fixed dropdown-notfication">
 						<div class="dropdown-content-heading d-flex justify-content-between">
-							<p class="newnotitag"><span class="newAlarmCount">2</span> New Notifications</p>
-<!-- 							<span>2 New Notifications</span> -->
+							<span id="alarmHeader">2 New Notifications</span>
 						</div>
 						<div class="dropdown-content-body">
 							<ul id="alarmList">

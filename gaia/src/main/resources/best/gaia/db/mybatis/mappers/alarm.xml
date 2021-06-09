@@ -30,4 +30,11 @@
 		order by alarm_create_date desc
 	</select>
 	
+	<update id="updateUnreadAlarms" parameterType="int">
+		UPDATE ALARM
+			SET alarm_chk_date = sysdate
+		WHERE MEM_NO = ${mem_no}
+			AND ALARM_CHK_DATE IS NULL
+	</update>
+	
 </mapper>

@@ -85,4 +85,9 @@ public class AlarmServiceImpl implements AlarmService {
 		return list;
 	}
 
+	@Override
+	public int updateUnreadAlarms(int mem_no) {
+		return dao.updateUnreadAlarms(mem_no);
+	}
+
 }

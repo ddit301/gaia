@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.alarm.dao.AlarmDao;
 import best.gaia.alarm.service.AlarmService;
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.AlarmVO;
 
 @RestController
@@ -61,8 +62,14 @@ public class AlarmREST {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public Map<String, Object> updateAlarm() {
-		return null;
+	public Integer updateAlarm(
+			Authentication authentication
+			) {
+		// authentication에서 mem_no를 받아온다.
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		
+		// 안 읽은 모든 알람을 현 시간에 읽은 것으로 업데이트 시키고, 업데이트 된 갯수를 반환한다.
+		return service.updateUnreadAlarms(mem_no);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE)
@@ -71,3 +78,9 @@ public class AlarmREST {
 	}
 
 }
+
+
+
+
+
+
