@@ -1,0 +1,14 @@
+@charset "UTF-8";
+.alarm a{
+	padding-left : 20px;
+}
+.alarm.unchecked{
+	background-color : rgb(212, 238, 255);
+}
+#alarmList{
+	padding : 0;
+}
+.newnotitag{
+    font-size: 1rem;
+    color: #333;
+}

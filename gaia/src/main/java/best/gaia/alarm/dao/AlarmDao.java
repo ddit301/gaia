@@ -3,9 +3,14 @@ package best.gaia.alarm.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
+import best.gaia.vo.AlarmVO;
+
+@Repository
 public interface AlarmDao {
 	
-	public int insertAlarm(int mem_no, Map<String,Object> alarm);
-	public List<Map<String, Object>> getAlarmList(int mem_no);
+	public int insertAlarm(AlarmVO alarm);
+	public List<AlarmVO> getAlarmList(int mem_no);
 	
 }

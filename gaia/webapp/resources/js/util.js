@@ -57,6 +57,20 @@ var getAlarm = function(){
 	$.ajax({
 		url : getContextPath() + '/restapi/alarm/alarms',
 		success : function(res) {
+			let newAlarmCount = 0;
+			$('#alarmList').empty();
+			$.each(res, function(i, v) {
+				let alarm = $('#headerTemplate').children('.alarm').clone();
+				alarm.children('a').attr('href',v.url);
+				alarm.find('.notifi-cont').html(v.alarm_cont);
+				alarm.find('.notifi-time').text(moment(v.alarm_create_date).fromNow());
+				if(v.alarm_chk_date == null){
+					newAlarmCount = newAlarmCount +1;
+					alarm.addClass("unchecked");
+				}
+				$('#alarmList').append(alarm);
+			})
+			$('.newAlarmCount').text(newAlarmCount);
 			
 		},
 		error : function(xhr, error, msg) {

@@ -2,7 +2,6 @@ package best.gaia.alarm.controller;
 
 import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.alarm.dao.AlarmDao;
-import best.gaia.alarm.dao.CommonCodeDao;
 import best.gaia.alarm.service.AlarmService;
-import best.gaia.vo.CommonCodeVO;
+import best.gaia.vo.AlarmVO;
 
 @RestController
 @RequestMapping(value="restapi/alarm/alarms", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -33,8 +31,7 @@ public class AlarmREST {
 	private AlarmService service;
 	@Inject
 	private AlarmDao dao;
-	@Inject
-	private CommonCodeDao commonDao;
+
 	
 	@Inject
 	private WebApplicationContext container;
@@ -48,20 +45,14 @@ public class AlarmREST {
 	private static final Logger logger = LoggerFactory.getLogger(AlarmREST.class);
 	
 	@GetMapping
-	public Map<String, Object> alarmList(
+	public List<AlarmVO> alarmList(
 			Authentication authentication
 			) {
-		Map<String, Object> map = new HashMap<>();
-		// 알람에 관련된 코드 정보를 불러온다.
-		List<CommonCodeVO> code = commonDao.selectCodesByGroup("AT");
-		map.put("code", code);
-		
 		// authentication에서 mem_no를 받아온다.
 		int mem_no = getMemberNoFromAuthentication(authentication);
-		List<Map<String, Object>> alarms = dao.getAlarmList(mem_no);
-		map.put("alarms", alarms);
 		
-		return map;
+		// 알람 로직을 쭉 태운 뒤에 가공된 알람을 보낸다
+		return service.selectAlarmList(mem_no);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
