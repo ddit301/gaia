@@ -28,5 +28,11 @@ public class WikiVO {
 	@NotNull @Min(0) private Integer wiki_no;
 	@NotBlank@Size(max=4000) private String wiki_cont;
 	@Size(max=7) private String wiki_write_date;
+	@Size(max=500) private String wiki_title;
+	
+	/**
+	 * wiki user_nick 
+	 */
+	private String proj_user_nick;
 	
 }

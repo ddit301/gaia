@@ -173,26 +173,32 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO) {
+		
+		return wikiDao.selectWikiList(pagingVO);
+	}
+	
+	@Override
+	public WikiVO selectWiki(Map<String,Object> search) {
+		
+		return wikiDao.selectWiki(search);
+	}
+
+	@Override
+	public ServiceResult insertWiki(WikiVO wiki) {
+		int result = wikiDao.insertWiki(wiki);
+		return result == 1 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public ServiceResult updateWiki(WikiVO wiki) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int insertWiki(WikiVO wiki) {
+	public ServiceResult deleteWiki(WikiVO wiki) {
 		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateWiki(WikiVO wiki) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteWiki(WikiVO wiki) {
-		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 	public String getProjectNick(int proj_no, int mem_no) {
 		Map<String, Object> projnoMemno = new HashMap<>();

@@ -342,6 +342,7 @@
 						},
 						success : function(res) {
 							$('.modal-backdrop').removeClass('show').css("display","none");
+							swal.success();
 							movePageHistory("milestone");
 							
 						},
