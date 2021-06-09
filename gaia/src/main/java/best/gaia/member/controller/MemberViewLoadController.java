@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  * May 24, 2021  Eisen    Initial Commit
  * Copyright (c) 2021 by Team Gaia All right reserved
  * </pre>
- * .ajax로 호출할 메서드.
  */
 @Controller
 @RequestMapping(value = "view/member/")
 public class MemberViewLoadController {
+	//.ajax로 page(html)을 return해 주는 메서드.
 	private static final Logger logger = LoggerFactory.getLogger(MemberViewLoadController.class);
 	@RequestMapping(value = {"{menuname}"})
 	public String menuMapper(
@@ -34,10 +34,6 @@ public class MemberViewLoadController {
 			) {
 		model.addAttribute("mem_id", mem_id);
 		model.addAttribute("menuname", menuname);
-		// setting일 경우
 		return "member/"+menuname;
 	}
-	
-	
-		
 }
