@@ -224,6 +224,31 @@
 				dataType : 'html'
 			})
 		}
+		// messenser
+		var messenser = function(){
+			window.scrollTo({top:0, left:0, behavior:'auto'});
+			
+			let project_title = '${project_title}';
+			let manager_id = '${manager_id}';
+			
+			data = 'milestoneView'+milest_no;
+			title = '';
+			
+			url = '${cPath}/${manager_id}/${project_title}/milestone/'+milest_no;
+			history.pushState(data,title,url);
+			
+			$.ajax({
+				url : '${cPath}/view/project/milestoneview'
+				,type : 'get'
+				,success : function(res) {
+					$('.content-body').html(res);
+				}
+				,error : function(xhr){
+					alert('error : ' + xhr.status);
+				},
+				dataType : 'html'
+			})
+		}
 	 	
 		// 뒤로가기 상황을 제외하고는 pushState를 통해 데이터를 쌓아야합니다.
 		var movePageHistory = function(pageParam){
@@ -353,7 +378,8 @@
 			}else if(milest_no){
 				milestoneView(milest_no);
 			}else{
-				if(pageParam == 'overview' || pageParam=='setting' || pageParam == 'setting/account'){
+				if(pageParam == 'overview' || pageParam=='setting' || pageParam == 'setting/account'
+						|| pageParam == 'chatting'){
 					movePageHistoryMember(pageParam);
 				}
 				movePageHistory(pageParam);

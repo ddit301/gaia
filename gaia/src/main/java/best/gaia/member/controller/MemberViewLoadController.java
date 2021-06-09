@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping(value = "view/member/")
 public class MemberViewLoadController {
-	//.ajax로 호출할 메서드.
+	//.ajax로 page(html)을 return해 주는 메서드.
 	private static final Logger logger = LoggerFactory.getLogger(MemberViewLoadController.class);
 	@RequestMapping(value = {"{menuname}"})
 	public String menuMapper(
@@ -36,7 +36,4 @@ public class MemberViewLoadController {
 		model.addAttribute("menuname", menuname);
 		return "member/"+menuname;
 	}
-	
-	
-		
 }
