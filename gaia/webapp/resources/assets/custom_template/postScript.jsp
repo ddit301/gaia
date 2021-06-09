@@ -22,205 +22,31 @@
 	<script src="${cPath }/resources/js/jquery.validate.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.js" integrity="sha512-2ABKLSEpFs5+UK1Ol+CgAVuqwBCHBA0Im0w4oRCflK/n8PUVbSv5IY7WrKIxMynss9EKLVOn1HZ8U/H2ckimWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="${cPath }/resources/js/issue.js"></script>
+	<script src="${cPath }/resources/js/util.js"></script>
 
 <script type="text/javascript">
 	let project_title = '${project_title}';
 	let manager_id = '${manager_id}';
-	
-	// ajaxError 설정
-	function ajaxError(xhr, error, msg){
-		console.log(xhr);
-		console.log(error);
-		console.log(msg);
-		if (xhr.status == 401) {
-			toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-			setTimeout(function() {
-				window.location.href = getContextPath()
-			}, 2000);
-		}
-	}
-	
-	var data = {}
-	// Swal Alert 설정
-	var swal = {
-		error : function(data){
-			console.log(data);
-			if(!data){data = { };}
-			Swal.fire({
-				icon: 'error',
-				title: typeof data.title !=='undefined' ? data.title : 'Oops...', 
-				text: !!data.text ? data.text : 'Something went wrong!',
-				showConfirmButton : !!data.confirm ? true : false,
-				timer: 1500
-			})
-		},
-		success : function(data){
-			if(!data){data = { };}
-				Swal.fire({
-					icon: 'success',
-					title: !!data.title ? data.title : 'Success!!',
-					text: !!data.text ? data.text : 'Your work has been saved!',
-					showConfirmButton : !!data.confirm ? true : false,
-					timer: 1500
-				})
-		},
-		warning : function(data){
-			if(!data){data = { };}
-			Swal.fire({
-				icon: 'warning',
-				title: !!data.title ? data.title : 'Oops...', 
-				text: !!data.text ? data.text : 'You should do someting first!',
-				showConfirmButton : !!data.confirm ? true : false,
-				timer: 1500
-			})
-		},
-		info : function(data){
-			if(!data){data = { };}
-			Swal.fire({
-				icon: 'info',
-				title: !!data.title ? data.title : 'Have to know!', 
-				text: !!data.text ? data.text : 'blablabla',
-				showConfirmButton : !!data.confirm ? true : false,
-				timer: 1500
-			})
-		}
-	}
   
-  // 쿠키 값 얻어오는 function
-	var getCookie = function(name) {
-		let CookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-		return CookieValue? decodeURI(CookieValue[2]) : null;
-	};
-	
-	// 현 URL에서 contextPath 빼고 구하는 function
-	var getCurrentUrl = function(){
-		let hostIndex = location.href.indexOf( location.host ) + location.host.length;
-		return location.href.substring(hostIndex);
-	}
-	
-	var getAlarm = function(){
-		$.ajax({
-			url : getContextPath() + '/restapi/alarm/alarms',
-			success : function(res) {
-			},
-			error : function(xhr, error, msg) {
-				ajaxError(xhr, error, msg);
-			},
-			dataType : 'json'
-		})
-	}
-	
 	// 접속 회원의 프로젝트 내 닉네임 입니다. 글 작성시 활용해주세요.
 	// 일단 다른 페이지들에서 해당 변수 못쓰게 const 로 막고, 추후 프로필 데이터 변경 고려해 코드 완성 단계에 let 으로 풀겠습니다. 
 	const proj_user_nick = getCookie('proj_user_nick');
 	const mem_pic_file_name = getCookie('mem_pic_file_name');
 	const mem_id = getCookie('mem_id');
-	$('.user-img').children('img').attr('src', getProfilePath(mem_pic_file_name));
   
-	// toastr 알람 설정
-	toastr.options = {
-			  "closeButton": false,
-			  "debug": false,
-			  "newestOnTop": false,
-			  "progressBar": false,
-			  "positionClass": "toast-top-right",
-			  "preventDuplicates": false,
-			  "onclick": null,
-			  "showDuration": "100",
-			  "hideDuration": "1000",
-			  "timeOut": "1500",
-			  "extendedTimeOut": "1000",
-			  "showEasing": "swing",
-			  "hideEasing": "linear",
-			  "showMethod": "fadeIn",
-			  "hideMethod": "fadeOut"
-			}
-	
-		// 뒤로가기 이벤트 binding 하기
-		$(window).bind("popstate", function(event) {
-		    var data = event.originalEvent.state;
-		    if(data){ // 이전 페이지 데이터가 있으면 ajax로 다시 요청해 화면 렌더링.
-		    	if(data.startsWith("issueView")){
-		    		let issue_no = data.substring("issueView".length);
-		    		issueView(issue_no);
-		    	}else if(data == 'newIssue'){
-		    		newIssue();
-		    	}else if(data.startsWith("milestoneView")){
-		    		let milest_no = data.substring("milestoneView".length);
-		    		milestoneView(milest_no);
-		    	}else{
-			    	movePage(data);
-		    	}
-		    }else{ // 히스토리에 정보가 없을경우 메인화면으로 이동시키기.
-		    	var url = "${cPath}";
-		    	$(location).attr('href',url);
-		    }
-	 	})
-	 	
-	 	
-		/*
-		*	issueView, milestoneView, newIssue는 URL을 타고 들어올 수도 있으니 반드시 postScript에 있어야 합니다.
-		*/
-	 	
-	 	var newIssue = function(){
-			window.scrollTo({top:0, left:0, behavior:'auto'});
-			
-			data = 'newIssue'
-			title = '';
-			url = '${cPath}/${manager_id}/${project_title}/issue/new'
-			history.pushState(data, title, url);
-			
-			$.ajax({
-				url : '${cPath}/view/project/newissue'
-				,type : 'get'
-				,success : function(res){
-					$('.content-body').html(res);
-				}
-				,error : function(xhr){
-					alert('error : ' + xhr.status);
-				},
-				dataType : 'html'
-			})
-		}
-	 	
-	 	var issueView = function(issue_no){
-			window.scrollTo({top:0, left:0, behavior:'auto'});
-			
-			data = 'issueView'+issue_no;
-			title = '';
-			url = '${cPath}/${manager_id}/${project_title}/issue/'+issue_no;
-			history.pushState(data, title, url);
-			
-			$.ajax({
-				url : '${cPath}/view/project/issueview'
-				,type : 'get'
-				,data : {
-					'issue_no' : issue_no
-					}
-				,success : function(res){
-					$('.content-body').html(res);
-				}
-				,error : function(xhr){
-					alert('error : ' + xhr.status);
-				},
-				dataType : 'html'
-			})
-		}
 	 	
 		// milestoneView
 		var milestoneView = function(milest_no){
 			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
-			let project_title = '${project_title}';
-			let manager_id = '${manager_id}';
-			
 			data = 'milestoneView'+milest_no;
 			title = '';
-			url = '${cPath}/${manager_id}/${project_title}/milestone/'+milest_no;
+			url = getContextPath()+'/'+manager_id+'/'+project_title+'/milestone/'+milest_no;
 			history.pushState(data,title,url);
 			
 			$.ajax({
-				url : '${cPath}/view/project/milestoneview'
+				url : getContextPath()+'/view/project/milestoneview'
 				,type : 'get'
 				,data : {
 					'manager_id' : manager_id
@@ -241,7 +67,7 @@
 		var movePageHistory = function(pageParam){
 			var data = pageParam;
 			var title;
-			var url = getContextPath() + '/${manager_id}/${project_title}'+ (pageParam ? '/'+pageParam : '') ;
+			var url = getContextPath()+'/'+manager_id+'/'+project_title + (pageParam ? '/'+pageParam : '') ;
 			history.pushState(data, title, url);
 			movePage(pageParam);
 		}
@@ -256,13 +82,11 @@
 			// 화면 위로 올리기
 			window.scrollTo({top:0, left:0, behavior:'auto'});
 			
-			let project_title = '${project_title}';
-			let manager_id = '${manager_id}';
 			if(!pageParam)
 				pageParam = 'code';
 			
 			$.ajax({
-				url : '${cPath}/view/project/'+pageParam,
+				url : getContextPath() + '/view/project/' + pageParam,
 				type : 'get',
 				data : {'manager_id' : manager_id,'project_title' : project_title
 					},
@@ -338,6 +162,7 @@
  		*	
  		*********************************************************************/
 		$(function(){
+			$('.user-img').children('img').attr('src', getProfilePath(mem_pic_file_name));
 			
 			// 처음 페이지 로드될때 알람 목록을 한번 불러옵니다.
 			getAlarm();
