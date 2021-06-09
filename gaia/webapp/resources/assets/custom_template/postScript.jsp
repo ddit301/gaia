@@ -220,10 +220,11 @@
 				milestoneView(milest_no);
 			}else{
 				if(pageParam == 'overview' || pageParam=='setting' || pageParam == 'setting/account'
-						|| pageParam == 'chatting'){
+						|| pageParam == 'setting/securityLog' || pageParam == 'chat' ){
 					movePageHistoryMember(pageParam);
+				}else{
+					movePageHistory(pageParam);
 				}
-				movePageHistory(pageParam);
 			}
 		
 		})

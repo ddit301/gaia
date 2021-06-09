@@ -60,7 +60,7 @@
 			</li>
 			<li>
 			<div class="dropdown-divider"></div>
-			<a class="dropdown-item toChattingPage moveButton" data-menu="chatting" href="javascript:void()">see more chats ...</a>
+			<a class="dropdown-item toChattingPage moveButton" data-menu="chat" href="javascript:void()">see more chats ...</a>
 		</li>
 		</ul>
 	</div>

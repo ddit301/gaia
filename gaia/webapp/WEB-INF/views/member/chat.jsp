@@ -65,16 +65,7 @@
 			<div class="card">
 		    	<div class="container-fluid">
 			        <div class="row" id="issues">
-			            
-			            
-		            </div>
-		        </div>
-		    </div>
-		</div>
-    </div>
-</div>
-
-<!-- hidden -->
+			            <!-- hidden -->
 <div id="issueTemplate" hidden = "hidden">
 	<div class="col-xl-6 issue" >
 	    <div class="card">
@@ -211,6 +202,15 @@
                 $("#createBack").delay(200).fadeOut(200);
             });
         </script>
+			            
+		            </div>
+		        </div>
+		    </div>
+		</div>
+    </div>
+</div>
+1
+
 <script>
 // retrieveMemberProjectIssue(mem_no) 요청
 var loadMemberInfo = function(){

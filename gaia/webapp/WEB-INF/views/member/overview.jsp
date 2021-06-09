@@ -92,7 +92,7 @@
 	</div>
 </div>
 <script>
-// retrieveMemberProjectIssue(mem_no) 요청
+// 페이지 로딩 시 retrieveMemberProjectIssue(mem_no) 요청 
 var loadMemberInfo = function(){
 	let need = "MemberProjectIssue";
 	$.ajax({

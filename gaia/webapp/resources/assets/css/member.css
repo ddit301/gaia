@@ -82,10 +82,21 @@ textarea {
 	width : 95%;
 	z-index:10;
 }
-.content-margin{
-	margin-top: 8% !important;
-}
 .side-position-fixed{
 	width:20%;
 	position:fixed;
+}
+.vertical-separator{
+    margin-right: 20px;
+    margin-left: 18px;
+    border-left: 1px solid #6e7681;
+}
+.log-img-center{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.horizontal-separator{
+	border-bottom: 0.2px solid #6e7681;
+	opacity : 0.5;
 }

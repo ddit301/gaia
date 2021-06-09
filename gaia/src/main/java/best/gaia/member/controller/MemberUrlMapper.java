@@ -73,7 +73,7 @@ public class MemberUrlMapper {
 	}
 
 	@RequestMapping(value = { "setting",
-			"setting/{pageParam:^(?:(?=account$|accountSecurity$|projects$|securityLog$|profile$)).*}" })
+			"setting/{pageParam:^(?:(?=account$|chat$|projects$|securityLog$|profile$)).*}" })
 	public String memberSetting(
 				@PathVariable String mem_id
 				, @PathVariable Optional<String> pageParam

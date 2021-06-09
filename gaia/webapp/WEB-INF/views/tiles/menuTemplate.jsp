@@ -20,7 +20,7 @@
     	<tiles:insertAttribute name="header" />
    	
     	<tiles:insertAttribute name="sidebar" />
-		<div class="content-body content-margin">
+		<div class="content-body">
 		</div>
         <tiles:insertAttribute name="footer" />
     </div>

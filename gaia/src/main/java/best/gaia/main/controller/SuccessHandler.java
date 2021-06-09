@@ -2,10 +2,13 @@ package best.gaia.main.controller;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -16,14 +19,20 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.util.StringUtils;
 
+
+import best.gaia.member.controller.MemberUrlMapper;
+import best.gaia.member.service.LogService;
 import best.gaia.utils.CookieUtil;
 import best.gaia.vo.MemberUserDetails;
 import best.gaia.vo.MemberVO;
 
 public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+	@Inject
+	LogService logService;
 
 	private RequestCache requestCache = new HttpSessionRequestCache();
 	private RedirectStrategy redirectStratgy = new DefaultRedirectStrategy();
+	private static final Logger logger = LoggerFactory.getLogger(SuccessHandler.class);
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -38,9 +47,8 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
 			CookieUtil.addCookie("mem_id", member.getMem_id(), response);
 			CookieUtil.addCookie("mem_pic_file_name",
 					member.getMem_pic_file_name()==null? "default" : member.getMem_pic_file_name(), response);
-			
+			logService.insertLog(member.getMem_no(), request);
 			redirectStratgy.sendRedirect(request, response, "/" + member.getMem_id() + "/overview");
-
 			return;
 		}
 		String targetUrlParameter = getTargetUrlParameter();
