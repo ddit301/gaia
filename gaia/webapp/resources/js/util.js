@@ -52,20 +52,6 @@ var getCurrentUrl = function(){
 	return location.href.substring(hostIndex);
 }
 
-// 알람 받아오는 함수
-var getAlarm = function(){
-	$.ajax({
-		url : getContextPath() + '/restapi/alarm/alarms',
-		success : function(res) {
-			
-		},
-		error : function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
-		},
-		dataType : 'json'
-	})
-}
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //	 각종 설정
@@ -90,48 +76,49 @@ toastr.options = {
 		  "showMethod": "fadeIn",
 		  "hideMethod": "fadeOut"
 		}
+		
 // Swal Alert 설정
-	var swal = {
-		error : function(data){
-			console.log(data);
-			if(!data){data = { };}
+var swal = {
+	error : function(data){
+		console.log(data);
+		if(!data){data = { };}
+		Swal.fire({
+			icon: 'error',
+			title: typeof data.title !=='undefined' ? data.title : 'Oops...', 
+			text: !!data.text ? data.text : 'Something went wrong!',
+			showConfirmButton : !!data.confirm ? true : false,
+			timer: 1500
+		})
+	},
+	success : function(data){
+		if(!data){data = { };}
 			Swal.fire({
-				icon: 'error',
-				title: typeof data.title !=='undefined' ? data.title : 'Oops...', 
-				text: !!data.text ? data.text : 'Something went wrong!',
+				icon: 'success',
+				title: !!data.title ? data.title : 'Success!!',
+				text: !!data.text ? data.text : 'Your work has been saved!',
 				showConfirmButton : !!data.confirm ? true : false,
 				timer: 1500
 			})
-		},
-		success : function(data){
-			if(!data){data = { };}
-				Swal.fire({
-					icon: 'success',
-					title: !!data.title ? data.title : 'Success!!',
-					text: !!data.text ? data.text : 'Your work has been saved!',
-					showConfirmButton : !!data.confirm ? true : false,
-					timer: 1500
-				})
-		},
-		warning : function(data){
-			if(!data){data = { };}
-			Swal.fire({
-				icon: 'warning',
-				title: !!data.title ? data.title : 'Oops...', 
-				text: !!data.text ? data.text : 'You should do someting first!',
-				showConfirmButton : !!data.confirm ? true : false,
-				timer: 1500
-			})
-		},
-		info : function(data){
-			if(!data){data = { };}
-			Swal.fire({
-				icon: 'info',
-				title: !!data.title ? data.title : 'Have to know!', 
-				text: !!data.text ? data.text : 'blablabla',
-				showConfirmButton : !!data.confirm ? true : false,
-				timer: 1500
-			})
-		}
+	},
+	warning : function(data){
+		if(!data){data = { };}
+		Swal.fire({
+			icon: 'warning',
+			title: !!data.title ? data.title : 'Oops...', 
+			text: !!data.text ? data.text : 'You should do someting first!',
+			showConfirmButton : !!data.confirm ? true : false,
+			timer: 1500
+		})
+	},
+	info : function(data){
+		if(!data){data = { };}
+		Swal.fire({
+			icon: 'info',
+			title: !!data.title ? data.title : 'Have to know!', 
+			text: !!data.text ? data.text : 'blablabla',
+			showConfirmButton : !!data.confirm ? true : false,
+			timer: 1500
+		})
 	}
+}
 		

@@ -24,6 +24,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="${cPath }/resources/js/issue.js"></script>
 	<script src="${cPath }/resources/js/util.js"></script>
+	<script src="${cPath }/resources/js/alarm.js"></script>
 
 <script type="text/javascript">
 	let project_title = '${project_title}';
@@ -118,7 +119,7 @@
 				success : function(res) {
 					$('.content-body').html(res);
 				},
-				error : function(xhr) {
+				error : function(xhr, error, msg) {
 					// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
 					if(xhr.status == '404')
 						alert('등록되지 않는 버튼 : ' + pageParam);				
