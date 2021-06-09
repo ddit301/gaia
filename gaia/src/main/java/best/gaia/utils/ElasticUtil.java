@@ -28,12 +28,12 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.springframework.stereotype.Component;
 
 import com.ibatis.common.resources.Resources;
 
-
+@Component
 public class ElasticUtil {
-	private static ElasticUtil self;
 	private RestClientBuilder restClientBuilder;
 	
 	private ElasticUtil() {
@@ -47,17 +47,15 @@ public class ElasticUtil {
         restClientBuilder = RestClient.builder(host);
 	};
 	
-	public static ElasticUtil getInstance() {
-		if(self == null)
-			self = new ElasticUtil();
-		return self;
-	}
-	
 	public List<Map<String,Object>> simpleSearch(
 			String index
 			, Map<String,Object> query
 			, Map<String,SortOrder> sort
 			){
+		/*
+		 * search API 참고 주소
+		 * https://www.elastic.co/guide/en/elasticsearch/client/java-rest/master/java-rest-high-search.html
+		 */
 		
 		// search에 index 조건 걸기
 		SearchRequest searchRequest = new SearchRequest(index);

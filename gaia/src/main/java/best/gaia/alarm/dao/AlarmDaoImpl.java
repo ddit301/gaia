@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.stereotype.Component;
 
@@ -12,18 +14,8 @@ import best.gaia.utils.ElasticUtil;
 @Component
 public class AlarmDaoImpl implements AlarmDao {
 	
+	@Inject
 	private ElasticUtil elastic;
-	private static AlarmDaoImpl self;
-	
-	private AlarmDaoImpl() {
-		elastic = ElasticUtil.getInstance();
-	}
-	
-	public static AlarmDaoImpl getInstance() {
-		if(self == null)
-			self = new AlarmDaoImpl();
-		return self;
-	}
 	
 	public int insertAlarm(int mem_no, Map<String,Object> alarm) {
 		alarm.put("mem_no", mem_no);
