@@ -14,9 +14,6 @@
     }
     </style>
 <div class="container-fluid container-lg container-xl">
-<div class = "alert">
-	<p> update success</p>
-</div>
 	<div class="row justify-content-end page-path">
 		<div class="col col-md-3">
 			<ol class="breadcrumb">
@@ -127,7 +124,7 @@ var loadMemberInfo = function(){
 		success : function(res) {
 			console.log(JSON.stringify(res.search));
 			let nm = $("#mem_nm").attr('placeholder', res.search.mem_nm);
-			$("#side_bar_profile_img").attr("src", getContextPath()+"/resources/profiles/"+res.search.mem_pic_file_name);
+			$(".profile_img").attr("src", getProfilePath(mem_pic_file_name));
 		},
 		async : false
 		,error : function(xhr) {

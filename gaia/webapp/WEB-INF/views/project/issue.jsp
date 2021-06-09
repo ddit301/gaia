@@ -114,147 +114,16 @@
 	</div>        
 </div>
             
-            <script>
-            	issue_status = null;
-            	currentPage = 1;
-            	startPage = null;
-            	endPage = null;
-            
-	            loadIssueList = function(){
-		            $.ajax({
-						url : getContextPath() + '/restapi/project/issues',
-						type : 'get',
-						data : {
-							'issue_status' : issue_status
-							,'currentPage' : currentPage
-						},
-						success : function(res) {
-							$('#issuelist').empty();
-							startPage = res.startPage;
-							endPage = res.endPage;
-							
-							// pagination 만들어주기
-							let prevBtn;
-							let nextBtn;
-							if(res.startPage <= 1){
-								prevBtn = '<li class="page-item disabled"><a class="page-link" data-btn="prev" href="#" tabindex="-1">Previous</a></li>';
-							}else{
-								prevBtn = '<li class="page-item"><a class="page-link" data-btn="prev" href="#" tabindex="-1">Previous</a></li>';
-							}
-							if(res.endPage < res.totalPage){
-								nextBtn = '<li class="page-item"><a class="page-link" data-btn="next" href="#">Next</a></li>';
-							}else{
-								nextBtn = '<li class="page-item disabled"><a class="page-link" data-btn="next" href="#">Next</a></li>';
-							}
-							
-							let pageNation = prevBtn;
-							for(i=res.startPage; i<=res.endPage && i<=res.totalPage; i++){
-								if(res.currentPage == i){
-									pageNation += '<li class="page-item active"><a class="page-link">'+ i +'</a></li>'
-								}else{
-									pageNation += '<li class="page-item"><a class="page-link">'+ i +'</a></li>'
-								}
-							}
-							pageNation += nextBtn;
-							$('.pagination').html(pageNation);
-							
-							$.each(res.dataList, function(i, v) {
-								let issueBox = $('#issue-template').children('.issueBox').clone();
-								issueBox.attr('data-issue_sid',v.issue_sid);
-								issueBox.attr('data-issue_no',v.issue_no);
-								issueBox.children('.issue-title').children('a').text(v.issue_title);
-								issueBox.children('.issue-priority').text(
-									v.issue_priority == 1 ? '무시' :
-									v.issue_priority == 2 ? '낮음' :
-									v.issue_priority == 3 ? '보통' :
-									v.issue_priority == 4 ? '높음' :
-									v.issue_priority == 5 ? '긴급' : '즉시'
-									);
-								if(v.label){
-									issueBox.children('.issue-label').text(v.label.label_nm);
-								}
-								if(v.milestone){
-									issueBox.children('.milestone').text(v.milestone.milest_title);
-								}
-								let assigneeSize = v.assigneeList.length;
-								$.each(v.assigneeList, function(j, assignee){
-									if(assigneeSize == 1) j=99;
-									issueBox.children('.issue-assignee').append(
-											'<img class="profile assignee assignee'+j+'" src="'+getProfilePath(assignee.mem_pic_file_name)+'">');
-								})
-								issueBox.children('.issue-writer').children('img').attr('src',getProfilePath(v.writer.mem_pic_file_name));
-								if(v.replyCount > 0){
-									issueBox.children('.reply').html(
-											'<i class="icon-bubbles icons"></i><span>&nbsp;'+v.replyCount+'</span>'
-										);
-								}
-								
-								$('#issuelist').append(issueBox);
-							})
-							
-						},
-						error : function(xhr, error, msg) {
-							ajaxError(xhr, error, msg);
-						},
-						dataType : 'json'
-					})
-	            }
-	            
-	            // 페이지 로딩시 이슈 리스트를 한번 불러온다.
-	            loadIssueList();
-	            
-	            /*
-	             * document.ready
-	            **/ 
-	            $(function(){
-	            	
-	    			// 이슈 등록 버튼 이벤트
-	    			$('#main-wrapper').on('click', '#newIssueBtn', function(){
-	    				newIssue();
-	    			})
-	    			
-	    			// 특정 이슈 클릭시 불러오는 메서드
-	    			$('#main-wrapper').on('click', '.issueButton', function(){
-	    				let issue_no = $(this).parents('.issueBox').data('issue_no');
-	    				issueView(issue_no);
-	    			})
-	            	
-	            	$('.pagination').on('click', '.page-link', function(){
-	            		event.preventDefault();
-	            		let dataBtn = $(this).data('btn');
-	            		if(dataBtn== 'prev'){
-	            			currentPage = parseInt(startPage) - 1;
-	            		}else if(dataBtn == 'next'){
-	            			currentPage = parseInt(endPage) + 1;
-	            		}else{
-	            			if(currentPage == $(this).text()){
-	            				return false;
-	            			}else{
-		            			currentPage = $(this).text();
-	            			}
-	            		}
-	            		window.scrollTo({top:0, left:0, behavior:'auto'});
-	            		loadIssueList();
-	            	})
-	            	
-	            	$('#iss-filter-btn').children('button').on('click', function(){
-	            		$('#iss-filter-btn').children('button').removeClass('btn-success');
-	            		$('#iss-filter-btn').children('button').addClass('btn-light');
-	            		$(this).removeClass("btn-light");
-	            		$(this).addClass("btn-success");
-	            		
-	            		issue_status = $(this).data('status');
-	            		currentPage = 1;
-	            		window.scrollTo({top:0, left:0, behavior:'auto'});
-	            		loadIssueList();
-	            	});
-	            	
-	            	
-	            })
-            	
-				
-				
-            </script>
+<script>
+	issue_status = null;
+	currentPage = 1;
+	startPage = null;
+	endPage = null;
+       
+    // 페이지 로딩시 이슈 리스트를 한번 불러온다.
+    loadIssueList();
+
+</script>
             
             
             

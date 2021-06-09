@@ -1,4 +1,4 @@
-package best.gaia.alarm.dao;
+package best.gaia.common.dao;
 
 
 import java.util.List;

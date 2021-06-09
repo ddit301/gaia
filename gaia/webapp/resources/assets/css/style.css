@@ -11793,7 +11793,7 @@ sub {
   width: 20rem;
   top: 0rem !important;
   position: absolute;
-  right: 0 !important;
+  right: 2% !important;
   left: auto !important;
   transform: translate3d(0px, 75px, 0px) !important;
   transition: all 0.4s ease-in-out;
@@ -11909,21 +11909,21 @@ sub {
   display: block;
 }
 
-.dropdown-notfication li:nth-child(1) .avatar-icon {
-  background-color: #f6514c;
-}
+/* .dropdown-notfication li:nth-child(1) .avatar-icon { */
+/*   background-color: #f6514c; */
+/* } */
 
-.dropdown-notfication li:nth-child(2) .avatar-icon {
-  background-color: #449036;
-}
+/* .dropdown-notfication li:nth-child(2) .avatar-icon { */
+/*   background-color: #449036; */
+/* } */
 
-.dropdown-notfication li:nth-child(3) .avatar-icon {
-  background-color: #ce2b23;
-}
+/* .dropdown-notfication li:nth-child(3) .avatar-icon { */
+/*   background-color: #ce2b23; */
+/* } */
 
-.dropdown-notfication li:nth-child(4) .avatar-icon {
-  background-color: #3375e1;
-}
+/* .dropdown-notfication li:nth-child(4) .avatar-icon { */
+/*   background-color: #3375e1; */
+/* } */
 
 .dropdown-notfication .avatar-icon {
   top: 0.9625rem;
@@ -11932,6 +11932,7 @@ sub {
   justify-content: center;
   align-items: center;
   color: #fff;
+  background-color: #BBBBBB;
 }
 
 .dropdown-mega-menu {
@@ -12280,7 +12281,6 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   width: 11.4rem;
   padding-bottom: 112px;
   height: 100%;
-  position: absolute;
   top: 5rem;
   padding-top: 0;
   z-index: 99;

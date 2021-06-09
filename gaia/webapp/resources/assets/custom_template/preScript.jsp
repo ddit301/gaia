@@ -15,6 +15,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="${cPath }/resources/main/images/favicons/favicon-16x16.png">
     <!-- Custom Stylesheet -->
     <link href="${cPath }/resources/assets/css/style.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/css/member.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/css/alarm.css" rel="stylesheet">
     <!-- DateTimePicker Stylesheet-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">

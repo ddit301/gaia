@@ -17,10 +17,10 @@
 <body>
 	<tiles:insertAttribute name="preloader" />
     <div id="main-wrapper">
-    	<tiles:insertAttribute name="navheader" />
     	<tiles:insertAttribute name="header" />
+   	
     	<tiles:insertAttribute name="sidebar" />
-		<div class="content-body">
+		<div class="content-body content-margin">
 		</div>
         <tiles:insertAttribute name="footer" />
     </div>
