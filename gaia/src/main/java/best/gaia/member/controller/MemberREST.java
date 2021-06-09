@@ -1,6 +1,7 @@
 package best.gaia.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.member.service.LogService;
 import best.gaia.member.service.MemberService;
 import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
@@ -38,6 +41,9 @@ public class MemberREST {
 	private static final Logger logger = LoggerFactory.getLogger(MemberREST.class);
 	@Inject
 	private MemberService service;
+	
+	@Inject
+	private LogService logService;
 	
 	@Inject
 	private WebApplicationContext container;
@@ -60,11 +66,11 @@ public class MemberREST {
 	 * @param MemberVO search
 	 * @return
 	 */
-	@RequestMapping(method=RequestMethod.GET)
+	@GetMapping
 	public Map<String, Object> selectMemberList(		
 				@RequestParam(required=false) String need
-				,@ModelAttribute("search") MemberVO search
-				,Authentication authentication
+				, @ModelAttribute("search") MemberVO search
+				, Authentication authentication
 			) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int mem_no = getMemberNoFromAuthentication(authentication);
@@ -72,8 +78,14 @@ public class MemberREST {
 		// member/overview.jsp
 		if("MemberProjectIssue".equals(need)) {
 			search = service.retrieveMemberProjectIssue(mem_no);
-		}else {
+		// member/securityLog.jsp
+		}else if("logList".equals(need)){
+			search = service.retrieveMemberByNo(mem_no);
+			List<Map<String, Object>> logList = logService.selectLogList(mem_no);
+			result.put("logList", logList);
+			logger.info("in to the logList {}", logList);
 		// member/profile.jsp, member/account.jsp
+		}else {
 			search = service.retrieveMemberByNo(mem_no);
 			List<Map<String, Object>> memberStatusList = service.memberStatusList();
 			result.put("memberStatusList", memberStatusList);
@@ -81,6 +93,19 @@ public class MemberREST {
 		result.put("search", search);
 		return result;
 	}
+	
+	@GetMapping(params = {"need=profileImg"})
+	public List<Map<String, Object>> selectMemberLogList(
+				@RequestParam() String need
+				,Authentication authentication 
+			){
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		result = logService.selectLogList(mem_no);
+		return result;
+	}
+	
+	
 	/**
 	 *  맴버 추가하기(사용안함)
 	 * @param profile

@@ -1,6 +1,7 @@
 package best.gaia.member.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -28,6 +29,11 @@ public class LogServiceImpl implements LogService{
 		int result = dao.insertLog(mem_no, log);
 		
 		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public List<Map<String, Object>> selectLogList(int mem_no) {
+		return dao.getLogList(mem_no);
 	}
 
 }

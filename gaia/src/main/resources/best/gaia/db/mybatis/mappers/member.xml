@@ -8,10 +8,10 @@
 	</select>
 	
 	<select id="selectMemberDetailByNo" parameterType="String" resultType="MemberVO">
-	WITH MEMSTAT AS (
-		SELECT COM_CODE_GRP, COM_CODE_NM, COM_CODE
-		FROM COM_CODE
-		WHERE COM_CODE_GRP = 'MS'
+		WITH MEMSTAT AS (
+			SELECT COM_CODE_GRP, COM_CODE_NM, COM_CODE
+			FROM COM_CODE
+			WHERE COM_CODE_GRP = 'MS'
 		)
 		SELECT MEM_NO, MEM_ID, MEM_PASS, MEM_NICK, 
                 MEM_TEL, MEM_PIC_FILE_NAME,

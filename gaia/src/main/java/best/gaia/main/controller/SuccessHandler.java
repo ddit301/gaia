@@ -48,7 +48,6 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
 			CookieUtil.addCookie("mem_pic_file_name",
 					member.getMem_pic_file_name()==null? "default" : member.getMem_pic_file_name(), response);
 			logService.insertLog(member.getMem_no(), request);
-			logger.info("{}'log printed", member.getMem_id());
 			redirectStratgy.sendRedirect(request, response, "/" + member.getMem_id() + "/overview");
 			return;
 		}
