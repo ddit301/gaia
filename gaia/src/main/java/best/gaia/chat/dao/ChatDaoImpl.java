@@ -16,7 +16,7 @@ public class ChatDaoImpl implements ChatDao{
 	public int insertAlarm(int mem_no, Map<String,Object> chat) {
 		chat.put("mem_no", mem_no);
 		String index = "chat";
-		return elastic.insert(index, null, chat);
+		return elastic.insert(index, chat);
 	}
 	
 	public List<Map<String, Object>> getAlarmList(int mem_no){

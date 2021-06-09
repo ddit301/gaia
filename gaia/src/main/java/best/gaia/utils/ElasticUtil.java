@@ -100,13 +100,15 @@ public class ElasticUtil {
 		return response.getSourceAsMap();
 	}
 	
-	public int insert(String index, String id, Map<String, Object> data ){
+	public int insert(String index, Map<String, Object> data ){
 		IndexResponse response = null;
 		try(RestHighLevelClient client = new RestHighLevelClient(restClientBuilder)) {
 			data.put("date", LocalDateTime.now());
 			XContentBuilder xContent = XContentFactory.jsonBuilder().map(data);
 			String jsonBody = Strings.toString(xContent);
 			
+			// id 없이 삽입시 자동 UID가 생성됩니다.
+			String id = null;
 			IndexRequest indexRequest = new IndexRequest(index).id(id).source(jsonBody, XContentType.JSON);
 			response = client.index(indexRequest, RequestOptions.DEFAULT);
 		} catch (IOException e) {}

@@ -20,7 +20,7 @@ public class LogDaoImpl implements LogDao{
 	public int insertLog(int mem_no, Map<String, Object> log) {
 		String index = "log";
 		log.put("mem_no", mem_no);
-		int result = elastic.insert(index, null, log);
+		int result = elastic.insert(index, log);
 		
 		return result;
 	}
