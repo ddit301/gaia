@@ -98,6 +98,18 @@
 		return location.href.substring(hostIndex);
 	}
 	
+	var getAlarm = function(){
+		$.ajax({
+			url : getContextPath() + '/restapi/alarm/alarms',
+			success : function(res) {
+			},
+			error : function(xhr, error, msg) {
+				ajaxError(xhr, error, msg);
+			},
+			dataType : 'json'
+		})
+	}
+	
 	// 접속 회원의 프로젝트 내 닉네임 입니다. 글 작성시 활용해주세요.
 	// 일단 다른 페이지들에서 해당 변수 못쓰게 const 로 막고, 추후 프로필 데이터 변경 고려해 코드 완성 단계에 let 으로 풀겠습니다. 
 	const proj_user_nick = getCookie('proj_user_nick');
@@ -350,6 +362,9 @@
  		*	
  		*********************************************************************/
 		$(function(){
+			
+			// 처음 페이지 로드될때 알람 목록을 한번 불러옵니다.
+			getAlarm();
 			
 			// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
 			$('.nk-sidebar').on('click', '.moveButton', function(){
