@@ -1,7 +1,5 @@
 package best.gaia.chat.service;
 
-import static org.junit.Assert.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,16 +12,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.chat.dao.OracleChatDao;
-import best.gaia.member.dao.LogDao;
-import best.gaia.member.dao.MemberDao;
+import best.gaia.chat.dao.ElasticChatDao;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:webapp/WEB-INF/spring/*-context.xml")
 @WebAppConfiguration
 public class ChatServiceImplTest {
 
 	@Inject
-	OracleChatDao chatDao;
+	ElasticChatDao chatDao;
 	
 	@Inject
 	WebApplicationContext container;
