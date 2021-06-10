@@ -109,6 +109,13 @@
              </security:authorize>
              <security:authorize access="isAuthenticated()">
               <security:authentication property="principal" var="authUser"/>
+              <script>
+	              var getCookie = function(name) {
+	            		let CookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+	            		return CookieValue? decodeURI(CookieValue[2]) : null;
+	            	};
+              	window.location.href = getContextPath()+'/'+getCookie('mem_id')+'/overview';
+              </script>
               <li class=""><a class="" href="${cPath }/signout" data-toggle="">Sign out</a>
               </li>
              </security:authorize>
