@@ -25,6 +25,7 @@
 	<script src="${cPath }/resources/js/util.js"></script>
 	<script src="${cPath }/resources/js/issue.js"></script>
 	<script src="${cPath }/resources/js/milestone.js"></script>
+	<script src="${cPath }/resources/js/wiki.js"></script>
 	<script src="${cPath }/resources/js/alarm.js"></script>
 	<script src="${cPath }/resources/js/project.js"></script>
 	<script src="${cPath }/resources/js/websocket.js"></script>
