@@ -57,11 +57,6 @@
                         </a>
                     </li>
                     <li>
-                        <a class="moveButton" data-menu="messenger" href="#" aria-expanded="false">
-                            <i class="icon-speech menu-icon"></i><span class="nav-text">Messenger</span>
-                        </a>
-                    </li>
-                    <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-graph menu-icon"></i> <span class="nav-text">Analytics</span>
                         </a>
