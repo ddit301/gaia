@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.member.dao.MemberDao">
-	<select id="selectMemberForAuth" parameterType="String" resultType="MemberVO">
+	<select id="selectMemberForAuth" parameterType="String" resultType="best.gaia.vo.MemberVO">
 		SELECT MEM_NO, MEM_ID, MEM_PASS, MEM_NICK, MEM_PIC_FILE_NAME
 		FROM MEMBER
 		WHERE MEM_ID = #{mem_id}  AND MEM_QUIT_DATE IS NULL
 	</select>
 	
-	<select id="selectMemberDetailByNo" parameterType="String" resultType="MemberVO">
+	<select id="selectMemberDetailByNo" parameterType="String" resultType="best.gaia.vo.MemberVO">
 		WITH MEMSTAT AS (
 			SELECT COM_CODE_GRP, COM_CODE_NM, COM_CODE
 			FROM COM_CODE
@@ -31,14 +31,14 @@
 	
 	<resultMap type="best.gaia.vo.MemberVO" id="memberMap" autoMapping="true">
 		<id property="mem_no" column="MEM_NO"/>
-		<collection property="projectList" ofType="ProjectVO" javaType="java.util.List" autoMapping="true">
+		<collection property="projectList" ofType="best.gaia.vo.ProjectVO" javaType="java.util.List" autoMapping="true">
 			<id property="proj_no" column="PROJECT_NO"/>
 			<result property="url" column="PROJECT_URL"/>
 			<association property="projectManager" javaType="best.gaia.vo.MemberVO" autoMapping="false">
 				<id property="mem_no" column="PROJ_MANAGER_NO"/>
 				<result property="mem_id" column="PROJ_MANAGER_ID" />
 			</association>
-			<collection property="issueList" ofType="IssueVO" javaType="java.util.Set" autoMapping="false">
+			<collection property="issueList" ofType="best.gaia.vo.IssueVO" javaType="java.util.Set" autoMapping="false">
 				<id property="issue_sid" column="ISSUE_ID"/>
 				<result property="issue_title" column="ISSUE_TITLE" />
 				<result property="issue_status" column="ISSUE_STATUS" />
@@ -47,11 +47,11 @@
 					<result column="LABEL_NO" property="label_no"></result>
 					<result column="LABEL_NM" property="label_nm"></result>
 				</association>
-				<collection property="assigneeList" ofType="MemberVO" javaType="java.util.Set" autoMapping="false">
+				<collection property="assigneeList" ofType="best.gaia.vo.MemberVO" javaType="java.util.Set" autoMapping="false">
 					<id property="mem_no" column="ASSIGNEE"/>
 					<result property="mem_id" column="ASSIGNEE_ID"/>
 				</collection>
-				<collection property="historyList" ofType="IssueHistoryVO" javaType="java.util.List" autoMapping="false">
+				<collection property="historyList" ofType="best.gaia.vo.IssueHistoryVO" javaType="java.util.List" autoMapping="false">
 					<id property="issue_his_no" column="ISSUE_HIS_NO"/>
 					<result property="issue_his_date" column="ISSUE_HIS_DATE"/>
 					<result property="issue_his_cont" column="ISSUE_HIS_CONT"/>
@@ -114,7 +114,7 @@
 		ORDER BY ISSUE_HIS_NO DESC	
 	</select>
 	
-	<insert id="insertMember" parameterType="MemberVO">
+	<insert id="insertMember" parameterType="best.gaia.vo.MemberVO">
 		<selectKey resultType="int" keyProperty="mem_no" order="BEFORE">
 			SELECT MEM_SEQ.NEXTVAL
 			FROM DUAL
@@ -123,7 +123,7 @@
 		VALUES(#{mem_no},#{mem_id},#{mem_pass}, #{mem_nick}, SYSDATE)
 	</insert>
 	
-	<update id="updateMember" parameterType="MemberVO">
+	<update id="updateMember" parameterType="best.gaia.vo.MemberVO">
 		UPDATE MEMBER
 			SET
 		<trim prefixOverrides=",">
