@@ -1,5 +1,5 @@
 // 알람 받아오는 함수
-var getAlarm = function(){
+const getAlarm = function(){
 	$.ajax({
 		url : getContextPath() + '/restapi/alarm/alarms',
 		success : function(res) {
