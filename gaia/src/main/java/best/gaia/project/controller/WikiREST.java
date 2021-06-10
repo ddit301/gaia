@@ -110,9 +110,17 @@ public class WikiREST {
 		return null;
 	}
 	@RequestMapping(method = RequestMethod.DELETE)
-	public Map<String, Object> deleteWiki() {
+	public Map<String, Object> deleteWiki(
+			@ModelAttribute WikiVO search
+			, Authentication authentication
+			) {
 		
-		return null;
+		ServiceResult result = service.deleteWiki(search);
+		Map<String,Object>map = new HashMap<>();
+		
+		map.put("result", result);
+		
+		return map;
 	}
 	
 	

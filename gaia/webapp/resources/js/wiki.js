@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////
 //
-//	wiki 페이지 버튼 이벤트를 위한 바인
+//	wiki 페이지 버튼 이벤트를 위한 바인딩
 //
 //////////////////////////////////////////////////////
 $(function(){
@@ -14,10 +14,16 @@ $(function(){
 	// 특정 위키 클릭시 불러오는 메서드
 	$('.content-body').on('click','.wiki-btn',function(){
 		
-		//특정 위키의 wiki_no 불러오
+		//특정 위키의 wiki_no 불러옴.
 		let wiki_no = $(this).siblings('input').val();
 		wikiView(wiki_no);
-		
+	})
+	
+	// 모달창에서 위키 삭제 버튼 클릭 시 
+	
+	$('.content-body').on('click','#delete-wiki-btn',function(){
+		alert("del-click");
+		delWiki();
 	})
 	
 })

@@ -52,4 +52,9 @@
 		    WHERE WIKI.PROJ_NO = #{proj_no} AND WIKI.WIKI_NO = #{wiki_no}
 		
 		</select>
+		
+		<delete id="deleteWiki" parameterType="best.gaia.vo.WikiVO">
+				   DELETE FROM WIKI
+     			   WHERE WIKI_SID = #{wiki_sid, jdbcType=NUMERIC}
+		</delete>
 </mapper>
