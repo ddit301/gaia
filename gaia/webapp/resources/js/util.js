@@ -18,7 +18,7 @@ $(function(){
 	$('.dropdown-profile').on('click', '.moveButton', function(){
 		event.preventDefault();
 		let menuName = $(this).data('menu');
-		movePageHistoryMember(menuName);
+		memberMovePageHistory(menuName);
 	})
 	
 })
@@ -41,12 +41,9 @@ $(window).bind("popstate", function(event) {
     	}else if(data.startsWith("milestoneView")){
     		let milest_no = data.substring("milestoneView".length);
     		milestoneView(milest_no);
-		// memberMain 일단 작동만 되게끔
-    	}else if(data == 'overview' || data=='setting' || data == 'setting/account'
-						|| data == 'setting/securityLog' || data == 'chat' ){
-			movePageMember(data);
-		}
-		else{
+    	}else if(data.startsWith('member-')){
+			memberMovePage(data.substring('member-'.length));
+		}else{
 	    	movePage(data);
     	}
     }else{ // 히스토리에 정보가 없을경우 메인화면으로 이동시키기.

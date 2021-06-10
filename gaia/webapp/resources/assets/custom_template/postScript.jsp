@@ -29,10 +29,15 @@
 	<script src="${cPath }/resources/js/alarm.js"></script>
 	<script src="${cPath }/resources/js/project.js"></script>
 	<script src="${cPath }/resources/js/websocket.js"></script>
+	<script src="${cPath }/resources/js/member.js"></script>
 
 <script type="text/javascript">
 	let project_title = '${project_title}';
 	let manager_id = '${manager_id}';
+	let memberPageParam = '${memberPageParam}';
+	let pageParam = '${pageParam}';
+	let issue_no = '${issue_no}';
+	let milest_no = '${milest_no}';
 	
 	// 접속 회원의 프로젝트 내 닉네임 입니다. 글 작성시 활용해주세요.
 	// 일단 다른 페이지들에서 해당 변수 못쓰게 const 로 막고, 추후 프로필 데이터 변경 고려해 코드 완성 단계에 let 으로 풀겠습니다. 
@@ -40,169 +45,24 @@
 	const mem_pic_file_name = getCookie('mem_pic_file_name');
 	const mem_id = getCookie('mem_id');
 	 	
-		// messenser
-		var messenser = function(){
-			window.scrollTo({top:0, left:0, behavior:'auto'});
-			
-			let project_title = '${project_title}';
-			let manager_id = '${manager_id}';
-			
-			data = 'milestoneView'+milest_no;
-			title = '';
-			
-			url = '${cPath}/${manager_id}/${project_title}/milestone/'+milest_no;
-			history.pushState(data,title,url);
-			
-			$.ajax({
-				url : '${cPath}/view/project/milestoneview'
-				,type : 'get'
-				,success : function(res) {
-					$('.content-body').html(res);
-				}
-				,error : function(xhr){
-					alert('error : ' + xhr.status);
-				},
-				dataType : 'html'
-			})
-		}
-	 	
-		// 뒤로가기 상황을 제외하고는 pushState를 통해 데이터를 쌓아야합니다.
-		var movePageHistory = function(pageParam){
-			var data = pageParam;
-			var title;
-			var url = getContextPath()+'/'+manager_id+'/'+project_title + (pageParam ? '/'+pageParam : '') ;
-			history.pushState(data, title, url);
-			movePage(pageParam);
-		}
+ 	/********************************************************************
+ 	*
+	*	When document is ready
+	*		문서가 준비되고 나서 호출되어야 하는 함수들은 아래 기재합니다.
+	*	
+	*********************************************************************/
+	$(function(){
+		// 우측 상단에 프로필 사진 넣기
+		$('.user-img').children('img').attr('src', getProfilePath(mem_pic_file_name));
 		
-		var movePageHistoryMember = function(pageParam){
-			var data = pageParam;
-			var title;
-			var url = getContextPath() +'/'+mem_id+'/' +pageParam;
-			history.pushState(data, title, url);
-			movePageMember(pageParam);
-		}
-		
-		// 뒤로가기 상황에서는 movePage 함수를 바로 호출합니다. 그렇지 않으면 history가 꼬이게 됩니다.
-		var movePage = function(pageParam){
-			// project 페이지에서는 vertical로만 보여줍니다.
-			new quixSettings({
-			    layout: "vertical" // vertical or horizontal
-			});
-			// sideBar와 햄버거 메뉴를 보여줍니다.- 멤버에서는 안보이기 때문
-			$('.nk-sidebar').removeAttr('hidden');
-			$('.nav-control').removeAttr('hidden');
-			
-			// 화면 위로 올리기
-			window.scrollTo({top:0, left:0, behavior:'auto'});
-			
-			if(!pageParam)
-				pageParam = 'code';
-			
-			$.ajax({
-				url : getContextPath() + '/view/project/' + pageParam,
-				type : 'get',
-				data : {'manager_id' : manager_id,'project_title' : project_title
-					},
-				success : function(res) {
-					$('.content-body').html(res);
-				},
-				error : function(xhr, error, msg) {
-					// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-					if(xhr.status == '404')
-						alert('등록되지 않는 버튼 : ' + pageParam);				
-					ajaxError(xhr, error, msg);
-				},
-				dataType : 'html'
-			})
-		}
-		
-
-		
-		var movePageMember = function(pageParam){
-			let path = getContextPath()+"/view/member/";
-			let index;
-			// member 페이지에서는 horizontal로만 보여줍니다.
-			new quixSettings({
-			    layout: "horizontal" // vertical or horizontal
-			});
-			// sideBar와 햄버거 메뉴를 숨깁니다 - project에 종속되기 떄문.
-			$('.nk-sidebar').prop('hidden','true');
-			$('.nav-control').prop('hidden','true');
-			
-			if(!pageParam){
-				pageParam = 'overview';	
-			}
-			// setting으로 요청이 들어오면 profile로 변경시키기.(setting/profile -> setting으로만 표시 )
-			if(pageParam=="setting"){
-				pageParam = 'profile';	
-			}
-			// profile.jsp에서 'setting/account'로 pageParam을 넘김.
-			if(pageParam.includes("/"))
-				index = pageParam.indexOf("/");
-				pageParam = pageParam.slice(index+1);
-			
-			$.ajax({
-				url : path+pageParam ,
-				type : 'get',
-				data : {'mem_id' : mem_id
-					},
-				success : function(res) {
-					$('.content-body').html(res);
-				},
-				error : function(xhr) {
-					// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-					if(xhr.status == '404'){
-						alert('등록되지 않는 버튼 : ' + pageParam);				
-					}else{
-						alert("status : " + xhr.status);
-					}
-				},
-				dataType : 'html'
-			})
-		}
-	 	
-	 	/********************************************************************
-	 	*
- 		*	When document is ready
- 		*		문서가 준비되고 나서 호출되어야 하는 함수들은 아래 기재합니다.
- 		*	
- 		*********************************************************************/
-		$(function(){
-			// 우측 상단에 프로필 사진 넣기
-			$('.user-img').children('img').attr('src', getProfilePath(mem_pic_file_name));
-			
-			// 처음 페이지 로드될때 알람 목록을 한번 불러옵니다.
-			getAlarm();
-
-		 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.
-		 	// 처음 페이지를 호출 했을때도 아래의 코드를 탑니다.
-			let pageParam = '${pageParam}';
-			let issue_no = '${issue_no}';
-			let milest_no = '${milest_no}';
-			if(issue_no){
-				if(issue_no == 'new'){
-					newIssue();
-				}else{
-					issueView(issue_no);
-				}
-			}else if(milest_no){
-				milestoneView(milest_no);
-			}else{
-				if(pageParam == 'overview' || pageParam=='setting' || pageParam == 'setting/account'
-						|| pageParam == 'setting/securityLog' || pageParam == 'chat' ){
-					movePageHistoryMember(pageParam);
-				}else{
-					movePageHistory(pageParam);
-				}
-			}
-		
-		})
-		/********************************************************************
-	 	*
- 		*	END OF 'When document is ready '
- 		*	
- 		*********************************************************************/
-	</script>
+		// 처음 페이지 로드될때 알람 목록을 한번 불러옵니다.
+		getAlarm();
+	})
+	/********************************************************************
+ 	*
+	*	END OF 'When document is ready '
+	*	
+	*********************************************************************/
+</script>
     
 

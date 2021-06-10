@@ -55,14 +55,14 @@ public class MemberUrlMapper {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberUrlMapper.class);
 
-	@RequestMapping(value = { "", "{pageParam:^(?:(?=help$|overview$)).*}" })
+	@RequestMapping(value = { "", "{memberPageParam:^(?:(?=help$|overview$)).*}" })
 	public String memberMenuOverview(
 				@PathVariable String mem_id
-				, @PathVariable Optional<String> pageParam
+				, @PathVariable Optional<String> memberPageParam
 				, Model model, Authentication authentication
 			) {
 		model.addAttribute("mem_id", mem_id);
-		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null);
+		model.addAttribute("memberPageParam", memberPageParam.isPresent() ? memberPageParam.get() : null);
 
 		Integer mem_no = getMemberNoFromAuthentication(authentication);
 		MemberVO member = service.retrieveMemberProjectIssue(mem_no);
@@ -73,16 +73,16 @@ public class MemberUrlMapper {
 	}
 
 	@RequestMapping(value = { "setting",
-			"setting/{pageParam:^(?:(?=account$|chat$|projects$|securityLog$|profile$)).*}" })
+			"setting/{memberPageParam:^(?:(?=account$|chat$|projects$|securityLog$|profile$)).*}" })
 	public String memberSetting(
 				@PathVariable String mem_id
-				, @PathVariable Optional<String> pageParam
+				, @PathVariable Optional<String> memberPageParam
 				, Model model) {
 		model.addAttribute("mem_id", mem_id);
 		// false 일 때 null하면 overview로 탐. 그래서 setting을 주어야 profile로 바로 넘어감.
 		// true 일 때 setting/을 붙여주어 moveHistory함수 탈 때 /eisen/setting/account으로 넘어갈 수 있게
 		// 만듦. 없으면 eisen/account로 주소창이 찍힘.
-		model.addAttribute("pageParam", pageParam.isPresent() ? "setting/" + pageParam.get() : "setting");
+		model.addAttribute("memberPageParam", memberPageParam.isPresent() ? "setting/" + memberPageParam.get() : "setting");
 		return "view/template/project";
 	}
 
