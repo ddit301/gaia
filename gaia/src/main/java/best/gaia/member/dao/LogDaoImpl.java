@@ -35,8 +35,8 @@ public class LogDaoImpl implements LogDao{
 		Map<String,SortOrder> sort = new HashMap<>();
 		sort.put("date",SortOrder.DESC);
 		
+		List<Map<String, Object>> result = elastic.simpleSearch(index, query, sort);
 		
-		elastic.simpleSearch(index, query, sort);
-		return null;
+		return result;
 	}
 }
