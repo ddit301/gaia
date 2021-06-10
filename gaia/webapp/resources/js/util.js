@@ -2,6 +2,29 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //
+//	 각종 버튼 바인딩
+//
+//////////////////////////////////////////////////////////////////////////////
+$(function(){
+	
+	// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
+	$('.nk-sidebar').on('click', '.moveButton', function(){
+		event.preventDefault();
+		let menuName = $(this).data('menu');
+		movePageHistory(menuName);
+	})
+	
+	// 우측 상단 profile 관련 메뉴에 대한 처리
+	$('.dropdown-profile').on('click', '.moveButton', function(){
+		event.preventDefault();
+		let menuName = $(this).data('menu');
+		movePageHistoryMember(menuName);
+	})
+	
+})
+
+//////////////////////////////////////////////////////////////////////////////
+//
 //	 각종 함수 선언
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -46,15 +69,20 @@ function ajaxError(xhr, error, msg){
 }
 
 // 쿠키 값 얻어오는 function
-var getCookie = function(name) {
+const getCookie = function(name) {
 	let CookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
 	return CookieValue? decodeURI(CookieValue[2]) : null;
 };
 	
 // 현 URL에서 contextPath 빼고 구하는 function
-var getCurrentUrl = function(){
+const getCurrentUrl = function(){
 	let hostIndex = location.href.indexOf( location.host ) + location.host.length;
 	return location.href.substring(hostIndex);
+}
+
+// 스크롤 맨 위로 올리는 함수
+const scrollUp = function(){
+	window.scrollTo({top:0, left:0, behavior:'auto'});
 }
 
 //////////////////////////////////////////////////////////////////////////////

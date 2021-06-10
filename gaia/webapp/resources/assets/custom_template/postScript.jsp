@@ -22,9 +22,11 @@
 	<script src="${cPath }/resources/js/jquery.validate.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.js" integrity="sha512-2ABKLSEpFs5+UK1Ol+CgAVuqwBCHBA0Im0w4oRCflK/n8PUVbSv5IY7WrKIxMynss9EKLVOn1HZ8U/H2ckimWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="${cPath }/resources/js/issue.js"></script>
 	<script src="${cPath }/resources/js/util.js"></script>
+	<script src="${cPath }/resources/js/issue.js"></script>
+	<script src="${cPath }/resources/js/milestone.js"></script>
 	<script src="${cPath }/resources/js/alarm.js"></script>
+	<script src="${cPath }/resources/js/project.js"></script>
 	<script src="${cPath }/resources/js/websocket.js"></script>
 
 <script type="text/javascript">
@@ -36,34 +38,7 @@
 	const proj_user_nick = getCookie('proj_user_nick');
 	const mem_pic_file_name = getCookie('mem_pic_file_name');
 	const mem_id = getCookie('mem_id');
-  
 	 	
-		// milestoneView
-		var milestoneView = function(milest_no){
-			window.scrollTo({top:0, left:0, behavior:'auto'});
-			
-			data = 'milestoneView'+milest_no;
-			title = '';
-			url = getContextPath()+'/'+manager_id+'/'+project_title+'/milestone/'+milest_no;
-			history.pushState(data,title,url);
-			
-			$.ajax({
-				url : getContextPath()+'/view/project/milestoneview'
-				,type : 'get'
-				,data : {
-					'manager_id' : manager_id
-					,'project_title' : project_title
-					,'milest_no' : milest_no
-					}
-				,success : function(res) {
-					$('.content-body').html(res);
-				}
-				,error : function(xhr){
-					alert('error : ' + xhr.status);
-				},
-				dataType : 'html'
-			})
-		}
 		// messenser
 		var messenser = function(){
 			window.scrollTo({top:0, left:0, behavior:'auto'});
@@ -99,12 +74,23 @@
 			movePage(pageParam);
 		}
 		
+		var movePageHistoryMember = function(pageParam){
+			var data = pageParam;
+			var title;
+			var url = getContextPath() +'/'+mem_id+'/' +pageParam;
+			history.pushState(data, title, url);
+			movePageMember(pageParam);
+		}
+		
 		// 뒤로가기 상황에서는 movePage 함수를 바로 호출합니다. 그렇지 않으면 history가 꼬이게 됩니다.
 		var movePage = function(pageParam){
 			// project 페이지에서는 vertical로만 보여줍니다.
 			new quixSettings({
 			    layout: "vertical" // vertical or horizontal
 			});
+			// sideBar와 햄버거 메뉴를 보여줍니다.- 멤버에서는 안보이기 때문
+			$('.nk-sidebar').removeAttr('hidden');
+			$('.nav-control').removeAttr('hidden');
 			
 			// 화면 위로 올리기
 			window.scrollTo({top:0, left:0, behavior:'auto'});
@@ -130,13 +116,7 @@
 			})
 		}
 		
-		var movePageHistoryMember = function(pageParam){
-			var data = pageParam;
-			var title;
-			var url = getContextPath() +'/'+mem_id+'/' +pageParam;
-			history.pushState(data, title, url);
-			movePageMember(pageParam);
-		}
+
 		
 		var movePageMember = function(pageParam){
 			let path = getContextPath()+"/view/member/";
@@ -188,26 +168,14 @@
  		*	
  		*********************************************************************/
 		$(function(){
+			// 우측 상단에 프로필 사진 넣기
 			$('.user-img').children('img').attr('src', getProfilePath(mem_pic_file_name));
 			
 			// 처음 페이지 로드될때 알람 목록을 한번 불러옵니다.
 			getAlarm();
-			
-			// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
-			$('.nk-sidebar').on('click', '.moveButton', function(){
-				event.preventDefault();
-				let menuName = $(this).data('menu');
-				movePageHistory(menuName);
-			})
-			
-			// 우측 상단 profile 관련 메뉴에 대한 처리
-			$('.dropdown-profile').on('click', '.moveButton', function(){
-				event.preventDefault();
-				let menuName = $(this).data('menu');
-				movePageHistoryMember(menuName);
-			})
-			
-		 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.	
+
+		 	// 클릭 이벤트가 아닌 url을 직접 입력해서 페이지를 호출했을 경우에는 해당 이벤트를 통해 매칭시켜줍니다.
+		 	// 처음 페이지를 호출 했을때도 아래의 코드를 탑니다.
 			let pageParam = '${pageParam}';
 			let issue_no = '${issue_no}';
 			let milest_no = '${milest_no}';

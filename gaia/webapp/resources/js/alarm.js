@@ -42,9 +42,11 @@ const getAlarm = function(){
 $(function(){
 	// 알람 확인시 알람을 확인했다는 신호를 보내서 모든 미확인 알람들의 ALARM_CHK_DATE를 현 시간으로 수정해줍니다.
 	$('#alarmIcon').on('click', function(){
+		setTimeout(() => $('.unchecked').css("background-color",'white'), 500);
 		
 //		 새로운 알람 갯수가 0이 아닐 경우 새로운 알람을 읽음으로 업데이트 한다.
 		if($('.newAlarmCount').text() > 0){
+			
 			$.ajax({
 				url : getContextPath() + '/restapi/alarm/alarms',
 				method : 'put',

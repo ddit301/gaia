@@ -64,13 +64,4 @@ public class ProjectREST {
 		return null;
 	}
 
-//	@RequestMapping(value="{issue_sid}", method=RequestMethod.GET)
-//	public IssueVO selectIssue(
-//				@PathVariable Integer issue_sid
-//			) {
-//		IssueVO search = new IssueVO();
-//		search.setIssue_sid(issue_sid);
-//		return service.selectIssue(search);
-//	}
-
 }

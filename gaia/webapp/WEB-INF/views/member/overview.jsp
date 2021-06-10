@@ -109,7 +109,10 @@ var loadMemberInfo = function(){
 			$.each(memberInfo.projectList, function(i, v){
 				let url = v.url;
 				proj_manager = v.projectManager.mem_id;
-				projectList += '<li><a href="'+getContextPath()+"/"+ v.url+'" class="projectName">'+ v.proj_title +"</a></li>";
+				projectList += "<li>"
+							+'		<a class="projectName" data-manager_id="'+v.projectManager.mem_id+'" data-project_title="'+v.proj_title+'" href="'+getContextPath()+"/"+ v.url+'">'+ v.proj_title
+							+"		</a>"
+							+"	</li>";
 				
 				$.each(v.issueList, function(j, iss){
 					let issue = $("#issueTemplate").children(".issue").clone();
