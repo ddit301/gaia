@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import best.gaia.provider.dao.ProviderDao;
+import best.gaia.vo.InquiryVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
 
@@ -31,6 +32,10 @@ public class ProviderServiceImpl implements ProviderService {
 	@Override
 	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO) {
 		return dao.selectMemberList(pagingVO);
+	}
+	@Override
+	public List<InquiryVO> retrieveAllInquiry() {
+		return dao.selectInquiryList();
 	}
 
 }

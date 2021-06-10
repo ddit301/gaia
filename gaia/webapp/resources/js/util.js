@@ -2,6 +2,29 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //
+//	 각종 버튼 바인딩
+//
+//////////////////////////////////////////////////////////////////////////////
+$(function(){
+	
+	// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
+	$('.nk-sidebar').on('click', '.moveButton', function(){
+		event.preventDefault();
+		let menuName = $(this).data('menu');
+		movePageHistory(menuName);
+	})
+	
+	// 우측 상단 profile 관련 메뉴에 대한 처리
+	$('.dropdown-profile').on('click', '.moveButton', function(){
+		event.preventDefault();
+		let menuName = $(this).data('menu');
+		movePageHistoryMember(menuName);
+	})
+	
+})
+
+//////////////////////////////////////////////////////////////////////////////
+//
 //	 각종 함수 선언
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -18,7 +41,12 @@ $(window).bind("popstate", function(event) {
     	}else if(data.startsWith("milestoneView")){
     		let milest_no = data.substring("milestoneView".length);
     		milestoneView(milest_no);
-    	}else{
+		// memberMain 일단 작동만 되게끔
+    	}else if(data == 'overview' || data=='setting' || data == 'setting/account'
+						|| data == 'setting/securityLog' || data == 'chat' ){
+			movePageMember(data);
+		}
+		else{
 	    	movePage(data);
     	}
     }else{ // 히스토리에 정보가 없을경우 메인화면으로 이동시키기.
@@ -41,15 +69,20 @@ function ajaxError(xhr, error, msg){
 }
 
 // 쿠키 값 얻어오는 function
-var getCookie = function(name) {
+const getCookie = function(name) {
 	let CookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
 	return CookieValue? decodeURI(CookieValue[2]) : null;
 };
 	
 // 현 URL에서 contextPath 빼고 구하는 function
-var getCurrentUrl = function(){
+const getCurrentUrl = function(){
 	let hostIndex = location.href.indexOf( location.host ) + location.host.length;
 	return location.href.substring(hostIndex);
+}
+
+// 스크롤 맨 위로 올리는 함수
+const scrollUp = function(){
+	window.scrollTo({top:0, left:0, behavior:'auto'});
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -63,13 +96,13 @@ toastr.options = {
 		  "closeButton": false,
 		  "debug": false,
 		  "newestOnTop": false,
-		  "progressBar": false,
+		  "progressBar": true,
 		  "positionClass": "toast-top-right",
 		  "preventDuplicates": false,
 		  "onclick": null,
 		  "showDuration": "100",
 		  "hideDuration": "1000",
-		  "timeOut": "1500",
+		  "timeOut": "2000",
 		  "extendedTimeOut": "1000",
 		  "showEasing": "swing",
 		  "hideEasing": "linear",

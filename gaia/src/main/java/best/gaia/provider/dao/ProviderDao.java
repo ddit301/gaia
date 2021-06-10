@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import best.gaia.vo.InquiryVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
 
@@ -14,5 +15,7 @@ public interface ProviderDao {
 	public int selectMemberCount(PagingVO<MemberVO> pagingVO);
 	public List<MemberVO> selectMemberList(PagingVO<MemberVO> pagingVO);
 	public List<MemberVO> selectAllMemberList();
+
+	public List<InquiryVO> selectInquiryList();
 	
 }
