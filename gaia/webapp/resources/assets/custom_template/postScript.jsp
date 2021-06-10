@@ -25,6 +25,7 @@
 	<script src="${cPath }/resources/js/issue.js"></script>
 	<script src="${cPath }/resources/js/util.js"></script>
 	<script src="${cPath }/resources/js/alarm.js"></script>
+	<script src="${cPath }/resources/js/project.js"></script>
 	<script src="${cPath }/resources/js/websocket.js"></script>
 
 <script type="text/javascript">
@@ -105,6 +106,9 @@
 			new quixSettings({
 			    layout: "vertical" // vertical or horizontal
 			});
+			// sideBar와 햄버거 메뉴를 보여줍니다.- 멤버에서는 안보이기 때문
+			$('.nk-sidebar').removeAttr('hidden');
+			$('.nav-control').removeAttr('hidden');
 			
 			// 화면 위로 올리기
 			window.scrollTo({top:0, left:0, behavior:'auto'});
