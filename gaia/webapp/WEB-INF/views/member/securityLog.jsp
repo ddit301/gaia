@@ -31,69 +31,40 @@
 			            	<h2>Security Log</h2>
 			            </div>
 			            <hr>
-	                    <div id="logTemplate">
 					        <div class="card-body">
                     			<h5>Recent Log</h5>
 							</div>
-						    <div class="card">
-						        <div class="card-body row">
-							      	<div class="col-md-2 log-img-center">
-							      		<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" 
-							      				title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
-							      			<img class="rounded-circle profile_img" height="50" width="50" src="${mem_pic_file_name }">
-							      		</a>
-							      		<input type="hidden" value="" name="mem_id">
-							      	</div>
-						       	 	<div class="col-md-10">
-						    	        <div class="issue-card-mid">
-						                	<a>KrGil - user.login</a>
-						             	</div>
-						             	<div>
-						             		Logged in
-						             	
-						             	</div>
-						             	<div>
-						             		192.168.0.1
-						             		<span class="vertical-separator"></span>
-						             		28 days ago
-						             	</div>
-						          	</div>
-						    	</div>
-						    </div>
-		        	    </div>
+	                    <div id='logList'>
+					    </div>
 					</div>
 		    	</div>
 			</div>
 		</div> <!-- col-lg-8 col-xl-9 END -->
 	</div>
 </div>
-
 <div id="logTemplate" hidden="hidden">
-	<div class="card-body">
-		<h5>Recent Log</h5>
-	</div>
-	<div class="card">
-		<div class="card-body row">
+	<div class="card log">
+		<div class="card-body row log-card-body">
 			<div class="col-md-2 log-img-center">
 				<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" 
-					title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
+						title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
 					<img class="rounded-circle profile_img" height="50" width="50" src="${mem_pic_file_name }">
-				</a>
-				<input type="hidden" value="" name="mem_id">
-			</div>
-			<div class="col-md-10">
-				<div class="issue-card-mid">
-					<a>KrGil - user.login</a>
-				</div>
-				<div>
-					Logged in
-				</div>
-				<div>
-					192.168.0.1
-					<span class="vertical-separator"></span>
-					28 days ago
-				</div>
-			</div>
+		   		</a>
+		   		<input type="hidden" value="" name="mem_id">
+		   	</div>
+	   	 	<div class="col-md-10">
+		        <div class="log-card-actor">
+	            	<a>KrGil - user.login</a>
+	         	</div>
+	         	<div class="log-card-action">
+	         		Logged in
+	         	</div>
+	         	<div class="log-card-ip">
+	         		192.168.0.1
+	         		<span class="vertical-separator"></span>
+	         		28 days ago
+	         	</div>
+	      	</div>
 		</div>
 	</div>
 </div>
@@ -109,10 +80,14 @@ var loadMemberInfo = function(){
 			$(".profile_img").attr("src", getProfilePath(res.search.mem_pic_file_name));
 			$(".profile_img_label").attr("title", "View "+res.search.mem_id+"'s profile");
 			$(".profile_img_label").siblings("input").val(res.search.mem_id);
-			console.log($(".profile_img_label").siblings("input").val());
 			$.each(res.logList, function(i, v){
-				console.log(i);
 				console.log(v);
+				let log = $("#logTemplate").children(".log").clone();
+				let timeAgo = moment(v.date, "YYYYMMDD").fromNow();
+				let ip = v.date+'<span class="vertical-separator"></span>'+timeAgo;
+				log.find(".log-card-ip").html(ip);
+				log.find(".log-card-actor").children("a").text("${mem_id} - user.login");				
+				log.appendTo("#logList");
 			})
 		},
 		async : false
