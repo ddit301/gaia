@@ -81,80 +81,33 @@
             </div>
           </div>
           
-          <script>
-          
-          // 기존 입력 값 가져오기 
-          $('.milestone-title').children('input').val(milestObject.milest_title);
-          $('.milest-start-date').children('input').val(milestObject.milest_start_date);
-          $('.milest-end-date').children('input').val(milestObject.milest_end_date);
-          $('.form-text-group').children('textarea').val(milestObject.milest_cont);
-          
-          
-          console.log(milestObject.milest_sid)
-          	$(function(){
-          		// 수정 버튼 클릭
-          		$('#milest-changes-btn').on('click',function(){
+<script>
+      
+   	$(function(){
+       // 기존 입력 값 가져오기 
+       $('.milestone-title').children('input').val(milestObject.milest_title);
+       $('.milest-start-date').children('input').val(milestObject.milest_start_date);
+       $('.milest-end-date').children('input').val(milestObject.milest_end_date);
+       $('.form-text-group').children('textarea').val(milestObject.milest_cont);
 
-				
-				milest_title = $('.milestone-title').find('input').val();
-				milest_start_date = $('.milest-start-date').children('input').val();
-				milest_end_date = $('.milest-end-date').children('input').val();
-				milest_cont = $('.form-text-group').children('textarea').val();
-				milest_sid =  milestObject.milest_sid;
-				
-				$.ajax({
-					url : getContextPath() + '/restapi/project/milestones',
-					type : 'post',
-					data : {
-							'_method' : 'put'
-							,'milest_sid' : milest_sid
-			                ,'milest_title' : milest_title
-			                ,'milest_start_date' : milest_start_date
-			                ,'milest_end_date' : milest_end_date
-			                ,'milest_cont' : milest_cont
-			                
-			            
-						
-					},
-					success : function(res) {
-						alert("success");
-						milestoneView(milestObject.milest_no);
-					},
-					error : function(xhr, error, msg) {
-						console.log(xhr);
-						console.log(error);
-						console.log(msg);
-					},
-					dataType : 'json'
-				})
-			
-          		})
-          		// 마일스톤 수정 중 close 버튼 누른 경우
-          		$('#milest-edit-close-btn').on('click',function(){
-          			milestoneView(milestObject.milest_no);
-          		})
-          		
-          		// datePicker 동작시키기
-    		    $('.date-box').find('input').bootstrapMaterialDatePicker({
-    		    	// 시간은 설정 안하고 날짜만 선택할 것
-    		        time: false
-    		        // 설정은 최소 오늘 이후의 날자만 가능
-    		        ,minDate : new Date()
-    		    });
-    			
-    			// startDate 가 정해 진 후에는 endDate는 그 이후로만 적용할 수 있도록 막기
-    			$('.milest-start-date').children('input').on('change', function(){
-    				let startDate = $('.milest-start-date').children('input').val();
-    				$('.milest-end-date').children('input').bootstrapMaterialDatePicker("setMinDate", startDate);
-    			})
-    	
-    			
- 
+  			// datePicker 동작시키기
+  		    $('.date-box').find('input').bootstrapMaterialDatePicker({
+  		    	// 시간은 설정 안하고 날짜만 선택할 것
+  		        time: false
+  		        // 설정은 최소 오늘 이후의 날자만 가능
+  		        ,minDate : new Date()
+  		    });
 
-          	})
-		
-          </script>
-            
-            
-          
+  			// startDate 가 정해 진 후에는 endDate는 그 이후로만 적용할 수 있도록 막기
+  			$('.milest-start-date').children('input').on('change', function(){
+  				let startDate = $('.milest-start-date').children('input').val();
+  				$('.milest-end-date').children('input').bootstrapMaterialDatePicker("setMinDate", startDate);
+  			})
+
+     	})
+
+</script>
+        
+        
+      
 		
