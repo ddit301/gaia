@@ -15,6 +15,9 @@ public class WebSocketComponent {
 	private List<WebSocketSession> userList;
 	
 	public WebSocketSession getWebSocketSessionFromMemNo(int mem_no) {
+		if(userList == null)
+			return null;
+		
 		for(WebSocketSession session : userList) {
 			if(mem_no == getMemberNoFromWebsocketSession(session)) {
 				return session;
@@ -29,18 +32,16 @@ public class WebSocketComponent {
 			, String sender) {
 		
 		WebSocketSession session = getWebSocketSessionFromMemNo(mem_no);
+		if(session == null)
+			return;
 		
 		String message = null;
 		
-		// 알람 타입별 메시지지만, 공통 코드로 DB화 해서 하드코딩 하지 않도록 변경한다.
+		// 알람 타입별 메시지지만, 나중에는 공통 코드로 DB화 해서 하드코딩 하지 않도록 변경 해야 합니다.
 		switch(alarm_type) {
 		case "IC" : 
-			message = sender + "님이 이슈에 댓글을 달았습니다.";
+			message = sender + "님이 당신의 이슈에 댓글을 달았습니다.";
 		}
-		
-		// userList가 null일 경우 예외 처리
-		if(userList == null)
-			return;
 		
 		String dataType = "alarm";
 		

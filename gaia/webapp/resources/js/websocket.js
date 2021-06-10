@@ -16,9 +16,14 @@ $(function(){
 		let dataType = pushData.dataType;
 		let data = pushData.data;
 		
-		// 새로운 알람이 도착했을 경우에는 알림을 보내주고 종 모양을 바꿔준다.
 		if(dataType == 'alarm'){
+			// 새로운 알람이 도착했을 경우에는 알림을 보내주고 종 모양을 바꿔준다.
+			getAlarm();
 			toastr.success(data);
+			
+		}else if(dataType == 'login'){
+			// 새로운 회원이 도착했을 경우에도 알림을 보내준다.
+			toastr.info(data);			
 		}
 		 
 	}

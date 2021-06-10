@@ -120,6 +120,9 @@ public class SessionUtil {
 			WebSocketSession session
 			,String dataType
 			, String data) {
+		if(session == null)
+			return;
+		
 		Map<String, String> returnData = new HashMap<String, String>();
 		returnData.put("dataType", dataType);
 		returnData.put("data", data);

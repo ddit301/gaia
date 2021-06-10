@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.socket.WebSocketSession;
 
 import com.google.gson.Gson;
 
@@ -21,7 +20,6 @@ import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.AlarmVO;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
-import static best.gaia.utils.SessionUtil.*;
 
 @Service
 public class AlarmServiceImpl implements AlarmService {
