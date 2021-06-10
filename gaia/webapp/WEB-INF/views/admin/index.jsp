@@ -135,15 +135,15 @@
           <div class="collapse navbar-collapse" id="custom-collapse">
             <div class="space-between">
             <ul class="nav navbar-nav navbar-left">
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/member');">회원조회</a>
+              <li class=""><a href="#"  data-menu = "admin/member">회원조회</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/finance');">결제내역확인</a>
+              <li class=""><a href="#" data-menu = "">결제내역확인</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/CS');">1:1문의 관리</a>
+              <li class=""><a href="#"  data-menu = "admin/inquiry">1:1문의 관리</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/statics');">통계</a>
+              <li class=""><a href="#" data-menu = "">통계</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/setting');">서버환경 조회</a>
+              <li class=""><a href="#" data-menu = "monitoring">서버환경 조회</a>
               </li>
             </ul>
             </div>
@@ -158,10 +158,6 @@
         </div>
       </nav>
 
-
-<table id="table01">
-
-</table>
 
 
 

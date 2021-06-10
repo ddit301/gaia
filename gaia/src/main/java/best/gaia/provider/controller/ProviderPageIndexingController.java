@@ -27,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 
 @Controller
+@RequestMapping("admin")
 public class ProviderPageIndexingController {
 
 	@Inject
@@ -40,15 +41,19 @@ public class ProviderPageIndexingController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProviderPageIndexingController.class);
 
-	@RequestMapping(value = "/admin")
+	@RequestMapping
 	public String adminPage() {
 		return "admin/index";
 	}
-	@RequestMapping(value = "/admin/member")
+	@RequestMapping(value = "member")
 	public String memberListPage() {
 		return "admin/member";
 	}
-	@RequestMapping(value = "/admin/finance")
+	@RequestMapping(value = "inquiry")
+	public String inquiryListPage() {
+		return "admin/inquiry";
+	}
+	@RequestMapping(value = "finance")
 	public String projectPage() {
 		return "admin/finance";
 	}
