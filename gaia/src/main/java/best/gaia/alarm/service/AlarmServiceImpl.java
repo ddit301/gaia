@@ -6,8 +6,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.socket.WebSocketSession;
 
 import com.google.gson.Gson;
 
@@ -15,11 +16,12 @@ import best.gaia.alarm.dao.AlarmDao;
 import best.gaia.common.dao.CommonCodeDao;
 import best.gaia.common.service.CommonCodeService;
 import best.gaia.utils.ParsingUtil;
+import best.gaia.utils.components.WebSocketComponent;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.AlarmVO;
-import best.gaia.vo.CommonCodeVO;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
+import static best.gaia.utils.SessionUtil.*;
 
 @Service
 public class AlarmServiceImpl implements AlarmService {
@@ -29,20 +31,27 @@ public class AlarmServiceImpl implements AlarmService {
 	
 	@Inject
 	private CommonCodeService commonService;
+	
 	@Inject
 	private CommonCodeDao commonDao;
-
+	
+	@Inject
+	private WebSocketComponent webSocket;
+	
 	@Override
+	@Transactional
 	public ServiceResult insertIssueCommentAlarm(IssueVO issue) {
 		IssueHistoryVO issueHistory = issue.getHistoryList().get(0);
 		AlarmVO alarm = new AlarmVO();
 		alarm.setMem_no(issue.getMem_no());
-		alarm.setAlarm_type("IC");
+		String alarm_type = "IC";
+		alarm.setAlarm_type(alarm_type);
 		
 		// 알램 내용을 맵으로 만들고
 		Map<String, Object> alarmContent = new HashMap<>();
 		alarmContent.put("url", issue.getUrl());
-		alarmContent.put("proj_user_nick", issueHistory.getHistoryWriter().getMem_nick());
+		String proj_user_nick = issueHistory.getHistoryWriter().getMem_nick();
+		alarmContent.put("proj_user_nick", proj_user_nick);
 		alarmContent.put("issue_title",issue.getIssue_title());
 		alarmContent.put("issue_his_cont",issueHistory.getIssue_his_cont());
 		
@@ -51,6 +60,9 @@ public class AlarmServiceImpl implements AlarmService {
 		alarm.setAlarm_cont(alarm_cont);
 
 		int result = dao.insertAlarm(alarm);
+		
+		// 알람 전송에 성공했으면, 세션에 해당 유저가 접속중일 경우 websocket을 통해 push 알림을 보낸다.
+		webSocket.sendPushNotificationToMember(issue.getMem_no(),alarm_type,proj_user_nick);
 		
 		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
