@@ -8,6 +8,9 @@
 }
 #alarmList{
 	padding : 0;
+}
+
+#alarmDropdown{
 	max-height : 400px;
 	overflow-y : auto;
 }
