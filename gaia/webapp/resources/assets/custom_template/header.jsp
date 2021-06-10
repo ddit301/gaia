@@ -53,7 +53,7 @@
 						<i class="mdi mdi-bell-outline"></i> 
 						<span class="newAlarmCount badge badge-pill gradient-2 badge-primary"></span>
 					</a>
-					<div class="drop-down animated fadeIn dropdown-menu position-fixed dropdown-notfication">
+					<div id="alarmDropdown" class="drop-down animated fadeIn dropdown-menu position-fixed dropdown-notfication">
 						<div class="dropdown-content-heading d-flex justify-content-between">
 							<span id="alarmHeader">2 New Notifications</span>
 						</div>

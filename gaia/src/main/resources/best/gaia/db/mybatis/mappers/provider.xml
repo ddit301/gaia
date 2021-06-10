@@ -67,6 +67,7 @@
 		FROM MEMBER
 		<include refid="searchFrag" />
 	</select>
+	
 	<select id="selectAllMemberList" resultType="MemberVO">
 		SELECT MEM_NO,
 				MEM_ID,
@@ -77,5 +78,20 @@
 				MEM_STATUS
 		FROM MEMBER
 	</select>
+
+	<select id="selectInquiryList" resultType="best.gaia.vo.InquiryVO">
+	SELECT
+	    INQ_NO,
+	    MEM_NO,
+	    INQ_CONT,
+	    INQ_DATE,
+	    INQ_STATUS_YN,
+	    ATCH_FILE_SID
+	FROM
+	    INQUIRY
+	</select>
+
+
+
 
 </mapper>

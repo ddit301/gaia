@@ -4,9 +4,13 @@
 }
 .alarm.unchecked{
 	background-color : rgb(212, 238, 255);
+	transition : background-color 7000ms;
 }
 #alarmList{
 	padding : 0;
+}
+
+#alarmDropdown{
 	max-height : 400px;
 	overflow-y : auto;
 }

@@ -43,10 +43,8 @@
 
 		<intercept-url pattern="/" access="permitAll" />
 
-		<!-- 회원? -->
-		<!-- <intercept-url pattern="/**" access="isAuthenticated()"/> -->
 		<session-management>
-			<concurrency-control max-sessions="1"
+			<concurrency-control max-sessions="5"
 				expired-url="/signin" error-if-maximum-exceeded="true" />
 		</session-management>
 
