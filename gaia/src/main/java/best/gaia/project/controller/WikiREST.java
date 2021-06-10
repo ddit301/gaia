@@ -57,9 +57,6 @@ public class WikiREST {
 		pagingVO.setDetailSearch(detailSearch);
 		pagingVO.setDataList(service.selectWikiList(pagingVO));
 		
-//		System.out.println("tset " + pagingVO.getDataList());
-		System.out.println(pagingVO);
-		
 		return pagingVO;
 	}
 	@RequestMapping(value="{wiki_no}", method=RequestMethod.GET)
@@ -79,6 +76,7 @@ public class WikiREST {
 		if(wiki == null) {
 			throw new ResourceNotFoundException();
 		}
+
 		return wiki;
 	}
 	@RequestMapping(method=RequestMethod.POST) 

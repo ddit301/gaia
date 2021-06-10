@@ -21,12 +21,39 @@
 
             <div class="container">
             	<div class = "wiki-head row">
-            		<div class = "title-wiki col-md-6">
+            		<div class = "title-wiki col-md-5">
             			<span></span>
             		</div> 
-            		<div class = "col-md-2"></div>
+            		<div class = "col-md-1"></div>
+            			<button type = "button" class="delete-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#basicModal">Delete</button>
             			<button type = "button" class="edit-wiki btn col-md-2 btn-sm btn-flat">Edit</button>
             			<button type = "button" class="new-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#wikiModal">New</button>
+           			
+           			
+					<!--Delete Wiki Modal -->
+           				<div class="bootstrap-modal">
+		                    <div class="modal fade" id="basicModal" style="display: none;" aria-hidden="true">
+		                        <div class="modal-dialog" role="document">
+		                            <div class="modal-content">
+		                                <div class="modal-header">
+		                                    <h5 class="modal-title">Delete wiki</h5>
+		                                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
+		                                    </button>
+		                                </div>
+		                                <div class="modal-body">
+		                                	<div class = "wiki-title-modal">
+		                                	[ <span></span> ] 을/를 삭제 하시겠습니까?
+		                                	</div>
+		                                </div>
+		                                <div class="modal-footer">
+		                                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+		                                    <button type="button" id = "delete-wiki-btn" class="btn btn-danger" data-dismiss="modal" >Delete wiki</button>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+               			 </div>
+           			
            			
            			<!-- new wiki modal -->
            			<div class="modal fade" id="wikiModal" tabindex="-1" aria-labelledby="wikiModal" aria-hidden="true">
@@ -70,37 +97,58 @@
             			<span></span>
             		</div>
             		<div class = "wiki-right row col-md-4">
-						<div class = "wiki-search col-md-4">
-		            		<div class="input-group icons">
-		                        <div class="input-group-prepend">
-		                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-		                        </div>
-		                        <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard">
-		                        <div class="drop-down animated flipInX d-md-none">
-		                            <form action="#">
-		                                <input type="text" class="form-control" placeholder="Search">
-		                            </form>
-		                        </div>
-		                    </div>
-						</div>
+            				
+							<div id="wiki-list"></div>
+
             		</div>
             	</div>
             </div>
+         
+			<div id ="wiki-template" hidden = "hidden">
+				<div class ="wikiBox">
+					<div class ="row">
+						<div class = "wiki-title">
+							<input type = "hidden" value="" class = "wiki-link-no">
+								<a class ="wiki-btn" href="javascript:void(0)"></a> 
+						</div>
+					</div>
+				</div>
+			</div>
             
             <script>
-            
+              var scopeWikiNo = '${wiki_no}';
             // project 내 첫번째 wiki 출력 
             	$.ajax({
             		url : getContextPath() + '/restapi/project/wikis/'
 					,type : 'get'
 					, data : {
-						
 					},
 					success : function(res) {
+						if(!!scopeWikiNo){
+							$.each(res.dataList, function(i,v){
+								if(v.wiki_no == '${wiki_no}'){
+									$('.title-wiki').children('span').text(v.wiki_title);
+								}
+							})
+						}else{ // requestScope에 wiki_no가 존재하지 않을 시 가장 처음 작성된 kiki를 불러옴.
 							$('.title-wiki').children('span').text(res.dataList[0].wiki_title);
+						}
+						
 							$('.wiki-writer').children('span:first').text(res.dataList[0].proj_user_nick);
 							$('.wiki-writer').children('span:last').text(moment(res.dataList[0].wiki_write_date).fromNow());
 							$('.wiki-content').children('span').text(res.dataList[0].wiki_cont);
+							
+							$('#wiki-list').empty();
+							
+							$.each(res.dataList, function(i,v){
+								
+								let wikiBox = $('#wiki-template').children('.wikiBox').clone();
+								wikiBox.attr('data-wiki_no',v.wiki_no);
+								wikiBox.find('.wiki-title').children('a').text(v.wiki_title);
+								wikiBox.find('.wiki-title').children('input').val(v.wiki_no);
+								
+								$('#wiki-list').append(wikiBox);
+							})
 					},
 					error : function(xhr, error, msg) {
 						// 조회중인 프로젝트 번호를 세션에서 못 받아 올 경우, 메인 홈페이지로 보낸다.
@@ -148,8 +196,6 @@
 			$('#editor').appendTo('#editorArea');
 			
 			$('#saveWikiBtn').on('click', function(){
-				
-					alert("click");
 				wiki_title = $('#wiki-title-input').val();
 				wiki_cont = editor.getMarkdown();
 				// 위키 insert 하기
@@ -159,11 +205,15 @@
 					data : {
 						'wiki_title' : wiki_title
 						,'wiki_cont' : wiki_cont
+						
 					},
 					success : function(res) {
+						
+						console.log(res.wiki.wiki_no);
 						// toastr 알람
 						toastr.success('새로운 위키 등록에 성공했습니다.')
 						
+						wikiView(res.wiki.wiki_no);
 						
 						// 에디터 비우기
 						$('#wiki-title-input').val('');
@@ -192,9 +242,6 @@
 				checkValidation();
 			});
 			
-
 				})
-
 			
-            
             </script>
