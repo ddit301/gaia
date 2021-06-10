@@ -79,7 +79,7 @@
 		FROM MEMBER
 	</select>
 
-	<select id="selectInquiryList" resultType="best.gaia.vo.InquiryVO">
+	<select id="selectInquiryQuestionList" resultType="best.gaia.vo.InquiryVO">
 	SELECT
 	    INQ_NO,
 	    MEM_NO,
@@ -89,6 +89,20 @@
 	    ATCH_FILE_SID
 	FROM
 	    INQUIRY
+	</select>
+	
+	<select id="selectInquiryAnswerList" parameterType="Integer" resultType="best.gaia.vo.InquiryCommentVO">
+	SELECT
+	    INQ_COM_NO,
+	    INQ_NO,
+	    PROV_ID,
+	    INQ_COM_CONT,
+	    INQ_COM_DATE,
+	    ATCH_FILE_SID
+	FROM
+	    INQUIRY_COMMENT
+    WHERE
+    	INQ_NO=#{inq_no}
 	</select>
 
 

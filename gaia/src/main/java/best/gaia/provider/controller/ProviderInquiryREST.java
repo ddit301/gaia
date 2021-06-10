@@ -1,30 +1,22 @@
 package best.gaia.provider.controller;
 
-import static best.gaia.utils.SessionUtil.getProjNoFromSession;
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.provider.service.ProviderService;
+import best.gaia.vo.InquiryCommentVO;
 import best.gaia.vo.InquiryVO;
-import best.gaia.vo.IssueVO;
-import best.gaia.vo.MemberVO;
-import best.gaia.vo.PagingVO;
 
 /**
  * 
@@ -57,33 +49,24 @@ public class ProviderInquiryREST {
 		application = container.getServletContext();
 	}
 
-	@GetMapping(value = "ListView", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value = "QuestionListView", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public List<InquiryVO> listForAjax(
+	public List<InquiryVO> questionForAjax(
 			@RequestParam(value = "listLength", required = false, defaultValue = "20") int listLength) {
-		List<InquiryVO> inqList = service.retrieveAllInquiry();
+		List<InquiryVO> inqList = service.retrieveAllInquiryQuestion();
 
 		return inqList;
 	}
 	
-//	@GetMapping
-//	public PagingVO<IssueVO> selectIssueList(
-//			HttpSession session
-//			,@ModelAttribute PagingVO<IssueVO> pagingVO
-//			,@ModelAttribute IssueVO detailSearch
-//			) {
-//		// session 에서 프로젝트 번호를 받아와 detailSearch에 등록합니다.
-//		detailSearch.setProj_no(getProjNoFromSession(session));
-//		pagingVO.setDetailSearch(detailSearch);
-//		
-//		// issueList 를 받아와 pagingVO 에 담는다.
-//		List<IssueVO> issueList = service.selectIssueList(pagingVO);
-//		pagingVO.setDataList(issueList);
-//		
-//		// pagingVO 형태로 값을 반환한다.
-//		return pagingVO;
-//	}
-//	
+	@GetMapping(value = "AnswerListView", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public InquiryCommentVO answerForAjax(
+			@RequestParam(value = "inq_no", required= true) int inq_no) {
+		InquiryCommentVO inqList = service.retrieveInquiryAnswer(inq_no);
+		
+		return inqList;
+	}
+	
 	
 	
 
