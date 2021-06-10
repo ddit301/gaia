@@ -92,6 +92,7 @@
 	</div>
 </div>
 <script>
+// overview.jsp
 // 페이지 로딩 시 retrieveMemberProjectIssue(mem_no) 요청 
 var loadMemberInfo = function(){
 	let need = "MemberProjectIssue";
@@ -101,7 +102,6 @@ var loadMemberInfo = function(){
 		data : {"need" : need},
 		success : function(res) {
 			let memberInfo = res.search;
-			console.log(memberInfo);
 			let projectList="";
 			let length;
 			let proj_manager ="";
