@@ -43,7 +43,8 @@
     =============================================
     -->
     <!-- Default stylesheets-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    
+    
     <link href="resources/main/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Template specific stylesheets-->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
@@ -64,10 +65,8 @@
     <link href="resources/main/css/style.css" rel="stylesheet">
     <link href="resources/main/css/admin-style.css" rel="stylesheet">
     <link id="color-scheme" href="resources/main/css/colors/default.css" rel="stylesheet">
-<!--     <link rel="stylesheet" href="resources/main/css/jquery.dataTables.css"> -->
-<!--     <link rel="stylesheet" href="resources/main/css/dataTables.jqueryui.min.css"> -->
-
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+<!--     <link href="resources/main/css/jquery.dataTables.css" rel="stylesheet"> -->
 
 
 	<script src="resources/main/lib/jquery/dist/jquery.js"></script>
@@ -83,7 +82,6 @@
     <script defer src="resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script defer src="resources/main/js/plugins.js"></script>
     <script defer src="resources/main/js/main.js"></script>
-<!-- 	<script defer type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script> -->
     <script defer src="resources/main/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
       window.dataLayer = window.dataLayer || [];
@@ -135,15 +133,15 @@
           <div class="collapse navbar-collapse" id="custom-collapse">
             <div class="space-between">
             <ul class="nav navbar-nav navbar-left">
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/member');">회원조회</a>
+              <li class=""><a href="#"  data-menu = "admin/member">회원조회</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/finance');">결제내역확인</a>
+              <li class=""><a href="#" data-menu = "">결제내역확인</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/CS');">1:1문의 관리</a>
+              <li class=""><a href="#"  data-menu = "admin/inquiry">1:1문의 관리</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/statics');">통계</a>
+              <li class=""><a href="#" data-menu = "">통계</a>
               </li>
-              <li class=""><a href="#" onclick="javascript:asyncMovePage('${cPath}/admin/setting');">서버환경 조회</a>
+              <li class=""><a href="#" data-menu = "monitoring">서버환경 조회</a>
               </li>
             </ul>
             </div>
@@ -158,10 +156,6 @@
         </div>
       </nav>
 
-
-<table id="table01">
-
-</table>
 
 
 

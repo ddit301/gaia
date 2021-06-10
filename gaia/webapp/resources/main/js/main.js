@@ -850,39 +850,44 @@
 
 function asyncMovePage(url){
     	
-		var uri = getContextPath() + '/'+ url.substring(url.lastIndexOf('/')+1);
-		history.pushState(null, null, uri);
-        
-    }
+	var uri = getContextPath() + '/'+ url.substring(url.lastIndexOf('/')+1);
+	history.pushState(null, null, uri);
     
-    $('.navbar-nav').on('click', 'a', function(){
-    	
-    	let menu_name = $(this).data('menu');
-console.log(menu_name);
-    	if(! menu_name){
-    		return;	
-    	}
-    	event.preventDefault();
-    	var uri = getContextPath() + '/' + menu_name;
-    	history.pushState(null, null, uri);
-    	
-    	var ajaxOption = {
-                url : 'view/' + menu_name,
-                async : true,
-                type : "GET",
-                dataType : "html",
-                cache : false
-        };
-        $.ajax(ajaxOption).done(function(data){
-            $('#mainBody').children().remove();
-            $('#mainBody').html(data);
-            
-        });
-    	//화면 위로 올리기 
-    	window.scrollTo(0,0);
-    	
-    	
-    })
+}
+    
+$('.navbar-nav').on('click', 'a', function(){
+	event.preventDefault();
+	
+	let menu_name = $(this).data('menu');
+	console.log(menu_name);
+	if(! menu_name){
+		return;	
+	}
+	let uri = getContextPath() + '/' + menu_name;
+	history.pushState(null, null, uri);
+    let pre_name = 'view/'
+    if(menu_name.startsWith('admin'))
+        pre_name = ''
+		menu_name = menu_name.substring(menu_name.lastIndexOf('/')+1);
+	console.log(pre_name + menu_name);
+	
+	let ajaxOption = {
+            url : pre_name + menu_name,
+            async : true,
+            type : "GET",
+            dataType : "html",
+            cache : false
+    };
+    $.ajax(ajaxOption).done(function(data){
+        $('#mainBody').children().remove();
+        $('#mainBody').html(data);
+        
+    });
+	//화면 위로 올리기 
+	window.scrollTo(0,0);
+	
+	
+})
 
 
 
