@@ -79,7 +79,6 @@ public class WikiREST {
 		if(wiki == null) {
 			throw new ResourceNotFoundException();
 		}
-		System.out.println(wiki);
 		return wiki;
 	}
 	@RequestMapping(method=RequestMethod.POST) 
