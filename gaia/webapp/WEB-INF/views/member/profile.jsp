@@ -83,10 +83,10 @@
 
 <script>
 // 프로필 사진 변경 ajax
-$(".edit-profile").on("click", function(){
+$("..content-body").on("click", "#upload_image",function(){
 	$("#upload_image").click();
 })
-var imageSelect = $("#upload_image").on("change", function(){
+var imageSelect = $(".content-body").on("change", "#upload_image",function(){
 	var formdata = $("#profile_imageForm")[0];
 	var form_data = new FormData(formdata);
 	// input으로 put을 줌. 

@@ -92,6 +92,7 @@
 	</div>
 </div>
 <script>
+// overview.jsp
 // 페이지 로딩 시 retrieveMemberProjectIssue(mem_no) 요청 
 var loadMemberInfo = function(){
 	let need = "MemberProjectIssue";
@@ -101,7 +102,6 @@ var loadMemberInfo = function(){
 		data : {"need" : need},
 		success : function(res) {
 			let memberInfo = res.search;
-			console.log(memberInfo);
 			let projectList="";
 			let length;
 			let proj_manager ="";
@@ -109,7 +109,10 @@ var loadMemberInfo = function(){
 			$.each(memberInfo.projectList, function(i, v){
 				let url = v.url;
 				proj_manager = v.projectManager.mem_id;
-				projectList += '<li><a href="'+getContextPath()+"/"+ v.url+'" class="projectName">'+ v.proj_title +"</a></li>";
+				projectList += "<li>"
+							+'		<a class="projectName" data-manager_id="'+v.projectManager.mem_id+'" data-project_title="'+v.proj_title+'" href="'+getContextPath()+"/"+ v.url+'">'+ v.proj_title
+							+"		</a>"
+							+"	</li>";
 				
 				$.each(v.issueList, function(j, iss){
 					let issue = $("#issueTemplate").children(".issue").clone();

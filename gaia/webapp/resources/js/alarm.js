@@ -3,6 +3,9 @@ const getAlarm = function(){
 	$.ajax({
 		url : getContextPath() + '/restapi/alarm/alarms',
 		success : function(res) {
+			if(res.length != 0){
+				$('#cleanAlarmBtn').prop('hidden',false);
+			}
 			let newAlarmCount = 0;
 			$('#alarmList').empty();
 			$.each(res, function(i, v) {
@@ -13,6 +16,9 @@ const getAlarm = function(){
 				if(v.alarm_chk_date == null){
 					newAlarmCount = newAlarmCount +1;
 					alarm.addClass("unchecked");
+				}
+				if(v.sender_no){
+					alarm.find('.alarmsender.profile').attr('src',getProfilePath(v.sender_no));
 				}
 				$('#alarmList').append(alarm);
 			})
@@ -42,9 +48,11 @@ const getAlarm = function(){
 $(function(){
 	// 알람 확인시 알람을 확인했다는 신호를 보내서 모든 미확인 알람들의 ALARM_CHK_DATE를 현 시간으로 수정해줍니다.
 	$('#alarmIcon').on('click', function(){
+		setTimeout(() => $('.unchecked').css("background-color",'white'), 500);
 		
 //		 새로운 알람 갯수가 0이 아닐 경우 새로운 알람을 읽음으로 업데이트 한다.
 		if($('.newAlarmCount').text() > 0){
+			
 			$.ajax({
 				url : getContextPath() + '/restapi/alarm/alarms',
 				method : 'put',
@@ -65,6 +73,23 @@ $(function(){
 		}
 		
 		
+	})
+	
+	// 알람 clean 버튼
+	$('#cleanAlarmBtn').on('click', function(){
+		$.ajax({
+			url : getContextPath() + '/restapi/alarm/alarms',
+			method : 'delete',
+			success : function(res) {
+				toastr.success(res + '개의 알람을 삭제했습니다.');
+				$('#cleanAlarmBtn').prop('hidden',true);
+				$('#alarmList').empty();
+			},
+			error : function(xhr, error, msg) {
+				ajaxError(xhr, error, msg);
+			},
+			dataType : 'json'
+		})
 	})
 	
 })

@@ -1,9 +1,6 @@
 package best.gaia.member.dao;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -14,8 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
-
-import best.gaia.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:webapp/WEB-INF/spring/*-context.xml")

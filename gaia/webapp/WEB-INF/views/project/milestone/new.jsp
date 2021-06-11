@@ -88,7 +88,7 @@
 											<i class="fa fa-check m-r-5"></i> create milestone
 										</button>
 										<button
-											class="close-btn btn btn-dark m-b-30 m-t-15 f-s-14 p-l-20 p-r-20" type="button">
+											class="mile-close close-btn btn btn-dark m-b-30 m-t-15 f-s-14 p-l-20 p-r-20" type="button">
 											<i class="ti-close m-r-5 f-s-12"></i> close
 										</button>
 									</div>
@@ -103,88 +103,10 @@
 
 <script>
 $(function(){
-			$('#newmilestone-form').validate({
-						 onfocusout: false,
-						 rules: {
-							 milest_title : {
-								 required: true
-								 
-							 }, milest_cont : {
-								 required: true
-								 
-							 }
-						 }, messages : {
-							 milest_title : {
-								 required : "This field is required."
-							
-							 }, milest_cont : {
-								 required : "This field is required."
-							 }
-						 }
-				 })
 
-		$('newmilestone-form:input').on('change',function(){
-					$('#newmilestone-form').valid();
-				 
-			}) 
-
-			
 		milestTitleArea = $('#newmilestone-form').find('#milest_title')
 		milestContArea = $('#newmilestone-form').find('#milest_cont')
 		
-		$('.milest-input').on('input',function(){
-			
-			milest_title = milestTitleArea.val();
-			milest_cont = milestContArea.val();
-			
-			
-			if(milest_title.length * milest_cont.length != 0){
-				$('.create-btn').prop('disabled',false);
-			}else {
-				$('.create-btn').prop('disabled',true);
-
-			}
-		
-		})
-		
-	
-		// 작성된  마일스톤 등록
-		$('.create-btn').on('click', function() {
-	
-			milest_title = $('#newmilestone-form').find('#milest_title').val();
-			milest_start_date = $('.milest-start-date').children('input').val();
-			milest_end_date = $('.milest-end-date').children('input').val();
-			milest_cont = $('#newmilestone-form').find('#milest_cont').val();
-			
-			$.ajax({
-				url : getContextPath() + '/restapi/project/milestones',
-				type : 'post',
-				data : {
-	
-					'milest_title' : milest_title,
-					'milest_start_date' : milest_start_date,
-					'milest_end_date' : milest_end_date,
-					'milest_cont' : milest_cont
-	
-				},
-				success : function(res) {
-	
-					milestoneView(res.milest_no);
-				},
-				error : function(xhr, error, msg) {
-					console.log(xhr);
-					console.log(error);
-					console.log(msg);
-				},
-				dataType : 'json'
-			})
-	
-		})
-		// 마일스톤 닫기 버튼 누른 경우
-		$('.close-btn').on('click',function(){
-			movePage("milestone");
-		})
-	
 		// datePicker 동작시키기
 		$('.date-box').find('input').bootstrapMaterialDatePicker({
 			// 시간은 설정 안하고 날짜만 선택할 것

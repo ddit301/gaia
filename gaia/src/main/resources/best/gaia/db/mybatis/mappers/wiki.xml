@@ -8,10 +8,8 @@
  		     FROM WIKI WIKI
        			 LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO)
        			 LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO)
-   		   WHERE WIKI.WIKI_SID = 
-  			 (select min(wiki.wiki_sid)
-     		    from wiki
-           		where wiki.proj_no = #{detailSearch.proj_no})
+   		   WHERE WIKI.PROJ_NO = #{detailSearch.proj_no}
+ 		   ORDER BY WIKI.WIKI_SID ASC
 		
 		</select>
 		
@@ -51,7 +49,7 @@
 		    FROM WIKI WIKI
 		        LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO)
 		        LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO)
-		    WHERE WIKI.PROJ_NO = 1 AND WIKI.WIKI_NO = 1;
+		    WHERE WIKI.PROJ_NO = #{proj_no} AND WIKI.WIKI_NO = #{wiki_no}
 		
 		</select>
 </mapper>

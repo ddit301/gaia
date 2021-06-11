@@ -7,19 +7,25 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-            <div class="row page-titles mx-0">
-                <div class="col p-md-0">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li>
-                    </ol>
-                </div>
-            </div>
-            <!-- row -->
 
-            <div class="container-fluid">
-				<h4>Code</h4>
-				조회중인 프로젝트 생성자 : ${manager_id }<br/>
-				조회중인 프로젝트 타이틀 : ${project_title }
+            <div class="git repository container-fluid">
+				<div id="readmeArea">
+				</div>
             </div>
-            <!-- #/ container -->
+            
+            <div class="container-fluid">
+				<h4>SVN</h4>
+            </div>
+
+
+
+<script>
+	$(function(){
+		// 페이지 준비되면 모든 저장소 정보를 불러온다.
+		loadRepositoryList();
+	})
+	
+</script>
+
+
+

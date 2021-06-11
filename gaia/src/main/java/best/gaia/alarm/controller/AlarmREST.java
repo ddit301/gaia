@@ -73,8 +73,14 @@ public class AlarmREST {
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE)
-	public Map<String, Object> deleteAlarm() {
-		return null;
+	public Integer deleteAlarm(
+			Authentication authentication
+			) {
+		// authentication에서 mem_no를 받아온다.
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		
+		// 회원의 모든 읽은 알람을 데이터베이스에서 삭제한다.
+		return dao.deleteReadAlarms(mem_no);
 	}
 
 }
