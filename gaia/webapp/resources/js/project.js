@@ -25,7 +25,9 @@ $(function(){
 
 // 뒤로가기 상황을 제외하고는 pushState를 통해 데이터를 쌓아야합니다.
 const movePageHistory = function(pageParam){
-	var url = getContextPath()+'/'+manager_id+'/'+project_title + (pageParam ? '/'+pageParam : '') ;
+	var url = getContextPath()
+		+'/'+manager_id+'/'+project_title 
+		+ (pageParam!='code' ? '/'+pageParam : '');
 	history.pushState(pageParam, null, url);
 	movePage(pageParam);
 }
