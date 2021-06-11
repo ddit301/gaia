@@ -1,7 +1,7 @@
 # GAIA
 > by team seed &nbsp;&nbsp;🌱 <br/>
 
-![img](https://github.com/ddit301/gaia/blob/master/Documents/logo/LOGO-small.png)
+![img](https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/LOGO-small.png)
 
 ### Gaia is how we develop together.
 
