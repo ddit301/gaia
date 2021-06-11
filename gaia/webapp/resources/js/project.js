@@ -4,13 +4,9 @@ $(function(){
  	// 처음 페이지를 호출 했을때도 아래의 코드를 탑니다.
 	// 페이지 열릴때 멤버 관련된 url 이란 판단이 되면, movePageHistory 발동. member면 멤버쪽에서 발동.
 	if(pageParam){
-		if(issue_no){
-			if(issue_no == 'new'){
-				newIssue();
-			}else{
-				issueView(issue_no);
-			}
-		}else if(milest_no){
+		if(pageParam == 'issueview'){
+			issueView(issue_no);
+		}else if(pageParam == 'milestoneview'){
 			milestoneView(milest_no);
 		}else{
 			movePage(pageParam);
@@ -52,8 +48,8 @@ const movePage = function(pageParam){
 	$.ajax({
 		url : getContextPath() + '/view/project/' + pageParam,
 		type : 'get',
-		data : {'manager_id' : manager_id,'project_title' : project_title
-			},
+		data : {
+		},
 		success : function(res) {
 			$('.content-body').html(res);
 		},

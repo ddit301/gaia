@@ -264,24 +264,7 @@ const issueView = function(issue_no){
 
 // 이슈 생성 페이지로 이동하는 함수
 const newIssue = function(){
-	window.scrollTo({top:0, left:0, behavior:'auto'});
-	
-	data = 'newIssue'
-	title = '';
-	url = getContextPath()+'/'+manager_id+'/'+project_title+'/issue/new'
-	history.pushState(data, title, url);
-	
-	$.ajax({
-		url : getContextPath()+'/view/project/newissue'
-		,type : 'get'
-		,success : function(res){
-			$('.content-body').html(res);
-		}
-		,error : function(xhr){
-			alert('error : ' + xhr.status);
-		},
-		dataType : 'html'
-	})
+	movePageHistory('issue/new');
 }
 
 // 이슈 상세 정보 페이지에서 렌더링 하는 함수
