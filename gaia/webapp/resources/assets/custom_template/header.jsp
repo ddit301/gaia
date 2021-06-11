@@ -120,7 +120,7 @@
 	<li class="alarm">
 		<a>
 			<span class="mr-3 avatar-icon bg-success-lighten-1">
-				<i class="icon-bubbles"></i>
+				<img class="alarmsender profile" alt="" src="/resources/profiles/default">
 			</span>
 			<div class="notification-content">
 				<div class="notifi-cont notification-heading"></div>

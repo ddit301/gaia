@@ -14,3 +14,7 @@
 	max-height : 400px;
 	overflow-y : auto;
 }
+.alarmsender.profile{
+	width : 45px;
+	height : 45px;
+}

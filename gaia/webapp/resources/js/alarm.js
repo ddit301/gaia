@@ -14,6 +14,9 @@ const getAlarm = function(){
 					newAlarmCount = newAlarmCount +1;
 					alarm.addClass("unchecked");
 				}
+				if(v.sender_no){
+					alarm.find('.alarmsender.profile').attr('src',getProfilePath(v.sender_no));
+				}
 				$('#alarmList').append(alarm);
 			})
 			// 새로운 알람이 있는지 없는지에 따라 분기
