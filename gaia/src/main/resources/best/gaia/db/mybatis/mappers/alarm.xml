@@ -11,12 +11,14 @@
 		INSERT INTO alarm (
 		    alarm_no,
 		    mem_no,
+		    sender_no,
 		    alarm_cont,
 		    alarm_create_date,
 		    alarm_type
 		) VALUES (
 		    #{alarm_no}
 		    ,#{mem_no, jdbcType=VARCHAR}
+		    ,#{sender_no, jdbcType=VARCHAR}
 		    ,#{alarm_cont, jdbcType=VARCHAR}
 		    ,sysdate
 		    ,#{alarm_type, jdbcType=VARCHAR}
@@ -36,5 +38,11 @@
 		WHERE MEM_NO = ${mem_no}
 			AND ALARM_CHK_DATE IS NULL
 	</update>
+	
+	<delete id="deleteReadAlarms" parameterType="int">
+		DELETE FROM ALARM
+		WHERE MEM_NO = #{mem_no}
+				AND ALARM_CHK_DATE IS NOT NULL
+	</delete>
 	
 </mapper>

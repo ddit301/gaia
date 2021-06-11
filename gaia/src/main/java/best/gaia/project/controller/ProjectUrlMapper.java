@@ -82,12 +82,31 @@ public class ProjectUrlMapper {
 		// Cookie 에 접속중인 회원의 proj 내에서의 닉네임을 쿠키에 저장하기
 		String proj_user_nick = service.getProjectNick(proj_no, mem_no);
 		CookieUtil.addCookie("proj_user_nick", proj_user_nick, resp);
-				
+		
+		// pageParam 없는 요소들은 수동으로 pageParam 넣어주기. 
+		// 매핑 패턴을 {pageParam}/{paramNo}하고 paramNo도 Optional로 받으면 하드코딩 하지 않아도 될듯.
+		if(issue_no.isPresent()) {
+			if("new".equals(issue_no.get())) {
+				pageParam = Optional.of("issue/new");
+			}else {
+				pageParam = Optional.of("issueview");
+			}
+		}else if(milest_no.isPresent()) {
+			if("new".equals(milest_no.get())) {
+				pageParam = Optional.of("milestone/new");
+			}else {
+				pageParam = Optional.of("milestoneview");
+			}
+		}
+		
+		if(!pageParam.isPresent())
+			pageParam = Optional.of("code");
+		
 		model.addAttribute("manager_id", manager_id);
 		model.addAttribute("project_title", project_title);
+		model.addAttribute("pageParam", pageParam.get());
 		model.addAttribute("issue_no", issue_no.isPresent() ? issue_no.get() : null);
 		model.addAttribute("milest_no", milest_no.isPresent() ? milest_no.get() : null);
-		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : null );
 		return "view/template/project";
 	}
 	

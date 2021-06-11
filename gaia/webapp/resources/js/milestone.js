@@ -127,24 +127,7 @@ $(function(){
 
 // 마일스톤 생성 페이지로 이동하는 함수
 const newMilestone = function(){
-	scrollUp();
-	
-	data = 'newMilestone'
-	title = '';
-	url = getContextPath()+'/'+manager_id+'/'+project_title+'/milestone/new'
-	history.pushState(data, title, url);
-	
-	$.ajax({
-		url : getContextPath()+'/view/project/newmilestone'
-		,type : 'get'
-		,success : function(res){
-			$('.content-body').html(res);
-		}
-		,error : function(xhr){
-			alert('error : ' + xhr.status);
-		},
-		dataType : 'html'
-	})
+	movePageHistory('milestone/new');
 }
 
 // milestonelist 을 불러오는 함수

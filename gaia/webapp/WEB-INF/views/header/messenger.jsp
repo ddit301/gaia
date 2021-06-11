@@ -59,40 +59,41 @@ $(".toChattingPage.moveButton").on('click',  function(){
 // 페이지 로딩 시 데이터 받기.
 var messengerData = function(){
 }
-//알람 받아오는 함수
-var getAlarm = function(){
-	$.ajax({
-		url : getContextPath() + '/restapi/alarm/alarms',
-		success : function(res) {
-			let newAlarmCount = 0;
-			$('#alarmList').empty();
-			$.each(res, function(i, v) {
-				let alarm = $('#headerTemplate').children('.alarm').clone();
-				alarm.children('a').attr('href',v.url);
-				alarm.find('.notifi-cont').html(v.alarm_cont);
-				alarm.find('.notifi-time').text(moment(v.alarm_create_date).fromNow());
-				if(v.alarm_chk_date == null){
-					newAlarmCount = newAlarmCount +1;
-					alarm.addClass("unchecked");
-				}
-				$('#alarmList').append(alarm);
-			})
-			// 새로운 알람이 있는지 없는지에 따라 분기
-			if(newAlarmCount == 0){
-				$('#alarmHeader').text('새로운 알람이 없습니다');
-				$('.newAlarmCount').prop('hidden',true);
-			}else{
-				$('#alarmHeader').text(newAlarmCount + ' 개의 새로운 알람이 있습니다.');
-				$('.newAlarmCount').prop('hidden',false);
-			}
-			$('.newAlarmCount').text(newAlarmCount);
-		},
-		error : function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
-		},
-		dataType : 'json'
-	})
-}
+
+// 메시지 받아오는 함수
+// var getMessage = function(){
+// 	$.ajax({
+// 		url : getContextPath() + '/restapi/alarm/alarms',
+// 		success : function(res) {
+// 			let newAlarmCount = 0;
+// 			$('#alarmList').empty();
+// 			$.each(res, function(i, v) {
+// 				let alarm = $('#headerTemplate').children('.alarm').clone();
+// 				alarm.children('a').attr('href',v.url);
+// 				alarm.find('.notifi-cont').html(v.alarm_cont);
+// 				alarm.find('.notifi-time').text(moment(v.alarm_create_date).fromNow());
+// 				if(v.alarm_chk_date == null){
+// 					newAlarmCount = newAlarmCount +1;
+// 					alarm.addClass("unchecked");
+// 				}
+// 				$('#alarmList').append(alarm);
+// 			})
+// 			// 새로운 알람이 있는지 없는지에 따라 분기
+// 			if(newAlarmCount == 0){
+// 				$('#alarmHeader').text('새로운 알람이 없습니다');
+// 				$('.newAlarmCount').prop('hidden',true);
+// 			}else{
+// 				$('#alarmHeader').text(newAlarmCount + ' 개의 새로운 알람이 있습니다.');
+// 				$('.newAlarmCount').prop('hidden',false);
+// 			}
+// 			$('.newAlarmCount').text(newAlarmCount);
+// 		},
+// 		error : function(xhr, error, msg) {
+// 			ajaxError(xhr, error, msg);
+// 		},
+// 		dataType : 'json'
+// 	})
+// }
 
 /****************************************************************** 
 *
