@@ -24,6 +24,7 @@ public class AlarmVO {
 	@Size(max=7) private String alarm_create_date;
 	@Size(max=7) private String alarm_chk_date;
 	@NotBlank@Size(max=50) private String alarm_type;
+	 private Integer sender_no;
 	
 	// 필요에 의해 만든 프로퍼티들 입니다.
 	String url;

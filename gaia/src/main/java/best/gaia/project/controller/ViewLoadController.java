@@ -14,5 +14,13 @@ public class ViewLoadController {
 			) {
 		return "project/"+menuname;
 	}
+	
+	@RequestMapping(value = "{menuname1}/{menuname2}")
+	public String menuMapperDeeper(
+			@PathVariable String menuname1
+			,@PathVariable String menuname2
+			) {
+		return "project/"+menuname1+"/"+menuname2;
+	}
 		
 }
