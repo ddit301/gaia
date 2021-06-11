@@ -99,6 +99,9 @@ public class ProjectUrlMapper {
 			}
 		}
 		
+		if(!pageParam.isPresent())
+			pageParam = Optional.of("code");
+		
 		model.addAttribute("manager_id", manager_id);
 		model.addAttribute("project_title", project_title);
 		model.addAttribute("pageParam", pageParam.get());

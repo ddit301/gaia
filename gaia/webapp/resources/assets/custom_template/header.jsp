@@ -55,7 +55,8 @@
 					</a>
 					<div id="alarmDropdown" class="drop-down animated fadeIn dropdown-menu position-fixed dropdown-notfication">
 						<div class="dropdown-content-heading d-flex justify-content-between">
-							<span id="alarmHeader">2 New Notifications</span>
+							<span id="alarmHeader"></span>
+							<button id="cleanAlarmBtn" class="btn btn-sm btn-rounded btn-outline-danger">CLEAN</button>
 						</div>
 						<div class="dropdown-content-body">
 							<ul id="alarmList">

@@ -3,6 +3,9 @@ const getAlarm = function(){
 	$.ajax({
 		url : getContextPath() + '/restapi/alarm/alarms',
 		success : function(res) {
+			if(res.length != 0){
+				$('#cleanAlarmBtn').prop('hidden',false);
+			}
 			let newAlarmCount = 0;
 			$('#alarmList').empty();
 			$.each(res, function(i, v) {
@@ -70,6 +73,23 @@ $(function(){
 		}
 		
 		
+	})
+	
+	// 알람 clean 버튼
+	$('#cleanAlarmBtn').on('click', function(){
+		$.ajax({
+			url : getContextPath() + '/restapi/alarm/alarms',
+			method : 'delete',
+			success : function(res) {
+				toastr.success(res + '개의 알람을 삭제했습니다.');
+				$('#cleanAlarmBtn').prop('hidden',true);
+				$('#alarmList').empty();
+			},
+			error : function(xhr, error, msg) {
+				ajaxError(xhr, error, msg);
+			},
+			dataType : 'json'
+		})
 	})
 	
 })
