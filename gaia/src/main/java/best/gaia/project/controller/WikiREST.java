@@ -120,6 +120,10 @@ public class WikiREST {
 		
 		map.put("result", result);
 		
+		System.out.println("map : " + map);
+		
+		System.out.println("search : " + search);
+		
 		return map;
 	}
 	

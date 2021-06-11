@@ -26,7 +26,7 @@
             		</div> 
             		<div class = "col-md-1"></div>
             			<button type = "button" class="delete-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#basicModal">Delete</button>
-            			<button type = "button" class="edit-wiki btn col-md-2 btn-sm btn-flat">Edit</button>
+            			<button type = "button" class="edit-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#editwikiModal">Edit</button>
             			<button type = "button" class="new-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#wikiModal">New</button>
            			
            			
@@ -46,6 +46,7 @@
 		                                	</div>
 		                                </div>
 		                                <div class="modal-footer">
+		                             	    <input type ="hidden" value="" class = "wiki-link-sid">
 		                                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
 		                                    <button type="button" id = "delete-wiki-btn" class="btn btn-danger" data-dismiss="modal" >Delete wiki</button>
 		                                </div>
@@ -53,6 +54,35 @@
 		                        </div>
 		                    </div>
                			 </div>
+           				<!--edit wiki modal -->
+           			<div class="modal fade" id="editwikiModal" tabindex="-1" aria-labelledby="editwikiModal" aria-hidden="true">
+					  <div class="modal-dialog modal-lg modal-dialog-scrollable" >
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="editwikiModal">wiki 수정</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        <form>
+					          <div class="form-group">
+					            <label for="edit-wiki-title-input" class="col-form-label">wiki 제목</label>
+					            <input type="text" class="form-control" id="edit-wiki-title-input">
+					          </div>
+					          <div id="editorArea" class="form-group">
+					            <label class="col-form-label">wiki 내용</label>
+					          </div>
+					        </form>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+					        <button id="editWikiBtn" type="button" class="btn btn-success" disabled>Edit</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+           			
            			
            			
            			<!-- new wiki modal -->
@@ -87,7 +117,8 @@
     				
            			<div class = "wiki-writer">
            				<span></span>
-           				open this page
+           				<span></span>
+           				 this page
            				<span></span>
            				 
            			</div>
@@ -116,52 +147,10 @@
 			</div>
             
             <script>
-              var scopeWikiNo = '${wiki_no}';
-            // project 내 첫번째 wiki 출력 
-            	$.ajax({
-            		url : getContextPath() + '/restapi/project/wikis/'
-					,type : 'get'
-					, data : {
-					},
-					success : function(res) {
-						if(!!scopeWikiNo){
-							$.each(res.dataList, function(i,v){
-								if(v.wiki_no == '${wiki_no}'){
-									$('.title-wiki').children('span').text(v.wiki_title);
-								}
-							})
-						}else{ // requestScope에 wiki_no가 존재하지 않을 시 가장 처음 작성된 kiki를 불러옴.
-							$('.title-wiki').children('span').text(res.dataList[0].wiki_title);
-						}
-						
-							$('.wiki-writer').children('span:first').text(res.dataList[0].proj_user_nick);
-							$('.wiki-writer').children('span:last').text(moment(res.dataList[0].wiki_write_date).fromNow());
-							$('.wiki-content').children('span').text(res.dataList[0].wiki_cont);
-							
-							$('#wiki-list').empty();
-							
-							$.each(res.dataList, function(i,v){
-								
-								let wikiBox = $('#wiki-template').children('.wikiBox').clone();
-								wikiBox.attr('data-wiki_no',v.wiki_no);
-								wikiBox.find('.wiki-title').children('a').text(v.wiki_title);
-								wikiBox.find('.wiki-title').children('input').val(v.wiki_no);
-								
-								$('#wiki-list').append(wikiBox);
-							})
-					},
-					error : function(xhr, error, msg) {
-						// 조회중인 프로젝트 번호를 세션에서 못 받아 올 경우, 메인 홈페이지로 보낸다.
-						if(xhr.status == 400){
-							window.location.href = getContextPath();
-						}
-						console.log(xhr);
-						console.log(error);
-						console.log(msg);
-					},
-					dataType : 'json'
+            // 페이지 로딩시 위키 리스트 뽑기
+            wikilist();
+            
 
-				})
 				
 				// wiki edit
 				$(function(){
@@ -175,11 +164,11 @@
 				  placeholder : 'markdown 문법을 지원합니다'
 			});
 			 
-// 			viewer = toastui.Editor.factory({
-// 		         el: document.querySelector('.newsContent')
-// 		         ,height : 'auto'
-// 		         ,viewer : true
-// 		       });
+			viewer = toastui.Editor.factory({
+		         el: document.querySelector('.wiki-content')
+		         ,height : 'auto'
+		         ,viewer : true
+		       });
 			
 			// 위키 글 작성할때 제목, 내용 둘다 있는지 확인	
 			var checkValidation = function(){
@@ -209,7 +198,6 @@
 					},
 					success : function(res) {
 						
-						console.log(res.wiki.wiki_no);
 						// toastr 알람
 						toastr.success('새로운 위키 등록에 성공했습니다.')
 						
