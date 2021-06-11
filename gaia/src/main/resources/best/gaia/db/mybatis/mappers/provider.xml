@@ -51,12 +51,12 @@
 		</trim>
 	</sql>
 	
-	<select id="selectMemberCount" parameterType="PagingVO" resultType="Integer">
+	<select id="selectMemberCount" parameterType="best.gaia.vo.PagingVO" resultType="Integer">
 		SELECT COUNT(*)
 		FROM MEMBER
 		<include refid="searchFrag" />
 	</select>
-	<select id="selectMemberList" parameterType="PagingVO" resultType="MemberVO">
+	<select id="selectMemberList" parameterType="best.gaia.vo.PagingVO" resultType="best.gaia.vo.MemberVO">
 		SELECT MEM_NO,
 				MEM_ID,
 				MEM_NICK,
@@ -68,7 +68,7 @@
 		<include refid="searchFrag" />
 	</select>
 	
-	<select id="selectAllMemberList" resultType="MemberVO">
+	<select id="selectAllMemberList" resultType="best.gaia.vo.MemberVO">
 		SELECT MEM_NO,
 				MEM_ID,
 				MEM_NICK,

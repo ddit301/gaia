@@ -17,7 +17,7 @@
 	</select>
 	
 	
-	<insert id="insertProject" parameterType="ProjectVO">
+	<insert id="insertProject" parameterType="best.gaia.vo.ProjectVO">
 		<selectKey resultType="int" keyProperty="proj_no" order="BEFORE">
 			SELECT PROJ_SEQ.nextval
 			FROM DUAL
