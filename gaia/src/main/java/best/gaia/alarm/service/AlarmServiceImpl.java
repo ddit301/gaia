@@ -44,13 +44,13 @@ public class AlarmServiceImpl implements AlarmService {
 		alarm.setMem_no(issue.getMem_no());
 		String alarm_type = "IC";
 		alarm.setAlarm_type(alarm_type);
+		alarm.setSender_no(issueHistory.getMem_no());
 		
 		// 알램 내용을 맵으로 만들고
 		Map<String, String> alarmContent = new HashMap<>();
 		alarmContent.put("url", issue.getUrl());
 		String proj_user_nick = issueHistory.getHistoryWriter().getMem_nick();
 		alarmContent.put("proj_user_nick", proj_user_nick);
-		alarmContent.put("mem_no", String.valueOf(issueHistory.getMem_no()));
 		alarmContent.put("issue_title",issue.getIssue_title());
 		alarmContent.put("issue_his_cont",issueHistory.getIssue_his_cont());
 		

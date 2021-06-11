@@ -11,12 +11,14 @@
 		INSERT INTO alarm (
 		    alarm_no,
 		    mem_no,
+		    sender_no,
 		    alarm_cont,
 		    alarm_create_date,
 		    alarm_type
 		) VALUES (
 		    #{alarm_no}
 		    ,#{mem_no, jdbcType=VARCHAR}
+		    ,#{sender_no, jdbcType=VARCHAR}
 		    ,#{alarm_cont, jdbcType=VARCHAR}
 		    ,sysdate
 		    ,#{alarm_type, jdbcType=VARCHAR}
