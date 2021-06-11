@@ -2,6 +2,7 @@ package best.gaia.provider.service;
 
 import java.util.List;
 
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.InquiryCommentVO;
 import best.gaia.vo.InquiryVO;
 import best.gaia.vo.MemberVO;
@@ -15,5 +16,6 @@ public interface ProviderService {
 
 	public List<InquiryVO> retrieveAllInquiryQuestion();
 	public InquiryCommentVO retrieveInquiryAnswer(int inq_no);
+	public ServiceResult enrollInquiryAnswer(InquiryCommentVO inquiryComment);
 	
 }

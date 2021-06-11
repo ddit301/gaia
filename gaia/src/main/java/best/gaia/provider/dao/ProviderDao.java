@@ -19,5 +19,6 @@ public interface ProviderDao {
 
 	public List<InquiryVO> selectInquiryQuestionList();
 	public InquiryCommentVO selectInquiryAnswer(int inq_no);
+	public int insertInquiryAnswer(InquiryCommentVO inquiryComment);
 	
 }

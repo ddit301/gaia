@@ -7,6 +7,7 @@
 	<style>
 		table {
 			text-align: center !important;
+			vertical-align: middle !important;
 		}
 
 		td.details-control {
@@ -33,7 +34,7 @@
 				<hr class="divider-w pt-20">
 				<div class="row">
 					<div class="col-sm-12">
-						<table id="inquiry-table" class="table table-striped ">
+						<table id="inquiry-question-table" class="table table-striped ">
 							<thead>
 								<tr class="navbar-custom">
 									<th></th>
@@ -61,30 +62,64 @@
 
 	<script type="text/javascript" class="init">
 
-		function format(d) {
-			// `d` is the original data object for the row
-			return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+		function questionFormat(d) {
+			return '<div class="col-sm-8 col-sm-offset-2" ><table id="q__'+d.inq_no +'" class="table table-detail inquiry-question-detail ">' +
 				'<tr>' +
 				'<td>질문자 : </td>' +
-				'<td>' + d.mem_no + '</td>' +
-				'</tr>' +
-				'<tr>' +
-				'<td>질문내용 : </td>' +
-				'<td>' + d.inq_cont + '</td>' +
+				'<td class="q__table">' + d.mem_no + '</td>' +
 				'</tr>' +
 				'<tr>' +
 				'<td>첨부 파일 : </td>' +
 				'<td><a>' + d.atch_file_sid + '</a></td>' +
 				'</tr>' +
-				'</table>';
+				'<tr>' +
+				'<td>질문내용 : </td>' +
+				'<td>' + d.inq_cont + '</td>' +
+				'</tr>' +
+				'<tr>'+
+				'<td colspan="2"><button id="'+d.inq_no +'" class="a__check">답변 확인</button> </td>'+
+				'</tr>'+
+				'</table></div>';
 		}
+		
+		function answerFormat(d) {
+			return '<table id="a__'+d.inq_no +'" class="table table-detail inquiry-answer-table"><tr>' +
+				'<td>답변자 : </td>' +
+				'<td>' + d.prov_id + ' </td>' +
+				'</tr>' +
+				'<tr>' +
+				'<td>답변일자 : </td>' +
+				'<td>'+d.inq_com_date+'</td>' +
+				'</tr>' +
+				'<tr>' +
+				'<td>답변내용 : </td>' +
+				'<td> '+d.inq_com_cont+'</td>' +
+				'</tr>' +
+				'<tr>'+
+				'<td colspan="2"><button id="'+d.inq_com_no+'" class="a__modify">답변 수정</button> </td>'+
+				'</tr></table>';
+		}
+		
+// 		[{inq_no":"a__3","inq_com_no":"3","prov_id":"admin1 ","inq_com_cont":" 문의 답변 내용 3"}]
+		function modifyFormat(d) {
+			return '<form method="POST" action="${pageContext.request.contextPath }/admin/inquiry/Answer"><table id="'+d[0].inq_no +'" class="table table-detail inquiry-answer-table"><tr>' +
+				'<td>답변내용 : </td>' +
+				'<td><input class="form-control input-sm" type="text" value="'+d[0].inq_com_cont+'"></input></td>' +
+				'</tr>' +
+				'<tr>'+
+				'<td colspan="2"><button id="'+d[0].inq_com_no+'" class="a__modify">등록</button> </td>'+
+				'</tr></table></form>';
+		}
+		
+		
+		
 
-		function getInquiry() {
+		function getInquiryQuestion() {
 			$.ajax({
-				url: getContextPath() + "/admin/inquiry/ListView",
+				url: getContextPath() + "/admin/inquiry/QuestionListView",
 				type: 'get',
 				success: function (res) {
-					table = $('#inquiry-table').DataTable({
+					table = $('#inquiry-question-table').DataTable({
 						data: res,
 						columns: [
 							{
@@ -104,40 +139,99 @@
 						]
 					});
 				},
-
 				async: true
 				, error: function (xhr) {
 					console.log(xhr);
 					if (xhr.status == '404') {
 						alert("실패");
 					} else {
-						alert("status : " + xhr.status);
+						$('#inquiry-question-table').after('등록된 문의가 없습니다.');
+// 						alert("status : " + xhr.status);
 					}
 				},
 				dataType: 'json'
 			})
-
 		}
-		getInquiry();
-
+		
+		function getInquiryAnswer(inq_no) {
+		 	let id = ('q__'+inq_no);
+			$.ajax({
+				url: getContextPath() + "/admin/inquiry/Answer",
+				data: {'inq_no': inq_no},
+				type: 'get',
+				success: function (res) {
+					$('#'+id).after(answerFormat(res));
+				},
+				async: true
+				, error: function (xhr) {
+					console.log('error: ',xhr);
+					if (xhr.status == '404') {
+						alert("실패");
+					} else {
+						$('#'+id).after('<table id="a__'+inq_no +'" class="table table-detail inquiry-answer-table"><tr><td>등록된 답변이 없습니다.</td></tr><tr><td><button>답변 등록</button></td></tr></table>');
+// 						alert("status : " + xhr.status);
+					}
+				},
+				dataType: 'json'
+			})
+		}
 
 		$(document).ready(function () {
-
-
-			$('#inquiry-table tbody').on('click', 'td.details-control', function () {
-				var tr = $(this).closest('tr');
-				var row = table.row(tr);
+			getInquiryQuestion();
+			getEvent();
+		});
+		
+		
+		function getEvent(){
+			$('#inquiry-question-table tbody').on('click', 'td.details-control', function () {
+				let tr = $(this).closest('tr');
+				let row = table.row(tr);
 
 				if (row.child.isShown()) {
 					row.child.hide();
 					tr.removeClass('shown');
 				}
 				else {
-					row.child(format(row.data())).show();
+					row.child(questionFormat(row.data())).show();
 					tr.addClass('shown');
 				}
 			});
-
-
-		});
+			 $(document).on('click', '.a__check', function(){
+				let inq_no = $(this).attr('id');
+				let id = ('a__'+inq_no);
+				if($('#'+id).length){
+					$(this).html('답변 확인');
+					$('#'+id).remove();
+					return;
+				} else{
+					$(this).html('답변 닫기');
+					getInquiryAnswer(inq_no);
+					return;
+				}
+				
+			});
+			$(document).on('click', '.a__modify', function(){
+				
+				let paramData = new Array();
+				
+				let data = new Object() ;
+				let id = $(this).attr('id');
+				let answertable = $(this).parents('.inquiry-answer-table');
+				
+				data.inq_no = answertable.attr('id');
+				data.inq_com_no = id;
+				data.prov_id = answertable.find('td').eq(1).text();
+				data.inq_com_cont = $(answertable.find('td')[5]).text();
+				
+				paramData.push(data);
+				
+				let jsonData = JSON.stringify(paramData);
+				console.log(jsonData);
+				
+				let modifyForm = modifyFormat(paramData);
+				$( answertable ).replaceWith(modifyForm);
+				
+				
+			});
+		}
 	</script>

@@ -91,7 +91,7 @@
 	    INQUIRY
 	</select>
 	
-	<select id="selectInquiryAnswerList" parameterType="Integer" resultType="best.gaia.vo.InquiryCommentVO">
+	<select id="selectInquiryAnswer" parameterType="Integer" resultType="best.gaia.vo.InquiryCommentVO">
 	SELECT
 	    INQ_COM_NO,
 	    INQ_NO,
