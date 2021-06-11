@@ -4,7 +4,7 @@
 }
 .alarm.unchecked{
 	background-color : rgb(212, 238, 255);
-	transition : background-color 7000ms;
+	transition : background-color 5000ms;
 }
 #alarmList{
 	padding : 0;
