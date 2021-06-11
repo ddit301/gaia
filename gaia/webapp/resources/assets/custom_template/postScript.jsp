@@ -22,6 +22,8 @@
 	<script src="${cPath }/resources/js/jquery.validate.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.js" integrity="sha512-2ABKLSEpFs5+UK1Ol+CgAVuqwBCHBA0Im0w4oRCflK/n8PUVbSv5IY7WrKIxMynss9EKLVOn1HZ8U/H2ckimWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- 	base 64 인코딩 /디코딩용 -->
+	<script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.1/base64.min.js"></script>
 	<script src="${cPath }/resources/js/util.js"></script>
 	<script src="${cPath }/resources/js/issue.js"></script>
 	<script src="${cPath }/resources/js/milestone.js"></script>
@@ -30,6 +32,7 @@
 	<script src="${cPath }/resources/js/project.js"></script>
 	<script src="${cPath }/resources/js/websocket.js"></script>
 	<script src="${cPath }/resources/js/member.js"></script>
+	<script src="${cPath }/resources/js/code.js"></script>
 
 <script type="text/javascript">
 	let project_title = '${project_title}';
