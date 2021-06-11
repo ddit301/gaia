@@ -10,6 +10,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/tlds/myFunctions.tld" prefix="my"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<style>
+button.square__box{
+	background-color:white; 
+	border-radius: 0.4rem; 
+	color:grey;
+}
+</style>
 <div id="preloader">
     <div class="loader">
         <svg class="circular" viewBox="25 25 50 50">
@@ -103,25 +110,23 @@
 
 <div id="main-list">
 	<div id="project__list">
-	<c:if test="${not empty member.projectList  && fn:length(member.projectList) > 0}">
-		<c:forEach items="${member.projectList }" var="project">
-		<c:set var = "title" value = "${my:initializeName(project.proj_title)}" />
-		<c:if test="${not empty title }">
-		<div class="square__box">
-			<div class="img-rounded">
-	  			${title }
-	  		</div>
+		<div class="proj_boxes">
+		</div>
+	    
+	    <div class="square__box">
+	        <div class="img-rounded">
+	            <button type="button" class="btn btn-adder" data-toggle="modal"
+	                data-target=".bd-example-modal-lg">+</button>
+	        </div>
 	    </div>
-		</c:if>
-		</c:forEach>
-	</c:if>
-    
-    <div class="square__box">
-        <div class="img-rounded">
-            <button type="button" class="btn btn-adder" data-toggle="modal"
-                data-target=".bd-example-modal-lg">+</button>
-        </div>
-    </div>
-</div>
+	    
+	</div>
 </div>
 
+
+<div id="preloaderTemplate" hidden="hidden">
+	<div class="projBox">
+		<button class="projectBtn square__box" data-toggle="tooltip" data-html="true" data-placement="right">
+	    </button>
+	</div>
+</div>
