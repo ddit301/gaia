@@ -43,9 +43,8 @@ import static best.gaia.utils.SessionUtil.*;
 public class MemberUrlMapper {
 
 	@Inject
-	private MemberService service;
-	@Inject
 	private WebApplicationContext container;
+	
 	private ServletContext application;
 
 	@PostConstruct
@@ -63,11 +62,6 @@ public class MemberUrlMapper {
 			) {
 		model.addAttribute("mem_id", mem_id);
 		model.addAttribute("memberPageParam", memberPageParam.isPresent() ? memberPageParam.get() : null);
-
-		Integer mem_no = getMemberNoFromAuthentication(authentication);
-		MemberVO member = service.retrieveMemberProjectIssue(mem_no);
-		model.addAttribute("member", member);
-		logger.info("MemberUrlMapper GET 들어옴, need : {}", member);
 
 		return "view/template/project";
 	}

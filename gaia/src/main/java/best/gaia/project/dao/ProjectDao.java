@@ -1,6 +1,7 @@
 package best.gaia.project.dao;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -33,5 +34,12 @@ public interface ProjectDao {
 	public int getProjCount(Map<String, String> map);
 	
 	public int insertProject(ProjectVO project);
+	
+	/**
+	 * @param mem_no
+	 * @return 특정 회원이 속한 모든 프로젝트 목록을 불러옵니다.
+	 * mem_no가 null 일 경우 서비스상 존재하는 모든 프로젝트 목록을 불러옵니다.
+	 */
+	public List<ProjectVO> selectProjectList(Integer mem_no);
 	
 }

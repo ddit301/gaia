@@ -4,6 +4,7 @@
 	<select id="selectRepositoryList" parameterType="int" resultType="java.util.HashMap">
 		SELECT *
 		FROM REPOSITORY
+		WHERE PROJ_NO = #{proj_no}
 	</select>
 	
 </mapper>
