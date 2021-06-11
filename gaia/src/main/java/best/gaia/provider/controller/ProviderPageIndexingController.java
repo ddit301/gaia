@@ -54,8 +54,12 @@ public class ProviderPageIndexingController {
 		return "admin/inquiry";
 	}
 	@RequestMapping(value = "finance")
-	public String projectPage() {
+	public String financePage() {
 		return "admin/finance";
+	}
+	@RequestMapping(value = "statics")
+	public String staticsPage() {
+		return "admin/statics";
 	}
 
 }
