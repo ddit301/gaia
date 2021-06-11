@@ -102,12 +102,14 @@
 		
 // 		[{inq_no":"a__3","inq_com_no":"3","prov_id":"admin1 ","inq_com_cont":" 문의 답변 내용 3"}]
 		function modifyFormat(d) {
-			return '<form method="POST" action="${pageContext.request.contextPath }/admin/inquiry/Answer"><table id="'+d[0].inq_no +'" class="table table-detail inquiry-answer-table"><tr>' +
+			return '<form method="POST" action="${pageContext.request.contextPath }/admin/inquiry/Answer">'+
+			'<input name="inq_no" type="hidden" value="'+d[0].inq_no+'"></input>'+
+			'<table id="'+d[0].inq_no +'" class="table table-detail inquiry-answer-table"><tr>' +
 				'<td>답변내용 : </td>' +
-				'<td><input class="form-control input-sm" type="text" value="'+d[0].inq_com_cont+'"></input></td>' +
+				'<td><input name="inq_com_cont" class="form-control input-sm" type="text" value="'+d[0].inq_com_cont+'"></input></td>' +
 				'</tr>' +
 				'<tr>'+
-				'<td colspan="2"><button id="'+d[0].inq_com_no+'" class="a__modify">등록</button> </td>'+
+				'<td colspan="2"><button type="submit" id="'+d[0].inq_com_no+'" class="">등록</button> </td>'+
 				'</tr></table></form>';
 		}
 		
@@ -218,7 +220,7 @@
 				let id = $(this).attr('id');
 				let answertable = $(this).parents('.inquiry-answer-table');
 				
-				data.inq_no = answertable.attr('id');
+				data.inq_no = answertable.attr('id').substring(3);
 				data.inq_com_no = id;
 				data.prov_id = answertable.find('td').eq(1).text();
 				data.inq_com_cont = $(answertable.find('td')[5]).text();

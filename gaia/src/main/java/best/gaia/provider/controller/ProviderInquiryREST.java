@@ -84,8 +84,9 @@ public class ProviderInquiryREST {
 	public Map<String, Object> answerForm(Authentication authentication,
 			@ModelAttribute InquiryCommentVO inquiryComment,  Model model) {
 		logger.debug("auth: " + authentication);
-		logger.debug("model: " + model);
-		logger.debug("inquiryComment" + inquiryComment);
+//		String prov_id = authentication.getName();
+		
+		inquiryComment.setProv_id("admin22");
 
 		Map<String, Object> resultMap = new HashMap<>();
 		try {

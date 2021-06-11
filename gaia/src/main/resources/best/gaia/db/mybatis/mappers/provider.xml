@@ -105,7 +105,25 @@
     	INQ_NO=#{inq_no}
 	</select>
 
-
+	<insert id="insertInquiryAnswer" parameterType="best.gaia.vo.InquiryCommentVO">
+		<selectKey resultType="int" keyProperty="inq_com_no" order="BEFORE">
+			SELECT INQ_COM_SEQ.NEXTVAL
+			FROM DUAL
+		</selectKey>
+		INSERT INTO INQUIRY_COMMENT (
+		    INQ_COM_NO,
+		    INQ_NO,
+		    PROV_ID,
+		    INQ_COM_CONT,
+		    INQ_COM_DATE
+		) VALUES (
+		    #{inq_com_no},
+		    #{inq_no},
+		    #{prov_id},
+		    #{inq_com_cont},
+		   	SYSDATE
+		)
+	</insert>
 
 
 </mapper>
