@@ -139,7 +139,7 @@
               </li>
               <li class=""><a href="#"  data-menu = "admin/inquiry">1:1문의 관리</a>
               </li>
-              <li class=""><a href="#" data-menu = "">통계</a>
+              <li class=""><a href="#" data-menu = "admin/statics">통계</a>
               </li>
               <li class=""><a href="#" data-menu = "monitoring">서버환경 조회</a>
               </li>

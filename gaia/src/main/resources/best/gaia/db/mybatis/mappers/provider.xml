@@ -51,12 +51,12 @@
 		</trim>
 	</sql>
 	
-	<select id="selectMemberCount" parameterType="PagingVO" resultType="Integer">
+	<select id="selectMemberCount" parameterType="best.gaia.vo.PagingVO" resultType="Integer">
 		SELECT COUNT(*)
 		FROM MEMBER
 		<include refid="searchFrag" />
 	</select>
-	<select id="selectMemberList" parameterType="PagingVO" resultType="MemberVO">
+	<select id="selectMemberList" parameterType="best.gaia.vo.PagingVO" resultType="best.gaia.vo.MemberVO">
 		SELECT MEM_NO,
 				MEM_ID,
 				MEM_NICK,
@@ -68,7 +68,7 @@
 		<include refid="searchFrag" />
 	</select>
 	
-	<select id="selectAllMemberList" resultType="MemberVO">
+	<select id="selectAllMemberList" resultType="best.gaia.vo.MemberVO">
 		SELECT MEM_NO,
 				MEM_ID,
 				MEM_NICK,
@@ -79,7 +79,7 @@
 		FROM MEMBER
 	</select>
 
-	<select id="selectInquiryList" resultType="best.gaia.vo.InquiryVO">
+	<select id="selectInquiryQuestionList" resultType="best.gaia.vo.InquiryVO">
 	SELECT
 	    INQ_NO,
 	    MEM_NO,
@@ -90,8 +90,40 @@
 	FROM
 	    INQUIRY
 	</select>
+	
+	<select id="selectInquiryAnswer" parameterType="Integer" resultType="best.gaia.vo.InquiryCommentVO">
+	SELECT
+	    INQ_COM_NO,
+	    INQ_NO,
+	    PROV_ID,
+	    INQ_COM_CONT,
+	    INQ_COM_DATE,
+	    ATCH_FILE_SID
+	FROM
+	    INQUIRY_COMMENT
+    WHERE
+    	INQ_NO=#{inq_no}
+	</select>
 
-
+	<insert id="insertInquiryAnswer" parameterType="best.gaia.vo.InquiryCommentVO">
+		<selectKey resultType="int" keyProperty="inq_com_no" order="BEFORE">
+			SELECT INQ_COM_SEQ.NEXTVAL
+			FROM DUAL
+		</selectKey>
+		INSERT INTO INQUIRY_COMMENT (
+		    INQ_COM_NO,
+		    INQ_NO,
+		    PROV_ID,
+		    INQ_COM_CONT,
+		    INQ_COM_DATE
+		) VALUES (
+		    #{inq_com_no},
+		    #{inq_no},
+		    #{prov_id},
+		    #{inq_com_cont},
+		   	SYSDATE
+		)
+	</insert>
 
 
 </mapper>

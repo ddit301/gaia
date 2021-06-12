@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import best.gaia.provider.dao.ProviderDao;
+import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.vo.InquiryCommentVO;
 import best.gaia.vo.InquiryVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
@@ -34,8 +36,19 @@ public class ProviderServiceImpl implements ProviderService {
 		return dao.selectMemberList(pagingVO);
 	}
 	@Override
-	public List<InquiryVO> retrieveAllInquiry() {
-		return dao.selectInquiryList();
+	public List<InquiryVO> retrieveAllInquiryQuestion() {
+		return dao.selectInquiryQuestionList();
+	}
+	@Override
+	public InquiryCommentVO retrieveInquiryAnswer(int inq_no) {
+		return dao.selectInquiryAnswer(inq_no);
+	}
+	@Override
+	public ServiceResult enrollInquiryAnswer(InquiryCommentVO inquiryComment) {
+		ServiceResult result = ServiceResult.FAIL;
+		if(dao.insertInquiryAnswer(inquiryComment)==1) 
+			result = ServiceResult.OK;
+		return result;
 	}
 
 }

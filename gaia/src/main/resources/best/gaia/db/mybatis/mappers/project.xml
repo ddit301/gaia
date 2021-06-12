@@ -17,7 +17,7 @@
 	</select>
 	
 	
-	<insert id="insertProject" parameterType="ProjectVO">
+	<insert id="insertProject" parameterType="best.gaia.vo.ProjectVO">
 		<selectKey resultType="int" keyProperty="proj_no" order="BEFORE">
 			SELECT PROJ_SEQ.nextval
 			FROM DUAL
@@ -51,4 +51,23 @@
 		where mem_no = #{mem_no}
 			and proj_no = #{proj_no}
 	</select>
+	
+	
+	<resultMap type="best.gaia.vo.ProjectVO" id="projectMap" autoMapping="true">
+		<id property="proj_no" column="PROJ_NO"/>
+		<association property="projectManager" javaType="best.gaia.vo.MemberVO" autoMapping="true">
+			<id property="mem_no" column="MEM_NO"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectProjectList" parameterType="int" resultMap="projectMap">
+		select project.proj_no, proj_title, proj_cont, proj_start_date, proj_est_end_date
+		        ,proj_manager.mem_id, mem_nick, mem_pic_file_name
+		from project
+		    left outer join proj_mem on (project.proj_no = proj_mem.proj_no)
+		    left outer join member proj_manager on (project.mem_no = proj_manager.mem_no)
+		where proj_mem.mem_no = #{mem_no}
+		order by proj_start_date
+	</select>
+	
 </mapper>

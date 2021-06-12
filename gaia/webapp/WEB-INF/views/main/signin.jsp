@@ -27,10 +27,13 @@
                   </div>
                   <div class="form-group">
                     <input class="form-control" id="password" type="password" name="mem_pass" placeholder="Password"/>
-                    </br>
+                    <br/>
                     <button id="loginSubmit" class="btn btn-block btn-round btn-b" type="submit">Login</button>
-                    <button id="testMemBtn" class="btn btn-block btn-round btn-b">TEST 멤버 로그인</button>
-                    <button id="testAdminBtn" class="btn btn-block btn-round btn-b">TEST ADMIN 로그인</button>
+                    <button data-id="josh" class="testMemBtn btn btn-block btn-round btn-b">JOSH 로그인</button>
+                    <button data-id="robin" class="testMemBtn btn btn-block btn-round btn-b">ROBIN 로그인</button>
+                    <button data-id="eisen" class="testMemBtn btn btn-block btn-round btn-b">EISEN 로그인</button>
+                    <button data-id="kkobuk" class="testMemBtn btn btn-block btn-round btn-b">SHANE 로그인</button>
+                    <button class="testAdminBtn btn btn-block btn-round btn-b">TEST ADMIN 로그인</button>
                   </div>
 <!--                   <div class="form-group"> -->
 <!--                     <button class="btn btn-block btn-round btn-b" onclick="()"><i class="fa fa-github"></i> Login with Github</button> -->
@@ -49,15 +52,28 @@
        </div>
        
     <script>
-    	$('#testMemBtn').on('click', function(){
+    	$('.testMemBtn').on('click', function(){
     		event.preventDefault();
-    		$('#username').val('kkobuk');
+    		$('#username').val($(this).data('id'));
     		$('#password').val('java');
     		$('#loginSubmit').click();
     	})
-    	$('#testAdminBtn').on('click', function(){
+    	$('.testAdminBtn').on('click', function(){
     		event.preventDefault();
     		window.location.href = '/admin'; 
     	})
+    	
+    	// 한글 입력 방지
+    	var idInput = document.querySelector('#username');
+		var pwInput = document.querySelector('#password');
+		
+		var korean = function() {
+		  var pattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		  this.value = this.value.replace(pattern, '');
+		};
+		
+		idInput.addEventListener('keyup', korean);
+		pwInput.addEventListener('keyup', korean);
+    	
     </script>   
        

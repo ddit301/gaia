@@ -44,9 +44,13 @@ public class SessionUtil {
 	/**
 	 * Session 에서 현재 접속중인 프로젝트의 proj_no 를 받아오는 메서드 입니다.
 	 * @param session
-	 * @return
+	 * @return pro_jo
+	 * @exception session이 없거나, 저장된 proj_no 가 없으면 401 에러를 발생
 	 */
 	static public Integer getProjNoFromSession(HttpSession session){
+		if(session == null)
+			throw new UnauthorizedException();
+		
 		Integer proj_no = (Integer)session.getAttribute("proj_no");
 		if(proj_no == null) {
 			throw new UnauthorizedException();
