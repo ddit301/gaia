@@ -45,6 +45,7 @@ public class ChatServiceImpl implements ChatService{
 	@Override
 	public List<Map<String, Object>> exists(int mem_no) {
 		List<Map<String, Object>> result = ordao.exists(mem_no);
+		
 		return result;
 	}
 	@Override
