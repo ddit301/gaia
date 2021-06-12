@@ -83,7 +83,7 @@
 
 <script>
 // 프로필 사진 변경 ajax
-$(".content-body").on("click", "#upload_image",function(){
+$("..content-body").on("click", "#upload_image",function(){
 	$("#upload_image").click();
 })
 var imageSelect = $(".content-body").on("change", "#upload_image",function(){
