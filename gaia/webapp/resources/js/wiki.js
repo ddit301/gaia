@@ -5,18 +5,20 @@
 //////////////////////////////////////////////////////
 $(function(){
 	
+	let wiki = null;
+	
 	// wiki 등록을 위한 버튼 이벤트
 	$('.content-body').on('click','.new-wiki', function(){
-		alert("test");
-		
+	
+	
 	})
 	
-	// 특정 위키 클릭시 불러오는 메서드
+	// 특정 위키 클릭시 불러오는 메서드Í
 	$('.content-body').on('click','.wiki-btn',function(){
-		
 		//특정 위키의 wiki_no 불러옴.
 		let wiki_no = $(this).siblings('input').val();
 		wikiView(wiki_no);
+	
 	})
 	
 	// 모달창에서 위키 삭제 버튼 클릭 시 
@@ -27,6 +29,11 @@ $(function(){
 	
 	// 위키 수정 버튼 클릭 시
 	$('.content-body').on('click','.edit-wiki',function(){
+		
+		// new wiki 와 모달을 같이 쓰기 때문에 save 를 edit 으로 변경한다.
+		$('.modal-title').text('wiki 수정');
+		$('#saveWikiBtn').text('edit');
+		
 		editWiki();
 	})
 	
@@ -34,13 +41,27 @@ $(function(){
 	// 특정 위키 수정하는 함수 
 const editWiki = function(){
 		
-		let wiki_title = $('.title-wiki').children('span').text();
-		$('#edit-wiki-title-input').val(wiki_title);
+		let wiki_title = wiki.wiki_title;
+		$('#wiki-title-input').val(wiki_title);
 		
-		let wiki_cont = $('.wiki-content').text();
-		console.log("wiki");
+		let wiki_cont = wiki.wiki_cont;
 		console.log(wiki_cont);
-		$('. CodeMirror-line ').val(wiki_cont);
+		
+		// editor 에 cont 넣기
+		// 값은 넘어가는데 클릭을 해야 표시가 된다. 문제가 있다. 해결해야함.
+		
+		editor.setMarkdown(wiki_cont);
+		
+		$('.CodeMirror-line').click();
+		$('.CodeMirror-line').focus();
+		editor.focus();		
+		setTimeout(() => $('.CodeMirror-line').click(), 500);
+		setTimeout(() => $('.CodeMirror-line').click(), 500);
+		setTimeout(() => $('.CodeMirror-line').click(), 500);
+		
+//		$('.te-md-container').text(wiki_cont);
+//		viewer.setMarkdown(wiki_cont);
+		
 		
 //		$.ajax({
 //		url : getContextPath()+'/view/project/editmilestone'
@@ -105,6 +126,8 @@ const wikiView = function(wiki_no){
 			},
 			success : function(res) {
 				
+				wiki = res;
+				
 				console.log(res);
 
 				$('.title-wiki').children('span').text(res.wiki_title);
@@ -123,6 +146,7 @@ const wikiView = function(wiki_no){
 				// delete modaal 의 delete 버튼에 wiki_sid 넣기
 				$('.modal-footer').children('input').val(res.wiki_sid);
 				
+				
 			},
 			error : function(xhr, error, msg) {
 				// 조회중인 프로젝트 번호를 세션에서 못 받아 올 경우, 메인 홈페이지로 보낸다.
@@ -134,6 +158,7 @@ const wikiView = function(wiki_no){
 				console.log(msg);
 			},
 			dataType : 'json'
+			,async : false
 		})
 		
 	}
@@ -158,6 +183,8 @@ const wikilist = function(){
 						}else{ // requestScope에 wiki_no가 존재하지 않을 시 가장 처음 작성된 kiki를 불러옴.
 						
 						}
+							wiki = res.dataList[0];
+							
 							$('.title-wiki').children('span').text(res.dataList[0].wiki_title);
 							$('.wiki-writer').children('span').eq(0).text(res.dataList[0].proj_user_nick);
 							if(res.dataList[0].parent_wiki == null){

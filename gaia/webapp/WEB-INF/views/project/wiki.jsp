@@ -26,7 +26,7 @@
             		</div> 
             		<div class = "col-md-1"></div>
             			<button type = "button" class="delete-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#basicModal">Delete</button>
-            			<button type = "button" class="edit-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#editwikiModal">Edit</button>
+            			<button type = "button" class="edit-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#wikiModal">Edit</button>
             			<button type = "button" class="new-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#wikiModal">New</button>
            			
            			
@@ -55,33 +55,33 @@
 		                    </div>
                			 </div>
            				<!--edit wiki modal -->
-           			<div class="modal fade" id="editwikiModal" tabindex="-1" aria-labelledby="editwikiModal" aria-hidden="true">
-					  <div class="modal-dialog modal-lg modal-dialog-scrollable" >
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h5 class="modal-title" id="editwikiModal">wiki 수정</h5>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
-					      </div>
-					      <div class="modal-body">
-					        <form>
-					          <div class="form-group">
-					            <label for="edit-wiki-title-input" class="col-form-label">wiki 제목</label>
-					            <input type="text" class="form-control" id="edit-wiki-title-input">
-					          </div>
-					          <div id="editorArea" class="form-group">
-					            <label class="col-form-label">wiki 내용</label>
-					          </div>
-					        </form>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-					        <button id="editWikiBtn" type="button" class="btn btn-success" disabled>Edit</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
+<!--            			<div class="modal fade" id="editwikiModal" tabindex="-1" aria-labelledby="editwikiModal" aria-hidden="true"> -->
+<!-- 					  <div class="modal-dialog modal-lg modal-dialog-scrollable" > -->
+<!-- 					    <div class="modal-content"> -->
+<!-- 					      <div class="modal-header"> -->
+<!-- 					        <h5 class="modal-title" id="editwikiModal">wiki 수정</h5> -->
+<!-- 					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+<!-- 					          <span aria-hidden="true">&times;</span> -->
+<!-- 					        </button> -->
+<!-- 					      </div> -->
+<!-- 					      <div class="modal-body"> -->
+<!-- 					        <form> -->
+<!-- 					          <div class="form-group"> -->
+<!-- 					            <label for="edit-wiki-title-input" class="col-form-label">wiki 제목</label> -->
+<!-- 					            <input type="text" class="form-control" id="wiki-title-input"> -->
+<!-- 					          </div> -->
+<!-- 					          <div id="editorArea" class="form-group"> -->
+<!-- 					            <label class="col-form-label">wiki 내용</label> -->
+<!-- 					          </div> -->
+<!-- 					        </form> -->
+<!-- 					      </div> -->
+<!-- 					      <div class="modal-footer"> -->
+<!-- 					        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button> -->
+<!-- 					        <button id="editWikiBtn" type="button" class="btn btn-success" disabled>Edit</button> -->
+<!-- 					      </div> -->
+<!-- 					    </div> -->
+<!-- 					  </div> -->
+<!-- 					</div> -->
            			
            			
            			
@@ -161,7 +161,7 @@
 				  height: '400px',
 				  initialEditType: 'markdown',
 				  previewStyle: 'tab',
-				  placeholder : 'markdown 문법을 지원합니다'
+// 				  placeholder : 'markdown 문법을 지원합니다'
 			});
 			 
 			viewer = toastui.Editor.factory({
@@ -170,7 +170,7 @@
 		         ,viewer : true
 		       });
 			
-			// 위키 글 작성할때 제목, 내용 둘다 있는지 확인	
+			// 위키 글 작성, 수정 할때 제목, 내용 둘다 있는지 확인	
 			var checkValidation = function(){
 				let titleLength = $('#wiki-title-input').val().length;
 				let contLength = editor.getMarkdown().length;
@@ -180,6 +180,7 @@
 					$('#saveWikiBtn').prop('disabled', true);
 				}
 			}	
+			
 			
 			// 에디터를 modal 안에서 생성했더니 에러가 발생해서 modal 밖에서 생성 후 modal 에 넣어줍니다.
 			$('#editor').appendTo('#editorArea');
