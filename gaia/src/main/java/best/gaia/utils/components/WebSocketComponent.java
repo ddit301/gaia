@@ -1,12 +1,14 @@
 package best.gaia.utils.components;
 
+import static best.gaia.utils.SessionUtil.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
-import static best.gaia.utils.SessionUtil.*;
 
 @Component
 public class WebSocketComponent {
@@ -14,16 +16,18 @@ public class WebSocketComponent {
 	@Resource(name="userList")
 	private List<WebSocketSession> userList;
 	
-	public WebSocketSession getWebSocketSessionFromMemNo(int mem_no) {
+	public List<WebSocketSession> getWebSocketSessionFromMemNo(int mem_no) {
 		if(userList == null)
 			return null;
 		
+		List<WebSocketSession> list = new ArrayList<>();
+		
 		for(WebSocketSession session : userList) {
 			if(mem_no == getMemberNoFromWebsocketSession(session)) {
-				return session;
+				list.add(session);
 			}
 		}
-		return null;
+		return list;
 	}
 	
 	public void sendPushNotificationToMember(
@@ -31,8 +35,8 @@ public class WebSocketComponent {
 			, String alarm_type
 			, String sender) {
 		
-		WebSocketSession session = getWebSocketSessionFromMemNo(mem_no);
-		if(session == null)
+		List<WebSocketSession> sessionlist = getWebSocketSessionFromMemNo(mem_no);
+		if(sessionlist == null || sessionlist.size()==0 )
 			return;
 		
 		String message = null;
@@ -46,7 +50,7 @@ public class WebSocketComponent {
 		String dataType = "alarm";
 		
 		// 해당 세션으로 푸쉬 알림을 전송한다.
-		sendDataToWebsocketSession(session, dataType, message);
+		sendDataToWebsocketSessionList(sessionlist, dataType, message);
 		
 		
 	}
