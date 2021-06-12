@@ -61,5 +61,9 @@ public class ProviderPageIndexingController {
 	public String staticsPage() {
 		return "admin/statics";
 	}
+//	@RequestMapping(value = "monitoring")
+//	public String monitoringPage() {
+//		return "admin/monitoring";
+//	}
 
 }

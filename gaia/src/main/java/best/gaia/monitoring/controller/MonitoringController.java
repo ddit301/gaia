@@ -15,7 +15,7 @@ import best.gaia.monitoring.service.MemoryMonitoringService;
 import best.gaia.monitoring.service.ThreadMonitoringService;
 
 @Controller
-@RequestMapping("/monitoring")
+@RequestMapping("admin/monitoring")
 public class MonitoringController {
 	@Inject
 	private MemoryMonitoringService miService;
@@ -39,7 +39,7 @@ public class MonitoringController {
 		crService.compilerCheck(buffer);
 		crService.classLoaderCheck(buffer);
 		tmService.threadSummary(buffer);
-		return "monitor/view";
+		return "admin/monitoring";
 	}
 	@RequestMapping(value="/threadDump", produces="text/plain;charset=UTF-8")
 	@ResponseBody

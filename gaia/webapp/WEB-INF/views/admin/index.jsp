@@ -141,7 +141,7 @@
               </li>
               <li class=""><a href="#" data-menu = "admin/statics">통계</a>
               </li>
-              <li class=""><a href="#" data-menu = "monitoring">서버환경 조회</a>
+              <li class=""><a href="#" data-menu = "admin/monitoring">서버환경 조회</a>
               </li>
             </ul>
             </div>
