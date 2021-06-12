@@ -81,7 +81,7 @@
 				'</tr>'+
 				'</table></div>';
 		}
-		
+    	
 		function answerFormat(d) {
 			return '<table id="a__'+d.inq_no +'" class="table table-detail inquiry-answer-table"><tr>' +
 				'<td>답변자 : </td>' +
@@ -102,14 +102,14 @@
 		
 // 		[{inq_no":"a__3","inq_com_no":"3","prov_id":"admin1 ","inq_com_cont":" 문의 답변 내용 3"}]
 		function modifyFormat(d) {
-			return '<form method="POST" action="${pageContext.request.contextPath }/admin/inquiry/Answer">'+
+			return '<form id="answerForm" method="POST" >'+
 			'<input name="inq_no" type="hidden" value="'+d[0].inq_no+'"></input>'+
 			'<table id="'+d[0].inq_no +'" class="table table-detail inquiry-answer-table"><tr>' +
 				'<td>답변내용 : </td>' +
 				'<td><input name="inq_com_cont" class="form-control input-sm" type="text" value="'+d[0].inq_com_cont+'"></input></td>' +
 				'</tr>' +
 				'<tr>'+
-				'<td colspan="2"><button type="submit" id="'+d[0].inq_com_no+'" class="">등록</button> </td>'+
+				'<td colspan="2"><button type="submit" id="'+d[0].inq_com_no+'" class="a__insert">등록</button> </td>'+
 				'</tr></table></form>';
 		}
 		
@@ -119,7 +119,7 @@
 		function getInquiryQuestion() {
 			$.ajax({
 				url: getContextPath() + "/admin/inquiry/QuestionListView",
-				type: 'get',
+				type: 'GET',
 				success: function (res) {
 					table = $('#inquiry-question-table').DataTable({
 						data: res,
@@ -160,7 +160,7 @@
 			$.ajax({
 				url: getContextPath() + "/admin/inquiry/Answer",
 				data: {'inq_no': inq_no},
-				type: 'get',
+				type: 'GET',
 				success: function (res) {
 					$('#'+id).after(answerFormat(res));
 				},
@@ -176,6 +176,29 @@
 				},
 				dataType: 'json'
 			})
+		}
+		
+		function postInquiryAnswer(){
+		    let param = $('#answerForm');
+			$.ajax({
+		        dataType : 'json', 
+		        url: getContextPath() + "/admin/inquiry/Answer",
+		        type: 'POST',
+		        async: true,
+		        data: param.serialize(),
+		        success: function(res){
+		        	$('#answerForm').remove();
+		            let id = "q__" + res.inq_no;
+		            $('#'+id).after(answerFormat(res));
+		        },
+		        error: function(xhr){
+		        	console.log('error: ',xhr);
+					if (xhr.status == '404') {
+						alert("실패");
+					}
+		        },
+		        dataType: 'json'
+			});
 		}
 
 		$(document).ready(function () {
@@ -227,13 +250,13 @@
 				
 				paramData.push(data);
 				
-				let jsonData = JSON.stringify(paramData);
-				console.log(jsonData);
-				
 				let modifyForm = modifyFormat(paramData);
 				$( answertable ).replaceWith(modifyForm);
-				
-				
 			});
+			$(document).on('submit', '#answerForm', function(e){
+				e.preventDefault();
+				postInquiryAnswer();
+			});
+			
 		}
 	</script>
