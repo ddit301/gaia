@@ -220,6 +220,7 @@ group by milest_title;
 
 -----------------------------5. Project ------------------------------------------
 -- a. member 닉네임과 project 이름으로 (url) 프로젝트 번호 알아내기
+-- b. 특정 회원이 속한 프로젝트 목록 조회하기
 
 -----------------------------------------------------------------------------------
 
@@ -231,5 +232,30 @@ from project
 where proj_title = 'testproject'
     and mem_nick = 'kkobuk';
 -----------------------------------------------------------------------------------
+-- b. 특정 회원이 속한 프로젝트 목록 조회하기
+
+select project.proj_no, proj_title, proj_cont, proj_start_date, proj_est_end_date
+        ,proj_manager.mem_id, mem_nick, mem_pic_file_name
+from project
+    left outer join proj_mem on (project.proj_no = proj_mem.proj_no)
+    left outer join member proj_manager on (project.mem_no = proj_manager.mem_no)
+where proj_mem.mem_no = 4 --#{mem_no}
+order by proj_start_date;
+    
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 

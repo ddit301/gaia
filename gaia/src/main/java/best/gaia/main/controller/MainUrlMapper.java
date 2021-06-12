@@ -1,7 +1,13 @@
 package best.gaia.main.controller;
 
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MainUrlMapper {
@@ -26,11 +32,21 @@ public class MainUrlMapper {
 		return "redirect:/";
 	}
 
-	@GetMapping(value = "/signin")
+	@GetMapping("/signin")
 	public String loginPage() {
 		return "redirect:/";
 	}
-
+	@PostMapping("/signin")
+	public String loginPageFail(
+			Model model
+			,HttpServletRequest req
+			,RedirectAttributes redirect
+			) {
+		String message = req.getAttribute("message").toString();
+		redirect.addFlashAttribute("message", message);
+		return "redirect:/";
+	}
+	
 	@GetMapping(value = "/signup")
 	public String logoutPage() {
 		return "redirect:/";

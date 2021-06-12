@@ -139,6 +139,25 @@ public class SessionUtil {
 		}
 	}
 	
-	
+	static public void sendDataToWebsocketSessionList(
+			List<WebSocketSession> sessionList
+			,String dataType
+			, String data) {
+		if(sessionList == null || sessionList.size()==0)
+			return;
+		
+		Map<String, String> returnData = new HashMap<String, String>();
+		returnData.put("dataType", dataType);
+		returnData.put("data", data);
+		
+		String jsonData = new Gson().toJson(returnData);
+		
+		for(WebSocketSession session : sessionList) {
+			try {
+				session.sendMessage(new TextMessage(jsonData));
+			} catch (IOException e) {}
+		}
+		
+	}
 	
 }
