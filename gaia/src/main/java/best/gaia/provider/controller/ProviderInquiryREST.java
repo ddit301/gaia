@@ -1,5 +1,7 @@
 package best.gaia.provider.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.issue.controller.IssueREST;
 import best.gaia.provider.service.ProviderService;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.InquiryCommentVO;
@@ -81,8 +81,11 @@ public class ProviderInquiryREST {
 
 	@PostMapping(value = "Answer", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public Map<String, Object> answerForm(Authentication authentication,
+	public InquiryCommentVO answerForm(Authentication authentication,
 			@ModelAttribute InquiryCommentVO inquiryComment,  Model model) {
+		
+		InquiryCommentVO insertedInquiryComment = new InquiryCommentVO(); 
+		
 		logger.debug("auth: " + authentication);
 //		String prov_id = authentication.getName();
 		
@@ -90,12 +93,17 @@ public class ProviderInquiryREST {
 
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			service.enrollInquiryAnswer(inquiryComment);
+			int inq_com_no = service.enrollInquiryAnswer(inquiryComment);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String inq_com_date =  sdf.format(Calendar.getInstance().getTime());
+			inquiryComment.setInq_com_no(inq_com_no);
+			inquiryComment.setInq_com_date(inq_com_date);
+			insertedInquiryComment = inquiryComment;
 			resultMap.put("result", ServiceResult.OK);
 		}catch (Exception e) {
 			resultMap.put("result", ServiceResult.FAIL);
 		}
-		return resultMap;
+		return insertedInquiryComment;
 	}
 
 }

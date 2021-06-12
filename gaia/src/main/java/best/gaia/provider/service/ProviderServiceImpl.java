@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.http.util.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import best.gaia.provider.dao.ProviderDao;
-import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.InquiryCommentVO;
 import best.gaia.vo.InquiryVO;
 import best.gaia.vo.MemberVO;
@@ -44,11 +44,8 @@ public class ProviderServiceImpl implements ProviderService {
 		return dao.selectInquiryAnswer(inq_no);
 	}
 	@Override
-	public ServiceResult enrollInquiryAnswer(InquiryCommentVO inquiryComment) {
-		ServiceResult result = ServiceResult.FAIL;
-		if(dao.insertInquiryAnswer(inquiryComment)==1) 
-			result = ServiceResult.OK;
-		return result;
+	public int enrollInquiryAnswer(InquiryCommentVO inquiryComment) {
+		return dao.insertInquiryAnswer(inquiryComment);
 	}
 
 }

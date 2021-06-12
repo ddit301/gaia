@@ -6,72 +6,97 @@ import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryUsage;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MemoryMonitoringService {
-
-	public void memorySummary(StringBuffer buffer) {
+//1
+	public Map<String, Object> memorySummary() {
+		Map<String, Object> result = new LinkedHashMap<>();
 		MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
 		MemoryUsage heapUsage = memoryMXBean.getHeapMemoryUsage();
 		MemoryUsage nonHeapUsage = memoryMXBean.getNonHeapMemoryUsage();
-		buffer.append("=================Memory Usage Summary=================\n");
-		printMemoryUsage(buffer, "Heap Memory", heapUsage);
-		printMemoryUsage(buffer, "Non Heap Memory", nonHeapUsage);
+//		buffer.append("=================Memory Usage Summary=================\n");
+		result.put("Heap Memory Usage", printMemoryUsage(heapUsage));
+		result.put("Non Heap Memory Usage", printMemoryUsage(nonHeapUsage));
+		
+		return result;
 	}
 	
-	private void printMemoryUsage(StringBuffer buffer, String memoryName, MemoryUsage memoryUsage) {
-		buffer.append(String.format("-----------------%s Usage-----------------\n", memoryName));
-		buffer.append(String.format("init:%s, commited:%s, used:%s, max:%s\n" 
-						, FileUtils.byteCountToDisplaySize(memoryUsage.getInit())
-						, FileUtils.byteCountToDisplaySize(memoryUsage.getCommitted())
-						, FileUtils.byteCountToDisplaySize(memoryUsage.getUsed())
-						, FileUtils.byteCountToDisplaySize(memoryUsage.getMax())
-					)
-		);
+	private Map<String, Object> printMemoryUsage(MemoryUsage memoryUsage) {
+		Map<String, Object> result = new LinkedHashMap<>();
+		result.put("init", memoryUsage.getInit());
+		result.put("commited", memoryUsage.getCommitted());
+		result.put("used", memoryUsage.getUsed());
+		result.put("max", memoryUsage.getMax());
+//		
+//		buffer.append(String.format("-----------------%s Usage-----------------\n", memoryName));
+//		buffer.append(String.format("init:%s, commited:%s, used:%s, max:%s\n" 
+//						, FileUtils.byteCountToDisplaySize(memoryUsage.getInit())
+//						, FileUtils.byteCountToDisplaySize(memoryUsage.getCommitted())
+//						, FileUtils.byteCountToDisplaySize(memoryUsage.getUsed())
+//						, FileUtils.byteCountToDisplaySize(memoryUsage.getMax())
+//					)
+//		);
+		return result;
 	}
-
-	public void memoryPoolInfo(StringBuffer buffer) {
+//3
+	public Map<String, Object> memoryPoolInfo() {
+		Map<String, Object> result = new LinkedHashMap<>();
+		
 		List<MemoryPoolMXBean> memoryPoolMXBeans = ManagementFactory.getMemoryPoolMXBeans();
-		buffer.append("=================Memory Pool Usage Information=================\n");
+//		buffer.append("=================Memory Pool Usage Information=================\n");
 		for(MemoryPoolMXBean memoryPoolMXBean : memoryPoolMXBeans) {
-			testMemoryPoolMXBean(buffer, memoryPoolMXBean);
+			result.put(memoryPoolMXBean.getName() + "Area", testMemoryPoolMXBean(memoryPoolMXBean));
 		}
+		return result;
 	}
 	
-	private void testMemoryPoolMXBean(StringBuffer buffer, MemoryPoolMXBean memoryPoolMXBean) {
-		String memoryPoolName = memoryPoolMXBean.getName();
-		buffer.append(String.format("=================%s Area=================\n", memoryPoolName));
+	private Map<String, Object> testMemoryPoolMXBean(MemoryPoolMXBean memoryPoolMXBean) {
+		Map<String, Object> result = new LinkedHashMap<>();
+//		String memoryPoolName = memoryPoolMXBean.getName();
+//		buffer.append(String.format("=================%s Area=================\n", memoryPoolName));
 		MemoryUsage usage = memoryPoolMXBean.getUsage();
 		if(memoryPoolMXBean.isUsageThresholdSupported())
-			printMemoryUsage(buffer, "current ", usage);
+			result.put("current Usage", printMemoryUsage(usage));
 		MemoryUsage collectionUsage = memoryPoolMXBean.getCollectionUsage();
 		if(memoryPoolMXBean.isCollectionUsageThresholdSupported())
-			printMemoryUsage(buffer, "after GC ", collectionUsage);
+			result.put("after GC Usage", printMemoryUsage(collectionUsage));
 		MemoryUsage peakUsage = memoryPoolMXBean.getPeakUsage();
-		printMemoryUsage(buffer, "peak ", peakUsage);
-		buffer.append("=============================================================\n");
+		result.put("peak Usage", printMemoryUsage(peakUsage));
+//		buffer.append("=============================================================\n");
+		return result;
 	}
-	
-	public void gabageCollectionInfo(StringBuffer buffer) {
+	//2
+	public Map<String, Object> gabageCollectionInfo() {
+		Map<String, Object> result = new LinkedHashMap<>();
 		List<GarbageCollectorMXBean> garbageCollectorMXBeans = ManagementFactory.getGarbageCollectorMXBeans();
-		buffer.append("=================Garbage Collection Information=================\n");
+//		buffer.append("=================Garbage Collection Information=================\n");
 		for(GarbageCollectorMXBean garbageCollectorMXBean : garbageCollectorMXBeans) {
-			testGarbageCollectorMXBean(buffer, garbageCollectorMXBean);
+			if(!garbageCollectorMXBean.isValid()) return null;
+			String[] poolNames = garbageCollectorMXBean.getMemoryPoolNames();
+			long gcCount = garbageCollectorMXBean.getCollectionCount();
+			long gcTime = garbageCollectorMXBean.getCollectionTime();
+			result.put(Arrays.toString(poolNames), (String.format("GC Count[%d], Time[%dms]\n", gcCount, gcTime)).toString());
 		}
+		return result;
 	}
 	
-	private void testGarbageCollectorMXBean(StringBuffer buffer, GarbageCollectorMXBean garbageCollectorMXBean) {
-		if(!garbageCollectorMXBean.isValid()) return;
-		String[] poolNames = garbageCollectorMXBean.getMemoryPoolNames();
-		long gcCount = garbageCollectorMXBean.getCollectionCount();
-		long gcTime = garbageCollectorMXBean.getCollectionTime();
-		buffer.append(String.format("%s : GC Count[%d], Time[%dms]\n"
-						, Arrays.toString(poolNames), gcCount, gcTime));
-	}
-	
+//	private Map<String, Object> testGarbageCollectorMXBean(GarbageCollectorMXBean garbageCollectorMXBean) {
+//		Map<String, Object> result = new LinkedHashMap<>();
+//		if(!garbageCollectorMXBean.isValid()) return null;
+//		String[] poolNames = garbageCollectorMXBean.getMemoryPoolNames();
+//		long gcCount = garbageCollectorMXBean.getCollectionCount();
+//		long gcTime = garbageCollectorMXBean.getCollectionTime();
+//		result.put(Arrays.toString(poolNames), (String.format("%s : GC Count[%d], Time[%dms]\n"
+//						, gcCount, gcTime)).toString());
+//		return result;
+//	}
+//	
 
 }
