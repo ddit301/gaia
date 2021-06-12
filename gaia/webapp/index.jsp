@@ -79,40 +79,8 @@
         if(authUser.includes('$$$')){
 	        message = authUser.substring(authUser.indexOf('$$$')+3);
 	        message = message.substring(0,message.indexOf('$$$'));
-        	alert(message);
         }
         
-        $(function(){
-        	if(message){
-	        	
-        		menu_name = 'signin'
-	        	let uri = getContextPath() + '/' + menu_name;
-	        	history.pushState(null, null, uri);
-	            let pre_name = 'view/'
-	            if(menu_name.startsWith('admin'))
-	                pre_name = ''
-	        		menu_name = menu_name.substring(menu_name.lastIndexOf('/')+1);
-	        	console.log(pre_name + menu_name);
-	        	
-	        	let ajaxOption = {
-	                    url : pre_name + menu_name,
-	                    async : true,
-	                    type : "GET",
-	                    dataType : "html",
-	                    cache : false
-	            };
-	            $.ajax(ajaxOption).done(function(data){
-	                $('#mainBody').children().remove();
-	                $('#mainBody').html(data);
-	                
-	            });
-	        	//화면 위로 올리기 
-	        	window.scrollTo(0,0);
-        		
-        	}
-        })
-        
-	
 	</script>
 	
   </head>
@@ -147,6 +115,36 @@
               <li class=""><a class="" href="#" data-menu = "signin" data-toggle="">Sign in</a>
               </li>
               <li class=""><a class="" href="#" data-menu = "signup" data-toggle="">Sign up</a>
+              <script>
+                 $(function(){
+		        	if(message){
+		        		alert(message);
+		        		menu_name = 'signin'
+			        	let uri = getContextPath() + '/' + menu_name;
+			        	history.pushState(null, null, uri);
+			            let pre_name = 'view/'
+			            if(menu_name.startsWith('admin'))
+			                pre_name = ''
+			        		menu_name = menu_name.substring(menu_name.lastIndexOf('/')+1);
+			        	console.log(pre_name + menu_name);
+			        	
+			        	let ajaxOption = {
+			                    url : pre_name + menu_name,
+			                    async : true,
+			                    type : "GET",
+			                    dataType : "html",
+			                    cache : false
+			            };
+			            $.ajax(ajaxOption).done(function(data){
+			                $('#mainBody').children().remove();
+			                $('#mainBody').html(data);
+			                
+			            });
+			        	//화면 위로 올리기 
+			        	window.scrollTo(0,0);
+		        	}
+		        })
+              </script>
               
              </security:authorize>
              <security:authorize access="isAuthenticated()">
