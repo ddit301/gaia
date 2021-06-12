@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -100,17 +101,24 @@ public class MemberVO implements UserDetails, Serializable {
 	}
 	
 	/**
-	 * UserDetails 객체에서 상속된 메서드 입니다.
+	 * Spring Security : UserDetails 관련 내용입니다. 
 	 */	 
 	
-	@Override
-	public String getPassword() {
-		return mem_pass;
-	}
 
 	@Override
 	public String getUsername() {
 		return mem_id;
+	}
+	public void setUsername(String username) {
+		this.mem_id = username;
+	}
+
+	@Override
+	public String getPassword() {
+		return mem_pass;
+	}
+	public void setPassword(String password) {
+		this.mem_pass = password;
 	}
 
 	@Override
@@ -133,10 +141,21 @@ public class MemberVO implements UserDetails, Serializable {
 		return enabled;
 	}
 	
+	private List<GrantedAuthority> authorities;
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		return authorities;
+	}
+	public void setAuthorities(List<String> authList) {
+
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+		for (int i = 0; i < authList.size(); i++) {
+			authorities.add(new SimpleGrantedAuthority(authList.get(i)));
+		}
+
+		this.authorities = authorities;
 	}
 	
 	/**
