@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import best.gaia.chat.dao.ElasticChatDao;
 import best.gaia.chat.dao.OracleChatDao;
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.vo.ChatVO;
 import best.gaia.vo.IssueHistoryVO;
 
 // elastic 연결하기 전처리.(최초의 처리)
@@ -42,19 +43,19 @@ public class ChatServiceImpl implements ChatService{
 	/*
 	 * Oracle 
 	 */
+ 	@Override
+	public List<ChatVO> selectMemberChatRoomList(int mem_no) {
+ 		List<ChatVO> roomList = ordao.selectMemberChatRoomList(mem_no);
+		if (roomList == null) {
+			throw new RuntimeException("해당 회원이 속해있는 대화방이 존재하지 않음.");
+		}
+		return roomList;
+	}
 	@Override
 	public List<Map<String, Object>> exists(int mem_no) {
 		List<Map<String, Object>> result = ordao.exists(mem_no);
 		
 		return result;
-	}
-	@Override
-	public List<Map<String, Object>> selectMemberChatRoomList(int mem_no) {
-		List<Map<String, Object>> roomList = ordao.selectMemberChatRoomList(mem_no);
-		if (roomList == null) {
-			throw new RuntimeException("해당 회원이 속해있는 대화방이 존재하지 않음.");
-		}
-		return null;
 	}
 	@Override
 	public ServiceResult insertChatRoom(Map<String, Object> roomInfo) {

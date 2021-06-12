@@ -14,20 +14,29 @@
         <div class="col-lg-4 col-xl-3">
             <div class="card side-position-fixed"> 
                 <div class="card-body">
-	                <div class="card">
-		               	<div class="form-group">
-		                   	<ul id="projectList">
-	                  			
-		                   	</ul>
-	                   </div>
-		            </div>
-                    <div class="media align-items-center mb-4">
-                        <img class="mr-3 rounded-circle" id="profile_img"src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
-                        <div class="media-body">
-                            <h3 class="mb-0">${mem_id }</h3>
-                            <p class="text-muted mb-0">Deutch</p>
-                        </div>
-                    </div>
+                   	<ul id="projectList">
+		                <div class="card">
+                  			<div class="media align-items-center mb-4">
+		                        <img class="mr-3 rounded-circle" id="profile_img"src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
+		                        <div class="media-body">
+		                            <h3 class="mb-0">${mem_id }</h3>
+		                            <p class="text-muted mb-0">Deutch</p>
+		                        </div>
+		                    </div>
+			            </div>
+                   	</ul>
+                   	<ul id="projectList">
+		                <div class="card">
+                  			<div class="media align-items-center mb-4">
+		                        <img class="mr-3 rounded-circle" id="profile_img"src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
+		                        <div class="media-body">
+		                            <h3 class="mb-0">${mem_id }</h3>
+		                            <p class="text-muted mb-0">Deutch</p>
+		                        </div>
+		                    </div>
+			            </div>
+                   	</ul>
+                    
                     <h4>About Me</h4>
                     <p class="text-muted" id="mem_bio">${model.mem_bio }</p>
                     <ul class="card-profile__info">
@@ -214,48 +223,13 @@
 <script>
 // retrieveMemberProjectIssue(mem_no) 요청
 var loadMemberInfo = function(){
-	let need = "MemberProjectIssue";
+	let need = "chatList";
 	$.ajax({
-		url : getContextPath()+"/restapi/member/members" ,
+		url : getContextPath()+"/restapi/chat/chats" ,
 		type : 'get',
 		data : {"need" : need},
 		success : function(res) {
-			let memberInfo = res.search;
-			console.log(memberInfo);
-			let projectList="";
-			let length;
-			let proj_manager ="";
-			let profile_img =$("#profile_img").attr("src", getProfilePath(memberInfo.mem_pic_file_name));
-			$.each(memberInfo.projectList, function(i, v){
-				let url = v.url;
-				proj_manager = v.projectManager.mem_id;
-				projectList += '<li><a href="'+getContextPath()+"/"+ v.url+'" class="projectName">'+ v.proj_title +"</a></li>";
-				
-				$.each(v.issueList, function(j, iss){
-					let issue = $("#issueTemplate").children(".issue").clone();
-					let timeUploaded = iss.historyList[0].issue_his_date;
-					let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
-					let proj_manager_link = "<a href="+getContextPath()+"/"+proj_manager+">"+proj_manager+"</a>"; 
-					let proj_link = "<a href="+getContextPath()+"/"+url+">"+"/"+v.proj_title+"</a>";
-					let issue_link = "<a href="+getContextPath()+"/"+iss.url+">"+"/"+iss.issue_sid+"</a>";
-					
-					issue.attr("data-issue_sid", iss.issue_sid);
-					issue.find(".issue-card-top").children().first().html(proj_manager_link + proj_link + issue_link);
-					
-					issue.find(".issue-card-top").children().last().text(iss.issue_title);
-					issue.find(".issue-card-mid").find(".issue_date").text(timeAgo);
-					issue.find(".issue-card-mid").find(".fixer_id").text("by "+iss.historyList[0].historyWriter.mem_nick);
-					issue.find('.issue-card-bot').text(iss.historyList[0].issue_his_cont);
-						
-					issue.appendTo("#issues");
-				})
-				length = v.issueList.length
-				if(length%2){
-					$("#issueTemplate").children(".issue").clone().appendTo("#issues");
-				}
-			})
-			$("#projectList").html(projectList);
-			$("#mem_bio").text(memberInfo.mem_bio);
+			
 		},
 		async : false
 		,error : function(xhr) {

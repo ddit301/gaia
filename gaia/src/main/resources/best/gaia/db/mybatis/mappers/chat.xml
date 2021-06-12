@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="best.gaia.chat.dao.OracleChatDao">
+	<resultMap type="best.gaia.vo.ChatVO" id="chatRoomList" autoMapping="false">
+		<id property="chatroom_no" column="CHATROOM_NO"/>
+		<collection property="memberList" ofType="best.gaia.vo.MemberVO"  javaType="java.util.List" autoMapping="false">
+			<id property="mem_no" column="MEM_NO"/>
+			<result property="mem_id" column="MEM_ID"/>
+		</collection>
+	</resultMap>
+	<select id="selectMemberChatRoomList" parameterType="int" resultMap="chatRoomList">
+		SELECT A.CHATROOM_NO, A.MEM_NO, B.MEM_ID
+		FROM MEM_CHAT A
+		LEFT OUTER JOIN MEMBER B ON (A.MEM_NO = B.MEM_NO)
+		WHERE CHATROOM_NO IN (
+			SELECT CHATROOM_NO 
+			FROM MEM_CHAT
+			WHERE MEM_NO = ${mem_no}
+		)
+	</select>
+	
+</mapper>

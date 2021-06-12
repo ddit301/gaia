@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.vo.ChatVO;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.MemberVO;
 
@@ -17,7 +18,7 @@ public interface ChatService {
 	/**
 	 *  Oracle
 	 */
-	public List<Map<String, Object>> selectMemberChatRoomList(int mem_no);
+	public List<ChatVO> selectMemberChatRoomList(int mem_no);
 	public ServiceResult insertChatRoom(Map<String, Object> roomInfo);
 	public ServiceResult insertChatRoomMember(Map<String, Object> participants);
 	public List<Map<String, Object>>  exists(int mem_no);
