@@ -34,6 +34,6 @@
 	$(".list-group.mem-setting-side-bar .moveButton").on('click',  function(){
 		event.preventDefault();
 		let menuName = $(this).data('menu');
-		movePageHistoryMember(menuName);
+		memberMovePageHistory(menuName);
 	})
 </script>
