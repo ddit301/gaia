@@ -1,6 +1,7 @@
 package best.gaia.project.controller;
 
-import java.io.IOException;
+import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,20 +12,15 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
-import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.utils.exception.UnauthorizedException;
-import best.gaia.vo.MemberVO;
 import best.gaia.vo.ProjectVO;
 
 @RestController
@@ -33,6 +29,8 @@ public class ProjectREST {
 
 	@Inject
 	private ProjectService service;
+	@Inject
+	private ProjectDao dao;
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
@@ -44,9 +42,11 @@ public class ProjectREST {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectREST.class);
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<ProjectVO> selectProjectList() {
-		return null;
+	@GetMapping
+	public List<ProjectVO> selectProjectList(Authentication authentication) {
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		
+		return dao.selectProjectList(mem_no);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

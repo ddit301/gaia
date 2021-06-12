@@ -83,7 +83,6 @@ public class MemberREST {
 			search = service.retrieveMemberByNo(mem_no);
 			List<Map<String, Object>> logList = logService.selectLogList(mem_no);
 			result.put("logList", logList);
-			logger.info("in to the logList {}", logList);
 		// member/profile.jsp, member/account.jsp
 		}else {
 			search = service.retrieveMemberByNo(mem_no);
