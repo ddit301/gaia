@@ -103,3 +103,6 @@ textarea {
 .log-card-body{
 	padding: 0.5rem 1.81rem !important;
 }
+.chatList-card-body{
+	padding: 0.5rem 0rem !important;
+}

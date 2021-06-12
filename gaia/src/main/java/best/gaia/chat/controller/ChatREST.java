@@ -60,7 +60,6 @@ public class ChatREST {
 			List<ChatVO> roomList = service.selectMemberChatRoomList(mem_no);
 			result.put("roomList", roomList);
 		}
-		 
 		return result;
 	}
 	

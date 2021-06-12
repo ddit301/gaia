@@ -137,7 +137,6 @@ public class MemberREST {
 			) throws IOException {
 		int mem_no = getMemberNoFromAuthentication(authentication);
 		form_data.setMem_no(mem_no);
-		
 		ServiceResult sr = service.modifyMember(form_data);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("sr", sr);

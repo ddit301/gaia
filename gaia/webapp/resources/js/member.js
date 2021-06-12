@@ -424,12 +424,10 @@ const loadMemberInfo_log = function(){
 		data : {"need":"logList"},
 		type : 'get',
 		success : function(res) {
-			console.log(res);
 			$(".profile_img").attr("src", getProfilePath(res.search.mem_pic_file_name));
 			$(".profile_img_label").attr("title", "View "+res.search.mem_id+"'s profile");
 			$(".profile_img_label").siblings("input").val(res.search.mem_id);
 			$.each(res.logList, function(i, v){
-				console.log(v);
 				let log = $("#logTemplate").children(".log").clone();
 				let timeAgo = moment(v.date, "YYYYMMDD").fromNow();
 				let ip = v.date+'<span class="vertical-separator"></span>'+timeAgo;
@@ -475,4 +473,52 @@ $(function(){
 const toOverview = function(){
 	$('.profile_img_label').tooltip('hide');
 	memberMovePageHistory('overview');
+}
+
+////////////////////////////////////////////////////
+//
+// chat.jsp
+//
+////////////////////////////////////////////////////
+
+// retrieveMemberProjectIssue(mem_no) 요청
+var loadMemberInfo_chat = function(){
+	let need = "chatList";
+	$.ajax({
+		url : getContextPath()+"/restapi/chat/chats" ,
+		type : 'get',
+		data : {"need" : need},
+		success : function(res) {
+			console.log(res);
+// 			$(".room_contents").children("h3").test(res.)
+			$.each(res.roomList, function(i, v){
+				$(".profile_img").attr("src", getProfilePath(v.mem_pic_file_name));
+				let chatRoom = $("")
+			})
+		
+//				$(".profile_img_label").attr("title", "View "+res.search.mem_id+"'s profile");
+//				$(".profile_img_label").siblings("input").val(res.search.mem_id);
+//				$.each(res.logList, function(i, v){
+//					let chatRoom = $("#chatRoomTemplate").children(".chatRoom").clone();
+//					// elastic
+////					let timeAgo = moment(v.date, "YYYYMMDD").fromNow();
+////					let ip = v.date+'<span class="vertical-separator"></span>'+timeAgo;
+////					log.find(".log-card-ip").html(ip);
+////					log.find(".log-card-actor").children("a").text(res.search.mem_id+" - user.login");
+//					chatRoom.find("")	
+//					log.appendTo("#logList");
+//				})
+		},
+		async : false
+		,error : function(xhr) {
+			console.log(xhr);
+			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
+			if(xhr.status == '404'){
+				alert("실패");				
+			}else{
+				alert("status : " + xhr.status);
+			}
+		},
+		dataType : 'json'
+	})
 }

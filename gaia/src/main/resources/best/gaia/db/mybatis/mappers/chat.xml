@@ -9,7 +9,7 @@
 		</collection>
 	</resultMap>
 	<select id="selectMemberChatRoomList" parameterType="int" resultMap="chatRoomList">
-		SELECT A.CHATROOM_NO, A.MEM_NO, B.MEM_ID
+		SELECT A.CHATROOM_NO, A.MEM_NO, B.MEM_ID, B.MEM_PIC_FILE_NAME
 		FROM MEM_CHAT A
 		LEFT OUTER JOIN MEMBER B ON (A.MEM_NO = B.MEM_NO)
 		WHERE CHATROOM_NO IN (

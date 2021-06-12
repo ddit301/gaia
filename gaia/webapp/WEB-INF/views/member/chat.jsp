@@ -12,53 +12,77 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-xl-3">
-            <div class="card side-position-fixed"> 
-                <div class="card-body">
-                   	<ul id="projectList">
-		                <div class="card">
-                  			<div class="media align-items-center mb-4">
-		                        <img class="mr-3 rounded-circle" id="profile_img"src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
-		                        <div class="media-body">
-		                            <h3 class="mb-0">${mem_id }</h3>
-		                            <p class="text-muted mb-0">Deutch</p>
-		                        </div>
-		                    </div>
-			            </div>
+            <div class="card"> 
+                <div class="card-body chatRoomList">
+                   	<ul>
+		                <div class="card chatRoom">
+							<div class="row chatList-card-body">
+								<div class="col-md-5 log-img-center">
+									<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
+										<img class="rounded-circle profile_img" height="50" width="50" src="">
+							   		</a>
+							   		<input type="hidden" value="" name="mem_id">
+							   	</div>
+						   	 	<div class="col-md-7">
+							        <div class="log-card-actor">
+						            	<a>KrGil</a>
+						         	</div>
+						         	<div class="content">
+						         		<span>hello!! my name...</span>
+						         	</div>
+						         	<div class="">
+						         		<span>28 days ago</span>
+						         	</div>
+						      	</div>
+					    	</div>
+						</div>
                    	</ul>
-                   	<ul id="projectList">
-		                <div class="card">
-                  			<div class="media align-items-center mb-4">
-		                        <img class="mr-3 rounded-circle" id="profile_img"src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
-		                        <div class="media-body">
-		                            <h3 class="mb-0">${mem_id }</h3>
-		                            <p class="text-muted mb-0">Deutch</p>
-		                        </div>
-		                    </div>
-			            </div>
+                   	<ul>
+		                <div class="card chatRoom">
+							<div class="row chatList-card-body">
+								<div class="col-md-5 log-img-center">
+									<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
+										<img class="rounded-circle profile_img" height="50" width="50" src="">
+							   		</a>
+							   		<input type="hidden" value="" name="mem_id">
+							   	</div>
+						   	 	<div class="col-md-7">
+							        <div class="log-card-actor">
+						            	<a>KrGil</a>
+						         	</div>
+						         	<div class="content">
+						         		<span>hello!! my name...</span>
+						         	</div>
+						         	<div class="">
+						         		<span>28 days ago</span>
+						         	</div>
+						      	</div>
+					    	</div>
+						</div>
                    	</ul>
-                    
-                    <h4>About Me</h4>
-                    <p class="text-muted" id="mem_bio">${model.mem_bio }</p>
-                    <ul class="card-profile__info">
-                        <li class="mb-1"><strong class="text-dark mr-4"><i class="fa fa-star gradient-1-text"></i></strong> <span>ddit301</span></li>
-                        <li><strong class="text-dark mr-4"><i class="mdi mdi-email-outline"></i></strong> <span>name@domain.com</span></li>
-                    </ul>
-                    <div class="d-flex align-items-center">
-                        <ul class="mb-0 form-profile__icons">
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-user"></i></button>
-                            </li>
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-paper-plane"></i></button>
-                            </li>
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-camera"></i></button>
-                            </li>
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-smile"></i></button>
-                            </li>
-                        </ul>
-                    </div>
+                   	<ul>
+		                <div class="card chatRoom">
+							<div class="row chatList-card-body">
+								<div class="col-md-5 log-img-center">
+									<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
+										<img class="rounded-circle profile_img" height="50" width="50" src="">
+							   		</a>
+							   		<input type="hidden" value="" name="mem_id">
+							   	</div>
+						   	 	<div class="col-md-7">
+							        <div class="log-card-actor">
+						            	<a>KrGil</a>
+						         	</div>
+						         	<div class="content">
+						         		<span>hello!! my name...</span>
+						         	</div>
+						         	<div class="">
+						         		<span>28 days ago</span>
+						         	</div>
+						      	</div>
+					    	</div>
+						</div>
+                   	</ul>
                 </div>
             </div>  
         </div>
@@ -218,31 +242,31 @@
 		</div>
     </div>
 </div>
-1
+<ul id="chatRoomTemplate" hidden="hidden">
+	<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
+	    <div class="card chatRoom">
+			<div class="row chatList-card-body">
+				<div class="col-md-5 log-img-center">
+						<img class="rounded-circle profile_img" height="50" width="50" src="">
+			   		<input type="hidden" value="" name="mem_id">
+			   	</div>
+		   	 	<div class="col-md-7">
+			        <div class="log-card-actor">
+		            	<a>KrGil</a>
+		         	</div>
+		         	<div class="content">
+		         		<span>hello!! my name...</span>
+		         	</div>
+		         	<div class="">
+		         		<span>28 days ago</span>
+		         	</div>
+		      	</div>
+		   	</div>
+		</div>
+	</a>
+</ul>
 
 <script>
-// retrieveMemberProjectIssue(mem_no) 요청
-var loadMemberInfo = function(){
-	let need = "chatList";
-	$.ajax({
-		url : getContextPath()+"/restapi/chat/chats" ,
-		type : 'get',
-		data : {"need" : need},
-		success : function(res) {
-			
-		},
-		async : false
-		,error : function(xhr) {
-			console.log(xhr);
-			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-			if(xhr.status == '404'){
-				alert("실패");				
-			}else{
-				alert("status : " + xhr.status);
-			}
-		},
-		dataType : 'json'
-	})
-}
-loadMemberInfo();
+
+loadMemberInfo_chat();
 </script>
