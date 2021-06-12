@@ -3,6 +3,8 @@
 <!--  ===========  ========     =============			-->
 <!--  2021. 5. 13.  Robin		Initial Commit			-->
 <!--  Copyright (c) 2021 by Team SEED All right reserved-->
+<%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
@@ -60,6 +62,7 @@
     <!-- Main stylesheet and color file-->
     <link href="resources/main/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="resources/main/css/colors/default.css" rel="stylesheet">
+    <script src="resources/main/lib/jquery/dist/jquery.js"></script>
     
     <script type="text/javascript">
 	  window.dataLayer = window.dataLayer || [];
@@ -70,6 +73,46 @@
 	function getContextPath() {
    		return "<%=request.getContextPath()%>";
 	}
+		// 로그인 실패시 처리인데 어쩔수없이 일단 이렇게 짜뒀습니다.
+        let authUser = '${sessionScope } ${authUser }'
+        let message = null;
+        if(authUser.includes('$$$')){
+	        message = authUser.substring(authUser.indexOf('$$$')+3);
+	        message = message.substring(0,message.indexOf('$$$'));
+        	alert(message);
+        }
+        
+        $(function(){
+        	if(message){
+	        	
+        		menu_name = 'signin'
+	        	let uri = getContextPath() + '/' + menu_name;
+	        	history.pushState(null, null, uri);
+	            let pre_name = 'view/'
+	            if(menu_name.startsWith('admin'))
+	                pre_name = ''
+	        		menu_name = menu_name.substring(menu_name.lastIndexOf('/')+1);
+	        	console.log(pre_name + menu_name);
+	        	
+	        	let ajaxOption = {
+	                    url : pre_name + menu_name,
+	                    async : true,
+	                    type : "GET",
+	                    dataType : "html",
+	                    cache : false
+	            };
+	            $.ajax(ajaxOption).done(function(data){
+	                $('#mainBody').children().remove();
+	                $('#mainBody').html(data);
+	                
+	            });
+	        	//화면 위로 올리기 
+	        	window.scrollTo(0,0);
+        		
+        	}
+        })
+        
+	
 	</script>
 	
   </head>
@@ -99,7 +142,6 @@
             </ul>
             </div>
             <div class="space-between">
-            ${sessionScope } ${authUser } 
            	<ul class="nav navbar-nav navbar-right">
            	<security:authorize access="!isAuthenticated()">
               <li class=""><a class="" href="#" data-menu = "signin" data-toggle="">Sign in</a>
@@ -204,7 +246,6 @@
     =============================================
     -->
 
-    <script src="resources/main/lib/jquery/dist/jquery.js"></script>
     <script src="resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="resources/main/lib/wow/dist/wow.js"></script>
     <script src="resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>

@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 
@@ -26,6 +27,7 @@ import best.gaia.utils.CookieUtil;
 import best.gaia.vo.MemberUserDetails;
 import best.gaia.vo.MemberVO;
 
+@Service
 public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 	@Inject
 	LogService logService;
@@ -48,7 +50,10 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
 			CookieUtil.addCookie("mem_pic_file_name",
 					member.getMem_pic_file_name()==null? "default" : member.getMem_pic_file_name(), response);
 			logService.insertLog(member.getMem_no(), request);
+			
+			// 로그인 성공시에 redirect 시킬 주소
 			redirectStratgy.sendRedirect(request, response, "/" + member.getMem_id() + "/overview");
+			
 			return;
 		}
 		String targetUrlParameter = getTargetUrlParameter();
