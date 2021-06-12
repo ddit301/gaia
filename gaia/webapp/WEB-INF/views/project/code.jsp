@@ -34,7 +34,7 @@
 			</div>
 		</div>
 
-<div id="codeTemplates">
+<div id="codeTemplates" hidden="true">
 	<div class="fileObj fileBox row">
 		<div class="filename col-md-9">
 			<!-- 파일 타입에 따라 icon-file 혹은 icon-folder 로 변한다. --> 
