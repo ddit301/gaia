@@ -82,6 +82,10 @@ const scrollUp = function(){
 	window.scrollTo({top:0, left:0, behavior:'auto'});
 }
 
+const getProfilePath = function (filename) {
+	return getContextPath() + '/resources/images/profiles/' + (filename==null ? 'default' : filename);
+}
+
 //////////////////////////////////////////////////////////////////////////////
 //
 //	 각종 설정

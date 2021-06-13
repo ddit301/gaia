@@ -43,9 +43,5 @@
    		return "<%=request.getContextPath()%>";
 	}
 	
-	function getProfilePath(filename) {
-   		return getContextPath() + '/resources/profiles/' + (filename==null ? 'default' : filename);
-	}
-	
 	</script>
 	
