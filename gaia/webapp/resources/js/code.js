@@ -172,11 +172,17 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 		url: 'https://api.github.com/repos/' + gitRepoUrl + '/contents' + (path ? '/' + path : ''),
 		method: 'get',
 		success: function(contents) {
+			// fileNav의 Body를 미리 셀렉트 해서 변수로 지정해둔다.
 			let fileNavBody = $('.git').find('.fileNavBody');
 			fileNavBody.empty();
 			//			 각각의 file에 대해 정보를 입력해 파일탐색기에 한개씩 붙여준다.
 			folders = [];
 			files = [];
+			
+			// fileNavHeader에 지금 탐색중인 폴더에 대해 제공해준다.
+			let fileNavHeader = $('.git').find('.fileNavHeader').children('span');
+			fileNavHeader.empty();
+			
 			$.each(contents, function(i, file) {
 				let fileBox = $('#codeTemplates').children('.fileObj').clone();
 				let fileIcon = file.type == 'file' ? 'doc' : 'folder';
@@ -215,6 +221,29 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 				filenameElement.attr('href', "https://github.com/" + gitRepoUrl + (parentPath ? '/' + parentPath : ''));
 
 				fileNavBody.append(fileBox);
+				
+				// path 가 null 이 아닐 경우에는 현제까지의 경로를 표시해준다.
+				paths = path.split('/');
+				pathLength = paths.length;
+				for(i=0; i<pathLength; i++ ){
+					let pathTag = $('#codeTemplates').find('.filename-text').clone();
+					pathTag.attr('data-type', 'dir');
+					pathTagDir='';
+					for(j=0; j<=i; j++){
+						pathTagDir = pathTagDir + (j==0?'':'/') + paths[j];
+					}
+					pathTag.attr('data-path', pathTagDir)
+					pathTag.text(paths[i]);
+					if(i != 0){
+						fileNavHeader.append(' / ');
+					}
+					// 경로의 마지막이면 버튼 비활성화
+					if(i == pathLength-1){
+						pathTag.removeClass('filename-text');
+					}
+					fileNavHeader.append(pathTag);
+				}
+				
 			}
 			// 폴더 - 파일 순으로 출력 해 준다.
 			fileNavBody.append(folders);

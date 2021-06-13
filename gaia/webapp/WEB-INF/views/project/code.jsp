@@ -20,7 +20,7 @@
 	            	<div class="repoBody">
 		            	<div class="fileNav card">
 		            		<div class="fileNavHeader">
-		            			<span>열람중인 경로 정보</span>
+		            			<span></span>
 		            		</div>
 		            		<div class="fileNavBody">
 		            		</div>
