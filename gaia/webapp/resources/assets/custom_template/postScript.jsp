@@ -35,6 +35,7 @@
 	<script src="${cPath }/resources/js/websocket.js"></script>
 	<script src="${cPath }/resources/js/member.js"></script>
 	<script src="${cPath }/resources/js/code.js"></script>
+	<script src="${cPath }/resources/js/download.js"></script>
 	<script src="${cPath }/resources/assets/dist/jkanban.js"></script>  
 
 <script type="text/javascript">
