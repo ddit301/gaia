@@ -24,7 +24,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- 	base 64 인코딩 /디코딩용 -->
 	<script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.1/base64.min.js"></script>
+<!-- 	util.js 는 페이지별 js 보다 위에 위치해야 합니다. -->
 	<script src="${cPath }/resources/js/util.js"></script>
+<!-- 	각 페이지별로 필요한 js 파일 입니다.  -->
 	<script src="${cPath }/resources/js/issue.js"></script>
 	<script src="${cPath }/resources/js/milestone.js"></script>
 	<script src="${cPath }/resources/js/wiki.js"></script>
@@ -33,6 +35,7 @@
 	<script src="${cPath }/resources/js/websocket.js"></script>
 	<script src="${cPath }/resources/js/member.js"></script>
 	<script src="${cPath }/resources/js/code.js"></script>
+	<script src="${cPath }/resources/assets/dist/jkanban.js"></script>  
 
 <script type="text/javascript">
 	let project_title = '${project_title}';

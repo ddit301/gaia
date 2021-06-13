@@ -82,6 +82,7 @@ const scrollUp = function(){
 	window.scrollTo({top:0, left:0, behavior:'auto'});
 }
 
+// 유저 프로필 사진 이름을 넣으면 경로를 반환 해주는 함수
 const getProfilePath = function (filename) {
 	return getContextPath() + '/resources/images/profiles/' + (filename==null ? 'default' : filename);
 }
