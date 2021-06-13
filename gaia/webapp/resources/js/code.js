@@ -17,7 +17,6 @@ $(function() {
 		if (type == 'dir') {
 			loadFilesFromGit(gitRepoUrl, path);
 		}else{
-			
 		}
 	})
 
@@ -36,8 +35,7 @@ $(function() {
 				name: "파일 다운로드",
 				callback: function(key, opt) {
 					let downUrl = $(this).data('download_url');
-					let fileName = $(this).text();
-					download(downUrl, fileName);
+					download(downUrl);
 				}
 			}
 			,
