@@ -15,3 +15,7 @@
 .fileNavHeader span .filename-text{
 	color : #58a6ff;
 }
+.fileNavHeader span .filename-text:hover{
+	color : #58a6ff;
+	text-decoration: underline;
+}
