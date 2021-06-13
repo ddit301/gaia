@@ -24,12 +24,10 @@
 }
 .repoHeader{
 	font-size : 2.5em;
+	margin-left : 0px;
 }
 .git .repoHeader img{
 	height : 32px;
-}
-.git .repoHeader{
-	margin-left : 10px;
 }
 .git .repoHeader a{
 	width : fit-content;

@@ -90,9 +90,9 @@ const loadRepositoryList = function() {
 				// git 저장소가 있으면 loadGit 함수를 호출한다.
 				if (v.REPO_TYPE == 'git') {
 					gitRepoUrl = v.REPO_URL;
-					let repoHeader = $('.git').children('.repoHeader').children('a');
+					let repoHeader = $('.git').find('.repoInfo').children('a');
 					repoHeader.attr('href', 'https://github.com/' + gitRepoUrl);
-					repoHeader.children('span').text(gitRepoUrl);
+					repoHeader.find('span').text(gitRepoUrl);
 					loadGit(gitRepoUrl);
 				}else if(v.repo_type == 'svn'){
 //					// svn 관련 데이터는 아직 미구현		
@@ -114,6 +114,8 @@ const loadRepositoryList = function() {
 const loadGit = function(gitRepoUrl) {
 	// 저장소 파일들 불러와 화면에 쏴주기
 	loadFilesFromGit(gitRepoUrl, null);
+	// 사용 언어들 정보 불러오기
+	loadLanguageInfo(gitRepoUrl);
 
 	// readme 불러와 화면에 쏴주기
 	// #readmeArea를 뷰어로 변경하고
@@ -126,6 +128,30 @@ const loadGit = function(gitRepoUrl) {
 	let readmeMd = readmeFromRepo(gitRepoUrl);
 	viewer.setMarkdown(readmeMd);
 }
+
+// 파일 사이즈를 byte 단위가 아닌 사이즈별로 정리해주는 함수
+function fileSizeConverter(bytes, si = true, dp = 1) {
+	const thresh = si ? 1000 : 1024;
+
+	if (Math.abs(bytes) < thresh) {
+		return bytes + ' Byte';
+	}
+
+	const units = si
+		? ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+		: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+	let u = -1;
+	const r = 10 ** dp;
+
+	do {
+		bytes /= thresh;
+		++u;
+	} while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+
+	return bytes.toFixed(dp) + ' ' + units[u];
+}
+
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -166,6 +192,49 @@ const renderMarkdown = function(text) {
 			ajaxError(xhr, error, msg);
 		},
 		dataType: 'html',
+	});
+}
+
+// 사용 언어에 대해 통계를 내주는 함수
+const loadLanguageInfo = function(gitRepoUrl) {
+	$.ajax({
+		url: 'https://api.github.com/repos/' + gitRepoUrl + '/languages',
+		method: 'get',
+		success: function(languages) {
+			let keys = Object.keys(languages);
+			let langs = [];
+			let counts = [];
+			let total = 0;
+			let otherlangTotal = 0;
+			// 주요 언어는 최대 4개까지 표시 할 것.
+			let primaryLanCount = (keys.length < 4 ? keys.length : 4);
+			for(i=0; i< primaryLanCount ; i++){
+				let key = keys[i];
+				let value = languages[keys[i]];
+				langs.push(key);
+				counts.push(value);
+				total = total + value;
+			}
+			// 언어가 4개 이상일 경우에는, 기타 언어들의 값을 합쳐 otherLang으로 표기한다.
+			if(keys.length > 4){
+				for(i = primaryLanCount; i<keys.length; i++ ){
+					let value = languages[keys[i]];
+					total = total + value;
+					otherlangTotal = otherlangTotal + value;
+				}
+				langs.push('others');
+				counts.push(otherlangTotal);
+			}
+			let languageDiv = $('.project-overview').find('.languageInfo');
+			for(i=0; i<langs.length; i++){
+				let lanTag =$('<p>'+langs[i] + ' : ' + Math.round(counts[i]/total*1000)/10 + '%</p>'); 
+				languageDiv.append(lanTag);
+			}
+		},
+		error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType: 'json',
 	});
 }
 
@@ -259,26 +328,4 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 	});
 }
 
-// 파일 사이즈를 byte 단위가 아닌 사이즈별로 정리해주는 함수
-function fileSizeConverter(bytes, si = true, dp = 1) {
-	const thresh = si ? 1000 : 1024;
-
-	if (Math.abs(bytes) < thresh) {
-		return bytes + ' Byte';
-	}
-
-	const units = si
-		? ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-		: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
-	let u = -1;
-	const r = 10 ** dp;
-
-	do {
-		bytes /= thresh;
-		++u;
-	} while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
-
-
-	return bytes.toFixed(dp) + ' ' + units[u];
-}
 
