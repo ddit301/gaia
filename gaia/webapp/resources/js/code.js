@@ -90,11 +90,13 @@ const loadRepositoryList = function() {
 				// git 저장소가 있으면 loadGit 함수를 호출한다.
 				if (v.REPO_TYPE == 'git') {
 					gitRepoUrl = v.REPO_URL;
-					$('.git').find('.repoHeader').children('span').text(gitRepoUrl);
+					let repoHeader = $('.git').children('.repoHeader').children('a');
+					repoHeader.attr('href', 'https://github.com/' + gitRepoUrl);
+					repoHeader.children('span').text(gitRepoUrl);
 					loadGit(gitRepoUrl);
-					// svn 관련 데이터는 아직 미구현		
-					//				}else if(v.repo_type == 'svn'){
-					//					loadSvn(v);
+				}else if(v.repo_type == 'svn'){
+//					// svn 관련 데이터는 아직 미구현		
+//					loadSvn(v);
 				}
 			})
 		},
@@ -179,10 +181,6 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 			folders = [];
 			files = [];
 			
-			// fileNavHeader에 지금 탐색중인 폴더에 대해 제공해준다.
-			let fileNavHeader = $('.git').find('.fileNavHeader').children('span');
-			fileNavHeader.empty();
-			
 			$.each(contents, function(i, file) {
 				let fileBox = $('#codeTemplates').children('.fileObj').clone();
 				let fileIcon = file.type == 'file' ? 'doc' : 'folder';
@@ -205,7 +203,13 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 				// 파일인지 폴더인지에 따라 각각의 배열에 push 한다.
 				(file.type == 'file' ? files : folders).push(fileBox);
 			})
-
+			
+			// fileNavHeader를 select 한 후, basePath를 보여준다.
+			let fileNavHeader = $('.git').find('.fileNavHeader').children('span');
+			// 보고 있는 폴더가 basePAth 일 경우에는 해당 요소에서 filename-text 클래스를 제외시켜준다.
+			let basePath = $('<a '+ (path? 'class="filename-text"' : '') +' data-type="dir">'+gitRepoUrl+'</a>');
+			fileNavHeader.html(basePath);
+			
 			//	지금 보고있는 경로가 Base 폴더가 아닐 경우에는 뒤로 가기 폴더를 만들어준다.
 			if (path) {
 				let fileBox = $('#codeTemplates').children('.fileObj').clone();
@@ -234,9 +238,7 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 					}
 					pathTag.attr('data-path', pathTagDir)
 					pathTag.text(paths[i]);
-					if(i != 0){
-						fileNavHeader.append(' / ');
-					}
+					fileNavHeader.append(' / ');
 					// 경로의 마지막이면 버튼 비활성화
 					if(i == pathLength-1){
 						pathTag.removeClass('filename-text');

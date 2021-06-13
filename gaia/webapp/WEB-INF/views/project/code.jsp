@@ -14,8 +14,12 @@
 			<div class="repository col-md-9">
 <!-- 			git repository -->
 	            <div class="git">
-	            	<div class="repoHeader">
-	            		<span></span>
+	            	<div class="card repoHeader">
+	            		<a>
+		            		<img src="${cPath }/resources/images/github/GitHub-Mark/PNG/GitHub-Mark-32px.png">
+		            		<img src="${cPath }/resources/images/github/GitHub-Logos/GitHub_Logo.png">
+		            		<span></span>
+	            		</a>
 	            	</div>
 	            	<div class="repoBody">
 		            	<div class="fileNav card">
