@@ -13,8 +13,10 @@
     <title>gaia</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="${cPath }/resources/main/images/favicons/favicon-16x16.png">
-    <!-- Custom Stylesheet -->
+<!--     Common css -->
     <link href="${cPath }/resources/assets/css/style.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/css/common.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
     <link href="${cPath }/resources/assets/css/member.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/alarm.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/chat.css" rel="stylesheet">
