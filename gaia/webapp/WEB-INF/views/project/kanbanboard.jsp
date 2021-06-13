@@ -8,10 +8,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-     <link href="${cPath }/resources/dist/jkanban.min.css" rel="stylesheet" >
-     <link href="${cPath }/resources/assets/css/kanban.css" rel="stylesheet">
-     
-
             <div class="container-fluid">
             </div>
             
@@ -42,7 +38,6 @@
 	</div>
 </div>
 			    
-<script type="text/javascript" src="${cPath }/resources/dist/jkanban.js"></script>         
   
  <script>
 	 // ajax로 칸반 컬럼들 먼저 받아오기

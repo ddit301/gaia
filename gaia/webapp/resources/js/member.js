@@ -426,7 +426,7 @@ const loadMemberInfo_log = function(){
 			$.each(res.logList, function(i, v){
 				console.log(v);
 				let log = $("#logTemplate").children(".log").clone();
-				let timeAgo = moment(v.date, "YYYYMMDD").fromNow();
+				let timeAgo = moment(v.date,moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
 				let ip = v.date+'<span class="vertical-separator"></span>'+timeAgo;
 				log.find(".log-card-ip").html(ip);
 				log.find(".log-card-actor").children("a").text(res.search.mem_id+" - user.login");				
