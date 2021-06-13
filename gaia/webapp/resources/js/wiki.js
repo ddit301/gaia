@@ -9,7 +9,7 @@ $(function(){
 	
 	// wiki 등록을 위한 버튼 이벤트
 	$('.content-body').on('click','.new-wiki', function(){
-	
+		newWiki();
 	
 	})
 	
@@ -227,6 +227,46 @@ const wikilist = function(){
 
 				})
 				
+
+
+	
+}
+
+// 위키 생성 하는 함수
+const newWiki = function() {
+	$('#saveWikiBtn').on('click', function(){
+				wiki_title = $('#wiki-title-input').val();
+				wiki_cont = editor.getMarkdown();
+				// 위키 insert 하기
+				$.ajax({
+					url : getContextPath()+'/restapi/project/wikis',
+					method : 'post',
+					data : {
+						'wiki_title' : wiki_title
+						,'wiki_cont' : wiki_cont
+						
+					},
+					success : function(res) {
+						
+						// toastr 알람
+						toastr.success('새로운 위키 등록에 성공했습니다.')
+						
+						wikiView(res.wiki.wiki_no);
+						
+						// 에디터 비우기
+						$('#wiki-title-input').val('');
+						editor.reset();
+						// 모달 닫기
+						$('#wikiModal').modal('hide');
+						
+					},
+					error : function(xhr, error, msg) {
+						ajaxError(xhr, error, msg);
+					},
+					dataType : 'json'
+				})
+				
+			})
 	
 }
 	

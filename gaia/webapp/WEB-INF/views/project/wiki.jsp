@@ -128,9 +128,11 @@
             			<span></span>
             		</div>
             		<div class = "wiki-right row col-md-4">
-            				
-							<div id="wiki-list"></div>
-
+            			<div class ="title-search col-md-12">
+            				<input type = "text" name = "wiki_title" placeholder = "search title" class = "searchtitle">
+						<button type = "button" class = "btn btn-sm btn-primary">검색</button>
+						<div id = "wiki-list"></div>
+						</div>	
             		</div>
             	</div>
             </div>
@@ -184,44 +186,6 @@
 			
 			// 에디터를 modal 안에서 생성했더니 에러가 발생해서 modal 밖에서 생성 후 modal 에 넣어줍니다.
 			$('#editor').appendTo('#editorArea');
-			
-			$('#saveWikiBtn').on('click', function(){
-				wiki_title = $('#wiki-title-input').val();
-				wiki_cont = editor.getMarkdown();
-				// 위키 insert 하기
-				$.ajax({
-					url : getContextPath()+'/restapi/project/wikis',
-					method : 'post',
-					data : {
-						'wiki_title' : wiki_title
-						,'wiki_cont' : wiki_cont
-						
-					},
-					success : function(res) {
-						
-						// toastr 알람
-						toastr.success('새로운 위키 등록에 성공했습니다.')
-						
-						wikiView(res.wiki.wiki_no);
-						
-						// 에디터 비우기
-						$('#wiki-title-input').val('');
-						editor.reset();
-						// 모달 닫기
-						$('#wikiModal').modal('hide');
-						
-// 						// 비동기로 새로운 뉴스 생성해 위에 붙여주기
-// 						let news = getNewsObectWithJson(res.news);
-// 						$('#newsContainer').prepend(news);
-						
-					},
-					error : function(xhr, error, msg) {
-						ajaxError(xhr, error, msg);
-					},
-					dataType : 'json'
-				})
-				
-			})
 			
 			// title과 editor의 내용이 있을 때만 save 버튼 활성화
 			editor.on('change', function(){

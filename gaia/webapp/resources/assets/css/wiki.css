@@ -47,5 +47,5 @@
 	border : 1px solid black;
 	max-height: 400px;
     overflow-y: auto;
-	
+	text-align: center;
 }
