@@ -81,8 +81,12 @@ const loadProject = function(managerId, projectTitle){
 				,'project_title' : projectTitle
 			},
 		success : function(res) {
+			
 			if(res == "OK"){
+				// proj_user_nick 자바 스크립트 변수에 쿠키에서 새로 받아와 저장해준다.
+				proj_user_nick = getProjNickFromCookie();
 				movePageHistory('code');
+			
 			}
 		},
 		error : function(xhr, error, msg) {

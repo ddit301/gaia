@@ -24,7 +24,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- 	base 64 인코딩 /디코딩용 -->
 	<script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.1/base64.min.js"></script>
+<!-- 	util.js 는 페이지별 js 보다 위에 위치해야 합니다. -->
 	<script src="${cPath }/resources/js/util.js"></script>
+<!-- 	각 페이지별로 필요한 js 파일 입니다.  -->
 	<script src="${cPath }/resources/js/issue.js"></script>
 	<script src="${cPath }/resources/js/milestone.js"></script>
 	<script src="${cPath }/resources/js/wiki.js"></script>
@@ -33,6 +35,7 @@
 	<script src="${cPath }/resources/js/websocket.js"></script>
 	<script src="${cPath }/resources/js/member.js"></script>
 	<script src="${cPath }/resources/js/code.js"></script>
+	<script src="${cPath }/resources/assets/dist/jkanban.js"></script>  
 
 <script type="text/javascript">
 	let project_title = '${project_title}';
@@ -42,9 +45,10 @@
 	let issue_no = '${issue_no}';
 	let milest_no = '${milest_no}';
 	
-	// 접속 회원의 프로젝트 내 닉네임 입니다. 글 작성시 활용해주세요.
+	// 접속 회원의 프로젝트 내 닉네임 및 정보들을 쿠키에서 받아 저장해 둡니다. 글 작성시 활용해주세요.
+	let proj_user_nick = getProjNickFromCookie();
+	
 	// 일단 다른 페이지들에서 해당 변수 못쓰게 const 로 막고, 추후 프로필 데이터 변경 고려해 코드 완성 단계에 let 으로 풀겠습니다. 
-	const proj_user_nick = getCookie('proj_user_nick');
 	const mem_pic_file_name = getCookie('mem_pic_file_name');
 	const mem_id = getCookie('mem_id');
 	 	
@@ -60,8 +64,10 @@
 		
 		// 처음 페이지 로드될때 알람 목록을 한번 불러옵니다.
 		getAlarm();
+		
 		//소속된 프로젝트 목록도 불러와 왼쪽에 찍어줍니다.
 		loadProjectList();
+		
 	})
 	/********************************************************************
  	*

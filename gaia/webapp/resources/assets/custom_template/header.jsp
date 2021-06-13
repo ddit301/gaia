@@ -121,7 +121,7 @@
 	<li class="alarm">
 		<a>
 			<span class="mr-3 avatar-icon bg-success-lighten-1">
-				<img class="alarmsender profile" alt="" src="/resources/profiles/default">
+				<img class="alarmsender profile" alt="" onerror="this.src = getProfilePath()">
 			</span>
 			<div class="notification-content">
 				<div class="notifi-cont notification-heading"></div>
