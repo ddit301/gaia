@@ -14,12 +14,14 @@
 			<div class="repository col-md-9">
 <!-- 			git repository -->
 	            <div class="git">
-	            	<div class="card repoHeader">
-	            		<a>
-		            		<img src="${cPath }/resources/images/github/GitHub-Mark/PNG/GitHub-Mark-32px.png">
-		            		<img src="${cPath }/resources/images/github/GitHub-Logos/GitHub_Logo.png">
-		            		<span></span>
-	            		</a>
+	            	<div class="card repoHeader row">
+	            		<div class="repoInfo col-md-8">
+		            		<a>
+			            		<img src="${cPath }/resources/images/github/GitHub-Mark/PNG/GitHub-Mark-32px.png">
+			            		<img src="${cPath }/resources/images/github/GitHub-Logos/GitHub_Logo.png">
+			            		<span></span>
+		            		</a>
+	            		</div>
 	            	</div>
 	            	<div class="repoBody">
 		            	<div class="fileNav card">
@@ -40,7 +42,8 @@
 			</div>
 			
 			<div class="project-overview col-md-3">
-				<span>프로젝트 정보 오버뷰 내용 들어갈 곳</span>
+				<div class="languageInfo">
+				</div>
 			</div>
 		</div>
 
