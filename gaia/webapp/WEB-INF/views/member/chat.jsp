@@ -267,6 +267,5 @@
 </ul>
 
 <script>
-
 loadMemberInfo_chat();
 </script>
