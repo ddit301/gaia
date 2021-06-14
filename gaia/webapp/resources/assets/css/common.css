@@ -24,3 +24,12 @@
 	margin-left:-100px;	
 	z-index: 200;
 }
+#projTitleValidChecker{
+	font-size : 2em;
+}
+#projTitleValidChecker.icon-close{
+	color : red;
+}
+#projTitleValidChecker.icon-check{
+	color : green;
+}

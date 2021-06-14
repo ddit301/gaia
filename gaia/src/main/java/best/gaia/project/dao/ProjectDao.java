@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import best.gaia.vo.MemRoleVO;
+import best.gaia.vo.ProjMemVO;
 import best.gaia.vo.ProjectVO;
 
 
@@ -27,13 +29,12 @@ public interface ProjectDao {
 	public String getProjectNickNameByMemNo(Map<String, Object>map);
 
 	/**
-	 * @param map
-	 * 		-> manager_id, project_title
-	 * @return project number
+	 * 특정 mem_no가 관리자로 있는 proj_title의 갯수를 구해 반환함.
+	 * 금칙어에 해당 할 경우에는 1을 반환함.
+	 * @param project ( proj_title, mem_no)
+	 * @return
 	 */
-	public int getProjCount(Map<String, String> map);
-	
-	public int insertProject(ProjectVO project);
+	public int getProjCount(ProjectVO project);
 	
 	/**
 	 * @param mem_no
@@ -41,5 +42,10 @@ public interface ProjectDao {
 	 * mem_no가 null 일 경우 서비스상 존재하는 모든 프로젝트 목록을 불러옵니다.
 	 */
 	public List<ProjectVO> selectProjectList(Integer mem_no);
+	
+	public int insertProject(ProjectVO project);
+	public int insertProjMem(ProjMemVO projMem);
+	public int insertMemberRole(MemRoleVO memRole);
+	
 	
 }

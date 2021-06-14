@@ -27,7 +27,7 @@ import best.gaia.utils.CookieUtil;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import static best.gaia.utils.SessionUtil.*;
 @Controller
-@RequestMapping("{manager_id:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!new$|overview$|help$|setting$|activity$).)*$}")
+@RequestMapping("{manager_id:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!overview$|help$|setting$).)*$}")
 public class ProjectUrlMapper {
 	
 	@Inject

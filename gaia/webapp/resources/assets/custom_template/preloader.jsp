@@ -18,105 +18,68 @@ button.square__box{
 }
 </style>
 <div id="preloader">
-    <div class="loader">
-        <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
-        </svg>
-    </div>
+<!--     <div class="loader"> -->
+<!--         <svg class="circular" viewBox="25 25 50 50"> -->
+<%--             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" /> --%>
+<!--         </svg> -->
+<!--     </div> -->
 </div>
     <!-- modal -->
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="projCreateModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">New Project</h5>
+                    <h5 class="modal-title">프로젝트 생성</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                     </button>
                 </div>
-                <form class="form-valide" action="/restapi/project/projects" method="post">
+<!--                 body -->
                     <div class="modal-body">
-
-
                         <div class="form-validation">
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="val-username">Project Name <span
-                                        class="text-danger">*</span>
+                                <label class="col-lg-4 col-form-label" for="val-username">프로젝트 이름 
+                                	<span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="val-username" name="val-username"
-                                        placeholder="Enter a Project name">
+                                    <input type="text" class="form-control" id="proj_title_input" name="val-username"
+                                        placeholder="영어로만 적어주세요. 띄어쓰기 x">
+                                </div>
+                                <div class="col-lg-2">
+                                	<i id="projTitleValidChecker"></i>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="val-suggestions">Project Detail <span
-                                        class="text-danger">*</span>
+                                <label class="col-lg-4 col-form-label" for="val-suggestions">프로젝트 상세 설명 
+                                	<span class="text-danger"></span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <textarea class="form-control" id="val-suggestions" name="val-suggestions" rows="5"
-                                        placeholder="What would you like to see?"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="val-skill">Best Skill <span
-                                        class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <select class="form-control" id="val-skill" name="val-skill">
-                                        <option value="">Please select</option>
-                                        <option value="html">HTML</option>
-                                        <option value="css">CSS</option>
-                                        <option value="javascript">JavaScript</option>
-                                        <option value="angular">Angular</option>
-                                        <option value="angular">React</option>
-                                        <option value="vuejs">Vue.js</option>
-                                        <option value="ruby">Ruby</option>
-                                        <option value="php">PHP</option>
-                                        <option value="asp">ASP.NET</option>
-                                        <option value="python">Python</option>
-                                        <option value="mysql">MySQL</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label"><a href="#">Module set</a> <span
-                                        class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-8">
-                                    <label class="css-control css-control-primary css-checkbox" for="val-Kanban">
-                                        <input type="checkbox" class="css-control-input" id="val-Kanban" name="val-Kanban"
-                                            value="1"> <span class="css-control-indicator"></span> Kanban</label>
-                                    <label class="css-control css-control-primary css-checkbox" for="val-News">
-                                    <input type="checkbox" class="css-control-input" id="val-News" name="val-News"
-                                        value="1"> <span class="css-control-indicator"></span> News</label>
-                                    <label class="css-control css-control-primary css-checkbox" for="val-Wiki">
-                                    <input type="checkbox" class="css-control-input" id="val-Wiki" name="val-Wiki"
-                                        value="1"> <span class="css-control-indicator"></span> Wiki</label>
+                                    <textarea class="form-control" id="proj_cont_input" name="val-suggestions" rows="5"
+                                        placeholder="만들고자 하는 프로젝트에 대한 설명을 적어주세요."></textarea>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-
+<!--                     footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
-                        <button type="submit" class="btn btn-primary">Launch</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button id="createProjectBtn" type="button" class="btn btn-primary" disabled="disabled">생성</button>
                     </div>
-                </form>
             </div>
         </div>
     </div>
 
 <div id="main-list">
 	<div id="project__list">
+<!-- 	프로젝트 목록 넣을 div -->
 		<div class="proj_boxes">
 		</div>
 	    
+<!-- 	    프로젝트 생성 버튼 -->
 	    <div class="square__box">
 	        <div class="img-rounded">
 	            <button type="button" class="btn btn-adder" data-toggle="modal"
-	                data-target=".bd-example-modal-lg">+</button>
+	                data-target="#projCreateModal">+</button>
 	        </div>
 	    </div>
 	    

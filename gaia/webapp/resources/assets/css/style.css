@@ -12267,7 +12267,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 }
 
 .content-body {
-  margin-top: 8% !important;
+  margin-top: 60px !important;
   margin-left: 11.4rem;
   z-index: 0;
 }
