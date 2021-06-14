@@ -1,6 +1,8 @@
 package best.gaia.chat.controller;
 import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -24,6 +27,7 @@ import best.gaia.alarm.service.AlarmService;
 import best.gaia.chat.dao.OracleChatDao;
 import best.gaia.chat.service.ChatService;
 import best.gaia.vo.AlarmVO;
+import best.gaia.vo.ChatRoomVO;
 
 @RestController
 @RequestMapping(value="restapi/chat/chats", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -32,7 +36,6 @@ public class ChatREST {
 	private ChatService service;
 	@Inject
 	private OracleChatDao dao;
-
 	
 	@Inject
 	private WebApplicationContext container;
@@ -46,16 +49,34 @@ public class ChatREST {
 	private static final Logger logger = LoggerFactory.getLogger(AlarmREST.class);
 	
 	@GetMapping
-	public List<Map<String, Object>> messageList(
+	public Map<String, Object> messageList(
 			Authentication authentication
+			, @RequestParam String need
 			) {
 		// authentication에서 mem_no를 받아온다.
+		Map<String, Object> result = new HashMap<String, Object>();
 		int mem_no = getMemberNoFromAuthentication(authentication);
+		if("chatList".equals(need)) {
+			// roomList의 room 번호마다 채팅들 담기
+			// roomList 뽑기 
+			List<ChatRoomVO> roomList = service.selectMemberChatRoomList(mem_no);
+			
+			List<Map<String, Object>> chatList = new ArrayList<Map<String, Object>>();
+			for(ChatRoomVO chatRoom : roomList) {
+				// chatRoomVO의 chatList에 대화 내용들 담기.
+				int chatRoom_no = chatRoom.getChatroom_no();
+				// elastic에서 chatList 뽑기.
+				chatList = service.getMessageListbyChatRoom(chatRoom_no);
+				// 뽑은 chatList를 해당 room의 chatList에 담기.
+				chatRoom.setChatList(chatList);
+			}
+			logger.info("{}", roomList);
+			result.put("roomList", roomList);
+		}
 		
-		// 알람 로직을 쭉 태운 뒤에 가공된 알람을 보낸다
-		return null;
+		return result;
 	}
-	
+	 
 	@RequestMapping(method=RequestMethod.POST)
 	public Map<String, Object> insertMessage() {
 		return null;

@@ -7,7 +7,7 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="container-fluid container-lg container-xl">
+<div class="container-fluid">
 	<div class="row menu">
 		<div class="col-lg-4 col-xl-3">
 			<jsp:include page="side-bar.jsp"/>

@@ -79,5 +79,14 @@ public class MemberUrlMapper {
 		model.addAttribute("memberPageParam", memberPageParam.isPresent() ? "setting/" + memberPageParam.get() : "setting");
 		return "view/template/project";
 	}
-
+	
+	@RequestMapping(value = { "chat","chat/{chatRoomNo}" })
+	public String memberChat(
+			@PathVariable String mem_id
+			, @PathVariable Optional<String> chatRoomNo
+			, Model model) {
+		model.addAttribute("mem_id", mem_id);
+		model.addAttribute("memberPageParam", chatRoomNo.isPresent() ? "chat/" + chatRoomNo.get() : "chat");
+		return "view/template/project";
+	}
 }
