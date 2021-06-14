@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.chat.dao.OracleChatDao">
-	<resultMap type="best.gaia.vo.ChatVO" id="chatRoomList" autoMapping="false">
+	<resultMap type="best.gaia.vo.ChatRoomVO" id="chatRoomList" autoMapping="false">
 		<id property="chatroom_no" column="CHATROOM_NO"/>
 		<collection property="memberList" ofType="best.gaia.vo.MemberVO"  javaType="java.util.List" autoMapping="false">
 			<id property="mem_no" column="MEM_NO"/>
 			<result property="mem_id" column="MEM_ID"/>
+			<result property="mem_pic_file_name" column="MEM_PIC_FILE_NAME"/>
 		</collection>
 	</resultMap>
 	<select id="selectMemberChatRoomList" parameterType="int" resultMap="chatRoomList">

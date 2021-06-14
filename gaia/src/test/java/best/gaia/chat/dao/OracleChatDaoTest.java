@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.vo.ChatVO;
+import best.gaia.vo.ChatRoomVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:webapp/WEB-INF/spring/*-context.xml")
@@ -29,9 +29,9 @@ public class OracleChatDaoTest {
 
 	@Test
 	public void test() {
-		List<ChatVO> chatVO = dao.selectMemberChatRoomList(2);
+		List<ChatRoomVO> chatVO = dao.selectMemberChatRoomList(2);
 		int i = 0;
-		for(ChatVO room : chatVO) {
+		for(ChatRoomVO room : chatVO) {
 			i++;
 			System.out.println(i+"번 : "+room.toString());
 		}

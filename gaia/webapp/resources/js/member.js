@@ -1,3 +1,4 @@
+
 // 페이지 열릴때 멤버 관련된 url 이란 판단이 되면, memberMovePageHistory 발동.
 $(function(){
 	if(memberPageParam){
@@ -484,17 +485,51 @@ const toOverview = function(){
 // retrieveMemberProjectIssue(mem_no) 요청
 var loadMemberInfo_chat = function(){
 	let need = "chatList";
+	let mem ="";
+	let mem_count="";
 	$.ajax({
 		url : getContextPath()+"/restapi/chat/chats" ,
 		type : 'get',
 		data : {"need" : need},
 		success : function(res) {
-			console.log(res);
-// 			$(".room_contents").children("h3").test(res.)
+			console.log(res)
 			$.each(res.roomList, function(i, v){
-				$(".profile_img").attr("src", getProfilePath(v.mem_pic_file_name));
-				let chatRoom = $("")
+				let chatRoom = $("#chatRoomTemplate").children(".chatRoom").clone();
+				console.log(v.memberList[i].mem_pic_file_name);
+				chatRoom.find(".profile_img.img-center").attr("src", getProfilePath(v.memberList[0].mem_pic_file_name));
+				$.each(v.memberList, function(j, participant){
+					if(j<2){
+						mem += participant.mem_id+", ";
+					}
+					if(j>1){
+						chatRoom.find(".profile_img.img-left").attr("src", getProfilePath(v.memberList[1].mem_pic_file_name));
+						chatRoom.find(".profile_img.img-right").attr("src", getProfilePath(v.memberList[2].mem_pic_file_name));
+						mem_count = "님 외 "+(j-1)+"명";
+					}else{
+						mem_count = "";
+					}
+				})
+				console.log("length " + v.memberList.length)
+				if(v.memberList.length < 3){
+					console.log("들어오나??");
+					chatRoom.find(".profile_img.img-right").remove();
+					chatRoom.find(".profile_img.img-left").remove();
+				}
+				console.log(v.chatList[0])
+				chatRoom.find(".chatList-card-body .content").children("span").text(v.chatList[0].content);
+				let timeAgo = moment(v.chatList[0].date,moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
+				members = mem.slice(0, mem.lastIndexOf(", "));
+				members += mem_count;
+				chatRoom.find(".chatList-card-body .log-card-actor").children("a").text(members);
+				chatRoom.find(".chatList-card-body .time").children("span").text(timeAgo);
+				chatRoom.appendTo("#chatRoomList");
+				mem="";
+				let content = "";
+				
+//					console.log(res.chatListChatRoom.chatroom);
+				chatRoom.find(".chatList-card-body .content").children("span").text();
 			})
+			
 		
 //				$(".profile_img_label").attr("title", "View "+res.search.mem_id+"'s profile");
 //				$(".profile_img_label").siblings("input").val(res.search.mem_id);

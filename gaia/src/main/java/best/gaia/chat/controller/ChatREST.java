@@ -27,7 +27,7 @@ import best.gaia.alarm.service.AlarmService;
 import best.gaia.chat.dao.OracleChatDao;
 import best.gaia.chat.service.ChatService;
 import best.gaia.vo.AlarmVO;
-import best.gaia.vo.ChatVO;
+import best.gaia.vo.ChatRoomVO;
 
 @RestController
 @RequestMapping(value="restapi/chat/chats", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -57,12 +57,26 @@ public class ChatREST {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int mem_no = getMemberNoFromAuthentication(authentication);
 		if("chatList".equals(need)) {
-			List<ChatVO> roomList = service.selectMemberChatRoomList(mem_no);
+			// roomList의 room 번호마다 채팅들 담기
+			// roomList 뽑기 
+			List<ChatRoomVO> roomList = service.selectMemberChatRoomList(mem_no);
+			
+			List<Map<String, Object>> chatList = new ArrayList<Map<String, Object>>();
+			for(ChatRoomVO chatRoom : roomList) {
+				// chatRoomVO의 chatList에 대화 내용들 담기.
+				int chatRoom_no = chatRoom.getChatroom_no();
+				// elastic에서 chatList 뽑기.
+				chatList = service.getMessageListbyChatRoom(chatRoom_no);
+				// 뽑은 chatList를 해당 room의 chatList에 담기.
+				chatRoom.setChatList(chatList);
+			}
+			logger.info("{}", roomList);
 			result.put("roomList", roomList);
 		}
+		
 		return result;
 	}
-	
+	 
 	@RequestMapping(method=RequestMethod.POST)
 	public Map<String, Object> insertMessage() {
 		return null;

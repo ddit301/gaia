@@ -12,77 +12,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-xl-3">
-            <div class="card"> 
-                <div class="card-body chatRoomList">
-                   	<ul>
-		                <div class="card chatRoom">
-							<div class="row chatList-card-body">
-								<div class="col-md-5 log-img-center">
-									<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
-										<img class="rounded-circle profile_img" height="50" width="50" src="">
-							   		</a>
-							   		<input type="hidden" value="" name="mem_id">
-							   	</div>
-						   	 	<div class="col-md-7">
-							        <div class="log-card-actor">
-						            	<a>KrGil</a>
-						         	</div>
-						         	<div class="content">
-						         		<span>hello!! my name...</span>
-						         	</div>
-						         	<div class="">
-						         		<span>28 days ago</span>
-						         	</div>
-						      	</div>
-					    	</div>
-						</div>
-                   	</ul>
-                   	<ul>
-		                <div class="card chatRoom">
-							<div class="row chatList-card-body">
-								<div class="col-md-5 log-img-center">
-									<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
-										<img class="rounded-circle profile_img" height="50" width="50" src="">
-							   		</a>
-							   		<input type="hidden" value="" name="mem_id">
-							   	</div>
-						   	 	<div class="col-md-7">
-							        <div class="log-card-actor">
-						            	<a>KrGil</a>
-						         	</div>
-						         	<div class="content">
-						         		<span>hello!! my name...</span>
-						         	</div>
-						         	<div class="">
-						         		<span>28 days ago</span>
-						         	</div>
-						      	</div>
-					    	</div>
-						</div>
-                   	</ul>
-                   	<ul>
-		                <div class="card chatRoom">
-							<div class="row chatList-card-body">
-								<div class="col-md-5 log-img-center">
-									<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
-										<img class="rounded-circle profile_img" height="50" width="50" src="">
-							   		</a>
-							   		<input type="hidden" value="" name="mem_id">
-							   	</div>
-						   	 	<div class="col-md-7">
-							        <div class="log-card-actor">
-						            	<a>KrGil</a>
-						         	</div>
-						         	<div class="content">
-						         		<span>hello!! my name...</span>
-						         	</div>
-						         	<div class="">
-						         		<span>28 days ago</span>
-						         	</div>
-						      	</div>
-					    	</div>
-						</div>
-                   	</ul>
+            <div class="card chatRoomList-over side-position-fixed"> 
+                <div class="card-body" id="chatRoomList">
+                   	
                 </div>
             </div>  
         </div>
@@ -95,33 +27,6 @@
 					</ol>
 				</div>
 			</div>
-			<div class="card">
-		    	<div class="container-fluid">
-			        <div class="row" id="issues">
-			            <!-- hidden -->
-<div id="issueTemplate" hidden = "hidden">
-	<div class="col-xl-6 issue" >
-	    <div class="card">
-	        <div class="card-body">
-	         	<div class = "issue-card-top">
-	            	<p class="mb-sm-0">You/don't/have/more/issues</p>
-	            	<h3>?</h3>
-	            </div> 
-	            <div class="row issue-card-mid">
-	             	<div class="col-md-6">
-	                	<small class="text-muted issue_date"></small>
-	             	</div>
-	           	 	<div class="col-md-6 media-reply__link">
-		                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-		                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-		                <button class="btn btn-transparent p-0 ml-3 font-weight-bold fixer_id">by ${mem_id }</button>
-	             	</div>
-	             </div>
-	             <p class="issue-card-bot">담당하고 있는 이슈에 새로운 소식이 존재하지 않습니다.</p>
-	    	</div>
-	    </div>
-	</div>
-</div>
  <div class="cen chat" id="wrap">
             <div id="chatLeft">
                 <div id="chatSearch">
@@ -242,30 +147,31 @@
 		</div>
     </div>
 </div>
-<ul id="chatRoomTemplate" hidden="hidden">
-	<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
-	    <div class="card chatRoom">
+<div id="chatRoomTemplate" hidden="hidden">
+	<ul class="chatRoom">
+		<div class="card">
 			<div class="row chatList-card-body">
-				<div class="col-md-5 log-img-center">
-						<img class="rounded-circle profile_img" height="50" width="50" src="">
-			   		<input type="hidden" value="" name="mem_id">
+			
+				<div class="col-md-5 log-img-center chat-img">
+					<img class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
+					<img class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
+					<img class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">
 			   	</div>
-		   	 	<div class="col-md-7">
+		   	 	<div class="col-md-7 pr-0">
 			        <div class="log-card-actor">
-		            	<a>KrGil</a>
+		            	<a class="font-bold-black">KrGil</a>
 		         	</div>
 		         	<div class="content">
 		         		<span>hello!! my name...</span>
 		         	</div>
-		         	<div class="">
+		         	<div class="time">
 		         		<span>28 days ago</span>
 		         	</div>
 		      	</div>
 		   	</div>
 		</div>
-	</a>
-</ul>
-
+	</ul>
+</div>
 <script>
 loadMemberInfo_chat();
 </script>
