@@ -38,3 +38,9 @@
 .nk-sidebar .metismenu a.selectedMenu{
 	box-shadow: inset 0 0 5px #666666;
 }
+button.selectedProj{
+	box-shadow: 3px 3px 5px 6px #ccc;
+}
+.projBox button:focus{
+	outline:none;
+}
