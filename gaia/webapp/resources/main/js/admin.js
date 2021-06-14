@@ -11,6 +11,182 @@
  * </pre>
  */
 
+
+function monitoringDiv(id, title) {
+	return '<div class="col-sm-8 col-sm-offset-2">' + '<h4 class="font-alt mb-0">' + title + '</h4>'
+		+ '<hr class="divider-w mt-10 mb-20">'
+		+'<div class="col-sm-10 col-sm-offset-1">'
+		+ '<div id="' + id + '" class="row multi-columns-row monitoring-detail-div"></div></div></div>';
+}
+
+function monitoringDetailDiv(subtitle, divId) {
+	return '<div class="col-sm-12 col-md-12 col-lg-12">' + '<div class="features-item">'
+		+ '<h3 class="features-title font-alt">' + subtitle + '</h3>' +
+		'<div id="' + divId + '"></div>' + '</div>' + '</div>';
+}
+
+function OSInformation(OS_Information) {
+	return '<h6 class="features-subtitle font-alt">' + OS_Information['osName']
+		+ ' [version: ' + OS_Information['osVersion'] + OS_Information['osArch'] + '] -'
+		+ OS_Information['processorCount'] + '</h6>';
+}
+
+function JVMInformation(JVM_Information) {
+	return '<h6 class="features-subtitle font-alt">' + JVM_Information['specName']
+		+ JVM_Information['specVersion'] + ' ['
+		+ JVM_Information['processorCount'] + '] </h6>'
+		+ '<h6 class="features-subtitle font-alt">' + JVM_Information['vmName']
+		+ JVM_Information['vmVersion'] +
+		+JVM_Information['vmVendor'] + '</h6>';
+}
+
+function DiskInformation(Disk_Information) {
+	let total = Disk_Information['total'].replace(/[^0-9]/g, '');
+	let used = Disk_Information['used'].replace(/[^0-9]/g, '');
+	let percentage = used / total * 100;
+	return '<h6 class="features-subtitle font-alt">DISK: ' + Disk_Information['drive'] + '</h6>'
+		+ '<h6 class="font-alt">TOTAL: ' + Disk_Information['total'] + ' / USED: ' + Disk_Information['used'] + ' / FREE: ' + Disk_Information['free'] + '</h6><br>'
+		+ '<div class="progress">'
+		+ '<div class="progress-bar progress-bar-striped active" aria-valuenow="' + used + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + percentage + '%;">'
+		+ '<span class="font-alt" style="opacity: 1;">' + Math.round(percentage) + '</span>'
+		+ '</div>'
+		+ '</div>';
+}
+
+function MemoryUsageSummary(usage, Memory_Usage_Summary) {
+	let max, used, commited, init;
+	max = Memory_Usage_Summary['max'] / 1000000;
+	used = Memory_Usage_Summary['used'] / 1000000;
+	commited = Memory_Usage_Summary['commited'] / 1000000;
+	init = Memory_Usage_Summary['init'] / 1000000;
+	let percentage = commited / max * 100;
+	if (percentage < 0) percentage = 100
+	console.log('commited', commited, 'max', max);
+
+	return '<h6 class="features-contents font-alt">' + usage + '</h6>'
+		+ '<h6 class="font-alt">MAX: ' + (max / 1000).toFixed(2) + 'GB / COMMITED: ' + commited.toFixed(0) + 'MB [ USED:' + used.toFixed(0) + 'MB / INIT: ' + init.toFixed(0) + 'MB ] </h6><br>'
+		+ '<div class="progress">'
+		+ '<div class="progress-bar progress-bar-striped active" aria-valuenow="' + commited + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + max + '" style="width: ' + percentage + '%;">'
+		+ '<span class="font-alt" style="opacity: 1;">' + Math.round(percentage) + '</span>'
+		+ '</div>'
+		+ '</div>';
+}
+
+function GarbageCollectionInformation(Garbage_Collection_Information) {
+	let returnText = "";
+
+	$.each(Garbage_Collection_Information, function (i, v) {
+		returnText += '<h6 class="features-subtitle font-alt">' + i + ":" + v + '</h6>'
+	})
+
+	return returnText;
+}
+
+function ClassLoadingInformation(Class_Loading_Information) {
+	let total = Class_Loading_Information['total loaded class'];
+	let loaded = Class_Loading_Information['loaded class count'];
+	let percentage = loaded / total * 100;
+	return '<h6 class="features-contents font-alt">since JVM started</h6>'
+		+ '<h6 class="font-alt">TOTAL: ' + total + 'classes / loaded class: ' + loaded + ' / unloaded' + Class_Loading_Information['unloaded class count'] + '</h6><br>'
+		+ '<div class="progress">'
+		+ '<div class="progress-bar progress-bar-striped active" aria-valuenow="' + loaded + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + percentage + '%;">'
+		+ '<span class="font-alt" style="opacity: 1;">' + Math.round(percentage) + '</span>'
+		+ '</div>'
+		+ '</div>';
+}
+
+function ThreadSummary(Thread_Summary) {
+	let total = Thread_Summary['totalThreadCount'];
+	let live = Thread_Summary['liveThreadCount'];
+	let peak = Thread_Summary['peakLiveThreadCount'];
+	let daemon = Thread_Summary['daemonTheadCount'];
+	return '<h6 class="features-subtitle font-alt">Thread Summary</h6>'
+		+ '<h6 class="font-alt">TOTAL: ' + total + '</h6>'
+		+ '<div class="progress">'
+		+ '<div class="progress-bar progress-bar-striped active" aria-valuenow="' + total + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + total / total * 100 + '%;">'
+		+ '</div>'
+		+ '</div>'
+		+ '<h6 class="font-alt">live: ' + live + '</h6>'
+		+ '<div class="progress">'
+		+ '<div class="progress-bar progress-bar-striped active" aria-valuenow="' + live + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + live / total * 100 + '%;">'
+		+ '</div>'
+		+ '</div>'
+		+ '<h6 class="font-alt">peak: ' + peak + '</h6>'
+		+ '<div class="progress">'
+		+ '<div class="progress-bar progress-bar-striped active" aria-valuenow="' + peak + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + peak / total * 100 + '%;">'
+		+ '</div>'
+		+ '</div>'
+		+ '<h6 class="font-alt">daemon: ' + daemon + '</h6>'
+		+ '<div class="progress">'
+		+ '<div class="progress-bar progress-bar-striped active" aria-valuenow="' + daemon + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + daemon / total * 100 + '%;">'
+		+ '</div>'
+		+ '</div>'
+		+ '<button type="button" id="threadBtn" class="btn btn-secondary">Thread Dump</button>';
+}
+
+function renderMonitoringData(res) {
+	let OS_Information = res['Environment_Resource']['OS_Information'];
+	let JVM_Information = res['Environment_Resource']['JVM_Information'];
+	let Disk_Information = res['Environment_Resource']['Disk_Information'];
+	let Memory_Usage_Summary1 = res['Memory']['Memory_Usage_Summary']['Heap Memory Usage'];
+	let Memory_Usage_Summary2 = res['Memory']['Memory_Usage_Summary']['Non Heap Memory Usage'];
+	let Garbage_Collection_Information = res['Memory']['Garbage_Collection_Information'];
+	let Memory_Pool_Usage_Information = res['Memory']['Memory_Pool_Usage_Information'];
+	let Compiler_Information = res['Class_Resource']['Compiler_Information'];
+	let Class_Loading_Information = res['Class_Resource']['Class_Loading_Information'];
+	let Thread_Summary = res['Thread']['Thread_Summary'];
+
+	$('#OS_Information').append(OSInformation(OS_Information));
+	$('#JVM_Information').append(JVMInformation(JVM_Information));
+	$('#Disk_Information').append(DiskInformation(Disk_Information));
+	$('#Memory_Usage_Summary').append(MemoryUsageSummary('Heap Memory Usage', Memory_Usage_Summary1));
+	$('#Memory_Usage_Summary').append(MemoryUsageSummary('Non Heap Memory Usage', Memory_Usage_Summary2));
+	$('#Garbage_Collection_Information').append(GarbageCollectionInformation(Garbage_Collection_Information));
+
+	$.each(Memory_Pool_Usage_Information, function (i, v) {
+		$('#Memory_Pool_Usage_Information').append('<h6 class="features-subtitle font-alt">' + i + '</h6>');
+		$.each(v, function (index, value) {
+			$('#Memory_Pool_Usage_Information').append(MemoryUsageSummary(index, value));
+		});
+		$('#Memory_Pool_Usage_Information').append("<br>");
+	})
+	$('#Compiler_Information').append(GarbageCollectionInformation(Compiler_Information));
+	$('#Class_Loading_Information').append(ClassLoadingInformation(Class_Loading_Information));
+	$('#Thread_Summary').append(ThreadSummary(Thread_Summary));
+};
+
+function loadMonitoring() {
+	$.ajax({
+		url: getContextPath() + "/admin/monitoring/info",
+		type: 'GET',
+		success: function (res) {
+			$.each(res, function (index, value) {
+				let id = index.toLowerCase();
+				index = index.replace("_", " ");
+				$('.monitoring-div').append(monitoringDiv(id, index));
+
+				$.each(value, function (i, v) {
+					let subtitle = i.replaceAll("_", " ");
+					$('#' + id).append(monitoringDetailDiv(subtitle, i));
+					console.log(monitoringDetailDiv(subtitle, i));
+				})
+			})
+			renderMonitoringData(res);
+		},
+		async: true
+		, error: function (xhr) {
+			console.log(xhr);
+			if (xhr.status == '404') {
+				alert("실패");
+			} else {
+				$('.container').after('서버가 다운되었습니다.');
+			}
+		},
+		dataType: 'json'
+	})
+}
+
+
 function questionFormat(d) {
 	return '<div class="col-sm-8 col-sm-offset-2" ><table id="q__' + d.inq_no + '" class="table table-detail inquiry-question-detail ">' +
 		'<tr>' +
@@ -49,7 +225,6 @@ function answerFormat(d) {
 		'</tr></table>';
 }
 
-// 		[{inq_no":"a__3","inq_com_no":"3","prov_id":"admin1 ","inq_com_cont":" 문의 답변 내용 3"}]
 function modifyFormat(d) {
 	return '<form id="answerForm" method="POST" >' +
 		'<input name="inq_no" type="hidden" value="' + d[0].inq_no + '"></input>' +
@@ -61,9 +236,6 @@ function modifyFormat(d) {
 		'<td colspan="2"><button type="submit" id="' + d[0].inq_com_no + '" class="a__insert">등록</button> </td>' +
 		'</tr></table></form>';
 }
-
-
-
 
 function getInquiryQuestion() {
 	$.ajax({
@@ -152,7 +324,7 @@ function postInquiryAnswer() {
 
 
 
-function getEvent() {
+function getInquiryEvent() {
 	$('#inquiry-question-table tbody').on('click', 'td.details-control', function () {
 		let tr = $(this).closest('tr');
 		let row = table.row(tr);
@@ -204,3 +376,11 @@ function getEvent() {
 	});
 
 }
+
+
+function getMonitoringEvent() {
+	$(document).on('click', '#threadBtn', function () {
+		window.open("monitoring/threadDump");
+	});
+}
+
