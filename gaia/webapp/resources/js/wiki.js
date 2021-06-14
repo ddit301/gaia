@@ -13,7 +13,7 @@ $(function(){
 	
 	})
 	
-	// 특정 위키 클릭시 불러오는 메서드Í
+	// 특정 위키 클릭시 불러오는 메서드
 	$('.content-body').on('click','.wiki-btn',function(){
 		//특정 위키의 wiki_no 불러옴.
 		let wiki_no = $(this).siblings('input').val();
@@ -36,8 +36,18 @@ $(function(){
 		
 		editWiki();
 	})
+	// wiki title 검색 버튼 클릭 시 
+	$('.content-body').on('click','.wiki-search-btn',function(){
+		let wiki_title = $('input.wikisearchtitle').val();
+		wikilist(wiki_title);
+		
+	})
 	
 })
+
+
+
+
 	// 특정 위키 수정하는 함수 
 const editWiki = function(){
 		
@@ -163,13 +173,15 @@ const wikiView = function(wiki_no){
 		
 	}
 	
-const wikilist = function(){
+const wikilist = function(wiki_title){
+
 	  var scopeWikiNo = '${wiki_no}';
             // project 내 첫번째 wiki 출력 
             	$.ajax({
             		url : getContextPath() + '/restapi/project/wikis/'
 					,type : 'get'
 					, data : {
+						'wiki_title' : wiki_title
 					},
 					success : function(res) {
 						if(!!scopeWikiNo){

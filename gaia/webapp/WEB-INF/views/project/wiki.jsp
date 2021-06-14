@@ -128,9 +128,9 @@
             			<span></span>
             		</div>
             		<div class = "wiki-right row col-md-4">
-            			<div class ="title-search col-md-12">
-            				<input type = "text" name = "wiki_title" placeholder = "search title" class = "searchtitle">
-						<button type = "button" class = "btn btn-sm btn-primary">검색</button>
+            			<div class ="wiki-search col-md-12">
+            				<input type = "text" name = "wiki_title" placeholder = "search title" class = "wikisearchtitle">
+						<button type = "button" class = "wiki-search-btn btn-sm btn-primary">검색</button>
 						<div id = "wiki-list"></div>
 						</div>	
             		</div>
