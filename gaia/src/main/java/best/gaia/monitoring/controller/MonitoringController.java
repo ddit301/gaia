@@ -57,7 +57,7 @@ public class MonitoringController {
 		return result;
 	}
 
-	@RequestMapping(value = "/threadDump")
+	@GetMapping(value = "threadDump", produces = "application/text; charset=utf-8")
 	public StringBuffer threadDump(Model model) throws IOException {
 		StringBuffer buffer = new StringBuffer();
 		model.addAttribute("info", buffer);

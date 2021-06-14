@@ -61,7 +61,6 @@ function MemoryUsageSummary(usage, Memory_Usage_Summary) {
 	init = Memory_Usage_Summary['init'] / 1000000;
 	let percentage = commited / max * 100;
 	if (percentage < 0) percentage = 100
-	console.log('commited', commited, 'max', max);
 
 	return '<h6 class="features-contents font-alt">' + usage + '</h6>'
 		+ '<h6 class="font-alt">MAX: ' + (max / 1000).toFixed(2) + 'GB / COMMITED: ' + commited.toFixed(0) + 'MB [ USED:' + used.toFixed(0) + 'MB / INIT: ' + init.toFixed(0) + 'MB ] </h6><br>'
@@ -120,8 +119,9 @@ function ThreadSummary(Thread_Summary) {
 		+ '<div class="progress">'
 		+ '<div class="progress-bar progress-bar-striped active" aria-valuenow="' + daemon + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + daemon / total * 100 + '%;">'
 		+ '</div>'
-		+ '</div>'
-		+ '<button type="button" id="threadBtn" class="btn btn-secondary">Thread Dump</button>';
+		+ '</div><br>'
+		+ '<button type="button" id="threadBtn" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#threadModal">'
+		+ 'Thread Dump</button>';
 }
 
 function renderMonitoringData(res) {
@@ -168,7 +168,6 @@ function loadMonitoring() {
 				$.each(value, function (i, v) {
 					let subtitle = i.replaceAll("_", " ");
 					$('#' + id).append(monitoringDetailDiv(subtitle, i));
-					console.log(monitoringDetailDiv(subtitle, i));
 				})
 			})
 			renderMonitoringData(res);
@@ -378,10 +377,30 @@ function getInquiryEvent() {
 
 }
 
+function loadThreadDump() {
+	$.ajax({
+		url: getContextPath() + "/admin/monitoring/threadDump",
+		type: 'GET',
+		success: function (res) {
+			console.log(res);
+			$('#threadModal').find('.modal-body').append(res);
+		},
+		async: true
+		, error: function (xhr) {
+			if (xhr.status == '404') {
+				toastr.error('소스가 유실되었습니다.');
+			} else {
+				console.log(xhr);
+				toastr.warning('잘못된 설정');
+			}
+		},
+		dataType: 'text'
+	})
+}
 
 function getMonitoringEvent() {
 	$(document).on('click', '#threadBtn', function () {
-		window.open("monitoring/threadDump");
+		loadThreadDump();
 	});
 }
 

@@ -29,7 +29,7 @@ public class ThreadMonitoringService {
 	public void threadDump(StringBuffer buffer) {
 		ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
 		ThreadInfo[] dump = threadMXBean.dumpAllThreads(true, true);
-		buffer.append("=================Thread Dump=================\n");
+		buffer.append("<h3 class=\"features-subtitle font-alt\">=================Thread Dump=================</h3>");
 		for (ThreadInfo threadInfo : dump) {
 			State threadState = threadInfo.getThreadState();
 			String comment = null;
@@ -40,10 +40,10 @@ public class ThreadMonitoringService {
 			} else {
 				comment = "블록 혹은 웨이팅 상태";
 			}
-			buffer.append(String.format("%s-%s[%s] : \n", threadInfo.getThreadName(), threadState, comment));
+			buffer.append(String.format("<br>%s-%s[%s] : <br>", threadInfo.getThreadName(), threadState, comment));
 			StackTraceElement[] stackElements = threadInfo.getStackTrace();
 			for (StackTraceElement stack : stackElements) {
-				buffer.append(String.format("\t%s\n", stack));
+				buffer.append(String.format("\t%s<br>", stack));
 			}
 		}
 	}

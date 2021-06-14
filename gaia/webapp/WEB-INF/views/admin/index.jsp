@@ -71,6 +71,7 @@
 
 
     <script src="resources/main/lib/jquery/dist/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="resources/main/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script defer src="resources/main/lib/wow/dist/wow.js"></script>
     <script defer src="resources/main/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
@@ -83,9 +84,8 @@
     <script defer src="resources/main/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script defer src="resources/main/js/plugins.js"></script>
     <script defer src="resources/main/js/main.js"></script>
-    <script defer src="resources/main/js/admin.js"></script>
     <script defer src="resources/main/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="resources/main/js/admin.js"></script>
     <script type="text/javascript">
 
       window.dataLayer = window.dataLayer || [];
