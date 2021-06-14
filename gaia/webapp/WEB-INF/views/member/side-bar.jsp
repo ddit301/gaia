@@ -9,14 +9,13 @@
 <div class="card side-position-fixed">
 	<div class="card-body">
 		<div class="card">
-		<div class="row">
-			<div class="col-md-4">
-				<img class="mr-3 rounded-circle profile_img" height="48" width="48" src="${mem_pic_file_name}">
-			</div>
-			<div class="col-md-8 pt-3 py-3">
-				<h5 class="m-b-3">${mem_id }</h5>
-			</div>
-		</div>
+			<div class="media align-items-center mb-4">
+	            <img class="mr-3 rounded-circle profile_img" height="80" width="80" src="${mem_pic_file_name}">
+	            <div class="media-body">
+	                <h3 class="m-b-3">${mem_id }</h3>
+	                <p class="text-muted mb-0">Deutch</p>
+	            </div>
+	        </div>
         </div>
         <p class="color-text-tertiary">Your personal account</p>
         <div class="card">
