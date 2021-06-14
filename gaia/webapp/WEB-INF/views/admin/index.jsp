@@ -122,28 +122,6 @@
 
 
 
-
-    <style type="text/css">
-      .quesadilla {
-        position: relative;
-      }
-
-      .quesadilla:after {
-        z-index: -1; //this unblock the click
-        content: '📅'; //your image or whateaver
-        display: block;
-        font-size: 2rem;
-        color: STEELBLUE;
-        background: none;
-        //background: url('') no-repeat;
-        //background-size: 10%;
-        width: 50px;
-        height: 50px;
-        position: absolute;
-        top: 13px;
-        right: -7px;
-      }
-    </style>
   </head>
 
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
