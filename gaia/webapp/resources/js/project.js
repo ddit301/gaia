@@ -27,6 +27,12 @@ $(function(){
 		loadProject(manager_id,project_title);
 		// 툴팁 hide 시키기
 		$('.square__box').tooltip('hide');
+		// 선택 메뉴 Code 로 바꾸기 (css)
+		$('.metismenu').find('a').removeClass('selectedMenu');
+		$('.metismenu').find('.codemenu').addClass('selectedMenu');
+		// 선택 프로젝트 그림자 만들기
+		$('.projBox').children('button').removeClass('selectedProj');
+		$(this).addClass('selectedProj');
 	});
 	
 	// 프로젝트 생성 버튼에 대한 바인딩
