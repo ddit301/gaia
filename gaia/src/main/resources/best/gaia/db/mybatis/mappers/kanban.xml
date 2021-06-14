@@ -182,5 +182,23 @@
 		where kb_card_no = #{kb_card_no}
 	</delete>
 	
+	<insert id="insertKanbanColumn" parameterType="best.gaia.vo.KanbanColumnVO">
+		<selectKey resultType="int" keyProperty="kb_col_no" order="BEFORE">
+			select nvl(max(kb_col_no),0)+1
+			from KANBAN_COL
+		</selectKey>
+		INSERT INTO kanban_col (
+		    kb_col_no,
+		    kb_col_priv_no,
+		    proj_no,
+		    kb_col_nm
+		) VALUES (
+		    #{kb_col_no,jdbcType=NUMERIC},
+		    #{kb_col_priv_no,jdbcType=NUMERIC},
+		    #{proj_no,jdbcType=NUMERIC},
+		    #{kb_col_nm,jdbcType=VARCHAR}
+		)
+	</insert>
+	
 </mapper>
 

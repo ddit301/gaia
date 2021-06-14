@@ -1590,8 +1590,27 @@ Google map
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   color: #111;
+  margin: 16px 0 15px;
+}
+
+.features-subtitle,
+.alt-features-subtitle {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+  font-size: 13px;
+  color: rgb(53, 53, 53);
+  margin: 16px 0 15px;
+}
+.features-contents,
+.alt-features-contents {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgb(75, 75, 75);
   margin: 16px 0 15px;
 }
 
