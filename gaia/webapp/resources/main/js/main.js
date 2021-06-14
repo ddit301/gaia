@@ -859,7 +859,6 @@ $('.navbar-nav').on('click', 'a', function(){
 	event.preventDefault();
 	
 	let menu_name = $(this).data('menu');
-	console.log(menu_name);
 	if(! menu_name){
 		return;	
 	}
@@ -869,7 +868,6 @@ $('.navbar-nav').on('click', 'a', function(){
     if(menu_name.startsWith('admin'))
         pre_name = ''
 		menu_name = menu_name.substring(menu_name.lastIndexOf('/')+1);
-	console.log(pre_name + menu_name);
 	
 	let ajaxOption = {
             url : pre_name + menu_name,

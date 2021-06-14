@@ -1,6 +1,6 @@
 package best.gaia.project.controller;
 
-import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+import static best.gaia.utils.SessionUtil.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,12 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
@@ -23,7 +22,7 @@ import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.ResourceNotFoundException;
 
-@Controller
+@RestController
 @RequestMapping(value = "restapi/project/")
 public class ProjectController {
 	
@@ -34,7 +33,6 @@ public class ProjectController {
 	private ProjectService service;
 	
 	@GetMapping("loadProject.do")
-	@ResponseBody
 	public ServiceResult menuMapper(
 			@RequestParam String manager_id
 			,@RequestParam String project_title
@@ -68,5 +66,25 @@ public class ProjectController {
 		model.addAttribute("project_title", project_title);
 		return ServiceResult.OK;
 	}
+	
+	@GetMapping("projTitleCheck.do")
+	public ServiceResult projectNameValidator(
+			@RequestParam String proj_title
+			,Authentication authentication
+			) {
+		Boolean valid = service.isProjTitleValid(authentication, proj_title);
+		return valid == true ? ServiceResult.OK : ServiceResult.FAIL;
+		
+	}
 		
 }
+
+
+
+
+
+
+
+
+
+

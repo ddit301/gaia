@@ -57,14 +57,12 @@
     JavaScripts
     =============================================
     -->
-	<script type="text/javascript" src="/resources/main/js/inquiry.js">
 
-	</script>
 	<script type="text/javascript" class="init">
 
 		$(document).ready(function () {
 			getInquiryQuestion();
-			getEvent();
+			getInquiryEvent();
 		});
 
 	</script>

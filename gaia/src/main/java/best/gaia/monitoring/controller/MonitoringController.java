@@ -28,34 +28,36 @@ public class MonitoringController {
 	private EnvironmentResourceMonitoringService erService;
 	@Inject
 	private ThreadMonitoringService tmService;
-	
-	@GetMapping(value="info")
-	public Map<String, Object> view(Model model) throws IOException {
+
+	@GetMapping(value = "info")
+	public Map<String, Object> view() throws IOException {
 		Map<String, Object> result = new LinkedHashMap<>();
-		
+
 		Map<String, Object> Environment_Resource = new LinkedHashMap<>();
 		Environment_Resource.put("OS_Information", erService.osInfo());
 		Environment_Resource.put("JVM_Information", erService.runtimeInfo());
 		Environment_Resource.put("Disk_Information", erService.diskSpaceCheck());
 		result.put("Environment_Resource", Environment_Resource);
-		
+
 		Map<String, Object> Memory = new LinkedHashMap<>();
 		Memory.put("Memory_Usage_Summary", miService.memorySummary());
 		Memory.put("Garbage_Collection_Information", miService.gabageCollectionInfo());
 		Memory.put("Memory_Pool_Usage_Information", miService.memoryPoolInfo());
 		result.put("Memory", Memory);
-		
+
 		Map<String, Object> Class_Resource = new LinkedHashMap<>();
-		Class_Resource.put("Memory_Usage_Summary", miService.memorySummary());
-		Class_Resource.put("Garbage_Collection_Information", miService.gabageCollectionInfo());
+		Class_Resource.put("Compiler_Information", crService.compilerCheck());
+		Class_Resource.put("Class_Loading_Information", crService.classLoaderCheck());
 		result.put("Class_Resource", Class_Resource);
-		
-//		crService.compilerCheck(buffer);
-//		crService.classLoaderCheck(buffer);
-//		tmService.threadSummary(buffer);
+
+		Map<String, Object> Thread = new LinkedHashMap<>();
+		Thread.put("Thread_Summary", tmService.threadSummary());
+		result.put("Thread", Thread);
+
 		return result;
 	}
-	@RequestMapping(value="/threadDump")
+
+	@GetMapping(value = "threadDump", produces = "application/text; charset=utf-8")
 	public StringBuffer threadDump(Model model) throws IOException {
 		StringBuffer buffer = new StringBuffer();
 		model.addAttribute("info", buffer);
