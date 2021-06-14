@@ -29,6 +29,37 @@ $(function(){
 		$('.square__box').tooltip('hide');
 	});
 	
+	// 프로젝트 생성 버튼에 대한 바인딩
+	$('body').on('click', '#createProjectBtn', function(){
+		let proj_title = $('#proj_title_input').val();
+		let proj_cont = $('#proj_cont_input').val();
+		$('#projCreateModal').modal('hide');
+		insertProject(proj_title, proj_cont);
+	});
+	
+	// 프로젝트 생성 모달에서 취소를 누르건 생성을 누르건 내용을 비워준다.
+	$('body').on('click', '#projCreateModal .modal-footer button', function(){
+		$('#proj_title_input').val('');
+		$('#proj_cont_input').val('');
+	})
+	
+	
+	
+	/******************************************************
+	*
+	*       이벤트 매핑 
+	*
+	 *****************************************************/
+	
+	// 프로젝트 이름 작성하는 곳 한글 입력 방지.
+	document.querySelector('#proj_title_input').addEventListener('keyup', preventKorean);
+
+	// 프로젝트 이름 변경시 비동기로 사용 가능한 이름인지 체크. input과 blur 이벤트 모두 바인딩
+	$('body').on('input blur', '#proj_title_input', function(){
+		checkProjTitleInput();		
+	})
+
+	
 })
 
 // 뒤로가기 상황을 제외하고는 pushState를 통해 데이터를 쌓아야합니다.
@@ -128,8 +159,79 @@ const loadProjectList = function(){
 	})
 }
 
+const checkProjTitleInput = function(){
+	let proj_title = $('#proj_title_input').val();
+		let projTitleValidChecker = $('#projTitleValidChecker');
+		let createProjectBtn = $('#createProjectBtn');
+		if(!proj_title || (proj_title.indexOf(' ') >= 0) ){
+			projTitleValidChecker.removeClass("icon-close");
+			projTitleValidChecker.removeClass("icon-check");
+			createProjectBtn.attr('disabled','disabled');
+			return;
+		}
+		
+	$.ajax({
+		url : getContextPath() + '/restapi/project/projTitleCheck.do', 
+		type : 'get',
+		data : {
+			'proj_title' : proj_title
+		},
+		success : function(result) {
+			if(result == "OK"){
+				// 사용할 수 있는 proj_title 일 경우
+				projTitleValidChecker.removeClass("icon-close");
+				projTitleValidChecker.addClass("icon-check");
+				createProjectBtn.removeAttr('disabled');
+			}else{
+				// 사용할 수 없는 proj_title 일 경우
+				projTitleValidChecker.removeClass("icon-check");
+				projTitleValidChecker.addClass("icon-close");
+				createProjectBtn.attr('disabled','disabled');
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+	})
+}
 
-
+const insertProject = function(proj_title, proj_cont){
+	$.ajax({
+		url : getContextPath() + '/restapi/project/projects', 
+		type : 'post',
+		data : {
+			'proj_title' : proj_title
+			,'proj_cont' : proj_cont
+		},
+		success : function(project) {
+			// 왼쪽 프로젝트 navigator에 프로젝트를 추가해준다.
+			let projBoxes = $('.proj_boxes');
+			let projBox = $('#preloaderTemplate').children('.projBox').clone();
+			let initial = project.proj_title.substring(0,1).toUpperCase();
+			let projBtn = projBox.children('button');
+			projBtn.text(initial);
+			let tooltipText = project.proj_title;
+			projBtn.attr('title', tooltipText);
+			projBtn.attr('data-manager_id', mem_id);
+			projBtn.attr('data-project_title', project.proj_title);
+			projBoxes.append(projBox);
+			// 동적으로 추가한 요소들에 툴팁 활성화 시켜준다.
+			projBoxes.tooltip({
+			    selector: '.square__box'
+			});
+			
+			// 성공시 새로 만든 프로젝트로 이동한다.
+			manager_id = mem_id; 
+			project_title = project.proj_title;
+			loadProject(manager_id,project_title);
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+	})
+}
 
 
 

@@ -31,6 +31,7 @@
 	<script src="${cPath }/resources/js/util.js"></script>
 <!-- 	각 페이지별로 필요한 js 파일 입니다.  -->
 	<script src="${cPath }/resources/js/issue.js"></script>
+	<script src="${cPath }/resources/js/kanban.js"></script>
 	<script src="${cPath }/resources/js/milestone.js"></script>
 	<script src="${cPath }/resources/js/wiki.js"></script>
 	<script src="${cPath }/resources/js/alarm.js"></script>
