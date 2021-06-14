@@ -429,7 +429,7 @@ const loadMemberInfo_log = function(){
 			$(".profile_img_label").siblings("input").val(res.search.mem_id);
 			$.each(res.logList, function(i, v){
 				let log = $("#logTemplate").children(".log").clone();
-				let timeAgo = moment(v.date, "YYYYMMDD").fromNow();
+				let timeAgo = moment(v.date,moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
 				let ip = v.date+'<span class="vertical-separator"></span>'+timeAgo;
 				log.find(".log-card-ip").html(ip);
 				log.find(".log-card-actor").children("a").text(res.search.mem_id+" - user.login");				

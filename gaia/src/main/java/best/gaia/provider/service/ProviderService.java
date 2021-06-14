@@ -16,6 +16,6 @@ public interface ProviderService {
 
 	public List<InquiryVO> retrieveAllInquiryQuestion();
 	public InquiryCommentVO retrieveInquiryAnswer(int inq_no);
-	public ServiceResult enrollInquiryAnswer(InquiryCommentVO inquiryComment);
+	public int enrollInquiryAnswer(InquiryCommentVO inquiryComment);
 	
 }

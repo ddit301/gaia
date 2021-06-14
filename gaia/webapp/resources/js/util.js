@@ -1,11 +1,12 @@
 
 
-//////////////////////////////////////////////////////////////////////////////
-//
-//	 각종 버튼 바인딩
-//
-//////////////////////////////////////////////////////////////////////////////
 $(function(){
+	
+	//////////////////////////////////////////////////////////////////////////////
+	//
+	//	 각종 버튼 바인딩
+	//
+	//////////////////////////////////////////////////////////////////////////////
 	
 	// 버튼 누르면 movePageHistory를 호출해 해당 버튼에 맞는 페이지로 매칭시켜줍니다.
 	$('.nk-sidebar').on('click', '.moveButton', function(){
@@ -20,6 +21,24 @@ $(function(){
 		let menuName = $(this).data('menu');
 		memberMovePageHistory(menuName);
 	})
+	
+	
+	//////////////////////////////////////////////////////////////////////////////
+	//
+	//	 Document ready 됐을때 필요한 함수들
+	//
+	//////////////////////////////////////////////////////////////////////////////
+	
+	// ajax 로딩 관련 선언
+	let loading = $('<div id="loading" class="loading"><img id="loading_img" alt="loading" src="/resources/images/loading/ajax-loader.gif" /></div>')
+			.appendTo(document.body).hide();
+	
+	$(window).ajaxStart(function(){
+		loading.show();
+	}).ajaxStop(function(){
+		loading.hide();
+	});
+	
 	
 })
 
@@ -81,6 +100,17 @@ const getCurrentUrl = function(){
 const scrollUp = function(){
 	window.scrollTo({top:0, left:0, behavior:'auto'});
 }
+
+// 유저 프로필 사진 이름을 넣으면 경로를 반환 해주는 함수
+const getProfilePath = function (filename) {
+	return getContextPath() + '/resources/images/profiles/' + (filename==null ? 'default' : filename);
+}
+
+// 프로젝트 닉네임 쿠키에서 받아오기
+const getProjNickFromCookie = function(){
+	return getCookie('proj_user_nick');
+} 
+
 
 //////////////////////////////////////////////////////////////////////////////
 //

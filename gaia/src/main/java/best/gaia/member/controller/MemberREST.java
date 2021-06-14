@@ -154,7 +154,7 @@ public class MemberREST {
 		form_data.setMem_no(mem_no);
 		
 		// file 객체 하나 뽑기 
-		String saveFolder = "resources/profiles";
+		String saveFolder = "resources/images/profiles";
 		
 		// webResourcePath로 경로 잡기.(tomcatserver에 저장)
 		String saveFolderPath = application.getRealPath(saveFolder);

@@ -23,10 +23,10 @@
                 <hr class="divider-w mb-10">
                 <form class="form" method="post" action="${pageContext.request.contextPath }/signup/register">
                   <div class="form-group">
-                    <input class="form-control" id="E-mail" type="text" name="mem_id" placeholder="Email"/>
+                    <input class="form-control" id="E-mail" type="text" name="mem_id" placeholder="Id"/>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="username" type="text" name="mem_nick" placeholder="Username"/>
+                    <input class="form-control" id="username" type="text" name="mem_nick" placeholder="Full Name"/>
                   </div>
                   <div class="form-group">
                     <input class="form-control" id="password" type="password" name="mem_pass" placeholder="Password"/>

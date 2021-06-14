@@ -92,20 +92,23 @@
 	</select>
 	
 	<select id="selectInquiryAnswer" parameterType="Integer" resultType="best.gaia.vo.InquiryCommentVO">
-	SELECT
-	    INQ_COM_NO,
-	    INQ_NO,
-	    PROV_ID,
-	    INQ_COM_CONT,
-	    INQ_COM_DATE,
-	    ATCH_FILE_SID
-	FROM
-	    INQUIRY_COMMENT
-    WHERE
-    	INQ_NO=#{inq_no}
+	SELECT *
+	FROM (SELECT
+			    INQ_COM_NO,
+			    INQ_NO,
+			    PROV_ID,
+			    INQ_COM_CONT,
+			    INQ_COM_DATE,
+			    ATCH_FILE_SID
+			FROM
+			    INQUIRY_COMMENT
+		    WHERE
+		    	INQ_NO=#{inq_no}
+		    ORDER BY INQ_COM_DATE DESC)
+	WHERE ROWNUM = 1
 	</select>
 
-	<insert id="insertInquiryAnswer" parameterType="best.gaia.vo.InquiryCommentVO">
+	<insert id="insertInquiryAnswer" parameterType="best.gaia.vo.InquiryCommentVO" keyProperty="INQ_COM_NO">
 		<selectKey resultType="int" keyProperty="inq_com_no" order="BEFORE">
 			SELECT INQ_COM_SEQ.NEXTVAL
 			FROM DUAL

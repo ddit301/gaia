@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+/* 로딩 관관 css */
+#loading {
+	height: 100%;
+	left: 0px;
+	position: fixed;
+	_position:absolute; 
+	top: 0px;
+	width: 100%;
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	opacity : 0.5;
+}
+.loading {
+	z-index: 100;
+}
+#loading_img{
+	position:absolute; 
+	top:50%;
+	left:50%;
+	height:100px;
+	margin-top:-100px;	
+	margin-left:-100px;	
+	z-index: 200;
+}
