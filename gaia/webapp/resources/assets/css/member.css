@@ -103,3 +103,32 @@ textarea {
 .log-card-body{
 	padding: 0.5rem 1.81rem !important;
 }
+.chatList-card-body{
+	padding: 0.5rem 0rem !important;
+}
+.chatRoomList-over{
+	max-height: 550px;
+    overflow-y: auto;
+}
+.font-bold-black{
+	font-weight: bold;
+    color: black;
+}
+.pro_img{
+	position : absolute;
+}
+.img-center{
+	z-index:1;
+}
+.chat-img:hover .img-left{
+	transform: translateX(-30px);
+}
+.chat-img:hover .img-right{
+	transform: translateX(30px);
+}
+.img-left{
+	transform: translateX(-15px); transition: all 0.8s ease;
+}
+.img-right{
+	transform: translateX(15px); transition: all 0.8s ease;
+}

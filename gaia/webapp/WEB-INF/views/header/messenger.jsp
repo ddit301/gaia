@@ -54,7 +54,7 @@
 $(".toChattingPage.moveButton").on('click',  function(){
 	event.preventDefault();
 	let menuName = $(this).data('menu');
-	movePageHistoryMember(menuName);
+	memberMovePageHistory(menuName);
 })
 // 페이지 로딩 시 데이터 받기.
 var messengerData = function(){

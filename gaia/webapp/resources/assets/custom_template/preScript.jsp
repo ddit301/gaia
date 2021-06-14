@@ -25,17 +25,17 @@
     <link href="${cPath }/resources/assets/dist/jkanban.min.css" rel="stylesheet" >
     <link href="${cPath }/resources/assets/css/kanban.css" rel="stylesheet">
     <!-- DateTimePicker Stylesheet-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+    <link href="${cPath }/resources/assets/css/external/material-icon.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/css/external/bootstrap-material-datetimepicker.min.css" rel="stylesheet">
     <!-- Toast UI Editor Stylesheet -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <link href="${cPath }/resources/assets/css/external/codemirror.min.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/css/external/toastui-editor.min.css" rel="stylesheet">
     <!-- Toastr Stylesheet -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="${cPath }/resources/assets/css/external/toastr.css" rel="stylesheet">
     <!-- jquery-contextmenu -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.css" integrity="sha512-EF5k2tHv4ShZB7zESroCVlbLaZq2n8t1i8mr32tgX0cyoHc3GfxuP7IoT8w/pD+vyoq7ye//qkFEqQao7Ofrag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="${cPath }/resources/assets/css/external/jquery.contextMenu.css" rel="stylesheet">
     <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${cPath }/resources/js/external/jquery.min.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-3YZPKG0D0K"></script>
 	<script>
