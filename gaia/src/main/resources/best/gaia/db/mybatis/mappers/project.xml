@@ -8,12 +8,16 @@
 		where proj_title = #{project_title}
 		    and mem_id = #{manager_id}
 	</select>
-	<select id="getProjCount" parameterType="java.util.Map" resultType="Integer">
-		select count(*)
-		from project 
-		    inner join member on (project.mem_no = member.mem_no)
-		where proj_title = #{project_title}
-		    and mem_id = #{manager_id}
+	<select id="getProjCount" parameterType="best.gaia.vo.ProjectVO" resultType="int">
+		select a+b
+		from (
+		    select count(*) a
+		    from project
+		    where proj_title = #{proj_title} and mem_no = #{mem_no}) a,
+		    (
+		    select count(*) b
+		    from forbidden_proj_title
+		    where forbidden_proj_title = #{proj_title} ) b
 	</select>
 	
 	

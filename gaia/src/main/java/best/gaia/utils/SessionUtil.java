@@ -24,21 +24,37 @@ public class SessionUtil {
 	static private List<WebSocketSession> userList;
 	
 	/**
+	 * Authentication 에서 memberVO를 꺼내오는 메서드 입니다.
+	 * @param authentication
+	 * @return
+	 */
+	static public MemberVO getMemberVoFromAuthentication(Authentication authentication) {
+		if(authentication == null) {
+			throw new UnauthorizedException();
+		}
+		MemberVO member = ((MemberUserDetails) authentication.getPrincipal()).getAdaptee();
+		if(member == null) {
+			throw new UnauthorizedException();
+		}
+		return member;
+	}
+	
+	/**
 	 *  Authentication 에서 mem_no 를 받아오는 메서드 입니다.
 	 * @param authentication
 	 * @return
 	 */
 	static public int getMemberNoFromAuthentication(Authentication authentication) {
-		if(authentication == null) {
-			throw new UnauthorizedException();
-		}
-		
-		MemberVO member = ((MemberUserDetails) authentication.getPrincipal()).getAdaptee();
-		if(member == null) {
-			throw new UnauthorizedException();
-		}
-		
-		return member.getMem_no();
+		return getMemberVoFromAuthentication(authentication).getMem_no();
+	}
+	
+	/**
+	 *  Authentication 에서 mem_id 를 받아오는 메서드 입니다.
+	 * @param authentication
+	 * @return
+	 */
+	static public String getMemberIdFromAuthentication(Authentication authentication) {
+		return getMemberVoFromAuthentication(authentication).getMem_id();
 	}
 	
 	/**
@@ -139,6 +155,13 @@ public class SessionUtil {
 		}
 	}
 	
+	
+	/**
+	 * 특정 웹소켓 sessionList 에게 data를 보내는 메서드 입니다.
+	 * @param sessionList
+	 * @param dataType
+	 * @param data
+	 */
 	static public void sendDataToWebsocketSessionList(
 			List<WebSocketSession> sessionList
 			,String dataType

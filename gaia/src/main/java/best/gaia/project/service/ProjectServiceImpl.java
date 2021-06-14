@@ -1,5 +1,5 @@
 package best.gaia.project.service;
-
+import static best.gaia.utils.SessionUtil.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.commons.collections.map.HashedMap;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -152,26 +153,6 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ServiceResult enrollProject(ProjectVO project) {
-		ServiceResult result = ServiceResult.FAIL;
-		Map<String, String> map = new HashedMap();
-		map.put("project_title", project.getProj_title());
-		map.put("manager_id", project.getProjectManager().getMem_id());
-		int proj_no = projectDao.getProjCount(map);
-
-		if (proj_no == 0) {
-			int rowcnt = projectDao.insertProject(project);
-
-			if (rowcnt == 1) {
-				result = ServiceResult.OK;
-			} else {
-				result = ServiceResult.FAIL;
-			}
-		}
-		return result;
-	}
-
-	@Override
 	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO) {
 		
 		return wikiDao.selectWikiList(pagingVO);
@@ -227,4 +208,22 @@ public class ProjectServiceImpl implements ProjectService {
 		return validChecker == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
+	@Override
+	public Boolean isProjTitleValid(Authentication authentication, String proj_title) {
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		ProjectVO project = new ProjectVO();
+		project.setMem_no(mem_no);
+		project.setProj_title(proj_title);
+		int count = projectDao.getProjCount(project);
+		return (count == 0);
+	}
+
 }
+
+
+
+
+
+
+
+

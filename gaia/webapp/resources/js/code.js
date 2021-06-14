@@ -84,6 +84,8 @@ let gitRepoUrl = null;
 
 // 프로젝트에 속한 저장소들을 불러오는 함수
 const loadRepositoryList = function() {
+	
+	scrollUp();
 
 	$.ajax({
 		url: getContextPath() + '/restapi/project/repositories',

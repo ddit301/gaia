@@ -29,6 +29,61 @@ $(function(){
 		$('.square__box').tooltip('hide');
 	});
 	
+	// 프로젝트 생성 버튼에 대한 바인딩
+	$('body').on('click', '#createProjectBtn', function(){
+		alert('생성');
+		$('#projCreateModal').modal('hide');
+	});
+	
+	
+	
+	/******************************************************
+	*
+	*       이벤트 매핑 
+	*
+	 *****************************************************/
+	
+	// 프로젝트 이름 변경시 비동기로 사용 가능한 이름인지 체크
+	$('body').on('input', '#proj_title_input', function(){
+		let proj_title = $('#proj_title_input').val();
+		let projTitleValidChecker = $('#projTitleValidChecker');
+		let createProjectBtn = $('#createProjectBtn');
+		if(!proj_title){
+			projTitleValidChecker.removeClass("icon-close");
+			projTitleValidChecker.removeClass("icon-check");
+			createProjectBtn.attr('disabled','disabled');
+			return;
+		}
+		
+		$.ajax({
+			url : getContextPath() + '/restapi/project/projTitleCheck.do', 
+			type : 'get',
+			data : {
+				'proj_title' : proj_title
+			},
+			success : function(result) {
+				if(result == "OK"){
+					// 사용할 수 있는 proj_title 일 경우
+					projTitleValidChecker.removeClass("icon-close");
+					projTitleValidChecker.addClass("icon-check");
+					createProjectBtn.removeAttr('disabled');
+				}else{
+					// 사용할 수 없는 proj_title 일 경우
+					projTitleValidChecker.removeClass("icon-check");
+					projTitleValidChecker.addClass("icon-close");
+					createProjectBtn.attr('disabled','disabled');
+				}
+			},
+			error : function(xhr, error, msg) {
+				ajaxError(xhr, error, msg);
+			},
+			dataType : 'json'
+		})
+		
+	})
+
+
+	
 })
 
 // 뒤로가기 상황을 제외하고는 pushState를 통해 데이터를 쌓아야합니다.

@@ -3,6 +3,8 @@ package best.gaia.project.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.core.Authentication;
+
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.NewsCommentVO;
@@ -12,6 +14,11 @@ import best.gaia.vo.WikiVO;
 import best.gaia.vo.ProjectVO;
 
 public interface ProjectService {
+	
+	/**********************************************************************
+	 *  프로젝트 관련 service
+	 **********************************************************************/	
+	public Boolean isProjTitleValid(Authentication authentication, String proj_title);
 	
 	/**********************************************************************
 	 *  뉴스 관련 service
@@ -50,8 +57,7 @@ public interface ProjectService {
 	public ServiceResult updateWiki(WikiVO wiki);
 	public ServiceResult deleteWiki(WikiVO wiki);
 	public WikiVO selectWiki(Map<String, Object> search);
-	
-	public ServiceResult enrollProject(ProjectVO project);
+
 
 	
 }
