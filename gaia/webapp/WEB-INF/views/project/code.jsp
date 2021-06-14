@@ -14,12 +14,24 @@
 			<div class="repository col-md-9">
 <!-- 			git repository -->
 	            <div class="git">
-	            	<div class="fileNav card">
-	            		<div class="fileNavHeader">
-	            			<span>저장소 주소</span>
+	            	<div class="card repoHeader row">
+	            		<div class="repoInfo col-md-8">
+		            		<a>
+			            		<img src="${cPath }/resources/images/github/GitHub-Mark/PNG/GitHub-Mark-32px.png">
+			            		<img src="${cPath }/resources/images/github/GitHub-Logos/GitHub_Logo.png">
+			            		<span></span>
+		            		</a>
 	            		</div>
-	            		<div class="fileNavBody">
-	            		</div>
+	            	</div>
+	            	<div class="repoBody">
+		            	<div class="fileNav card">
+		            		<div class="fileNavHeader">
+		            			<span></span>
+		            		</div>
+		            		<div class="fileNavBody">
+		            		</div>
+		            	</div>
+		            	<div class="col-md-6"></div>
 	            	</div>
 					<div id="gitReadmeArea"></div>
 	            </div>
@@ -30,33 +42,22 @@
 			</div>
 			
 			<div class="project-overview col-md-3">
-				<span>프로젝트 정보 오버뷰 내용 들어갈 곳</span>
+				<div class="languageInfo">
+				</div>
 			</div>
 		</div>
 
 <div id="codeTemplates" hidden="true">
 	<div class="fileObj fileBox row">
 		<div class="filename col-md-9">
-			<!-- 파일 타입에 따라 icon-file 혹은 icon-folder 로 변한다. --> 
-			<i></i>
+			<i></i><!-- 파일 타입에 따라 icon-file 혹은 icon-folder 로 변한다. --> 
 			<a class="filename-text">filename</a>
 		</div>
 		<div class="filesize col-md-3">
 			<span class="filesize-text"></span>
 		</div>
 	</div>
-	<div class="baseFolder fileBox row">
-		<div class="filename col-md-9">
-			<!-- 파일 타입에 따라 icon-file 혹은 icon-folder 로 변한다. --> 
-			<i class="icon-folder"></i>
-			<a class="filename-text"></a>
-		</div>
-		<div class="filesize col-md-3">
-			<span class="filesize-text"></span>
-		</div>
-	</div>
 </div>
-
 
 
 <script>
