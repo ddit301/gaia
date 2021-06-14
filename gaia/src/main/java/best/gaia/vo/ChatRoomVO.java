@@ -1,6 +1,7 @@
 package best.gaia.vo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of= {"chatroom_no"})
-public class ChatVO {
+public class ChatRoomVO {
 	private Integer chatroom_no;
 	private String chatroom_alarm;
 	private String chatroom_title;
@@ -33,4 +34,8 @@ public class ChatVO {
 				+ chatroom_title + ", chatroom_create_date=" + chatroom_create_date + ", memberList=" + memberList
 				+ "]";
 	}
+	/**
+	 * 필요에 따라 추가된 프로퍼티 입니다.
+	 */
+	private List<Map<String, Object>> chatList;
 }
