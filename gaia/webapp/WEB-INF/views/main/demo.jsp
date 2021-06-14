@@ -93,3 +93,5 @@
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
    
    
+    <script src="resources/main/js/main.js"></script>
+   
