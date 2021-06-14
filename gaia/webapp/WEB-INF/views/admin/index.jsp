@@ -58,6 +58,7 @@
     <link href="resources/main/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
     <link href="resources/main/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
     <link href="resources/main/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom Stylesheet -->
 
 
@@ -84,7 +85,9 @@
     <script defer src="resources/main/js/main.js"></script>
     <script defer src="resources/main/js/admin.js"></script>
     <script defer src="resources/main/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript">
+
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
@@ -92,7 +95,28 @@
 
       function getContextPath() {
         return "<%=request.getContextPath()%>";
-      }
+      };
+      
+      $(function(){
+    	  toastr.options = {
+    			  "closeButton": false,
+    			  "debug": false,
+    			  "newestOnTop": false,
+    			  "progressBar": false,
+    			  "positionClass": "toast-top-right",
+    			  "preventDuplicates": false,
+    			  "onclick": null,
+    			  "showDuration": "20",
+    			  "hideDuration": "300",
+    			  "timeOut": "1200",
+    			  "extendedTimeOut": "700",
+    			  "showEasing": "swing",
+    			  "hideEasing": "linear",
+    			  "showMethod": "fadeIn",
+    			  "hideMethod": "fadeOut"
+    			}
+      })
+      
     </script>
 
 

@@ -87,7 +87,7 @@ function ClassLoadingInformation(Class_Loading_Information) {
 	let loaded = Class_Loading_Information['loaded class count'];
 	let percentage = loaded / total * 100;
 	return '<h6 class="features-contents font-alt">since JVM started</h6>'
-		+ '<h6 class="font-alt">TOTAL: ' + total + 'classes / loaded class: ' + loaded + ' / unloaded' + Class_Loading_Information['unloaded class count'] + '</h6><br>'
+		+ '<h6 class="font-alt">TOTAL: ' + total + ' classes / loaded: ' + loaded + ' classes / unloaded: ' + Class_Loading_Information['unloaded class count'] + ' classes</h6><br>'
 		+ '<div class="progress">'
 		+ '<div class="progress-bar progress-bar-striped active" aria-valuenow="' + loaded + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + percentage + '%;">'
 		+ '<span class="font-alt" style="opacity: 1;">' + Math.round(percentage) + '</span>'
@@ -311,6 +311,7 @@ function postInquiryAnswer() {
 			$('#answerForm').remove();
 			let id = "q__" + res.inq_no;
 			$('#' + id).after(answerFormat(res));
+			toastr.success("답변을 등록하였습니다.");
 		},
 		error: function (xhr) {
 			console.log('error: ', xhr);

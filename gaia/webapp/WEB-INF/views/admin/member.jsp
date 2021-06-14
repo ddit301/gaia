@@ -45,14 +45,12 @@
     $(document).ready( function () {
     	
 	    function asyncMovePage(url){
-	        // ajax option
 	        let ajaxOption = {
 	                url : url,
 	                async : true,
 	                type : "GET",
 	                dataType : "html",
 	                cache : false
-	//                 ,contentType:'text/html; charset=UTF-8'
 	        };
 	
 	        $.ajax(ajaxOption).done(function(data){
@@ -62,13 +60,11 @@
 	    }
 	    
 	    function getMember(){
-        console.log();
 	    	$.ajax({
 	    		url : getContextPath()+"/admin/member/ListView" ,
 	    		type : 'get',
 	    		success : function(res) {
 	    			let data = res
-            console.log(data);
 	    			$('#member-table').DataTable({
               data : data,
               columns: [
