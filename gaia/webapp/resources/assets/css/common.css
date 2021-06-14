@@ -33,3 +33,8 @@
 #projTitleValidChecker.icon-check{
 	color : green;
 }
+
+/* 왼쪽 프로젝트 메뉴바 선택됐을 경우 그림자 처리 */
+.nk-sidebar .metismenu a.selectedMenu{
+	box-shadow: inset 0 0 5px #666666;
+}
