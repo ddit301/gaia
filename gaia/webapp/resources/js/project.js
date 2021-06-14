@@ -35,6 +35,12 @@ $(function(){
 		$('#projCreateModal').modal('hide');
 	});
 	
+	// 프로젝트 생성 모달에서 취소를 누르건 생성을 누르건 내용을 비워준다.
+	$('body').on('click', '#projCreateModal .modal-footer button', function(){
+		$('#proj_title_input').val('');
+		$('#proj_cont_input').val('');
+	})
+	
 	
 	
 	/******************************************************
