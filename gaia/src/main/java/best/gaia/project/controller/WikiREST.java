@@ -55,7 +55,6 @@ public class WikiREST {
 			){
 		WikiVO detailSearch = new WikiVO();
 		
-		System.err.println("wiki_title :" + wiki_title);
 		if(wiki_title != null) {
 			detailSearch.setWiki_title(wiki_title);
 		}

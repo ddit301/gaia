@@ -33,14 +33,17 @@
 	
 	<resultMap type="best.gaia.vo.MilestoneVO" id="milestoneMap" autoMapping="true">
 			<id property="milest_sid" column="MILEST_SID" />
-		<collection property="issueList" ofType="best.gaia.vo.IssueVO" javaType="java.util.List" autoMapping="true">
+		<collection property="issueList" ofType="best.gaia.vo.IssueVO" javaType="java.util.List" autoMapping="false">
 			<id property="issue_sid" column="ISSUE_ID"/>
+				<result column="issue_no" property="issue_no"></result>
+				<result column="issue_title" property="issue_title"></result>
+			
 			<association property="label" javaType="java.util.Map" autoMapping="false">
 				<result column="LABEL_NO" property="label_no"></result>
 				<result column="LABEL_NM" property="label_nm"></result>
 			</association>
-		<collection property="assigneeList" ofType="best.gaia.vo.MemberVO" javaType="java.util.Set" autoMapping="true">
-				<id property="mem_no" column="MEM_NO" />	
+		<collection property="assigneeList" ofType="best.gaia.vo.MemberVO" javaType="java.util.Set" autoMapping="false">
+				<id property="mem_no" column="ISSUE_ASSIN_MEM_NO" />	
 		</collection>
 		</collection>
 	</resultMap>
