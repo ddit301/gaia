@@ -111,6 +111,12 @@ const getProjNickFromCookie = function(){
 	return getCookie('proj_user_nick');
 } 
 
+// 한글 입력을 방지하는 함수 입니다.띄어쓰기도 막습니다.
+// [selector].addEventListener('keyup', preventKorean); 형태로 사용합니다.
+const preventKorean = function() {
+  var pattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\s]/;
+  this.value = this.value.replace(pattern, '');
+};
 
 //////////////////////////////////////////////////////////////////////////////
 //

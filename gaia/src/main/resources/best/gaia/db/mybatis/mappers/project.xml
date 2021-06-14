@@ -26,26 +26,53 @@
 			SELECT PROJ_SEQ.nextval
 			FROM DUAL
 		</selectKey>
-	 INSERT INTO PROJECT (
-	    PROJ_NO,
-	    MEM_NO,
-	    PROJ_TITLE,
-	    PROJ_CONT,
-	    PROJ_START_DATE,
-	    PROJ_EST_END_DATE,
-	    ISSUE_PRIORITY_SET,
-	    PROJ_MODULE_SET
-	) VALUES (
-	    #{proj_no},
-	    #{mem_no},
-	    #{proj_title},
-	    #{proj_cont},
-	    #{proj_start_date},
-	    #{proj_est_end_date},
-	    #{issue_priority_set},
-	    #{proj_module_set}
-	)
+		 INSERT INTO PROJECT (
+		    PROJ_NO,
+		    MEM_NO,
+		    PROJ_TITLE,
+		    PROJ_CONT,
+		    PROJ_START_DATE
+		) VALUES (
+		    #{proj_no},
+		    #{mem_no,jdbcType=NUMERIC},
+		    #{proj_title,jdbcType=VARCHAR},
+		    #{proj_cont,jdbcType=VARCHAR},
+		    sysdate
+		)
 	</insert>
+	
+	<insert id="insertMemberRole" parameterType="best.gaia.vo.MemRoleVO">
+		<selectKey resultType="int" keyProperty="mem_role_no" order="BEFORE">
+			select nvl(max(mem_role_no),0)+1
+			from mem_role
+		</selectKey>
+		INSERT INTO mem_role (
+		    mem_role_no,
+		    proj_no,
+		    mem_role_nm
+		) VALUES (
+		    #{mem_role_no},
+		    #{proj_no,jdbcType=NUMERIC},
+		    #{mem_role_nm,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertProjMem" parameterType="best.gaia.vo.ProjMemVO">
+		INSERT INTO proj_mem (
+		    mem_no,
+		    proj_no,
+		    mem_role_no,
+		    proj_join_date,
+		    proj_user_nick
+		) VALUES (
+		    #{mem_no,jdbcType=NUMERIC},
+		    #{proj_no,jdbcType=NUMERIC},
+		    #{mem_role_no,jdbcType=NUMERIC},
+		    sysdate,
+		    #{proj_user_nick,jdbcType=VARCHAR}
+		)
+	</insert>
+	
 	
 	
 	
@@ -71,6 +98,7 @@
 		    left outer join proj_mem on (project.proj_no = proj_mem.proj_no)
 		    left outer join member proj_manager on (project.mem_no = proj_manager.mem_no)
 		where proj_mem.mem_no = #{mem_no}
+			and proj_status = 0
 		order by proj_start_date
 	</select>
 	

@@ -19,6 +19,9 @@ public interface ProjectService {
 	 *  프로젝트 관련 service
 	 **********************************************************************/	
 	public Boolean isProjTitleValid(Authentication authentication, String proj_title);
+	public ServiceResult insertProject(ProjectVO project);
+	public ServiceResult updateProject(ProjectVO project);
+	public ServiceResult deleteProject(ProjectVO project);
 	
 	/**********************************************************************
 	 *  뉴스 관련 service
@@ -27,13 +30,6 @@ public interface ProjectService {
 	public ServiceResult insertNews(NewsVO news);
 	public ServiceResult updateNews(NewsVO news);
 	public ServiceResult deleteNews(NewsVO news);
-	
-	/**********************************************************************
-	 *  뉴스 댓글 관련 service
-	 **********************************************************************/
-	public ServiceResult insertNewsComment(NewsCommentVO news);
-	public ServiceResult updateNewsComment(NewsCommentVO news);
-	public ServiceResult deleteNewsComment(NewsCommentVO news);
 	
 	/**********************************************************************
 	 *  칸반 관련 service

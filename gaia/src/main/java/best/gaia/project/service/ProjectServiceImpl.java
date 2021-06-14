@@ -17,9 +17,12 @@ import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.dao.WikiDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.KanbanCardVO;
+import best.gaia.vo.KanbanColumnVO;
+import best.gaia.vo.MemRoleVO;
 import best.gaia.vo.NewsCommentVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
+import best.gaia.vo.ProjMemVO;
 import best.gaia.vo.WikiVO;
 import best.gaia.vo.ProjectVO;
 
@@ -64,23 +67,6 @@ public class ProjectServiceImpl implements ProjectService {
 		return null;
 	}
 
-	@Override
-	public ServiceResult insertNewsComment(NewsCommentVO news) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ServiceResult updateNewsComment(NewsCommentVO news) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ServiceResult deleteNewsComment(NewsCommentVO news) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	@Transactional
@@ -216,6 +202,62 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setProj_title(proj_title);
 		int count = projectDao.getProjCount(project);
 		return (count == 0);
+	}
+
+	@Override
+	@Transactional
+	public ServiceResult insertProject(ProjectVO project) {
+		int mem_no = project.getMem_no();
+		int validChecker = 1;
+		
+		// 프로젝트 생성 해주고
+		validChecker *= projectDao.insertProject(project);
+		int proj_no = project.getProj_no();
+		
+		// 프로젝트에 기본 멤버 롤 생성해서insert 등록 하고 ( Manager, member )
+		MemRoleVO adminRole = new MemRoleVO("admin");
+		adminRole.setProj_no(proj_no);
+		MemRoleVO memberRole = new MemRoleVO("member");
+		memberRole.setProj_no(proj_no);
+		validChecker *= projectDao.insertMemberRole(adminRole);
+		validChecker *= projectDao.insertMemberRole(memberRole);
+		
+		// 프로젝트 생성자 가입 정보 등록하고 (Manager)
+		ProjMemVO projMem = new ProjMemVO();
+		projMem.setMem_no(mem_no);
+		projMem.setMem_role_no(adminRole.getMem_role_no());
+		projMem.setProj_no(proj_no);
+		projMem.setProj_user_nick("관리자");
+		validChecker *= projectDao.insertProjMem(projMem);
+		
+		// 해당 프로젝트에 기본 칸반 컬럼들 등록해준다. ( Todo, In Progress, Done)
+		KanbanColumnVO firstColumn = new KanbanColumnVO("TO DO");
+		firstColumn.setProj_no(proj_no);
+		validChecker *= kanbanDao.insertKanbanColumn(firstColumn);
+		
+		KanbanColumnVO secondColumn = new KanbanColumnVO("IN PROGRESS");
+		secondColumn.setProj_no(proj_no);
+		secondColumn.setKb_col_priv_no(firstColumn.getKb_col_no());
+		validChecker *= kanbanDao.insertKanbanColumn(secondColumn);
+		
+		KanbanColumnVO thirdColumn = new KanbanColumnVO("DONE");
+		thirdColumn.setProj_no(proj_no);
+		secondColumn.setKb_col_priv_no(secondColumn.getKb_col_no());
+		validChecker *= kanbanDao.insertKanbanColumn(thirdColumn);
+		
+		return validChecker == 1 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public ServiceResult updateProject(ProjectVO project) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceResult deleteProject(ProjectVO project) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

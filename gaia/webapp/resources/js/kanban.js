@@ -333,7 +333,7 @@ const makeKanban = function(board){
             
             // ajax에서 새 카드 추가 한 뒤에, 새로운 카드의 id를 받아온다.
             $.ajax({
-				url : '${cPath}/restapi/project/kanban-cards',
+				url : getContextPath() + '/restapi/project/kanban-cards',
 				method : 'post',
 				data : {
 					'kb_col_no' : kb_col_no
