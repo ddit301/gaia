@@ -109,7 +109,6 @@ const loadRepositoryList = function() {
 		dataType: 'json'
 	})
 
-
 }
 
 // git 저장소가 있을 경우 해당 정보를 화면에 출력해줍니다.
@@ -159,9 +158,6 @@ function fileSizeConverter(bytes, si = true, dp = 1) {
 const openFileFromUrl = function(download_url){
 	let fileName = getFileNameFromUri(download_url);
 	let extension = getExtension(fileName);
-	console.log(download_url);
-	console.log(fileName);
-	console.log(extension);
 	/**
 		extension 별로 코드 편집기 실행 혹은 미디어 플레이어 실행 등 이벤트를 추후에 추가해야 합니다. 	
 	 */
