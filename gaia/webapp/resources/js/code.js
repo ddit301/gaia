@@ -14,9 +14,13 @@ $(function() {
 		event.preventDefault();
 		let type = $(this).data('type');
 		let path = $(this).data('path');
+		let download_url = $(this).data('download_url');
+		// 폴더면 해당 폴더 탐색
 		if (type == 'dir') {
 			loadFilesFromGit(gitRepoUrl, path);
 		}else{
+			// 파일이면 해당 파일 실행
+			openFileFromUrl(download_url);
 		}
 	})
 
@@ -38,7 +42,6 @@ $(function() {
 					download(downUrl);
 				}
 			}
-			,
 		},
 		events: {
 			show: function(opt) {
@@ -152,10 +155,37 @@ function fileSizeConverter(bytes, si = true, dp = 1) {
 	return bytes.toFixed(dp) + ' ' + units[u];
 }
 
+// URL 소스로 부터 파일 열어 확인시켜주는 함수
+const openFileFromUrl = function(download_url){
+	let fileName = getFileNameFromUri(download_url);
+	let extension = getExtension(fileName);
+	console.log(download_url);
+	console.log(fileName);
+	console.log(extension);
+	/**
+		extension 별로 코드 편집기 실행 혹은 미디어 플레이어 실행 등 이벤트를 추후에 추가해야 합니다. 	
+	 */
+	window.open(download_url);
+	
+}
+
+const getFileNameFromUri = function(fileUri){
+	let lastIndexOfSlash = fileUri.lastIndexOf('/');
+	return lastIndexOfSlash == -1 ? null : fileUri.substring(lastIndexOfSlash+1);
+}
+
+const getExtension = function(fileName){
+	let lastIndexOfComma = fileName.lastIndexOf('.');
+	return lastIndexOfComma == -1 ? null : fileName.substring(lastIndexOfComma+1);
+}
+
+
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 //
-//	 gitHub restAPI 활용
+//	 gitHub restAPI 활용 하는 함수 목록
 //
 //////////////////////////////////////////////////////////////////////////////
 
