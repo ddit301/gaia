@@ -81,12 +81,15 @@ public class ProjectMemberRest {
 	}
 	
 	@DeleteMapping
-	public Map<String, Object> deleteProjectMember(
-			HttpSession session
+	public ServiceResult deleteProjectMember(
+			@ModelAttribute ProjMemVO projMem
+			,HttpSession session
 			,Authentication authentication
 			) {
-		
-		return null;
+		int proj_no = getProjNoFromSession(session);
+		projMem.setProj_no(proj_no);
+		int result = dao.setMemberInactive(projMem);
+		return result==1? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	
 	

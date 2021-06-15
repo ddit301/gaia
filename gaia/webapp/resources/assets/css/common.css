@@ -52,6 +52,9 @@ button.selectedProj{
 .profileBox img{
 	padding : 4px;
 }
+.memcard.dropped .card{
+	box-shadow : 0 0 0 1px red inset;
+}
 .memcard .card:hover{
 	box-shadow : 0 0 0 5px grey inset;
 	cursor : pointer;

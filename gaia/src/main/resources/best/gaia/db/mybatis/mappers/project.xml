@@ -117,4 +117,22 @@
 		    AND proj_no = ${proj_no}
 	</update>
 	
+	<update id="setMemberInactive" parameterType="best.gaia.vo.ProjMemVO">
+		UPDATE proj_mem
+		SET
+		    PROJ_DROP_DATE = sysdate
+		WHERE
+		        mem_no = ${mem_no}
+		    AND proj_no = ${proj_no}	
+	</update>
+	
+	<update id="setMemberActivective" parameterType="best.gaia.vo.ProjMemVO">
+		UPDATE proj_mem
+		SET
+		    PROJ_DROP_DATE = null
+		WHERE
+		        mem_no = ${mem_no}
+		    AND proj_no = ${proj_no}	
+	</update>
+	
 </mapper>

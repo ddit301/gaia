@@ -55,8 +55,22 @@ $(function(){
 		let proj_nick = $(this).data('proj_nick');
 		let proj_role_no = $(this).data('proj_role_no');
 		let mem_pic_file_name = $(this).data('mem_pic_file_name');
+		let dropped = $(this).data('dropped');
 		
-		manageProjMember(selectedMemNo, proj_nick, proj_role_no, mem_pic_file_name);
+		let selectedMember = {};
+		selectedMember.selectedMemNo = selectedMemNo;
+		selectedMember.proj_nick = proj_nick;
+		selectedMember.proj_role_no = proj_role_no;
+		selectedMember.mem_pic_file_name = mem_pic_file_name;
+		selectedMember.dropped = dropped;
+		
+		manageProjMember(selectedMember);
+	})
+	
+	// 회원 프로젝트에서 탈퇴시키는 버튼
+	$('body').on('click', '#banMemberBtn', function(){
+		let selectedMemNo = $('#proj_mem_no').text();
+		banMember(selectedMemNo);
 	})
 	
 	
@@ -267,6 +281,8 @@ const loadProjectMembers = function(searchword){
 		success : function(members) {
 			let projMemList = $('#proj-mem-list');
 			projMemList.empty();
+			activeMembers = [];
+			inactiveMembers = [];
 			$.each(members, function(i,member){
 				let memCard = $('#setting-member-template').children('.memcard').clone();
 				
@@ -274,14 +290,19 @@ const loadProjectMembers = function(searchword){
 				memCard.attr('data-proj_nick', member.proj_user_nick);
 				memCard.attr('data-proj_role_no', member.mem_role_no);
 				memCard.attr('data-mem_pic_file_name', member.member.mem_pic_file_name);
+				memCard.attr('data-dropped', member.proj_drop_date? true:false);
 				
 				memCard.find('.proj-nick').text(member.proj_user_nick);
 				memCard.find('.proj-role').text(member.mem_role_nm);
 				memCard.find('.proj-in-date').text(moment(member.proj_join_date).format('LL'));
 				memCard.find('.profileBox').children('img').attr('src',getProfilePath(member.member.mem_pic_file_name));
 				
-				projMemList.append(memCard);
+				memCard.addClass(member.proj_drop_date? 'dropped' :'');
+				(member.proj_drop_date? inactiveMembers : activeMembers).push(memCard);
 			});
+			projMemList.append(activeMembers);
+			projMemList.append(inactiveMembers);
+			
 			// 추가 멤버 초대 카드 
 			let plusCard = $('#setting-member-template').children('.pluscard').clone();
 			projMemList.append(plusCard);
@@ -294,9 +315,14 @@ const loadProjectMembers = function(searchword){
 }
 
 // 프로젝트 내 특정 회원 관리 함수
-const manageProjMember = function(selectedMemNo, proj_nick, proj_role_no, mem_pic_file_name){
+const manageProjMember = function(selectedMember){
 	let modal = $('#mngProjMem');
-	
+	let selectedMemNo = selectedMember.selectedMemNo;
+	let proj_nick = selectedMember.proj_nick;
+	let proj_role_no = selectedMember.proj_role_no;
+	let mem_pic_file_name= selectedMember.mem_pic_file_name;
+	let dropped = selectedMember.dropped;
+		
 	// 해당 project의 멤버 role 들 받아와서 select 만들어준다.
 	let projRoles = loadMemRoles();
 	let roleSelector = $('#proj_mem_role');
@@ -306,6 +332,12 @@ const manageProjMember = function(selectedMemNo, proj_nick, proj_role_no, mem_pi
 		let option = '<option value="'+role.MEM_ROLE_NO+'"'+selected+'>'+role.MEM_ROLE_NM+'</option>';
 		roleSelector.append(option);
 	});
+	
+	// 화면 렌더링
+	let banButton = $('#banMemberBtn')
+	banButton.removeClass();
+	banButton.addClass(dropped ? "btn btn-success" : "btn btn-danger");
+	banButton.text(dropped ? "회원 복귀" : "회원 탈퇴");
 	$('#proj_mem_no').text(selectedMemNo);
 	$('#proj_mem_nick').text(proj_nick);
 	$('#proj_mem_role').text();
@@ -332,6 +364,7 @@ const loadMemRoles = function(){
 	
 }
 
+// 특정 회원의 mem_role 변경시키는 함수
 const changeMemberRole = function(proj_mem_no,mem_role_no){
 	$.ajax({
 		url : getContextPath() + '/restapi/project/members', 
@@ -357,7 +390,55 @@ const changeMemberRole = function(proj_mem_no,mem_role_no){
 	})	
 }
 
-
+// 특정 회원 프로젝트에서 탈퇴 시키는 함수
+const banMember = function(selectedMemNo){
+	// sweetAlert 버튼 초기화
+	 swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+			cancelButton: 'btn btn-light',
+		   	confirmButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+	})	
+		
+	swalWithBootstrapButtons.fire({
+			  title: '정말 해당 회원을 탈퇴시키겠습니까?',
+			  text: "탈퇴 후에도 되돌릴 수 있습니다.",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonText: '탈퇴',
+			  cancelButtonText: '취소',
+			  reverseButtons: true
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    swalWithBootstrapButtons.fire(
+			      'Success!',
+			      '해당 회원을 탈퇴 처리하였습니다.',
+			      'success'
+			    )
+			    $.ajax({
+					url : getContextPath() + '/restapi/project/members',
+					method : 'post',
+					data : {
+						'mem_no' : selectedMemNo
+						,'_method' : 'delete'
+					},
+					success : function(res) {
+						loadProjectMembers();
+						$('#mngProjMem').modal('hide');
+					},
+					error : function(xhr, error, msg) {
+						ajaxError(xhr, error, msg)
+					},
+					dataType : 'json'
+				})
+			    
+			  } else if (
+			    result.dismiss === Swal.DismissReason.cancel
+			  ) {
+			  }
+			})
+}
 
 
 

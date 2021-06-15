@@ -31,19 +31,17 @@
       	<img style="max-width:300px;">
         <div>
         	<label>회원 번호 :</label> 
-        	<span id="proj_mem_no">12</span>
+        	<span id="proj_mem_no"></span>
         </div>
         <div>
         	<label>회원 닉네임 : </label>
-        	<span id="proj_mem_nick">팀장꼬북</span>
+        	<span id="proj_mem_nick"></span>
         </div>
         <div>
         	<label>회원 역할 : </label>
-        	<select id="proj_mem_role">
-        		<option>a</option>
-        	</select>
+        	<select id="proj_mem_role"></select>
         </div>
-        <button class="btn btn-danger">회원 탈퇴</button>
+        <button id="banMemberBtn" class="btn btn-danger">회원 탈퇴</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

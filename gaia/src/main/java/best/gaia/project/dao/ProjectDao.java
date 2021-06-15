@@ -54,6 +54,8 @@ public interface ProjectDao {
 	 */
 	public int insertProjMem(ProjMemVO projMem);
 	public int updateProjectMemberRole(ProjMemVO param);
+	public int setMemberInactive(ProjMemVO param);
+	public int setMemberActive(ProjMemVO param);
 	
 	/**
 	 * memrole
@@ -62,3 +64,9 @@ public interface ProjectDao {
 	public int insertMemberRole(MemRoleVO memRole);
 	
 }
+
+
+
+
+
+
