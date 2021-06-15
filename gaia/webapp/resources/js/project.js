@@ -239,6 +239,36 @@ const insertProject = function(proj_title, proj_cont){
 	})
 }
 
+// project에 속한 멤버들 불러오는 함수
+const loadProjectMembers = function(searchword){
+	$.ajax({
+		url : getContextPath() + '/restapi/project/loadProjectMembers.do', 
+		type : 'get',
+		data : {
+			'searchword' : searchword
+		},
+		success : function(members) {
+			let projMemList = $('#proj-mem-list');
+			projMemList.empty();
+			$.each(members, function(i,member){
+				let memCard = $('#setting-member-template').children('.memcard').clone();
+				
+				memCard.attr('data-mem_no', member.mem_no);
+				
+				memCard.find('.proj-nick').text(member.proj_user_nick);
+				memCard.find('.proj-role').text(member.mem_role_nm);
+				memCard.find('.proj-in-date').text(moment(member.proj_join_date).format('LL'));
+				memCard.find('.profileBox').children('img').attr('src',getProfilePath(member.member.mem_pic_file_name));
+				
+				projMemList.append(memCard);
+			});
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+	})	
+}
 
 
 

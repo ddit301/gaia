@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/* 로딩 관관 css */
+/* 로딩 관련 css */
 #loading {
 	height: 100%;
 	left: 0px;
@@ -44,3 +44,11 @@ button.selectedProj{
 .projBox button:focus{
 	outline:none;
 }
+
+/* setting-member 관련 css */
+
+
+
+
+
+

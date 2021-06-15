@@ -7,11 +7,11 @@ import org.springframework.security.core.Authentication;
 
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.KanbanCardVO;
-import best.gaia.vo.NewsCommentVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
-import best.gaia.vo.WikiVO;
+import best.gaia.vo.ProjMemVO;
 import best.gaia.vo.ProjectVO;
+import best.gaia.vo.WikiVO;
 
 public interface ProjectService {
 	
@@ -22,6 +22,11 @@ public interface ProjectService {
 	public ServiceResult insertProject(ProjectVO project);
 	public ServiceResult updateProject(ProjectVO project);
 	public ServiceResult deleteProject(ProjectVO project);
+	
+	/**********************************************************************
+	 *  프로젝트 멤버 관련 service
+	 **********************************************************************/
+	public List<ProjMemVO> selectProjectMembers(int proj_no, String searchword);
 	
 	/**********************************************************************
 	 *  뉴스 관련 service
