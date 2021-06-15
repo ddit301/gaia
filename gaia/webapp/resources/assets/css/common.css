@@ -46,9 +46,23 @@ button.selectedProj{
 }
 
 /* setting-member 관련 css */
-
-
-
+.profileBox{
+	text-align : center;
+}
+.profileBox img{
+	padding : 4px;
+}
+.memcard .card:hover{
+	box-shadow : 0 0 0 5px grey inset;
+	cursor : pointer;
+}
+.pluscard .card:hover{
+	box-shadow : 0 0 0 5px #50CD69 inset;
+	cursor : pointer;
+}
+.mngMemModal{
+	font-size : 2em;
+}
 
 
 

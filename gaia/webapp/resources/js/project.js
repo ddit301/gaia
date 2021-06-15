@@ -49,6 +49,16 @@ $(function(){
 		$('#proj_cont_input').val('');
 	})
 	
+	// 프로젝트 멤버 목록에서 회원 클릭시 해당 멤버 관리 모달 열기
+	$('body').on('click', '.memcard', function(){
+		let selectedMemNo = $(this).data('mem_no');
+		let proj_nick = $(this).data('proj_nick');
+		let proj_role_no = $(this).data('proj_role_no');
+		let mem_pic_file_name = $(this).data('mem_pic_file_name');
+		
+		manageProjMember(selectedMemNo, proj_nick, proj_role_no, mem_pic_file_name);
+	})
+	
 	
 	
 	/******************************************************
@@ -63,6 +73,13 @@ $(function(){
 	// 프로젝트 이름 변경시 비동기로 사용 가능한 이름인지 체크. input과 blur 이벤트 모두 바인딩
 	$('body').on('input blur', '#proj_title_input', function(){
 		checkProjTitleInput();		
+	})
+	
+	// 멤버 역할 변경시 비동기로 바로 역할 변경 해준다.
+	$('body').on('change', '#proj_mem_role', function(){
+		let proj_mem_no = $('#proj_mem_no').text();
+		let mem_role_no = $(this).val();
+		changeMemberRole(proj_mem_no,mem_role_no);
 	})
 
 	
@@ -242,7 +259,7 @@ const insertProject = function(proj_title, proj_cont){
 // project에 속한 멤버들 불러오는 함수
 const loadProjectMembers = function(searchword){
 	$.ajax({
-		url : getContextPath() + '/restapi/project/loadProjectMembers.do', 
+		url : getContextPath() + '/restapi/project/members', 
 		type : 'get',
 		data : {
 			'searchword' : searchword
@@ -254,6 +271,9 @@ const loadProjectMembers = function(searchword){
 				let memCard = $('#setting-member-template').children('.memcard').clone();
 				
 				memCard.attr('data-mem_no', member.mem_no);
+				memCard.attr('data-proj_nick', member.proj_user_nick);
+				memCard.attr('data-proj_role_no', member.mem_role_no);
+				memCard.attr('data-mem_pic_file_name', member.member.mem_pic_file_name);
 				
 				memCard.find('.proj-nick').text(member.proj_user_nick);
 				memCard.find('.proj-role').text(member.mem_role_nm);
@@ -262,6 +282,9 @@ const loadProjectMembers = function(searchword){
 				
 				projMemList.append(memCard);
 			});
+			// 추가 멤버 초대 카드 
+			let plusCard = $('#setting-member-template').children('.pluscard').clone();
+			projMemList.append(plusCard);
 		},
 		error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
@@ -269,6 +292,78 @@ const loadProjectMembers = function(searchword){
 		dataType : 'json'
 	})	
 }
+
+// 프로젝트 내 특정 회원 관리 함수
+const manageProjMember = function(selectedMemNo, proj_nick, proj_role_no, mem_pic_file_name){
+	let modal = $('#mngProjMem');
+	
+	// 해당 project의 멤버 role 들 받아와서 select 만들어준다.
+	let projRoles = loadMemRoles();
+	let roleSelector = $('#proj_mem_role');
+	roleSelector.empty();
+	$.each(projRoles, function(i,role){
+		let selected = proj_role_no == role.MEM_ROLE_NO ? ' selected' : '';
+		let option = '<option value="'+role.MEM_ROLE_NO+'"'+selected+'>'+role.MEM_ROLE_NM+'</option>';
+		roleSelector.append(option);
+	});
+	$('#proj_mem_no').text(selectedMemNo);
+	$('#proj_mem_nick').text(proj_nick);
+	$('#proj_mem_role').text();
+	modal.find('.mngMemModal').children('img').attr('src', getProfilePath(mem_pic_file_name));
+	modal.modal('show');
+}
+
+// 해당 프로젝트 내 멤버 role들 불러오는 함수
+const loadMemRoles = function(){
+	let roles = null;
+	$.ajax({
+		url : getContextPath() + '/restapi/project/roles', 
+		type : 'get',
+		success : function(res) {
+			roles = res;
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+		,async : false
+	})	
+	return roles;
+	
+}
+
+const changeMemberRole = function(proj_mem_no,mem_role_no){
+	$.ajax({
+		url : getContextPath() + '/restapi/project/members', 
+		type : 'post',
+		data : {
+			'_method' : 'put'
+			,'mem_no' : proj_mem_no
+			,'mem_role_no' : mem_role_no
+		},
+		success : function(res) {
+			if(res == 'OK'){
+				toastr.success('회원 역할 변경에 성공했습니다.');
+				loadProjectMembers();
+			}else{
+				toastr.error('역할 변경에 실패했습니다.');
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+		,async : false
+	})	
+}
+
+
+
+
+
+
+
+
 
 
 

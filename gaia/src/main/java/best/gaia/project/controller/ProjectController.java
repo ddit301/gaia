@@ -79,15 +79,6 @@ public class ProjectController {
 		return valid == true ? ServiceResult.OK : ServiceResult.FAIL;
 		
 	}
-	
-	@GetMapping("loadProjectMembers.do")
-	public List<ProjMemVO> loadProjectMembers(
-			HttpSession session
-			,@RequestParam(required = false) String searchword
-			){
-		int proj_no = getProjNoFromSession(session);
-		return service.selectProjectMembers(proj_no, searchword);
-	}
 		
 }
 

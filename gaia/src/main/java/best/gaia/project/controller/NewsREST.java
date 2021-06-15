@@ -1,5 +1,5 @@
 package best.gaia.project.controller;
-
+import static best.gaia.utils.SessionUtil.*;
 import static best.gaia.utils.SessionUtil.*;
 
 import java.util.HashMap;
@@ -63,10 +63,6 @@ public class NewsREST {
 		,Authentication authentication
 		,@ModelAttribute NewsVO news
 		) {
-		
-		if(authentication == null) {
-			throw new UnauthorizedException();
-		}
 		
 		news.setMem_no(getMemberNoFromAuthentication(authentication));
 		news.setProj_no(getProjNoFromSession(session));
