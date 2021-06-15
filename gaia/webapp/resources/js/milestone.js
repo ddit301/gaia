@@ -295,7 +295,6 @@ milestoneissuelist = function(issue_status){
 				
 				milestObject = res;
 				
-				console.log(res.milest_status);
 				// 마일스톤이 닫혀있는 경우 close 버튼으로 변경해둔다.
 				if(res.milest_status == 1) {
 					$('.milest-status').children('span').text('Closed');

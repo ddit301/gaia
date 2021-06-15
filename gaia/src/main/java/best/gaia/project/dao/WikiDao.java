@@ -15,6 +15,6 @@ public interface WikiDao {
 	public WikiVO selectWiki(Map<String, Object> search);
 	public int insertWiki(WikiVO wiki);
 	public int updateWiki(WikiVO wiki);
-	public int deleteWiki(WikiVO wiki);
+	public int deleteWiki(WikiVO search);
 	
 }
