@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -49,9 +50,14 @@ public class WikiREST {
 	@RequestMapping(method=RequestMethod.GET) 
 	public PagingVO<WikiVO> selectwikiList(
 			HttpSession session
+			, @RequestParam(required=false) String wiki_title
 			,@ModelAttribute PagingVO<WikiVO> pagingVO
 			){
 		WikiVO detailSearch = new WikiVO();
+		
+		if(wiki_title != null) {
+			detailSearch.setWiki_title(wiki_title);
+		}
 		
 		detailSearch.setProj_no(getProjNoFromSession(session));
 		pagingVO.setDetailSearch(detailSearch);
@@ -70,6 +76,7 @@ public class WikiREST {
 		
 		map.put("proj_no",proj_no);
 		map.put("wiki_no", wiki_no);
+	
 		
 		WikiVO wiki = service.selectWiki(map);
 		
@@ -110,9 +117,21 @@ public class WikiREST {
 		return null;
 	}
 	@RequestMapping(method = RequestMethod.DELETE)
-	public Map<String, Object> deleteWiki() {
+	public Map<String, Object> deleteWiki(
+			@ModelAttribute WikiVO search
+			, Authentication authentication
+			) {
 		
-		return null;
+		ServiceResult result = service.deleteWiki(search);
+		Map<String,Object>map = new HashMap<>();
+		
+		map.put("result", result);
+		
+		System.out.println("map : " + map);
+		
+		System.out.println("search : " + search);
+		
+		return map;
 	}
 	
 	

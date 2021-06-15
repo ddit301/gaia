@@ -166,10 +166,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ServiceResult deleteWiki(WikiVO wiki) {
-		// TODO Auto-generated method stub
-		return null;
+	public ServiceResult deleteWiki(WikiVO search) {
+		int result = wikiDao.deleteWiki(search);
+		
+		return result==1? ServiceResult.OK : ServiceResult.FAIL;
 	}
+	
 	public String getProjectNick(int proj_no, int mem_no) {
 		Map<String, Object> projnoMemno = new HashMap<>();
 		projnoMemno.put("proj_no", proj_no);
