@@ -50,12 +50,13 @@ $(function(){
 	})
 	
 	// 프로젝트 멤버 목록에서 회원 클릭시 해당 멤버 관리 모달 열기
-	$('body').on('click', '.memcard', function(){
-		let selectedMemNo = $(this).data('mem_no');
-		let proj_nick = $(this).data('proj_nick');
-		let proj_role_no = $(this).data('proj_role_no');
-		let mem_pic_file_name = $(this).data('mem_pic_file_name');
-		let dropped = $(this).data('dropped');
+	$('body').on('click', '.memcard .card', function(){
+		let card = $(this).parent();
+		let selectedMemNo = card.data('mem_no');
+		let proj_nick = card.data('proj_nick');
+		let proj_role_no = card.data('proj_role_no');
+		let mem_pic_file_name = card.data('mem_pic_file_name');
+		let dropped = card.data('dropped');
 		
 		let selectedMember = {};
 		selectedMember.selectedMemNo = selectedMemNo;
