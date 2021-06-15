@@ -8,6 +8,7 @@
 -- 3. Kanban
 -- 4. Milestone
 -- 5. Project
+-- 6. Member
 
 ------------------------------------------------------------------------
 
@@ -250,8 +251,18 @@ order by proj_start_date;
 
 
 
+-----------------------------6. Member------------------------------------------
+-- a. 특정 프로젝트에 속한 멤버 목록 불러오기
 
 
+-----------------------------------------------------------------------------------
+-- a. 특정 프로젝트에 속한 멤버 목록 불러오기
+select *
+from proj_mem
+    inner join mem_role on (proj_mem.mem_role_no = mem_role.mem_role_no)
+    inner join member on (proj_mem.mem_no = member.mem_no)
+where proj_mem.proj_no = 1 --#{proj_no}
+order by proj_mem.mem_role_no, proj_mem.proj_join_date;
 
 
 

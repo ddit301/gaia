@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/* 로딩 관관 css */
+/* 로딩 관련 css */
 #loading {
 	height: 100%;
 	left: 0px;
@@ -44,3 +44,28 @@ button.selectedProj{
 .projBox button:focus{
 	outline:none;
 }
+
+/* setting-member 관련 css */
+.profileBox{
+	text-align : center;
+}
+.profileBox img{
+	padding : 4px;
+}
+.memcard.dropped .card{
+	box-shadow : 0 0 0 1px red inset;
+}
+.memcard .card:hover{
+	box-shadow : 0 0 0 5px grey inset;
+	cursor : pointer;
+}
+.pluscard .card:hover{
+	box-shadow : 0 0 0 5px #50CD69 inset;
+	cursor : pointer;
+}
+.mngMemModal{
+	font-size : 2em;
+}
+
+
+

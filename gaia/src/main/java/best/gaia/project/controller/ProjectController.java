@@ -1,8 +1,10 @@
 package best.gaia.project.controller;
 
-import static best.gaia.utils.SessionUtil.*;
+import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+import static best.gaia.utils.SessionUtil.getProjNoFromSession;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -21,6 +23,7 @@ import best.gaia.project.service.ProjectService;
 import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.ResourceNotFoundException;
+import best.gaia.vo.ProjMemVO;
 
 @RestController
 @RequestMapping(value = "restapi/project/")
