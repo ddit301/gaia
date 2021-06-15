@@ -33,7 +33,7 @@ public class ChatServiceImpl implements ChatService{
 		message.put("content", "hi! nice to meet you!");
 		int result = eldao.insertMessage(chatroom_no, message);
 		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
-	}
+	} 
 	@Override
 	public List<Map<String, Object>> getMemberMessage(int mem_no) {
 		return eldao.getMessageList(mem_no);
@@ -44,6 +44,13 @@ public class ChatServiceImpl implements ChatService{
 		// 해당 방의 채팅 리스트 들고오기.
 		return eldao.getMessageListbyChatRoom(chatRoom_no);
 	}
+	@Override
+	public List<Map<String, Object>> getMessageListbyChatRoomOne(int chatRoom_no, int size) {
+		// 해당 방의 가장 최근 채팅 들고오기.
+		return eldao.getMessageListbyChatRoomOne(chatRoom_no, size);
+	}
+	
+	
 	
 	/*
 	 * Oracle 
@@ -51,9 +58,6 @@ public class ChatServiceImpl implements ChatService{
  	@Override
 	public List<ChatRoomVO> selectMemberChatRoomList(int mem_no) {
  		List<ChatRoomVO> roomList = ordao.selectMemberChatRoomList(mem_no);
-		if (roomList == null) {
-			throw new RuntimeException("해당 회원이 속해있는 대화방이 존재하지 않음.");
-		}
 		return roomList;
 	}
 	@Override

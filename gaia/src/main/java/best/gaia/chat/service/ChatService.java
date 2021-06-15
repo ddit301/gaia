@@ -15,6 +15,8 @@ public interface ChatService {
 	public ServiceResult insertMemberMessage(int chatroom_no, Map<String, Object> chat);
 	public List<Map<String, Object>> getMemberMessage(int mem_no);
 	public List<Map<String, Object>> getMessageListbyChatRoom(int mem_no);
+	public List<Map<String, Object>> getMessageListbyChatRoomOne(int chatroom_no, int size);
+	
 	
 	/**
 	 *  Oracle

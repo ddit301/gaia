@@ -45,7 +45,7 @@ public class ChatREST {
 	public void init() {
 		application = container.getServletContext();
 	}
-	
+	 
 	private static final Logger logger = LoggerFactory.getLogger(AlarmREST.class);
 	
 	@GetMapping
@@ -66,14 +66,13 @@ public class ChatREST {
 				// chatRoomVO의 chatList에 대화 내용들 담기.
 				int chatRoom_no = chatRoom.getChatroom_no();
 				// elastic에서 chatList 뽑기.
-				chatList = service.getMessageListbyChatRoom(chatRoom_no);
+				chatList = service.getMessageListbyChatRoomOne(chatRoom_no, 1); 
 				// 뽑은 chatList를 해당 room의 chatList에 담기.
 				chatRoom.setChatList(chatList);
 			}
 			logger.info("{}", roomList);
 			result.put("roomList", roomList);
 		}
-		
 		return result;
 	}
 	 

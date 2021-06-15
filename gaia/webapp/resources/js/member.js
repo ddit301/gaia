@@ -1,4 +1,5 @@
 
+
 // 페이지 열릴때 멤버 관련된 url 이란 판단이 되면, memberMovePageHistory 발동.
 $(function() {
 	if (memberPageParam) {
@@ -36,10 +37,10 @@ const memberMovePage = function(pageParam) {
 		pageParam = pageParam.slice(index + 1);
 	}
 	// url에서 'chat/...'으로 pageParam을 넘김.
-	if (pageParam.includes("chat/")) {
-		index = pageParam.indexOf("/");
-		pageParam = pageParam.substring(0, index);
-	}
+//	if (pageParam.includes("chat/")) {
+//		index = pageParam.indexOf("/");
+//		pageParam = pageParam.substring(0, index);
+//	}
 	$.ajax({
 		url: path + pageParam,
 		type: 'get',
@@ -408,7 +409,6 @@ $(function() {
 	})
 })
 
-
 ////////////////////////////////////////////////////
 //
 // securityLog.jsp
@@ -490,27 +490,22 @@ var loadMemberInfo_chat = function() {
 			console.log(res)
 			$.each(res.roomList, function(i, v) {
 				let chatRoom = $("#chatRoomTemplate").children(".chatRoom").clone();
-				console.log(v.memberList[i].mem_pic_file_name);
-				chatRoom.find(".profile_img.img-center").attr("src", getProfilePath(v.memberList[0].mem_pic_file_name));
+				chatRoom.find(".profile_img.img-center").attr("src", getProfilePath(v.memberList[1].mem_pic_file_name));
+				// 이름 뒤에 외 몇명 붙여주기.
 				$.each(v.memberList, function(j, participant) {
-					if (j < 2) {
-						mem += participant.mem_id + ", ";
-					}
-					if (j > 1) {
-						chatRoom.find(".profile_img.img-left").attr("src", getProfilePath(v.memberList[1].mem_pic_file_name));
-						chatRoom.find(".profile_img.img-right").attr("src", getProfilePath(v.memberList[2].mem_pic_file_name));
-						mem_count = "님 외 " + (j - 1) + "명";
-					} else {
-						mem_count = "";
-					}
+					if (j < 2) {mem += participant.mem_id + ", ";}
+					if (j > 1) {mem_count = "님 외 " + (j - 1) + "명";} else {mem_count = "";}
 				})
-				console.log("length " + v.memberList.length)
-				if (v.memberList.length < 3) {
-					console.log("들어오나??");
+				// profileImg 효과
+				if (v.memberList.length < 4) {
 					chatRoom.find(".profile_img.img-right").remove();
 					chatRoom.find(".profile_img.img-left").remove();
+				}else{
+					chatRoom.find(".profile_img.img-left").attr("src", getProfilePath(v.memberList[2].mem_pic_file_name));
+					chatRoom.find(".profile_img.img-right").attr("src", getProfilePath(v.memberList[3].mem_pic_file_name));
 				}
-				console.log(v.chatList[0])
+				
+				
 				chatRoom.find(".chatList-card-body .content").children("span").text(v.chatList[0].content);
 				let timeAgo = moment(v.chatList[0].date, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
 				members = mem.slice(0, mem.lastIndexOf(", "));
@@ -524,7 +519,6 @@ var loadMemberInfo_chat = function() {
 				//					console.log(res.chatListChatRoom.chatroom);
 				chatRoom.find(".chatList-card-body .content").children("span").text();
 			})
-
 
 			//				$(".profile_img_label").attr("title", "View "+res.search.mem_id+"'s profile");
 			//				$(".profile_img_label").siblings("input").val(res.search.mem_id);
