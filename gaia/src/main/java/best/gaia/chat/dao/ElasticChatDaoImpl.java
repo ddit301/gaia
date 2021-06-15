@@ -33,7 +33,7 @@ public class ElasticChatDaoImpl implements ElasticChatDao {
 		Map<String, SortOrder> sort = new HashMap<>();
 		sort.put("date", SortOrder.DESC);
 
-		return elastic.simpleSearch(index, query, sort);
+		return elastic.simpleSearch(index, query, sort, null);
 	}
 	
 	@Override
@@ -46,7 +46,7 @@ public class ElasticChatDaoImpl implements ElasticChatDao {
 		Map<String, SortOrder> sort = new HashMap<>();
 		sort.put("date", SortOrder.DESC);
 		
-		return elastic.simpleSearch(index, query, sort);
+		return elastic.simpleSearch(index, query, sort, null);
 	}
 
 }

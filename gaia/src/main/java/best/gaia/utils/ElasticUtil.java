@@ -49,8 +49,8 @@ public class ElasticUtil {
 	
 	/**
 	 * @param index
-	 * @param query
-	 * @param sort
+	 * @param query Map<String, Object> key는 프로퍼티명, object는 value 조건
+	 * @param sort Map<String, SortOrder>
 	 * @param size (null 넣을 수 있습니다. size null일 경우 모두 받아옴)
 	 * @return 
 	 */
