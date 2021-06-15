@@ -92,6 +92,18 @@ public class ProjectMemberRest {
 		return result==1? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	
+	@PutMapping("return")
+	public ServiceResult returnProjectMember(
+			@ModelAttribute ProjMemVO projMem
+			,HttpSession session
+			,Authentication authentication
+			) {
+		int proj_no = getProjNoFromSession(session);
+		projMem.setProj_no(proj_no);
+		int result = dao.setMemberActive(projMem);
+		return result==1? ServiceResult.OK : ServiceResult.FAIL;
+	}
+	
 	
 }
 

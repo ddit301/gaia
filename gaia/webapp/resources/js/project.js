@@ -70,7 +70,12 @@ $(function(){
 	// 회원 프로젝트에서 탈퇴시키는 버튼
 	$('body').on('click', '#banMemberBtn', function(){
 		let selectedMemNo = $('#proj_mem_no').text();
-		banMember(selectedMemNo);
+		let isBan = $(this).hasClass('btn-danger')
+		if(isBan){
+			banMember(selectedMemNo);
+		}else{
+			unBanMember(selectedMemNo);
+		}
 	})
 	
 	
@@ -422,6 +427,56 @@ const banMember = function(selectedMemNo){
 					data : {
 						'mem_no' : selectedMemNo
 						,'_method' : 'delete'
+					},
+					success : function(res) {
+						loadProjectMembers();
+						$('#mngProjMem').modal('hide');
+					},
+					error : function(xhr, error, msg) {
+						ajaxError(xhr, error, msg)
+					},
+					dataType : 'json'
+				})
+			    
+			  } else if (
+			    result.dismiss === Swal.DismissReason.cancel
+			  ) {
+			  }
+			})
+}
+
+// 특정 회원 프로젝트에 복귀 시키는 함수
+const unBanMember = function(selectedMemNo){
+	// sweetAlert 버튼 초기화
+	 swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+			cancelButton: 'btn btn-light',
+		   	confirmButton: 'btn btn-success'
+		  },
+		  buttonsStyling: false
+	})	
+		
+	swalWithBootstrapButtons.fire({
+			  title: '정말 회원을 복귀시키겠습니까?',
+			  text: "복귀 후에는 정상 활동이 가능합니다.",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonText: '복귀',
+			  cancelButtonText: '취소',
+			  reverseButtons: true
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    swalWithBootstrapButtons.fire(
+			      'Success!',
+			      '해당 회원을 복구 처리하였습니다.',
+			      'success'
+			    )
+			    $.ajax({
+					url : getContextPath() + '/restapi/project/members/return',
+					method : 'post',
+					data : {
+						'mem_no' : selectedMemNo
+						,'_method' : 'put'
 					},
 					success : function(res) {
 						loadProjectMembers();

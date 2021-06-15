@@ -126,7 +126,7 @@
 		    AND proj_no = ${proj_no}	
 	</update>
 	
-	<update id="setMemberActivective" parameterType="best.gaia.vo.ProjMemVO">
+	<update id="setMemberActive" parameterType="best.gaia.vo.ProjMemVO">
 		UPDATE proj_mem
 		SET
 		    PROJ_DROP_DATE = null
