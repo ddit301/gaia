@@ -2,6 +2,7 @@ package best.gaia.vo;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -36,13 +37,13 @@ public class MilestoneVO {
 	 */
 	
 	@NotNull @Min(0) private Integer proj_mem_no;
-	private MemberVO writer;
+	private MemberVO issue_wri_mem;
 	private Map<String, Object> label;
 	
 	/**
 	 * 	Collnection 관계 
 	 */
-	
+
 	private List<IssueVO> issueList;
 	
 	/**

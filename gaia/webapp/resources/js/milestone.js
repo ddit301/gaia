@@ -329,9 +329,20 @@ milestoneissuelist = function(issue_status){
 					if(v.label){
 					issueBox.children('.issue-label').text(v.label.label_nm);								
 					}
-					issueBox.children('.issue-assignee').children('img').attr('src',getContextPath()+'/resources/assets/images/user/1.png');
-					issueBox.children('.issue-writer').children('img').attr('src',getContextPath()+'/resources/assets/images/user/1.png');
-					issueBox.children('.reply').children('span').text('3');
+			
+				let assigneeSize = v.assigneeList.length;
+			
+				$.each(v.assigneeList, function(j, assignee){
+					if(assigneeSize == 1) j=99;
+					
+					issueBox.children('.issue-assignee').append(
+							'<img class="profile assignee assignee'+j+'" src="'+getProfilePath(assignee.mem_pic_file_name)+'">');
+				})
+				
+				issueBox.children('.issue-writer').children('img').attr('src',getProfilePath(v.assigneeList.mem_pic_file_name));
+//					issueBox.children('.issue-assignee').children('img').attr('src',getContextPath()+'/resources/assets/images/user/1.png');
+//					issueBox.children('.issue-writer').children('img').attr('src',getContextPath()+'/resources/assets/images/user/1.png');
+//					issueBox.children('.reply').children('span').text('3');
 					if(v.replyCount > 0){
 						issueBox.children('.reply').html(
 								'<i class="icon-bubbles icons"></i><span>'+v.replyCount+'</span>'

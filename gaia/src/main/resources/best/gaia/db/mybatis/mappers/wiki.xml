@@ -41,6 +41,7 @@
 			</selectKey>
 			INSERT INTO WIKI(
                 WIKI_SID
+                ,PARENT_WIKI
                 ,WIKI_TITLE
                 ,MEM_NO
                 ,PROJ_NO
@@ -49,6 +50,7 @@
                 ,WIKI_WRITE_DATE
                 )VALUES(
 				 #{wiki_sid}
+				,#{parent_wiki, jdbcType=NUMERIC}
                 ,#{wiki_title, jdbcType=VARCHAR}
                 ,#{mem_no, jdbcType=NUMERIC}
                 ,#{proj_no, jdbcType=NUMERIC}

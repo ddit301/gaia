@@ -95,7 +95,7 @@
 	            		<button data-status="0" type="button" class="status-btn btn mb-1 btn-sm btn-flat btn-light">Open</button>
 	            		<button data-status="1" type="button" class="status-btn btn mb-1 btn-sm btn-flat btn-light">Closed</button>
             		</div>
-           			<div class="col-md-1"></div>
+<!--            			<div class="col-md-1"></div> -->
 				
 <!-- 						<div class="milestone-dropdown-btn"> -->
 					<div class="dropdown-btn col-md-1">	
@@ -138,7 +138,7 @@
 						</div>
 					</div>
 					
-					
+					<div class="col-md-1"></div>
 					<div class="dropdown-btn col-md-1">				
 						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">작성자</button>
 						<div class="dropdown-menu" x-placement="bottom-start"
@@ -161,18 +161,20 @@
 
 			<div id="milestone-issue-template" hidden="hidden" >
 				<div class="issueBox row">                                                                                
-					<div class="col-md-1"></div>                                                                    
-					<div class="issue-title col-md-5">                                                              
+					<div class="iss-chkbox col-md-1">
+						<input type = "checkbox">
+					</div>                                                                    
+					<div class="issue-title col-md-4">                                                              
 						<a class="issueButton" data-menu="issueview" href="javascript:void(0)"></a>                                                       
 					</div>  
 					<div class="col-md-1"></div>                                                                                         
 				    <div class="issue-writer col-md-1">                                                                  
-						<img src="" alt="">      
+						<img class="profile">  
 					</div>                                                                                      
 				    <div class="issue-priority col-md-1"></div>                                                       
-					<div class="issue-label col-md-1"></div>                                                           
+					<div class="issue-label col-md-1"></div>  
+					<div class="col-md-1"></div>                                                           
 					<div class="issue-assignee col-md-1">                                                                      
-						<img src="" alt="">      
 					</div>                                                                                      
 					<div class="reply col-md-1">
 					</div>                                                            

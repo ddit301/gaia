@@ -90,6 +90,7 @@ public class WikiREST {
 	public Map<String, Object> insertWiki(
 			HttpSession session
 			, Authentication authentication
+			, @RequestParam (required = false) Integer parent_wiki
 			, @ModelAttribute WikiVO wiki
 			){
 		
@@ -100,6 +101,10 @@ public class WikiREST {
 		wiki.setMem_no(getMemberNoFromAuthentication(authentication));
 		wiki.setProj_no(getProjNoFromSession(session));
 		
+		
+		if(parent_wiki != null ) {
+			wiki.setParent_wiki(parent_wiki);
+		}
 		
 		// service 호출해 그 결과 result 에 담기
 				ServiceResult result = service.insertWiki(wiki);
