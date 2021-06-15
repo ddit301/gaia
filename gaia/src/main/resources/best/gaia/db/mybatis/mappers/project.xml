@@ -111,10 +111,10 @@
 	<update id="updateProjectMemberRole" parameterType="best.gaia.vo.ProjMemVO">
 		UPDATE proj_mem
 		SET
-		    mem_role_no = ${mem_role_no}
+		    mem_role_no = #{mem_role_no}
 		WHERE
-		        mem_no = ${mem_no}
-		    AND proj_no = ${proj_no}
+		        mem_no = #{mem_no}
+		    AND proj_no = #{proj_no}
 	</update>
 	
 	<update id="setMemberInactive" parameterType="best.gaia.vo.ProjMemVO">
@@ -122,8 +122,8 @@
 		SET
 		    PROJ_DROP_DATE = sysdate
 		WHERE
-		        mem_no = ${mem_no}
-		    AND proj_no = ${proj_no}	
+		        mem_no = #{mem_no}
+		    AND proj_no = #{proj_no}	
 	</update>
 	
 	<update id="setMemberActive" parameterType="best.gaia.vo.ProjMemVO">
@@ -131,8 +131,29 @@
 		SET
 		    PROJ_DROP_DATE = null
 		WHERE
-		        mem_no = ${mem_no}
-		    AND proj_no = ${proj_no}	
+		        mem_no = #{mem_no}
+		    AND proj_no = #{proj_no}	
 	</update>
+	
+	<select id="searchMemberToInvite" parameterType="java.util.Map" resultType="best.gaia.vo.MemberVO">
+		with memlist as(
+		    select mem_no
+		    from proj_mem
+		    where proj_no= #{proj_no}
+		)
+		select distinct mem_no, mem_id, mem_nick, mem_pic_file_name,mem_nm, mem_bio, mem_working_city
+		        ,mem_status
+		from member
+		where mem_no not in (select mem_no from memlist)
+		<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(keyword)">
+		        and (mem_id like #{keyword}
+				    or mem_nick like #{keyword}	  
+		            or mem_nm like #{keyword}
+		            or mem_bio like #{keyword}	
+		            or mem_working_city like #{keyword}
+		        )
+		</if>
+		order by mem_no
+	</select>
 	
 </mapper>

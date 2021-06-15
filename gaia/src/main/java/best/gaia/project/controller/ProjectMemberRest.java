@@ -2,6 +2,7 @@ package best.gaia.project.controller;
 
 import static best.gaia.utils.SessionUtil.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.vo.MemberVO;
 import best.gaia.vo.ProjMemVO;
 
 @RestController
@@ -102,6 +104,20 @@ public class ProjectMemberRest {
 		projMem.setProj_no(proj_no);
 		int result = dao.setMemberActive(projMem);
 		return result==1? ServiceResult.OK : ServiceResult.FAIL;
+	}
+	
+	@GetMapping("search")
+	public List<MemberVO> searchMemberToInvite(
+			@RequestParam(required = false) String keyword
+			,HttpSession session
+			) {
+		int proj_no = getProjNoFromSession(session);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("proj_no", proj_no);
+		if(keyword != null) {
+			paramMap.put("keyword", keyword);
+		}
+		return dao.searchMemberToInvite(paramMap);
 	}
 	
 	

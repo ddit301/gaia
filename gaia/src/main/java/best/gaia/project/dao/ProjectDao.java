@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import best.gaia.vo.MemRoleVO;
+import best.gaia.vo.MemberVO;
 import best.gaia.vo.ProjMemVO;
 import best.gaia.vo.ProjectVO;
 
@@ -56,6 +57,7 @@ public interface ProjectDao {
 	public int updateProjectMemberRole(ProjMemVO param);
 	public int setMemberInactive(ProjMemVO param);
 	public int setMemberActive(ProjMemVO param);
+	public List<MemberVO> searchMemberToInvite(Map<String, Object> paramMap); 
 	
 	/**
 	 * memrole

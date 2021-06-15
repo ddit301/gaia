@@ -78,6 +78,16 @@ $(function(){
 		}
 	})
 	
+	// 추가 프로젝트 멤버 초대 모달 띄우는 버튼
+	$('body').on('click', '.pluscard', function(){
+		$('#inviteMember').modal('show');
+	});
+	
+	// 추가 프로젝트 멤버 초대할때 검색 하는 버튼
+	$('body').on('click', '#memSearchBtn', function(){
+		let keyword = $(this).parent().children('input').val();
+		searchMember(keyword);
+	});
 	
 	
 	/******************************************************
@@ -496,7 +506,37 @@ const unBanMember = function(selectedMemNo){
 }
 
 
-
+// 회원 초대위해 검색하는 function
+const searchMember = function(keyword){
+	
+	    $.ajax({
+		url : getContextPath() + '/restapi/project/members/search',
+		method : 'get',
+		data : {
+			'keyword' : keyword
+		},
+		success : function(members) {
+			let searchResultUl = $('#memSearchResult');
+			searchResultUl.empty();
+			$.each(members, function(i,member){
+				let memberBox = $('#setting-member-template').find('.searchedMember').clone();
+				memberBox.attr('mem_no', member.mem_no);
+				memberBox.find('.memid').text(member.mem_id);
+				memberBox.find('.memnick').text(member.mem_nick);
+				memberBox.find('.memnm').text(member.mem_nm);
+				memberBox.find('.memcity').text(member.mem_working_city);
+				memberBox.find('img').attr('src', getProfilePath(member.mem_pic_file_name));
+				searchResultUl.append(memberBox);
+			})
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
+		},
+		dataType : 'json'
+	})
+	
+	
+}
 
 
 
