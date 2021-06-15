@@ -47,10 +47,18 @@ public class ElasticUtil {
         restClientBuilder = RestClient.builder(host);
 	};
 	
+	/**
+	 * @param index
+	 * @param query Map<String, Object> key는 프로퍼티명, object는 value 조건
+	 * @param sort Map<String, SortOrder>
+	 * @param size (null 넣을 수 있습니다. size null일 경우 모두 받아옴)
+	 * @return 
+	 */
 	public List<Map<String,Object>> simpleSearch(
 			String index
 			, Map<String,Object> query
 			, Map<String,SortOrder> sort
+			, Integer size
 			){
 		/*
 		 * search API 참고 주소
@@ -69,6 +77,10 @@ public class ElasticUtil {
 		// sort 에 있는 셋을 정렬 조건으로 걸기
 		for(String key : sort.keySet()) {
 			searchSourceBuilder.sort(new FieldSortBuilder(key).order(sort.get(key)));
+		}
+		
+		if(size != null) {
+			searchSourceBuilder.size(size);
 		}
 		
 		searchRequest.source(searchSourceBuilder);
