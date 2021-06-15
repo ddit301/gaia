@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import best.gaia.member.dao.MemberDao;
 import best.gaia.utils.enumpkg.ServiceResult;
@@ -54,6 +55,7 @@ public class MemberServiceImpl implements MemberService {
 
 	
 	@Override
+	@Transactional
 	public ServiceResult enrollMember(MemberVO member) {
 		ServiceResult result = ServiceResult.FAIL;
 		if (dao.selectMemberForAuth(member.getMem_id()) == null) {
@@ -77,6 +79,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional
 	public ServiceResult modifyMember(MemberVO member) {
 		ServiceResult result= ServiceResult.OK; //인증 로직 
 //		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
@@ -97,6 +100,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	@Transactional
 	public ServiceResult modifyMemberPass(MemberVO member, String old_pass) {
 		ServiceResult result= ServiceResult.OK; //인증 로직 
 //		ServiceResult result = authService.authenticate(new MemberVO(member.getMem_id(), member.getMem_pass()));
@@ -123,6 +127,7 @@ public class MemberServiceImpl implements MemberService {
 	
 
 	@Override
+	@Transactional
 	public ServiceResult removeMember(MemberVO member) {
 		retrieveMember(member.getMem_id());
 		ServiceResult result= ServiceResult.OK; //인증 로직 
