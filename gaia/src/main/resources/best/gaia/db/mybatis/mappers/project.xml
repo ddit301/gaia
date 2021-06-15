@@ -102,4 +102,37 @@
 		order by proj_start_date
 	</select>
 	
+	<select id="selectMemRoleList" parameterType="int" resultType="java.util.Map">
+		select mem_role_no, mem_role_nm
+		from mem_role
+		where proj_no = #{proj_no}
+	</select>
+	
+	<update id="updateProjectMemberRole" parameterType="best.gaia.vo.ProjMemVO">
+		UPDATE proj_mem
+		SET
+		    mem_role_no = ${mem_role_no}
+		WHERE
+		        mem_no = ${mem_no}
+		    AND proj_no = ${proj_no}
+	</update>
+	
+	<update id="setMemberInactive" parameterType="best.gaia.vo.ProjMemVO">
+		UPDATE proj_mem
+		SET
+		    PROJ_DROP_DATE = sysdate
+		WHERE
+		        mem_no = ${mem_no}
+		    AND proj_no = ${proj_no}	
+	</update>
+	
+	<update id="setMemberActive" parameterType="best.gaia.vo.ProjMemVO">
+		UPDATE proj_mem
+		SET
+		    PROJ_DROP_DATE = null
+		WHERE
+		        mem_no = ${mem_no}
+		    AND proj_no = ${proj_no}	
+	</update>
+	
 </mapper>

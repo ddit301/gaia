@@ -41,11 +41,32 @@ public interface ProjectDao {
 	 * @return 특정 회원이 속한 모든 프로젝트 목록을 불러옵니다.
 	 * mem_no가 null 일 경우 서비스상 존재하는 모든 프로젝트 목록을 불러옵니다.
 	 */
-	public List<ProjectVO> selectProjectList(Integer mem_no);
 	
+	
+	/**
+	 * project
+	 */
+	public List<ProjectVO> selectProjectList(Integer mem_no);
 	public int insertProject(ProjectVO project);
+	
+	/**
+	 * projMem
+	 */
 	public int insertProjMem(ProjMemVO projMem);
+	public int updateProjectMemberRole(ProjMemVO param);
+	public int setMemberInactive(ProjMemVO param);
+	public int setMemberActive(ProjMemVO param);
+	
+	/**
+	 * memrole
+	 */
+	public List<Map<String, Object>> selectMemRoleList(int proj_no);
 	public int insertMemberRole(MemRoleVO memRole);
 	
-	
 }
+
+
+
+
+
+

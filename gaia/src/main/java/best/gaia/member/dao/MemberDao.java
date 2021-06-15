@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import best.gaia.vo.MemberVO;
+import best.gaia.vo.ProjMemVO;
 
 @Repository
 public interface MemberDao {
@@ -64,4 +65,6 @@ public interface MemberDao {
 	 * @return 삭제된 row count > 0 성공
 	 */
 	public int deleteMember(int mem_no);
+	
+	public List<ProjMemVO> selectProjectMembers(Map<String,Object> param);
 }
