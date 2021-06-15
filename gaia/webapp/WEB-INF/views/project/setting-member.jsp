@@ -77,14 +77,14 @@
 
 <div id="setting-member-template" hidden="hidden">
 <!--     	멤버 검색결과 li 시작 -->
-    		<li class="searchedMember">
-    			<img class="profile" src="/resources/images/profiles/1">
-    			<span class="memid">id</span>
-    			<span class="memnm">name</span>
-    			<span class="memnick">nick</span>
-    			<span class="memcity">city</span>
-    			<i class="icon-plus"></i>
-    		</li>
+ 		<li class="searchedMember">
+ 			<img class="profile" src="/resources/images/profiles/1">
+ 			<span class="memid">id</span>
+ 			<span class="memnm">name</span>
+ 			<span class="memnick">nick</span>
+ 			<span class="memcity">city</span>
+ 			<i class="icon-plus"></i>
+ 		</li>
 <!--     		li 끝 -->
      <!-- start member card -->
      <div class="memcard col-md-3">

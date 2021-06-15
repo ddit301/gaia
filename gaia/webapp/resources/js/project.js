@@ -90,6 +90,14 @@ $(function(){
 		searchMember(keyword);
 	});
 	
+	// 회원 초대 하려고 클릭 하는 이벤트
+	$('body').on('click', '.searchedMember', function(){
+		let selectedMemberLi = $(this);
+		let selectedMemNo = $(this).data('mem_no');
+		let selectedMemName = $(this).find('.memnm').text();
+		inviteMember(selectedMemNo,selectedMemName,selectedMemberLi);
+	})
+	
 	
 	/******************************************************
 	*
@@ -109,7 +117,7 @@ $(function(){
 	$('body').on('change', '#proj_mem_role', function(){
 		let proj_mem_no = $('#proj_mem_no').text();
 		let mem_role_no = $(this).val();
-		changeMemberRole(proj_mem_no,mem_role_no);
+		changeMemberRole(proj_mem_no,mem_role_no,$(this));
 	})
 
 	
@@ -521,7 +529,7 @@ const searchMember = function(keyword){
 			searchResultUl.empty();
 			$.each(members, function(i,member){
 				let memberBox = $('#setting-member-template').find('.searchedMember').clone();
-				memberBox.attr('mem_no', member.mem_no);
+				memberBox.attr('data-mem_no', member.mem_no);
 				memberBox.find('.memid').text(member.mem_id);
 				memberBox.find('.memnick').text(member.mem_nick);
 				memberBox.find('.memnm').text(member.mem_nm);
@@ -538,6 +546,65 @@ const searchMember = function(keyword){
 	
 	
 }
+
+// 멤버 초대하는 function
+const inviteMember = function(selectedMemNo,selectedMemName,selectedMemberLi){
+	// sweetAlert 버튼 초기화
+	 swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+			cancelButton: 'btn btn-light',
+		   	confirmButton: 'btn btn-success'
+		  },
+		  buttonsStyling: false
+	})	
+		
+	swalWithBootstrapButtons.fire({
+			  title: '정말 '+selectedMemName+'님을 프로젝트에 초대하겠습니까?',
+			  text: "초대 즉시 멤버로 등록됩니다.",
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonText: '초대',
+			  cancelButtonText: '취소',
+			  reverseButtons: true
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    swalWithBootstrapButtons.fire(
+			      'Success!',
+			      selectedMemName+'님을 멤버로 등록했습니다.',
+			      'success'
+			    )
+				// 확인 버튼 눌렀을때 가입정보 insert 해준다.
+			    $.ajax({
+					url : getContextPath() + '/restapi/project/members',
+					method : 'post',
+					data : {
+						'mem_no' : selectedMemNo
+						,'proj_user_nick' : selectedMemName 
+					},
+					success : function(res) {
+						if(res == "OK"){
+							selectedMemberLi.remove();
+							loadProjectMembers();
+						}
+					},
+					error : function(xhr, error, msg) {
+						ajaxError(xhr, error, msg)
+					},
+					dataType : 'json'
+				})
+			    
+			  } else if (
+			    result.dismiss === Swal.DismissReason.cancel
+			  ) {
+			  }
+			})
+	
+}
+
+
+
+
+
 
 
 

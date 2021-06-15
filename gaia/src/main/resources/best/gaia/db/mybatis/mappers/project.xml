@@ -156,4 +156,10 @@
 		order by mem_no
 	</select>
 	
+	<select id="selectLowestRoleNo" parameterType="int" resultType="int">
+		select max(mem_role_no)
+		from mem_role
+		where proj_no =#{proj_no}
+	</select>
+	
 </mapper>
