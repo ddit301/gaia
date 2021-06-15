@@ -11034,10 +11034,6 @@ a.text-dark:focus {
   border-right: 1px solid #eeeeee !important;
 }
 
-.border-left {
-  border-left: 1px solid #eeeeee !important;
-}
-
 .border-top {
   border-top: 1px solid #eeeeee !important;
 }
@@ -12268,7 +12264,6 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 .content-body {
   margin-top: 60px !important;
-  margin-left: 11.4rem;
   z-index: 0;
 }
 
