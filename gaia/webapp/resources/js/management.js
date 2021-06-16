@@ -261,9 +261,34 @@ const addLabel = function(){
 	let label_icon = $('#label-icon-input').val();
 	let label_color = $('#label-color-input').val();
 	
-	console.log(label_nm);
-	console.log(label_icon);
-	console.log(label_color);
+	$.ajax({
+		url : getContextPath() + '/restapi/project/labels',
+		method : 'post',
+		data : {
+			'label_nm' : label_nm
+			,'label_icon' : label_icon
+			,'label_color' : label_color
+		},
+		success : function(label) {
+			
+			toastr.success('['+label.label_nm+']라벨을 성공적으로 추가했습니다.');
+			
+			let labelBoxTemplate = $('#manage-template').find('.labelBox')
+			let labelBoxArea = $('#labelBoxArea');
+			let labelBox = labelBoxTemplate.clone();
+			
+			labelBox.attr('data-label_no', label.label_no);
+			labelBox.find('i').addClass(label.label_icon);
+			labelBox.find('span').text(label.label_nm);
+			labelBox.css({"backgroundColor":label.label_color});
+			
+			labelBoxArea.append(labelBox);
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+	})
 	
 	
 }

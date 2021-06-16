@@ -213,4 +213,24 @@
 		order by label_no, mem_role_no		
 	</select>
 	
+	<insert id="insertLabel" parameterType="best.gaia.vo.LabelVO">
+		<selectKey resultType="int" keyProperty="label_no" order="BEFORE">
+			select nvl(max(label_no),0)+1
+			from label
+		</selectKey>
+		INSERT INTO label (
+		    label_no,
+		    proj_no,
+		    label_nm,
+		    label_icon,
+		    label_color
+		) VALUES (
+		    #{label_no},
+		    #{proj_no,jdbcType=NUMERIC},
+		    #{label_nm,jdbcType=VARCHAR},
+		    #{label_icon,jdbcType=VARCHAR},
+		    #{label_color,jdbcType=VARCHAR}
+		)
+	</insert>
+	
 </mapper>
