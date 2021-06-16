@@ -109,6 +109,10 @@ button.selectedProj{
 .labelmodal{
 	padding : 20px;
 }
+.labelmodal i:hover{
+	cursor : pointer;
+	background-color : #EEEEEE;
+}
 #label-icon-select i{
 	font-size : 3em;
 	margin : 5px;
@@ -125,8 +129,19 @@ button.selectedProj{
 .label-add-footer{
 	margin-top : 20px;
 }
-
-
+.roleBox:hover{
+	background-color : #DDDDDD;
+	cursor : pointer;
+}
+.roleBox{
+	padding-top : 5px;
+}
+.roleBox input{
+	margin-top : 7px;
+}
+.roleBox span{
+	font-size : 1.2em;
+}
 
 
 

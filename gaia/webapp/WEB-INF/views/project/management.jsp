@@ -102,15 +102,15 @@
    			<div class="col-md-6">
 	   			<span>라벨명 입력</span>
 	   			<input id="label-no-input" type="text" hidden="true">
-	   			<input id="label-name-input" type="text">
+	   			<input id="label-name-input" type="text" maxlength="10">
 	   			<input id="label-color-input" type="text" hidden="true">
 	   			<input id="label-icon-input" type="text" hidden="true">
-	   			<button id="labelAddConfirmBtn" onclick="addOrEditLabel()" class="btn btn-success">저장</button>
    			</div>
    		</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      	<button id="labelAddConfirmBtn" onclick="addOrEditLabel()" class="btn btn-success">저장</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" hidden="hidden">Close</button>
       </div>
     </div>
   </div>

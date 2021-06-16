@@ -309,7 +309,7 @@ const addOrEditLabel = function(){
 			
 			// 라벨을 추가한 경우
 			if(method == 'post'){
-				toastr.success('['+label.label_nm+']라벨을 성공적으로 추가했습니다.');
+				toastr.success('"'+label.label_nm+'" 라벨을 성공적으로 추가했습니다.');
 				
 				let labelBoxTemplate = $('#manage-template').find('.labelBox')
 				let labelBoxArea = $('#labelBoxArea');
