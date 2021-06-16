@@ -2,11 +2,12 @@
 
 .container{
 	display : grid;
-	    margin-left: 0;
+	margin-left: 0;
     width: 100%;
 }
 .title-wiki{
-	font-size : 1.5em;
+	font-size: 2.0em;
+    font-weight: bold;
 }
 .row{
 	margin : auto;
@@ -19,10 +20,6 @@
     width: 100%;
 }
 .wiki-content{
-	margin : auto;
-	padding : auto;	
-}
-.wiki-search{
 	margin : auto;
 	padding : auto;	
 }
@@ -48,4 +45,27 @@
 	max-height: 400px;
     overflow-y: auto;
 	text-align: center;
+	padding-right: 0;
+    padding-left: 0;
+}
+.wiki-search{
+    margin-left: 20%;
+
+}
+.wiki-btn-group{
+	text-align: center;
+}
+.wiki-writer{
+	font-size: larger;
+	margin-left: 10px;
+}
+#wiki-list{
+/* 	border : 1px solid black; */
+	text-align: center;
+	width : 100%;
+	min-height: 360px;
+}
+.wiki-title{
+	font-size: larger;
+	text-align : center;
 }
