@@ -104,6 +104,11 @@ const loadMemberInfo_overview = function() {
 			if (cnt % 2) {
 				$("#issueTemplate").children(".issue").clone().appendTo("#issues");
 			}
+			if(cnt==0){
+				for(i=0;i<4;i++){
+					$("#issueTemplate").children(".issue").clone().appendTo("#issues");
+				}
+			}
 			$("#mem_bio").text(memberInfo.mem_bio);
 		}
 		, async: false
