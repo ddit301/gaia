@@ -71,9 +71,10 @@ public interface ProjectDao {
 	public int insertMemberRole(MemRoleVO memRole);
 	
 	/**
-	 * memrole
+	 * label
 	 */
 	public int insertLabel(LabelVO label);
+	public int deleteLabel(int label_no);
 	
 }
 

@@ -59,6 +59,15 @@ public interface ProjectService {
 	public ServiceResult deleteWiki(WikiVO wiki);
 	public WikiVO selectWiki(Map<String, Object> search);
 
-
+	/**********************************************************************
+	 *  라벨 관련 service
+	 **********************************************************************/	
+	public ServiceResult deleteLabel(int label_no);
+	
+	
 	
 }
+
+
+
+

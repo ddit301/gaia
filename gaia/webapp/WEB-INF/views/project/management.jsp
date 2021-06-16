@@ -91,7 +91,7 @@
    		<div class="label-add-footer row">
    			<div class="label-preview col-md-6">
    				<p>미리보기</p>
-   				<div id="preview-labelBox" class="labelBox">
+   				<div id="preview-labelBox">
 					<i class="icon-plus"></i>
 					<span>라벨명</span>
 				</div>

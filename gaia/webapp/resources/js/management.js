@@ -47,6 +47,37 @@ $(function() {
 		previewIcon.addClass(icon);
 	}) 
 	
+	// 라벨에 우클릭 이벤트 바인딩
+	$.contextMenu({
+		selector: '.labelBox',
+		items: {
+			edit: {
+				name: "라벨 수정",
+				callback: function(key, opt) {
+					let label = $(this)
+					editLabel(label);
+				}
+			}
+			,delete: {
+				name: "라벨 삭제",
+				callback: function(key, opt) {
+					let label = $(this);
+					deleteLabel(label);
+				}
+			}
+		},
+		events: {
+			show: function(opt) {
+				var $this = this;
+				$.contextMenu.setInputValues(opt, $this.data());
+			},
+			hide: function(opt) {
+				var $this = this;
+				$.contextMenu.getInputValues(opt, $this.data());
+			}
+		}
+	});
+	
 
 
 })
@@ -293,8 +324,69 @@ const addLabel = function(){
 	
 }
 
+// 라벨 수정
+const editLabel = function(label){
+	let label_no = label.data('label_no');
+	alert(label_no);
+}
 
-
+// 라벨 삭제
+const deleteLabel = function(label){
+	let label_no = label.data('label_no');
+	let label_nm = label.find('span').text(); 
+	
+	// sweetAlert 버튼 초기화
+	 swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+			cancelButton: 'btn btn-light',
+		   	confirmButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+	})	
+	
+	swalWithBootstrapButtons.fire({
+		  title: '정말로 "'+label_nm+'"라벨을 삭제하시겠습니까?',
+		  text: "삭제시 되돌릴 수 없습니다!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: '삭제',
+		  cancelButtonText: '취소',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    swalWithBootstrapButtons.fire(
+		      'Deleted!',
+		      '라벨을 삭제했습니다.',
+		      'success'
+		    )
+		    
+		    $.ajax({
+				url : getContextPath() + '/restapi/project/labels',
+				method : 'post',
+				data : {
+					'label_no' : label_no
+					,'_method' : 'delete'
+				},
+				success : function(res) {
+					if(res == "OK"){
+						label.remove();
+					}else{
+						alert('삭제에 실패했습니다. 지속해서 문제 발생시 관리자에게 문의해주세요.');				
+					}
+				},
+				error : function(xhr, error, msg) {
+					ajaxError(xhr, error, msg)
+				},
+				dataType : 'json'
+			})
+		    
+		  } else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === Swal.DismissReason.cancel
+		  ) {
+		  }
+		})
+}
 
 
 

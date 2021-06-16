@@ -15,11 +15,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.LabelVO;
 
 @RestController
@@ -61,8 +63,17 @@ public class LabelREST {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
-	public Map<String, Object> deleteLabel() {
-		return null;
+	public ServiceResult deleteLabel(
+			@RequestParam int label_no
+			) {
+		
+		ServiceResult result = service.deleteLabel(label_no);
+		
+		
+		return result;
 	}
 
 }
+
+
+

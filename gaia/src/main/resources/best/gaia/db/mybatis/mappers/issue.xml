@@ -184,4 +184,10 @@ FROM ISSUE
 			WHERE ISSUE_SID = #{issue_sid, jdbcType=NUMERIC}
 	</update>
 	
+	<update id="deleteLabelFromIssue" parameterType="int">
+		UPDATE issue
+		SET label_no = null
+		WHERE label_no = #{label_no}
+	</update>
+	
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import best.gaia.issue.dao.IssueDao;
 import best.gaia.member.dao.MemberDao;
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.project.dao.NewsDao;
@@ -40,6 +41,8 @@ public class ProjectServiceImpl implements ProjectService {
 	private WikiDao wikiDao;
 	@Inject
 	private MemberDao memDao;
+	@Inject
+	private IssueDao issueDao;
 	
 	
 	
@@ -272,6 +275,19 @@ public class ProjectServiceImpl implements ProjectService {
 		if(searchword != null)
 			paramMap.put("searchword",searchword);
 		return memDao.selectProjectMembers(paramMap);
+	}
+
+	@Override
+	@Transactional
+	public ServiceResult deleteLabel(int label_no) {
+		
+		// 해당하는 라벨을 라벨번호로 가지고 있는 모든 이슈들 라벨번호 null로 바꾸고
+		issueDao.deleteLabelFromIssue(label_no);
+		// 라벨을 삭제한다
+		int result = projectDao.deleteLabel(label_no);
+		
+		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
+		
 	}
 
 }

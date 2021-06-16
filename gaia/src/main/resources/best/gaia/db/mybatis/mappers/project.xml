@@ -233,4 +233,9 @@
 		)
 	</insert>
 	
+	<delete id="deleteLabel" parameterType="int">
+	    DELETE FROM label
+		WHERE label_no = #{label_no}
+	</delete>
+	
 </mapper>
