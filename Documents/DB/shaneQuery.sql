@@ -249,7 +249,7 @@ order by proj_start_date;
 -- c. 프로젝트 관리 위해 프로젝트 정보 불러오기
 select project.proj_no as proj_id, mem_no, proj_title, proj_cont, proj_start_date
         ,proj_est_end_date, issue_priority_set, proj_module_set, proj_status
-        ,label.label_no, label.label_nm
+        ,label.label_no, label.label_nm, label.label_color, label.label_icon
         ,mem_role.mem_role_no, mem_role.mem_role_nm, mem_role.authority
 from project
     left outer join label on (project.proj_no = label.proj_no)
