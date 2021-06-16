@@ -27,12 +27,12 @@ public class MemberServiceImpl implements MemberService {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public MemberVO retrieveMember(String mem_id) {
-		MemberVO savedMember = dao.selectMemberDetail(mem_id);
-		if (savedMember == null) {
-			throw new RuntimeException("해당 이메일을 등록한 회원이 존재하지 않음.");
-		}
-		return savedMember;
+	public Integer retrieveMember(String mem_id) {
+		int count = dao.selectMemberID(mem_id);
+//		if (count == 0) {
+//			throw new RuntimeException("해당 이메일을 등록한 회원이 존재하지 않음.");
+//		}
+		return count;
 	}
 	
 	@Override

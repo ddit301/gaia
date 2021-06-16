@@ -14,7 +14,7 @@ public interface MemberService {
 	 * @param mem_id
 	 * @return 존재하지 않으면, custom exception 발생
 	 */
-	public MemberVO retrieveMember(String mem_id);
+	public Integer retrieveMember(String mem_id);
 	
 	/**
 	 * 회원 정보 상세 조회(profile)

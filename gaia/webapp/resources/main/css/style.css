@@ -1552,6 +1552,28 @@ General Styles - Owlcarousel
   padding: 0 6px;
 }
 
+.checker{
+  float: right;
+  margin-top: -28px;
+  padding-right: 10px;
+}
+
+.warning-input{
+ border: red solid 1px;
+}
+
+.warning-text{
+  color: red;
+}
+
+.confirm-input{
+  border: solid 1px green;
+}
+
+.confirm-icon{
+  color: green;
+}
+
 /* -------------------------------------------------------------
 Google map
 ------------------------------------------------------------- */
