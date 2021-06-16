@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="container-fluid">
-	<div class="row menu">
+    <div class="row">
 		<div class="col-lg-4 col-xl-3">
 			<jsp:include page="side-bar.jsp"/>
 		</div>
@@ -66,7 +66,7 @@
 				            		<input type="hidden" value="put" name="_method">
 				            		<div class="img-grid-right">
 					            		<label class="d-block"> Profile picture</label>
-					            		<img class="mr-3 rounded-circle profile_img" height="200" width="200" src= "${cPath}/resources/profiles/1.jpeg" >
+					            		<img class="mb-3 rounded-circle profile_img" style="width: 100%; object-fit: contain;" src= "${cPath}/resources/profiles/1.jpeg" >
 					            		<button type="button" class="btn mb-1 btn-outline-info edit-profile">Edit</button>
 					            		<input class="form-control btn mb-1 btn-outline-info" id="upload_image" type="file" name="files" accept="image/*" hidden="hidden" />
 				            		</div>
