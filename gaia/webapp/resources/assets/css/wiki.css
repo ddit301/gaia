@@ -33,16 +33,17 @@
 	background : white; 
 	margin : auto;
 	padding : auto;
-	height : 400px;
+	height : 300px;
 	border : 1px solid black;
+	 overflow-y: auto;
 }
 .wiki-right{
 	background : white; 
-	margin : auto;
-	padding : auto;
-	height : 400px;
+/* 	margin : auto; */
+/* 	padding : auto; */
+	height : 300px;
 	border : 1px solid black;
-	max-height: 400px;
+	max-height: 300px;
     overflow-y: auto;
 	text-align: center;
 	padding-right: 0;
@@ -63,9 +64,20 @@
 /* 	border : 1px solid black; */
 	text-align: center;
 	width : 100%;
-	min-height: 360px;
+	min-height: 260px;
 }
 .wiki-title{
 	font-size: larger;
 	text-align : center;
+}
+.editHis{
+	transition: none;
+}
+.wiki-footer{
+	background : white; 
+	margin : auto;
+	padding : auto;
+	height : 200px;
+	border : 1px solid black;
+	 overflow-y: auto;
 }

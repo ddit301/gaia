@@ -7,7 +7,7 @@
 				 CBI = 1 AND PROJ_NO = #{detailSearch.proj_no}
 				<if test = "detailSearch neq null">
 					<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailSearch.wiki_title)">
-						 AND INSTR(WIKI.WIKI_TITLE, #{detailSearch.wiki_title,jdbcType=VARCHAR}) > 0
+						 AND INSTR(WIKI_TITLE, #{detailSearch.wiki_title,jdbcType=VARCHAR}) > 0
 					</if>
 				</if>
 			</trim>

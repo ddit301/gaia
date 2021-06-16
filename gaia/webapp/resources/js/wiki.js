@@ -180,12 +180,14 @@ const wikiView = function(wiki_no){
 				$('.wiki-writer').children('span').eq(0).text(res.proj_user_nick);
 				if(res.parent_wiki == null){
 					$('.wiki-writer').children('span').eq(1).text('open');
+					$('.wiki-writer').children('a').text('');
 				}else{
 					$('.wiki-writer').children('span').eq(1).text('edit');
+					$('.wiki-writer').children('a').text('3 edit history');
 				}
-					$('.wiki-writer').children('span').eq(2).text('this page');
 				
-				$('.wiki-writer').children('span').eq(3).text(moment(res.wiki_write_date).fromNow());
+				$('.wiki-writer').children('span').eq(2).text('this wiki');
+				$('.wiki-writer').children('span').eq(3).text(moment(res.wiki_write_date).fromNow()+'. ');
 				// 마크다운 뷰어
 				viewer.setMarkdown(res.wiki_cont);
 				// delete modal 의 wiki-title 에 이름 넣기
@@ -237,11 +239,12 @@ const wikilist = function(wiki_title){
 							
 							wiki = res.dataList[0];
 							if(wiki == null){
-								$('.title-wiki').children('span').text('등록된 위키가 없습니다');
-								$('.wiki-writer').children('span').eq(0).text('');
+								$('.title-wiki').children('span').text('등록된 위키가 없습니다.');
+								$('.wiki-writer').children('span').eq(0).text('등록된 위키가 없습니다.');
 								$('.wiki-writer').children('span').eq(1).text('');
 								$('.wiki-writer').children('span').eq(2).text('');
 								$('.wiki-writer').children('span').eq(3).text('');
+								$('.wiki-writer').children('a').text(' ');
 								viewer.setMarkdown(' ');
 								$('#wiki-list').empty();
 								// wiki 없는경우 delete/edit disabled 시키
@@ -254,11 +257,14 @@ const wikilist = function(wiki_title){
 							$('.wiki-writer').children('span').eq(0).text(wiki.proj_user_nick);
 							if(wiki.parent_wiki == null){
 								$('.wiki-writer').children('span').eq(1).text('open');
+								$('.wiki-writer').children('a').text('');
+								$('.wiki-history-discription-history').children('span').eq(0).text('히스토리가 없습니다.')
 							}else{
 								$('.wiki-writer').children('span').eq(1).text('edit');
+								$('.wiki-writer').children('a').text('3 edit history');
 							}
 							$('.wiki-writer').children('span').eq(2).text('this wiki');
-							$('.wiki-writer').children('span').eq(3).text(moment(wiki.wiki_write_date).fromNow());
+							$('.wiki-writer').children('span').eq(3).text(moment(wiki.wiki_write_date).fromNow()+'. ');
 //							$('.wiki-content').children('span').text(res.dataList[0].wiki_cont);
 							viewer.setMarkdown(wiki.wiki_cont);
 							// delete modal 의 wiki-title 에 이름 넣기

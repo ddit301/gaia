@@ -35,6 +35,7 @@
            				<span></span>
            				<span></span>
            				<span></span>
+           				<a class ="editHis" href="javascript:void(0)"></a> 
            				 
            			</div>
             	</div>
@@ -139,6 +140,18 @@
 <!-- 						</div>	 -->
             		</div>
             	</div>
+            	
+            	<div class = "wiki-footer row">
+            		<div class="wiki-history-title col-md-12">
+            			<span>WIKI HISTORY</span>
+            		</div>
+            		<div class="wiki-history-discription col-md-12">
+            			<span></span>
+            		</div>	
+            	
+            		
+            	</div>
+            	
             </div>
          
 			<div id ="wiki-template" hidden = "hidden">
