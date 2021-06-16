@@ -288,7 +288,6 @@ milestoneissuelist = function(issue_status){
 			,data : data
 			
 			,success : function(res) {
-				
 			
 										
 				$('#milestone-issuelist').empty();
@@ -334,15 +333,12 @@ milestoneissuelist = function(issue_status){
 			
 				$.each(v.assigneeList, function(j, assignee){
 					if(assigneeSize == 1) j=99;
-					
+					// 이슈 담당자 이미지(여러명)
 					issueBox.children('.issue-assignee').append(
 							'<img class="profile assignee assignee'+j+'" src="'+getProfilePath(assignee.mem_pic_file_name)+'">');
+					// 이슈 작성자 이미
+					issueBox.children('.issue-writer').children('img').attr('src',getProfilePath(v.assigneeList[0].mem_pic_file_name));
 				})
-				
-				issueBox.children('.issue-writer').children('img').attr('src',getProfilePath(v.assigneeList.mem_pic_file_name));
-//					issueBox.children('.issue-assignee').children('img').attr('src',getContextPath()+'/resources/assets/images/user/1.png');
-//					issueBox.children('.issue-writer').children('img').attr('src',getContextPath()+'/resources/assets/images/user/1.png');
-//					issueBox.children('.reply').children('span').text('3');
 					if(v.replyCount > 0){
 						issueBox.children('.reply').html(
 								'<i class="icon-bubbles icons"></i><span>'+v.replyCount+'</span>'
