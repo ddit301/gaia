@@ -20,6 +20,21 @@
 		    where forbidden_proj_title = #{proj_title} ) b
 	</select>
 	
+	<select id="selectProject" parameterType="int" resultType="best.gaia.vo.ProjectVO">
+		SELECT
+		    proj_no,
+		    mem_no,
+		    proj_title,
+		    proj_cont,
+		    to_char(proj_start_date, 'yyyy-mm-dd'),
+		    to_char(proj_est_end_date, 'yyyy-mm-dd'),
+		    issue_priority_set,
+		    proj_module_set,
+		    proj_status
+		FROM
+		    project
+		WHERE PROJ_NO = #{proj_no}
+	</select>
 	
 	<insert id="insertProject" parameterType="best.gaia.vo.ProjectVO">
 		<selectKey resultType="int" keyProperty="proj_no" order="BEFORE">
@@ -40,6 +55,20 @@
 		    sysdate
 		)
 	</insert>
+	
+	<update id="updateProject" parameterType="best.gaia.vo.ProjectVO">
+		UPDATE project
+		SET
+		    mem_no = #{mem_no,jdbcType=NUMERIC}
+		    ,proj_title = #{proj_title,jdbcType=VARCHAR}
+		    ,proj_cont = #{proj_cont,jdbcType=VARCHAR}             
+			,proj_est_end_date = #{proj_est_end_date,jdbcType=VARCHAR}     
+			,issue_priority_set = #{issue_priority_set,jdbcType=NUMERIC}   
+			,proj_module_set = #{proj_module_set,jdbcType=NUMERIC}       
+			,proj_status = #{proj_status,jdbcType=VARCHAR}          
+		WHERE
+			proj_no = #{proj_no}
+	</update>
 	
 	<insert id="insertMemberRole" parameterType="best.gaia.vo.MemRoleVO">
 		<selectKey resultType="int" keyProperty="mem_role_no" order="BEFORE">

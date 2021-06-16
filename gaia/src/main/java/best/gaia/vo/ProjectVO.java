@@ -20,11 +20,12 @@ public class ProjectVO implements Serializable{
 	@NotNull @Min(0) private Integer proj_no;
 	 private Integer mem_no;
 	@NotBlank@Size(max=200) private String proj_title;
-	@NotBlank@Size(max=3000) private String proj_cont;
+	@Size(max=4000) private String proj_cont;
 	@Size(max=7) private String proj_start_date;
 	@Size(max=7) private String proj_est_end_date;
 	@NotNull @Min(0) private Integer issue_priority_set;
 	@NotNull @Min(0) private Integer proj_module_set;
+	@NotBlank@Size(max=1) private String proj_status;
 	
 	/**
 	 * Association 관계의 객체 입니다.

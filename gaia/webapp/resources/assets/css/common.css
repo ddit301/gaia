@@ -85,6 +85,10 @@ button.selectedProj{
 }
 
 /* 라벨 관련 css */
+.labelBox:hover{
+	box-shadow: 2px 2px 2px 2px #40CD49;
+	cursor : pointer;
+}
 .labelBox{
 	font-size : 1.3em;
     border-radius: 0.625rem;
@@ -93,6 +97,10 @@ button.selectedProj{
     padding : 5px;
     margin : 5px;
     display : inline-flex;
+}
+.labelBox i{
+	font-size : 1.5em;
+	margin-right : 5px;
 }
 .rolelabel{
 	padding : 0px;

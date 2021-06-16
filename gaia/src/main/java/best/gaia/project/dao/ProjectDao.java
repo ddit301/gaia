@@ -48,7 +48,9 @@ public interface ProjectDao {
 	 * project
 	 */
 	public List<ProjectVO> selectProjectList(Integer mem_no);
+	public ProjectVO selectProject(int proj_no);
 	public int insertProject(ProjectVO project);
+	public int updateProject(ProjectVO project);
 	public ProjectVO loadProjectForManagement(int proj_no);
 	
 	/**

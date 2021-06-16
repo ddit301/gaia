@@ -99,7 +99,7 @@
 						<label>해당 프로젝트에 대한 소개를 써주세요.</label>
 						<textarea class="form-control h-150px" rows="6" id="mng_proj_cont"></textarea>
 					</div>
-					<button style="float: right" class="btn btn-success">저장</button>
+					<button id="save_project_title" style="float: right" class="btn btn-success">저장</button>
 				</div>
 			</div>
 		</div>
@@ -273,8 +273,6 @@
 				<button style="float: right" class="btn btn-success">저장</button>
 			</div>
 		</div>
-
-
 
 
 	</div>

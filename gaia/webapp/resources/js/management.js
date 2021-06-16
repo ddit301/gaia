@@ -8,7 +8,12 @@ $(function() {
 	/**********************************
 		버튼 매핑 시작
 	********************************/
-
+	
+	// 프로젝트 소개 변경 버튼
+	$('body').on('click', '#save_project_title', function(){
+		let project_cont = $('#mng_proj_cont').val();
+		changeProjectCont(project_cont);
+	});
 
 	/**********************************
 					버튼 매핑 끝
@@ -36,6 +41,7 @@ $(function() {
 	함수 선언부
 ********************************/
 
+// 프로젝트 관리 페이지에서 쓸 데이터를 불러오는 함수
 const loadProjectForManagement = function(){
 	$.ajax({
 			url : getContextPath() + '/restapi/project/loadProjectForManagement.do',
@@ -93,6 +99,7 @@ const loadProjectForManagement = function(){
 		})
 }
 
+// 특정 div안의 checkbox 들에 이진수 형태의 data에 맞게 체크를 해주는 함수
 const binaryDataPrinter = function(div, data){
 	let areas = div.children('div');
 	let areasize = areas.length;
@@ -109,7 +116,29 @@ const binaryDataPrinter = function(div, data){
 	
 }
 
+// 프로젝트 설명 변경해주는 함수
+const changeProjectCont = function(proj_cont){
+	$.ajax({
+		url : getContextPath() + '/restapi/project/projects',
+		method : 'post',
+		data : {
+			'proj_cont' : proj_cont
+			,'_method' : 'put'
+		},
+		success : function(res) {
+			if(res == "OK"){
+				toastr.success('프로젝트 소개를 정상적으로 업데이트 했습니다 .');
+			}else{
+				toastr.error('에러 발생. 정상적으로 수정되지 않았습니다.');
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
 
+		},
+		dataType : 'json'
+	})
+}
 
 
 
