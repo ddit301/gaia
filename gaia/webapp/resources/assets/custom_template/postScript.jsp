@@ -1,4 +1,4 @@
-<%--
+t<%--
 * [[개정이력(Modification Information)]]
 * Date         Modifier		Modification
 * ----------  ---------  -----------------
@@ -13,13 +13,13 @@
     <script src="${cPath }/resources/assets/js/settings.js"></script>
     <script src="${cPath }/resources/assets/js/gleek.js"></script>
     <script src="${cPath }/resources/assets/js/styleSwitcher.js"></script>
-	<script src="${cPath }/resources/js/moment.js"></script>
+	<script src="${cPath }/resources/js/external/moment.js"></script>
 	<script src="${cPath }/resources/js/external/bootstrap-material-datetimepicker.min.js"></script>
 	<script src="${cPath }/resources/js/external/toastui-editor-all.js"></script>
 	<script src="${cPath }/resources/js/external/toastr.min.js"></script>
-	<script src="${cPath }/resources/js/jquery.serializejson.js"></script>
 	<script src="${cPath }/resources/js/external/sweetalert2@11.js"></script>
-	<script src="${cPath }/resources/js/jquery.validate.js"></script>
+	<script src="${cPath }/resources/js/external/jquery.serializejson.js"></script>
+	<script src="${cPath }/resources/js/external/jquery.validate.js"></script>
 <!-- 	우클릭 지원을 위한 jquery contextMenu -->
 	<script src="${cPath }/resources/js/external/jquery.contextMenu.js"></script>
 	<script src="${cPath }/resources/js/external/jquery.ui.position.js"></script>
@@ -27,7 +27,7 @@
 <!-- 	base 64 인코딩 /디코딩용 -->
 	<script src="${cPath }/resources/js/external/base64.min.js"></script>
 <!-- 	url에서 파일 다운받기 위한 라이브러리 -->
-	<script src="${cPath }/resources/js/download.js"></script>
+	<script src="${cPath }/resources/js/external/download.js"></script>
 <!-- 	util.js 는 페이지별 js 보다 위에 위치해야 합니다. -->
 	<script src="${cPath }/resources/js/util.js"></script>
 <!-- 	각 페이지별로 필요한 js 파일 입니다.  -->
@@ -40,6 +40,7 @@
 	<script src="${cPath }/resources/js/websocket.js"></script>
 	<script src="${cPath }/resources/js/member.js"></script>
 	<script src="${cPath }/resources/js/code.js"></script>
+	<script src="${cPath }/resources/js/management.js"></script>
 	<script src="${cPath }/resources/assets/dist/jkanban.js"></script>  
 
 <script type="text/javascript">
