@@ -18,11 +18,14 @@ $(function() {
 	/**********************************
 					버튼 매핑 끝
 			
-		document ready 바인딩 시작
+		document ready 이벤트 바인딩 시작
 	********************************/
-
-
-
+	
+	// 프로젝트 마감일 변경시 저장해주는 이벤트
+	$('body').on('change', '#mng_proj_end', function(){
+		let endDate = $(this).val();
+		changeProjectEndDate(endDate);
+	})
 
 
 
@@ -52,7 +55,7 @@ const loadProjectForManagement = function(){
 				
 				// 예정 마감일 출력
 				let enddate = project.proj_est_end_date;
-				$('#mng_proj_end').val(moment(enddate).format('YYYY-MM-DD'));
+				$('#mng_proj_end').val(enddate? moment(enddate).format('YYYY-MM-DD') : '');
 				
 				// 사용 모듈 출력
 				let moduleDiv = $('#mng_module');
@@ -128,6 +131,29 @@ const changeProjectCont = function(proj_cont){
 		success : function(res) {
 			if(res == "OK"){
 				toastr.success('프로젝트 소개를 정상적으로 업데이트 했습니다 .');
+			}else{
+				toastr.error('에러 발생. 정상적으로 수정되지 않았습니다.');
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+
+		},
+		dataType : 'json'
+	})
+}
+
+const changeProjectEndDate = function(proj_est_end_date){
+	$.ajax({
+		url : getContextPath() + '/restapi/project/projects',
+		method : 'post',
+		data : {
+			'proj_est_end_date' : proj_est_end_date
+			,'_method' : 'put'
+		},
+		success : function(res) {
+			if(res == "OK"){
+				toastr.success('프로젝트 예정 마감일을 정상적으로 변경했습니다.');
 			}else{
 				toastr.error('에러 발생. 정상적으로 수정되지 않았습니다.');
 			}

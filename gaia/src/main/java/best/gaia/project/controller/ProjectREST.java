@@ -74,13 +74,17 @@ public class ProjectREST {
 	public ServiceResult updateProject(
 			HttpSession session
 			,@RequestParam Optional<String> proj_cont
+			,@RequestParam Optional<String> proj_est_end_date
 			) {
 		int proj_no = getProjNoFromSession(session);
 		ProjectVO original = dao.selectProject(proj_no);
 		
 		if(proj_cont.isPresent()) {
 			original.setProj_cont(proj_cont.get());
+		}else if(proj_est_end_date.isPresent()) {
+			original.setProj_est_end_date(proj_est_end_date.get());
 		}
+		
 		
 		return dao.updateProject(original) == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
