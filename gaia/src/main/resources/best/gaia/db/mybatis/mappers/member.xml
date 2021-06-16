@@ -42,7 +42,6 @@
 				<id property="issue_sid" column="ISSUE_ID"/>
 				<result property="issue_title" column="ISSUE_TITLE" />
 				<result property="issue_status" column="ISSUE_STATUS" />
-				<result property="url" column="ISSUE_URL"/>
 				<association property="label" javaType="java.util.Map" autoMapping="false">
 					<result column="LABEL_NO" property="label_no"></result>
 					<result column="LABEL_NM" property="label_nm"></result>
@@ -102,7 +101,6 @@
 		        MEMBER.MEM_PIC_FILE_NAME, MEMSTAT.COM_CODE_NM AS MEM_STATUS,
 		        PROJECTINFO.PROJ_NO AS PROJECT_NO, PROJ_TITLE, PROJ_MANAGER_NO, PROJ_MANAGER_ID, PROJ_USER_NICK,
 		        PROJ_MANAGER_ID||'/'||PROJ_TITLE AS PROJECT_URL, 
-		        PROJ_MANAGER_ID||'/'||PROJ_TITLE||'/issue/'||ISSUE_NO AS ISSUE_URL,
 		        ISSUE_SID AS ISSUE_ID, ISSUE_TITLE, FIXER_NO, FIXER_ID, ISSUE_HIS_CONT, ISSUE_HIS_DATE, ISSUE_HIS_NO,
 		        LABEL_NO, LABEL_NM, ASSIGNEES.ASSIGNEE, ASSIGNEES.ASSIGNEE_ID
 		FROM MEMBER

@@ -50,13 +50,9 @@ const memberMovePage = function(pageParam) {
 		success: function(res) {
 			$('.content-body').html(res);
 		},
-		error: function(xhr) {
+		error: function(xhr, error, msg) {
 			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-			if (xhr.status == '404') {
-				alert('등록되지 않는 버튼 : ' + pageParam);
-			} else {
-				alert("status : " + xhr.status);
-			}
+			ajaxError(xhr, error, msg)
 		},
 		dataType: 'html'
 	})
@@ -79,44 +75,40 @@ const loadMemberInfo_overview = function() {
 			let length;
 			let proj_manager = "";
 			let profile_img = $("#profile_img").attr("src", getProfilePath(memberInfo.mem_pic_file_name));
+			let cnt = 0;
 			$.each(memberInfo.projectList, function(i, v) {
 				let url = v.url;
 				proj_manager = v.projectManager.mem_id;
-
 				$.each(v.issueList, function(j, iss) {
-					let issue = $("#issueTemplate").children(".issue").clone();
-					let timeUploaded = iss.historyList[0].issue_his_date;
-					let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
-					let proj_manager_link = "<a href=" + getContextPath() + "/" + proj_manager + ">" + proj_manager + "</a>";
-					let proj_link = "<a href=" + getContextPath() + "/" + url + ">" + "/" + v.proj_title + "</a>";
-					let issue_link = "<a href=" + getContextPath() + "/" + iss.url + ">" + "/" + iss.issue_sid + "</a>";
-
-					issue.attr("data-issue_sid", iss.issue_sid);
-					issue.find(".issue-card-top").children().first().html(proj_manager_link + proj_link + issue_link);
-
-					issue.find(".issue-card-top").children().last().text(iss.issue_title);
-					issue.find(".issue-card-mid").find(".issue_date").text(timeAgo);
-					issue.find(".issue-card-mid").find(".fixer_id").text("by " + iss.historyList[0].historyWriter.mem_nick);
-					issue.find('.issue-card-bot').text(iss.historyList[0].issue_his_cont);
-
-					issue.appendTo("#issues");
-				})
-				length = v.issueList.length
-				if (length % 2) {
-					$("#issueTemplate").children(".issue").clone().appendTo("#issues");
-				}
-			})
-			$("#mem_bio").text(memberInfo.mem_bio);
-		},
-		async: false
-		, error: function(xhr) {
-			console.log(xhr);
-			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-			if (xhr.status == '404') {
-				alert("실패");
-			} else {
-				alert("status : " + xhr.status);
+					console.log(iss.issue_sid)
+					if(!!iss.issue_sid){
+						cnt += 1;
+						let issue = $("#issueTemplate").children(".issue").clone();
+						let timeUploaded = iss.historyList[0].issue_his_date;
+						let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
+						let proj_manager_link = "<a href=" + getContextPath() + "/" + proj_manager + ">" + proj_manager + "</a>";
+						let proj_link = "<a href=" + getContextPath() + "/" + url + ">" + "/" + v.proj_title + "</a>";
+						let issue_link = "<a href=" + getContextPath() + "/" + url + "/issue/" + ">" + "/" + iss.issue_sid + "</a>";
+						issue.attr("data-issue_sid", iss.issue_sid);
+						issue.find(".issue-card-top").children().first().html(proj_manager_link + proj_link + issue_link);
+	
+						issue.find(".issue-card-top").children().last().text(iss.issue_title);
+						issue.find(".issue-card-mid").find(".issue_date").text(timeAgo);
+						issue.find(".issue-card-mid").find(".fixer_id").text("by " + iss.historyList[0].historyWriter.mem_nick);
+						issue.find('.issue-card-bot').text(iss.historyList[0].issue_his_cont);
+	
+						issue.appendTo("#issues");
+					}
+				});
+			});
+			if (cnt % 2) {
+				$("#issueTemplate").children(".issue").clone().appendTo("#issues");
 			}
+			$("#mem_bio").text(memberInfo.mem_bio);
+		}
+		, async: false
+		, error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
 		},
 		dataType: 'json'
 	})
@@ -478,8 +470,8 @@ const toOverview = function() {
 ////////////////////////////////////////////////////
 
 // retrieveMemberProjectIssue(mem_no) 요청
-var loadMemberInfo_chat = function() {
-	let need = "chatList";
+const loadMemberInfo_chat = function() {
+	let need = "chatRoomList";
 	let mem = "";
 	let mem_count = "";
 	$.ajax({
@@ -487,16 +479,17 @@ var loadMemberInfo_chat = function() {
 		type: 'get',
 		data: { "need": need },
 		success: function(res) {
-			console.log(res)
+			sortByDate(res.roomList);
 			$.each(res.roomList, function(i, v) {
 				let chatRoom = $("#chatRoomTemplate").children(".chatRoom").clone();
-				chatRoom.find(".profile_img.img-center").attr("src", getProfilePath(v.memberList[1].mem_pic_file_name));
+				chatRoom.attr("data-chatRoom_no", v.chatroom_no);
 				// 이름 뒤에 외 몇명 붙여주기.
 				$.each(v.memberList, function(j, participant) {
 					if (j < 2) {mem += participant.mem_id + ", ";}
 					if (j > 1) {mem_count = "님 외 " + (j - 1) + "명";} else {mem_count = "";}
 				})
-				// profileImg 효과
+				// profileImg 설정 및 효과
+				chatRoom.find(".profile_img.img-center").attr("src", getProfilePath(v.memberList[1].mem_pic_file_name));
 				if (v.memberList.length < 4) {
 					chatRoom.find(".profile_img.img-right").remove();
 					chatRoom.find(".profile_img.img-left").remove();
@@ -504,10 +497,13 @@ var loadMemberInfo_chat = function() {
 					chatRoom.find(".profile_img.img-left").attr("src", getProfilePath(v.memberList[2].mem_pic_file_name));
 					chatRoom.find(".profile_img.img-right").attr("src", getProfilePath(v.memberList[3].mem_pic_file_name));
 				}
+				// 가장 최근 채팅 찍어주기.
+				chatRoom.find(".chatList-card-body .side-bar-content").children("span").text(v.chatList[0].content);
 				
-				
-				chatRoom.find(".chatList-card-body .content").children("span").text(v.chatList[0].content);
+				// 가장 최근에 연락 이후 경과된 시간 
 				let timeAgo = moment(v.chatList[0].date, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
+				
+				// 이름 찍어주기과 날짜 찍어주기.		
 				members = mem.slice(0, mem.lastIndexOf(", "));
 				members += mem_count;
 				chatRoom.find(".chatList-card-body .log-card-actor").children("a").text(members);
@@ -515,34 +511,60 @@ var loadMemberInfo_chat = function() {
 				chatRoom.appendTo("#chatRoomList");
 				mem = "";
 				let content = "";
-
-				//					console.log(res.chatListChatRoom.chatroom);
+				// console.log(res.chatListChatRoom.chatroom);
 				chatRoom.find(".chatList-card-body .content").children("span").text();
 			})
-
-			//				$(".profile_img_label").attr("title", "View "+res.search.mem_id+"'s profile");
-			//				$(".profile_img_label").siblings("input").val(res.search.mem_id);
-			//				$.each(res.logList, function(i, v){
-			//					let chatRoom = $("#chatRoomTemplate").children(".chatRoom").clone();
-			//					// elastic
-			////					let timeAgo = moment(v.date, "YYYYMMDD").fromNow();
-			////					let ip = v.date+'<span class="vertical-separator"></span>'+timeAgo;
-			////					log.find(".log-card-ip").html(ip);
-			////					log.find(".log-card-actor").children("a").text(res.search.mem_id+" - user.login");
-			//					chatRoom.find("")	
-			//					log.appendTo("#logList");
-			//				})
 		},
 		async: false
-		, error: function(xhr) {
-			console.log(xhr);
-			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-			if (xhr.status == '404') {
-				alert("실패");
-			} else {
-				alert("status : " + xhr.status);
-			}
+		,error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
 		},
 		dataType: 'json'
 	})
+}
+$(function(){
+	$('body').on('click', '.chatRoom', function(){
+		let room_no = $(this).data('chatroom_no');
+		loadChatList_chatRoom(room_no);
+	})
+})
+const loadChatList_chatRoom = function(room_no) {
+	let need = "chatContent";
+	$.ajax({
+		url: getContextPath() + "/restapi/chat/chats",
+		method : 'get',
+		data : {
+			"need" : need,
+			"chatroom_no" : room_no 
+		}, 
+		success : function(res) {
+			console.log(res.chatList);
+			
+		},
+		async : false
+		,error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
+		},
+		dataType : 'json'
+	})
+}
+// 채팅 date 별로 채팅방 side-bar 순위 변경 
+const sortByDate = function(List){
+	List.sort(function(a, b){
+	  let dateA = a.chatList[0].date.toLowerCase();
+	  let dateB = b.chatList[0].date.toLowerCase();
+	  if (dateA > dateB) 
+	  {
+	    return -1;
+	  }    
+	  else if (dateA < dateB)
+	  {
+	    return 1;
+	  }   
+	  return 0;
+	});
+}
+// 채팅이 나이면 오른쪽 아니면 왼쪽에 출력해주시
+chat_left_right = function(){
+	let mem_no = getCookie('mem_no');
 }
