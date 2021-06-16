@@ -32,17 +32,20 @@
 			$('#label-color-input').val(ev.color);
         	$('#preview-labelBox').css({"backgroundColor":ev.color});
         });
+        
+        // 우클릭한 라벨 초기화
+        rightClickedLabel = null;
 
 		
 	})
 </script>
 
-<!-- Label 추가 Modal -->
+<!-- Label 추가 혹은 수정용 Modal -->
 <div class="modal fade" id="addLabelModal" tabindex="-1" aria-labelledby="addLabelModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="addLabelModalLabel">라벨 추가</h3>
+        <h3 class="modal-title" id="addLabelModalLabel"></h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -93,15 +96,16 @@
    				<p>미리보기</p>
    				<div id="preview-labelBox">
 					<i class="icon-plus"></i>
-					<span>라벨명</span>
+					<span></span>
 				</div>
    			</div>
    			<div class="col-md-6">
 	   			<span>라벨명 입력</span>
-	   			<input id="label-name-input" type="text" value="라벨명">
-	   			<input id="label-color-input" type="text" value="#f8f8f8" hidden="true">
-	   			<input id="label-icon-input" type="text" value="icon-plus" hidden="true">
-	   			<button onclick="addLabel()" class="btn btn-success">추가하기</button>
+	   			<input id="label-no-input" type="text" hidden="true">
+	   			<input id="label-name-input" type="text">
+	   			<input id="label-color-input" type="text" hidden="true">
+	   			<input id="label-icon-input" type="text" hidden="true">
+	   			<button id="labelAddConfirmBtn" onclick="addOrEditLabel()" class="btn btn-success">저장</button>
    			</div>
    		</div>
       </div>
@@ -320,7 +324,7 @@
 						<i class="icons icon-cursor"></i> <span>이벤트</span>
 					</div>
 				</div>
-				<button style="float: right" class="btn btn-success" data-toggle="modal" data-target="#addLabelModal">라벨추가</button>
+				<button onclick="labelAddModalSetting()" style="float: right" class="btn btn-success" data-toggle="modal" data-target="#addLabelModal">라벨추가</button>
 			</div>
 		</div>
 

@@ -55,6 +55,7 @@ $(function() {
 				name: "라벨 수정",
 				callback: function(key, opt) {
 					let label = $(this)
+					rightClickedLabel = label;
 					editLabel(label);
 				}
 			}
@@ -286,11 +287,13 @@ const saveIssueSetting = function(){
 	
 }
 
-// 라벨 추가하는 함수
-const addLabel = function(){
+// 라벨 추가 혹은 수정 할 경우 모두 처리하는 함수
+const addOrEditLabel = function(){
 	let label_nm = $('#label-name-input').val();
 	let label_icon = $('#label-icon-input').val();
 	let label_color = $('#label-color-input').val();
+	let label_no = $('#label-no-input').val();
+	let method = label_no? 'put' : 'post'
 	
 	$.ajax({
 		url : getContextPath() + '/restapi/project/labels',
@@ -299,21 +302,36 @@ const addLabel = function(){
 			'label_nm' : label_nm
 			,'label_icon' : label_icon
 			,'label_color' : label_color
+			,'label_no' : label_no
+			,'_method' : method
 		},
 		success : function(label) {
 			
-			toastr.success('['+label.label_nm+']라벨을 성공적으로 추가했습니다.');
+			// 라벨을 추가한 경우
+			if(method == 'post'){
+				toastr.success('['+label.label_nm+']라벨을 성공적으로 추가했습니다.');
+				
+				let labelBoxTemplate = $('#manage-template').find('.labelBox')
+				let labelBoxArea = $('#labelBoxArea');
+				let labelBox = labelBoxTemplate.clone();
+				
+				labelBox.attr('data-label_no', label.label_no);
+				labelBox.find('i').addClass(label.label_icon);
+				labelBox.find('span').text(label.label_nm);
+				labelBox.css({"backgroundColor":label.label_color});
+				
+				labelBoxArea.append(labelBox);
+			}else{
+				// 라벨을 수정한 경우
+				rightClickedLabel.attr('data-label_no', label.label_no);
+				rightClickedLabel.find('i').removeAttr('class');
+				rightClickedLabel.find('i').addClass(label.label_icon);
+				rightClickedLabel.find('span').text(label.label_nm);
+				rightClickedLabel.css({"backgroundColor":label.label_color});
+				toastr.success('라벨을 수정했습니다.');
+			}
+			$('#addLabelModal').modal('hide');
 			
-			let labelBoxTemplate = $('#manage-template').find('.labelBox')
-			let labelBoxArea = $('#labelBoxArea');
-			let labelBox = labelBoxTemplate.clone();
-			
-			labelBox.attr('data-label_no', label.label_no);
-			labelBox.find('i').addClass(label.label_icon);
-			labelBox.find('span').text(label.label_nm);
-			labelBox.css({"backgroundColor":label.label_color});
-			
-			labelBoxArea.append(labelBox);
 		},
 		error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
@@ -322,12 +340,6 @@ const addLabel = function(){
 	})
 	
 	
-}
-
-// 라벨 수정
-const editLabel = function(label){
-	let label_no = label.data('label_no');
-	alert(label_no);
 }
 
 // 라벨 삭제
@@ -387,6 +399,66 @@ const deleteLabel = function(label){
 		  }
 		})
 }
+
+// 라벨 추가 버튼 눌렀을 경우 라벨 추가용으로 셋팅해주기
+const labelAddModalSetting = function(){
+	$('#addLabelModalLabel').text('라벨 추가');
+	$('#preview-labelBox').find('span').text('라벨명');
+	$('.tui-colorpicker-palette-hex').val('#f8f8f8');
+	$('#preview-labelBox').css({"backgroundColor":'#f8f8f8'});
+	$('#preview-labelBox').find('i').removeAttr('class');
+	$('#preview-labelBox').find('i').addClass('icon-plus');
+	$('#label-no-input').val('');
+	$('#label-name-input').val('라벨명');
+	$('#label-color-input').val('#f8f8f8');
+	$('#label-icon-input').val('icon-plus');
+}
+
+
+// 라벨 수정
+const editLabel = function(label){
+	// 라벨 수정 버튼 눌렀을 경우 수정용으로 셋팅해주기
+	let label_no = label.data('label_no');
+	let label_nm = label.find('span').text();
+	let label_icon = label.find('i').attr('class');
+	let label_color = rgbToHex(label.css("background-color"));
+	
+	$('#addLabelModalLabel').text('라벨 수정');
+	$('#preview-labelBox').find('span').text(label_nm);
+	$('.tui-colorpicker-palette-hex').val(label_color);
+	$('#preview-labelBox').css({"backgroundColor":label_color});
+	$('#preview-labelBox').find('i').removeAttr('class');
+	$('#preview-labelBox').find('i').addClass(label_icon);
+	$('#label-no-input').val(label_no);
+	$('#label-name-input').val(label_nm);
+	$('#label-color-input').val(label_color);
+	$('#label-icon-input').val(label_icon);
+	
+	$('#addLabelModal').modal('show');
+	
+}
+
+
+// rgb(221, 255, 255) 형태로 오는 rgb 값을 헥사 코드로 변환 시키는 함수
+const rgbToHex = function (rgb_color) {
+	rgb_color = rgb_color.substring(4, rgb_color.length-1);
+	let colors = rgb_color.split(',');
+	let r = parseInt(colors[0]);
+	let g = parseInt(colors[1]);
+	let b = parseInt(colors[2]);
+	
+	return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+const componentToHex = function(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+
+
+
+
+
+
 
 
 

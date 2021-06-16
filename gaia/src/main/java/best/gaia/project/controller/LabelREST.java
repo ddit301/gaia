@@ -58,8 +58,15 @@ public class LabelREST {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public Map<String, Object> updateLabel() {
-		return null;
+	public LabelVO updateLabel(
+			HttpSession session
+			,@ModelAttribute LabelVO label) {
+		int proj_no = getProjNoFromSession(session);
+		label.setProj_no(proj_no);
+		
+		dao.updateLabel(label);
+		
+		return label;
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)

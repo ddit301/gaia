@@ -238,4 +238,14 @@
 		WHERE label_no = #{label_no}
 	</delete>
 	
+	<update id="updateLabel" parameterType="best.gaia.vo.LabelVO">
+		UPDATE label
+		SET
+		    label_nm = #{label_nm}
+		    ,label_icon = #{label_icon}
+		    ,label_color = #{label_color}
+		WHERE
+	        label_no = #{label_no}
+	</update>
+	
 </mapper>
