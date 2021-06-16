@@ -6,21 +6,10 @@
 $(function(){
 	
 	let wiki = null;
-
-//	let titleLength = $('#wiki-title-input').val().length;
-//	let contLength = editor.getMarkdown().length;
 	
 	// wiki 등록을 위한 버튼 이벤트
 	$('.content-body').on('click','.new-wiki', function(){
-		alert("1 new wiki");
-		
-//					// 에디터 비우기
-//				wiki_title = null;
-//				wiki_cont = null;
-//				
-//				$('#wiki-title-input').val('');
-//					editor.reset();
-					
+			alert("1 new wiki");
 	$('.modal-title').text('wiki 추가');
 	$('#saveWikiBtn').text('save');
 	$('#wiki-title-input').val('');
@@ -71,46 +60,20 @@ $(function(){
 	})
 	
 	
-//			titleLength = wiki_title.length;
-//			contLength = wiki.wiki_cont.length;
-		
-//		console.log(titleLength)
-		
-//		
-//		console.log(wiki);
-//			
-//			titleLength = wiki.wiki_title.length;
-//			contLength = wiki.wiki_cont.length;
-//
-//			console.log("titlelength: " + titleLength)
-//			console.log("contLength: " + contLength)
-//			if( titleLength * contLength > 0 ){
-//			editWiki();
-//			}else{
-//			newWiki();
-//			}
-
-	
 })
 
 
 	// 특정 위키 수정하는 함수 
 	// 수정이긴하지만 계층형 이기 때문에 insert 를 시킬 예정 
 const editWiki = function(){
-//		alert("3 edit function")
+		alert("3 edit function")
 		let wiki_title = wiki.wiki_title;
 		let wiki_cont = wiki.wiki_cont;
 
-		
-		if(wiki.parent_wiki == null){
 		parent_wiki = wiki.wiki_sid;
-		}else{
-		parent_wiki = wiki.parent_wiki
-		}
 
 		// wiki_title 에 기존 값 넣기 	
 		$('#wiki-title-input').val(wiki_title);
-		
 		// editor 에 cont 넣기
 		editor.setMarkdown(wiki_cont);
 		
@@ -163,43 +126,6 @@ const editWiki = function(){
 				// 모달 닫기
 				$('#wikiModal').modal('hide');
 			})
-	
-		
-//		editor.getCodeMirror(wiki_cont);
-//		$('.CodeMirror-line').click();
-//		$('.CodeMirror-line').focus();
-//		editor.focus();		
-//		editor.focus();	
-//		editor.change();
-//		editor.stateChange();
-//		editor.mdEditor.eventManager.emit('stateChange',wiki_cont);
-//		editor.show();
-//		$(editor).trigger('click');	
-//		setTimeout(() => $('.CodeMirror-line').click(), 500);
-//		setTimeout(() => $('.CodeMirror-line').click(), 500);
-//		setTimeout(() => $('.CodeMirror-line').click(), 500);
-//		
-//		$('.te-md-container').text(wiki_cont);
-//		viewer.setMarkdown(wiki_cont);
-		
-		
-//		$.ajax({
-//		url : getContextPath()+'/view/project/editmilestone'
-//		,type : 'get'
-//		,data : {
-//			'manager_id' : manager_id
-//			,'project_title' : project_title
-//			,'wiki_no' : wiki_no
-//			}
-//		,success : function(res) {
-//			$('.content-body').html(res);
-//		}
-//		,error : function(xhr){
-//			alert('error : ' + xhr.status);
-//		},
-//		dataType : 'html'
-//	})
-	
 }
 
 
@@ -387,9 +313,6 @@ const newWiki = function() {
 					},
 					success : function(res) {
 						
-						
-//						wikiView(res.wiki.wiki_no);
-//						wikilist(res.wiki.wiki_no);
 				$('.modal-backdrop').removeClass('show').css("display","none");
 						// toastr 알람
 						toastr.success('새로운 위키 등록에 성공했습니다.')
