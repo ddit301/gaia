@@ -58,25 +58,16 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-graph menu-icon"></i> <span class="nav-text">Analytics</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a class="moveButton" href="#">Flot</a></li>
-                            <li><a class="moveButton" href="#">Morris</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-menu menu-icon"></i><span class="nav-text">Setting</span>
                         </a>
                         <ul aria-expanded="false">
                             <li>
-                               <a class="moveButton" data-menu="setting-member" href="#">
+                               <a class="moveButton" data-menu="member" href="#">
                            		 <i class="icon-user menu-icon"></i> <span class="nav-text">Member</span>
                     		   </a>
                             </li>
                             <li>
-                               <a class="moveButton" data-menu="setting-management" href="#">
+                               <a class="moveButton" data-menu="management" href="#">
                            		 <i class="icon-settings menu-icon"></i> <span class="nav-text">Management</span>
                     		   </a>
                             </li>

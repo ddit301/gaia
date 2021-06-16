@@ -253,18 +253,41 @@ order by proj_start_date;
 
 -----------------------------6. Member------------------------------------------
 -- a. 특정 프로젝트에 속한 멤버 목록 불러오기
+-- b. 특정 프로젝트에 속하지 않은 멤버 검색하기
 
 
 -----------------------------------------------------------------------------------
 -- a. 특정 프로젝트에 속한 멤버 목록 불러오기
-select *
+select member.mem_id, member.mem_nick, member.mem_nm, member.mem_no, member.mem_pic_file_name
+        ,mem_role.mem_role_nm, mem_role.mem_role_no
+        , proj_mem.proj_join_date, proj_mem.proj_drop_date
+        , proj_mem.proj_user_nick
 from proj_mem
     inner join mem_role on (proj_mem.mem_role_no = mem_role.mem_role_no)
     inner join member on (proj_mem.mem_no = member.mem_no)
 where proj_mem.proj_no = 1 --#{proj_no}
 order by proj_mem.mem_role_no, proj_mem.proj_join_date;
 
+----------------------------------------------------------------------------
+-- b. 특정 프로젝트에 속하지 않은 멤버 검색하기
+with memlist as(
+    select mem_no
+    from proj_mem
+    where proj_no=1
+)
+select distinct mem_no, mem_id, mem_nick, mem_pic_file_name,mem_nm, mem_bio, mem_working_city
+        ,mem_status
+from member
+where mem_no not in (select mem_no from memlist)
+        and (mem_id like '판교'
+		    or mem_nick like '판교'		  
+            or mem_nm like '판교'
+            or mem_bio like '판교'	
+            or mem_working_city like '판교'
+        )
+order by mem_no;
 
+-----------------------------------------------------------------------
 
 
 
