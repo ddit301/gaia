@@ -275,7 +275,7 @@ with memlist as(
     from proj_mem
     where proj_no=1
 )
-select distinct member.mem_no, mem_id, mem_nick, mem_pic_file_name,mem_nm, mem_bio, mem_working_city
+select distinct mem_no, mem_id, mem_nick, mem_pic_file_name,mem_nm, mem_bio, mem_working_city
         ,mem_status
 from member
 where mem_no not in (select mem_no from memlist)

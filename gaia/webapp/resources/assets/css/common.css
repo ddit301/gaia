@@ -83,3 +83,17 @@ button.selectedProj{
 	height : 300px;
 	overflow-y : scroll;
 }
+
+/* 라벨 관련 css */
+.labelBox{
+	font-size : 1.3em;
+    border-radius: 0.625rem;
+    box-shadow: 2px 2px 2px 2px gray;
+    border : 1px solid black;
+    padding : 5px;
+    margin : 5px;
+    display : inline;
+}
+.rolelabel{
+	padding : 0px;
+}
