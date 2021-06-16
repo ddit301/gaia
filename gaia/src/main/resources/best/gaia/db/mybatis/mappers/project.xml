@@ -162,4 +162,26 @@
 		where proj_no =#{proj_no}
 	</select>
 	
+	<resultMap type="best.gaia.vo.ProjectVO" id="projectMapToManage" autoMapping="true">
+		<id property="proj_no" column="PROJ_ID"/>
+		<collection property="labelList" ofType="best.gaia.vo.LabelVO" javaType="java.util.List" autoMapping="true">
+			<id column="LABEL_NO" property="label_no"/>
+		</collection>
+		<collection property="roleList" ofType="best.gaia.vo.MemRoleVO" javaType="java.util.List" autoMapping="true">
+			<id column="MEM_ROLE_NO" property="mem_role_no"/>
+		</collection>
+	</resultMap>
+	
+	<select id="loadProjectForManagement" parameterType="int" resultMap="projectMapToManage">
+		select project.proj_no as proj_id, mem_no, proj_title, proj_cont, proj_start_date
+		        ,proj_est_end_date, issue_priority_set, proj_module_set, proj_status
+		        ,label.label_no, label.label_nm, label.label_color, label.label_icon
+		        ,mem_role.mem_role_no, mem_role.mem_role_nm, mem_role.authority
+		from project
+		    left outer join label on (project.proj_no = label.proj_no)
+		    left outer join mem_role on (project.proj_no = mem_role.proj_no)
+		where project.proj_no = ${proj_no}
+		order by label_no, mem_role_no		
+	</select>
+	
 </mapper>

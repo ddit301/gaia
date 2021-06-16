@@ -49,6 +49,7 @@ public interface ProjectDao {
 	 */
 	public List<ProjectVO> selectProjectList(Integer mem_no);
 	public int insertProject(ProjectVO project);
+	public ProjectVO loadProjectForManagement(int proj_no);
 	
 	/**
 	 * projMem

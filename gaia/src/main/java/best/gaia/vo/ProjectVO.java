@@ -1,6 +1,7 @@
 package best.gaia.vo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Min;
@@ -33,6 +34,8 @@ public class ProjectVO implements Serializable{
 	 * Collnection 관계의 객체입니다.
 	 */
 	private Set<IssueVO> issueList;
+	private List<LabelVO> labelList;
+	private List<MemRoleVO> roleList;
 	
 	/**
 	 * 필요에 따라 추가된 프로퍼티 입니다.

@@ -92,7 +92,7 @@ button.selectedProj{
     border : 1px solid black;
     padding : 5px;
     margin : 5px;
-    display : inline;
+    display : inline-flex;
 }
 .rolelabel{
 	padding : 0px;

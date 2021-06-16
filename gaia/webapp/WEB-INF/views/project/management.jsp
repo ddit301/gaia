@@ -18,8 +18,72 @@
 			,
 			minDate : new Date()
 		});
+		
+		// 프로젝트 정보 받아오기
+		loadProjectForManagement();
+		
 	})
 </script>
+
+<div id="manage-template" hidden="hidden">
+
+<!-- label box 템플릿 시작 -->
+	<div class="labelBox">
+		<i></i>
+		<span>라벨명</span>
+	</div>
+<!-- label box 템플릿 끝 -->
+
+<!-- 	role 시작 -->
+	<div class="roleBox row">
+		<div class="rolename col-md-1">
+			<span>역할명</span>
+		</div>
+		<div class="basic-form col-md-11">
+			<div class="role_auth_list form-group row">
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 	role 끝 -->
+
+
+</div>
 
 
 <div class="container-fluid">
@@ -33,7 +97,7 @@
 				<div class="basic-form">
 					<div class="form-group">
 						<label>해당 프로젝트에 대한 소개를 써주세요.</label>
-						<textarea class="form-control h-150px" rows="6" id="comment"></textarea>
+						<textarea class="form-control h-150px" rows="6" id="mng_proj_cont"></textarea>
 					</div>
 					<button style="float: right" class="btn btn-success">저장</button>
 				</div>
@@ -47,10 +111,9 @@
 				<p class="text-muted">프로젝트 마감 예정일을 설정해주세요.</p>
 				<div class="row form-material">
 					<div class="col-md-6">
-						<input class="datePick form-control" type="text">
+						<input id="mng_proj_end" class="datePick form-control" type="text">
 					</div>
 				</div>
-				<button style="float: right" class="btn btn-success">저장</button>
 			</div>
 		</div>
 
@@ -61,7 +124,7 @@
 				<p class="text-muted">해당 프로젝트에서 사용할 모듈들을 체크해주세요</p>
 				<div class="basic-form">
 					<form>
-						<div class="form-group">
+						<div id="mng_module" class="form-group">
 							<div class="form-check form-check-inline">
 								<label class="form-check-label"> <input type="checkbox"
 									class="form-check-input" value="">마일스톤
@@ -116,7 +179,7 @@
 				<p class="text-muted">해당 프로젝트에서 사용할 이슈 중요도들을 체크해주세요</p>
 				<div class="basic-form">
 					<form>
-						<div class="form-group">
+						<div id="issue_module" class="form-group">
 							<div class="form-check form-check-inline">
 								<label class="form-check-label"> <input type="checkbox"
 									class="form-check-input" value="">즉시
@@ -159,7 +222,7 @@
 			<div class="card-body">
 				<h4 class="card-title">라벨 설정</h4>
 				<p class="text-muted">이슈에 설정할 라벨들을 등록합니다. 우클릭으로 수정/삭제 할 수 있습니다.</p>
-				<div class="basic-form">
+				<div id="labelBoxArea" class="basic-form">
 					<div class="labelBox">
 						<i class="icons icon-cursor"></i> <span>이벤트</span>
 					</div>
@@ -181,7 +244,7 @@
 		<div class="card">
 			<div class="card-body">
 				<h4 class="card-title">멤버 역할 및 권한 관리</h4>
-				<p class="text-muted">역할 별로 다른 권한을 부여할 수 있습니다.</p>
+				<p class="text-muted">역할 별로 다른 권한을 부여할 수 있습니다. 역할명 수정이나 삭제는 우클릭을 해주세요.</p>
 				<div id="rolehead">
 					<div class="row">
 						<div class="col-md-1">
@@ -205,151 +268,8 @@
 						</div>
 					</div>
 				</div>
-<!-- 				rolehead끝 -->
-				<div id="rolebody">
-<!-- 				role 시작 -->
-					<div class="row">
-						<div class="col-md-1">
-							<span>관리자</span>
-						</div>
-						<div class="basic-form col-md-11">
-							<div class="form-group row">
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-							</div>
-						</div>
-					</div>
-	<!-- 				role 끝 -->
-<!-- 				role 시작 -->
-					<div class="row">
-						<div class="col-md-1">
-							<span>PL</span>
-						</div>
-						<div class="basic-form col-md-11">
-							<div class="form-group row">
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-							</div>
-						</div>
-					</div>
-	<!-- 				role 끝 -->
-<!-- 				role 시작 -->
-					<div class="row">
-						<div class="col-md-1">
-							<span>AA</span>
-						</div>
-						<div class="basic-form col-md-11">
-							<div class="form-group row">
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-md-1">
-									<input type="checkbox">
-								</div>
-							</div>
-						</div>
-					</div>
-	<!-- 				role 끝 -->
+				<div id="roleBoxArea">
 				</div>
-<!-- 				rolebody 끝 -->
 				<button style="float: right" class="btn btn-success">저장</button>
 			</div>
 		</div>

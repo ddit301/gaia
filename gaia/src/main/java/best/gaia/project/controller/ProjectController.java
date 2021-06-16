@@ -4,7 +4,6 @@ import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
 import static best.gaia.utils.SessionUtil.getProjNoFromSession;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -23,7 +22,7 @@ import best.gaia.project.service.ProjectService;
 import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.ResourceNotFoundException;
-import best.gaia.vo.ProjMemVO;
+import best.gaia.vo.ProjectVO;
 
 @RestController
 @RequestMapping(value = "restapi/project/")
@@ -78,6 +77,14 @@ public class ProjectController {
 		Boolean valid = service.isProjTitleValid(authentication, proj_title);
 		return valid == true ? ServiceResult.OK : ServiceResult.FAIL;
 		
+	}
+	
+	@GetMapping("loadProjectForManagement.do")
+	public ProjectVO loadProjectForManagement(
+			HttpSession session
+			) {
+		int proj_no = getProjNoFromSession(session);
+		return dao.loadProjectForManagement(proj_no);
 	}
 		
 }
