@@ -202,6 +202,7 @@ const editWiki = function(){
 	
 }
 
+
 	// 특정 위키 삭제하는 함수
 const delWiki = function(wiki_sid){
 		$.ajax ({
@@ -284,6 +285,7 @@ const wikiView = function(wiki_no){
 		
 	}
 	
+	
 const wikilist = function(wiki_title){
 
 	  var scopeWikiNo = '${wiki_no}';
@@ -316,6 +318,9 @@ const wikilist = function(wiki_title){
 								$('.wiki-writer').children('span').eq(3).text('');
 								viewer.setMarkdown(' ');
 								$('#wiki-list').empty();
+								// wiki 없는경우 delete/edit disabled 시키
+								$('.delete-wiki').prop('disabled',true);
+								$('.edit-wiki').prop('disabled',true);
 							}
 							else{
 							
@@ -326,7 +331,7 @@ const wikilist = function(wiki_title){
 							}else{
 								$('.wiki-writer').children('span').eq(1).text('edit');
 							}
-							$('.wiki-writer').children('span').eq(2).text('this page');
+							$('.wiki-writer').children('span').eq(2).text('this wiki');
 							$('.wiki-writer').children('span').eq(3).text(moment(wiki.wiki_write_date).fromNow());
 //							$('.wiki-content').children('span').text(res.dataList[0].wiki_cont);
 							viewer.setMarkdown(wiki.wiki_cont);

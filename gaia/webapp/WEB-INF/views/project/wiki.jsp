@@ -21,14 +21,23 @@
 
             <div class="container">
             	<div class = "wiki-head row">
-            		<div class = "title-wiki col-md-5">
+            		<div class = "title-wiki col-md-6">
             			<span></span>
             		</div> 
-            		<div class = "col-md-1"></div>
-            			<button type = "button" class="delete-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#basicModal">Delete</button>
-            			<button type = "button" class="edit-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#wikiModal">Edit</button>
-            			<button type = "button" class="new-wiki btn col-md-2 btn-sm btn-flat" data-toggle="modal" data-target="#wikiModal">New</button>
-           			
+            		<div class = "col-md-2"></div>
+            			<div class = "wiki-btn-group col-md-4">
+	            			<button type = "button" class="delete-wiki btn col-md-3 btn-sm btn-danger" data-toggle="modal" data-target="#basicModal" >Delete</button>
+	            			<button type = "button" class="edit-wiki btn col-md-3 btn-sm btn-flat" data-toggle="modal" data-target="#wikiModal"  >Edit</button>
+	            			<button type = "button" class="new-wiki btn col-md-3 btn-sm btn-info" data-toggle="modal" data-target="#wikiModal">New</button>
+           				</div>
+           				<div class = "wiki-writer">
+           				<span></span>
+           				<span></span>
+           				<span></span>
+           				<span></span>
+           				 
+           			</div>
+            	</div>
            			
 					<!--Delete Wiki Modal -->
            				<div class="bootstrap-modal">
@@ -115,31 +124,26 @@
 					</div>
            			<div id="editor"></div>
     				
-           			<div class = "wiki-writer">
-           				<span></span>
-           				<span></span>
-           				<span></span>
-           				<span></span>
-           				 
-           			</div>
-            	</div>
+           		
             	<div class = "wiki-body row">
             		<div class = "wiki-content col-md-8">
             			<span></span>
             		</div>
             		<div class = "wiki-right row col-md-4">
-            			<div class ="wiki-search col-md-12">
+<!--             			<div class ="wiki-search-box row"> -->
+            				<div class="wiki-search">
             				<input type = "text" name = "wiki_title" placeholder = "search wiki title" class = "wikisearchtitle">
-						<button type = "button" class = "wiki-search-btn btn-sm btn-primary">search</button>
+							<button type = "button" class = "wiki-search-btn btn-sm btn-primary">search</button>
+							</div>
 						<div id = "wiki-list"></div>
-						</div>	
+<!-- 						</div>	 -->
             		</div>
             	</div>
             </div>
          
 			<div id ="wiki-template" hidden = "hidden">
 				<div class ="wikiBox">
-					<div class ="row">
+					<div class ="text-center">
 						<div class = "wiki-title">
 							<input type = "hidden" value="" class = "wiki-link-no">
 								<a class ="wiki-btn" href="javascript:void(0)"></a> 
@@ -152,9 +156,6 @@
             // 페이지 로딩시 위키 리스트 뽑기
             wikilist();
             
-
-				
-				// wiki edit
 				$(function(){
 		
 			// toastUI 설정 초기화
@@ -182,8 +183,7 @@
 					$('#saveWikiBtn').prop('disabled', true);
 				}
 			}	
-			
-			
+
 			// 에디터를 modal 안에서 생성했더니 에러가 발생해서 modal 밖에서 생성 후 modal 에 넣어줍니다.
 			$('#editor').appendTo('#editorArea');
 			
