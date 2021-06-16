@@ -7,8 +7,12 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
+
+import best.gaia.main.controller.MainPageIndexingController;
 
 /**
  * 
@@ -41,29 +45,17 @@ public class ProviderPageIndexingController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProviderPageIndexingController.class);
 
+//	@GetMapping(value = { "{menuname:^(?:(?=|\\/|member$|inquiry$|finance$|statics$|monitoring$)).*}" })
+	@GetMapping(value = { "{menuname:^(?:(?=member$|inquiry$|finance$|statics$|monitoring$)).*}" })
+	public String page(@PathVariable String menuname) {
+		if (menuname.length() <= 1)
+			menuname = "index";
+		return "admin/" + menuname;
+	}
+
 	@RequestMapping
 	public String adminPage() {
 		return "admin/index";
-	}
-	@RequestMapping(value = "member")
-	public String memberListPage() {
-		return "admin/member";
-	}
-	@RequestMapping(value = "inquiry")
-	public String inquiryListPage() {
-		return "admin/inquiry";
-	}
-	@RequestMapping(value = "finance")
-	public String financePage() {
-		return "admin/finance";
-	}
-	@RequestMapping(value = "statics")
-	public String staticsPage() {
-		return "admin/statics";
-	}
-	@RequestMapping(value = "monitoring")
-	public String monitoringPage() {
-		return "admin/monitoring";
 	}
 
 }
