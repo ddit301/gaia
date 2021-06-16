@@ -8,6 +8,7 @@ import org.apache.http.util.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import best.gaia.provider.dao.ProviderDao;
 import best.gaia.vo.InquiryCommentVO;
@@ -44,6 +45,7 @@ public class ProviderServiceImpl implements ProviderService {
 		return dao.selectInquiryAnswer(inq_no);
 	}
 	@Override
+	@Transactional
 	public int enrollInquiryAnswer(InquiryCommentVO inquiryComment) {
 		return dao.insertInquiryAnswer(inquiryComment);
 	}

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -42,39 +43,9 @@ public class MainPageIndexingController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainPageIndexingController.class);
 
-	@GetMapping(value = "/intro")
-	public String introPage() {
-		return "main/intro";
-	}
-
-	@GetMapping(value = "/demo")
-	public String demoPage() {
-		return "main/demo";
-	}
-
-	@GetMapping(value = "/sales")
-	public String salesPage() {
-		return "main/sales";
-	}
-
-	@GetMapping(value = "/updates")
-	public String updatesPage() {
-		return "main/updates";
-	}
-
-	@GetMapping(value = "/signin")
-	public String loginPage() {
-		return "main/signin";
-	}
-
-	@GetMapping(value = "/signup")
-	public String logoutPage() {
-		return "main/signup";
-	}
-
-	@GetMapping(value = "/CS")
-	public String CSPage() {
-		return "main/CS";
+	@GetMapping(value = { "{menuname:^(?:(?=intro$|demo$|sales$|updates$|signin$|signup$|CS$)).*}" })
+	public String page(@PathVariable String menuname) {
+		return "main/" + menuname;
 	}
 
 }
