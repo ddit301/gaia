@@ -9,10 +9,18 @@ $(function(){
 	
 	// wiki 등록을 위한 버튼 이벤트
 	$('.content-body').on('click','.new-wiki', function(){
-
-		newWiki();
-	
-	})
+			alert("1 new wiki");
+	$('.modal-title').text('wiki 추가');
+	$('#saveWikiBtn').text('save');
+	$('#wiki-title-input').val('');
+		
+		// newhandler 생성 모달 반복 삭제
+		let newHandler = function(){
+			newWiki();
+			$(document).off("shown.bs.modal",'#wikiModal',newHandler)
+				}
+			$(document).on("shown.bs.modal",'#wikiModal',newHandler)
+				})
 	
 	// 특정 위키 클릭시 불러오는 메서드
 	$('.content-body').on('click','.wiki-btn',function(){
@@ -30,17 +38,20 @@ $(function(){
 	
 	// 위키 수정 버튼 클릭 시
 	$('.content-body').on('click','.edit-wiki',function(){
-		
+		alert("2 edit wiki");
 		
 		// new wiki 와 모달을 같이 쓰기 때문에 save 를 edit 으로 변경한다.
 		$('.modal-title').text('wiki 수정');
 		$('#saveWikiBtn').text('edit');
+			
+		//	editHandler 생성 모달 반복 삭제
+		let editHandler = function(){
+			editWiki();
+			$(document).off("shown.bs.modal",'#wikiModal',editHandler)
+				}
+			$(document).on("shown.bs.modal",'#wikiModal',editHandler)
+				});
 		
-	
-//		$('#wikiModal').modal("show");
-		
-		
-	})
 	// wiki title 검색 버튼 클릭 시 
 	$('.content-body').on('click','.wiki-search-btn',function(){
 		let wiki_title = $('input.wikisearchtitle').val();
@@ -48,64 +59,75 @@ $(function(){
 		
 	})
 	
-		$(document).on("shown.bs.modal",'#wikiModal',function(){
-			editWiki();
-		});
 	
 })
 
 
-
-
 	// 특정 위키 수정하는 함수 
+	// 수정이긴하지만 계층형 이기 때문에 insert 를 시킬 예정 
 const editWiki = function(){
-		
+		alert("3 edit function")
 		let wiki_title = wiki.wiki_title;
-		$('#wiki-title-input').val(wiki_title);
-		
 		let wiki_cont = wiki.wiki_cont;
-		console.log(wiki_cont);
-		
+
+		parent_wiki = wiki.wiki_sid;
+
+		// wiki_title 에 기존 값 넣기 	
+		$('#wiki-title-input').val(wiki_title);
 		// editor 에 cont 넣기
-		// 값은 넘어가는데 클릭을 해야 표시가 된다. 문제가 있다. 해결해야함.
-		
 		editor.setMarkdown(wiki_cont);
-//		editor.getCodeMirror(wiki_cont);
-//		$('.CodeMirror-line').click();
-//		$('.CodeMirror-line').focus();
-//		editor.focus();		
-//		editor.focus();	
-//		editor.change();
-//		editor.stateChange();
-//		editor.mdEditor.eventManager.emit('stateChange',wiki_cont);
-//		editor.show();
-//		$(editor).trigger('click');	
-//		setTimeout(() => $('.CodeMirror-line').click(), 500);
-//		setTimeout(() => $('.CodeMirror-line').click(), 500);
-//		setTimeout(() => $('.CodeMirror-line').click(), 500);
-//		
-//		$('.te-md-container').text(wiki_cont);
-//		viewer.setMarkdown(wiki_cont);
 		
+	$('#saveWikiBtn').on('click', function(){	
+		// 위키 insert => edit 하기
 		
-//		$.ajax({
-//		url : getContextPath()+'/view/project/editmilestone'
-//		,type : 'get'
-//		,data : {
-//			'manager_id' : manager_id
-//			,'project_title' : project_title
-//			,'wiki_no' : wiki_no
-//			}
-//		,success : function(res) {
-//			$('.content-body').html(res);
-//		}
-//		,error : function(xhr){
-//			alert('error : ' + xhr.status);
-//		},
-//		dataType : 'html'
-//	})
-	
+		// 수정된 입력값 wiki_title 에 넣기
+		wiki_title = $('#wiki-title-input').val();
+		wiki_cont = editor.getMarkdown();
+		// 수정된 content wiki_cont 에 넣기
+		
+				$.ajax({
+					url : getContextPath()+'/restapi/project/wikis',
+					method : 'post',
+					data : {
+						'wiki_title' : wiki_title
+						,'wiki_cont' : wiki_cont
+						,'parent_wiki' : parent_wiki
+					},
+					success : function(res) {
+						
+						$('.modal-backdrop').removeClass('show').css("display","none");
+						// toastr 알람
+						toastr.success('새로운 위키 수정에 성공했습니다.')
+						movePageHistory("wiki");
+						
+						// 에디터 비우기
+						$('#wiki-title-input').val('');
+						editor.reset();
+						// 모달 닫기
+						$('#wikiModal').modal('hide');
+						
+					},
+					error : function(xhr, error, msg) {
+						ajaxError(xhr, error, msg);
+					},
+					dataType : 'json'
+				})
+		
+			});
+		
+			$('.content-body').on('click','#closeWikiBtn',function(){
+//				alert("close")
+				// 에디터 비우기
+				wiki_title = null;
+				wiki_cont = null;
+				$('#wiki-title-input').val('');
+					editor.reset();
+					
+				// 모달 닫기
+				$('#wikiModal').modal('hide');
+			})
 }
+
 
 	// 특정 위키 삭제하는 함수
 const delWiki = function(wiki_sid){
@@ -158,12 +180,14 @@ const wikiView = function(wiki_no){
 				$('.wiki-writer').children('span').eq(0).text(res.proj_user_nick);
 				if(res.parent_wiki == null){
 					$('.wiki-writer').children('span').eq(1).text('open');
+					$('.wiki-writer').children('a').text('');
 				}else{
 					$('.wiki-writer').children('span').eq(1).text('edit');
+					$('.wiki-writer').children('a').text('3 edit history');
 				}
-					$('.wiki-writer').children('span').eq(2).text('this page');
 				
-				$('.wiki-writer').children('span').eq(3).text(moment(res.wiki_write_date).fromNow());
+				$('.wiki-writer').children('span').eq(2).text('this wiki');
+				$('.wiki-writer').children('span').eq(3).text(moment(res.wiki_write_date).fromNow()+'. ');
 				// 마크다운 뷰어
 				viewer.setMarkdown(res.wiki_cont);
 				// delete modal 의 wiki-title 에 이름 넣기
@@ -188,6 +212,7 @@ const wikiView = function(wiki_no){
 		})
 		
 	}
+	
 	
 const wikilist = function(wiki_title){
 
@@ -214,13 +239,17 @@ const wikilist = function(wiki_title){
 							
 							wiki = res.dataList[0];
 							if(wiki == null){
-								$('.title-wiki').children('span').text('등록된 위키가 없습니다');
-								$('.wiki-writer').children('span').eq(0).text('');
+								$('.title-wiki').children('span').text('등록된 위키가 없습니다.');
+								$('.wiki-writer').children('span').eq(0).text('등록된 위키가 없습니다.');
 								$('.wiki-writer').children('span').eq(1).text('');
 								$('.wiki-writer').children('span').eq(2).text('');
 								$('.wiki-writer').children('span').eq(3).text('');
+								$('.wiki-writer').children('a').text(' ');
 								viewer.setMarkdown(' ');
 								$('#wiki-list').empty();
+								// wiki 없는경우 delete/edit disabled 시키
+								$('.delete-wiki').prop('disabled',true);
+								$('.edit-wiki').prop('disabled',true);
 							}
 							else{
 							
@@ -228,11 +257,14 @@ const wikilist = function(wiki_title){
 							$('.wiki-writer').children('span').eq(0).text(wiki.proj_user_nick);
 							if(wiki.parent_wiki == null){
 								$('.wiki-writer').children('span').eq(1).text('open');
+								$('.wiki-writer').children('a').text('');
+								$('.wiki-history-discription-history').children('span').eq(0).text('히스토리가 없습니다.')
 							}else{
 								$('.wiki-writer').children('span').eq(1).text('edit');
+								$('.wiki-writer').children('a').text('3 edit history');
 							}
-							$('.wiki-writer').children('span').eq(2).text('this page');
-							$('.wiki-writer').children('span').eq(3).text(moment(wiki.wiki_write_date).fromNow());
+							$('.wiki-writer').children('span').eq(2).text('this wiki');
+							$('.wiki-writer').children('span').eq(3).text(moment(wiki.wiki_write_date).fromNow()+'. ');
 //							$('.wiki-content').children('span').text(res.dataList[0].wiki_cont);
 							viewer.setMarkdown(wiki.wiki_cont);
 							// delete modal 의 wiki-title 에 이름 넣기
@@ -267,15 +299,13 @@ const wikilist = function(wiki_title){
 					dataType : 'json'
 
 				})
-				
-
-
 	
 }
 
 // 위키 생성 하는 함수
 const newWiki = function() {
 	$('#saveWikiBtn').on('click', function(){
+		alert("click save btn")
 				wiki_title = $('#wiki-title-input').val();
 				wiki_cont = editor.getMarkdown();
 				// 위키 insert 하기
@@ -289,10 +319,11 @@ const newWiki = function() {
 					},
 					success : function(res) {
 						
+				$('.modal-backdrop').removeClass('show').css("display","none");
 						// toastr 알람
 						toastr.success('새로운 위키 등록에 성공했습니다.')
+						movePageHistory("wiki");
 						
-						wikiView(res.wiki.wiki_no);
 						
 						// 에디터 비우기
 						$('#wiki-title-input').val('');

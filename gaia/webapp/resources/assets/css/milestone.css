@@ -142,7 +142,6 @@
 }
 #milestone-issuelist{
     padding : 10px;
-   
 }
 .issueBox{
 	background-color : #FFFFFF;
@@ -150,7 +149,6 @@
 	margin-left : auto;
 	margin-right : auto;
 	margin-bottom : 10px;
-
 }
 .issue-title {
 	text-align : center;
@@ -167,20 +165,53 @@
 .issue-label{
 	text-align: center;
 	line-height: 60px;
+	overflow:hidden; 
+	text-overflow:ellipsis; 
+	white-space:nowrap;
 }
-
+.issue-priority{
+	text-align: center;
+    line-height: 60px;
+}
 .edit-milestone-title{
 	border : 1px solid red;
-	
 }
-
 .button{
 	text-align: center;
 }
+.issue-assignee{
+	position : relative;
+	text-align: center;
+	line-height: 60px;
+}
+.profile.assignee{
+	position : absolute;
+	top : 0;
+	left : 0;
+}
+.assignee0{
+	z-index : 0;
+	margin-left : -5px;
+}
+.assignee1{
+	z-index : 1;
+	margin-left : 12px;
+}
+.assignee2{
+	z-index : 2;
+	margin-left : 19px;
+}
+.assignee3{
+	z-index : 3;
+	margin-left : 26px;
+}
+.issue-assignee:hover .assignee0{transform: translateX(-15px);}
+.issue-assignee:hover .assignee1{transform: translateX(15px);}
+.issue-assignee:hover .assignee2{transform: translateX(45px);}
+.issue-assignee:hover .assignee3{transform: translateX(75px);}
 
-
-
-
-
-
+.assignee0{transform: translateX(0px); transition: all 0.8s ease}
+.assignee1{transform: translateX(0px); transition: all 0.8s ease}
+.assignee2{transform: translateX(0px); transition: all 0.8s ease}
+.assignee3{transform: translateX(0px); transition: all 0.8s ease}
 

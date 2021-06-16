@@ -32,20 +32,27 @@
 	</select>
 	
 	<resultMap type="best.gaia.vo.MilestoneVO" id="milestoneMap" autoMapping="true">
-			<id property="milest_sid" column="MILEST_SID" />
+			<id column="MILEST_SID" property="milest_sid"/>
+			<association property="issue_wri_mem" javaType="best.gaia.vo.MemberVO" autoMapping="false">
+				<id column="ISSUE_WRI_MEM_NO" property="mem_no" />
+				<result column="ISSUE_WRI_MEM_PIC" property="mem_pic_file_name"></result>
+			
+			</association>
 		<collection property="issueList" ofType="best.gaia.vo.IssueVO" javaType="java.util.List" autoMapping="false">
-			<id property="issue_sid" column="ISSUE_ID"/>
+			<id column="ISSUE_ID" property="issue_sid"/>
 				<result column="issue_no" property="issue_no"></result>
 				<result column="issue_title" property="issue_title"></result>
-			
+<!-- 				<result column="ISSUE_WRI_MEM_PIC" property="mem_pic_file_name"></result> -->
 			<association property="label" javaType="java.util.Map" autoMapping="false">
 				<result column="LABEL_NO" property="label_no"></result>
 				<result column="LABEL_NM" property="label_nm"></result>
 			</association>
 		<collection property="assigneeList" ofType="best.gaia.vo.MemberVO" javaType="java.util.Set" autoMapping="false">
-				<id property="mem_no" column="ISSUE_ASSIN_MEM_NO" />	
+				<id column="ISSUE_ASSIN_MEM_NO" property="mem_no" />	
+				<result column="ISSUE_ASSIGN_MEM_PIC" property="mem_pic_file_name"></result>
+<!-- 				<result column="ISSUE_ASIGN_MEM" property="proj_user_nick"></result> -->
 		</collection>
-		</collection>
+		</collection>    
 	</resultMap>
 	
 	<select id="selectMilestone" resultMap="milestoneMap">
@@ -53,7 +60,7 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
         MILEST.MILEST_SID, MILEST.MILEST_NO, MILEST.MILEST_TITLE,MILEST.MILEST_CONT,MILEST.MILEST_CONT,MILEST.MILEST_DATE,MILEST.MILEST_STATUS,
         TO_CHAR(MILEST.MILEST_START_DATE,'YYYY-MM-DD') AS MILEST_START_DATE , TO_CHAR(MILEST.MILEST_END_DATE,'YYYY-MM-DD') AS MILEST_END_DATE,
         LABEL.LABEL_NO, LABEL.LABEL_NM,
-        ISSUE_WRI_MEM.MEM_PIC_FILE_NAME AS ISSUE_WRI_MEM_PIC,ISSUE.MEM_NO AS ISSUE_WRI_MEM_NO, ISSUE_WRI_NICK.PROJ_USER_NICK AS ISSUE_WRITER,
+        ISSUE_WRI_MEM.MEM_NO AS ISSUE_WRI_MEM_NO, ISSUE_WRI_MEM.MEM_PIC_FILE_NAME AS ISSUE_WRI_MEM_PIC,ISSUE.MEM_NO AS ISSUE_WRI_MEM_NO, ISSUE_WRI_NICK.PROJ_USER_NICK AS ISSUE_WRITER,
         MILEST.MEM_NO, MILEST_WRI_NICK.PROJ_USER_NICK AS MILEST_WRITER,
         IS_ASSIGNEE.MEM_NO AS ISSUE_ASSIN_MEM_NO,
         ISSUE_ASSIGN_MEM.MEM_PIC_FILE_NAME AS ISSUE_ASSIGN_MEM_PIC,
@@ -62,18 +69,18 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
                    FROM(SELECT MILESTONE.*, ISSUE.ISSUE_TITLE, ISSUE.ISSUE_STATUS
             FROM MILESTONE
                 LEFT OUTER JOIN ISSUE ON(MILESTONE.MILEST_SID = ISSUE.MILEST_SID)
-                 WHERE MILEST_NO = #{search.milest_no,jdbcType=NUMERIC})A) AS MILEST_PERCENT,
+                 WHERE MILEST_NO = #{search.milest_no,jdbcType=NUMERIC} AND MILESTONE.PROJ_NO = #{search.proj_no,jdbcType=NUMERIC})A) AS MILEST_PERCENT,
          (SELECT COUNT (A.ISSUE_STATUS)
             FROM(SELECT ISSUE.ISSUE_STATUS
                 FROM MILESTONE
                    LEFT OUTER JOIN ISSUE ON(MILESTONE.MILEST_SID = ISSUE.MILEST_SID)
-                   WHERE MILESTONE.MILEST_NO = #{search.milest_no,jdbcType=NUMERIC})A
+                   WHERE MILESTONE.MILEST_NO = #{search.milest_no,jdbcType=NUMERIC} AND MILESTONE.PROJ_NO = #{search.proj_no,jdbcType=NUMERIC})A
              WHERE ISSUE_STATUS = 1) AS CLOSE_ISSUE_CNT,
         (SELECT COUNT (A.ISSUE_STATUS)
             FROM(SELECT ISSUE.ISSUE_STATUS
                 FROM MILESTONE
                    LEFT OUTER JOIN ISSUE ON(MILESTONE.MILEST_SID = ISSUE.MILEST_SID)
-                   WHERE MILESTONE.MILEST_NO = #{search.milest_no,jdbcType=NUMERIC})A
+                   WHERE MILESTONE.MILEST_NO = #{search.milest_no,jdbcType=NUMERIC} AND MILESTONE.PROJ_NO = #{search.proj_no,jdbcType=NUMERIC})A
          WHERE ISSUE_STATUS = 0) AS OPEN_ISSUE_CNT,
          (SELECT COUNT(*) -1
 		        FROM ISSUE_HISTORY
