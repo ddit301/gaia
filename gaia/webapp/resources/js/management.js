@@ -138,7 +138,7 @@ const loadProjectForManagement = function(){
 				roleBoxArea.empty();
 				$.each(project.roleList, function(i, role){
 					let roleBox = roleBoxTemplate.clone();
-					roleBox.find('.rolename').find('span').text(role.mem_role_nm);
+					roleBox.find('.rolename').find('input[type=text]').val(role.mem_role_nm);
 					roleBox.attr('data-mem_role_no', role.mem_role_no);
 					let roleSelectDiv = roleBox.find('.role_auth_list');
 					binaryDataPrinter(roleSelectDiv, role.authority);
@@ -437,7 +437,6 @@ const editLabel = function(label){
 	$('#addLabelModal').modal('show');
 	
 }
-
 
 // rgb(221, 255, 255) 형태로 오는 rgb 값을 헥사 코드로 변환 시키는 함수
 const rgbToHex = function (rgb_color) {
