@@ -12,7 +12,7 @@
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a class="moveButton" data-menu="code" href="#" aria-expanded="false">
+                        <a class="moveButton codemenu" data-menu="code" href="#" aria-expanded="false">
                             <i class="icon-screen-desktop"></i><span class="nav-text">Code</span>
                         </a>
                     </li>

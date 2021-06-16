@@ -7,13 +7,6 @@
         <div class="col-lg-4 col-xl-3">
             <div class="card side-position-fixed"> 
                 <div class="card-body">
-	                <div class="card">
-		               	<div class="form-group">
-		                   	<ul id="projectList">
-	                  			
-		                   	</ul>
-	                   </div>
-		            </div>
                     <div class="media align-items-center mb-4">
                         <img class="mr-3 rounded-circle" id="profile_img"src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
                         <div class="media-body">

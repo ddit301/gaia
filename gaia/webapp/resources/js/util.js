@@ -12,6 +12,8 @@ $(function(){
 	$('.nk-sidebar').on('click', '.moveButton', function(){
 		event.preventDefault();
 		let menuName = $(this).data('menu');
+		$('.metismenu').find('a').removeClass('selectedMenu');
+		$(this).addClass('selectedMenu');
 		movePageHistory(menuName);
 	})
 	

@@ -1,16 +1,17 @@
 package best.gaia.project.service;
-import static best.gaia.utils.SessionUtil.*;
+import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import best.gaia.member.dao.MemberDao;
 import best.gaia.project.dao.KanbanDao;
 import best.gaia.project.dao.NewsDao;
 import best.gaia.project.dao.ProjectDao;
@@ -19,12 +20,12 @@ import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.KanbanColumnVO;
 import best.gaia.vo.MemRoleVO;
-import best.gaia.vo.NewsCommentVO;
+import best.gaia.vo.MemberVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
 import best.gaia.vo.ProjMemVO;
-import best.gaia.vo.WikiVO;
 import best.gaia.vo.ProjectVO;
+import best.gaia.vo.WikiVO;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -37,6 +38,8 @@ public class ProjectServiceImpl implements ProjectService {
 	private KanbanDao kanbanDao;
 	@Inject
 	private WikiDao wikiDao;
+	@Inject
+	private MemberDao memDao;
 	
 	
 	
@@ -163,10 +166,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ServiceResult deleteWiki(WikiVO wiki) {
-		// TODO Auto-generated method stub
-		return null;
+	public ServiceResult deleteWiki(WikiVO search) {
+		int result = wikiDao.deleteWiki(search);
+		
+		return result==1? ServiceResult.OK : ServiceResult.FAIL;
 	}
+	
 	public String getProjectNick(int proj_no, int mem_no) {
 		Map<String, Object> projnoMemno = new HashMap<>();
 		projnoMemno.put("proj_no", proj_no);
@@ -258,6 +263,15 @@ public class ProjectServiceImpl implements ProjectService {
 	public ServiceResult deleteProject(ProjectVO project) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<ProjMemVO> selectProjectMembers(int proj_no, String searchword) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("proj_no",proj_no);
+		if(searchword != null)
+			paramMap.put("searchword",searchword);
+		return memDao.selectProjectMembers(paramMap);
 	}
 
 }

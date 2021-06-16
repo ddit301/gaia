@@ -236,7 +236,7 @@
 				error : function(xhr, error, msg) {
 					console.log(xhr);
 					console.log(error);
-					console.log(msg);
+			 		console.log(msg);
 					if (xhr.status == 401) {
 						toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
 						setTimeout(function() {

@@ -91,6 +91,8 @@ const loadRepositoryList = function() {
 		url: getContextPath() + '/restapi/project/repositories',
 		method: 'get',
 		success: function(res) {
+			let hasGit = false;
+			let hasSvn = false;
 			$.each(res, function(i, v) {
 				// git 저장소가 있으면 loadGit 함수를 호출한다.
 				if (v.REPO_TYPE == 'git') {
@@ -99,11 +101,16 @@ const loadRepositoryList = function() {
 					repoHeader.attr('href', 'https://github.com/' + gitRepoUrl);
 					repoHeader.find('span').text(gitRepoUrl);
 					loadGit(gitRepoUrl);
+					hasGit = true;
 				}else if(v.repo_type == 'svn'){
 //					// svn 관련 데이터는 아직 미구현		
 //					loadSvn(v);
 				}
-			})
+			});
+			if(!hasGit){
+				let fileNavHeader = $('.git').find('.fileNavHeader').children('span');
+				fileNavHeader.html('등록된 Git 저장소가 없습니다.');
+			}
 		},
 		error: function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);

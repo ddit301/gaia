@@ -22,18 +22,31 @@ public class ElasticChatDaoImpl implements ElasticChatDao {
 		String index = "message";
 		return elastic.insert(index, chat);
 	}
-
 	@Override
 	public List<Map<String, Object>> getMessageList(int mem_no) {
 		String index = "message";
 
 		Map<String, Object> query = new HashMap<>();
 		query.put("mem_no", mem_no);
+		query.put("chatroom_no", mem_no);
 
 		Map<String, SortOrder> sort = new HashMap<>();
 		sort.put("date", SortOrder.DESC);
 
-		return elastic.simpleSearch(index, query, sort);
+		return elastic.simpleSearch(index, query, sort, null);
+	}
+	
+	@Override
+	public List<Map<String, Object>> getMessageListbyChatRoom(int chatroom_no) {
+		String index = "message";
+		
+		Map<String, Object> query = new HashMap<>();
+		query.put("chatroom_no", chatroom_no);
+		
+		Map<String, SortOrder> sort = new HashMap<>();
+		sort.put("date", SortOrder.DESC);
+		
+		return elastic.simpleSearch(index, query, sort, null);
 	}
 
 }

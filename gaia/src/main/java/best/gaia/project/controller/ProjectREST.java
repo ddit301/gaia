@@ -1,6 +1,6 @@
 package best.gaia.project.controller;
 
-import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+import static best.gaia.utils.SessionUtil.*;
 
 import java.util.List;
 import java.util.Map;

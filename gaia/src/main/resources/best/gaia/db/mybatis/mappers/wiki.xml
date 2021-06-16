@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.project.dao.WikiDao">
-	
+		
+		<sql id="searchFrag">
+			<trim prefix="WHERE" prefixOverrides="AND">
+				WIKI.PROJ_NO = #{detailSearch.proj_no}
+				
+					<if test = "detailSearch neq null">
+						<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailSearch.wiki_title)">
+							 AND INSTR(WIKI.WIKI_TITLE, #{detailSearch.wiki_title,jdbcType=VARCHAR}) > 0
+						</if>
+					</if>
+			
+			</trim>
+		</sql>
+		
+		
 		<select id="selectWikiList" parameterType = "best.gaia.vo.PagingVO" resultType="best.gaia.vo.WikiVO">
 		
-		   SELECT WIKI.WIKI_SID, WIKI.MEM_NO, WIKI.WIKI_TITLE, WIKI.PROJ_NO, WIKI.WIKI_NO, WIKI.WIKI_CONT, WIKI.WIKI_WRITE_DATE, WIKI_WRI_NICK.PROJ_USER_NICK
+		   SELECT WIKI.WIKI_SID, WIKI.PARENT_WIKI, WIKI.MEM_NO, WIKI.WIKI_TITLE, WIKI.PROJ_NO, WIKI.WIKI_NO, WIKI.WIKI_CONT, WIKI.WIKI_WRITE_DATE, WIKI_WRI_NICK.PROJ_USER_NICK
  		     FROM WIKI WIKI
        			 LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO)
        			 LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO)
-   		   WHERE WIKI.PROJ_NO = #{detailSearch.proj_no}
+   		   	<include refid = "searchFrag" />
  		   ORDER BY WIKI.WIKI_SID ASC
 		
 		</select>
@@ -45,11 +59,16 @@
 		</insert>
 		
 		<select id="selectWiki" resultType="best.gaia.vo.WikiVO">
-		    SELECT WIKI.WIKI_SID,WIKI.WIKI_TITLE, WIKI.MEM_NO, WIKI.PROJ_NO, WIKI.WIKI_NO, WIKI.WIKI_CONT, WIKI.WIKI_WRITE_DATE, WIKI_WRI_NICK.PROJ_USER_NICK
+		    SELECT WIKI.WIKI_SID, WIKI.PARENT_WIKI, WIKI.WIKI_TITLE, WIKI.MEM_NO, WIKI.PROJ_NO, WIKI.WIKI_NO, WIKI.WIKI_CONT, WIKI.WIKI_WRITE_DATE, WIKI_WRI_NICK.PROJ_USER_NICK
 		    FROM WIKI WIKI
 		        LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO)
 		        LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO)
 		    WHERE WIKI.PROJ_NO = #{proj_no} AND WIKI.WIKI_NO = #{wiki_no}
 		
 		</select>
+		
+		<delete id="deleteWiki" parameterType="best.gaia.vo.WikiVO">
+				   DELETE FROM WIKI
+     			   WHERE WIKI_SID = #{wiki_sid, jdbcType=NUMERIC}
+		</delete>
 </mapper>

@@ -14,17 +14,18 @@
     <script src="${cPath }/resources/assets/js/gleek.js"></script>
     <script src="${cPath }/resources/assets/js/styleSwitcher.js"></script>
 	<script src="${cPath }/resources/js/moment.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
-	<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.js"></script>	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="${cPath }/resources/js/external/bootstrap-material-datetimepicker.min.js"></script>
+	<script src="${cPath }/resources/js/external/toastui-editor-all.js"></script>
+	<script src="${cPath }/resources/js/external/toastr.min.js"></script>
 	<script src="${cPath }/resources/js/jquery.serializejson.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="${cPath }/resources/js/external/sweetalert2@11.js"></script>
 	<script src="${cPath }/resources/js/jquery.validate.js"></script>
 <!-- 	우클릭 지원을 위한 jquery contextMenu -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.js" integrity="sha512-2ABKLSEpFs5+UK1Ol+CgAVuqwBCHBA0Im0w4oRCflK/n8PUVbSv5IY7WrKIxMynss9EKLVOn1HZ8U/H2ckimWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="${cPath }/resources/js/external/jquery.contextMenu.js"></script>
+	<script src="${cPath }/resources/js/external/jquery.ui.position.js"></script>
+	<script src="${cPath }/resources/js/external/jquery.contextMenu.js"></script>
 <!-- 	base 64 인코딩 /디코딩용 -->
-	<script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.1/base64.min.js"></script>
+	<script src="${cPath }/resources/js/external/base64.min.js"></script>
 <!-- 	url에서 파일 다운받기 위한 라이브러리 -->
 	<script src="${cPath }/resources/js/download.js"></script>
 <!-- 	util.js 는 페이지별 js 보다 위에 위치해야 합니다. -->

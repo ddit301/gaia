@@ -24,4 +24,14 @@ public class ProjMemVO {
 	@Size(max=7) private String proj_drop_date;
 	@Size(max=200) private String proj_user_nick;
 	
+	/**
+	 * Association 관계의 객체 입니다.
+	 */	  
+	 private MemberVO member;
+	 
+	 /**
+	  * 필요에 의해 추가된 property 입니다.
+	  */	  
+	 private String mem_role_nm;
+	
 }

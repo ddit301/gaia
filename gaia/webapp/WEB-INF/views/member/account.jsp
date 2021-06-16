@@ -13,7 +13,7 @@
     	background-color:#7b7b7b;
     }
     </style>
-<div class="container-fluid container-lg container-xl">
+<div class="container-fluid">
 	
 	<div class="row menu">
 		<div class="col-lg-4 col-xl-3">
