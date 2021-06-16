@@ -102,7 +102,7 @@
       alic=nopro(this, "아이디는 2~15자 입니다.");
     } else {
     $.ajax({
-		"url" : "/gaia/signup/idCheck",
+		"url" : "${cPath}/signup/idCheck",
 		"method": "post",
 		"data" : {"mem_id" : alivalue},
 		"dataType" : "json",
