@@ -160,10 +160,10 @@
 <!-- 	        WHERE MEM_NO = #{mem_no} -->
 	</update>
 	
-	<select id="selectMemberDetail" parameterType="Integer">
-<!-- 		 UPDATE MEMBER -->
-<!-- 		 	SET MEM_QUIT_DATE = SYSDATE -->
-<!-- 	        WHERE MEM_NO = #{mem_no} -->
+	<select id="selectMemberID" parameterType="String" resultType="Integer">
+	select count(*)
+	from member
+	where mem_id = #{mem_id}
 	</select>
 	
 	<resultMap type="best.gaia.vo.ProjMemVO" id="projMemMap" autoMapping="true">
