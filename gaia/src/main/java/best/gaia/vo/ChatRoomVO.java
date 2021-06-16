@@ -18,6 +18,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @EqualsAndHashCode(of= {"chatroom_no"})
 public class ChatRoomVO {
 	private Integer chatroom_no;
@@ -28,12 +29,6 @@ public class ChatRoomVO {
 	 * Collnection 관계의 객체입니다.
 	 */
 	private List<MemberVO> memberList;
-	@Override
-	public String toString() {
-		return "ChatVO [chatroom_no=" + chatroom_no + ", chatroom_alarm=" + chatroom_alarm + ", chatroom_title="
-				+ chatroom_title + ", chatroom_create_date=" + chatroom_create_date + ", memberList=" + memberList
-				+ "]";
-	}
 	/**
 	 * 필요에 따라 추가된 프로퍼티 입니다.
 	 */
