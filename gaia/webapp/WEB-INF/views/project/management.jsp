@@ -123,51 +123,49 @@
 				<h4 class="card-title">사용 모듈 설정</h4>
 				<p class="text-muted">해당 프로젝트에서 사용할 모듈들을 체크해주세요</p>
 				<div class="basic-form">
-					<form>
-						<div id="mng_module" class="form-group">
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">마일스톤
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">이슈
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">간트
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">캘린더
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">칸반
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">클라우드
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">뉴스
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">위키
-								</label>
-							</div>
-							<button style="float: right" class="btn btn-success">저장</button>
+					<div id="mng_module" class="form-group">
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">마일스톤
+							</label>
 						</div>
-					</form>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">이슈
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">간트
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">캘린더
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">칸반
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">클라우드
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">뉴스
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">위키
+							</label>
+						</div>
+						<button id="saveModuleBtn" style="float: right" class="btn btn-success">저장</button>
+					</div>
 				</div>
 			</div>
 		</div>

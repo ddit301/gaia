@@ -14,6 +14,11 @@ $(function() {
 		let project_cont = $('#mng_proj_cont').val();
 		changeProjectCont(project_cont);
 	});
+	
+	// 모듈 설정 저장 버튼
+	$('body').on('click', '#saveModuleBtn', function(){
+		saveModuleSetting();
+	})
 
 	/**********************************
 					버튼 매핑 끝
@@ -26,9 +31,6 @@ $(function() {
 		let endDate = $(this).val();
 		changeProjectEndDate(endDate);
 	})
-	
-	$('')
-
 
 
 })
@@ -118,6 +120,18 @@ const binaryDataPrinter = function(div, data){
 			inputArea.prop("checked", true);
 		}
 	}
+}
+
+// 체크박스들의 체크 상태를 이진수 데이터로 바꿔 반환해주는 함수
+const binaryDataReader = function(div){
+	let areas = div.children('div');
+	let areasize = areas.length;
+	let sum = 0;
+	for(i=0; i<areasize; i++){
+		let inputArea = div.children().eq(i).find('input');
+		sum += Math.pow(2, (areasize-1-i) ) * (inputArea.prop("checked")? 1 : 0);
+	}
+	return sum;
 	
 }
 
@@ -168,7 +182,32 @@ const changeProjectEndDate = function(proj_est_end_date){
 	})
 }
 
+const saveModuleSetting = function(){
+	let moduleDiv = $('#mng_module');
+	let proj_module_set = binaryDataReader(moduleDiv);
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/projects',
+		method : 'post',
+		data : {
+			'proj_module_set' : proj_module_set
+			,'_method' : 'put'
+		},
+		success : function(res) {
+			if(res == "OK"){
+				toastr.success('프로젝트 모듈 설정을 정상적으로 변경했습니다.');
+			}else{
+				toastr.error('에러 발생. 정상적으로 수정되지 않았습니다.');
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
 
+		},
+		dataType : 'json'
+	})
+	
+}
 
 
 
