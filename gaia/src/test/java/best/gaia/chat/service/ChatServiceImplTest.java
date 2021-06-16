@@ -34,12 +34,19 @@ public class ChatServiceImplTest {
 	WebApplicationContext container;
 	
 //
+//	@Test
+//	public void testInsert() {
+//		Map<String, Object> message = new HashMap<>();
+//		message.put("chatroom_no", 3);
+//		message.put("content", "thisaaa room3! nice to meet you!");
+//		int result = chatDao.insertMessage(1, message);
+//		System.out.println(result);
+//	}
 	@Test
-	public void testInsert() {
-		Map<String, Object> message = new HashMap<>();
-		message.put("chatroom_no", 3);
-		message.put("content", "thisaaa room3! nice to meet you!");
-		int result = chatDao.insertMessage(1, message);
+	public void testSelect() {
+		int chatRoom_no = 1;
+		int size = 1;
+		List<Map<String, Object>> result = chatDao.getMessageListbyChatRoomOne(chatRoom_no, size);
 		System.out.println(result);
 	}
 //	
