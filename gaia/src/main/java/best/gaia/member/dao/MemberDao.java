@@ -25,7 +25,7 @@ public interface MemberDao {
 	 * @param mem_id(e-mail)
 	 * @return 존재하지 않는 경우, null 반환.
 	 */
-	public MemberVO selectMemberDetail(String mem_id);
+	public Integer selectMemberID(String mem_id);
 
 	/**
 	 * 회원 정보 상세 조회(profile+project+issues)
