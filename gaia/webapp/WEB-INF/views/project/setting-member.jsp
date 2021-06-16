@@ -57,7 +57,7 @@
      <!-- start member card -->
      <div class="memcard col-md-3">
          <div class="card">
-         	<div class="profileBox">
+         	<div class="profileBox mt-1">
               <img class="img-fluid" src="${cPath }/resources/images/profiles/1" alt="">
          	</div>
              <div class="card-body">
