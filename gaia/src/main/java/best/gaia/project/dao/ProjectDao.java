@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import best.gaia.vo.LabelVO;
 import best.gaia.vo.MemRoleVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.ProjMemVO;
@@ -68,6 +69,13 @@ public interface ProjectDao {
 	 */
 	public List<Map<String, Object>> selectMemRoleList(int proj_no);
 	public int insertMemberRole(MemRoleVO memRole);
+	
+	/**
+	 * label
+	 */
+	public int insertLabel(LabelVO label);
+	public int updateLabel(LabelVO label);
+	public int deleteLabel(int label_no);
 	
 }
 

@@ -89,7 +89,7 @@ button.selectedProj{
 	box-shadow: 2px 2px 2px 2px #40CD49;
 	cursor : pointer;
 }
-.labelBox{
+.labelBox, #preview-labelBox{
 	font-size : 1.3em;
     border-radius: 0.625rem;
     box-shadow: 2px 2px 2px 2px gray;
@@ -98,7 +98,7 @@ button.selectedProj{
     margin : 5px;
     display : inline-flex;
 }
-.labelBox i{
+.labelBox,#preview-labelBox i{
 	font-size : 1.5em;
 	margin-right : 5px;
 }
@@ -108,6 +108,10 @@ button.selectedProj{
 
 .labelmodal{
 	padding : 20px;
+}
+.labelmodal i:hover{
+	cursor : pointer;
+	background-color : #EEEEEE;
 }
 #label-icon-select i{
 	font-size : 3em;
@@ -125,8 +129,19 @@ button.selectedProj{
 .label-add-footer{
 	margin-top : 20px;
 }
-
-
+.roleBox:hover{
+	background-color : #DDDDDD;
+	cursor : pointer;
+}
+.roleBox{
+	padding-top : 5px;
+}
+.roleBox input{
+	margin-top : 7px;
+}
+.roleBox span{
+	font-size : 1.2em;
+}
 
 
 
