@@ -76,6 +76,7 @@ public class ProjectREST {
 			,@RequestParam Optional<String> proj_cont
 			,@RequestParam Optional<String> proj_est_end_date
 			,@RequestParam Optional<Integer> proj_module_set
+			,@RequestParam Optional<Integer> issue_priority_set
 			) {
 		int proj_no = getProjNoFromSession(session);
 		ProjectVO original = dao.selectProject(proj_no);
@@ -86,6 +87,8 @@ public class ProjectREST {
 			original.setProj_est_end_date(proj_est_end_date.get());
 		}else if(proj_module_set.isPresent()) {
 			original.setProj_module_set(proj_module_set.get());
+		}else if(issue_priority_set.isPresent()) {
+			original.setIssue_priority_set(issue_priority_set.get());
 		}
 		
 		return dao.updateProject(original) == 1 ? ServiceResult.OK : ServiceResult.FAIL;

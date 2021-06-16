@@ -159,6 +159,7 @@ const changeProjectCont = function(proj_cont){
 	})
 }
 
+// 프로젝트 마감일 설정 함수
 const changeProjectEndDate = function(proj_est_end_date){
 	$.ajax({
 		url : getContextPath() + '/restapi/project/projects',
@@ -182,6 +183,7 @@ const changeProjectEndDate = function(proj_est_end_date){
 	})
 }
 
+// 모듈 설정 함수
 const saveModuleSetting = function(){
 	let moduleDiv = $('#mng_module');
 	let proj_module_set = binaryDataReader(moduleDiv);
@@ -209,7 +211,33 @@ const saveModuleSetting = function(){
 	
 }
 
+// 이슈 중요도 설정 함수
+const saveIssueSetting = function(){
+	let div = $('#issue_module');
+	let issue_priority_set = binaryDataReader(div);
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/projects',
+		method : 'post',
+		data : {
+			'issue_priority_set' : issue_priority_set
+			,'_method' : 'put'
+		},
+		success : function(res) {
+			if(res == "OK"){
+				toastr.success('이슈 중요도 설정을 정상적으로 변경했습니다.');
+			}else{
+				toastr.error('에러 발생. 정상적으로 수정되지 않았습니다.');
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
 
+		},
+		dataType : 'json'
+	})
+	
+}
 
 
 

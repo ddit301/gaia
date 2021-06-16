@@ -176,41 +176,39 @@
 				<h4 class="card-title">이슈 중요도 설정</h4>
 				<p class="text-muted">해당 프로젝트에서 사용할 이슈 중요도들을 체크해주세요</p>
 				<div class="basic-form">
-					<form>
-						<div id="issue_module" class="form-group">
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">즉시
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">긴급
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">높음
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">보통
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">낮음
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<label class="form-check-label"> <input type="checkbox"
-									class="form-check-input" value="">무시
-								</label>
-							</div>
-							<button style="float: right" class="btn btn-success">저장</button>
+					<div id="issue_module" class="form-group">
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">즉시
+							</label>
 						</div>
-					</form>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">긴급
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">높음
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">보통
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">낮음
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">무시
+							</label>
+						</div>
+						<button onclick="saveIssueSetting()" style="float: right" class="btn btn-success">저장</button>
+					</div>
 				</div>
 			</div>
 		</div>
