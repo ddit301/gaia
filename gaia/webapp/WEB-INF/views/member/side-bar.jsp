@@ -24,6 +24,7 @@
 	         	<a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting"> Profile</a>
 	            <a href="javascript:void()" class="list-group-item text-primary p-r-2 moveButton" data-menu="setting/account">Account</a>  
 	            <a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting/securityLog">Security log</a>
+	            <a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting/help">Help</a>
         	</div>
         </div>
 	</div>

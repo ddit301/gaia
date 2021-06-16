@@ -2,6 +2,7 @@ package best.gaia.chat.controller;
 import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,35 +47,42 @@ public class ChatREST {
 	public void init() {
 		application = container.getServletContext();
 	}
-	
+	 
 	private static final Logger logger = LoggerFactory.getLogger(AlarmREST.class);
 	
 	@GetMapping
 	public Map<String, Object> messageList(
 			Authentication authentication
 			, @RequestParam String need
+			, @ModelAttribute("chatRoomVO") ChatRoomVO chatRoomVO
 			) {
 		// authentication에서 mem_no를 받아온다.
 		Map<String, Object> result = new HashMap<String, Object>();
+		List<ChatRoomVO> roomList = new ArrayList<>();
 		int mem_no = getMemberNoFromAuthentication(authentication);
-		if("chatList".equals(need)) {
-			// roomList의 room 번호마다 채팅들 담기
+		// roomList의 room 번호마다 채팅들 담기
+		if("chatRoomList".equals(need)) {
 			// roomList 뽑기 
-			List<ChatRoomVO> roomList = service.selectMemberChatRoomList(mem_no);
-			
-			List<Map<String, Object>> chatList = new ArrayList<Map<String, Object>>();
+			roomList = service.selectMemberChatRoomList(mem_no);
+			List<Map<String, Object>> lateChat = new ArrayList<Map<String, Object>>();
 			for(ChatRoomVO chatRoom : roomList) {
 				// chatRoomVO의 chatList에 대화 내용들 담기.
 				int chatRoom_no = chatRoom.getChatroom_no();
 				// elastic에서 chatList 뽑기.
-				chatList = service.getMessageListbyChatRoom(chatRoom_no);
+				lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1); 
 				// 뽑은 chatList를 해당 room의 chatList에 담기.
-				chatRoom.setChatList(chatList);
-			}
-			logger.info("{}", roomList);
-			result.put("roomList", roomList);
+				chatRoom.setChatList(lateChat);
+			} 
+			
+		// 해당 방의 채팅내역 불러오기
+		}else if("chatContent".equals(need)) {
+			logger.info("chatRoomVO = {}\n\n\n\n\n", chatRoomVO.toString());
+			// modelAttribute로 가지고 온 chatroom_no를 가지고 해당 방의 채팅 내역들 뽑은 후 chatList에 담기.
+			chatRoomVO.setChatList(service.getMessageListbyChatRoom(chatRoomVO.getChatroom_no()));
+			result.put("chatList", chatRoomVO);
 		}
-		
+		logger.info("{}", roomList);
+		result.put("roomList", roomList);
 		return result;
 	}
 	 
@@ -97,6 +106,7 @@ public class ChatREST {
 	public Map<String, Object> deleteAlarm() {
 		return null;
 	}
+	
 }
 
 

@@ -41,7 +41,7 @@ import static best.gaia.utils.SessionUtil.*;
 @Controller
 @RequestMapping(value = "{mem_id:^(?:(?!admin$|restapi$|echo$|view$|intro$|demo$|sales$|updates$|signin$|signup$|CS$).)*}")
 public class MemberUrlMapper {
-
+ 
 	@Inject
 	private WebApplicationContext container;
 	
@@ -67,7 +67,7 @@ public class MemberUrlMapper {
 	}
 
 	@RequestMapping(value = { "setting",
-			"setting/{memberPageParam:^(?:(?=account$|chat$|projects$|securityLog$|profile$)).*}" })
+			"setting/{memberPageParam:^(?:(?=account$|chat$|projects$|securityLog$|profile$|help$)).*}" })
 	public String memberSetting(
 				@PathVariable String mem_id
 				, @PathVariable Optional<String> memberPageParam
@@ -80,13 +80,12 @@ public class MemberUrlMapper {
 		return "view/template/project";
 	}
 	
-	@RequestMapping(value = { "chat","chat/{chatRoomNo}" })
+	@RequestMapping(value = { "chat" })
 	public String memberChat(
 			@PathVariable String mem_id
-			, @PathVariable Optional<String> chatRoomNo
 			, Model model) {
 		model.addAttribute("mem_id", mem_id);
-		model.addAttribute("memberPageParam", chatRoomNo.isPresent() ? "chat/" + chatRoomNo.get() : "chat");
+		model.addAttribute("memberPageParam", "chat");
 		return "view/template/project";
 	}
 }
