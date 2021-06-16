@@ -13,18 +13,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemRoleVO {
+public class LabelVO {
 	
-	public MemRoleVO(String mem_role_nm){
-		this.mem_role_nm = mem_role_nm;
+	public LabelVO(String label_nm){
+		this.label_nm = label_nm;
 	}
 	
 	/**
 	 * TABLE에 존재하는 COLUMN들 입니다.
 	 */
-	@NotNull @Min(0) private Integer mem_role_no;
+	@NotNull @Min(0) private Integer label_no;
 	@NotNull @Min(0) private Integer proj_no;
-	@NotBlank@Size(max=200) private String mem_role_nm;
-	 private Integer authority;
+	@NotBlank@Size(max=200) private String label_nm;
+	@NotBlank@Size(max=200) private String label_icon;
+	@NotBlank@Size(max=20) private String label_color;
 	
 }

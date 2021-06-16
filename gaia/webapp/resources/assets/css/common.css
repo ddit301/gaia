@@ -47,10 +47,7 @@ button.selectedProj{
 
 /* setting-member 관련 css */
 .profileBox{
-	width: 190px;
-    height: 190px;
     text-align: center;
-    margin: auto;
 }
 .profileBox img{
 	padding : 4px;
@@ -88,6 +85,10 @@ button.selectedProj{
 }
 
 /* 라벨 관련 css */
+.labelBox:hover{
+	box-shadow: 2px 2px 2px 2px #40CD49;
+	cursor : pointer;
+}
 .labelBox{
 	font-size : 1.3em;
     border-radius: 0.625rem;
@@ -95,8 +96,38 @@ button.selectedProj{
     border : 1px solid black;
     padding : 5px;
     margin : 5px;
-    display : inline;
+    display : inline-flex;
+}
+.labelBox i{
+	font-size : 1.5em;
+	margin-right : 5px;
 }
 .rolelabel{
 	padding : 0px;
 }
+
+.labelmodal{
+	padding : 20px;
+}
+#label-icon-select i{
+	font-size : 3em;
+	margin : 5px;
+}
+#addLabelModal span{
+	font-size : 1.3em;
+}
+.label-preview{
+	padding-left : 40px;
+}
+.label-preview p{
+	font-size : 1.3em;
+}
+.label-add-footer{
+	margin-top : 20px;
+}
+
+
+
+
+
+

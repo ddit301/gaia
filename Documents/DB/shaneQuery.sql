@@ -222,6 +222,7 @@ group by milest_title;
 -----------------------------5. Project ------------------------------------------
 -- a. member 닉네임과 project 이름으로 (url) 프로젝트 번호 알아내기
 -- b. 특정 회원이 속한 프로젝트 목록 조회하기
+-- c. 프로젝트 관리 위해 프로젝트 정보 불러오기
 
 -----------------------------------------------------------------------------------
 
@@ -243,7 +244,20 @@ from project
 where proj_mem.mem_no = 4 --#{mem_no}
 order by proj_start_date;
     
+    
+--------------------------------------------------------------------------------
+-- c. 프로젝트 관리 위해 프로젝트 정보 불러오기
+select project.proj_no as proj_id, mem_no, proj_title, proj_cont, proj_start_date
+        ,proj_est_end_date, issue_priority_set, proj_module_set, proj_status
+        ,label.label_no, label.label_nm, label.label_color, label.label_icon
+        ,mem_role.mem_role_no, mem_role.mem_role_nm, mem_role.authority
+from project
+    left outer join label on (project.proj_no = label.proj_no)
+    left outer join mem_role on (project.proj_no = mem_role.proj_no)
+where project.proj_no = 1
+order by label_no, mem_role_no;
 
+--------------------------------------------------------------------------------
 
 
 

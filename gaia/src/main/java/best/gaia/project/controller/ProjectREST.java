@@ -4,10 +4,12 @@ import static best.gaia.utils.SessionUtil.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +17,16 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.PagingVO;
 import best.gaia.vo.ProjectVO;
@@ -66,10 +71,30 @@ public class ProjectREST {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public Map<String, Object> updateProject() {
-		return null;
+	public ServiceResult updateProject(
+			HttpSession session
+			,@RequestParam Optional<String> proj_cont
+			,@RequestParam Optional<String> proj_est_end_date
+			,@RequestParam Optional<Integer> proj_module_set
+			,@RequestParam Optional<Integer> issue_priority_set
+			) {
+		int proj_no = getProjNoFromSession(session);
+		ProjectVO original = dao.selectProject(proj_no);
+		
+		if(proj_cont.isPresent()) {
+			original.setProj_cont(proj_cont.get());
+		}else if(proj_est_end_date.isPresent()) {
+			original.setProj_est_end_date(proj_est_end_date.get());
+		}else if(proj_module_set.isPresent()) {
+			original.setProj_module_set(proj_module_set.get());
+		}else if(issue_priority_set.isPresent()) {
+			original.setIssue_priority_set(issue_priority_set.get());
+		}
+		
+		return dao.updateProject(original) == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
+	
 	@RequestMapping(method = RequestMethod.DELETE)
 	public Map<String, Object> deleteProject() {
 		return null;

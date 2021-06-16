@@ -1,4 +1,4 @@
-t<%--
+<%--
 * [[개정이력(Modification Information)]]
 * Date         Modifier		Modification
 * ----------  ---------  -----------------
@@ -15,11 +15,14 @@ t<%--
     <script src="${cPath }/resources/assets/js/styleSwitcher.js"></script>
 	<script src="${cPath }/resources/js/external/moment.js"></script>
 	<script src="${cPath }/resources/js/external/bootstrap-material-datetimepicker.min.js"></script>
+<!-- 	tui 관련 -->
 	<script src="${cPath }/resources/js/external/toastui-editor-all.js"></script>
 	<script src="${cPath }/resources/js/external/toastr.min.js"></script>
+	<script src="${cPath }/resources/js/external/tui-color-picker.js"></script>
 	<script src="${cPath }/resources/js/external/sweetalert2@11.js"></script>
 	<script src="${cPath }/resources/js/external/jquery.serializejson.js"></script>
 	<script src="${cPath }/resources/js/external/jquery.validate.js"></script>
+	<script src="${cPath }/resources/assets/dist/jkanban.js"></script>  
 <!-- 	우클릭 지원을 위한 jquery contextMenu -->
 	<script src="${cPath }/resources/js/external/jquery.contextMenu.js"></script>
 	<script src="${cPath }/resources/js/external/jquery.ui.position.js"></script>
@@ -41,7 +44,6 @@ t<%--
 	<script src="${cPath }/resources/js/member.js"></script>
 	<script src="${cPath }/resources/js/code.js"></script>
 	<script src="${cPath }/resources/js/management.js"></script>
-	<script src="${cPath }/resources/assets/dist/jkanban.js"></script>  
 
 <script type="text/javascript">
 	let project_title = '${project_title}';
