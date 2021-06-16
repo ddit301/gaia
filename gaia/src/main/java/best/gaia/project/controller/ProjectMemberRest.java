@@ -2,6 +2,7 @@ package best.gaia.project.controller;
 
 import static best.gaia.utils.SessionUtil.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.vo.MemberVO;
 import best.gaia.vo.ProjMemVO;
 
 @RestController
@@ -58,13 +60,21 @@ public class ProjectMemberRest {
 		return service.selectProjectMembers(proj_no, searchword);
 	}
 	
+	/**
+	 * project에 member 가입 시키는 메서드 
+	 */
 	@PostMapping
-	public Map<String, Object> insertProjectMember(
-		HttpSession session
-		,Authentication authentication
-		) {
+	public ServiceResult insertProjectMember(
+			@ModelAttribute ProjMemVO projMem
+			,HttpSession session
+			,Authentication authentication) {
+		int proj_no = getProjNoFromSession(session);
+		projMem.setProj_no(proj_no);
+		int mem_role_no = dao.selectLowestRoleNo(proj_no);
+		projMem.setMem_role_no(mem_role_no);
+		int result = dao.insertProjMem(projMem);
 		
-		return null;
+		return result == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	
 	@PutMapping
@@ -102,6 +112,20 @@ public class ProjectMemberRest {
 		projMem.setProj_no(proj_no);
 		int result = dao.setMemberActive(projMem);
 		return result==1? ServiceResult.OK : ServiceResult.FAIL;
+	}
+	
+	@GetMapping("search")
+	public List<MemberVO> searchMemberToInvite(
+			@RequestParam(required = false) String keyword
+			,HttpSession session
+			) {
+		int proj_no = getProjNoFromSession(session);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("proj_no", proj_no);
+		if(keyword != null) {
+			paramMap.put("keyword", keyword);
+		}
+		return dao.searchMemberToInvite(paramMap);
 	}
 	
 	

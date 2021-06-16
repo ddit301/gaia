@@ -50,10 +50,42 @@
   </div>
 </div>
 
+<!-- 회원 초대 Modal -->
+<div class="modal fade" id="inviteMember" tabindex="-1" aria-labelledby="inviteMemberLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="inviteMemberLabel">프로젝트 멤버 초대</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="inviteModal modal-body">
+      	<input type="text"><button id="memSearchBtn" class="btn">검색</button>
+    	<ul id="memSearchResult">
+    	</ul> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 
 <div id="setting-member-template" hidden="hidden">
+<!--     	멤버 검색결과 li 시작 -->
+ 		<li class="searchedMember">
+ 			<img class="profile" src="/resources/images/profiles/1">
+ 			<span class="memid">id</span>
+ 			<span class="memnm">name</span>
+ 			<span class="memnick">nick</span>
+ 			<span class="memcity">city</span>
+ 			<i class="icon-plus"></i>
+ 		</li>
+<!--     		li 끝 -->
      <!-- start member card -->
      <div class="memcard col-md-3">
          <div class="card">

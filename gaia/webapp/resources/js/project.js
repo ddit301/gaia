@@ -50,12 +50,13 @@ $(function(){
 	})
 	
 	// 프로젝트 멤버 목록에서 회원 클릭시 해당 멤버 관리 모달 열기
-	$('body').on('click', '.memcard', function(){
-		let selectedMemNo = $(this).data('mem_no');
-		let proj_nick = $(this).data('proj_nick');
-		let proj_role_no = $(this).data('proj_role_no');
-		let mem_pic_file_name = $(this).data('mem_pic_file_name');
-		let dropped = $(this).data('dropped');
+	$('body').on('click', '.memcard .card', function(){
+		let card = $(this).parent();
+		let selectedMemNo = card.data('mem_no');
+		let proj_nick = card.data('proj_nick');
+		let proj_role_no = card.data('proj_role_no');
+		let mem_pic_file_name = card.data('mem_pic_file_name');
+		let dropped = card.data('dropped');
 		
 		let selectedMember = {};
 		selectedMember.selectedMemNo = selectedMemNo;
@@ -78,6 +79,24 @@ $(function(){
 		}
 	})
 	
+	// 추가 프로젝트 멤버 초대 모달 띄우는 버튼
+	$('body').on('click', '.pluscard', function(){
+		$('#inviteMember').modal('show');
+	});
+	
+	// 추가 프로젝트 멤버 초대할때 검색 하는 버튼
+	$('body').on('click', '#memSearchBtn', function(){
+		let keyword = $(this).parent().children('input').val();
+		searchMember(keyword);
+	});
+	
+	// 회원 초대 하려고 클릭 하는 이벤트
+	$('body').on('click', '.searchedMember', function(){
+		let selectedMemberLi = $(this);
+		let selectedMemNo = $(this).data('mem_no');
+		let selectedMemName = $(this).find('.memnm').text();
+		inviteMember(selectedMemNo,selectedMemName,selectedMemberLi);
+	})
 	
 	
 	/******************************************************
@@ -98,7 +117,7 @@ $(function(){
 	$('body').on('change', '#proj_mem_role', function(){
 		let proj_mem_no = $('#proj_mem_no').text();
 		let mem_role_no = $(this).val();
-		changeMemberRole(proj_mem_no,mem_role_no);
+		changeMemberRole(proj_mem_no,mem_role_no,$(this));
 	})
 
 	
@@ -494,6 +513,95 @@ const unBanMember = function(selectedMemNo){
 			  }
 			})
 }
+
+
+// 회원 초대위해 검색하는 function
+const searchMember = function(keyword){
+	
+	    $.ajax({
+		url : getContextPath() + '/restapi/project/members/search',
+		method : 'get',
+		data : {
+			'keyword' : keyword
+		},
+		success : function(members) {
+			let searchResultUl = $('#memSearchResult');
+			searchResultUl.empty();
+			$.each(members, function(i,member){
+				let memberBox = $('#setting-member-template').find('.searchedMember').clone();
+				memberBox.attr('data-mem_no', member.mem_no);
+				memberBox.find('.memid').text(member.mem_id);
+				memberBox.find('.memnick').text(member.mem_nick);
+				memberBox.find('.memnm').text(member.mem_nm);
+				memberBox.find('.memcity').text(member.mem_working_city);
+				memberBox.find('img').attr('src', getProfilePath(member.mem_pic_file_name));
+				searchResultUl.append(memberBox);
+			})
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
+		},
+		dataType : 'json'
+	})
+	
+	
+}
+
+// 멤버 초대하는 function
+const inviteMember = function(selectedMemNo,selectedMemName,selectedMemberLi){
+	// sweetAlert 버튼 초기화
+	 swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+			cancelButton: 'btn btn-light',
+		   	confirmButton: 'btn btn-success'
+		  },
+		  buttonsStyling: false
+	})	
+		
+	swalWithBootstrapButtons.fire({
+			  title: '정말 '+selectedMemName+'님을 프로젝트에 초대하겠습니까?',
+			  text: "초대 즉시 멤버로 등록됩니다.",
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonText: '초대',
+			  cancelButtonText: '취소',
+			  reverseButtons: true
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    swalWithBootstrapButtons.fire(
+			      'Success!',
+			      selectedMemName+'님을 멤버로 등록했습니다.',
+			      'success'
+			    )
+				// 확인 버튼 눌렀을때 가입정보 insert 해준다.
+			    $.ajax({
+					url : getContextPath() + '/restapi/project/members',
+					method : 'post',
+					data : {
+						'mem_no' : selectedMemNo
+						,'proj_user_nick' : selectedMemName 
+					},
+					success : function(res) {
+						if(res == "OK"){
+							selectedMemberLi.remove();
+							loadProjectMembers();
+						}
+					},
+					error : function(xhr, error, msg) {
+						ajaxError(xhr, error, msg)
+					},
+					dataType : 'json'
+				})
+			    
+			  } else if (
+			    result.dismiss === Swal.DismissReason.cancel
+			  ) {
+			  }
+			})
+	
+}
+
+
 
 
 

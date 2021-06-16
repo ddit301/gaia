@@ -61,7 +61,7 @@
             			<div class="menuBox row">
             				<div id="issueStartDate" class="col-md-10">
 		            			<p>이슈 시작일</p>
-		            			<input class="datePick" type="text" class="result" placeholder="yyyy-mm-dd">
+		            			<input class="datePick" type="text" placeholder="yyyy-mm-dd">
             				</div>
             				<div class="col-md-2">
 		            			<i class="icon-settings menu-icon"></i>
@@ -70,7 +70,7 @@
             			<div class="menuBox row">
             				<div id="issueEndDate" class="col-md-10">
 		            			<p>이슈 마감일</p>
-		            			<input class="datePick" type="text" class="result" placeholder="yyyy-mm-dd">
+		            			<input class="datePick" type="text" placeholder="yyyy-mm-dd">
             				</div>
             				<div class="col-md-2">
 		            			<i class="icon-settings menu-icon"></i>

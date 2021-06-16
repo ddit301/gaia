@@ -70,5 +70,33 @@ button.selectedProj{
 	font-size : 2em;
 }
 
+.inviteModal{
+	font-size : 1.5em;
+}
+.searchedMember:hover{
+	background-color : skyblue;
+	cursor : pointer;
+}
+.searchedMember i{
+	font-size : 2em;
+	margin-top : 5px;
+	float : right;
+}
+#memSearchResult{
+	height : 300px;
+	overflow-y : scroll;
+}
 
-
+/* 라벨 관련 css */
+.labelBox{
+	font-size : 1.3em;
+    border-radius: 0.625rem;
+    box-shadow: 2px 2px 2px 2px gray;
+    border : 1px solid black;
+    padding : 5px;
+    margin : 5px;
+    display : inline;
+}
+.rolelabel{
+	padding : 0px;
+}
