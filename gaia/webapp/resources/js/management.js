@@ -31,6 +31,22 @@ $(function() {
 		let endDate = $(this).val();
 		changeProjectEndDate(endDate);
 	})
+	
+	// 라벨추가 단계에서 라벨명 입력시 이벤트
+	$('body').on('input', '#label-name-input', function(){
+		let inputText = $(this).val();
+		$('#preview-labelBox').find('span').text(inputText);
+	})
+	
+	// 라벨 추가 단계에서 아이콘 선택시 이벤트
+	$('body').on('click', '#label-icon-select i', function(){
+		let icon = $(this).attr('class');
+		$('#label-icon-input').val(icon);
+		let previewIcon = $('#preview-labelBox').find('i');
+		previewIcon.removeAttr('class');
+		previewIcon.addClass(icon);
+	}) 
+	
 
 
 })
@@ -239,8 +255,18 @@ const saveIssueSetting = function(){
 	
 }
 
-
-
+// 라벨 추가하는 함수
+const addLabel = function(){
+	let label_nm = $('#label-name-input').val();
+	let label_icon = $('#label-icon-input').val();
+	let label_color = $('#label-color-input').val();
+	
+	console.log(label_nm);
+	console.log(label_icon);
+	console.log(label_color);
+	
+	
+}
 
 
 

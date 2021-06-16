@@ -15,8 +15,10 @@ t<%--
     <script src="${cPath }/resources/assets/js/styleSwitcher.js"></script>
 	<script src="${cPath }/resources/js/external/moment.js"></script>
 	<script src="${cPath }/resources/js/external/bootstrap-material-datetimepicker.min.js"></script>
+<!-- 	tui 관련 -->
 	<script src="${cPath }/resources/js/external/toastui-editor-all.js"></script>
 	<script src="${cPath }/resources/js/external/toastr.min.js"></script>
+	<script src="${cPath }/resources/js/external/tui-color-picker.js"></script>
 	<script src="${cPath }/resources/js/external/sweetalert2@11.js"></script>
 	<script src="${cPath }/resources/js/external/jquery.serializejson.js"></script>
 	<script src="${cPath }/resources/js/external/jquery.validate.js"></script>

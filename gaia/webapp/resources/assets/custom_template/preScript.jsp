@@ -27,9 +27,10 @@
     <!-- DateTimePicker Stylesheet-->
     <link href="${cPath }/resources/assets/css/external/material-icon.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/external/bootstrap-material-datetimepicker.min.css" rel="stylesheet">
-    <!-- Toast UI Editor Stylesheet -->
+    <!-- Toast UI Stylesheets -->
     <link href="${cPath }/resources/assets/css/external/codemirror.min.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/external/toastui-editor.min.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/css/external/tui-color-picker.css" rel="stylesheet">
     <!-- Toastr Stylesheet -->
     <link href="${cPath }/resources/assets/css/external/toastr.css" rel="stylesheet">
     <!-- jquery-contextmenu -->

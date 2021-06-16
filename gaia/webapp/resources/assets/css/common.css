@@ -105,3 +105,29 @@ button.selectedProj{
 .rolelabel{
 	padding : 0px;
 }
+
+.labelmodal{
+	padding : 20px;
+}
+#label-icon-select i{
+	font-size : 3em;
+	margin : 5px;
+}
+#addLabelModal span{
+	font-size : 1.3em;
+}
+.label-preview{
+	padding-left : 40px;
+}
+.label-preview p{
+	font-size : 1.3em;
+}
+.label-add-footer{
+	margin-top : 20px;
+}
+
+
+
+
+
+

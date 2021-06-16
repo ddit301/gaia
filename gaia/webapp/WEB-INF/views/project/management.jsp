@@ -22,8 +22,97 @@
 		// 프로젝트 정보 받아오기
 		loadProjectForManagement();
 		
+		// colorpicker 발동시키기
+        var colorpicker = tui.colorPicker.create({
+            container: document.getElementById('color-picker')
+        });
+
+        colorpicker.on('selectColor', function(ev) {
+//             console.log(ev.color);
+			$('#label-color-input').val(ev.color);
+        	$('#preview-labelBox').css({"backgroundColor":ev.color});
+        });
+
+		
 	})
 </script>
+
+<!-- Label 추가 Modal -->
+<div class="modal fade" id="addLabelModal" tabindex="-1" aria-labelledby="addLabelModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="addLabelModalLabel">라벨 추가</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="labelmodal modal-body container-fluid">
+   		<div class="row">
+   			<div class="col-md-7">
+   				<span>아이콘 선택</span>
+   				<div id="label-icon-select">
+   					<i class="icon-plus"></i>
+   					<i class="icon-direction"></i>
+   					<i class="icon-directions"></i>
+   					<i class="icon-close"></i>
+   					<i class="icon-clock"></i>
+   					<i class="icon-cursor"></i>
+   					<i class="icon-bell"></i>
+   					<i class="icon-pin"></i>
+   					<i class="icon-present"></i>
+   					<i class="icon-doc"></i>
+   					<i class="icon-trash"></i>
+   					<i class="icon-like"></i>
+   					<i class="icon-loop"></i>
+   					<i class="icon-volume-1"></i>
+   					<i class="icon-magnifier"></i>
+   					<i class="icon-star"></i>
+   					<i class="icon-credit-card"></i>
+   					<i class="icon-reload"></i>
+   					<i class="icon-paper-clip"></i>
+   					<i class="icon-lock"></i>
+   					<i class="icon-user"></i>
+   					<i class="icon-emotsmile"></i>
+   					<i class="icon-list"></i>
+   					<i class="icon-check"></i>
+   					<i class="icon-trophy"></i>
+   					<i class="icon-crop"></i>
+   					<i class="icon-hourglass"></i>
+   					<i class="icon-printer"></i>
+   					
+   				</div>
+   			</div>
+   			<div class="col-md-5">
+   				<span>색상 선택</span>
+   				   <div id="color-picker"></div>
+   			</div>
+   		</div>
+   		<div class="label-add-footer row">
+   			<div class="label-preview col-md-6">
+   				<p>미리보기</p>
+   				<div id="preview-labelBox" class="labelBox">
+					<i class="icon-plus"></i>
+					<span>라벨명</span>
+				</div>
+   			</div>
+   			<div class="col-md-6">
+	   			<span>라벨명 입력</span>
+	   			<input id="label-name-input" type="text" value="라벨명">
+	   			<input id="label-color-input" type="text" value="#f8f8f8" hidden="true">
+	   			<input id="label-icon-input" type="text" value="icon-plus" hidden="true">
+	   			<button onclick="addLabel()" class="btn btn-success">추가하기</button>
+   			</div>
+   		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <div id="manage-template" hidden="hidden">
 
@@ -81,9 +170,8 @@
 		</div>
 	</div>
 	<!-- 	role 끝 -->
-
-
 </div>
+<!-- template 끝 -->
 
 
 <div class="container-fluid">
@@ -232,7 +320,7 @@
 						<i class="icons icon-cursor"></i> <span>이벤트</span>
 					</div>
 				</div>
-				<button style="float: right" class="btn btn-success">라벨추가</button>
+				<button style="float: right" class="btn btn-success" data-toggle="modal" data-target="#addLabelModal">라벨추가</button>
 			</div>
 		</div>
 
