@@ -10,7 +10,7 @@ $(function() {
 	********************************/
 	
 	// 프로젝트 소개 변경 버튼
-	$('body').on('click', '#save_project_title', function(){
+	$('body').on('click', '#save_project_cont', function(){
 		let project_cont = $('#mng_proj_cont').val();
 		changeProjectCont(project_cont);
 	});
@@ -26,6 +26,8 @@ $(function() {
 		let endDate = $(this).val();
 		changeProjectEndDate(endDate);
 	})
+	
+	$('')
 
 
 

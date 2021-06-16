@@ -26,8 +26,8 @@
 		    mem_no,
 		    proj_title,
 		    proj_cont,
-		    to_char(proj_start_date, 'yyyy-mm-dd'),
-		    to_char(proj_est_end_date, 'yyyy-mm-dd'),
+		    to_char(proj_start_date, 'yyyy-mm-dd') as proj_start_date,
+		    to_char(proj_est_end_date, 'yyyy-mm-dd') as proj_est_end_date,
 		    issue_priority_set,
 		    proj_module_set,
 		    proj_status

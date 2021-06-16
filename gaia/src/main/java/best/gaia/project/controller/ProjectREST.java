@@ -85,7 +85,6 @@ public class ProjectREST {
 			original.setProj_est_end_date(proj_est_end_date.get());
 		}
 		
-		
 		return dao.updateProject(original) == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
