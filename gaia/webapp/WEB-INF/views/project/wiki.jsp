@@ -9,7 +9,7 @@
     pageEncoding="UTF-8"%>
     
     <link href="${cPath }/resources/assets/css/wiki.css" rel="stylesheet">
-            <div class="row page-titles mx-0">
+            <div class="page-titles row mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li>
@@ -19,7 +19,7 @@
             </div>
             <!-- row -->
 
-            <div class="container">
+            <div class="wiki-container">
             	<div class = "wiki-head row">
             		<div class = "title-wiki col-md-6">
             			<span></span>
@@ -35,7 +35,8 @@
            				<span></span>
            				<span></span>
            				<span></span>
-           				<a class ="editHis" href="javascript:void(0)"></a> 
+           				<input type = "hidden" value="wiki_sid" name = "wiki_sid" class = "wiki-his-link-no">
+           				<a class ="wikiHis"></a> 
            				 
            			</div>
             	</div>
@@ -143,11 +144,11 @@
             	
             	<div class = "wiki-footer row">
             		<div class="wiki-history-title col-md-12">
+            			
             			<span>WIKI HISTORY</span>
-            		</div>
-            		<div class="wiki-history-discription col-md-12">
             			<span></span>
-            		</div>	
+            		</div>
+            		
             	
             		
             	</div>

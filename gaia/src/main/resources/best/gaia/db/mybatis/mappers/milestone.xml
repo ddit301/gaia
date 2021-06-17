@@ -33,7 +33,7 @@
 	
 	<resultMap type="best.gaia.vo.MilestoneVO" id="milestoneMap" autoMapping="true">
 			<id column="MILEST_SID" property="milest_sid"/>
-			<association property="issue_wri_mem" javaType="best.gaia.vo.MemberVO" autoMapping="false">
+			<association property="issueWriter" javaType="best.gaia.vo.MemberVO" autoMapping="false">
 				<id column="ISSUE_WRI_MEM_NO" property="mem_no" />
 				<result column="ISSUE_WRI_MEM_PIC" property="mem_pic_file_name"></result>
 			

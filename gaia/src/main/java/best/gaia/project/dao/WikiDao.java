@@ -12,7 +12,8 @@ import best.gaia.vo.WikiVO;
 public interface WikiDao {
 	
 	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO);
-	public WikiVO selectWiki(Map<String, Object> search);
+	public WikiVO selectWiki(Map<String, Object> search); 
+	public WikiVO historyWiki(Map<String,Object> search);
 	public int insertWiki(WikiVO wiki);
 	public int updateWiki(WikiVO wiki);
 	public int deleteWiki(WikiVO search);

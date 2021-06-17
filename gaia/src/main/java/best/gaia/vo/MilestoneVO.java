@@ -37,7 +37,7 @@ public class MilestoneVO {
 	 */
 	
 	@NotNull @Min(0) private Integer proj_mem_no;
-	private MemberVO issue_wri_mem;
+	private MemberVO issueWriter;
 	private Map<String, Object> label;
 	
 	/**

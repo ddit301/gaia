@@ -58,6 +58,7 @@ public interface ProjectService {
 	public ServiceResult updateWiki(WikiVO wiki);
 	public ServiceResult deleteWiki(WikiVO wiki);
 	public WikiVO selectWiki(Map<String, Object> search);
+	public WikiVO historyWiki(Map<String, Object> search);
 
 	/**********************************************************************
 	 *  라벨 관련 service

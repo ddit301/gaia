@@ -86,6 +86,24 @@ public class WikiREST {
 
 		return wiki;
 	}
+	@RequestMapping(value="history/{wiki_sid}" , method = RequestMethod.GET)
+	public WikiVO historyWiki(
+				HttpSession session
+			) {
+		Integer proj_no =getProjNoFromSession(session);
+		// 히스토리 불러오는데CBR 필요. 받아서 전달.
+		Map<String,Object>map = new HashMap<>();
+		System.err.println("hihi");
+		System.err.println("hihi");
+		System.err.println("hihi");
+		System.err.println("hihi");
+		map.put("proj_no",proj_no);
+		
+		
+		return null;
+		
+	}
+	
 	@RequestMapping(method=RequestMethod.POST) 
 	public Map<String, Object> insertWiki(
 			HttpSession session
@@ -100,11 +118,8 @@ public class WikiREST {
 		
 		wiki.setMem_no(getMemberNoFromAuthentication(authentication));
 		wiki.setProj_no(getProjNoFromSession(session));
-		
-		
-		if(parent_wiki != null ) {
-			wiki.setParent_wiki(parent_wiki);
-		}
+		wiki.setParent_wiki(parent_wiki);
+
 		
 		// service 호출해 그 결과 result 에 담기
 				ServiceResult result = service.insertWiki(wiki);

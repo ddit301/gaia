@@ -143,6 +143,13 @@ public class ProjectServiceImpl implements ProjectService {
 
 		return result == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
+	
+	@Override
+	public WikiVO historyWiki(Map<String, Object> search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 	@Override
 	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO) {
@@ -289,6 +296,7 @@ public class ProjectServiceImpl implements ProjectService {
 		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
 		
 	}
+
 
 }
 
