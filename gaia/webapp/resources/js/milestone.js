@@ -130,8 +130,9 @@ const newMilestone = function(){
 	movePageHistory('milestone/new');
 }
 
-// milestonelist 을 불러오는 함수
-const milestonelist = function(milest_status){
+// 마일스톤 목록 불러오기 다른곳에서도 쓸 수 있게 모듈화 합니다.
+const getMilestoneList = function(milest_status){
+	let milestoneList = null;
     $.ajax({
 		url : getContextPath()+'/restapi/project/milestones',
 		type : 'get'
@@ -139,19 +140,7 @@ const milestonelist = function(milest_status){
 			'milest_status' : milest_status
 		}
 		,success : function(res) {
-			$('#milestone-list').empty();
-			
-			$.each(res, function(i, v) {
-				let milestoneBox = $('#milestone-template').children('.milestoneBox').clone();
-				milestoneBox.attr('data-milest_no',v.milest_no);
-				milestoneBox.find('.milestone-title').children('a').text(v.milest_title);
-				milestoneBox.find('.milestone-descript').children('span').text(v.milest_cont);
-				milestoneBox.find('.milestone-date').children('span').text((v.milest_start_date == null ? "시작일 없음." : v.milest_start_date) +' - '+(v.milest_end_date == null ? "종료일 없음." : v.milest_end_date));
-				milestoneBox.find('.progress-bar').attr('style','width: '+v.milest_percent+'%;')
-				milestoneBox.find('.milestone-percent').children('span').text((v.milest_percent == null ? 0 : v.milest_percent )+ '% complete '+(v.open_issue_cnt == null ? 0 : v.open_issue_cnt)+' open '+(v.close_issue_cnt == null ? 0 : v.close_issue_cnt)+' closed');
-				
-				$('#milestone-list').append(milestoneBox);
-			})
+			milestoneList = res;
 		},
 		error : function(xhr, error, msg) {
 			console.log(xhr);
@@ -159,6 +148,26 @@ const milestonelist = function(milest_status){
 			console.log(msg);
 		},
 		dataType : 'json'
+		,async : false
+	})
+	return milestoneList;
+}
+
+// milestonelist 을 불러오는 함수
+const milestonelist = function(milest_status){
+	res = getMilestoneList(milest_status);
+	$('#milestone-list').empty();
+	
+	$.each(res, function(i, v) {
+		let milestoneBox = $('#milestone-template').children('.milestoneBox').clone();
+		milestoneBox.attr('data-milest_no',v.milest_no);
+		milestoneBox.find('.milestone-title').children('a').text(v.milest_title);
+		milestoneBox.find('.milestone-descript').children('span').text(v.milest_cont);
+		milestoneBox.find('.milestone-date').children('span').text((v.milest_start_date == null ? "시작일 없음." : v.milest_start_date) +' - '+(v.milest_end_date == null ? "종료일 없음." : v.milest_end_date));
+		milestoneBox.find('.progress-bar').attr('style','width: '+v.milest_percent+'%;')
+		milestoneBox.find('.milestone-percent').children('span').text((v.milest_percent == null ? 0 : v.milest_percent )+ '% complete '+(v.open_issue_cnt == null ? 0 : v.open_issue_cnt)+' open '+(v.close_issue_cnt == null ? 0 : v.close_issue_cnt)+' closed');
+		
+		$('#milestone-list').append(milestoneBox);
 	})
  }
 

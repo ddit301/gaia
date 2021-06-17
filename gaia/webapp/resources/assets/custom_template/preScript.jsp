@@ -21,6 +21,7 @@
     <link href="${cPath }/resources/assets/css/alarm.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/chat.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/code.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/css/issue.css" rel="stylesheet">
 <!--     kanbaj css -->
     <link href="${cPath }/resources/assets/dist/jkanban.min.css" rel="stylesheet" >
     <link href="${cPath }/resources/assets/css/kanban.css" rel="stylesheet">

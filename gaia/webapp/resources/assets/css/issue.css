@@ -28,28 +28,6 @@
 	width : 30px;
 }
 
-.menulist{
-	padding-right : 0px;
-}
-.menulist .menuBox{
-	background-color : #FFFFFF;
-	font-size : 1.5em;
-	margin-top : 10px;
-	width : 100%;
-}
-.menulist .menuBox p{
-	margin-bottom : 0px;
-}
-.menulist .menuBox img{
-	width : 50px;
-	height : 50px;
-	
-}
-.menulist .menuBox i{
-	float : right;
-	margin-right : 10px;
-	margin-top: 30px;
-}
 .issue-title{
 	background-color : #FFFFFF;
 	margin-top : 0px;
@@ -128,9 +106,6 @@
 	margin-top : 15px;
 	float : right;
 }
-.menuBox input{
-	border : none;
-}
 .issue-info{
 	height : 50px;
 	padding : 10px;
@@ -178,3 +153,74 @@
 .assignee1{transform: translateX(0px); transition: all 0.8s ease}
 .assignee2{transform: translateX(0px); transition: all 0.8s ease}
 .assignee3{transform: translateX(0px); transition: all 0.8s ease}
+
+#saveIssue{
+	margin-top : 20px;
+	float : right;
+}
+
+/* 이슈 메뉴박스 관련 css*/
+.menubox{
+	margin-bottom : 10px;
+}
+.menubox button{
+	width : 100%;
+	text-align : left;
+	font-size : 1.5em;
+}
+.menubox-header i{
+	float : right;
+	margin-top : 5px;
+}
+.menubox-header button:hover{
+	color : #58a6ff;
+}
+
+.menubox-body{
+	padding : 5px;
+	font-size : 1.2em;
+}
+.menubox-body .labelBox{
+	width : fit-content;
+	font-size : 1em;
+}
+.menubox-header button input{
+	float : right
+}
+.menubox-body input[type=text]{
+	border : none;
+	width : 100%;
+}
+.menubox .dropdown-item:hover{
+	cursor: pointer;
+}
+.assigneebox{
+	display : flex;
+	padding-left : 5px;
+}
+.assigneebox i{
+	font-size : 2.5em;
+	color : #5aa638;
+	margin-right : 5px;
+}
+.assigneecheck{
+	width : 40px;
+}
+.labelBoxes{
+	max-height : 300px;
+	overflow-y : scroll;
+	background-color : #f3f7f9;
+	
+}
+.labelBox.dropdown-item{
+	width : fit-content;
+	display : block;
+}
+
+
+
+
+
+
+
+

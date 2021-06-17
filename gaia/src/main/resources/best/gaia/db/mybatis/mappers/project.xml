@@ -151,6 +151,7 @@
 		select mem_role_no, mem_role_nm
 		from mem_role
 		where proj_no = #{proj_no}
+		order by mem_role_no
 	</select>
 	
 	<update id="updateProjectMemberRole" parameterType="best.gaia.vo.ProjMemVO">
@@ -191,12 +192,11 @@
 		from member
 		where mem_no not in (select mem_no from memlist)
 		<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(keyword)">
-		        and (mem_id like #{keyword}
-				    or mem_nick like #{keyword}	  
-		            or mem_nm like #{keyword}
-		            or mem_bio like #{keyword}	
-		            or mem_working_city like #{keyword}
-		        )
+		        AND ( instr(LOWER(mem_id) ,LOWER(#{keyword}))>0
+		          OR instr(LOWER(mem_nick) ,LOWER(#{keyword}))>0
+		          OR instr(LOWER(mem_nm) ,LOWER(#{keyword}))>0
+		          OR instr(LOWER(mem_bio) ,LOWER(#{keyword}))>0
+		          OR instr(LOWER(mem_working_city) ,LOWER(#{keyword}))>0)
 		</if>
 		order by mem_no
 	</select>
@@ -263,5 +263,11 @@
 		WHERE
 	        label_no = #{label_no}
 	</update>
+	
+	<select id="selectLabelList" parameterType="int">
+		select label_no, label_nm, label_icon, label_color
+		from label
+		where proj_no = #{proj_no}
+	</select>
 	
 </mapper>

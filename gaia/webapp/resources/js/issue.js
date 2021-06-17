@@ -35,7 +35,7 @@ $(function(){
  		}
  		window.scrollTo({top:0, left:0, behavior:'auto'});
  		loadIssueList();
- 	})
+ 	});
 	
 	// 이슈 Open / Close 필터 버튼
 	$('.content-body').on('click', '#iss-filter-btn button', function(){
@@ -49,6 +49,63 @@ $(function(){
  		window.scrollTo({top:0, left:0, behavior:'auto'});
  		loadIssueList();
  	});
+
+	// 작성한 이슈 등록 버튼
+	$('.content-body').on('click', '#saveIssue', function(){
+		registerIssue();
+	});
+	
+	// 이슈 담당자 지정 버튼
+	$('body').on('click', '.assigneeboxes .assigneebox', function(){
+		let selectedBox = $(this);
+		assigneeMember(selectedBox);		
+	})
+	
+	// 마일스톤 지정 버튼
+	$('body').on('click', '.milestoneBoxes .new-issue-milestone', function(){
+		let selectedBox = $(this);
+		assigneeMilestone(selectedBox);		
+	})
+	
+	// 지정한 마일스톤 클릭시 마일스톤 선택 제거
+	$('body').on('click', '#selectedMilestone .new-issue-milestone' , function(){
+		$(this).remove();
+		$('#noMilestoneSign').attr('hidden', false);
+	})
+	
+	// 라벨 지정 버튼
+	$('body').on('click', '.labelBoxes .labelBox', function(){
+		let selectedBox = $(this);
+		assigneeLabel(selectedBox);		
+		$('#noLabelSign').attr('hidden', true);
+	})
+	
+	//지정한 라벨 철회 버튼
+	$('body').on('click', '#selectedLabel .labelBox', function(){
+		let selectedBox = $(this);
+		assigneeLabel(selectedBox);		
+		
+		// 라벨을 이전 자리로 돌려둔다.
+		$('.labelBoxes').append(selectedBox);
+		$('#noLabelSign').attr('hidden', false);
+	})
+	
+	// 이슈 중요도 선택 버튼
+	$('body').on('click', '.issue-priority-list .issue-priority', function(){
+		let selectedBox = $(this).clone();
+		$('#issuePrioritySetting').html(selectedBox);
+		$('#noPrioritySign').attr('hidden', true);
+	})	
+	
+	// 이슈 중요도 선택 취소
+	$('body').on('click', '#issuePrioritySetting .issue-priority', function(){
+		$(this).remove();
+		$('#noPrioritySign').attr('hidden', false);
+	})	
+	
+	
+	
+	
 
 	////////////////////////////////////////////////////
 	//
@@ -341,3 +398,185 @@ const loadIssue = function(){
 		,async : false
 	})
 }
+
+const registerIssue = function(){
+	label_no = null;
+	milest_sid = null;
+	issue_title = $('.issueTitle').children('input').val();
+	issue_content = editor.getMarkdown();
+	issue_start_date = $('#issueStartDate').children('input').val();
+	issue_end_date = $('#issueEndDate').children('input').val();
+	issue_priority = 3;
+	
+	let addToKanban = $('#addToKanban').is(':checked');
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/issues',
+		method : 'post',
+		data : {
+			'label_no' : label_no
+			,'milest_sid' : milest_sid
+			,'issue_title' : issue_title
+			,'issue_content' : issue_content
+			,'issue_start_date' : issue_start_date
+			,'issue_end_date' : issue_end_date
+			,'issue_priority' : issue_priority
+			,'addToKanban' : addToKanban
+		},
+		success : function(res) {
+			// toastr 알람
+			toastr.success('issue 등록에 성공했습니다.')
+			
+			// 작성 성공시에는 작성한 이슈 페이지로 넘겨버린다.
+			issueView(res.issue_no);
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+	})
+}
+
+// 이슈 작성 페이지 렌더링 해주는 함수
+const loadComponentsForNewIssue = function(){
+	
+	let projectComponents = loadProjectComponents();
+	let members = projectComponents.members;
+	let milestones = projectComponents.milestones;
+	let labels = projectComponents.labels;
+	let issuePriority = projectComponents.issuePriority;
+	
+	let templateArea = $('#newissueTemplate');
+	// 멤버 목록을 담당자 버튼 내에 렌더링 해 준다.
+	let assigneeBoxTemplate = templateArea.find('.assigneebox');
+	let assigneeboxes = $('.menubox').find('.assigneeboxes');
+	assigneeboxes.empty();
+	$.each(members, function(i,member){
+		let assigneebox = assigneeBoxTemplate.clone();
+		assigneebox.attr('data-mem_no', member.mem_no);
+		assigneebox.find('img').attr('src', getProfilePath(member.member.mem_pic_file_name));
+		assigneebox.find('span').text(member.proj_user_nick);
+		assigneeboxes.append(assigneebox);
+	})
+	
+	// 마일스톤 목록을 화면에 출력해준다.
+	let milestoneTemplate = templateArea.find('.new-issue-milestone');
+	let milestoneBoxes = $('.menubox').find('.milestoneBoxes');
+	milestoneBoxes.empty();
+	$.each(milestones, function(i, milestone){
+		let mileBox = milestoneTemplate.clone();
+		mileBox.attr('data-milest_sid', milestone.milest_sid);
+		mileBox.text(milestone.milest_title);
+		milestoneBoxes.append(mileBox);
+	})
+	
+	// 라벨 목록을 화면에 출력해준다.
+	let labelBoxTemplate =  templateArea.find('.labelBox');
+	let labelBoxes = $('.menubox').find('.labelBoxes');
+	labelBoxes.empty();
+	$.each(labels, function(i, label){
+		let labelBox = labelBoxTemplate.clone();
+		labelBox.attr('data-label_no', label.label_no);
+		labelBox.find('i').addClass(label.label_icon);
+		labelBox.find('span').text(label.label_nm);
+		labelBox.css({"backgroundColor":label.label_color});
+		labelBoxes.append(labelBox);
+	})
+	
+	
+	// 이슈 중요도를 화면에 출력해준다.
+	let priorityTemplate =  templateArea.find('.issue-priority');
+	let priorityBoxes = $('.menubox').find('.issue-priority-list');
+	priorityBoxes.empty();
+	
+	let issuePriorityList = getStringArrayFromBinaryAndArray(issuePriority, priorities);
+	let issuePrioritySize = issuePriorityList.length;
+	
+	for(i=0; i<issuePrioritySize; i++){
+		let priorityBox = priorityTemplate.clone();
+		let priorityText = issuePriorityList[i];
+		priorityBox.text(priorityText);
+		let issue_no = priorities.indexOf(priorityText);
+		priorityBox.attr('data-priority', issue_no);
+		priorityBoxes.append(priorityBox);
+	}
+	
+}
+
+
+// 이슈 담당자 지정 했을 경우 함수
+const assigneeMember = function(selectedBox){
+	let selectedMemNo = selectedBox.data('mem_no');
+	let selectedItag = selectedBox.find('i');
+	// 이미 지정된 멤버들에 관한 셀렉터들 
+	let assigneeGuys = $('#assigneeGuys');
+	let assignees = assigneeGuys.find('.assigneebox');
+	let assigneesSize = assignees.length;
+	let noAssigneeSign = $('#noAssigneeSign');
+	
+	// 담당자는 최대 4명까지만 지정 가능.
+	if(assigneesSize >= 4 && isHidden(selectedItag)){
+		toastr.info('담당자는 최대 4명까지만 지정 가능합니다.');
+		return;
+	}
+	
+	// v 체크의 hidden 상태를 toggle 해준다.
+	toggleHidden(selectedItag);
+	
+	// 체크 하며 히든 상태가 더이상 아니게 되었을 경우 assigneeGuys에 append 해준다.
+	if(!isHidden(selectedItag)){
+		if(!assigneesSize){
+			toggleHidden(noAssigneeSign);
+		}
+		let assigneeBox = selectedBox.clone();
+		assigneeBox.find('.assigneecheck').remove();
+		assigneeGuys.prepend(assigneeBox);
+	}else{
+		// 이미 체크되어 있던 멤버의 경우에는 담당자 목록에서 제거한다.
+		for(i=0; i<assigneesSize; i++ ){
+			let whoIsIt = assignees.eq(i);
+			let theirMemNo = whoIsIt.data('mem_no');
+			if(theirMemNo == selectedMemNo){
+				whoIsIt.remove();
+				break;
+			}
+		}
+		if(assigneesSize == 1){
+			// 1명만 지정되어 있었는데 그마저도 지정 해제한 경우
+			toggleHidden(noAssigneeSign);
+		}
+	}
+}
+
+
+// 마일스톤 지정 했을 경우 함수
+const assigneeMilestone = function(selectedBox) {
+	let selectedMilestoneArea = $('#selectedMilestone');
+	let selectedMiestone = selectedBox.clone();
+	selectedMilestoneArea.html(selectedMiestone);
+	$('#noMilestoneSign').attr('hidden', true);
+}	
+
+
+// 라벨 지정 했을 경우
+const assigneeLabel = function(selectedBox){
+	let selectedLabelArea = $('#selectedLabel');
+	// 기존에 있던 라벨을 다시 돌려두고
+	$('.labelBoxes').append(selectedLabelArea.find('.labelBox'));
+	// 새로 선택한 라벨을 붙인다.
+	selectedLabelArea.append(selectedBox);
+}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+

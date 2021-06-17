@@ -103,61 +103,73 @@ $(function() {
 ********************************/
 
 // 프로젝트 관리 페이지에서 쓸 데이터를 불러오는 함수
-const loadProjectForManagement = function(){
-	$.ajax({
+
+const getProjectDetails = function(){
+	let project = null;
+	
+		$.ajax({
 			url : getContextPath() + '/restapi/project/loadProjectForManagement.do',
 			method : 'get',
-			success : function(project) {
-				// 프로젝트 설명 출력
-				$('#mng_proj_cont').val(project.proj_cont);
-				
-				// 예정 마감일 출력
-				let enddate = project.proj_est_end_date;
-				$('#mng_proj_end').val(enddate? moment(enddate).format('YYYY-MM-DD') : '');
-				
-				// 사용 모듈 출력
-				let moduleDiv = $('#mng_module');
-				let moduleData = project.proj_module_set;
-				binaryDataPrinter(moduleDiv, moduleData);
-				
-				// 이슈 중요도 출력
-				let issueDiv = $('#issue_module');
-				let issueData = project.issue_priority_set;
-				binaryDataPrinter(issueDiv, issueData);
-				
-				// 라벨 목록 출력
-				let labelBoxTemplate = $('#manage-template').find('.labelBox')
-				let labelBoxArea = $('#labelBoxArea');
-				labelBoxArea.empty();
-				$.each(project.labelList, function(i,label){
-					let labelBox = labelBoxTemplate.clone();
-					labelBox.attr('data-label_no', label.label_no);
-					labelBox.find('i').addClass(label.label_icon);
-					labelBox.find('span').text(label.label_nm);
-					labelBox.css({"backgroundColor":label.label_color});
-					labelBoxArea.append(labelBox);
-				});
-				
-				// 멤버 역할 목록 출력
-				let roleBoxTemplate = $('#manage-template').find('.roleBox');
-				let roleBoxArea = $('#roleBoxArea');
-				roleBoxArea.empty();
-				$.each(project.roleList, function(i, role){
-					let roleBox = roleBoxTemplate.clone();
-					roleBox.find('.rolename').find('input[type=text]').val(role.mem_role_nm);
-					roleBox.attr('data-mem_role_no', role.mem_role_no);
-					let roleSelectDiv = roleBox.find('.role_auth_list');
-					binaryDataPrinter(roleSelectDiv, role.authority);
-					roleBoxArea.append(roleBox);
-				})
-				
+			success : function(res) {
+				project = res;
 			},
 			error : function(xhr, error, msg) {
 				ajaxError(xhr, error, msg);
 
 			},
 			dataType : 'json'
+			,async : false
 		})
+	
+	return project;
+}
+
+const loadProjectForManagement = function(){
+	let project = getProjectDetails();
+
+	// 프로젝트 설명 출력
+	$('#mng_proj_cont').val(project.proj_cont);
+	
+	// 예정 마감일 출력
+	let enddate = project.proj_est_end_date;
+	$('#mng_proj_end').val(enddate? moment(enddate).format('YYYY-MM-DD') : '');
+	
+	// 사용 모듈 출력
+	let moduleDiv = $('#mng_module');
+	let moduleData = project.proj_module_set;
+	binaryDataPrinter(moduleDiv, moduleData);
+	
+	// 이슈 중요도 출력
+	let issueDiv = $('#issue_module');
+	let issueData = project.issue_priority_set;
+	binaryDataPrinter(issueDiv, issueData);
+	
+	// 라벨 목록 출력
+	let labelBoxTemplate = $('#manage-template').find('.labelBox')
+	let labelBoxArea = $('#labelBoxArea');
+	labelBoxArea.empty();
+	$.each(project.labelList, function(i,label){
+		let labelBox = labelBoxTemplate.clone();
+		labelBox.attr('data-label_no', label.label_no);
+		labelBox.find('i').addClass(label.label_icon);
+		labelBox.find('span').text(label.label_nm);
+		labelBox.css({"backgroundColor":label.label_color});
+		labelBoxArea.append(labelBox);
+	});
+	
+	// 멤버 역할 목록 출력
+	let roleBoxTemplate = $('#manage-template').find('.roleBox');
+	let roleBoxArea = $('#roleBoxArea');
+	roleBoxArea.empty();
+	$.each(project.roleList, function(i, role){
+		let roleBox = roleBoxTemplate.clone();
+		roleBox.find('.rolename').find('input[type=text]').val(role.mem_role_nm);
+		roleBox.attr('data-mem_role_no', role.mem_role_no);
+		let roleSelectDiv = roleBox.find('.role_auth_list');
+		binaryDataPrinter(roleSelectDiv, role.authority);
+		roleBoxArea.append(roleBox);
+	})
+
 }
 
 // 특정 div안의 checkbox 들에 이진수 형태의 data에 맞게 체크를 해주는 함수

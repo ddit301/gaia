@@ -8,85 +8,161 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-    <link href="${cPath }/resources/assets/css/issue.css" rel="stylesheet">
-            <div class="container-fluid">
-            	<div class="row">
-	            	<div class="col-md-9">
-	            		<div class="issueTitle">
-	            			<input type="text" placeholder="Title"/>
-	            		</div>
-	            		<div id="editor"></div>
-	            		<div class="btnDiv">
-		            		<button id="saveIssue" class="btn btn-success" disabled>이슈 등록</button>
-	            		</div>
-	            	</div>
-            		<div class="menulist col-md-3">
-   			            <div class="menuBox row">
-	            			<div class="col-md-10">
-		            			<p>담당자</p>
-		            			<div id="assignees">
-		            			</div>
-	            			</div>
-	           				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-	           				</div>
-	           			</div>
-           				<div class="menuBox row">
-            				<div id="milestone" class="col-md-10">
-		            			<p>마일스톤</p>
-		            			<span></span>
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div id="label" class="col-md-10">
-		            			<p>라벨</p>
-		            			<span></span>
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div id="priority" class="col-md-10">
-		            			<p>중요도</p>
-		            			<span></span>
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div id="issueStartDate" class="col-md-10">
-		            			<p>이슈 시작일</p>
-		            			<input class="datePick" type="text" placeholder="yyyy-mm-dd">
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div id="issueEndDate" class="col-md-10">
-		            			<p>이슈 마감일</p>
-		            			<input class="datePick" type="text" placeholder="yyyy-mm-dd">
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div class="col-md-9">
-		            			<p>칸반에 바로 등록</p>
-            				</div>
-            				<div class="issKanban col-md-3">
-		            			<input id="addToKanban" type="checkbox" checked>
-            				</div>
-            			</div>
-            		</div>
-            	</div>
-           	</div>
+<div id="newissueTemplate" hidden="true">
+<!-- 	담당자 템플릿 - 목록 -->
+	<a class="assigneebox dropdown-item">
+		<div class="assigneecheck">
+			<i class="icon-check" hidden="true"></i>
+		</div>
+		<img class="profile" src="/resources/images/profiles/default">
+		<span>닉네임</span>
+	</a>
+<!-- 	담당자 템플릿 - 지정됨 -->
+	<li class="assigned">
+		<img class="profile" src="/resources/images/profiles/1">
+		<span>최강한화</span>
+	</li>
+<!-- 	마일스톤 템플릿 -->
+	<a class="new-issue-milestone dropdown-item">설계 구현하기</a>
+<!-- 라벨 템플릿	 -->
+	<div class="labelBox dropdown-item">
+		<i></i>
+		<span>라벨명</span>
+	</div>
+<!-- 이슈 중요도 템플릿 -->
+	<a class="issue-priority dropdown-item">급함</a>
+	
+
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-9">
+			<div class="issueTitle">
+				<input type="text" placeholder="Title"/>
+			</div>
+			<div id="editor"></div>
+			<button id="saveIssue" class="btn btn-success" disabled>이슈 등록</button>
+		</div>
+		<div class="menulist col-md-3">
+<!-- 	        이슈 담당자 menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header dropdown">
+					<button class="btn dropdown-toggle" type="button" id="issue-assignee-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span>담당자</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+					<div class="assigneeboxes dropdown-menu" aria-labelledby="issue-assignee-btn">
+					</div>
+				</div>
+				<div class="menubox-body">
+					<div id="assigneeGuys">
+						<span id="noAssigneeSign">지정된 담당자가 없습니다.</span>
+					</div>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      마일스톤   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header dropdown">
+					<button class="btn dropdown-toggle" type="button" id="issue-milestone-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span>마일스톤</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+					<div class="milestoneBoxes dropdown-menu" aria-labelledby="issue-milestone-btn">
+					</div>
+				</div>
+				<div class="menubox-body">
+					<div id="selectedMilestone">
+					</div>
+					<span id="noMilestoneSign">지정된 마일스톤이 없습니다.</span>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      라벨   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header dropdown">
+					<button class="btn dropdown-toggle" type="button" id="issue-milestone-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span>라벨</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+					<div class="labelBoxes dropdown-menu" aria-labelledby="issue-milestone-btn">
+						<div class="labelBox dropdown-item">
+							<i class="icon-star"></i>
+							<span>라벨명</span>
+						</div>
+					</div>
+				</div>
+				<div class="menubox-body">
+					<div id="selectedLabel">
+					</div>
+					<span id="noLabelSign">지정된 라벨이 없습니다.</span>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      중요도   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header dropdown">
+					<button class="btn dropdown-toggle" type="button" id="issue-milestone-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span>중요도</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+					<div class="issue-priority-list dropdown-menu" aria-labelledby="issue-milestone-btn">
+						<a class="dropdown-item">급함</a>
+						<a class="dropdown-item">보통</a>
+						<a class="dropdown-item">빨리</a>
+						<a class="dropdown-item">당장</a>
+					</div>
+				</div>
+				<div class="menubox-body">
+					<div id="issuePrioritySetting"></div>
+					<span id="noPrioritySign">지정된 중요도가 없습니다.</span>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      이슈 시작일   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header datepickerHeader">
+					<button class="btn" type="button">
+					    <span>이슈 시작일</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+				</div>
+				<div id="issueStartDate" class="menubox-body">
+					<input class="datePick" type="text" placeholder="click">
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      이슈 마감일   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header datepickerHeader">
+					<button class="btn" type="button">
+					    <span>이슈 마감일</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+				</div>
+				<div id="issueEndDate" class="menubox-body">
+					<input class="datePick" type="text" placeholder="click">
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      칸반 바로등록   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header">
+					<button class="btn" type="button">
+					    <label for="addToKanban">칸반에 바로 등록</label>
+						<input id="addToKanban" type="checkbox" checked>
+					</button>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+		</div>
+	</div>	
+</div>
+           	
+           	
+           	
+           	
 <script>
 editor = new toastui.Editor({
 	  el: document.querySelector('#editor'),
@@ -98,46 +174,8 @@ editor = new toastui.Editor({
 	
 	$(function(){
 		// 화면 위로 올리기
-		window.scrollTo({top:0, left:0, behavior:'smooth'});
-		
-		// 작성한 이슈 등록
-		$('#saveIssue').on('click', function(){
-			label_no = null;
-			milest_sid = null;
-			issue_title = $('.issueTitle').children('input').val();
-			issue_content = editor.getMarkdown();
-			issue_start_date = $('#issueStartDate').children('input').val();
-			issue_end_date = $('#issueEndDate').children('input').val();
-			issue_priority = 3;
-			
-			let addToKanban = $('#addToKanban').is(':checked');
-			
-			$.ajax({
-				url : '${cPath}/restapi/project/issues',
-				method : 'post',
-				data : {
-					'label_no' : label_no
-					,'milest_sid' : milest_sid
-					,'issue_title' : issue_title
-					,'issue_content' : issue_content
-					,'issue_start_date' : issue_start_date
-					,'issue_end_date' : issue_end_date
-					,'issue_priority' : issue_priority
-					,'addToKanban' : addToKanban
-				},
-				success : function(res) {
-					// toastr 알람
-					toastr.success('issue 등록에 성공했습니다.')
-					
-					// 작성 성공시에는 작성한 이슈 페이지로 넘겨버린다.
-					issueView(res.issue_no);
-				},
-				error : function(xhr, error, msg) {
-					ajaxError(xhr, error, msg);
-				},
-				dataType : 'json'
-			})
-		})
+		scrollUp();
+		loadComponentsForNewIssue();
 		
 		// datePicker 동작시키기
 	    $('.datePick').bootstrapMaterialDatePicker({
@@ -160,7 +198,6 @@ editor = new toastui.Editor({
 		$('.issueTitle').children('input').on('input', function(){
 			checkValidation();
 		})
-		
 		
 	})
 	
