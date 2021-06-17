@@ -43,14 +43,23 @@
 							<div class="col-md-6">bvb</div>
 							<div class="col-md-3">xcc</div>
 						</div>
-						<div class="chat-mid chat-room" id="this-is-chatRoom">
+						<div class="chat-mid chat-room" id="this-is-chatRoom" data-room_no="">
 							<!-- chattings -->
 						</div>
 						<div class="chat-bot pt-1">
-							<input type="text" name="mem_nick" class="form-control input-default" placeholder="Input Default">
+						<form class="row" action="javascript:void();">
+							<div class="col-md-8">
+								<input type="text" class="" id="chatInput" placeholder="Input Default">
+							</div>
+							<div class="col-md-4 inputChatText">
+								<button onclick="inputChat();" type="submit" class="btn mb-1 btn-outline-dark">button</button>
+							</div>
+							</form>
 						</div>
 					</div>			            
-					<div class="col-md-4 border-left" ></div>			            
+					<div class="col-md-4 border-left" >
+						
+					</div>			            
 				</div>
 		    </div>
 		</div>
@@ -58,23 +67,22 @@
 </div>
 <!-- chat  -->
 <div id="chatTemplate" hidden="hidden">
-	<div class="chat-box">
-	<div class="chat-card left clear" >
-		<div class="chat-date">
-			<span>10:24</span>
-		</div>
-		<div class="card-body" >
-			<div class="chat-mid-top" >
-				<span>a</span>
+	<div class="chat-box left">
+		<div class="chat-card clear" >
+			<div class="card-body"  >
+				<div class="chat-mid-top" >
+					<span>a</span>
+				</div>
 			</div>
 		</div>
-		<div style="clear:both;">
+		<div class="chat-date" data-date="">
+			<span>10:24</span>
 		</div>
-	</div>
 	</div>
 	
 	<div class="chat-day-alarm" style="clear:both;">
 		<span></span>
+		<hr>
 	</div>
 </div>
 <!-- sidebar 채팅룸들 -->
@@ -126,18 +134,18 @@
 </div>
 
 <div hidden="hidden">
-<div id="setting-member-template-chat">
-	<ul>
-		<li class="searchedMemberChat">
-			<img class="profile" src="/resources/images/profiles/1">
-			<span class="memid">id</span>
-			<span class="memnm">name</span>
-			<span class="memnick">nick</span>
-			<span class="memcity">city</span>
-			<i class="icon-plus"></i>
-		</li>
-	</ul>
-</div>
+	<div id="setting-member-template-chat">
+		<ul>
+			<li class="searchedMemberChat">
+				<img class="profile" src="/resources/images/profiles/1">
+				<span class="memid">id</span>
+				<span class="memnm">name</span>
+				<span class="memnick">nick</span>
+				<span class="memcity">city</span>
+				<i class="icon-plus"></i>
+			</li>
+		</ul>
+	</div>
 </div>
 <script>
 loadMemberInfo_chat();

@@ -29,11 +29,8 @@ public class ChatServiceImpl implements ChatService{
 	 *  ElasticSearch 
 	 */
 	@Override
-	public ServiceResult insertElasticMessage(MemberVO mem, Map<String, Object> chat) {
-		chat.put("mem_id", mem.getMem_id());
-		chat.put("chatroom_no", 1);
-		chat.put("content", "hi! nice to meet you!");
-		int result = eldao.insertMessage(mem.getMem_no(), chat);
+	public ServiceResult insertElasticMessage(int mem_no, Map<String, Object> chat) {
+		int result = eldao.insertMessage(mem_no, chat);
 		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
 	} 
 	@Override
