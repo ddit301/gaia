@@ -629,7 +629,7 @@ const loadProjectComponents = function(){
 		members : loadProjectMembers()
 		,milestones : getMilestoneList()
 		,labels : projectDetail.labelList
-		,issueProirity : projectDetail.issue_priority_set
+		,issuePriority : projectDetail.issue_priority_set
 	};
 	
 	return projectComponents;

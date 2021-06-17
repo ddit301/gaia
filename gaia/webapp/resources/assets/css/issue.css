@@ -191,14 +191,31 @@
 	border : none;
 	width : 100%;
 }
-
-
-
-
-
-
-
-
+.menubox .dropdown-item:hover{
+	cursor: pointer;
+}
+.assigneebox{
+	display : flex;
+	padding-left : 5px;
+}
+.assigneebox i{
+	font-size : 2.5em;
+	color : #5aa638;
+	margin-right : 5px;
+}
+.assigneecheck{
+	width : 40px;
+}
+.labelBoxes{
+	max-height : 300px;
+	overflow-y : scroll;
+	background-color : #f3f7f9;
+	
+}
+.labelBox.dropdown-item{
+	width : fit-content;
+	display : block;
+}
 
 
 

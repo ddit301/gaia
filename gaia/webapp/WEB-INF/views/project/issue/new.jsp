@@ -8,6 +8,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<div id="newissueTemplate" hidden="true">
+<!-- 	담당자 템플릿 -->
+	<a class="assigneebox dropdown-item">
+		<div class="assigneecheck">
+			<i class="icon-check" hidden="true"></i>
+		</div>
+		<img class="profile" src="/resources/images/profiles/default">
+		<span>닉네임</span>
+	</a>
+<!-- 	마일스톤 템플릿 -->
+	<a class="new-issue-milestone dropdown-item">설계 구현하기</a>
+<!-- 라벨 템플릿	 -->
+	<div class="labelBox dropdown-item">
+		<i></i>
+		<span>라벨명</span>
+	</div>
+<!-- 이슈 중요도 템플릿 -->
+	<a class="issue-priority dropdown-item">급함</a>
+	
+
+</div>
 
 <div class="container-fluid">
 	<div class="row">
@@ -26,19 +47,7 @@
 					    <span>담당자</span>
 					    <i class="icon-settings menu-icon"></i>
 					</button>
-					<div class="dropdown-menu" aria-labelledby="issue-assignee-btn">
-						<a class="dropdown-item">
-							<img class="profile" src="/resources/images/profiles/1">
-							<span>최강한화</span>
-						</a>
-						<a class="dropdown-item">
-							<img class="profile" src="/resources/images/profiles/1">
-							<span>최강한화</span>
-						</a>
-						<a class="dropdown-item">
-							<img class="profile" src="/resources/images/profiles/1">
-							<span>최강한화</span>
-						</a>
+					<div class="assigneeboxes dropdown-menu" aria-labelledby="issue-assignee-btn">
 					</div>
 				</div>
 				<div class="menubox-body">
@@ -62,10 +71,7 @@
 					    <span>마일스톤</span>
 					    <i class="icon-settings menu-icon"></i>
 					</button>
-					<div class="dropdown-menu" aria-labelledby="issue-milestone-btn">
-						<a class="dropdown-item">
-							설계 구현하기
-						</a>
+					<div class="milestoneBoxes dropdown-menu" aria-labelledby="issue-milestone-btn">
 						<a class="dropdown-item">
 							코딩 하기
 						</a>
@@ -86,11 +92,7 @@
 					    <span>라벨</span>
 					    <i class="icon-settings menu-icon"></i>
 					</button>
-					<div class="dropdown-menu" aria-labelledby="issue-milestone-btn">
-						<div class="labelBox dropdown-item">
-							<i class="icon-star"></i>
-							<span>라벨명</span>
-						</div>
+					<div class="labelBoxes dropdown-menu" aria-labelledby="issue-milestone-btn">
 						<div class="labelBox dropdown-item">
 							<i class="icon-star"></i>
 							<span>라벨명</span>
@@ -112,7 +114,7 @@
 					    <span>중요도</span>
 					    <i class="icon-settings menu-icon"></i>
 					</button>
-					<div class="dropdown-menu" aria-labelledby="issue-milestone-btn">
+					<div class="issue-priority-list dropdown-menu" aria-labelledby="issue-milestone-btn">
 						<a class="dropdown-item">급함</a>
 						<a class="dropdown-item">보통</a>
 						<a class="dropdown-item">빨리</a>

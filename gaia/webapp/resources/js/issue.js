@@ -392,10 +392,69 @@ const registerIssue = function(){
 const loadComponentsForNewIssue = function(){
 	
 	let projectComponents = loadProjectComponents();
-	console.log(projectComponents);
+	let members = projectComponents.members;
+	let milestones = projectComponents.milestones;
+	let labels = projectComponents.labels;
+	let issuePriority = projectComponents.issuePriority;
+	
+	let templateArea = $('#newissueTemplate');
+	// 멤버 목록을 담당자 버튼 내에 렌더링 해 준다.
+	let assigneeBoxTemplate = templateArea.find('.assigneebox');
+	let assigneeboxes = $('.menubox').find('.assigneeboxes');
+	assigneeboxes.empty();
+	$.each(members, function(i,member){
+		let assigneebox = assigneeBoxTemplate.clone();
+		assigneebox.attr('data-mem_no', member.mem_no);
+		assigneebox.find('img').attr('src', getProfilePath(member.member.mem_pic_file_name));
+		assigneebox.find('span').text(member.proj_user_nick);
+		assigneeboxes.append(assigneebox);
+	})
+	
+	// 마일스톤 목록을 화면에 출력해준다.
+	let milestoneTemplate = templateArea.find('.new-issue-milestone');
+	let milestoneBoxes = $('.menubox').find('.milestoneBoxes');
+	milestoneBoxes.empty();
+	$.each(milestones, function(i, milestone){
+		let mileBox = milestoneTemplate.clone();
+		mileBox.attr('data-milest_sid', milestone.milest_sid);
+		mileBox.text(milestone.milest_title);
+		milestoneBoxes.append(mileBox);
+	})
+	
+	// 라벨 목록을 화면에 출력해준다.
+	let labelBoxTemplate =  templateArea.find('.labelBox');
+	let labelBoxes = $('.menubox').find('.labelBoxes');
+	labelBoxes.empty();
+	$.each(labels, function(i, label){
+		let labelBox = labelBoxTemplate.clone();
+		labelBox.attr('data-label_no', label.label_no);
+		labelBox.find('i').addClass(label.label_icon);
+		labelBox.find('span').text(label.label_nm);
+		labelBox.css({"backgroundColor":label.label_color});
+		labelBoxes.append(labelBox);
+	})
+	
+	
+	// 이슈 중요도를 화면에 출력해준다.
+	let priorityTemplate =  templateArea.find('.issue-priority');
+	let priorityBoxes = $('.menubox').find('.issue-priority-list');
+	priorityBoxes.empty();
+	
+	let issuePriorityList = getStringArrayFromBinaryAndArray(issuePriority, priorities);
+	let issuePrioritySize = issuePriorityList.length;
+	
+	for(i=0; i<issuePrioritySize; i++){
+		let priorityBox = priorityTemplate.clone();
+		let priorityText = issuePriorityList[i];
+		priorityBox.text(priorityText);
+		let issue_no = priorities.indexOf(priorityText);
+		priorityBox.attr('data-priority', issue_no);
+		priorityBoxes.append(priorityBox);
+	}
 	
 	
 }
+
 
 
 
