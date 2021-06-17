@@ -12,7 +12,7 @@ public interface ChatService {
 	/**
 	 *  ElasticSearch 
 	 */
-	public ServiceResult insertMemberMessage(int chatroom_no, Map<String, Object> chat);
+	public ServiceResult insertElasticMessage(MemberVO mem, Map<String, Object> chat);
 	public List<Map<String, Object>> getMemberMessage(int mem_no);
 	public List<Map<String, Object>> getMessageListbyChatRoom(int mem_no);
 	public List<Map<String, Object>> getMessageListbyChatRoomOne(int chatroom_no, int size);
@@ -22,7 +22,13 @@ public interface ChatService {
 	 *  Oracle
 	 */
 	public List<ChatRoomVO> selectMemberChatRoomList(int mem_no);
-	public ServiceResult insertChatRoom(Map<String, Object> roomInfo);
+	/**
+	 * 본인을 제외한 모든 회원들 조회.
+	 * @param mem_no
+	 * @return List<MemberVO>
+	 */
+	public List<MemberVO> searchMemberList(Map<String, Object> searchInfo);
+	public ServiceResult insertChatRoom(ChatRoomVO roomInfo);
 	public ServiceResult insertChatRoomMember(Map<String, Object> participants);
-	public List<Map<String, Object>>  exists(int mem_no);
+	public int exists(Map<String, Object> participants);
 }
