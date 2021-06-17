@@ -26,6 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.alarm.controller.AlarmREST;
 import best.gaia.chat.dao.OracleChatDao;
 import best.gaia.chat.service.ChatService;
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.ChatRoomVO;
 import best.gaia.vo.MemberVO;
 
@@ -48,75 +49,92 @@ public class ChatREST {
 	 
 	private static final Logger logger = LoggerFactory.getLogger(AlarmREST.class);
 	
-	@GetMapping
-	public Map<String, Object> messageList(
-			Authentication authentication
-			, @RequestParam String need
+	/**
+	 *	GET
+	 */
+	@GetMapping(params = {"need=chatContent"})
+	public Map<String, Object> chatContent(
+			@RequestParam String need
 			, @ModelAttribute("chatRoomVO") ChatRoomVO chatRoomVO
-			, @RequestParam(required=false) String keyword
+			) {
+		// modelAttribute로 가지고 온 chatroom_no를 가지고 해당 방의 채팅 내역들 뽑은 후 chatList에 담기.
+		chatRoomVO.setChatList(service.getMessageListbyChatRoom(chatRoomVO.getChatroom_no()));
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("chatRoom", chatRoomVO); 
+		return result;
+	}
+	
+	@GetMapping(params = {"need=chatRoomList"})
+	public Map<String, Object> chatRoomList(
+				Authentication authentication
+				, @RequestParam String need
 			) {
 		int mem_no = getMemberNoFromAuthentication(authentication);
-		Map<String, Object> result = new HashMap<String, Object>();
-		List<ChatRoomVO> roomList = new ArrayList<>();
 		
-		logger.info("need : {}", need);
 		// roomList의 room 번호마다 채팅들 담기
-		if("chatRoomList".equals(need)) {
-			// roomList 뽑기 
-			roomList = service.selectMemberChatRoomList(mem_no);
-			List<Map<String, Object>> lateChat = new ArrayList<Map<String, Object>>();
-			for(ChatRoomVO chatRoom : roomList) {
-				// chatRoomVO의 chatList에 대화 내용들 담기.
-				int chatRoom_no = chatRoom.getChatroom_no();
-				// elastic에서 chatList 뽑기.
-				lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1); 
-				// 뽑은 chatList를 해당 room의 chatList에 담기.
-				chatRoom.setChatList(lateChat);
-			} 
-		// 해당 방의 채팅내역 불러오기
-		}else if("chatContent".equals(need)) {
-			// modelAttribute로 가지고 온 chatroom_no를 가지고 해당 방의 채팅 내역들 뽑은 후 chatList에 담기.
-			chatRoomVO.setChatList(service.getMessageListbyChatRoom(chatRoomVO.getChatroom_no()));
-			result.put("chatRoom", chatRoomVO); 
-		}else if("searchMemberList".equals(need)) {
-			Map<String, Object> searchInfo = new HashMap<>();
-			searchInfo.put("mem_no",mem_no);
-			searchInfo.put("keyword",keyword);
-			
-				List<MemberVO> memberList = service.searchMemberList(searchInfo);
-			result.put("memberList", memberList);
+		List<ChatRoomVO> roomList = service.selectMemberChatRoomList(mem_no);
+		List<Map<String, Object>> lateChat = new ArrayList<Map<String, Object>>();
+		
+		for(ChatRoomVO chatRoom : roomList) {
+			// chatRoomVO의 chatList에 대화 내용들 담기.
+			int chatRoom_no = chatRoom.getChatroom_no();
+			// elastic에서 chatList 뽑기.
+			lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1); 
+			// 뽑은 chatList를 해당 room의 chatList에 담기.
+			chatRoom.setChatList(lateChat);
 		}
-		logger.info("{}", roomList);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("roomList", roomList);
 		return result;
 	}
-	 
+	
+	@GetMapping(params = {"need=searchMemberList"})
+	public Map<String, Object> searchMemberList(
+				Authentication authentication
+				, @RequestParam String need
+				, @RequestParam(required=false) String keyword
+			) {
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		
+		Map<String, Object> searchInfo = new HashMap<>();
+		searchInfo.put("mem_no",mem_no);
+		searchInfo.put("keyword",keyword);
+		
+		List<MemberVO> memberList = service.searchMemberList(searchInfo);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("memberList", memberList);
+		return result;
+	}
+	
+	/**
+	 *	POST 
+	 */
 	@PostMapping
 	public Map<String, Object> insertMessage(
-			Authentication authentication
-			, @RequestParam String need
-			, @ModelAttribute("chatRoomVO") ChatRoomVO chatRoomVO
+				Authentication authentication
+				, @RequestParam String need
+				, @ModelAttribute("chatRoomVO") ChatRoomVO chatRoomVO
 			) {
 		MemberVO member = getMemberVoFromAuthentication(authentication);
-		member.getMem_id();
-		member.getMem_no();
-		
 		return null;
 	}
+	
 	@PostMapping(params = {"need=elastic"})
 	public Map<String, Object> insertMessageToElastic(
-			Authentication authentication
-			, @RequestParam String need
-			, @RequestParam Map<String, Object> chat
+				Authentication authentication
+				, @RequestParam String need
+				, @RequestParam Map<String, Object> chat
 			) {
 		MemberVO member = getMemberVoFromAuthentication(authentication);
-		member.getMem_id();
-		member.getMem_no();
+		
 		chat.remove("need");
-		logger.info("chat : {}\n\n\n", chat);
-		service.insertElasticMessage(member.getMem_no(), chat);
+		ServiceResult res = service.insertElasticMessage(member.getMem_no(), chat);
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("result", "OK");
+		result.put("result", res);
 		return result;
 	}
 }
