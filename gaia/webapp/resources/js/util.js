@@ -73,6 +73,21 @@ const getStringArrayFromBinaryAndArray = function(binary, array){
 	return result;
 }
 
+/**
+	특정 태그의 hidden 상태를 토글 해 줍니다. hidden 상태의 tag가 parameter로 들어가면
+	해당 태그의 hidden 상태가 없어지고, hidden이 아닌 태그가 들어가면 hidden 상태로 만들어줍니다.
+ */
+const toggleHidden = function(tag){
+	tag.prop('hidden', !isHidden(tag));
+}
+
+/**
+	특정 태그가 hidden 상태인지 확인해 줍니다.
+ */
+const isHidden = function(tag){
+	return tag.prop('hidden');
+}
+
 // 뒤로가기 이벤트 binding 하기
 $(window).bind("popstate", function(event) {
     var data = event.originalEvent.state;

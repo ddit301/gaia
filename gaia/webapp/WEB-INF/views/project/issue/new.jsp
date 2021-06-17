@@ -9,7 +9,7 @@
     pageEncoding="UTF-8"%>
 
 <div id="newissueTemplate" hidden="true">
-<!-- 	담당자 템플릿 -->
+<!-- 	담당자 템플릿 - 목록 -->
 	<a class="assigneebox dropdown-item">
 		<div class="assigneecheck">
 			<i class="icon-check" hidden="true"></i>
@@ -17,6 +17,11 @@
 		<img class="profile" src="/resources/images/profiles/default">
 		<span>닉네임</span>
 	</a>
+<!-- 	담당자 템플릿 - 지정됨 -->
+	<li class="assigned">
+		<img class="profile" src="/resources/images/profiles/1">
+		<span>최강한화</span>
+	</li>
 <!-- 	마일스톤 템플릿 -->
 	<a class="new-issue-milestone dropdown-item">설계 구현하기</a>
 <!-- 라벨 템플릿	 -->
@@ -51,16 +56,9 @@
 					</div>
 				</div>
 				<div class="menubox-body">
-					<ul>
-						<li>
-							<img class="profile" src="/resources/images/profiles/1">
-							<span>최강한화</span>
-						</li>
-						<li>
-							<img class="profile" src="/resources/images/profiles/1">
-							<span>최강한화</span>
-						</li>
-					</ul>
+					<div id="assigneeGuys">
+						<span id="noAssigneeSign">지정된 담당자가 없습니다.</span>
+					</div>
 				</div>
 			</div>
 <!-- 	         menubox 끝 -->

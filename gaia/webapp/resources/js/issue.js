@@ -55,6 +55,11 @@ $(function(){
 		registerIssue();
 	});
 	
+	// 이슈 담당자 지정 버튼
+	$('body').on('click', '.assigneeboxes .assigneebox', function(){
+		let selectedBox = $(this);
+		assigneeMember(selectedBox);		
+	})
 	
 	
 
@@ -452,8 +457,60 @@ const loadComponentsForNewIssue = function(){
 		priorityBoxes.append(priorityBox);
 	}
 	
-	
 }
+
+
+// 이슈 담당자 지정 했을 경우 함수
+const assigneeMember = function(selectedBox){
+	let selectedMemNo = selectedBox.data('mem_no');
+	let selectedItag = selectedBox.find('i');
+	// 이미 지정된 멤버들에 관한 셀렉터들 
+	let assigneeGuys = $('#assigneeGuys');
+	let assignees = assigneeGuys.find('.assigneebox');
+	let assigneesSize = assignees.length;
+	let noAssigneeSign = $('#noAssigneeSign');
+	
+	// 담당자는 최대 4명까지만 지정 가능.
+	if(assigneesSize >= 4 && isHidden(selectedItag)){
+		toastr.info('담당자는 최대 4명까지만 지정 가능합니다.');
+		return;
+	}
+	
+	// v 체크의 hidden 상태를 toggle 해준다.
+	toggleHidden(selectedItag);
+	
+	// 체크 하며 히든 상태가 더이상 아니게 되었을 경우 assigneeGuys에 append 해준다.
+	if(!isHidden(selectedItag)){
+		if(!assigneesSize){
+			toggleHidden(noAssigneeSign);
+		}
+		let assigneeBox = selectedBox.clone();
+		assigneeBox.find('.assigneecheck').remove();
+		assigneeGuys.append(assigneeBox);
+	}else{
+		// 이미 체크되어 있던 멤버의 경우에는 담당자 목록에서 제거한다.
+		for(i=0; i<assigneesSize; i++ ){
+			let whoIsIt = assignees.eq(i);
+			let theirMemNo = whoIsIt.data('mem_no');
+			if(theirMemNo == selectedMemNo){
+				whoIsIt.remove();
+				break;
+			}
+		}
+		if(assigneesSize == 1){
+			// 1명만 지정되어 있었는데 그마저도 지정 해제한 경우
+			toggleHidden(noAssigneeSign);
+		}
+	}
+}
+
+
+
+	
+
+
+
+
 
 
 
