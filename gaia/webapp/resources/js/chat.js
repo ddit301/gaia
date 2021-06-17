@@ -55,7 +55,7 @@ const loadMemberInfo_chat = function() {
 		type: 'get',
 		data: { "need": need },
 		success: function(res) {
-			console.log(res.roomList)
+			console.log(res)
 			// 채팅 날짜 순으로 정렬 하기 (가장최근이 가장 위로)
 			sortByDate(res.roomList);
 			
@@ -132,13 +132,10 @@ const loadChatList_chatRoom = function(room_no) {
 				
 				// 날 바뀌면 june 14, 2021 찍어주기 
 				if (!!day && day!=moment.utc(chat.date).format("MMMM DD, YYYY")){
-					let dayAlert = $("#chatTemplate").children(".chat-day-alarm").clone();
-					dayAlert.children("span").text(day);
-					dayAlert.appendTo("#this-is-chatRoom");
+					dayAlert($("#chatTemplate").children(".chat-day-alarm").clone(), day);
 				}
 				// 각 채팅이 날짜데이터 넣어두기.
 				day = moment.utc(chat.date).format("MMMM DD, YYYY");
-				console.log(day);
 				chatform.find(".chat-date").attr("data-date", day);
 				
 				// 본인이 작성한 chat일 경우 우측에 출력되게끔 수정.
@@ -168,19 +165,13 @@ const inputChat = function(){
 	let today = moment.utc(currentTime).format("MMMM DD, YYYY");
 	let thatDay = $(".chat-room").find(".chat-box:last").children(".chat-date").data("date");
 	let room_no = $("#this-is-chatRoom").data("room_no");
-	console.log(thatDay);
-	console.log(today);
 	// db에 제대로 들어가면 출력.
 	if(inputChatUpload(chatText, room_no)){
 		// 내가쓴 글이니 우측으로 정렬.
 		chatToRight(chatform);
+		
 		// 날 바뀌면 june 14, 2021 찍어주기 
-		if (today!=thatDay){
-			console.log("a")
-			let dayAlert = $("#chatTemplate").children(".chat-day-alarm").clone();
-			dayAlert.children("span").text(today);
-			dayAlert.appendTo("#this-is-chatRoom");
-		}
+		if (today!=thatDay){ dayAlert($("#chatTemplate").children(".chat-day-alarm").clone(), today); }
 		
 		// chatform에 내용 채워넣기.
 		chatform.find(".chat-date").children("span").text(date);
@@ -205,8 +196,6 @@ const inputChatUpload = function(content, room_no){
 					"chatroom_no" : room_no
 				 }
 		, success : function(res) {
-			console.log("success");
-			console.log(res)
 			result = 1;
 		}
 		, async : false
@@ -330,4 +319,9 @@ const chatToRight = function(chatform){
 	chatform.removeClass("left").addClass("right");
 	chatform.append(chatform.find(".chat-card"));
 	chatform.find(".chat-date").addClass("toRight");
+}
+// 날짜 바뀌면 채팅창에 찍어주기 
+const dayAlert = function(dayAlert, today){
+	dayAlert.children("span").text(today);
+	dayAlert.appendTo("#this-is-chatRoom");
 }
