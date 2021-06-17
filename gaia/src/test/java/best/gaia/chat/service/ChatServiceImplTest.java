@@ -43,13 +43,10 @@ public class ChatServiceImplTest {
 	@Test
 	public void testInsert() {
 		Map<String, Object> chat = new HashMap<>();
-		MemberVO mem = new MemberVO();
-		mem.setMem_id("eisen");
-		mem.setMem_no(1);
 		
 		chat.put("chatroom_no", 1);
 		chat.put("content", "hi hello nihao thisaaa room1! nice to meet you!");
-		ServiceResult result = service.insertElasticMessage(mem, chat);
+		ServiceResult result = service.insertElasticMessage(1, chat);
 		System.out.println(result);
 	}
 //	@Test

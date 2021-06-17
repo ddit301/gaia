@@ -163,7 +163,7 @@ textarea {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
     background-color: rgb(236, 248, 206);
-	max-width:30%
+    margin:10px 0;
 }
 .left{
 	float: left;
@@ -173,7 +173,7 @@ textarea {
 }
 .chat-room{
 	overflow:auto;
-	max-height:50vh;
+	height:50vh;
 }
 .chatRoom:hover{
 	box-shadow: 9px 35px 35px -28px #a99de7;
@@ -185,4 +185,26 @@ textarea {
 }
 .clear{
 	clear:both;
+}
+.chat-date{
+	margin: auto auto auto 10px;
+}
+.chat-date.toRight{
+	margin: auto 10px auto auto;
+}
+.chat-box{
+	display: flex;
+    clear: both;
+    max-width: 70%;
+}
+.chat-day-alarm{
+	clear:both;
+	text-align: center;
+}
+.chat-mid-top{
+	text-align: center;
+}
+.inputChatText{
+	margin: auto;
+	text-align: center;
 }
