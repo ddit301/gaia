@@ -77,6 +77,7 @@ $(function(){
 	$('body').on('click', '.labelBoxes .labelBox', function(){
 		let selectedBox = $(this);
 		assigneeLabel(selectedBox);		
+		$('#noLabelSign').attr('hidden', true);
 	})
 	
 	//지정한 라벨 철회 버튼
@@ -86,7 +87,23 @@ $(function(){
 		
 		// 라벨을 이전 자리로 돌려둔다.
 		$('.labelBoxes').append(selectedBox);
+		$('#noLabelSign').attr('hidden', false);
 	})
+	
+	// 이슈 중요도 선택 버튼
+	$('body').on('click', '.issue-priority-list .issue-priority', function(){
+		let selectedBox = $(this).clone();
+		$('#issuePrioritySetting').html(selectedBox);
+		$('#noPrioritySign').attr('hidden', true);
+	})	
+	
+	// 이슈 중요도 선택 취소
+	$('body').on('click', '#issuePrioritySetting .issue-priority', function(){
+		$(this).remove();
+		$('#noPrioritySign').attr('hidden', false);
+	})	
+	
+	
 	
 	
 

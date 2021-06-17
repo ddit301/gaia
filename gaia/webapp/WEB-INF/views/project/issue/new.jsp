@@ -96,6 +96,7 @@
 				<div class="menubox-body">
 					<div id="selectedLabel">
 					</div>
+					<span id="noLabelSign">지정된 라벨이 없습니다.</span>
 				</div>
 			</div>
 <!-- 	         menubox 끝 -->
@@ -114,7 +115,8 @@
 					</div>
 				</div>
 				<div class="menubox-body">
-					<span>보통</span>
+					<div id="issuePrioritySetting"></div>
+					<span id="noPrioritySign">지정된 중요도가 없습니다.</span>
 				</div>
 			</div>
 <!-- 	         menubox 끝 -->
