@@ -54,4 +54,6 @@ public interface IssueDao {
 	public int updateIssueHistory(IssueHistoryVO history);
 	public int deleteIssueHistory(IssueHistoryVO history);
 	
+	public int deleteLabelFromIssue(int label_no);
+	
 }

@@ -4,29 +4,44 @@
 		
 		<sql id="searchFrag">
 			<trim prefix="WHERE" prefixOverrides="AND">
-				WIKI.PROJ_NO = #{detailSearch.proj_no}
-				
-					<if test = "detailSearch neq null">
-						<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailSearch.wiki_title)">
-							 AND INSTR(WIKI.WIKI_TITLE, #{detailSearch.wiki_title,jdbcType=VARCHAR}) > 0
-						</if>
+				 CBI = 1 AND PROJ_NO = #{detailSearch.proj_no}
+				<if test = "detailSearch neq null">
+					<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailSearch.wiki_title)">
+						 AND INSTR(WIKI_TITLE, #{detailSearch.wiki_title,jdbcType=VARCHAR}) > 0
 					</if>
-			
+				</if>
 			</trim>
 		</sql>
 		
-		
 		<select id="selectWikiList" parameterType = "best.gaia.vo.PagingVO" resultType="best.gaia.vo.WikiVO">
 		
-		   SELECT WIKI.WIKI_SID, WIKI.PARENT_WIKI, WIKI.MEM_NO, WIKI.WIKI_TITLE, WIKI.PROJ_NO, WIKI.WIKI_NO, WIKI.WIKI_CONT, WIKI.WIKI_WRITE_DATE, WIKI_WRI_NICK.PROJ_USER_NICK
- 		     FROM WIKI WIKI
-       			 LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO)
-       			 LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO)
-   		   	<include refid = "searchFrag" />
- 		   ORDER BY WIKI.WIKI_SID ASC
+<!-- 		   SELECT WIKI.WIKI_SID, WIKI.PARENT_WIKI, WIKI.MEM_NO, WIKI.WIKI_TITLE, WIKI.PROJ_NO, WIKI.WIKI_NO, WIKI.WIKI_CONT, WIKI.WIKI_WRITE_DATE, WIKI_WRI_NICK.PROJ_USER_NICK -->
+<!--  		     FROM WIKI WIKI -->
+<!--        			 LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO) -->
+<!--        			 LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO) -->
+<!--    		   	<include refid = "searchFrag" /> -->
+<!--  		   ORDER BY WIKI.WIKI_SID ASC -->
+ 		   
+ 		   
+ 		   
+ 		     WITH LOADWIKI AS (      
+               SELECT WIKI.WIKI_SID, WIKI.PARENT_WIKI,WIKI.WIKI_TITLE, WIKI.PROJ_NO, WIKI.MEM_NO, WIKI.WIKI_NO, WIKI.WIKI_CONT, WIKI.WIKI_WRITE_DATE, WIKI_WRI_NICK.PROJ_USER_NICK, CONNECT_BY_ISLEAF AS CBI, CONNECT_BY_ROOT WIKI_SID AS CBR
+                 FROM WIKI WIKI
+                    LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO)
+                    LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO)
+                 START WITH PARENT_WIKI IS NULL 
+                 CONNECT BY PRIOR WIKI_SID = PARENT_WIKI
+                 ORDER SIBLINGS BY WIKI_SID DESC
+             )
+             SELECT MAX(WIKI_SID) KEEP(DENSE_RANK FIRST ORDER BY WIKI_WRITE_DATE DESC) AS WIKI_SID, PARENT_WIKI, PROJ_NO, MEM_NO, WIKI_NO,WIKI_TITLE, WIKI_CONT, WIKI_WRITE_DATE, PROJ_USER_NICK
+              FROM LOADWIKI
+              	<include refid = "searchFrag" />
+              GROUP BY CBR, PARENT_WIKI, MEM_NO, PROJ_NO, WIKI_NO,WIKI_TITLE, WIKI_CONT, WIKI_WRITE_DATE, PROJ_USER_NICK
+		
+		
+		
 		
 		</select>
-		
 		
 		<insert id="insertWiki" parameterType="best.gaia.vo.WikiVO">
 			<selectKey keyProperty = "wiki_sid,wiki_no" resultType="best.gaia.vo.WikiVO" order = "BEFORE">
@@ -39,8 +54,10 @@
 			       where proj_no = #{proj_no, jdbcType=NUMERIC}
 			    )b
 			</selectKey>
+			
 			INSERT INTO WIKI(
                 WIKI_SID
+                ,PARENT_WIKI
                 ,WIKI_TITLE
                 ,MEM_NO
                 ,PROJ_NO
@@ -49,6 +66,7 @@
                 ,WIKI_WRITE_DATE
                 )VALUES(
 				 #{wiki_sid}
+				,#{parent_wiki, jdbcType=NUMERIC}
                 ,#{wiki_title, jdbcType=VARCHAR}
                 ,#{mem_no, jdbcType=NUMERIC}
                 ,#{proj_no, jdbcType=NUMERIC}
@@ -64,11 +82,16 @@
 		        LEFT OUTER JOIN MEMBER WIKI_WRI_MEM ON(WIKI_WRI_MEM.MEM_NO = WIKI.MEM_NO)
 		        LEFT OUTER JOIN PROJ_MEM WIKI_WRI_NICK ON(WIKI_WRI_NICK.MEM_NO = WIKI_WRI_MEM.MEM_NO AND WIKI_WRI_NICK.PROJ_NO = WIKI.PROJ_NO)
 		    WHERE WIKI.PROJ_NO = #{proj_no} AND WIKI.WIKI_NO = #{wiki_no}
-		
 		</select>
 		
 		<delete id="deleteWiki" parameterType="best.gaia.vo.WikiVO">
-				   DELETE FROM WIKI
-     			   WHERE WIKI_SID = #{wiki_sid, jdbcType=NUMERIC}
+				    DELETE FROM WIKI 
+         		     WHERE WIKI_SID IN (
+                                    SELECT WIKI_SID FROM WIKI
+                                    START WITH WIKI_SID = #{wiki_sid, jdbcType=NUMERIC}
+                                    CONNECT BY PRIOR PARENT_WIKI = WIKI_SID
+                                   )   
+				
 		</delete>
+		
 </mapper>
