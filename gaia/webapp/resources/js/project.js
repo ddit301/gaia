@@ -302,48 +302,60 @@ const insertProject = function(proj_title, proj_cont){
 	})
 }
 
-// project에 속한 멤버들 불러오는 함수
+// project에 속한 멤버들 불러오는 함수. keyword가 없으면 전체 멤버 불러온다.
 const loadProjectMembers = function(searchword){
+	let members = null;
 	$.ajax({
 		url : getContextPath() + '/restapi/project/members', 
 		type : 'get',
 		data : {
 			'searchword' : searchword
 		},
-		success : function(members) {
-			let projMemList = $('#proj-mem-list');
-			projMemList.empty();
-			activeMembers = [];
-			inactiveMembers = [];
-			$.each(members, function(i,member){
-				let memCard = $('#setting-member-template').children('.memcard').clone();
-				
-				memCard.attr('data-mem_no', member.mem_no);
-				memCard.attr('data-proj_nick', member.proj_user_nick);
-				memCard.attr('data-proj_role_no', member.mem_role_no);
-				memCard.attr('data-mem_pic_file_name', member.member.mem_pic_file_name);
-				memCard.attr('data-dropped', member.proj_drop_date? true:false);
-				
-				memCard.find('.proj-nick').text(member.proj_user_nick);
-				memCard.find('.proj-role').text(member.mem_role_nm);
-				memCard.find('.proj-in-date').text(moment(member.proj_join_date).format('LL'));
-				memCard.find('.profileBox').children('img').attr('src',getProfilePath(member.member.mem_pic_file_name));
-				
-				memCard.addClass(member.proj_drop_date? 'dropped' :'');
-				(member.proj_drop_date? inactiveMembers : activeMembers).push(memCard);
-			});
-			projMemList.append(activeMembers);
-			projMemList.append(inactiveMembers);
-			
-			// 추가 멤버 초대 카드 
-			let plusCard = $('#setting-member-template').children('.pluscard').clone();
-			projMemList.append(plusCard);
+		success : function(res) {
+			members = res;
 		},
 		error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
 		},
 		dataType : 'json'
+		,async : false
 	})	
+	return members;
+}
+
+// project에 속한 멤버들 불러와 project setting-member 페이지 렌더링 해주는 함수 
+const loadProjectMemberstoManage = function(){
+	let members = loadProjectMembers();
+	
+	let projMemList = $('#proj-mem-list');
+	projMemList.empty();
+	activeMembers = [];
+	inactiveMembers = [];
+	
+	$.each(members, function(i,member){
+		let memCard = $('#setting-member-template').children('.memcard').clone();
+		
+		memCard.attr('data-mem_no', member.mem_no);
+		memCard.attr('data-proj_nick', member.proj_user_nick);
+		memCard.attr('data-proj_role_no', member.mem_role_no);
+		memCard.attr('data-mem_pic_file_name', member.member.mem_pic_file_name);
+		memCard.attr('data-dropped', member.proj_drop_date? true:false);
+		
+		memCard.find('.proj-nick').text(member.proj_user_nick);
+		memCard.find('.proj-role').text(member.mem_role_nm);
+		memCard.find('.proj-in-date').text(moment(member.proj_join_date).format('LL'));
+		memCard.find('.profileBox').children('img').attr('src',getProfilePath(member.member.mem_pic_file_name));
+		
+		memCard.addClass(member.proj_drop_date? 'dropped' :'');
+		(member.proj_drop_date? inactiveMembers : activeMembers).push(memCard);
+	});
+	projMemList.append(activeMembers);
+	projMemList.append(inactiveMembers);
+	
+	// 추가 멤버 초대 카드 
+	let plusCard = $('#setting-member-template').children('.pluscard').clone();
+	projMemList.append(plusCard);	
+	
 }
 
 // 프로젝트 내 특정 회원 관리 함수

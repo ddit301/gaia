@@ -98,46 +98,7 @@ editor = new toastui.Editor({
 	
 	$(function(){
 		// 화면 위로 올리기
-		window.scrollTo({top:0, left:0, behavior:'smooth'});
-		
-		// 작성한 이슈 등록
-		$('#saveIssue').on('click', function(){
-			label_no = null;
-			milest_sid = null;
-			issue_title = $('.issueTitle').children('input').val();
-			issue_content = editor.getMarkdown();
-			issue_start_date = $('#issueStartDate').children('input').val();
-			issue_end_date = $('#issueEndDate').children('input').val();
-			issue_priority = 3;
-			
-			let addToKanban = $('#addToKanban').is(':checked');
-			
-			$.ajax({
-				url : '${cPath}/restapi/project/issues',
-				method : 'post',
-				data : {
-					'label_no' : label_no
-					,'milest_sid' : milest_sid
-					,'issue_title' : issue_title
-					,'issue_content' : issue_content
-					,'issue_start_date' : issue_start_date
-					,'issue_end_date' : issue_end_date
-					,'issue_priority' : issue_priority
-					,'addToKanban' : addToKanban
-				},
-				success : function(res) {
-					// toastr 알람
-					toastr.success('issue 등록에 성공했습니다.')
-					
-					// 작성 성공시에는 작성한 이슈 페이지로 넘겨버린다.
-					issueView(res.issue_no);
-				},
-				error : function(xhr, error, msg) {
-					ajaxError(xhr, error, msg);
-				},
-				dataType : 'json'
-			})
-		})
+		scrollUp();
 		
 		// datePicker 동작시키기
 	    $('.datePick').bootstrapMaterialDatePicker({
@@ -160,7 +121,6 @@ editor = new toastui.Editor({
 		$('.issueTitle').children('input').on('input', function(){
 			checkValidation();
 		})
-		
 		
 	})
 	
