@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.KanbanCardVO;
+import best.gaia.vo.MemRoleVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
 import best.gaia.vo.ProjMemVO;
@@ -27,6 +28,11 @@ public interface ProjectService {
 	 *  프로젝트 멤버 관련 service
 	 **********************************************************************/
 	public List<ProjMemVO> selectProjectMembers(int proj_no, String searchword);
+	
+	/**********************************************************************
+	 *  프로젝트 멤버 역할관련 service
+	 **********************************************************************/
+	public ServiceResult insertAndUpdateMemroles(int proj_no, List<MemRoleVO> newRoles, List<MemRoleVO> editRoles);
 	
 	/**********************************************************************
 	 *  뉴스 관련 service

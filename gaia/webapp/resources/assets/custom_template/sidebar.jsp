@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <a id="sideSettingMenu" class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-menu menu-icon"></i><span class="nav-text">Setting</span>
                         </a>
                         <ul aria-expanded="false">
@@ -67,7 +67,7 @@
                     		   </a>
                             </li>
                             <li>
-                               <a class="moveButton" data-menu="management" href="#">
+                               <a class="moveButton managementmenu" data-menu="management" href="#">
                            		 <i class="icon-settings menu-icon"></i> <span class="nav-text">Management</span>
                     		   </a>
                             </li>

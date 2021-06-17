@@ -118,6 +118,15 @@
               <script>
                  $(function(){
 		        	if(message){
+		        		
+		        		$.ajax({
+							url : getContextPath() + '/signout',
+							method : 'get',
+							error : function(xhr, error, msg) {
+								ajaxError(xhr, error, msg);
+							}
+						})
+		        		
 		        		alert(message);
 		        		menu_name = 'signin'
 			        	let uri = getContextPath() + '/' + menu_name;

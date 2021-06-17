@@ -15,8 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemRoleVO {
 	
-	public MemRoleVO(String mem_role_nm){
+	public MemRoleVO(Integer proj_no,String mem_role_nm,Integer authority){
+		this.proj_no = proj_no;
 		this.mem_role_nm = mem_role_nm;
+		this.authority = authority;
 	}
 	
 	/**
