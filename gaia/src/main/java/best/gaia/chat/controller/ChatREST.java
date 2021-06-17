@@ -101,8 +101,23 @@ public class ChatREST {
 		member.getMem_id();
 		member.getMem_no();
 		
-		
 		return null;
+	}
+	@PostMapping(params = {"need=elastic"})
+	public Map<String, Object> insertMessageToElastic(
+			Authentication authentication
+			, @RequestParam String need
+			, @RequestParam Map<String, Object> chat
+			) {
+		MemberVO member = getMemberVoFromAuthentication(authentication);
+		member.getMem_id();
+		member.getMem_no();
+		chat.remove("need");
+		logger.info("chat : {}\n\n\n", chat);
+		service.insertElasticMessage(member.getMem_no(), chat);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("result", "OK");
+		return result;
 	}
 }
 
