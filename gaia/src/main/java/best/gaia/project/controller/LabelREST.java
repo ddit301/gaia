@@ -2,6 +2,7 @@ package best.gaia.project.controller;
 
 import static best.gaia.utils.SessionUtil.getProjNoFromSession;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +44,17 @@ public class LabelREST {
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(LabelREST.class);
+	
+	@GetMapping
+	public List<LabelVO> selectLabellist(
+			HttpSession session
+			) {
+		
+		int proj_no = getProjNoFromSession(session);
+		
+		return dao.selectLabelList(proj_no);
+		
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public LabelVO insertLabel(

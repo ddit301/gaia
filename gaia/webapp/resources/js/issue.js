@@ -389,13 +389,13 @@ const registerIssue = function(){
 }
 
 // 이슈 작성 페이지 렌더링 해주는 함수
-const renderingNewIssuePage = function(){
+const loadComponentsForNewIssue = function(){
 	
-	project = loadProjectComponents();
+	let projectComponents = loadProjectComponents();
+	console.log(projectComponents);
 	
 	
 }
-
 
 
 

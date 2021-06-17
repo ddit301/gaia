@@ -621,6 +621,20 @@ const inviteMember = function(selectedMemNo,selectedMemName,selectedMemberLi){
 	
 }
 
+// 해당 프로젝트의 멤버목록, 마일스톤, 라벨목록, 이슈 중요도 설정을 받아 보내줍니다.
+const loadProjectComponents = function(){
+	let projectDetail = getProjectDetails();
+	
+	let projectComponents = {
+		members : loadProjectMembers()
+		,milestones : getMilestoneList()
+		,labels : projectDetail.labelList
+		,issueProirity : projectDetail.issue_priority_set
+	};
+	
+	return projectComponents;
+	 
+}
 
 
 

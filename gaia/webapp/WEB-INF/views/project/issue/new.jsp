@@ -8,85 +8,165 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-    <link href="${cPath }/resources/assets/css/issue.css" rel="stylesheet">
-            <div class="container-fluid">
-            	<div class="row">
-	            	<div class="col-md-9">
-	            		<div class="issueTitle">
-	            			<input type="text" placeholder="Title"/>
-	            		</div>
-	            		<div id="editor"></div>
-	            		<div class="btnDiv">
-		            		<button id="saveIssue" class="btn btn-success" disabled>이슈 등록</button>
-	            		</div>
-	            	</div>
-            		<div class="menulist col-md-3">
-   			            <div class="menuBox row">
-	            			<div class="col-md-10">
-		            			<p>담당자</p>
-		            			<div id="assignees">
-		            			</div>
-	            			</div>
-	           				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-	           				</div>
-	           			</div>
-           				<div class="menuBox row">
-            				<div id="milestone" class="col-md-10">
-		            			<p>마일스톤</p>
-		            			<span></span>
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div id="label" class="col-md-10">
-		            			<p>라벨</p>
-		            			<span></span>
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div id="priority" class="col-md-10">
-		            			<p>중요도</p>
-		            			<span></span>
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div id="issueStartDate" class="col-md-10">
-		            			<p>이슈 시작일</p>
-		            			<input class="datePick" type="text" placeholder="yyyy-mm-dd">
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div id="issueEndDate" class="col-md-10">
-		            			<p>이슈 마감일</p>
-		            			<input class="datePick" type="text" placeholder="yyyy-mm-dd">
-            				</div>
-            				<div class="col-md-2">
-		            			<i class="icon-settings menu-icon"></i>
-            				</div>
-            			</div>
-            			<div class="menuBox row">
-            				<div class="col-md-9">
-		            			<p>칸반에 바로 등록</p>
-            				</div>
-            				<div class="issKanban col-md-3">
-		            			<input id="addToKanban" type="checkbox" checked>
-            				</div>
-            			</div>
-            		</div>
-            	</div>
-           	</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-9">
+			<div class="issueTitle">
+				<input type="text" placeholder="Title"/>
+			</div>
+			<div id="editor"></div>
+			<button id="saveIssue" class="btn btn-success" disabled>이슈 등록</button>
+		</div>
+		<div class="menulist col-md-3">
+<!-- 	        이슈 담당자 menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header dropdown">
+					<button class="btn dropdown-toggle" type="button" id="issue-assignee-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span>담당자</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+					<div class="dropdown-menu" aria-labelledby="issue-assignee-btn">
+						<a class="dropdown-item">
+							<img class="profile" src="/resources/images/profiles/1">
+							<span>최강한화</span>
+						</a>
+						<a class="dropdown-item">
+							<img class="profile" src="/resources/images/profiles/1">
+							<span>최강한화</span>
+						</a>
+						<a class="dropdown-item">
+							<img class="profile" src="/resources/images/profiles/1">
+							<span>최강한화</span>
+						</a>
+					</div>
+				</div>
+				<div class="menubox-body">
+					<ul>
+						<li>
+							<img class="profile" src="/resources/images/profiles/1">
+							<span>최강한화</span>
+						</li>
+						<li>
+							<img class="profile" src="/resources/images/profiles/1">
+							<span>최강한화</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      마일스톤   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header dropdown">
+					<button class="btn dropdown-toggle" type="button" id="issue-milestone-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span>마일스톤</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+					<div class="dropdown-menu" aria-labelledby="issue-milestone-btn">
+						<a class="dropdown-item">
+							설계 구현하기
+						</a>
+						<a class="dropdown-item">
+							코딩 하기
+						</a>
+						<a class="dropdown-item">
+							발표 준비 하기
+						</a>
+					</div>
+				</div>
+				<div class="menubox-body">
+					<span>설계 구현하기</span>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      라벨   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header dropdown">
+					<button class="btn dropdown-toggle" type="button" id="issue-milestone-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span>라벨</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+					<div class="dropdown-menu" aria-labelledby="issue-milestone-btn">
+						<div class="labelBox dropdown-item">
+							<i class="icon-star"></i>
+							<span>라벨명</span>
+						</div>
+						<div class="labelBox dropdown-item">
+							<i class="icon-star"></i>
+							<span>라벨명</span>
+						</div>
+					</div>
+				</div>
+				<div class="menubox-body">
+					<div class="labelBox dropdown-item" data-label_no="18" style="background-color: rgb(186, 139, 175);">
+						<i class="icon-lock"></i>
+						<span>수정한자물쇠1</span>
+					</div>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      중요도   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header dropdown">
+					<button class="btn dropdown-toggle" type="button" id="issue-milestone-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span>중요도</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+					<div class="dropdown-menu" aria-labelledby="issue-milestone-btn">
+						<a class="dropdown-item">급함</a>
+						<a class="dropdown-item">보통</a>
+						<a class="dropdown-item">빨리</a>
+						<a class="dropdown-item">당장</a>
+					</div>
+				</div>
+				<div class="menubox-body">
+					<span>보통</span>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      이슈 시작일   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header datepickerHeader">
+					<button class="btn" type="button">
+					    <span>이슈 시작일</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+				</div>
+				<div id="issueStartDate" class="menubox-body">
+					<input class="datePick" type="text" placeholder="click">
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      이슈 마감일   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header datepickerHeader">
+					<button class="btn" type="button">
+					    <span>이슈 마감일</span>
+					    <i class="icon-settings menu-icon"></i>
+					</button>
+				</div>
+				<div id="issueEndDate" class="menubox-body">
+					<input class="datePick" type="text" placeholder="click">
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+<!-- 	      칸반 바로등록   menubox 시작 -->
+			<div class="menubox card">
+				<div class="menubox-header">
+					<button class="btn" type="button">
+					    <label for="addToKanban">칸반에 바로 등록</label>
+						<input id="addToKanban" type="checkbox" checked>
+					</button>
+				</div>
+			</div>
+<!-- 	         menubox 끝 -->
+		</div>
+	</div>	
+</div>
+           	
+           	
+           	
+           	
 <script>
 editor = new toastui.Editor({
 	  el: document.querySelector('#editor'),
@@ -99,6 +179,7 @@ editor = new toastui.Editor({
 	$(function(){
 		// 화면 위로 올리기
 		scrollUp();
+		loadComponentsForNewIssue();
 		
 		// datePicker 동작시키기
 	    $('.datePick').bootstrapMaterialDatePicker({

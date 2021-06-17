@@ -264,4 +264,10 @@
 	        label_no = #{label_no}
 	</update>
 	
+	<select id="selectLabelList" parameterType="int">
+		select label_no, label_nm, label_icon, label_color
+		from label
+		where proj_no = #{proj_no}
+	</select>
+	
 </mapper>

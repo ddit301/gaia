@@ -75,6 +75,7 @@ public interface ProjectDao {
 	/**
 	 * label
 	 */
+	public List<LabelVO> selectLabelList(int proj_no);
 	public int insertLabel(LabelVO label);
 	public int updateLabel(LabelVO label);
 	public int deleteLabel(int label_no);
