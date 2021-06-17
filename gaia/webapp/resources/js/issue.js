@@ -61,6 +61,33 @@ $(function(){
 		assigneeMember(selectedBox);		
 	})
 	
+	// 마일스톤 지정 버튼
+	$('body').on('click', '.milestoneBoxes .new-issue-milestone', function(){
+		let selectedBox = $(this);
+		assigneeMilestone(selectedBox);		
+	})
+	
+	// 지정한 마일스톤 클릭시 마일스톤 선택 제거
+	$('body').on('click', '#selectedMilestone .new-issue-milestone' , function(){
+		$(this).remove();
+		$('#noMilestoneSign').attr('hidden', false);
+	})
+	
+	// 라벨 지정 버튼
+	$('body').on('click', '.labelBoxes .labelBox', function(){
+		let selectedBox = $(this);
+		assigneeLabel(selectedBox);		
+	})
+	
+	//지정한 라벨 철회 버튼
+	$('body').on('click', '#selectedLabel .labelBox', function(){
+		let selectedBox = $(this);
+		assigneeLabel(selectedBox);		
+		
+		// 라벨을 이전 자리로 돌려둔다.
+		$('.labelBoxes').append(selectedBox);
+	})
+	
 	
 
 	////////////////////////////////////////////////////
@@ -486,7 +513,7 @@ const assigneeMember = function(selectedBox){
 		}
 		let assigneeBox = selectedBox.clone();
 		assigneeBox.find('.assigneecheck').remove();
-		assigneeGuys.append(assigneeBox);
+		assigneeGuys.prepend(assigneeBox);
 	}else{
 		// 이미 체크되어 있던 멤버의 경우에는 담당자 목록에서 제거한다.
 		for(i=0; i<assigneesSize; i++ ){
@@ -505,8 +532,23 @@ const assigneeMember = function(selectedBox){
 }
 
 
+// 마일스톤 지정 했을 경우 함수
+const assigneeMilestone = function(selectedBox) {
+	let selectedMilestoneArea = $('#selectedMilestone');
+	let selectedMiestone = selectedBox.clone();
+	selectedMilestoneArea.html(selectedMiestone);
+	$('#noMilestoneSign').attr('hidden', true);
+}	
 
-	
+
+// 라벨 지정 했을 경우
+const assigneeLabel = function(selectedBox){
+	let selectedLabelArea = $('#selectedLabel');
+	// 기존에 있던 라벨을 다시 돌려두고
+	$('.labelBoxes').append(selectedLabelArea.find('.labelBox'));
+	// 새로 선택한 라벨을 붙인다.
+	selectedLabelArea.append(selectedBox);
+}	
 
 
 

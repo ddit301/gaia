@@ -70,16 +70,12 @@
 					    <i class="icon-settings menu-icon"></i>
 					</button>
 					<div class="milestoneBoxes dropdown-menu" aria-labelledby="issue-milestone-btn">
-						<a class="dropdown-item">
-							코딩 하기
-						</a>
-						<a class="dropdown-item">
-							발표 준비 하기
-						</a>
 					</div>
 				</div>
 				<div class="menubox-body">
-					<span>설계 구현하기</span>
+					<div id="selectedMilestone">
+					</div>
+					<span id="noMilestoneSign">지정된 마일스톤이 없습니다.</span>
 				</div>
 			</div>
 <!-- 	         menubox 끝 -->
@@ -98,9 +94,7 @@
 					</div>
 				</div>
 				<div class="menubox-body">
-					<div class="labelBox dropdown-item" data-label_no="18" style="background-color: rgb(186, 139, 175);">
-						<i class="icon-lock"></i>
-						<span>수정한자물쇠1</span>
+					<div id="selectedLabel">
 					</div>
 				</div>
 			</div>
