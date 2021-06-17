@@ -9,6 +9,7 @@
 			<result property="mem_pic_file_name" column="MEM_PIC_FILE_NAME"/>
 		</collection>
 	</resultMap>
+	
 	<select id="selectMemberChatRoomList" parameterType="int" resultMap="chatRoomList">
 		SELECT A.CHATROOM_NO, A.MEM_NO, B.MEM_ID, B.MEM_PIC_FILE_NAME
 		FROM MEM_CHAT A
@@ -19,5 +20,47 @@
 			WHERE MEM_NO = ${mem_no}
 		)
 	</select>
+	
+	<select id="searchMemberList" parameterType="java.util.Map" resultType="best.gaia.vo.MemberVO">
+		SELECT MEM_NO, MEM_ID, MEM_NICK, MEM_PIC_FILE_NAME,
+				MEM_NM, MEM_BIO, MEM_WORKING_CITY ,MEM_STATUS
+		FROM MEMBER
+	 	WHERE MEM_NO NOT IN #{mem_no}
+	 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(keyword)">
+		        and (mem_id like #{keyword}
+				    or mem_nick like #{keyword}	  
+		            or mem_nm like #{keyword}
+		            or mem_bio like #{keyword}	
+		            or mem_working_city like #{keyword}
+		        )
+		</if>
+	</select>
+	
+	
+	
+	<select id="exists" parameterType="java.util.Map">
+		SELECT CHAT_VALIDATION(${mem_no1}, ${mem_no2})
+		FROM DUAL;
+	</select>
+	
+	<insert id="insertChatRoom" parameterType="best.gaia.vo.ChatRoomVO">
+		<selectKey resultType="int" keyProperty="chatroom_no" order="BEFORE">
+			SELECT CHATROOM_SEQ.NEXTVAL
+			FROM DUAL
+		</selectKey>
+		INSERT INTO CHAT_ROOM (CHATROOM_NO, CHATROOM_CREATE_DATE)
+		VALUES (
+			#{chatroom_no}
+			,SYSDATE
+		) 
+	</insert>
+	<insert id = "insertChatRoomMember" parameterType="java.util.Map">
+		INSERT INTO MEM_CHAT (MEM_NO, CHATROOM_NO)
+		VALUES (
+			#{mem_no}
+			,#{chatroom_no}
+		)
+	</insert>
+	
 	
 </mapper>

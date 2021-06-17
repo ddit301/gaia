@@ -38,8 +38,4 @@ public class ProjectVO implements Serializable{
 	private List<LabelVO> labelList;
 	private List<MemRoleVO> roleList;
 	
-	/**
-	 * 필요에 따라 추가된 프로퍼티 입니다.
-	 */
-	private String url;
 }

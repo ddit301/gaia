@@ -121,10 +121,10 @@ textarea {
 	z-index:1;
 }
 .chat-img:hover .img-left{
-	transform: translateX(-30px);
+	transform: translateX(-25px);
 }
 .chat-img:hover .img-right{
-	transform: translateX(30px);
+	transform: translateX(25px);
 }
 .img-left{
 	transform: translateX(-15px); transition: all 0.8s ease;
@@ -143,8 +143,46 @@ textarea {
     min-height: 500px;
     max-height: 85vh;
     overflow: hidden;
+    
 }
 .side-bar-content{
 	height: 43px;
 	overflow-y: auto;
+}
+.chat-card{
+    border: 0px;
+    border-radius: 0.625rem;
+    box-shadow: 6px 11px 41px -28px #a99de7;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    background-color: rgb(236, 248, 206);
+	max-width:30%
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+.chat-room{
+	overflow:auto;
+	max-height:50vh;
+}
+.chatRoom:hover{
+	box-shadow: 9px 35px 35px -28px #a99de7;
+	cursor: pointer;
+}
+.clickable:hover{
+	box-shadow: 9px 35px 35px -28px #a99de7;
+	cursor: pointer;
+}
+.clear{
+	clear:both;
 }

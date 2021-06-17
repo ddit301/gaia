@@ -1,8 +1,8 @@
 package best.gaia.chat.controller;
 import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+import static best.gaia.utils.SessionUtil.getMemberVoFromAuthentication;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,19 +17,17 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.alarm.controller.AlarmREST;
-import best.gaia.alarm.dao.AlarmDao;
-import best.gaia.alarm.service.AlarmService;
 import best.gaia.chat.dao.OracleChatDao;
 import best.gaia.chat.service.ChatService;
-import best.gaia.vo.AlarmVO;
 import best.gaia.vo.ChatRoomVO;
+import best.gaia.vo.MemberVO;
 
 @RestController
 @RequestMapping(value="restapi/chat/chats", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -55,11 +53,13 @@ public class ChatREST {
 			Authentication authentication
 			, @RequestParam String need
 			, @ModelAttribute("chatRoomVO") ChatRoomVO chatRoomVO
+			, @RequestParam(required=false) String keyword
 			) {
-		// authentication에서 mem_no를 받아온다.
+		int mem_no = getMemberNoFromAuthentication(authentication);
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<ChatRoomVO> roomList = new ArrayList<>();
-		int mem_no = getMemberNoFromAuthentication(authentication);
+		
+		logger.info("need : {}", need);
 		// roomList의 room 번호마다 채팅들 담기
 		if("chatRoomList".equals(need)) {
 			// roomList 뽑기 
@@ -73,40 +73,37 @@ public class ChatREST {
 				// 뽑은 chatList를 해당 room의 chatList에 담기.
 				chatRoom.setChatList(lateChat);
 			} 
-			
 		// 해당 방의 채팅내역 불러오기
 		}else if("chatContent".equals(need)) {
-			logger.info("chatRoomVO = {}\n\n\n\n\n", chatRoomVO.toString());
 			// modelAttribute로 가지고 온 chatroom_no를 가지고 해당 방의 채팅 내역들 뽑은 후 chatList에 담기.
 			chatRoomVO.setChatList(service.getMessageListbyChatRoom(chatRoomVO.getChatroom_no()));
-			result.put("chatList", chatRoomVO);
+			result.put("chatRoom", chatRoomVO); 
+		}else if("searchMemberList".equals(need)) {
+			Map<String, Object> searchInfo = new HashMap<>();
+			searchInfo.put("mem_no",mem_no);
+			searchInfo.put("keyword",keyword);
+			
+				List<MemberVO> memberList = service.searchMemberList(searchInfo);
+			result.put("memberList", memberList);
 		}
 		logger.info("{}", roomList);
 		result.put("roomList", roomList);
 		return result;
 	}
 	 
-	@RequestMapping(method=RequestMethod.POST)
-	public Map<String, Object> insertMessage() {
-		return null;
-	}
-	
-	@RequestMapping(method=RequestMethod.PUT)
-	public Integer updateAlarm(
+	@PostMapping
+	public Map<String, Object> insertMessage(
 			Authentication authentication
+			, @RequestParam String need
+			, @ModelAttribute("chatRoomVO") ChatRoomVO chatRoomVO
 			) {
-		// authentication에서 mem_no를 받아온다.
-		int mem_no = getMemberNoFromAuthentication(authentication);
+		MemberVO member = getMemberVoFromAuthentication(authentication);
+		member.getMem_id();
+		member.getMem_no();
 		
-		// 안 읽은 모든 알람을 현 시간에 읽은 것으로 업데이트 시키고, 업데이트 된 갯수를 반환한다.
+		
 		return null;
 	}
-	
-	@RequestMapping(method=RequestMethod.DELETE)
-	public Map<String, Object> deleteAlarm() {
-		return null;
-	}
-	
 }
 
 
