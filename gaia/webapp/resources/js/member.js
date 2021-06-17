@@ -667,7 +667,7 @@ const inviteMemberChat = function(selectedMemNo,selectedMemName,selectedMemberLi
 		success : function(res) {
 			if(res == "OK"){
 				selectedMemberLi.remove();
-				loadProjectMembers();
+				loadProjectMemberstoManage();
 			}
 		},
 		error : function(xhr, error, msg) {

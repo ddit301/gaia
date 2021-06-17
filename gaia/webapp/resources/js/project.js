@@ -421,7 +421,7 @@ const changeMemberRole = function(proj_mem_no,mem_role_no){
 		success : function(res) {
 			if(res == 'OK'){
 				toastr.success('회원 역할 변경에 성공했습니다.');
-				loadProjectMembers();
+				loadProjectMemberstoManage();
 			}else{
 				toastr.error('역할 변경에 실패했습니다.');
 			}
@@ -468,7 +468,7 @@ const banMember = function(selectedMemNo){
 						,'_method' : 'delete'
 					},
 					success : function(res) {
-						loadProjectMembers();
+						loadProjectMemberstoManage();
 						$('#mngProjMem').modal('hide');
 					},
 					error : function(xhr, error, msg) {
@@ -518,7 +518,7 @@ const unBanMember = function(selectedMemNo){
 						,'_method' : 'put'
 					},
 					success : function(res) {
-						loadProjectMembers();
+						loadProjectMemberstoManage();
 						$('#mngProjMem').modal('hide');
 					},
 					error : function(xhr, error, msg) {
@@ -604,7 +604,7 @@ const inviteMember = function(selectedMemNo,selectedMemName,selectedMemberLi){
 					success : function(res) {
 						if(res == "OK"){
 							selectedMemberLi.remove();
-							loadProjectMembers();
+							loadProjectMemberstoManage();
 						}
 					},
 					error : function(xhr, error, msg) {

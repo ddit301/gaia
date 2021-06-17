@@ -151,6 +151,7 @@
 		select mem_role_no, mem_role_nm
 		from mem_role
 		where proj_no = #{proj_no}
+		order by mem_role_no
 	</select>
 	
 	<update id="updateProjectMemberRole" parameterType="best.gaia.vo.ProjMemVO">
