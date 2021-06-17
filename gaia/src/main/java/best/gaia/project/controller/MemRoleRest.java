@@ -77,12 +77,11 @@ public class MemRoleRest {
 
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ServiceResult deleteMemrole(
-			@RequestParam int Memrole_no
+			@RequestParam int mem_role_no
 			) {
+		int result = dao.deleteMemberRole(mem_role_no);
 		
-		
-		
-		return null;
+		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }

@@ -19,6 +19,12 @@ $(function() {
 	$('body').on('click', '#saveModuleBtn', function(){
 		saveModuleSetting();
 	})
+	
+	// 멤버 역할 삭제 버튼
+	$('body').on('click', '.roleDeleteBtn', function(){
+		let roleBox = $(this).parents('.roleBox');
+		deleteRole(roleBox);
+	})
 
 	/**********************************
 					버튼 매핑 끝
@@ -461,6 +467,7 @@ const addRoleTemplate = function(){
 	let roleBoxArea = $('#roleBoxArea');
 	let roleBox = roleBoxTemplate.clone();
 	roleBox.find('.rolename').find('input[type=text]').val('역할명');
+	roleBox.css({"backgroundColor":'#FFEEEE'});
 	roleBoxArea.append(roleBox);
 }
 
@@ -522,8 +529,69 @@ const addAndEditRole = function(){
 	
 }
 
-
-
+const deleteRole = function(roleBox){
+	let mem_role_no = roleBox.data('mem_role_no');
+	let mem_role_nm = roleBox.find('input[type=text]').val();
+	
+	// 새로 추가하려던 role 일 경우 요소를 삭제한 뒤, 함수를 종료시킨다.
+	if(!mem_role_no){
+		roleBox.remove();
+		return;
+	}
+	
+	// sweetAlert 버튼 초기화
+	 swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+			cancelButton: 'btn btn-light',
+		   	confirmButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+	})	
+	
+	swalWithBootstrapButtons.fire({
+		  title: '정말로 "'+mem_role_nm+'" 롤을 삭제하시겠습니까?',
+		  text: "삭제시 되돌릴 수 없습니다!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: '삭제',
+		  cancelButtonText: '취소',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    swalWithBootstrapButtons.fire(
+		      'Deleted!',
+		      '역할을 삭제했습니다.',
+		      'success'
+		    )
+			// 기존의 역할을 삭제 시킨다.
+			$.ajax({
+				url : getContextPath() + '/restapi/project/memroles',
+				method : 'post',
+				data : {
+					'mem_role_no' : mem_role_no
+					,'_method' : 'delete'
+				},
+				success : function(res) {
+					if(res == "FAIL"){
+						toastr.error('에러발생');
+					}else{
+						roleBox.remove();
+					}
+				},
+				error : function(xhr, error, msg) {
+					ajaxError(xhr, error, msg);
+		
+				},
+				dataType : 'json'
+			})
+		    
+		  } else if (
+		    result.dismiss === Swal.DismissReason.cancel
+		  ) {
+		  }
+		})
+	
+}
 
 
 

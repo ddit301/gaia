@@ -97,6 +97,11 @@
 		     mem_role_no = #{mem_role_no}
 	</update>
 	
+	<delete id="deleteMemberRole" parameterType="int">
+		DELETE FROM mem_role
+		WHERE mem_role_no = #{mem_role_no}
+	</delete>
+	
 	<insert id="insertProjMem" parameterType="best.gaia.vo.ProjMemVO">
 		INSERT INTO proj_mem (
 		    mem_no,
