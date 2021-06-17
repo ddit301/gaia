@@ -15,8 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LabelVO {
 	
-	public LabelVO(String label_nm){
+	public LabelVO(Integer proj_no, String label_nm, String label_icon, String label_color ){
+		this.proj_no = proj_no;
 		this.label_nm = label_nm;
+		this.label_icon = label_icon;
+		this.label_color = label_color;
 	}
 	
 	/**

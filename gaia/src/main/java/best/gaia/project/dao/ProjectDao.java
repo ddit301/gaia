@@ -69,6 +69,8 @@ public interface ProjectDao {
 	 */
 	public List<Map<String, Object>> selectMemRoleList(int proj_no);
 	public int insertMemberRole(MemRoleVO memRole);
+	public int updateMemberRole(MemRoleVO memRole);
+	public int deleteMemberRole(int mem_role_no);
 	
 	/**
 	 * label
