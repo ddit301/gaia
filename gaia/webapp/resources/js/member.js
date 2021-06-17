@@ -85,9 +85,11 @@ const loadMemberInfo_overview = function() {
 						let issue = $("#issueTemplate").children(".issue").clone();
 						let timeUploaded = iss.historyList[0].issue_his_date;
 						let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
+						console.log(proj_manager)
+						console.log(v.proj_title)
 						let proj_manager_link = "<a href=" + getContextPath() + "/" + proj_manager + ">" + proj_manager + "</a>";
-						let proj_link = "<a href=" + getContextPath() + "/" + url + ">" + "/" + v.proj_title + "</a>";
-						let issue_link = "<a href=" + getContextPath() + "/" + url + "/issue/" + ">" + "/" + iss.issue_sid + "</a>";
+						let proj_link = "<a href=" + getContextPath() + "/" + proj_manager+"/"+v.proj_title + ">" + "/" + v.proj_title + "</a>";
+						let issue_link = "<a href=" + getContextPath() + "/" + proj_manager+"/"+v.proj_title + "/issue/"+ iss.issue_sid + ">" + "/" + iss.issue_sid + "</a>";
 						issue.attr("data-issue_sid", iss.issue_sid);
 						issue.find(".issue-card-top").children().first().html(proj_manager_link + proj_link + issue_link);
 	
@@ -571,6 +573,7 @@ const loadChatList_chatRoom = function(room_no) {
 				// 순위 변경 
 				let chatform = $("#chatTemplate").children(".chat-box").clone();
 				let date = moment(chat.date).format("hh:mm a");
+				// 날 바뀌면 june 14, 2021 찍어주기 
 				if (!!day && day!=moment(chat.date).format("MMMM DD, YYYY")){
 					chatform.find(".chat-date").children("span").text(date);
 					console.log(day)
@@ -579,12 +582,14 @@ const loadChatList_chatRoom = function(room_no) {
 					dayAlert.appendTo("#this-is-chatRoom");
 				} 
 				day = moment(chat.date).format("MMMM DD, YYYY");
+				
 				if(chat.mem_no == mem_no){
-					chatform.children(".chat-card").removeClass("left").addClass("right");
+					console.log(mem_no)
+					chatform.removeClass("left").addClass("right");
+					
 				}
 				chatform.find(".chat-date").children("span").text(date);
-				chatform.find(".card-body").children("span").text(chat.content);
-				console.log(chatform);
+				chatform.find(".chat-mid-top").children("span").text(chat.content);
 				chatform.appendTo("#this-is-chatRoom");
 			})
 		},
@@ -594,6 +599,26 @@ const loadChatList_chatRoom = function(room_no) {
 		},
 		dataType : 'json'
 	})
+}
+//채팅 내용 입력 시 화면 상단에 출력 
+const inputChat = function(){
+//	$("#chatInput")
+}
+// 채팅 내용 입력 시 db에 저장 
+const inputChatUpload = function(){
+//	$.ajax({
+//		url : 
+//		, method : 'get'
+//		, data : { : }
+//		, success : function(res) {
+//
+//		}
+//		, async : false
+//		, error : function(xhr) {
+//			ajaxError(xhr, error, msg)
+//		},
+//		dataType : 'json'
+//	})
 }
 
 // 회원 초대위해 검색하는 function
