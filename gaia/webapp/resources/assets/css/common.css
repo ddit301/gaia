@@ -145,7 +145,14 @@ button.selectedProj{
 .roleBox span{
 	font-size : 1.2em;
 }
-
-
-
+.roleBtnArea button{
+	margin-top : 20px;
+	float : left;
+}
+#editRoleBtn{
+	float : right;
+}
+.roleDeleteBtn{
+	float : right;
+}
 

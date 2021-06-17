@@ -225,8 +225,10 @@ public class ProjectServiceImpl implements ProjectService {
 		// 프로젝트에 기본 멤버 롤 생성해서insert 등록 하고 ( Manager, member )
 		MemRoleVO adminRole = new MemRoleVO("admin");
 		adminRole.setProj_no(proj_no);
+		adminRole.setAuthority(4095);
 		MemRoleVO memberRole = new MemRoleVO("member");
 		memberRole.setProj_no(proj_no);
+		memberRole.setAuthority(4095);
 		validChecker *= projectDao.insertMemberRole(adminRole);
 		validChecker *= projectDao.insertMemberRole(memberRole);
 		
@@ -288,6 +290,32 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
 		
+	}
+
+	@Override
+	@Transactional
+	public ServiceResult insertAndUpdateMemroles(int proj_no, List<MemRoleVO> newRoles, List<MemRoleVO> editRoles) {
+		
+		int newSize = newRoles.size();
+		int insertSize = editRoles.size();
+		
+		// 새로운 role들이 추가 되었으면 insert 해주기
+		for(MemRoleVO memRole : newRoles) {
+			memRole.setProj_no(proj_no);
+			newSize -= projectDao.insertMemberRole(memRole);
+		}
+		
+		// 수정된 role들 업데이트 해주기
+		for(MemRoleVO memRole : editRoles) {
+			insertSize -= projectDao.updateMemberRole(memRole);
+		}
+		
+		ServiceResult result = ServiceResult.FAIL;
+		if (newSize == 0 && insertSize ==0) {
+			result = ServiceResult.OK;
+		}
+		
+		return result;
 	}
 
 }

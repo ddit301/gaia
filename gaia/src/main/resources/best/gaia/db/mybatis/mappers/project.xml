@@ -78,13 +78,24 @@
 		INSERT INTO mem_role (
 		    mem_role_no,
 		    proj_no,
-		    mem_role_nm
+		    mem_role_nm,
+		 	authority
 		) VALUES (
 		    #{mem_role_no},
 		    #{proj_no,jdbcType=NUMERIC},
-		    #{mem_role_nm,jdbcType=VARCHAR}
+		    #{mem_role_nm,jdbcType=VARCHAR},
+		    #{authority,jdbcType=NUMERIC}
 		)
 	</insert>
+	
+	<update id="updateMemberRole" parameterType="best.gaia.vo.MemRoleVO">
+		UPDATE mem_role
+		SET
+		    mem_role_nm = #{mem_role_nm,jdbcType=VARCHAR}
+		    ,authority = #{authority,jdbcType=NUMERIC}
+		WHERE
+		     mem_role_no = #{mem_role_no}
+	</update>
 	
 	<insert id="insertProjMem" parameterType="best.gaia.vo.ProjMemVO">
 		INSERT INTO proj_mem (

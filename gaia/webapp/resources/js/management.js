@@ -166,6 +166,8 @@ const binaryDataPrinter = function(div, data){
 		// 해당하는 index가 1이면 check로 바꿔준다.
 		if(binaryData.charAt(i) == '1'){
 			inputArea.prop("checked", true);
+		}else{
+			inputArea.prop("checked", false);
 		}
 	}
 }
@@ -175,7 +177,7 @@ const binaryDataReader = function(div){
 	let areas = div.children('div');
 	let areasize = areas.length;
 	let sum = 0;
-	for(i=0; i<areasize; i++){
+	for(let i=0; i<areasize; i++){
 		let inputArea = div.children().eq(i).find('input');
 		sum += Math.pow(2, (areasize-1-i) ) * (inputArea.prop("checked")? 1 : 0);
 	}
@@ -452,6 +454,81 @@ const componentToHex = function(c) {
   var hex = c.toString(16);
   return hex.length == 1 ? "0" + hex : hex;
 }
+
+// 멤버 역할 추가 버튼 클릭시 템플릿 추가 
+const addRoleTemplate = function(){
+	let roleBoxTemplate = $('#manage-template').find('.roleBox');
+	let roleBoxArea = $('#roleBoxArea');
+	let roleBox = roleBoxTemplate.clone();
+	roleBox.find('.rolename').find('input[type=text]').val('역할명');
+	roleBoxArea.append(roleBox);
+}
+
+// 멤버 역할 관련 설정 저장하는 함수
+const addAndEditRole = function(){
+	let roleBoxArea = $('#roleBoxArea');
+	let roleBoxes = roleBoxArea.children('.roleBox');
+	let roleSize = roleBoxes.length;
+	
+	let editRoles = [];
+	let newRoles = [];
+	
+	// 데이터를 읽어 들여 수정할 role 과 새로운 role로 나누어 배열에 저장한다.
+	for(let i=0; i<roleSize; i++){
+		let roleBox = roleBoxes.eq(i);
+		let mem_role_no = roleBox.data('mem_role_no');
+		let mem_role_nm = roleBox.find('input[type=text]').val();
+		let authDiv = roleBox.find('.role_auth_list');
+		let authority = binaryDataReader(authDiv);
+		
+		let role = {
+			mem_role_no : mem_role_no
+			,mem_role_nm : mem_role_nm
+			,authority : authority
+		};
+		(mem_role_no ? editRoles : newRoles).push(role);
+	}
+	
+//	각각의 배열을 직렬화 해서 요청 보낸다.
+	let editRolesData = JSON.stringify(editRoles);
+	let newRolesData = JSON.stringify(newRoles);
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/memroles',
+		method : 'post',
+		data : {
+			'editRolesData' : editRolesData
+			,'newRolesData' : newRolesData
+		},
+		success : function(res) {
+			if(res.result == "OK"){
+				let editCount = res.editCount;
+				let newCount = res.newCount;
+				if(newCount)
+					toastr.success(newCount + '개의 역할을 성공적으로 추가 했습니다.');
+				if(editCount)
+					toastr.success('성공적으로 업데이트 했습니다.');
+			}else{
+				toastr.error('에러발생.');
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+
+		},
+		dataType : 'json'
+	})
+	
+	
+}
+
+
+
+
+
+
+
+
 
 
 

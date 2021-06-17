@@ -130,47 +130,50 @@
 <!-- 	role 시작 -->
 	<div class="roleBox row">
 		<div class="rolename col-md-1">
-			<input type="text" value="역할명">
+			<input type="text" value="역할명" maxlength="8">
 		</div>
-		<div class="basic-form col-md-11">
+		<div class="basic-form col-md-10">
 			<div class="role_auth_list form-group row">
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 				<div class="col-md-1">
-					<input type="checkbox">
+					<input type="checkbox" checked>
 				</div>
 			</div>
+		</div>
+		<div class="col-md-1">
+			<button class="roleDeleteBtn btn btn-danger">삭제</button>
 		</div>
 	</div>
 	<!-- 	role 끝 -->
@@ -332,13 +335,13 @@
 		<div class="card">
 			<div class="card-body">
 				<h4 class="card-title">멤버 역할 및 권한 관리</h4>
-				<p class="text-muted">역할 별로 다른 권한을 부여할 수 있습니다. 역할명 수정이나 삭제는 우클릭을 해주세요.</p>
+				<p class="text-muted">역할 별로 다른 권한을 부여할 수 있습니다.</p>
 				<div id="rolehead">
 					<div class="row">
 						<div class="col-md-1">
 							<span>역할 이름</span>
 						</div>
-						<div class="basic-form col-md-11">
+						<div class="basic-form col-md-10">
 							<div class="form-group row">
 								<span class="rolelabel col-md-1">마일스톤수정</span> 
 								<span class="rolelabel col-md-1">마일스톤삭제</span> 
@@ -354,11 +357,16 @@
 								<span class="rolelabel col-md-1">위키삭제</span>
 							</div>
 						</div>
+						<div class="col-md-1">
+						</div>
 					</div>
 				</div>
 				<div id="roleBoxArea">
 				</div>
-				<button style="float: right" class="btn btn-success">저장</button>
+				<div class="roleBtnArea">
+					<button onclick="addRoleTemplate();" class="btn btn-primary">추가</button>
+					<button onclick="addAndEditRole()" id="editRoleBtn" class="btn btn-success">저장</button>
+				</div>
 			</div>
 		</div>
 
