@@ -50,8 +50,6 @@ $(function(){
 // 첫 페이지 로딩 시 sidebar 데이터 가져오기 
 const loadMemberInfo_chat = function() {
 	let need = "chatRoomList";
-	let mem = "";
-	let mem_count = "";
 	$.ajax({
 		url: getContextPath() + "/restapi/chat/chats",
 		type: 'get',
@@ -63,43 +61,68 @@ const loadMemberInfo_chat = function() {
 			
 			// 가장 최근의 채팅방의 채팅 내역 보여주기
 			loadChatList_chatRoom(res.roomList[0].chatroom_no);
-			$.each(res.roomList, function(i, v) {
-				let img_no = 0;
-				let chatRoom = $("#side-barChatRoomTemplate").children(".chatRoom").clone();
-				// 각각의 채팅방에 채팅방 번호 주기.
-				chatRoom.attr("data-chatRoom_no", v.chatroom_no);
-				
-				// 이름 뒤에 외 몇명 붙여주기.
-				$.each(v.memberList, function(j, participant) {
-					if(participant.mem_id!=res.mem_id){
-						if (j < 2) {mem += participant.mem_id + ", ";}
-						if (j > 1) {mem_count = "님 외 " + (j - 1) + "명";} else {mem_count = "";}
-						
-					}
-				})
-				// profileImg 설정 및 효과(3명 이상일 시 퍼지는 효과)
-				setSideBarChatRoomProfiles(res, v.memberList, chatRoom);
-				
-				// 가장 최근 채팅 찍어주기.
-				chatRoom.find(".chatList-card-body .side-bar-content").children("span").text(v.chatList[0].content);
-				
-				// 가장 최근에 연락 이후 경과된 시간 
-				let timeAgo = moment(v.chatList[0].date, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
-				
-				// 이름과 날짜 찍어주기.		
-				members = mem.slice(0, mem.lastIndexOf(", "));
-				members += mem_count;
-				chatRoom.find(".chatList-card-body .log-card-actor").children("a").text(members);
-				chatRoom.find(".chatList-card-body .time").children("span").text(timeAgo);
-				chatRoom.appendTo("#chatRoomList");
-				mem = "";
-			})
+			
+			// side-bar 채팅방리스트 출력하기
+			sideBarChatRoomListInfo(res);
 		}
 		,async: false
 		,error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg)
 		},
 		dataType: 'json'
+	})
+}
+
+// side-bar 출력 함수
+const sideBarChatRoomListInfo = function(res, room_no) {
+	let mem_count = "";
+	let selectedChatRoom;
+	let roomList = res.roomList;
+	// 채팅 날짜 순으로 정렬 하기 (가장최근이 가장 위로)
+	sortByDate(res.roomList);
+	console.log(res.roomList);
+	
+	// 특정 채팅방을 선택했다면 side-bar 채팅방의 최상단으로 출력해주기.
+	if(!CheckNullUndefined(room_no)){
+		roomList = res.roomList.filter(function(room) { 
+				if(room.chatroom_no == room_no){
+					console.log(room);
+					selectedChatRoom = room;
+				}
+				return room.chatroom_no !== room_no
+			})
+		roomList.unshift(selectedChatRoom);
+	}
+	
+	$.each(roomList, function(i, v) {
+		let mem = "";
+		let chatRoom = $("#side-barChatRoomTemplate").children(".chatRoom").clone();
+		// 각각의 채팅방에 채팅방 번호 주기.
+		chatRoom.attr("data-chatRoom_no", v.chatroom_no);
+		
+		// 이름 뒤에 외 몇명 붙여주기.
+		$.each(v.memberList, function(j, participant) {
+			if(participant.mem_id!=res.mem_id){
+				if (j < 2) {mem += participant.mem_id + ", ";}
+				if (j > 1) {mem_count = "님 외 " + (j - 1) + "명";} else {mem_count = "";}
+				
+			}
+		})
+		// profileImg 설정 및 효과(3명 이상일 시 퍼지는 효과)
+		setSideBarChatRoomProfiles(res, v.memberList, chatRoom);
+		
+		// 가장 최근 채팅 찍어주기.
+		chatRoom.find(".chatList-card-body .side-bar-content").children("span").text(v.chatList[0].content);
+		
+		// 가장 최근에 연락 이후 경과된 시간 
+		let timeAgo = moment(v.chatList[0].date, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
+		
+		// 이름과 날짜 찍어주기.		
+		members = mem.slice(0, mem.lastIndexOf(", "));
+		members += mem_count;
+		chatRoom.find(".chatList-card-body .log-card-actor").children("a").text(members);
+		chatRoom.find(".chatList-card-body .time").children("span").text(timeAgo);
+		chatRoom.appendTo("#chatRoomList");
 	})
 }
 
@@ -167,7 +190,7 @@ const loadChatList_chatRoom = function(room_no) {
 		dataType : 'json'
 	})
 }
-//채팅 내용 입력 시 화면 상단에 출력 
+//채팅 내용 입력 시 화면에 출력 
 const inputChat = function(){
 	event.preventDefault();
 	let currentTime = new Date();
@@ -187,9 +210,11 @@ const inputChat = function(){
 		
 		// chatform에 내용 채워넣기.
 		chatform.find(".chat-date").children("span").text(date);
+		chatform.find(".chat-date").attr("data-date", today);
 		chatform.find(".chat-mid-top").children("span").text(chatText);
-		chatform.appendTo("#this-is-chatRoom");
 		
+		chatform.appendTo("#this-is-chatRoom");
+		$("#chatInput").val("");
 		// 스크롤 가장 하단으로 변경 
 		showBottom($("#this-is-chatRoom"))
 	}
@@ -274,7 +299,11 @@ const inviteMemberChat = function(selectedMemNo, selectedMemberLi){
 			if(res.result != 0){
 				selectedMemberLi.remove();
 				$("#chatRoomList").empty();
-				loadMemberInfo_chat();
+				// 채팅 추가 시 다시 side-bar 채팅방 목록 찍어주는 로직
+				sideBarChatRoomListInfo(res, res.result);
+				
+				// 해당 방의 채팅 내역 보여주기.
+				loadChatList_chatRoom(res.result);
 				swal.success({text: "done!"});
 			}
 				$('#inviteMemberChat').modal('hide');
@@ -365,7 +394,6 @@ const setSideBarChatRoomProfiles=function(res, memberList, chatRoom){
 		if(member.mem_id!=res.mem_id&&CheckNullUndefined(chatRoom.find(".profile_img.img-center").attr("src"))){
 			// 본인이 아닌 사진.(1:1)
 			chatRoom.find(".profile_img.img-center").attr("src", getProfilePath(member.mem_pic_file_name));
-			console.log("in")
 		}
 		if (memberList.length < 4) {
 			chatRoom.find(".profile_img.img-right").attr("hidden", "true");

@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-lg-4 col-xl-3">
             <div class="card chatRoomList-over side-position-fixed"> 
-                <div class="card-body">
+                <div class="card-body side-bar-card-body">
                 	<div id="chatRoomList-top border-bottom" >
                 		<h3 style="display:inline-block;">Chatting</h3>
                 		<div class="right">
@@ -27,27 +27,18 @@
             </div>  
         </div>
 		<div class="col-lg-8 col-xl-9">
-			<div class="row justify-content-end">
-				<div class="col col-md-3">
-					<ol class="breadcrumb">
-					    <li class="breadcrumb-item"><a class="moveButton" data-menu="overview" href="javascript:void(0)">Member</a></li>
-					    <li class="breadcrumb-item active"><a class="moveButton" data-menu="${menuname}" href="javascript:void(0)">${menuname}</a></li>
-					</ol>
-				</div>
-			</div>
  			<div class="chat">
 				<div class="row">
-					<div class="col-md-8 ">
+					<div class="col-md-9">
 						<div class="chat-top row">
 							<div class="col-md-3 log-img-center chat-img chat_img">
-								<img class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
-								<img class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
-								<img class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">
+								<img class="rounded-circle profile_img img-center pro_img chat-top-img-size" height="50" width="50" src="">
+								<img class="rounded-circle profile_img img-left pro_img chat-top-img-size" height="50" width="50" src="">
+								<img class="rounded-circle profile_img img-right pro_img chat-top-img-size" height="50" width="50" src="">
 							</div>
 							<div class="col-md-6 membersId">
 								<span></span>
 							</div>
-							<div class="col-md-3">xcc</div>
 						</div>
 						<div class="chat-mid chat-room border-top border-bottom" id="this-is-chatRoom" data-room_no="">
 							<!-- chattings -->
@@ -57,7 +48,7 @@
 							<div class="col-md-1">
 							</div>
 							<div class="col-md-9 inputForm">
-								<textArea id="chatInput" placeholder="Input Default"></textArea>
+								<textArea id="chatInput"></textArea>
 							</div>
 							<div class="col-md-2 inputChatText">
 								<button onclick="inputChat();" type="submit" class="btn mb-1 btn-outline-dark">button</button>
@@ -65,7 +56,7 @@
 							</form>
 						</div>
 					</div>			            
-					<div class="col-md-4 border-left" >
+					<div class="col-md-3 border-left" >
 						<div class="chat-room-right">
 							<div class="chat-room-position-above">
 								<div class="log-img-center chat-img chat_img">
@@ -113,7 +104,7 @@
 	<li class="chatRoom" >
 		<div class="card">
 			<div class="row chatList-card-body">
-				<div class="col-md-5 log-img-center chat-img">
+				<div class="col-md-5 log-img-center chat-img pr-0"">
 					<img class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
 					<img class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
 					<img class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">

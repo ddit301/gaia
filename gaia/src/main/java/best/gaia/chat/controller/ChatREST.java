@@ -154,6 +154,7 @@ public class ChatREST {
 				, @ModelAttribute("roomInfo") ChatRoomVO roomInfo
 				, @RequestParam Map<String, Object> mem_nos
 			) {
+		int mem_no = getMemberNoFromAuthentication(authentication);
 		MemberVO member = getMemberVoFromAuthentication(authentication);
 		mem_nos.remove("need");
 		mem_nos.put("mem_no1", member.getMem_no());
@@ -166,7 +167,22 @@ public class ChatREST {
 			if(ServiceResult.OK != result) exists=0;
 		}
 		
+		// roomList의 room 번호마다 채팅들 담기
+		List<ChatRoomVO> roomList = service.selectMemberChatRoomList(mem_no);
+		List<Map<String, Object>> lateChat = new ArrayList<Map<String, Object>>();
+		
+		for(ChatRoomVO chatRoom : roomList) {
+			// chatRoomVO의 chatList에 대화 내용들 담기.
+			int chatRoom_no = chatRoom.getChatroom_no();
+			// elastic에서 chatList 뽑기.
+			lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1); 
+			// 뽑은 chatList를 해당 room의 chatList에 담기.
+			chatRoom.setChatList(lateChat);
+		}
+		
 		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("roomList", roomList);
+		result.put("mem_id", member.getMem_id());
 		result.put("result", exists);
 		return result;
 	}
