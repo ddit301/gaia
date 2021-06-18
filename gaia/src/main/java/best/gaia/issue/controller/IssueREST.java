@@ -186,6 +186,7 @@ public class IssueREST {
 			case "issue_priority": type = isDelete ? "RP" : "EP"; break;
 			case "issue_start_date": type = "ES"; break;
 			case "issue_end_date": type = "EE"; break;
+			case "issue_title": type = "ET"; break;
 		}
 		
 		return type;
@@ -214,6 +215,8 @@ public class IssueREST {
 		case "issue_priority": 
 		case "issue_start_date":
 		case "issue_end_date": 
+		case "issue_title": 
+		default:
 			data = parameter; 
 			break;
 		}

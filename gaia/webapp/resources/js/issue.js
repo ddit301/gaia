@@ -732,8 +732,10 @@ const editIssue = function(editpart, parameter){
 		},
 		success : function(history) {
 			toastr.success('변경되었습니다.');
-			
-			
+			issue_history = $('#issue-template').children('.issue-change').clone();
+			issue_history.find('span').text(historyTypeToText(history));
+			issue_history.find('.profile').attr('src',getProfilePathFromCookie());
+			$('#issue-body-cont').append(issue_history);
 		},
 		error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
@@ -761,29 +763,30 @@ const historyTypeToText = function(history){
 	let cont = history.issue_his_cont;
 	let result = hisWriter + '님이 ';
 	
-	console.log(JSON.stringify(history));
+	console.log(history);
+	console.log(cont);
 	
 	switch(history.issue_his_type){
 		case 'ET':
-			result += '이슈 제목을 "' + cont + '"로 변경했습니다.' ; 
+			result += '이슈 제목을 ' + roChecker(cont) + ' 변경했습니다.' ; 
 			break;
 		case 'EL':
-			result += '라벨을 '+ cont +'로 변경했습니다.'; 
+			result += '라벨을 '+ roChecker(cont) +' 변경했습니다.'; 
 			break;
 		case 'EP':
-			result += '중요도를 '+ priorities[cont] +'로 변경했습니다.'; 
+			result += '중요도를 '+ roChecker(priorities[cont]) +' 변경했습니다.'; 
 			break;
 		case 'AA':
-			result += '"' + cont + '"' + '님을 담당자로 지정했습니다.'; 
+			result += rulChecker(cont) +' 담당자로 지정했습니다.'; 
 			break;
 		case 'EM':
-			result += '마일스톤을 '+ cont +'로 변경했습니다.'; 
+			result += '마일스톤을 '+ roChecker(cont) +' 변경했습니다.'; 
 			break;
 		case 'ES':
-			result += '이슈 시작일을 '+ cont +'로 변경했습니다.'; 
+			result += '이슈 시작일을 '+ roChecker(cont) +' 변경했습니다.'; 
 			break;
 		case 'EE':
-			result += '이슈 종료일을 '+ cont +'로 변경했습니다.'; 
+			result += '이슈 종료일을 '+ roChecker(cont) +' 변경했습니다.'; 
 			break;
 		case 'RL':
 			result += '라벨 설정을 초기화 했습니다.'; 
@@ -792,7 +795,7 @@ const historyTypeToText = function(history){
 			result += '중요도를 설정을 초기화 했습니다.'; 
 			break;
 		case 'RA':
-			result += '"' + cont + '"' + '님을 담당자에서 제거 했습니다.'; 
+			result += rulChecker(cont) + ' 담당자에서 제거 했습니다.'; 
 			break;
 		case 'RM':
 			result += '마일스톤 설정을 초기화 했습니다.'; 
