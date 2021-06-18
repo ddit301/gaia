@@ -65,6 +65,7 @@ const loadMemberInfo_overview = function() {
 		type: 'get',
 		data: { "need": need },
 		success: function(res) {
+			console.log(res);
 			let memberInfo = res.search;
 			let length;
 			let proj_manager = "";
@@ -79,8 +80,6 @@ const loadMemberInfo_overview = function() {
 						let issue = $("#issueTemplate").children(".issue").clone();
 						let timeUploaded = iss.historyList[0].issue_his_date;
 						let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
-						console.log(proj_manager)
-						console.log(v.proj_title)
 						let proj_manager_link = "<a href=" + getContextPath() + "/" + proj_manager + ">" + proj_manager + "</a>";
 						let proj_link = "<a href=" + getContextPath() + "/" + proj_manager+"/"+v.proj_title + ">" + "/" + v.proj_title + "</a>";
 						let issue_link = "<a href=" + getContextPath() + "/" + proj_manager+"/"+v.proj_title + "/issue/"+ iss.issue_sid + ">" + "/" + iss.issue_sid + "</a>";
@@ -134,6 +133,7 @@ const loadMemberInfo_profile = function() {
 		url: getContextPath() + "/restapi/member/members",
 		type: 'get',
 		success: function(data) {
+			console.log(data);
 			res = data.search;
 			msl = data.memberStatusList
 			let placeholder = $(".card.mem_nick").children('input').attr('placeholder', res.mem_nick);
@@ -264,7 +264,6 @@ const changeUserNameBtn = $("body").on("click",".changeAccountBtn", function() {
 		form_data["need"] = "mem_password";
 
 		if (valid(pass) == true) {
-			console.log("in")
 			confirmAlert("pass", form_data);
 		}
 	}

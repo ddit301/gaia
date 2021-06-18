@@ -40,11 +40,49 @@ public class ChatServiceImplTest {
 	@Inject
 	WebApplicationContext container;
 	
-	@Test
+	
+//	@Test
+	public void testCreateChatRoom() {
+		ChatRoomVO roomInfo = new ChatRoomVO();
+		Map<String, Object> mem_nos = new HashMap<String, Object>();
+		mem_nos.put("mem_no1", 1);
+		mem_nos.put("mem_no2", 3);
+		ServiceResult result = service.createChatRoom(roomInfo, mem_nos);
+		System.out.println(result);
+	}
+	
+//	@Test
+	public void testInsertChatRoom() {
+		ChatRoomVO roomInfo = new ChatRoomVO();
+		int result = orDao.insertChatRoom(roomInfo);
+		System.out.println(roomInfo.getChatroom_no());
+	}
+//	@Test
+	public void testDaoExist() {
+		Map<String, Object> chat = new HashMap<>();
+		
+		chat.put("mem_no1", 1);
+		chat.put("mem_no2", 3);
+		int exists = service.exists(chat);
+		System.out.println(exists);
+		
+		Map<String, Object> mem_nos = new HashMap<String, Object>();
+		mem_nos.put("mem_no1", 1);
+		mem_nos.put("mem_no2", 3);
+		ChatRoomVO roomInfo = new ChatRoomVO();
+		
+		if(exists==0) {
+			System.out.println("들어오면 안되는데 들어가진다 자뀨ㅜ ");
+			ServiceResult result = service.createChatRoom(roomInfo, mem_nos);
+			if(ServiceResult.OK != result) exists=0;
+		}
+		System.out.println("피했나??");
+	}
+//	@Test
 	public void testInsert() {
 		Map<String, Object> chat = new HashMap<>();
 		
-		chat.put("chatroom_no", 1);
+		chat.put("chatroom_no", 25);
 		chat.put("content", "hi hello nihao thisaaa room1! nice to meet you!");
 		ServiceResult result = service.insertElasticMessage(1, chat);
 		System.out.println(result);

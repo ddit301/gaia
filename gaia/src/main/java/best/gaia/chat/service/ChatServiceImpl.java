@@ -1,5 +1,6 @@
 package best.gaia.chat.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,15 +67,9 @@ public class ChatServiceImpl implements ChatService{
 	}
 	@Override
 	public int exists(Map<String, Object> participants) {
-		// participant1, participant2와 비교. 1은 self
+		// mem_no1, mem_no2와 비교. 1은 self
 		int result = ordao.exists(participants);
 		return result;
-	}
-	@Override
-	public ServiceResult insertChatRoom(ChatRoomVO roomInfo) {
-		// chatroom_no, chatroom_title, chatroom_create_date, chatroom_alarm
-		int result = ordao.insertChatRoom(roomInfo);
-		return result == 1? ServiceResult.OK : ServiceResult.FAIL; 
 	}
 	// 초대 시에만 가능.
 	@Override
@@ -85,31 +80,36 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	
+	// 최초 방 생성 시.(기본적으로 1:1채팅)
+	@Override
 	@Transactional
 	public ServiceResult createChatRoom(ChatRoomVO roomInfo, 
-				Map<String, Object> participant1, Map<String, Object> participant2) {
-		// 최초 방 생성 시.(기본적으로 1:1채팅)
-		// 채팅방 개설
+				Map<String, Object> mem_nos) {
 		int result = ordao.insertChatRoom(roomInfo);
 		if(result == 1) {
 			// 오직 처음에 만들어 질 때 상대방과 내가 해당 채팅방의 맴버가 됨.
 			// 이후부터는 service.insertChatRoomMember가 호출됨.
+			Map<String, Object> participant1 =new HashMap<>();
+			Map<String, Object> participant2 =new HashMap<>();
+			
+			participant1.put("mem_no", mem_nos.get("mem_no1"));
+			participant1.put("chatroom_no", roomInfo.getChatroom_no());
+			
+			participant2.put("mem_no", mem_nos.get("mem_no2"));
+			participant2.put("chatroom_no", roomInfo.getChatroom_no());
+			
 			result *= ordao.insertChatRoomMember(participant1);
 			result *= ordao.insertChatRoomMember(participant2);
+			
+			Map<String, Object> chat = new HashMap<String, Object>();
+			chat.put("content", "");
+			chat.put("chatroom_no",roomInfo.getChatroom_no());
+			result *= eldao.insertMessage((int)mem_nos.get("mem_no1"), chat);
 		}
 		return result == 1? ServiceResult.OK : ServiceResult.FAIL;
 	}
-	// 채팅 시 
-	@Transactional
-	public ServiceResult Messaging(int participant1, int participant2) {
-		// 상대와 나의 대화방이 존재한다면 해당 대화방을return.
-		
-		// 상대와 나의 대화방이 존재하지 않다면 새로운 대화방 생성.
-//		createChatRoom(Map<String, Object> roomInfo, 
-//				Map<String, Object> participant1, Map<String, Object> participant2);
-		
-		return null;
+	@Override
+	public List<MemberVO> memberListByChatRoom(int chatRoom_no) {
+		return ordao.memberListByChatRoom(chatRoom_no);
 	}
-	
-	
 }
