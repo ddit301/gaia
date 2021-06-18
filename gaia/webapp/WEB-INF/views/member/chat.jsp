@@ -39,26 +39,49 @@
 				<div class="row">
 					<div class="col-md-8 ">
 						<div class="chat-top row">
-							<div class="col-md-3">aa</div>
-							<div class="col-md-6">bvb</div>
+							<div class="col-md-3 log-img-center chat-img chat_img">
+								<img class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
+								<img class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
+								<img class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">
+							</div>
+							<div class="col-md-6 membersId">
+								<span></span>
+							</div>
 							<div class="col-md-3">xcc</div>
 						</div>
-						<div class="chat-mid chat-room" id="this-is-chatRoom" data-room_no="">
+						<div class="chat-mid chat-room border-top border-bottom" id="this-is-chatRoom" data-room_no="">
 							<!-- chattings -->
 						</div>
 						<div class="chat-bot pt-1">
 						<form class="row" action="javascript:void();">
-							<div class="col-md-8">
-								<input type="text" class="" id="chatInput" placeholder="Input Default">
+							<div class="col-md-1">
 							</div>
-							<div class="col-md-4 inputChatText">
+							<div class="col-md-9 inputForm">
+								<textArea id="chatInput" placeholder="Input Default"></textArea>
+							</div>
+							<div class="col-md-2 inputChatText">
 								<button onclick="inputChat();" type="submit" class="btn mb-1 btn-outline-dark">button</button>
 							</div>
 							</form>
 						</div>
 					</div>			            
 					<div class="col-md-4 border-left" >
-						
+						<div class="chat-room-right">
+							<div class="chat-room-position-above">
+								<div class="log-img-center chat-img chat_img">
+									<img class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
+									<img class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
+									<img class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">
+								</div>
+							</div>
+							<div class="chat-room-position-under">
+								<div class="membersId">
+									<span>
+										
+									</span>
+								</div>
+							</div>
+						</div>
 					</div>			            
 				</div>
 		    </div>
@@ -86,7 +109,7 @@
 	</div>
 </div>
 <!-- sidebar 채팅룸들 -->
-<div id="chatRoomTemplate" hidden="hidden">
+<div id="side-barChatRoomTemplate" hidden="hidden">
 	<li class="chatRoom" >
 		<div class="card">
 			<div class="row chatList-card-body">

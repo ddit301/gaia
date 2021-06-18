@@ -36,11 +36,17 @@
 		</if>
 	</select>
 	
+	<select id="memberListByChatRoom" parameterType="int" resultType="best.gaia.vo.MemberVO">
+		SELECT MEM_CHAT.MEM_NO, CHATROOM_NO, 
+				MEMBER.MEM_ID, MEMBER.MEM_PIC_FILE_NAME  
+		FROM MEM_CHAT
+			INNER JOIN MEMBER ON(MEMBER.MEM_NO = MEM_CHAT.MEM_NO)
+		WHERE CHATROOM_NO = #{chatroom_no}
+	</select>
 	
-	
-	<select id="exists" parameterType="java.util.Map">
-		SELECT CHAT_VALIDATION(${mem_no1}, ${mem_no2})
-		FROM DUAL;
+	<select id="exists" parameterType="java.util.Map" resultType="int">
+		SELECT NVL(CHAT_VALIDATION(${mem_no1}, ${mem_no2}),0)
+		FROM DUAL
 	</select>
 	
 	<insert id="insertChatRoom" parameterType="best.gaia.vo.ChatRoomVO">
@@ -50,10 +56,11 @@
 		</selectKey>
 		INSERT INTO CHAT_ROOM (CHATROOM_NO, CHATROOM_CREATE_DATE)
 		VALUES (
-			#{chatroom_no}
+			CHATROOM_SEQ.CURRVAL
 			,SYSDATE
 		) 
 	</insert>
+	
 	<insert id = "insertChatRoomMember" parameterType="java.util.Map">
 		INSERT INTO MEM_CHAT (MEM_NO, CHATROOM_NO)
 		VALUES (

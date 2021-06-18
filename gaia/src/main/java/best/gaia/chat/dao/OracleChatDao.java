@@ -19,4 +19,5 @@ public interface OracleChatDao {
 	public int insertChatRoom(ChatRoomVO roomInfo);
 	public int insertChatRoomMember(Map<String, Object> participants);
 	public int exists(Map<String, Object> participants);
+	public List<MemberVO> memberListByChatRoom(int chatRoom_no);
 }

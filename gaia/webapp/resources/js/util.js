@@ -158,6 +158,11 @@ const preventKorean = function() {
   this.value = this.value.replace(pattern, '');
 };
 
+// 각종 nullChecking 모음. null에 해당하면 false 값이 존재하면 true. return
+const CheckNullUndefined = function(value){
+  return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+}
+
 //////////////////////////////////////////////////////////////////////////////
 //
 //	 각종 설정

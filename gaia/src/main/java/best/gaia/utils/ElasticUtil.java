@@ -81,6 +81,8 @@ public class ElasticUtil {
 		
 		if(size != null) {
 			searchSourceBuilder.size(size);
+		}else {
+			searchSourceBuilder.size(200);
 		}
 		
 		searchRequest.source(searchSourceBuilder);

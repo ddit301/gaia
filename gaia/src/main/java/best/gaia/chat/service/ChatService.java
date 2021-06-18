@@ -21,6 +21,11 @@ public interface ChatService {
 	/**
 	 *  Oracle
 	 */
+	/**
+	 * 
+	 * @param mem_no
+	 * @return
+	 */
 	public List<ChatRoomVO> selectMemberChatRoomList(int mem_no);
 	/**
 	 * 본인을 제외한 모든 회원들 조회.
@@ -28,7 +33,29 @@ public interface ChatService {
 	 * @return List<MemberVO>
 	 */
 	public List<MemberVO> searchMemberList(Map<String, Object> searchInfo);
-	public ServiceResult insertChatRoom(ChatRoomVO roomInfo);
+	/**
+	 * 
+	 * @param participants
+	 * @return
+	 */
 	public ServiceResult insertChatRoomMember(Map<String, Object> participants);
+	/**
+	 * 
+	 * @param participants
+	 * @return
+	 */
 	public int exists(Map<String, Object> participants);
+	/**
+	 * 
+	 * @param chatRoom_no
+	 * @return
+	 */
+	public List<MemberVO> memberListByChatRoom(int chatRoom_no);
+	/**
+	 * 
+	 * @param roomInfo
+	 * @param mem_nos
+	 * @return
+	 */
+	public ServiceResult createChatRoom(ChatRoomVO roomInfo, Map<String, Object> mem_nos);
 }
