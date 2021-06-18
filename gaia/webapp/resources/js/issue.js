@@ -768,7 +768,7 @@ const historyTypeToText = function(history){
 			result += '중요도를 '+ roChecker(priorities[cont]) +' 변경했습니다.'; 
 			break;
 		case 'AA':
-			result += rulChecker(cont) +' 담당자로 지정했습니다.'; 
+			result += rulChecker(cont) +' 담당자로 등록했습니다.'; 
 			break;
 		case 'EM':
 			result += '마일스톤을 '+ roChecker(cont) +' 변경했습니다.'; 
@@ -786,7 +786,7 @@ const historyTypeToText = function(history){
 			result += '중요도를 설정을 초기화 했습니다.'; 
 			break;
 		case 'RA':
-			result += rulChecker(cont) + ' 담당자에서 제거 했습니다.'; 
+			result += cont + '의 담당자 등록을 취소 했습니다.'; 
 			break;
 		case 'RM':
 			result += '마일스톤 설정을 초기화 했습니다.'; 
