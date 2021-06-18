@@ -71,7 +71,6 @@ button.square__box{
 <!-- 	프로젝트 목록 넣을 div -->
 		<div class="proj_boxes">
 		</div>
-	    
 <!-- 	    프로젝트 생성 버튼 -->
 	    <div class="square__box">
 	        <div class="img-rounded">
@@ -79,7 +78,7 @@ button.square__box{
 	                data-target="#projCreateModal">+</button>
 	        </div>
 	    </div>
-	    
+<!-- 	    프로젝트 생성 버튼 끝-->
 	</div>
 </div>
 

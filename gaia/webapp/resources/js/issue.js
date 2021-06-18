@@ -334,13 +334,7 @@ const loadIssueList = function(){
 				issueBox.attr('data-issue_sid',v.issue_sid);
 				issueBox.attr('data-issue_no',v.issue_no);
 				issueBox.children('.issue-title').children('a').text(v.issue_title);
-				issueBox.children('.issue-priority').text(
-					v.issue_priority == 1 ? '무시' :
-					v.issue_priority == 2 ? '낮음' :
-					v.issue_priority == 3 ? '보통' :
-					v.issue_priority == 4 ? '높음' :
-					v.issue_priority == 5 ? '긴급' : '즉시'
-					);
+				issueBox.children('.issue-priority').text(priorities[v.issue_priority]);
 				if(v.label){
 					issueBox.children('.issue-label').text(v.label.label_nm);
 				}
@@ -763,9 +757,6 @@ const historyTypeToText = function(history){
 	let cont = history.issue_his_cont;
 	let result = hisWriter + '님이 ';
 	
-	console.log(history);
-	console.log(cont);
-	
 	switch(history.issue_his_type){
 		case 'ET':
 			result += '이슈 제목을 ' + roChecker(cont) + ' 변경했습니다.' ; 
@@ -799,6 +790,12 @@ const historyTypeToText = function(history){
 			break;
 		case 'RM':
 			result += '마일스톤 설정을 초기화 했습니다.'; 
+			break;
+		case 'IO':
+			result += '이슈 상태를 OPEN으로 변경했습니다.'; 
+			break;
+		case 'IC':
+			result += '이슈 상태를 CLOSE로 변경했습니다.'; 
 			break;
 		default :
 			result += '등록되지 않는 이슈 히스토리 타입 에러';

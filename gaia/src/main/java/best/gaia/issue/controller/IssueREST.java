@@ -187,6 +187,9 @@ public class IssueREST {
 			case "issue_start_date": type = "ES"; break;
 			case "issue_end_date": type = "EE"; break;
 			case "issue_title": type = "ET"; break;
+			case "issue_status": 
+				type = "0".equals(parameter.get())? "IO" : "IC";
+				break;
 		}
 		
 		return type;
