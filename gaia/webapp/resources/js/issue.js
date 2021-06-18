@@ -13,7 +13,7 @@ $(function(){
 		issueView(issue_no);
 	})
 	
-	// 이슈 등록 버튼 이벤트
+	// 이슈 등록 페이지로 이동하는 버튼 이벤트
 	$('.content-body').on('click', '#newIssueBtn', function(){
 		newIssue();
 	})
@@ -49,63 +49,6 @@ $(function(){
  		window.scrollTo({top:0, left:0, behavior:'auto'});
  		loadIssueList();
  	});
-
-	// 작성한 이슈 등록 버튼
-	$('.content-body').on('click', '#saveIssue', function(){
-		registerIssue();
-	});
-	
-	// 이슈 담당자 지정 버튼
-	$('body').on('click', '.assigneeboxes .assigneebox', function(){
-		let selectedBox = $(this);
-		assigneeMember(selectedBox);		
-	})
-	
-	// 마일스톤 지정 버튼
-	$('body').on('click', '.milestoneBoxes .new-issue-milestone', function(){
-		let selectedBox = $(this);
-		assigneeMilestone(selectedBox);		
-	})
-	
-	// 지정한 마일스톤 클릭시 마일스톤 선택 제거
-	$('body').on('click', '#selectedMilestone .new-issue-milestone' , function(){
-		$(this).remove();
-		$('#noMilestoneSign').attr('hidden', false);
-	})
-	
-	// 라벨 지정 버튼
-	$('body').on('click', '.labelBoxes .labelBox', function(){
-		let selectedBox = $(this);
-		assigneeLabel(selectedBox);		
-		$('#noLabelSign').attr('hidden', true);
-	})
-	
-	//지정한 라벨 철회 버튼
-	$('body').on('click', '#selectedLabel .labelBox', function(){
-		let selectedBox = $(this);
-		assigneeLabel(selectedBox);		
-		
-		// 라벨을 이전 자리로 돌려둔다.
-		$('.labelBoxes').append(selectedBox);
-		$('#noLabelSign').attr('hidden', false);
-	})
-	
-	// 이슈 중요도 선택 버튼
-	$('body').on('click', '.issue-priority-list .issue-priority', function(){
-		let selectedBox = $(this).clone();
-		$('#issuePrioritySetting').html(selectedBox);
-		$('#noPrioritySign').attr('hidden', true);
-	})	
-	
-	// 이슈 중요도 선택 취소
-	$('body').on('click', '#issuePrioritySetting .issue-priority', function(){
-		$(this).remove();
-		$('#noPrioritySign').attr('hidden', false);
-	})	
-	
-	
-	
-	
 
 	////////////////////////////////////////////////////
 	//
@@ -202,6 +145,74 @@ $(function(){
 		})
 		
 	})
+	
+	
+	////////////////////////////////////////////////////
+	//
+	//  작성 페이지 onload 이벤트들 바인딩
+	//
+	////////////////////////////////////////////////////
+	
+	// 작성한 이슈 등록 버튼
+	$('.content-body').on('click', '#saveIssue', function(){
+		registerIssue();
+	});
+	
+	// 이슈 담당자 지정 버튼
+	$('body').on('click', '.assigneeboxes .assigneebox', function(){
+		let selectedBox = $(this);
+		assigneeMember(selectedBox);		
+	})
+	
+	// 마일스톤 지정 버튼
+	$('body').on('click', '.milestoneBoxes .new-issue-milestone', function(){
+		let selectedBox = $(this);
+		assigneeMilestone(selectedBox);		
+	})
+	
+	// 지정한 마일스톤 클릭시 마일스톤 선택 제거
+	$('body').on('click', '#selectedMilestone .new-issue-milestone' , function(){
+		$(this).remove();
+		$('#noMilestoneSign').attr('hidden', false);
+	})
+	
+	// 라벨 지정 버튼
+	$('body').on('click', '.labelBoxes .labelBox', function(){
+		let selectedBox = $(this);
+		assigneeLabel(selectedBox);		
+		$('#noLabelSign').attr('hidden', true);
+	})
+	
+	//지정한 라벨 철회 버튼
+	$('body').on('click', '#selectedLabel .labelBox', function(){
+		let selectedBox = $(this);
+		assigneeLabel(selectedBox);		
+		
+		// 라벨을 이전 자리로 돌려둔다.
+		$('.labelBoxes').append(selectedBox);
+		$('#noLabelSign').attr('hidden', false);
+	})
+	
+	// 이슈 중요도 선택 버튼
+	$('body').on('click', '.issue-priority-list .issue-priority', function(){
+		let selectedBox = $(this).clone();
+		$('#issuePrioritySetting').html(selectedBox);
+		$('#noPrioritySign').attr('hidden', true);
+	})	
+	
+	// 이슈 중요도 선택 취소
+	$('body').on('click', '#issuePrioritySetting .issue-priority', function(){
+		$(this).remove();
+		$('#noPrioritySign').attr('hidden', false);
+	})	
+	
+	// issue startDate 가 정해 진 후에는 endDate는 그 이후로만 적용할 수 있도록 막기
+	$('body').on('change', '#issue-start-date', function(){
+		let startDate = $('#issue-start-date').val();
+		$('#issue-end-date').bootstrapMaterialDatePicker("setMinDate", startDate);
+	})
+	
+	
 
 })
 
@@ -400,15 +411,20 @@ const loadIssue = function(){
 }
 
 const registerIssue = function(){
-	label_no = null;
-	milest_sid = null;
-	issue_title = $('.issueTitle').children('input').val();
-	issue_content = editor.getMarkdown();
-	issue_start_date = $('#issueStartDate').children('input').val();
-	issue_end_date = $('#issueEndDate').children('input').val();
-	issue_priority = 3;
-	
+	let label_no = $('#selectedLabel').find('.labelBox').data('label_no');
+	let milest_sid = $('#selectedMilestone').find('.new-issue-milestone').data('milest_sid');
+	let issue_title = $('.issueTitle').children('input').val();
+	let issue_content = editor.getMarkdown();
+	let issue_start_date = $('#issue-start-date').val();
+	let issue_end_date = $('#issue-end-date').val();
+	let issue_priority = $('#issuePrioritySetting').find('.issue-priority').data('priority');
 	let addToKanban = $('#addToKanban').is(':checked');
+	let assigneeboxes = $('#assigneeGuys').find('.assigneebox');
+	let assigneeSize = assigneeboxes.length;
+	let assigneeMemNos = [];
+	for(i=0; i<assigneeSize; i++){
+		assigneeMemNos.push(assigneeboxes.eq(i).data('mem_no'));
+	}
 	
 	$.ajax({
 		url : getContextPath() + '/restapi/project/issues',
@@ -422,6 +438,7 @@ const registerIssue = function(){
 			,'issue_end_date' : issue_end_date
 			,'issue_priority' : issue_priority
 			,'addToKanban' : addToKanban
+			,'assigneeMemNos' : assigneeMemNos.length>0 ? assigneeMemNos.join() : null
 		},
 		success : function(res) {
 			// toastr 알람
@@ -435,6 +452,7 @@ const registerIssue = function(){
 		},
 		dataType : 'json'
 	})
+	
 }
 
 // 이슈 작성 페이지 렌더링 해주는 함수
@@ -568,7 +586,16 @@ const assigneeLabel = function(selectedBox){
 }	
 
 
-
+// 이슈 작성 페이지 검증부
+const checkValidationToInsertIssue = function(){
+	let titleLength = $('.issueTitle').children('input').val().length;
+	let contLength = editor.getMarkdown().length;
+	if( titleLength * contLength > 0 ){
+		$('#saveIssue').prop('disabled', false);
+	}else{
+		$('#saveIssue').prop('disabled', true);
+	}
+}
 
 
 

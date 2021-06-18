@@ -1,18 +1,22 @@
 package best.gaia.issue.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import best.gaia.alarm.service.AlarmService;
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.dao.MilestoneDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
+import best.gaia.vo.MemberVO;
 import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
 
@@ -31,14 +35,31 @@ public class IssueServiceImpl implements IssueService {
 	@Override
 	@Transactional
 	public ServiceResult insertIssue(IssueVO issue) {
+		
+		// 일반 받아온 정보로 issue insert 하고
 		int result = dao.insertIssue(issue);
+		int issue_sid = issue.getIssue_sid();
+		
 		if(result == 1) {
+			// 성공시 첫번째로 history에 이슈 내용 담고
 			IssueHistoryVO history = issue.getHistoryList().get(0);
 			history.setMem_no(issue.getMem_no());
-			history.setIssue_sid(issue.getIssue_sid());
+			history.setIssue_sid(issue_sid);
 			history.setIssue_his_type("RE");
 			result *= dao.insertIssueHistory(history);
+			
+			// 이슈 담당자들을 순차적으로 등록해준다.
+			Set<MemberVO> assigneeList = issue.getAssigneeList();
+			if(assigneeList != null) {
+				for(MemberVO member : assigneeList) {
+					Map<String, Object> assignee = new HashMap<>();
+					assignee.put("mem_no", member.getMem_no());
+					assignee.put("issue_sid", issue_sid);
+					dao.insertIssueAssignee(assignee);
+				}
+			}
 		}
+		
 		return result == 1? ServiceResult.OK : ServiceResult.FAIL; 
 	}
 

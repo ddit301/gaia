@@ -216,10 +216,26 @@
 	width : fit-content;
 	display : block;
 }
-
-
-
-
+.menubox-header label,input[type=text]{
+	width : 100%;
+}
+.menubox-header input[type=text]:hover{
+	cursor: pointer;
+}
+.menubox-header label:hover{
+	cursor: pointer;
+}
+.regkanban button{
+	padding : 0px; 
+}
+.regkanban label{
+	margin : 10px; 
+}
+#addToKanban {
+    margin-right: 30px;
+    margin-top: 5px;
+	
+}
 
 
 

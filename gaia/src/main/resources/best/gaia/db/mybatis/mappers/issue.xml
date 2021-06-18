@@ -190,4 +190,14 @@ FROM ISSUE
 		WHERE label_no = #{label_no}
 	</update>
 	
+	<insert id="insertIssueAssignee" parameterType="map">
+		INSERT INTO issue_assignee (
+		    mem_no,
+		    issue_sid
+		) VALUES (
+		    #{mem_no}
+		    ,#{issue_sid}
+		)
+	</insert>
+	
 </mapper>
