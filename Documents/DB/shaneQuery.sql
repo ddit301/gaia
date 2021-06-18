@@ -242,6 +242,8 @@ from project
     left outer join proj_mem on (project.proj_no = proj_mem.proj_no)
     left outer join member proj_manager on (project.mem_no = proj_manager.mem_no)
 where proj_mem.mem_no = 4 --#{mem_no}
+        and proj_status = 0
+        and proj_mem.proj_drop_date is null
 order by proj_start_date;
     
     

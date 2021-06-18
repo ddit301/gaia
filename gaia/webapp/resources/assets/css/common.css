@@ -41,6 +41,10 @@
 button.selectedProj{
 	box-shadow: 3px 3px 5px 6px #ccc;
 }
+.projectBtn:hover{
+	box-shadow: 3px 3px 5px 6px #ccc;
+	
+}
 .projBox button:focus{
 	outline:none;
 }
