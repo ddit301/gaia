@@ -206,7 +206,7 @@
 .assigneecheck{
 	width : 40px;
 }
-.labelBoxes{
+.labelBoxes, .assigneeboxes{
 	max-height : 300px;
 	overflow-y : scroll;
 	background-color : #f3f7f9;
@@ -234,8 +234,26 @@
 #addToKanban {
     margin-right: 30px;
     margin-top: 5px;
-	
 }
+.issue-title-edit input[type=text]{
+	margin-left : 16px;
+	font-size : 1.3em;
+	height : 47px;
+}
+.issue-title-edit button{
+	margin-left : 10px;
+}
+.issue-title i:hover{
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
 
 
 

@@ -28,9 +28,11 @@
 					<id column="MILEST_SID" property="milest_sid"/>
 					<result column="MILEST_TITLE" property="milest_title"/>
 				</association>
-				<association property="label" javaType="java.util.Map" autoMapping="false">
-					<result column="LABEL_NO" property="label_no"/>
-					<result column="LABEL_NM" property="label_nm"/>
+				<association property="label" javaType="best.gaia.vo.LabelVO" autoMapping="false">
+					<result column="LABEL_NO" property="label_no"></result>
+					<result column="LABEL_NM" property="label_nm"></result>
+					<result column="LABEL_ICON" property="label_icon"></result>
+					<result column="LABEL_COLOR" property="label_color"></result>
 				</association>
 				<collection property="assigneeList" ofType="best.gaia.vo.MemberVO" javaType="java.util.Set" autoMapping="false">
 					<id column="ASSIGNEE_MEM_NO" property="mem_no"/>

@@ -2,6 +2,7 @@ package best.gaia.issue.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.IssueVO;
@@ -53,14 +54,7 @@ public interface IssueService {
 	 * @return
 	 */
 	public ServiceResult insertIssue(IssueVO issue);
-	
-	/**
-	 * 이슈 수정
-	 * @param Issue
-	 * @return
-	 */
-	public ServiceResult updateIssue(IssueVO Issue);
-	
+	public ServiceResult updateIssue(int issue_sid, String editpart, Optional<String> parameter);
 	
 	/**
 	 * 이슈 삭제

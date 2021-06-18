@@ -41,7 +41,7 @@ public class IssueVO {
 	 */	  
 	 private MemberVO writer;
 	 private MilestoneVO milestone;
-	 private Map<String, Object> label;
+	 private LabelVO label;
 	 
 	/**
 	 * Collnection 관계의 객체입니다.

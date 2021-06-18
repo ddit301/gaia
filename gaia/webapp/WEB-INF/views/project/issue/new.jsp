@@ -31,8 +31,6 @@
 	</div>
 <!-- 이슈 중요도 템플릿 -->
 	<a class="issue-priority dropdown-item">급함</a>
-	
-
 </div>
 
 <div class="container-fluid">
