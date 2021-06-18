@@ -174,15 +174,9 @@ FROM ISSUE
 			)
 	</insert>
 	
-	<update id="updateIssue">
+	<update id="updateIssue" parameterType="map">
 		UPDATE ISSUE
-			SET
-				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(issue_status)">
-					ISSUE_STATUS = #{issue_status, jdbcType=NUMERIC}
-				</if>
-				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(issue_title)">
-					ISSUE_TITLE = #{issue_title, jdbcType=VARCHAR}
-				</if>
+			SET ${editpart} = #{parameter, jdbcType=VARCHAR}
 			WHERE ISSUE_SID = #{issue_sid, jdbcType=NUMERIC}
 	</update>
 	
@@ -202,4 +196,19 @@ FROM ISSUE
 		)
 	</insert>
 	
+	<update id="deleteIssueAssignee" parameterType="map">
+		DELETE FROM issue_assignee
+		WHERE mem_no = #{mem_no}
+		    	AND issue_sid = #{issue_sid}
+	</update>
+	
+	
+	
 </mapper>
+
+
+
+
+
+
+

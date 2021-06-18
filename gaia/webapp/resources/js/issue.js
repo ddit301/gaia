@@ -56,56 +56,6 @@ $(function(){
 	//
 	////////////////////////////////////////////////////
 	
-	// 이슈 열기/닫기 이벤트
-	$('.content-body').on('click', '#closeBtn', function(){
-		issue.issue_status = issue.issue_status == 0 ? 1 : 0;
-		console.log('이슈 열기 이벤트 클릭');
-				
-		$.ajax({
-			url : getContextPath() + '/restapi/project/issues',
-			method : 'post',
-			data : {
-				'issue_sid' : issue.issue_sid
-				,'issue_status' : issue.issue_status
-				,'_method' : 'put'		
-			},
-			success : function(res) {
-				console.log('success 발동');
-				console.log(res.issue.issue_status);
-				if(res.issue.issue_status == 0){
-					console.log('if 에서 0 에 걸림');
-					//상위 라벨
-					$('.issue-status').children('span').text('Open');
-					$('.issue-status').children('span').removeClass('label-danger');
-					$('.issue-status').children('span').addClass('label-success');
-					//바닥 버튼
-					$('#closeBtn').text('Close issue');
-					$('#closeBtn').removeClass('btn-primary');
-					$('#closeBtn').addClass('btn-warning');
-					// toastr 알람
-					toastr.success('issue를 Open 했습니다.')
-				}else{
-					console.log('if 에서 else 에 걸림');
-					//상위 라벨
-					$('.issue-status').children('span').text('Closed');
-					$('.issue-status').children('span').removeClass('label-success');
-					$('.issue-status').children('span').addClass('label-danger');
-					// 바닥 버튼 
-					$('#closeBtn').text('Reopen issue');
-					$('#closeBtn').removeClass('btn-warning');
-					$('#closeBtn').addClass('btn-primary');
-					// toastr 알람
-					toastr.warning('issue를 Close 했습니다.')
-				}
-			},
-			error : function(xhr, error, msg) {
-				ajaxError(xhr, error, msg);
-			},
-			dataType : 'json'
-		})
-		
-	});
-	
 	// 이슈 코멘트 작성 이벤트
 	$('.content-body').on('click', '#issue-comment', function(){
 		let issue_his_cont = editor.getMarkdown();
@@ -145,6 +95,100 @@ $(function(){
 		})
 		
 	})
+	
+	////////////////////////////////////////////////////
+	//
+	// issue 상세조회 페이지 수정 이벤트들 바인딩
+	//
+	////////////////////////////////////////////////////
+	
+	// 담당자 추가 혹은 제거 이벤트
+	$('body').on('click', '#issueEditArea .assigneeboxes .assigneebox', function(){
+		let parameter = $(this).data('mem_no');
+		let isAdd = $(this).find('i').prop('hidden');
+		let assigneesSize = $('#assigneeGuys').find('.assigneebox').length;
+		if( isAdd && assigneesSize>=4){
+			return;
+		}
+		editIssue(isAdd? 'assigneeAdd' : 'assigneeDel', parameter);
+	})
+	
+	// 마일스톤 변경 이벤트
+	$('body').on('click', '#issueEditArea .milestoneBoxes .new-issue-milestone', function(){
+		let parameter = $(this).data('milest_sid');
+		editIssue('milest_sid', parameter);
+	})
+	
+	// 마일스톤 제거 이벤트
+	$('body').on('click', '#issueEditArea #selectedMilestone .new-issue-milestone', function(){
+		editIssue('milest_sid');
+	})
+	
+	// 라벨 변경 이벤트
+	$('body').on('click', '#issueEditArea .labelBoxes .labelBox', function(){
+		let parameter = $(this).data('label_no');
+		editIssue('label_no', parameter);
+	})
+	
+	// 라벨 제거 이벤트
+	$('body').on('click', '#issueEditArea #selectedLabel .labelBox', function(){
+		editIssue('label_no');
+	})
+	
+	// 중요도 변경 이벤트
+	$('body').on('click', '#issueEditArea .issue-priority-list .issue-priority', function(){
+		let parameter = $(this).data('priority');
+		editIssue('issue_priority', parameter);
+	})
+	
+	// 중요도 제거 이벤트
+	$('body').on('click', '#issueEditArea #issuePrioritySetting .issue-priority', function(){
+		editIssue('issue_priority');
+	})
+	
+	// 이슈 시작일 변경 이벤트
+	$('body').on('change', '#issueEditArea #issue-start-date', function(){
+		let parameter = $(this).val();
+		editIssue('issue_start_date', parameter);
+	})
+	
+	// 이슈 종료일 변경 이벤트
+	$('body').on('change', '#issueEditArea #issue-end-date', function(){
+		let parameter = $(this).val();
+		editIssue('issue_end_date', parameter);
+	})
+	
+	// 이슈 열기/닫기 이벤트 바인딩
+	$('.content-body').on('click', '#closeBtn', function(){
+		issue.issue_status = issue.issue_status == 0 ? 1 : 0;
+		editIssue('issue_status', issue.issue_status);
+				
+		if(issue.issue_status == 0){
+			//상위 라벨
+			$('.issue-status').children('span').text('Open');
+			$('.issue-status').children('span').removeClass('label-danger');
+			$('.issue-status').children('span').addClass('label-success');
+			//바닥 버튼
+			$('#closeBtn').text('Close issue');
+			$('#closeBtn').removeClass('btn-primary');
+			$('#closeBtn').addClass('btn-warning');
+			// toastr 알람
+			toastr.success('issue를 Open 했습니다.')
+		}else{
+			//상위 라벨
+			$('.issue-status').children('span').text('Closed');
+			$('.issue-status').children('span').removeClass('label-success');
+			$('.issue-status').children('span').addClass('label-danger');
+			// 바닥 버튼 
+			$('#closeBtn').text('Reopen issue');
+			$('#closeBtn').removeClass('btn-warning');
+			$('#closeBtn').addClass('btn-primary');
+			// toastr 알람
+			toastr.warning('issue를 Close 했습니다.')
+		}
+		
+	});
+	
 	
 	
 	////////////////////////////////////////////////////
@@ -210,6 +254,12 @@ $(function(){
 	$('body').on('change', '#issue-start-date', function(){
 		let startDate = $('#issue-start-date').val();
 		$('#issue-end-date').bootstrapMaterialDatePicker("setMinDate", startDate);
+	})
+	
+	// issue endDate 가 정해 진 후에는 startDate는 그 이전으로만 적용할 수 있도록 막기
+	$('body').on('change', '#issue-end-date', function(){
+		let endDate = $('#issue-end-date').val();
+		$('#issue-start-date').bootstrapMaterialDatePicker("setMaxDate", endDate);
 	})
 	
 	
@@ -375,7 +425,7 @@ const loadIssue = function(){
 					let selectedBox = milestoneBoxes.eq(i);
 					let milestoneSid = selectedBox.data('milest_sid');
 					// 지정된 마일스톤 번호를 찾았을 경우 선택 하고 break;
-					if(milestoneSid = res.milest_sid){
+					if(milestoneSid == res.milest_sid){
 						assigneeMilestone(selectedBox);
 						break;
 					}
@@ -390,7 +440,7 @@ const loadIssue = function(){
 					let selectedBox = labelBoxes.eq(i);
 					let label_no = selectedBox.data('label_no');
 					// 지정된 라벨 번호를 찾았을 경우 선택 하고 break;
-					if(label_no = res.label_no){
+					if(label_no == res.label_no){
 						$('#noLabelSign').attr('hidden', true);
 						assigneeLabel(selectedBox);
 						break;
@@ -651,8 +701,33 @@ const checkValidationToInsertIssue = function(){
 }
 
 
+// 이슈 데이터 수정 이벤트
 
-
+const editIssue = function(editpart, parameter){
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/issues',
+		method : 'post',
+		data : {
+			'issue_sid' : issue.issue_sid
+			,'editpart' : editpart
+			,'parameter' : parameter
+			,'_method' : 'put'
+		},
+		success : function(res) {
+			if(res == "OK"){
+				toastr.success('변경되었습니다.');
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+		,async : false
+		
+	})
+	
+}
 
 
 

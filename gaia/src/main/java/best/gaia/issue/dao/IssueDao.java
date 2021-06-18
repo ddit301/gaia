@@ -42,7 +42,7 @@ public interface IssueDao {
 	 * @param issue
 	 * @return affected rows count
 	 */
-	public int updateIssue(IssueVO issue);
+	public int updateIssue(Map<String, Object> map);
 	
 	/**
 	 * @param issue_id
@@ -56,6 +56,15 @@ public interface IssueDao {
 	
 	public int deleteLabelFromIssue(int label_no);
 	
-	public int insertIssueAssignee(Map<String, Object> assignee);
+	/**
+	 * @param assignee (mem_no, issue_sid)
+	 * @return
+	 */
+	public int insertIssueAssignee(Map<String, Integer> assignee);
+	/**
+	 * @param paramMap (mem_no, issue_sid)
+	 * @return
+	 */
+	public int deleteIssueAssignee(Map<String, Integer> assignee);
 	
 }

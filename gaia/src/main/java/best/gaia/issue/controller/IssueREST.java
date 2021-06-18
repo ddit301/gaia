@@ -133,17 +133,15 @@ public class IssueREST {
 	}
 	
 	@PutMapping
-	public Map<String, Object> updateIssue(
-			@ModelAttribute IssueVO issue
+	public ServiceResult updateIssue(
+			@RequestParam int issue_sid
+			,@RequestParam String editpart
+			,@RequestParam Optional<String> parameter
 		) {
 		
-		ServiceResult result = dao.updateIssue(issue) == 1 ? ServiceResult.OK : ServiceResult.FAIL;
+		ServiceResult result = service.updateIssue(issue_sid, editpart, parameter);
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put("issue", issue);
-		map.put("result", result);
-		
-		return map;
+		return result;
 	}
 	
 	@DeleteMapping

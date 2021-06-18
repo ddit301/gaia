@@ -47,7 +47,7 @@
    			</div>
    		</div>
 <!--             		menulist 시작 -->
-		<div class="menulist col-md-3">
+		<div id="issueEditArea" class="menulist col-md-3">
 <!-- 	        이슈 담당자 menubox 시작 -->
 			<div class="menubox card">
 				<div class="menubox-header dropdown">
@@ -245,6 +245,7 @@
 	        ,minDate : new Date()
 	    });
 		
+		
 		// editor의 내용이 있을 때만 Comment 버튼 활성화
 		editor.on('change', function(){
 			if((editor.getMarkdown()).length > 0 ){
@@ -255,6 +256,14 @@
 		})
 		
 		loadIssue();
+		
+		// 시작일과 마감일 범위 제한 설정해주기
+		if($('#issue-start-date').val()){
+			$('#issue-end-date').bootstrapMaterialDatePicker("setMinDate", $('#issue-start-date').val());
+		}
+		if($('#issue-end-date').val()){
+			$('#issue-start-date').bootstrapMaterialDatePicker("setMaxDate", $('#issue-end-date').val());
+		}
 		
 		
      })
