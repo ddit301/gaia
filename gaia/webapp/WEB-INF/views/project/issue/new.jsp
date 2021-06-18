@@ -124,12 +124,11 @@
 			<div class="menubox card">
 				<div class="menubox-header datepickerHeader">
 					<button class="btn" type="button">
-					    <span>이슈 시작일</span>
-					    <i class="icon-settings menu-icon"></i>
+						<label for="issue-start-date">
+					    	이슈 시작일<i class="icon-settings menu-icon"></i>
+					    </label>
+						<input id="issue-start-date" class="datePick" type="text">
 					</button>
-				</div>
-				<div id="issueStartDate" class="menubox-body">
-					<input class="datePick" type="text" placeholder="click">
 				</div>
 			</div>
 <!-- 	         menubox 끝 -->
@@ -137,21 +136,21 @@
 			<div class="menubox card">
 				<div class="menubox-header datepickerHeader">
 					<button class="btn" type="button">
-					    <span>이슈 마감일</span>
-					    <i class="icon-settings menu-icon"></i>
+					    <label for="issue-end-date">
+					    	이슈 마감일<i class="icon-settings menu-icon"></i>
+					    </label>
+						<input id="issue-end-date" class="datePick" type="text">
 					</button>
-				</div>
-				<div id="issueEndDate" class="menubox-body">
-					<input class="datePick" type="text" placeholder="click">
 				</div>
 			</div>
 <!-- 	         menubox 끝 -->
 <!-- 	      칸반 바로등록   menubox 시작 -->
 			<div class="menubox card">
-				<div class="menubox-header">
+				<div class="regkanban menubox-header">
 					<button class="btn" type="button">
-					    <label for="addToKanban">칸반에 바로 등록</label>
-						<input id="addToKanban" type="checkbox" checked>
+					    <label for="addToKanban">칸반에 바로 등록
+							<input id="addToKanban" type="checkbox" checked>
+					    </label>
 					</button>
 				</div>
 			</div>
@@ -185,31 +184,15 @@ editor = new toastui.Editor({
 	        ,minDate : new Date()
 	    });
 		
-		// startDate 가 정해 진 후에는 endDate는 그 이후로만 적용할 수 있도록 막기
-		$('#issueStartDate').children('input').on('change', function(){
-			let startDate = $('#issueStartDate').children('input').val();
-			$('#issueEndDate').children('input').bootstrapMaterialDatePicker("setMinDate", startDate);
-		})
-		
 		// editor의 내용이 있을 때만 Comment 버튼 활성화
 		editor.on('change', function(){
-			checkValidation();
+			checkValidationToInsertIssue();
 		})
 		$('.issueTitle').children('input').on('input', function(){
-			checkValidation();
+			checkValidationToInsertIssue();
 		})
 		
 	})
-	
-var checkValidation = function(){
-	let titleLength = $('.issueTitle').children('input').val().length;
-	let contLength = editor.getMarkdown().length;
-	if( titleLength * contLength > 0 ){
-		$('#saveIssue').prop('disabled', false);
-	}else{
-		$('#saveIssue').prop('disabled', true);
-	}
-}
 
 
 </script>

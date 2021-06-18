@@ -1,15 +1,22 @@
 package best.gaia.issue.controller;
 
+import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+import static best.gaia.utils.SessionUtil.getProjNoFromSession;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -33,8 +40,8 @@ import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.KanbanCardVO;
+import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
-import static best.gaia.utils.SessionUtil.*;
 
 @RestController
 @RequestMapping(value="restapi/project/issues", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -82,9 +89,21 @@ public class IssueREST {
 			,@ModelAttribute IssueVO issue
 			,@RequestParam String issue_content
 			,@RequestParam Boolean addToKanban
+			,@RequestParam Optional<String> assigneeMemNos
 			) {
 		issue.setMem_no(getMemberNoFromAuthentication(authentication));
 		issue.setProj_no(getProjNoFromSession(session));
+		
+		// 이슈 담당자들 존재할 경우 처리해서 issue 객체에 담는다.
+		if(assigneeMemNos.isPresent() && StringUtils.isNotBlank(assigneeMemNos.get())) {
+			String[] memNumbers = assigneeMemNos.get().split(",");
+			Set<MemberVO> assigneeList = new HashSet<>();
+			for(String mem_no : memNumbers) {
+				MemberVO assignee = new MemberVO(Integer.parseInt(mem_no));
+				assigneeList.add(assignee);
+			}
+			issue.setAssigneeList(assigneeList);
+		}
 		
 		// issue에 issue_content를 history 형태로 담는다.
 		List<IssueHistoryVO> histories = new ArrayList<>();
@@ -93,6 +112,7 @@ public class IssueREST {
 		histories.add(history);
 		issue.setHistoryList(histories);
 		
+		// 준비된 issue를 insert Issue 로직에 태운다.
 		ServiceResult result = service.insertIssue(issue);
 		
 		// 칸반에 바로 추가하도록 설정되어 있으면 이슈 등록후 카드도 추가해준다.

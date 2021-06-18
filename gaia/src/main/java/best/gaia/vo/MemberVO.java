@@ -71,6 +71,10 @@ public class MemberVO implements UserDetails, Serializable {
 		this.mem_id = mem_id;
 		this.mem_pass = mem_pass;
 	}
+	
+	public MemberVO(int mem_no) {
+		this.mem_no = mem_no;
+	}
   
 	/**
 	 * Collnection 관계의 객체입니다.
