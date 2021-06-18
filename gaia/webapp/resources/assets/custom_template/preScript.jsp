@@ -36,6 +36,8 @@
     <link href="${cPath }/resources/assets/css/external/toastr.css" rel="stylesheet">
     <!-- jquery-contextmenu -->
     <link href="${cPath }/resources/assets/css/external/jquery.contextMenu.css" rel="stylesheet">
+    <!-- fullcalendar -->
+    <link href="${cPath }/resources/fullCalendar/lib/main.css" rel="stylesheet">
     <!-- jquery -->
     <script src="${cPath }/resources/js/external/jquery.min.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
