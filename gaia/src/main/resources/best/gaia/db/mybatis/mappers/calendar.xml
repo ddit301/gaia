@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="best.gaia.calendar.dao.CalendarDao">
+	<select id="selectIssuesByProj_no" parameterType="int" resultType="best.gaia.vo.IssueVO">
+		SELECT  ISSUE_SID, ISSUE_NO, MEM_NO, LABEL_NO
+			, MILEST_SID, PROJ_NO, ISSUE_TITLE, ISSUE_CREATE_DATE
+			, ISSUE_START_DATE, ISSUE_END_DATE, ISSUE_STATUS
+			, ISSUE_PRIORITY, PROGRESS
+		FROM ISSUE
+		WHERE PROJ_NO = ${proj_no}
+	</select>
+	<select id="selectMilestoneByProj_no" parameterType="int" resultType="best.gaia.vo.MilestoneVO">
+		SELECT MILEST_SID, MEM_NO, PROJ_NO, MILEST_NO
+			, MILEST_TITLE, MILEST_CONT, MILEST_DATE, MILEST_START_DATE
+			, MILEST_END_DATE, MILEST_STATUS
+		FROM MILESTONE
+		WHERE PROJ_NO = ${proj_no}
+	</select>
+</mapper>
