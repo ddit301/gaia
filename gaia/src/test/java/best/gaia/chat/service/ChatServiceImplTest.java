@@ -19,7 +19,9 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.chat.dao.ElasticChatDao;
 import best.gaia.chat.dao.OracleChatDao;
 import best.gaia.member.controller.MemberREST;
+import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.ChatRoomVO;
+import best.gaia.vo.MemberVO;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:webapp/WEB-INF/spring/*-context.xml")
 @WebAppConfiguration
@@ -31,31 +33,44 @@ public class ChatServiceImplTest {
 	OracleChatDao orDao;
 	
 	@Inject
+	ChatService service;
+	
+	ChatRoomVO chatRoomVO = new ChatRoomVO();
+	
+	@Inject
 	WebApplicationContext container;
 	
-//
-//	@Test
-//	public void testInsert() {
-//		Map<String, Object> message = new HashMap<>();
-//		message.put("chatroom_no", 3);
-//		message.put("content", "thisaaa room3! nice to meet you!");
-//		int result = chatDao.insertMessage(1, message);
-//		System.out.println(result);
-//	}
 	@Test
+	public void testInsert() {
+		Map<String, Object> chat = new HashMap<>();
+		
+		chat.put("chatroom_no", 1);
+		chat.put("content", "hi hello nihao thisaaa room1! nice to meet you!");
+		ServiceResult result = service.insertElasticMessage(1, chat);
+		System.out.println(result);
+	}
+//	@Test
 	public void testSelect() {
+		//방들의 최근 채팅 내역만 가지고 오기.
 		int chatRoom_no = 1;
 		int size = 1;
 		List<Map<String, Object>> result = chatDao.getMessageListbyChatRoomOne(chatRoom_no, size);
 		System.out.println(result);
 	}
-//	
 //	@Test
+	public void testSelectChatListbyChatRoomNo() {
+		// 해당 방의 채팅 내역들모두 가지고 오기
+		int chatRoom_no = 1;
+		int size = 1;
+		chatRoomVO.setChatroom_no(chatRoom_no);
+		chatRoomVO.setChatList(service.getMessageListbyChatRoom(chatRoomVO.getChatroom_no())); 
+		System.out.println(chatRoomVO.toString());
+	}
 //	public void testChatRoomMessages() {
 //		// 나의 채팅방들 중 한 방의 채팅들 불러오기
 //		// 내가 속한 채팅방 목록 모두 불러오기.
-//		List<ChatVO> roomList = orDao.selectMemberChatRoomList(1);
-//		ChatVO chatvo = roomList.get(0);
+//		List<ChatRoomVO> roomList = orDao.selectMemberChatRoomList(1);
+//		ChatRoomVO chatvo = roomList.get(0);
 //		int chatRoomNo = chatvo.getChatroom_no();
 //		System.out.println(chatRoomNo);
 //		

@@ -56,4 +56,6 @@ public interface IssueDao {
 	
 	public int deleteLabelFromIssue(int label_no);
 	
+	public int insertIssueAssignee(Map<String, Object> assignee);
+	
 }

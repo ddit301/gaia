@@ -121,7 +121,7 @@
 
 <script>
 	$(function(){
-		loadProjectMembers();
+		loadProjectMemberstoManage();
 	})
 </script>
 

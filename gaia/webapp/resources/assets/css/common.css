@@ -136,13 +136,23 @@ button.selectedProj{
 .roleBox{
 	padding-top : 5px;
 }
-.roleBox input{
+.roleBox input[type='checkbox']{
 	margin-top : 7px;
+}
+.roleBox input[type='text']{
+	width : 100%;
 }
 .roleBox span{
 	font-size : 1.2em;
 }
-
-
-
+.roleBtnArea button{
+	margin-top : 20px;
+	float : left;
+}
+#editRoleBtn{
+	float : right;
+}
+.roleDeleteBtn{
+	float : right;
+}
 

@@ -293,12 +293,11 @@ select distinct mem_no, mem_id, mem_nick, mem_pic_file_name,mem_nm, mem_bio, mem
         ,mem_status
 from member
 where mem_no not in (select mem_no from memlist)
-        and (mem_id like '판교'
-		    or mem_nick like '판교'		  
-            or mem_nm like '판교'
-            or mem_bio like '판교'	
-            or mem_working_city like '판교'
-        )
+    AND ( instr(LOWER(mem_id) ,LOWER('kk'))>0--#{keyword}
+      OR instr(LOWER(mem_nick) ,LOWER('kk'))>0
+      OR instr(LOWER(mem_nm) ,LOWER('kk'))>0
+      OR instr(LOWER(mem_bio) ,LOWER('kk'))>0
+      OR instr(LOWER(mem_working_city) ,LOWER('kk'))>0)
 order by mem_no;
 
 -----------------------------------------------------------------------

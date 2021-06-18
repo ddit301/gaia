@@ -20,6 +20,7 @@ import best.gaia.project.dao.WikiDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.KanbanColumnVO;
+import best.gaia.vo.LabelVO;
 import best.gaia.vo.MemRoleVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.NewsVO;
@@ -230,10 +231,8 @@ public class ProjectServiceImpl implements ProjectService {
 		int proj_no = project.getProj_no();
 		
 		// 프로젝트에 기본 멤버 롤 생성해서insert 등록 하고 ( Manager, member )
-		MemRoleVO adminRole = new MemRoleVO("admin");
-		adminRole.setProj_no(proj_no);
-		MemRoleVO memberRole = new MemRoleVO("member");
-		memberRole.setProj_no(proj_no);
+		MemRoleVO adminRole = new MemRoleVO(proj_no,"관리자",4095);
+		MemRoleVO memberRole = new MemRoleVO(proj_no,"회원",2998);
 		validChecker *= projectDao.insertMemberRole(adminRole);
 		validChecker *= projectDao.insertMemberRole(memberRole);
 		
@@ -259,6 +258,11 @@ public class ProjectServiceImpl implements ProjectService {
 		thirdColumn.setProj_no(proj_no);
 		secondColumn.setKb_col_priv_no(secondColumn.getKb_col_no());
 		validChecker *= kanbanDao.insertKanbanColumn(thirdColumn);
+		
+		// 프로젝트에 기본 라벨들을 생성해 insert 합니다.
+		validChecker *= projectDao.insertLabel(new LabelVO(proj_no, "일감", "icon-star", "#f8f8f8"));
+		validChecker *= projectDao.insertLabel(new LabelVO(proj_no, "버그", "icon-close", "#f7ca88"));
+		validChecker *= projectDao.insertLabel(new LabelVO(proj_no, "도움요청", "icon-pin", "#d8d8d8"));
 		
 		return validChecker == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
@@ -297,6 +301,31 @@ public class ProjectServiceImpl implements ProjectService {
 		
 	}
 
+	@Override
+	@Transactional
+	public ServiceResult insertAndUpdateMemroles(int proj_no, List<MemRoleVO> newRoles, List<MemRoleVO> editRoles) {
+		
+		int newSize = newRoles.size();
+		int insertSize = editRoles.size();
+		
+		// 새로운 role들이 추가 되었으면 insert 해주기
+		for(MemRoleVO memRole : newRoles) {
+			memRole.setProj_no(proj_no);
+			newSize -= projectDao.insertMemberRole(memRole);
+		}
+		
+		// 수정된 role들 업데이트 해주기
+		for(MemRoleVO memRole : editRoles) {
+			insertSize -= projectDao.updateMemberRole(memRole);
+		}
+		
+		ServiceResult result = ServiceResult.FAIL;
+		if (newSize == 0 && insertSize ==0) {
+			result = ServiceResult.OK;
+		}
+		
+		return result;
+	}
 
 }
 

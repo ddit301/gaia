@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import best.gaia.vo.ChatRoomVO;
+import best.gaia.vo.MemberVO;
 
 @Repository
 public interface OracleChatDao {
@@ -14,7 +15,8 @@ public interface OracleChatDao {
 	 * Oracle
 	 */
 	public List<ChatRoomVO> selectMemberChatRoomList(int mem_no);
-	public int insertChatRoom(Map<String, Object> roomInfo);
+	public List<MemberVO> searchMemberList(Map<String, Object> searchInfo);
+	public int insertChatRoom(ChatRoomVO roomInfo);
 	public int insertChatRoomMember(Map<String, Object> participants);
-	public List<Map<String, Object>> exists(int mem_no);
+	public int exists(Map<String, Object> participants);
 }

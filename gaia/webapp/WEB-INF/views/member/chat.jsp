@@ -13,8 +13,16 @@
     <div class="row">
         <div class="col-lg-4 col-xl-3">
             <div class="card chatRoomList-over side-position-fixed"> 
-                <div class="card-body" id="chatRoomList">
-                   	
+                <div class="card-body">
+                	<div id="chatRoomList-top border-bottom" >
+                		<h3 style="display:inline-block;">Chatting</h3>
+                		<div class="right">
+			                <span class="material-icons newVideoChat clickable">video_call</span>
+			                <span class="material-icons newChat clickable">add_circle</span>
+		                </div>
+                	</div>
+                   	<ul id="chatRoomList">
+                   	</ul>
                 </div>
             </div>  
         </div>
@@ -29,16 +37,57 @@
 			</div>
  			<div class="chat">
 				<div class="row">
-					<div class="col-md-8"></div>			            
-					<div class="col-md-4 border-left" ></div>			            
+					<div class="col-md-8 ">
+						<div class="chat-top row">
+							<div class="col-md-3">aa</div>
+							<div class="col-md-6">bvb</div>
+							<div class="col-md-3">xcc</div>
+						</div>
+						<div class="chat-mid chat-room" id="this-is-chatRoom" data-room_no="">
+							<!-- chattings -->
+						</div>
+						<div class="chat-bot pt-1">
+						<form class="row" action="javascript:void();">
+							<div class="col-md-8">
+								<input type="text" class="" id="chatInput" placeholder="Input Default">
+							</div>
+							<div class="col-md-4 inputChatText">
+								<button onclick="inputChat();" type="submit" class="btn mb-1 btn-outline-dark">button</button>
+							</div>
+							</form>
+						</div>
+					</div>			            
+					<div class="col-md-4 border-left" >
+						
+					</div>			            
 				</div>
 		    </div>
 		</div>
     </div>
 </div>
-
+<!-- chat  -->
+<div id="chatTemplate" hidden="hidden">
+	<div class="chat-box left">
+		<div class="chat-card clear" >
+			<div class="card-body"  >
+				<div class="chat-mid-top" >
+					<span>a</span>
+				</div>
+			</div>
+		</div>
+		<div class="chat-date" data-date="">
+			<span>10:24</span>
+		</div>
+	</div>
+	
+	<div class="chat-day-alarm" style="clear:both;">
+		<span></span>
+		<hr>
+	</div>
+</div>
+<!-- sidebar 채팅룸들 -->
 <div id="chatRoomTemplate" hidden="hidden">
-	<ul class="chatRoom">
+	<li class="chatRoom" >
 		<div class="card">
 			<div class="row chatList-card-body">
 				<div class="col-md-5 log-img-center chat-img">
@@ -59,7 +108,44 @@
 		      	</div>
 		   	</div>
 		</div>
-	</ul>
+	</li>
+</div>
+
+<!-- 회원 초대 Modal -->
+<div class="modal fade" id="inviteMemberChat" tabindex="-1" aria-labelledby="inviteMemberLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="inviteMemberLabel">프로젝트 멤버 초대</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="inviteModal modal-body">
+      	<input type="text"><button id="memSearchBtnChat" class="btn">검색</button>
+    	<ul id="memSearchResultChat">
+    	</ul> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div hidden="hidden">
+	<div id="setting-member-template-chat">
+		<ul>
+			<li class="searchedMemberChat">
+				<img class="profile" src="/resources/images/profiles/1">
+				<span class="memid">id</span>
+				<span class="memnm">name</span>
+				<span class="memnick">nick</span>
+				<span class="memcity">city</span>
+				<i class="icon-plus"></i>
+			</li>
+		</ul>
+	</div>
 </div>
 <script>
 loadMemberInfo_chat();

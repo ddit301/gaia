@@ -13,6 +13,7 @@ import best.gaia.chat.dao.OracleChatDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.ChatRoomVO;
 import best.gaia.vo.IssueHistoryVO;
+import best.gaia.vo.MemberVO;
 
 // elastic 연결하기 전처리.(최초의 처리)
 @Service
@@ -28,10 +29,8 @@ public class ChatServiceImpl implements ChatService{
 	 *  ElasticSearch 
 	 */
 	@Override
-	public ServiceResult insertMemberMessage(int chatroom_no, Map<String, Object> message) {
-		message.put("chatroom_no", 1);
-		message.put("content", "hi! nice to meet you!");
-		int result = eldao.insertMessage(chatroom_no, message);
+	public ServiceResult insertElasticMessage(int mem_no, Map<String, Object> chat) {
+		int result = eldao.insertMessage(mem_no, chat);
 		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
 	} 
 	@Override
@@ -61,13 +60,18 @@ public class ChatServiceImpl implements ChatService{
 		return roomList;
 	}
 	@Override
-	public List<Map<String, Object>> exists(int mem_no) {
-		List<Map<String, Object>> result = ordao.exists(mem_no);
-		
+	public List<MemberVO> searchMemberList(Map<String, Object> searchInfo) {
+		List<MemberVO> memberList = ordao.searchMemberList(searchInfo);
+		return memberList;
+	}
+	@Override
+	public int exists(Map<String, Object> participants) {
+		// participant1, participant2와 비교. 1은 self
+		int result = ordao.exists(participants);
 		return result;
 	}
 	@Override
-	public ServiceResult insertChatRoom(Map<String, Object> roomInfo) {
+	public ServiceResult insertChatRoom(ChatRoomVO roomInfo) {
 		// chatroom_no, chatroom_title, chatroom_create_date, chatroom_alarm
 		int result = ordao.insertChatRoom(roomInfo);
 		return result == 1? ServiceResult.OK : ServiceResult.FAIL; 
@@ -79,10 +83,12 @@ public class ChatServiceImpl implements ChatService{
 		int result = ordao.insertChatRoomMember(participants);
 		return result == 1? ServiceResult.OK : ServiceResult.FAIL;
 	}
-	// 최초 방 생성 시.(기본적으로 1:1채팅)
+
+	
 	@Transactional
-	public ServiceResult createChatRoom(Map<String, Object> roomInfo, 
+	public ServiceResult createChatRoom(ChatRoomVO roomInfo, 
 				Map<String, Object> participant1, Map<String, Object> participant2) {
+		// 최초 방 생성 시.(기본적으로 1:1채팅)
 		// 채팅방 개설
 		int result = ordao.insertChatRoom(roomInfo);
 		if(result == 1) {
@@ -104,5 +110,6 @@ public class ChatServiceImpl implements ChatService{
 		
 		return null;
 	}
+	
 	
 }

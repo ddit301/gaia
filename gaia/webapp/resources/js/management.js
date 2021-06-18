@@ -19,6 +19,12 @@ $(function() {
 	$('body').on('click', '#saveModuleBtn', function(){
 		saveModuleSetting();
 	})
+	
+	// 멤버 역할 삭제 버튼
+	$('body').on('click', '.roleDeleteBtn', function(){
+		let roleBox = $(this).parents('.roleBox');
+		deleteRole(roleBox);
+	})
 
 	/**********************************
 					버튼 매핑 끝
@@ -97,61 +103,73 @@ $(function() {
 ********************************/
 
 // 프로젝트 관리 페이지에서 쓸 데이터를 불러오는 함수
-const loadProjectForManagement = function(){
-	$.ajax({
+
+const getProjectDetails = function(){
+	let project = null;
+	
+		$.ajax({
 			url : getContextPath() + '/restapi/project/loadProjectForManagement.do',
 			method : 'get',
-			success : function(project) {
-				// 프로젝트 설명 출력
-				$('#mng_proj_cont').val(project.proj_cont);
-				
-				// 예정 마감일 출력
-				let enddate = project.proj_est_end_date;
-				$('#mng_proj_end').val(enddate? moment(enddate).format('YYYY-MM-DD') : '');
-				
-				// 사용 모듈 출력
-				let moduleDiv = $('#mng_module');
-				let moduleData = project.proj_module_set;
-				binaryDataPrinter(moduleDiv, moduleData);
-				
-				// 이슈 중요도 출력
-				let issueDiv = $('#issue_module');
-				let issueData = project.issue_priority_set;
-				binaryDataPrinter(issueDiv, issueData);
-				
-				// 라벨 목록 출력
-				let labelBoxTemplate = $('#manage-template').find('.labelBox')
-				let labelBoxArea = $('#labelBoxArea');
-				labelBoxArea.empty();
-				$.each(project.labelList, function(i,label){
-					let labelBox = labelBoxTemplate.clone();
-					labelBox.attr('data-label_no', label.label_no);
-					labelBox.find('i').addClass(label.label_icon);
-					labelBox.find('span').text(label.label_nm);
-					labelBox.css({"backgroundColor":label.label_color});
-					labelBoxArea.append(labelBox);
-				});
-				
-				// 멤버 역할 목록 출력
-				let roleBoxTemplate = $('#manage-template').find('.roleBox');
-				let roleBoxArea = $('#roleBoxArea');
-				roleBoxArea.empty();
-				$.each(project.roleList, function(i, role){
-					let roleBox = roleBoxTemplate.clone();
-					roleBox.find('.rolename').find('span').text(role.mem_role_nm);
-					roleBox.attr('data-mem_role_no', role.mem_role_no);
-					let roleSelectDiv = roleBox.find('.role_auth_list');
-					binaryDataPrinter(roleSelectDiv, role.authority);
-					roleBoxArea.append(roleBox);
-				})
-				
+			success : function(res) {
+				project = res;
 			},
 			error : function(xhr, error, msg) {
 				ajaxError(xhr, error, msg);
 
 			},
 			dataType : 'json'
+			,async : false
 		})
+	
+	return project;
+}
+
+const loadProjectForManagement = function(){
+	let project = getProjectDetails();
+
+	// 프로젝트 설명 출력
+	$('#mng_proj_cont').val(project.proj_cont);
+	
+	// 예정 마감일 출력
+	let enddate = project.proj_est_end_date;
+	$('#mng_proj_end').val(enddate? moment(enddate).format('YYYY-MM-DD') : '');
+	
+	// 사용 모듈 출력
+	let moduleDiv = $('#mng_module');
+	let moduleData = project.proj_module_set;
+	binaryDataPrinter(moduleDiv, moduleData);
+	
+	// 이슈 중요도 출력
+	let issueDiv = $('#issue_module');
+	let issueData = project.issue_priority_set;
+	binaryDataPrinter(issueDiv, issueData);
+	
+	// 라벨 목록 출력
+	let labelBoxTemplate = $('#manage-template').find('.labelBox')
+	let labelBoxArea = $('#labelBoxArea');
+	labelBoxArea.empty();
+	$.each(project.labelList, function(i,label){
+		let labelBox = labelBoxTemplate.clone();
+		labelBox.attr('data-label_no', label.label_no);
+		labelBox.find('i').addClass(label.label_icon);
+		labelBox.find('span').text(label.label_nm);
+		labelBox.css({"backgroundColor":label.label_color});
+		labelBoxArea.append(labelBox);
+	});
+	
+	// 멤버 역할 목록 출력
+	let roleBoxTemplate = $('#manage-template').find('.roleBox');
+	let roleBoxArea = $('#roleBoxArea');
+	roleBoxArea.empty();
+	$.each(project.roleList, function(i, role){
+		let roleBox = roleBoxTemplate.clone();
+		roleBox.find('.rolename').find('input[type=text]').val(role.mem_role_nm);
+		roleBox.attr('data-mem_role_no', role.mem_role_no);
+		let roleSelectDiv = roleBox.find('.role_auth_list');
+		binaryDataPrinter(roleSelectDiv, role.authority);
+		roleBoxArea.append(roleBox);
+	})
+
 }
 
 // 특정 div안의 checkbox 들에 이진수 형태의 data에 맞게 체크를 해주는 함수
@@ -166,6 +184,8 @@ const binaryDataPrinter = function(div, data){
 		// 해당하는 index가 1이면 check로 바꿔준다.
 		if(binaryData.charAt(i) == '1'){
 			inputArea.prop("checked", true);
+		}else{
+			inputArea.prop("checked", false);
 		}
 	}
 }
@@ -175,7 +195,7 @@ const binaryDataReader = function(div){
 	let areas = div.children('div');
 	let areasize = areas.length;
 	let sum = 0;
-	for(i=0; i<areasize; i++){
+	for(let i=0; i<areasize; i++){
 		let inputArea = div.children().eq(i).find('input');
 		sum += Math.pow(2, (areasize-1-i) ) * (inputArea.prop("checked")? 1 : 0);
 	}
@@ -438,7 +458,6 @@ const editLabel = function(label){
 	
 }
 
-
 // rgb(221, 255, 255) 형태로 오는 rgb 값을 헥사 코드로 변환 시키는 함수
 const rgbToHex = function (rgb_color) {
 	rgb_color = rgb_color.substring(4, rgb_color.length-1);
@@ -453,6 +472,143 @@ const componentToHex = function(c) {
   var hex = c.toString(16);
   return hex.length == 1 ? "0" + hex : hex;
 }
+
+// 멤버 역할 추가 버튼 클릭시 템플릿 추가 
+const addRoleTemplate = function(){
+	let roleBoxTemplate = $('#manage-template').find('.roleBox');
+	let roleBoxArea = $('#roleBoxArea');
+	let roleBox = roleBoxTemplate.clone();
+	roleBox.find('.rolename').find('input[type=text]').val('역할명');
+	roleBox.css({"backgroundColor":'#FFEEEE'});
+	roleBoxArea.append(roleBox);
+}
+
+// 멤버 역할 관련 설정 저장하는 함수
+const addAndEditRole = function(){
+	let roleBoxArea = $('#roleBoxArea');
+	let roleBoxes = roleBoxArea.children('.roleBox');
+	let roleSize = roleBoxes.length;
+	
+	let editRoles = [];
+	let newRoles = [];
+	
+	// 데이터를 읽어 들여 수정할 role 과 새로운 role로 나누어 배열에 저장한다.
+	for(let i=0; i<roleSize; i++){
+		let roleBox = roleBoxes.eq(i);
+		let mem_role_no = roleBox.data('mem_role_no');
+		let mem_role_nm = roleBox.find('input[type=text]').val();
+		let authDiv = roleBox.find('.role_auth_list');
+		let authority = binaryDataReader(authDiv);
+		
+		let role = {
+			mem_role_no : mem_role_no
+			,mem_role_nm : mem_role_nm
+			,authority : authority
+		};
+		(mem_role_no ? editRoles : newRoles).push(role);
+	}
+	
+//	각각의 배열을 직렬화 해서 요청 보낸다.
+	let editRolesData = JSON.stringify(editRoles);
+	let newRolesData = JSON.stringify(newRoles);
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/memroles',
+		method : 'post',
+		data : {
+			'editRolesData' : editRolesData
+			,'newRolesData' : newRolesData
+		},
+		success : function(res) {
+			if(res.result == "OK"){
+				let editCount = res.editCount;
+				let newCount = res.newCount;
+				if(newCount)
+					toastr.success(newCount + '개의 역할을 성공적으로 추가 했습니다.');
+				if(editCount)
+					toastr.success('성공적으로 업데이트 했습니다.');
+			}else{
+				toastr.error('에러발생.');
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+
+		},
+		dataType : 'json'
+	})
+	
+	
+}
+
+const deleteRole = function(roleBox){
+	let mem_role_no = roleBox.data('mem_role_no');
+	let mem_role_nm = roleBox.find('input[type=text]').val();
+	
+	// 새로 추가하려던 role 일 경우 요소를 삭제한 뒤, 함수를 종료시킨다.
+	if(!mem_role_no){
+		roleBox.remove();
+		return;
+	}
+	
+	// sweetAlert 버튼 초기화
+	 swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+			cancelButton: 'btn btn-light',
+		   	confirmButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+	})	
+	
+	swalWithBootstrapButtons.fire({
+		  title: '정말로 "'+mem_role_nm+'" 롤을 삭제하시겠습니까?',
+		  text: "삭제시 되돌릴 수 없습니다!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: '삭제',
+		  cancelButtonText: '취소',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    swalWithBootstrapButtons.fire(
+		      'Deleted!',
+		      '역할을 삭제했습니다.',
+		      'success'
+		    )
+			// 기존의 역할을 삭제 시킨다.
+			$.ajax({
+				url : getContextPath() + '/restapi/project/memroles',
+				method : 'post',
+				data : {
+					'mem_role_no' : mem_role_no
+					,'_method' : 'delete'
+				},
+				success : function(res) {
+					if(res == "FAIL"){
+						toastr.error('에러발생');
+					}else{
+						roleBox.remove();
+					}
+				},
+				error : function(xhr, error, msg) {
+					ajaxError(xhr, error, msg);
+		
+				},
+				dataType : 'json'
+			})
+		    
+		  } else if (
+		    result.dismiss === Swal.DismissReason.cancel
+		  ) {
+		  }
+		})
+	
+}
+
+
+
+
+
 
 
 

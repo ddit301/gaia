@@ -1,5 +1,4 @@
 
-
 $(function(){
 	
 	//////////////////////////////////////////////////////////////////////////////
@@ -46,9 +45,48 @@ $(function(){
 
 //////////////////////////////////////////////////////////////////////////////
 //
+//	 각종 변수 선언
+//
+//////////////////////////////////////////////////////////////////////////////
+
+const priorities = ['즉시','긴급','높음','보통','낮음','무시'];
+
+//////////////////////////////////////////////////////////////////////////////
+//
 //	 각종 함수 선언
 //
 //////////////////////////////////////////////////////////////////////////////
+
+/**
+	스트링 배열에서 이진법상 1로 등록된 스트링만 골라서 새로운 배열을 반환하는 함수
+	사용 예 : function(6, ['철수', '영희', '민수'])
+			 -> return ['철수', '영희']
+ */ 
+const getStringArrayFromBinaryAndArray = function(binary, array){
+	let length = array.length;
+	let binaryString = binary.toString(2).padStart(array.length,'0');
+	let result = [];
+	for(i=0; i<length; i++){
+		if(binaryString.charAt(i) == '1')
+			result.push(array[i]);
+	}
+	return result;
+}
+
+/**
+	특정 태그의 hidden 상태를 토글 해 줍니다. hidden 상태의 tag가 parameter로 들어가면
+	해당 태그의 hidden 상태가 없어지고, hidden이 아닌 태그가 들어가면 hidden 상태로 만들어줍니다.
+ */
+const toggleHidden = function(tag){
+	tag.prop('hidden', !isHidden(tag));
+}
+
+/**
+	특정 태그가 hidden 상태인지 확인해 줍니다.
+ */
+const isHidden = function(tag){
+	return tag.prop('hidden');
+}
 
 // 뒤로가기 이벤트 binding 하기
 $(window).bind("popstate", function(event) {

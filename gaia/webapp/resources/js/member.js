@@ -36,11 +36,6 @@ const memberMovePage = function(pageParam) {
 		index = pageParam.indexOf("/");
 		pageParam = pageParam.slice(index + 1);
 	}
-	// url에서 'chat/...'으로 pageParam을 넘김.
-//	if (pageParam.includes("chat/")) {
-//		index = pageParam.indexOf("/");
-//		pageParam = pageParam.substring(0, index);
-//	}
 	$.ajax({
 		url: path + pageParam,
 		type: 'get',
@@ -51,7 +46,6 @@ const memberMovePage = function(pageParam) {
 			$('.content-body').html(res);
 		},
 		error: function(xhr, error, msg) {
-			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
 			ajaxError(xhr, error, msg)
 		},
 		dataType: 'html'
@@ -78,17 +72,18 @@ const loadMemberInfo_overview = function() {
 			let cnt = 0;
 			$.each(memberInfo.projectList, function(i, v) {
 				let url = v.url;
-				proj_manager = v.projectManager.mem_id;
+				if(!!v.projectManager.mem_id){ proj_manager = v.projectManager.mem_id; }
 				$.each(v.issueList, function(j, iss) {
-					console.log(iss.issue_sid)
 					if(!!iss.issue_sid){
 						cnt += 1;
 						let issue = $("#issueTemplate").children(".issue").clone();
 						let timeUploaded = iss.historyList[0].issue_his_date;
 						let timeAgo = moment(timeUploaded, "YYYYMMDD").fromNow();
+						console.log(proj_manager)
+						console.log(v.proj_title)
 						let proj_manager_link = "<a href=" + getContextPath() + "/" + proj_manager + ">" + proj_manager + "</a>";
-						let proj_link = "<a href=" + getContextPath() + "/" + url + ">" + "/" + v.proj_title + "</a>";
-						let issue_link = "<a href=" + getContextPath() + "/" + url + "/issue/" + ">" + "/" + iss.issue_sid + "</a>";
+						let proj_link = "<a href=" + getContextPath() + "/" + proj_manager+"/"+v.proj_title + ">" + "/" + v.proj_title + "</a>";
+						let issue_link = "<a href=" + getContextPath() + "/" + proj_manager+"/"+v.proj_title + "/issue/"+ iss.issue_sid + ">" + "/" + iss.issue_sid + "</a>";
 						issue.attr("data-issue_sid", iss.issue_sid);
 						issue.find(".issue-card-top").children().first().html(proj_manager_link + proj_link + issue_link);
 	
@@ -125,6 +120,14 @@ const loadMemberInfo_overview = function() {
 //
 ////////////////////////////////////////////////////
 
+// profile_img 변경 form-data
+// 프로필 사진 변경 버튼 클릭 시 imageSelect function호출 
+$(function() {
+	$(".content-body").on("click", ".edit-profile", function() {
+		$("#upload_image").click();
+	})
+})
+
 // 페이지 로딩 시 retrieveMemberProjectIssue(mem_no) 요청 
 const loadMemberInfo_profile = function() {
 	$.ajax({
@@ -150,27 +153,15 @@ const loadMemberInfo_profile = function() {
 			$(".mem_status").children("div").html(memList);
 		},
 		async: false
-		, error: function(xhr) {
-			console.log(xhr);
-			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-			if (xhr.status == '404') {
-				alert("실패");
-			} else {
-				alert("status : " + xhr.status);
-			}
+		, error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
 		},
+
 		dataType: 'json'
 	})
 }
 
-// profile_img 변경 form-data
-// 프로필 사진 변경 버튼 클릭 시 imageSelect function호출 
-$(function() {
-	$(".content-body").on("click", ".edit-profile", function() {
-		console.log("aaaaa")
-		$("#upload_image").click();
-	})
-})
+
 const imageSelect = $(".content-body").on("change", "#upload_image", function() {
 	var formdata = $("#profile_imageForm")[0];
 	var form_data = new FormData(formdata);
@@ -186,14 +177,9 @@ const imageSelect = $(".content-body").on("change", "#upload_image", function() 
 		success: function(res) {
 			$(".profile_img").attr("src", getProfilePath(mem_pic_file_name));
 			toastr.success('Update에 성공했습니다.')
-		},
-		error: function(xhr) {
-			console.log(xhr);
-			if (xhr.status == '404') {
-				alert("실패");
-			} else {
-				alert("status : " + xhr.status);
-			}
+		}
+		, error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
 		},
 		cache: false,
 		dataType: 'json'
@@ -212,14 +198,9 @@ const updateProfile = function() {
 			window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 			toastr.success('Update에 성공했습니다.')
 		},
-		async: false,
-		error: function(xhr) {
-			console.log(xhr);
-			if (xhr.status == '404') {
-				alert("실패");
-			} else {
-				alert("status : " + xhr.status);
-			}
+		async: false
+		, error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
 		},
 		dataType: 'json'
 	})
@@ -230,6 +211,25 @@ const updateProfile = function() {
 // account.jsp
 //
 ////////////////////////////////////////////////////
+
+$(function() {
+	$(".password_form").validate({
+		errorElement: "span"
+	});
+
+	$(".content-body").on("keyup", ".password", function() {
+		let mem_pass = $("#mem_pass").val();
+		let confirm_pass = $("#confirm_pass").val();
+		if (mem_pass) {
+			if (mem_pass == confirm_pass) {
+				$(".confirmNewPassword").find("span").prop("hidden", false)
+			} else {
+				$(".confirmNewPassword").find("span").prop("hidden", true)
+			}
+		}
+	})
+})
+
 // 페이지로딩 ajax / no need
 const loadMemberInfo_account = function() {
 	let imgPath = getContextPath() + "/resources/profiles/";
@@ -242,20 +242,16 @@ const loadMemberInfo_account = function() {
 			$(".profile_img").attr("src", getProfilePath(mem_pic_file_name));
 		},
 		async: false
-		, error: function(xhr) {
-			if (xhr.status == 401) {
-				toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-				setTimeout(function() { window.location.href = getContextPath() }, 2000);
-			} else {
-				toastr.error("Error!! try it later!")
-			}
+		, error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
 		},
 		dataType: 'json'
 	})
 }
 
+
 //이름 변경 버튼 바인딩
-const changeUserNameBtn = $(".changeAccountBtn").on("click", function() {
+const changeUserNameBtn = $("body").on("click",".changeAccountBtn", function() {
 	event.preventDefault();
 	let form_data = { "_method": "put" };
 	let pass = false;
@@ -313,14 +309,9 @@ const updateName = function(form_data) {
 			swal.success();
 		},
 		enctype: 'multipart/form-data',
-		async: false,
-		error: function(xhr) {
-			if (xhr.status == 401) {
-				toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-				setTimeout(function() { window.location.href = getContextPath() }, 2000);
-			} else {
-				toastr.error("Error!! try it later!")
-			}
+		async: false
+		, error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
 		},
 		dataType: 'json'
 	})
@@ -352,14 +343,9 @@ const updatePass = function(form_data) {
 				}
 			},
 			enctype: 'multipart/form-data',
-			async: false,
-			error: function(xhr) {
-				if (xhr.status == 401) {
-					toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-					setTimeout(function() { window.location.href = getContextPath() }, 2000);
-				} else {
-					toastr.error("형식에 맞게 작성해 주세요!")
-				}
+			async: false
+			, error: function(xhr, error, msg) {
+				ajaxError(xhr, error, msg)
 			},
 			dataType: 'json'
 		})
@@ -388,60 +374,12 @@ const valid = function() {
 	}
 }
 
-$(function() {
-	$(".password_form").validate({
-		errorElement: "span"
-	});
-
-	$(".content-body").on("keyup", ".password", function() {
-		let mem_pass = $("#mem_pass").val();
-		let confirm_pass = $("#confirm_pass").val();
-		if (mem_pass) {
-			if (mem_pass == confirm_pass) {
-				$(".confirmNewPassword").find("span").prop("hidden", false)
-			} else {
-				$(".confirmNewPassword").find("span").prop("hidden", true)
-			}
-		}
-	})
-})
 
 ////////////////////////////////////////////////////
 //
 // securityLog.jsp
 //
 ////////////////////////////////////////////////////
-const loadMemberInfo_log = function() {
-	$.ajax({
-		url: getContextPath() + "/restapi/member/members",
-		data: { "need": "logList" },
-		type: 'get',
-		success: function(res) {
-			$(".profile_img").attr("src", getProfilePath(res.search.mem_pic_file_name));
-			$(".profile_img_label").attr("title", "View " + res.search.mem_id + "'s profile");
-			$(".profile_img_label").siblings("input").val(res.search.mem_id);
-			$.each(res.logList, function(i, v) {
-				let log = $("#logTemplate").children(".log").clone();
-				let timeAgo = moment(v.date, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
-				let ip = v.date + '<span class="vertical-separator"></span>' + timeAgo;
-				log.find(".log-card-ip").html(ip);
-				log.find(".log-card-actor").children("a").text(res.search.mem_id + " - user.login");
-				log.appendTo("#logList");
-			})
-		},
-		async: false
-		, error: function(xhr) {
-			console.log(xhr);
-			// 해당 404 는 뜨면 안되는 에러지만, 충분한 테스팅 후 아래 alert 모두 적절한 예외 처리 필요
-			if (xhr.status == '404') {
-				alert("실패");
-			} else {
-				alert("status : " + xhr.status);
-			}
-		},
-		dataType: 'json'
-	})
-}
 $(function() {
 	$('.profile_img_label').tooltip();
 	$('.content-body').on('click', '.pagination .page-link', function() {
@@ -463,113 +401,34 @@ $(function() {
 	})
 })
 
-const toOverview = function() {
-	$('.profile_img_label').tooltip('hide');
-	memberMovePageHistory('overview');
-}
-
-////////////////////////////////////////////////////
-//
-// chat.jsp
-//
-////////////////////////////////////////////////////
-
-// retrieveMemberProjectIssue(mem_no) 요청
-const loadMemberInfo_chat = function() {
-	let need = "chatRoomList";
-	let mem = "";
-	let mem_count = "";
+// 페이지 로딩 시 불러오는 데이터
+const loadMemberInfo_log = function() {
 	$.ajax({
-		url: getContextPath() + "/restapi/chat/chats",
+		url: getContextPath() + "/restapi/member/members",
+		data: { "need": "logList" },
 		type: 'get',
-		data: { "need": need },
 		success: function(res) {
-			sortByDate(res.roomList);
-			$.each(res.roomList, function(i, v) {
-				let chatRoom = $("#chatRoomTemplate").children(".chatRoom").clone();
-				chatRoom.attr("data-chatRoom_no", v.chatroom_no);
-				// 이름 뒤에 외 몇명 붙여주기.
-				$.each(v.memberList, function(j, participant) {
-					if (j < 2) {mem += participant.mem_id + ", ";}
-					if (j > 1) {mem_count = "님 외 " + (j - 1) + "명";} else {mem_count = "";}
-				})
-				// profileImg 설정 및 효과
-				chatRoom.find(".profile_img.img-center").attr("src", getProfilePath(v.memberList[1].mem_pic_file_name));
-				if (v.memberList.length < 4) {
-					chatRoom.find(".profile_img.img-right").remove();
-					chatRoom.find(".profile_img.img-left").remove();
-				}else{
-					chatRoom.find(".profile_img.img-left").attr("src", getProfilePath(v.memberList[2].mem_pic_file_name));
-					chatRoom.find(".profile_img.img-right").attr("src", getProfilePath(v.memberList[3].mem_pic_file_name));
-				}
-				// 가장 최근 채팅 찍어주기.
-				chatRoom.find(".chatList-card-body .side-bar-content").children("span").text(v.chatList[0].content);
-				
-				// 가장 최근에 연락 이후 경과된 시간 
-				let timeAgo = moment(v.chatList[0].date, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
-				
-				// 이름 찍어주기과 날짜 찍어주기.		
-				members = mem.slice(0, mem.lastIndexOf(", "));
-				members += mem_count;
-				chatRoom.find(".chatList-card-body .log-card-actor").children("a").text(members);
-				chatRoom.find(".chatList-card-body .time").children("span").text(timeAgo);
-				chatRoom.appendTo("#chatRoomList");
-				mem = "";
-				let content = "";
-				// console.log(res.chatListChatRoom.chatroom);
-				chatRoom.find(".chatList-card-body .content").children("span").text();
+			$(".profile_img").attr("src", getProfilePath(res.search.mem_pic_file_name));
+			$(".profile_img_label").attr("title", "View " + res.search.mem_id + "'s profile");
+			$(".profile_img_label").siblings("input").val(res.search.mem_id);
+			$.each(res.logList, function(i, v) {
+				let log = $("#logTemplate").children(".log").clone();
+				let timeAgo = moment(v.date, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
+				let ip = v.date + '<span class="vertical-separator"></span>' + timeAgo;
+				log.find(".log-card-ip").html(ip);
+				log.find(".log-card-actor").children("a").text(res.search.mem_id + " - user.login");
+				log.appendTo("#logList");
 			})
 		},
 		async: false
-		,error : function(xhr, error, msg) {
+		, error: function(xhr, error, msg) {
 			ajaxError(xhr, error, msg)
 		},
 		dataType: 'json'
 	})
 }
-$(function(){
-	$('body').on('click', '.chatRoom', function(){
-		let room_no = $(this).data('chatroom_no');
-		loadChatList_chatRoom(room_no);
-	})
-})
-const loadChatList_chatRoom = function(room_no) {
-	let need = "chatContent";
-	$.ajax({
-		url: getContextPath() + "/restapi/chat/chats",
-		method : 'get',
-		data : {
-			"need" : need,
-			"chatroom_no" : room_no 
-		}, 
-		success : function(res) {
-			console.log(res.chatList);
-			
-		},
-		async : false
-		,error : function(xhr, error, msg) {
-			ajaxError(xhr, error, msg)
-		},
-		dataType : 'json'
-	})
-}
-// 채팅 date 별로 채팅방 side-bar 순위 변경 
-const sortByDate = function(List){
-	List.sort(function(a, b){
-	  let dateA = a.chatList[0].date.toLowerCase();
-	  let dateB = b.chatList[0].date.toLowerCase();
-	  if (dateA > dateB) 
-	  {
-	    return -1;
-	  }    
-	  else if (dateA < dateB)
-	  {
-	    return 1;
-	  }   
-	  return 0;
-	});
-}
-// 채팅이 나이면 오른쪽 아니면 왼쪽에 출력해주시
-chat_left_right = function(){
-	let mem_no = getCookie('mem_no');
+
+const toOverview = function() {
+	$('.profile_img_label').tooltip('hide');
+	memberMovePageHistory('overview');
 }
