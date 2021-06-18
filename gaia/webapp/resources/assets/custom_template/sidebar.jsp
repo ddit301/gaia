@@ -12,47 +12,47 @@
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a class="moveButton codemenu" data-menu="code" href="#" aria-expanded="false">
+                        <a class="moveButton codemenu" data-menu="code" aria-expanded="false">
                             <i class="icon-screen-desktop"></i><span class="nav-text">Code</span>
                         </a>
                     </li>
                     <li>
-                        <a class="moveButton" data-menu="milestone" href="#" aria-expanded="false">
+                        <a class="moveButton" data-menu="milestone" aria-expanded="false">
                             <i class="icon-directions"></i><span class="nav-text">Milestone</span>
                         </a>
                     </li>
                     <li>
-                        <a class="moveButton" data-menu="issue" href="#" aria-expanded="false">
+                        <a class="moveButton" data-menu="issue" aria-expanded="false">
                             <i class="icon-fire"></i><span class="nav-text">Issue</span>
                         </a>
                     </li>
                     <li>
-                        <a class="moveButton" data-menu="ganttchart" href="#" aria-expanded="false">
+                        <a class="moveButton" data-menu="ganttchart" aria-expanded="false">
                             <i class="icon-chart"></i><span class="nav-text">Gantt</span>
                         </a>
                     </li>
                     <li>
-                        <a class="moveButton" data-menu="calendar" href="#" aria-expanded="false">
+                        <a class="moveButton" data-menu="calendar" aria-expanded="false">
                             <i class="icon-calender"></i><span class="nav-text">Calendar</span>
                         </a>
                     </li>
                     <li>
-                        <a class="moveButton" data-menu="kanbanboard" href="#" aria-expanded="false">
+                        <a class="moveButton" data-menu="kanbanboard" aria-expanded="false">
                             <i class="icon-cursor-move"></i><span class="nav-text">Kanban</span>
                         </a>
                     </li>
                     <li>
-                        <a class="moveButton" data-menu="cloud" href="#" aria-expanded="false">
+                        <a class="moveButton" data-menu="cloud" aria-expanded="false">
                             <i class="icon-cloud-download"></i><span class="nav-text">Cloud</span>
                         </a>
                     </li>
                     <li>
-                        <a class="moveButton" data-menu="news" href="#" aria-expanded="false">
+                        <a class="moveButton" data-menu="news" aria-expanded="false">
                             <i class="icon-book-open"></i><span class="nav-text">News</span>
                         </a>
                     </li>
                     <li>
-                        <a class="moveButton" data-menu="wiki" href="#" aria-expanded="false">
+                        <a class="moveButton" data-menu="wiki" aria-expanded="false">
                             <i class="icon-graduation menu-icon"></i><span class="nav-text">Wiki</span>
                         </a>
                     </li>
@@ -62,12 +62,12 @@
                         </a>
                         <ul aria-expanded="false">
                             <li>
-                               <a class="moveButton" data-menu="member" href="#">
+                               <a class="moveButton" data-menu="member"  >
                            		 <i class="icon-user menu-icon"></i> <span class="nav-text">Member</span>
                     		   </a>
                             </li>
                             <li>
-                               <a class="moveButton managementmenu" data-menu="management" href="#">
+                               <a class="moveButton managementmenu" data-menu="management"  >
                            		 <i class="icon-settings menu-icon"></i> <span class="nav-text">Management</span>
                     		   </a>
                             </li>

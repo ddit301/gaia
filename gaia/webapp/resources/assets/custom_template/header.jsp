@@ -91,17 +91,15 @@
 								<li><a href="#" class="moveButton" data-menu="overview"><i
 										class="icon-user"></i> <span>Overview</span></a></li>
 								<li><a href="#" class="moveButton" data-menu="setting"><i
-										class="icon-user"></i> <span>Setting</span></a></li>
+										class="icon-settings"></i> <span>Setting</span></a></li>
 								<li>
-									<a href="email-inbox.html">
+									<a href="#" class="moveButton" data-menu="chat">
 										<i class="icon-envelope-open"></i> 
 										<span>Inbox</span>
 										<div class="badge gradient-3 badge-pill badge-primary">3</div>
 									</a>
 								</li>
 								<hr class="my-2" />
-								<li><a href="page-lock.html"><i class="icon-lock"></i>
-										<span>Lock Screen</span></a></li>
 								<li><a href="${cPath }/signout"><i class="icon-key"></i>
 										<span>SIGN OUT</span></a></li>
 							</ul>

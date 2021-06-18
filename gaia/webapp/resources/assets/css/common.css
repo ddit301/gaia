@@ -155,4 +155,6 @@ button.selectedProj{
 .roleDeleteBtn{
 	float : right;
 }
-
+.moveButton:hover{
+	cursor : pointer;
+}
