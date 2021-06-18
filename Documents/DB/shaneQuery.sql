@@ -48,7 +48,7 @@ from (
 select issue.issue_sid, issue_no, issue_title, progress, issue_status, issue_priority
         ,issue_create_date, issue_start_date, issue_end_date
         ,milestone.milest_sid, milestone.milest_title
-        ,label.label_no, label.label_nm
+        ,label.label_no, label.label_nm, label.label_icon, label.label_color
         ,issue.proj_no
         ,writer.mem_no as writer_no, writer.mem_pic_file_name as writer_pic
         ,writer_pm.proj_user_nick as writer_nick

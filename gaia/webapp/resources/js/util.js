@@ -150,6 +150,10 @@ const getProfilePath = function (filename) {
 const getProjNickFromCookie = function(){
 	return getCookie('proj_user_nick');
 } 
+// 쿠키에 있는 프로필 사진 파일명을 받아와 이미지 경로로 반환해주는 함수
+const getProfilePathFromCookie = function(){
+	return getProfilePath(getCookie('mem_pic_file_name'));
+} 
 
 // 한글 입력을 방지하는 함수 입니다.띄어쓰기도 막습니다.
 // [selector].addEventListener('keyup', preventKorean); 형태로 사용합니다.
@@ -157,6 +161,34 @@ const preventKorean = function() {
   var pattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\s]/;
   this.value = this.value.replace(pattern, '');
 };
+
+// 각종 nullChecking 모음. null에 해당하면 false 값이 존재하면 true. return
+const CheckNullUndefined = function(value){
+  return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+}
+
+// 받침이 있는 문자인지 테스트 해주는 함수 입니다.
+const isSingleCharacter = function(text) {
+
+ var strGa = 44032; // 가
+ var strHih = 55203; // 힣
+
+ var lastStrCode = text.charCodeAt(text.length-1);
+
+ if(lastStrCode < strGa || lastStrCode > strHih) {
+  return false; //한글이 아닐 경우 false 반환
+ }
+	return (( lastStrCode - strGa ) % 28 == 0)
+}
+
+// '로' 가 붙어야 하는지 '으로'가 붙어야 하는지 체크해주는 함수
+const roChecker = function(text){
+	return text + (isSingleCharacter(text)? '로' : '으로'); 
+}
+// '를' 이 붙어야 하는지 '을'이 붙어야 하는지를 체크해주는 함수
+const rulChecker = function(text){
+	return text + (isSingleCharacter(text)? '를' : '을'); 
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -186,7 +218,6 @@ toastr.options = {
 // Swal Alert 설정
 var swal = {
 	error : function(data){
-		console.log(data);
 		if(!data){data = { };}
 		Swal.fire({
 			icon: 'error',

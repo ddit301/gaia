@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -54,14 +55,21 @@ public class ChatREST {
 	 */
 	@GetMapping(params = {"need=chatContent"})
 	public Map<String, Object> chatContent(
-			@RequestParam String need
-			, @ModelAttribute("chatRoomVO") ChatRoomVO chatRoomVO
+				Authentication authentication
+				, @RequestParam String need
+				, @ModelAttribute("chatRoomVO") ChatRoomVO chatRoomVO
 			) {
+		MemberVO member = getMemberVoFromAuthentication(authentication);
 		// modelAttribute로 가지고 온 chatroom_no를 가지고 해당 방의 채팅 내역들 뽑은 후 chatList에 담기.
 		chatRoomVO.setChatList(service.getMessageListbyChatRoom(chatRoomVO.getChatroom_no()));
 		
+		// 해당 방의 memberList 가지고 오기
+		List<MemberVO> memberList = service.memberListByChatRoom(chatRoomVO.getChatroom_no());
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("chatRoom", chatRoomVO); 
+		result.put("chatRoom", chatRoomVO);
+		result.put("mem_id", member.getMem_id());
+		result.put("memberList", memberList);
 		return result;
 	}
 	
@@ -71,7 +79,7 @@ public class ChatREST {
 				, @RequestParam String need
 			) {
 		int mem_no = getMemberNoFromAuthentication(authentication);
-		
+		MemberVO member = getMemberVoFromAuthentication(authentication);
 		// roomList의 room 번호마다 채팅들 담기
 		List<ChatRoomVO> roomList = service.selectMemberChatRoomList(mem_no);
 		List<Map<String, Object>> lateChat = new ArrayList<Map<String, Object>>();
@@ -87,6 +95,7 @@ public class ChatREST {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("roomList", roomList);
+		result.put("mem_id", member.getMem_id());
 		return result;
 	}
 	
@@ -135,6 +144,30 @@ public class ChatREST {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("result", res);
+		return result;
+	}
+	
+	@PostMapping(params = {"need=oracle"})
+	public Map<String, Object> insertChatRoom(
+				Authentication authentication
+				, @RequestParam String need
+				, @ModelAttribute("roomInfo") ChatRoomVO roomInfo
+				, @RequestParam Map<String, Object> mem_nos
+			) {
+		MemberVO member = getMemberVoFromAuthentication(authentication);
+		mem_nos.remove("need");
+		mem_nos.put("mem_no1", member.getMem_no());
+		logger.info("mem_nos {}", mem_nos);
+		
+		int exists = service.exists(mem_nos);
+		
+		if(exists==0) {
+			ServiceResult result = service.createChatRoom(roomInfo, mem_nos);
+			if(ServiceResult.OK != result) exists=0;
+		}
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("result", exists);
 		return result;
 	}
 }

@@ -41,7 +41,7 @@
 				<id property="issue_sid" column="ISSUE_ID"/>
 				<result property="issue_title" column="ISSUE_TITLE" />
 				<result property="issue_status" column="ISSUE_STATUS" />
-				<association property="label" javaType="java.util.Map" autoMapping="false">
+				<association property="label" javaType="best.gaia.vo.LabelVO" autoMapping="false">
 					<result column="LABEL_NO" property="label_no"></result>
 					<result column="LABEL_NM" property="label_nm"></result>
 				</association>

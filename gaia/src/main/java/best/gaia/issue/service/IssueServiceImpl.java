@@ -3,10 +3,12 @@ package best.gaia.issue.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +54,7 @@ public class IssueServiceImpl implements IssueService {
 			Set<MemberVO> assigneeList = issue.getAssigneeList();
 			if(assigneeList != null) {
 				for(MemberVO member : assigneeList) {
-					Map<String, Object> assignee = new HashMap<>();
+					Map<String, Integer> assignee = new HashMap<>();
 					assignee.put("mem_no", member.getMem_no());
 					assignee.put("issue_sid", issue_sid);
 					dao.insertIssueAssignee(assignee);
@@ -84,12 +86,6 @@ public class IssueServiceImpl implements IssueService {
 		return dao.selectIssueList(pagingVO);
 	}
 
-
-	@Override
-	public ServiceResult updateIssue(IssueVO Issue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ServiceResult deleteIssue(IssueVO search) {
@@ -158,5 +154,41 @@ public class IssueServiceImpl implements IssueService {
 		return result == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
+	@Override
+	public ServiceResult updateIssue(int issue_sid, String editpart, Optional<String> parameter) {
+		
+		int validator = 1;
+		
+		if(editpart.startsWith("assignee")) {
+			if(parameter.isPresent() && NumberUtils.isNumber(parameter.get())) {
+				Map<String, Integer> assignee = new HashMap<>();
+				assignee.put("issue_sid", issue_sid);
+				assignee.put("mem_no",Integer.parseInt(parameter.get()));
+				// 해당 담당자 정보에 대해 toggle 해준다.
+				validator *= "assigneeAdd".equals(editpart) ?
+						dao.insertIssueAssignee(assignee) : dao.deleteIssueAssignee(assignee) ;
+			}
+		}else {
+			// 담당자 관련 외에는 모두 updateIssue 다오를 거친다.
+			Map<String, Object> parameterMap = new HashMap<>();
+			parameterMap.put("issue_sid", issue_sid);
+			parameterMap.put("editpart", editpart);
+			parameterMap.put("parameter", parameter.isPresent()? parameter.get() : null);
+			validator *= dao.updateIssue(parameterMap);
+		}
+		
+		return validator == 1? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
 
 }
+
+
+
+
+
+
+
+
+
+
