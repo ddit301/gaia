@@ -10,13 +10,16 @@
     
 <div class="container-fluid">
 	<div class="issue-title row">
-		<div class="namefield col-md-10">
+		<div class="namefield col-md-12">
 			<span></span>
-		</div>
-  		<div class="col-md-2">
   			<i class="icon-note menu-icon"></i>
-  		</div>
+		</div>
    </div>
+	<div class="issue-title-edit row" hidden="true">
+		<input class="col-md-10" type="text" maxlength="50">
+		<button class="btn btn-success">저장</button>
+		<button class="btn btn-danger">취소</button>
+	</div>
    	<div class="issue-info row">
    		<div class="issue-status col-md-1">
    			<span class="label label-success">Open</span>

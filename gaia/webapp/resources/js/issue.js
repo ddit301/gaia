@@ -172,8 +172,6 @@ $(function(){
 			$('#closeBtn').text('Close issue');
 			$('#closeBtn').removeClass('btn-primary');
 			$('#closeBtn').addClass('btn-warning');
-			// toastr 알람
-			toastr.success('issue를 Open 했습니다.')
 		}else{
 			//상위 라벨
 			$('.issue-status').children('span').text('Closed');
@@ -183,11 +181,29 @@ $(function(){
 			$('#closeBtn').text('Reopen issue');
 			$('#closeBtn').removeClass('btn-warning');
 			$('#closeBtn').addClass('btn-primary');
-			// toastr 알람
-			toastr.warning('issue를 Close 했습니다.')
 		}
 		
 	});
+	
+	// 이슈 제목 수정 이벤트
+	$('.content-body').on('click', '.issue-title-edit .btn-success', function(){
+		let parameter = $(this).siblings('input').val();
+		$('.issue-title').find('span').text(parameter + ' #'+issue.issue_no);
+		editIssue('issue_title', parameter);
+		toggleTitleEdit();
+	});
+	
+	// 이슈 제목 수정 취소 버튼
+	$('.content-body').on('click', '.issue-title-edit .btn-danger', function(){
+		$(this).siblings('input').val(issue.issue_title);
+		toggleTitleEdit();
+	});
+	
+	// 수정 화면 열기
+	$('.content-body').on('click', '.issue-title i', function(){
+		toggleTitleEdit();
+	});
+	
 	
 	
 	
@@ -400,6 +416,7 @@ const loadIssue = function(){
 			
 			// 이슈 제목 출력
 			$('.namefield').children('span').text(res.issue_title + ' #' + res.issue_no);
+			$('.issue-title-edit').find('input').val(res.issue_title);
 			
 			// 담당자 존재시 담당자 출력
 			let issueAssigneeNumbers = [];
@@ -729,7 +746,12 @@ const editIssue = function(editpart, parameter){
 	
 }
 
-
+const toggleTitleEdit = function(){
+	let titleDiv = $('.issue-title');
+	let editDiv = $('.issue-title-edit');
+	toggleHidden(titleDiv);
+	toggleHidden(editDiv);
+} 
 
 
 
