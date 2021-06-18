@@ -8,8 +8,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <link href="${cPath }/resources/assets/css/issue.css" rel="stylesheet">
-    
             <div class="container-fluid">
            	    <div class="row">
 	           		<div class="col-md-11"></div>

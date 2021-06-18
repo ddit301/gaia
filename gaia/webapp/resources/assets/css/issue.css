@@ -206,7 +206,7 @@
 .assigneecheck{
 	width : 40px;
 }
-.labelBoxes{
+.labelBoxes, .assigneeboxes{
 	max-height : 300px;
 	overflow-y : scroll;
 	background-color : #f3f7f9;

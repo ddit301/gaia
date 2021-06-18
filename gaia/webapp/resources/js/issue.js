@@ -337,6 +337,9 @@ const newIssue = function(){
 
 // 이슈 상세 정보 페이지에서 렌더링 하는 함수
 const loadIssue = function(){
+	// 컴포넌트 불러오기
+	loadComponentsForNewIssue();
+		
 	$.ajax({
 		url : getContextPath() + '/restapi/project/issues/'+issue_no,
 		type : 'get',
@@ -344,28 +347,78 @@ const loadIssue = function(){
 		},
 		success : function(res) {
 			issue = res;
-			$('#assignees').empty();
-			$('#issue-body-cont').empty();
 			
+			// 이슈 제목 출력
 			$('.namefield').children('span').text(res.issue_title + ' #' + res.issue_no);
-			if(res.milestone){
-				$('#milestone').children('span').text(res.milestone.milest_title);
-			}
-			if(res.label){
-				$('#label').children('span').text(res.label.label_nm);
-			}
-			$('#priority').children('span').text(
-					res.priority == 1 ? '무시' :
-					res.priority == 2 ? '낮음' :
-					res.priority == 3 ? '보통' :
-					res.priority == 4 ? '높음' :
-					res.priority == 5 ? '긴급' : '즉시'
-				);
 			
+			// 담당자 존재시 담당자 출력
+			let issueAssigneeNumbers = [];
+			$.each(res.assigneeList, function(i,v){
+				issueAssigneeNumbers.push(v.mem_no);
+			})
+			let assigneeBoxes = $('.assigneeboxes').find('.assigneebox');
+			assigneeBoxesLength = assigneeBoxes.length;
+			for(i=0; i<assigneeBoxesLength; i++){
+				let selectedBox = assigneeBoxes.eq(i);
+				let assigneeMemNo = selectedBox.data('mem_no');
+				// 위에서 만든 issueAssigneeNumbers 배열에 mem_no가 속하면 지정해준다.
+				if(issueAssigneeNumbers.includes(assigneeMemNo)){
+					assigneeMember(selectedBox);
+				}
+			}
+			
+			// 마일스톤 존재시 출력
+			if(res.milest_sid){
+				let milestoneBoxes = $('.milestoneBoxes').find('.new-issue-milestone');
+				let milestoneBoxesLength = milestoneBoxes.length;
+				for(i=0; milestoneBoxesLength; i++){
+					let selectedBox = milestoneBoxes.eq(i);
+					let milestoneSid = selectedBox.data('milest_sid');
+					// 지정된 마일스톤 번호를 찾았을 경우 선택 하고 break;
+					if(milestoneSid = res.milest_sid){
+						assigneeMilestone(selectedBox);
+						break;
+					}
+				}
+			}
+			
+			// 라벨 존재시 출력
+			if(res.label_no){
+				let labelBoxes = $('.labelBoxes').find('.labelBox');
+				labelBoxesLength = labelBoxes.length;
+				for(i=0; labelBoxesLength; i++){
+					let selectedBox = labelBoxes.eq(i);
+					let label_no = selectedBox.data('label_no');
+					// 지정된 라벨 번호를 찾았을 경우 선택 하고 break;
+					if(label_no = res.label_no){
+						$('#noLabelSign').attr('hidden', true);
+						assigneeLabel(selectedBox);
+						break;
+					}
+				}
+			}
+			
+			//중요도 존재시 출력 0일 경우가 있으니 null과 체크해야 한다.
+			if(res.issue_priority != null){
+				let priorityBoxes = $('.issue-priority-list').find('.issue-priority');
+				let priorityBoxesLength = priorityBoxes.length;
+				for(i=0; priorityBoxesLength; i++){
+					let selectedBox = priorityBoxes.eq(i);
+					let priority = selectedBox.data('priority');
+					// 지정된 우선도 찾았을 경우 선택 하고 break;
+					if(priority == res.issue_priority){
+						$('#issuePrioritySetting').html(selectedBox.clone());
+						$('#noPrioritySign').attr('hidden', true);
+						break;
+					}
+				}
+			}
+			
+			// 작성자 정보 및 작성 시간 프린트
 			$('.writerinfo').children('span:first').text(res.writer.mem_nick + ' opened ');
 			$('.writerinfo').children('span:last').text(moment(res.issue_create_date).fromNow());
 			
-			// 이슈가 닫힌 상태면 그에 맞게 라벨과 버튼을 바꿔준다.
+			// 이슈가 닫힌 상태면 그에 맞게 버튼라벨을 바꿔준다.
 			if(issue.issue_status == 1){
 				$('.issue-status').children('span').text('Closed');
 				$('.issue-status').children('span').removeClass('label-success');
@@ -374,14 +427,14 @@ const loadIssue = function(){
 				$('#closeBtn').removeClass('btn-warning');
 				$('#closeBtn').addClass('btn-primary');
 			}
-          		
 			
-			$.each(res.assigneeList, function(i,v){
-				let assigneeBox = $('#issue-template').children('p').clone();
-				assigneeBox.children('span').text(v.mem_nick);
-				assigneeBox.find('.profile').attr('src', getProfilePath(v.mem_pic_file_name));
-				$('#assignees').append(assigneeBox);
-			})
+			// 이슈 시작일 & 종료일 출력
+			if(res.issue_start_date)
+				$('#issue-start-date').val(moment(res.issue_start_date).format('YYYY-MM-DD'));
+			if(res.issue_end_date)
+				$('#issue-end-date').val(moment(res.issue_end_date).format('YYYY-MM-DD'));
+			
+			// 히스토리 출력
 			$.each(res.historyList, function(i,v){
 				let issue_history;
 				// 히스토리가 댓글일 경우와 댓글이 아닐 경우로 분기됩니다.
@@ -596,7 +649,6 @@ const checkValidationToInsertIssue = function(){
 		$('#saveIssue').prop('disabled', true);
 	}
 }
-
 
 
 
