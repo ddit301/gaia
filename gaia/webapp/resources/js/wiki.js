@@ -6,6 +6,13 @@
 $(function(){
 	
 	let wiki = null;
+	// wiki history 에서 버튼을 클릭한 경우
+	$('.content-body').on('click','.wiki-his-btn',function(){
+		let wiki_no = $(this).siblings('input').val();
+//		alert(wiki_no);
+		wikiView(wiki_no);
+	})
+	
 	
 	// wiki 등록을 위한 버튼 이벤트
 	$('.content-body').on('click','.new-wiki', function(){
@@ -24,6 +31,7 @@ $(function(){
 	// 특정 위키 클릭시 불러오는 메서드
 	$('.content-body').on('click','.wiki-btn',function(){
 		//특정 위키의 wiki_no 불러옴.
+		$('#wiki-history').empty();
 		let wiki_no = $(this).siblings('input').val();
 		wikiView(wiki_no);
 	
@@ -335,10 +343,29 @@ const newWiki = function() {
 	
 	// 위키 히스토리 불러오는 함수
 	const wikihistory = function(wiki_sid){
+		
+
+		
+		
 		$.ajax({
         		url : getContextPath() + '/restapi/project/wikis/history/'+ wiki_sid	
 				,type : 'get',
 				success : function(res) {
+					
+					console.log(res[0]);
+					$.each(res, function(i, v) {
+					let wikiHisBox = $('#wiki-history-temple').children('.wikiHisBox').clone();
+//					wikiHisBox.attr('data-wiki_no',v.wiki_no);
+					wikiHisBox.find('.wiki-his-nick').children('span').eq(0).text(v.proj_user_nick);
+					wikiHisBox.find('.wiki-his-nick').children('span').eq(1).text(' edit this wiki');
+					wikiHisBox.find('.wiki-his-date').children('span').text(v.wiki_write_date);
+					wikiHisBox.find('.wiki-his-link').children('input').val(v.wiki_no);
+					
+					$('#wiki-history').append(wikiHisBox);
+					
+					
+//					$('#wiki-history').empty();
+				})
 					
 				},
 				error : function(xhr, error, msg) {

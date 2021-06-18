@@ -22,7 +22,6 @@ import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.KanbanColumnVO;
 import best.gaia.vo.LabelVO;
 import best.gaia.vo.MemRoleVO;
-import best.gaia.vo.MemberVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
 import best.gaia.vo.ProjMemVO;
@@ -146,9 +145,9 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
-	public WikiVO historyWiki(Map<String, Object> search) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<WikiVO> historyWiki(PagingVO<WikiVO> pagingVO) {
+		
+		return wikiDao.historyWiki(pagingVO);
 	}
 	
 

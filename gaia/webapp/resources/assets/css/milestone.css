@@ -38,6 +38,10 @@
 
 	
 }
+.milestoneButton{
+	transition: none;
+}
+
 .milestone-title a{
 	font-weight : bold;
 	font-size : 2.0em;
@@ -143,52 +147,54 @@
 #milestone-issuelist{
     padding : 10px;
 }
-.issueBox{
-	background-color : #FFFFFF;
-	color : black;
-	margin-left : auto;
-	margin-right : auto;
-	margin-bottom : 10px;
-}
-.issue-title {
-	text-align : center;
-}
-.issue-title a{
-	font-weight : bold;
-	font-size : 1.5em;
-	line-height : 60px;
-}
+/* .issueBox{ */
+/* 	background-color : #FFFFFF; */
+/* 	color : black; */
+/* 	margin-left : auto; */
+/* 	margin-right : auto; */
+/* 	margin-bottom : 10px; */
+/* 	padding-top : 0; */
+/* } */
+/* .issue-title { */
+/* 	text-align : center; */
+/* } */
+/* .issue-title a{ */
+/* 	font-weight : bold; */
+/* 	font-size : 1.5em; */
+/* 	line-height : 60px; */
+/* } */
 .priority{
 	text-align: center;
 	line-height: 60px;
 }
-.issue-label{
-	text-align: center;
-	line-height: 60px;
-	overflow:hidden; 
-	text-overflow:ellipsis; 
-	white-space:nowrap;
-}
-.issue-priority{
-	text-align: center;
-    line-height: 60px;
-}
+/* .issue-label{ */
+/* 	text-align: center; */
+/* 	line-height: 60px; */
+/* 	overflow:hidden;  */
+/* 	text-overflow:ellipsis;  */
+/* 	white-space:nowrap; */
+/* } */
+/* .issue-priority{ */
+/* 	text-align: center; */
+/*     line-height: 60px; */
+/* } */
 .edit-milestone-title{
 	border : 1px solid red;
 }
 .button{
 	text-align: center;
 }
-.issue-assignee{
-	position : relative;
-	text-align: center;
-	line-height: 60px;
-}
-.profile.assignee{
-	position : absolute;
-	top : 0;
-	left : 0;
-}
+/* .issue-assignee{ */
+/* 	position : relative; */
+/* 	text-align: center; */
+/* 	line-height: 60px; */
+/* } */
+
+/* .profile.assignee{ */
+/* 	position : absolute; */
+/* 	top : 0; */
+/* 	left : 0; */
+/* } */
 .assignee0{
 	z-index : 0;
 	margin-left : -5px;

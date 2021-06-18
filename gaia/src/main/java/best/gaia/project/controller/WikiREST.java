@@ -4,6 +4,7 @@ import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
 import static best.gaia.utils.SessionUtil.getProjNoFromSession;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -76,7 +77,6 @@ public class WikiREST {
 		
 		map.put("proj_no",proj_no);
 		map.put("wiki_no", wiki_no);
-	
 		
 		WikiVO wiki = service.selectWiki(map);
 		
@@ -87,20 +87,17 @@ public class WikiREST {
 		return wiki;
 	}
 	@RequestMapping(value="history/{wiki_sid}" , method = RequestMethod.GET)
-	public WikiVO historyWiki(
-				HttpSession session
+	public List<WikiVO> historyWiki(
+				@PathVariable Integer wiki_sid
 			) {
-		Integer proj_no =getProjNoFromSession(session);
-		// 히스토리 불러오는데CBR 필요. 받아서 전달.
-		Map<String,Object>map = new HashMap<>();
-		System.err.println("hihi");
-		System.err.println("hihi");
-		System.err.println("hihi");
-		System.err.println("hihi");
-		map.put("proj_no",proj_no);
+		PagingVO<WikiVO> pagingVO = new PagingVO<WikiVO>();
+		WikiVO detailSearch = new WikiVO();
 		
+		detailSearch.setWiki_sid(wiki_sid);
 		
-		return null;
+		pagingVO.setDetailSearch(detailSearch);
+
+		return service.historyWiki(pagingVO);
 		
 	}
 	

@@ -64,12 +64,13 @@ public interface ProjectService {
 	public ServiceResult updateWiki(WikiVO wiki);
 	public ServiceResult deleteWiki(WikiVO wiki);
 	public WikiVO selectWiki(Map<String, Object> search);
-	public WikiVO historyWiki(Map<String, Object> search);
+	public List<WikiVO> historyWiki(PagingVO<WikiVO> pagingVO);
 
 	/**********************************************************************
 	 *  라벨 관련 service
 	 **********************************************************************/	
 	public ServiceResult deleteLabel(int label_no);
+	
 	
 	
 	
