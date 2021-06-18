@@ -4,6 +4,7 @@ import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
 import static best.gaia.utils.SessionUtil.getProjNoFromSession;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -76,7 +77,6 @@ public class WikiREST {
 		
 		map.put("proj_no",proj_no);
 		map.put("wiki_no", wiki_no);
-	
 		
 		WikiVO wiki = service.selectWiki(map);
 		
@@ -86,6 +86,21 @@ public class WikiREST {
 
 		return wiki;
 	}
+	@RequestMapping(value="history/{wiki_sid}" , method = RequestMethod.GET)
+	public List<WikiVO> historyWiki(
+				@PathVariable Integer wiki_sid
+			) {
+		PagingVO<WikiVO> pagingVO = new PagingVO<WikiVO>();
+		WikiVO detailSearch = new WikiVO();
+		
+		detailSearch.setWiki_sid(wiki_sid);
+		
+		pagingVO.setDetailSearch(detailSearch);
+
+		return service.historyWiki(pagingVO);
+		
+	}
+	
 	@RequestMapping(method=RequestMethod.POST) 
 	public Map<String, Object> insertWiki(
 			HttpSession session
@@ -100,11 +115,8 @@ public class WikiREST {
 		
 		wiki.setMem_no(getMemberNoFromAuthentication(authentication));
 		wiki.setProj_no(getProjNoFromSession(session));
-		
-		
-		if(parent_wiki != null ) {
-			wiki.setParent_wiki(parent_wiki);
-		}
+		wiki.setParent_wiki(parent_wiki);
+
 		
 		// service 호출해 그 결과 result 에 담기
 				ServiceResult result = service.insertWiki(wiki);

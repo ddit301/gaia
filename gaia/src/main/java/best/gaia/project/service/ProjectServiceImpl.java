@@ -22,7 +22,6 @@ import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.KanbanColumnVO;
 import best.gaia.vo.LabelVO;
 import best.gaia.vo.MemRoleVO;
-import best.gaia.vo.MemberVO;
 import best.gaia.vo.NewsVO;
 import best.gaia.vo.PagingVO;
 import best.gaia.vo.ProjMemVO;
@@ -144,6 +143,13 @@ public class ProjectServiceImpl implements ProjectService {
 
 		return result == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
+	
+	@Override
+	public List<WikiVO> historyWiki(PagingVO<WikiVO> pagingVO) {
+		
+		return wikiDao.historyWiki(pagingVO);
+	}
+	
 
 	@Override
 	public List<WikiVO> selectWikiList(PagingVO<WikiVO> pagingVO) {
