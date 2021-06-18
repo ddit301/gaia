@@ -515,7 +515,7 @@ const loadIssue = function(){
 					issue_history.find('.commenter').attr('src',getProfilePath(v.historyWriter.mem_pic_file_name));
 				}else{
 					issue_history = $('#issue-template').children('.issue-change').clone();
-					issue_history.find('span').text('(히스토리타입/멤버닉네임 :' + v.issue_his_type +'/' + v.historyWriter.mem_nick +  ') ' + v.issue_his_cont);
+					issue_history.find('span').text(historyTypeToText(v));
 					issue_history.find('.profile').attr('src',getProfilePath(v.historyWriter.mem_pic_file_name));
 				}
 				$('#issue-body-cont').append(issue_history);
@@ -719,7 +719,6 @@ const checkValidationToInsertIssue = function(){
 
 
 // 이슈 데이터 수정 이벤트
-
 const editIssue = function(editpart, parameter){
 	
 	$.ajax({
@@ -731,10 +730,10 @@ const editIssue = function(editpart, parameter){
 			,'parameter' : parameter
 			,'_method' : 'put'
 		},
-		success : function(res) {
-			if(res == "OK"){
-				toastr.success('변경되었습니다.');
-			}
+		success : function(history) {
+			toastr.success('변경되었습니다.');
+			
+			
 		},
 		error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
@@ -746,12 +745,80 @@ const editIssue = function(editpart, parameter){
 	
 }
 
+// 이슈 제목 수정/ 취소 토글 해주는 함수
 const toggleTitleEdit = function(){
 	let titleDiv = $('.issue-title');
 	let editDiv = $('.issue-title-edit');
 	toggleHidden(titleDiv);
 	toggleHidden(editDiv);
 } 
+
+// 이슈 history vo를 문장으로 출력 해주는 함수
+const historyTypeToText = function(history){
+	if(!history) return null;
+	
+	let hisWriter = history.historyWriter ? history.historyWriter.mem_nick : getProjNickFromCookie();
+	let cont = history.issue_his_cont;
+	let result = hisWriter + '님이 ';
+	
+	console.log(JSON.stringify(history));
+	
+	switch(history.issue_his_type){
+		case 'ET':
+			result += '이슈 제목을 "' + cont + '"로 변경했습니다.' ; 
+			break;
+		case 'EL':
+			result += '라벨을 '+ cont +'로 변경했습니다.'; 
+			break;
+		case 'EP':
+			result += '중요도를 '+ priorities[cont] +'로 변경했습니다.'; 
+			break;
+		case 'AA':
+			result += '"' + cont + '"' + '님을 담당자로 지정했습니다.'; 
+			break;
+		case 'EM':
+			result += '마일스톤을 '+ cont +'로 변경했습니다.'; 
+			break;
+		case 'ES':
+			result += '이슈 시작일을 '+ cont +'로 변경했습니다.'; 
+			break;
+		case 'EE':
+			result += '이슈 종료일을 '+ cont +'로 변경했습니다.'; 
+			break;
+		case 'RL':
+			result += '라벨 설정을 초기화 했습니다.'; 
+			break;
+		case 'RP':
+			result += '중요도를 설정을 초기화 했습니다.'; 
+			break;
+		case 'RA':
+			result += '"' + cont + '"' + '님을 담당자에서 제거 했습니다.'; 
+			break;
+		case 'RM':
+			result += '마일스톤 설정을 초기화 했습니다.'; 
+			break;
+		default :
+			result += '등록되지 않는 이슈 히스토리 타입 에러';
+			break;
+	}
+	
+	return result;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

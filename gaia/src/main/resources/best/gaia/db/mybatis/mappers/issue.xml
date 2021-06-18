@@ -202,6 +202,24 @@ FROM ISSUE
 		    	AND issue_sid = #{issue_sid}
 	</update>
 	
+	<select id="selectMilestoneTitle" parameterType="int" resultType="string">
+		select milest_title
+		from milestone
+		where milest_sid = #{milest_sid}
+	</select>
+	
+	<select id="selectMemProjNick" parameterType="best.gaia.vo.ProjMemVO" resultType="string">
+		select proj_user_nick
+		from proj_mem
+		where proj_no= #{proj_no} and mem_no = #{mem_no}
+	</select>
+	
+	<select id="selectLabelName" parameterType="int" resultType="string">
+		select label_nm 
+		from label
+		where label_no = #{label_no}
+	</select>
+	
 	
 	
 </mapper>

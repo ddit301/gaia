@@ -80,6 +80,7 @@ public interface ProjectDao {
 	public int updateLabel(LabelVO label);
 	public int deleteLabel(int label_no);
 	
+	
 }
 
 

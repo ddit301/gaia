@@ -17,6 +17,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.elasticsearch.index.engine.Engine.HistorySource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -33,8 +35,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.issue.dao.IssueDao;
+import best.gaia.issue.dao.MilestoneDao;
 import best.gaia.issue.service.IssueService;
+import best.gaia.member.dao.MemberDao;
 import best.gaia.project.dao.KanbanDao;
+import best.gaia.project.dao.ProjectDao;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.IssueHistoryVO;
@@ -42,6 +47,7 @@ import best.gaia.vo.IssueVO;
 import best.gaia.vo.KanbanCardVO;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.PagingVO;
+import best.gaia.vo.ProjMemVO;
 
 @RestController
 @RequestMapping(value="restapi/project/issues", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -51,6 +57,12 @@ public class IssueREST {
 	private IssueService service;
 	@Inject
 	private IssueDao dao;
+	@Inject
+	private MilestoneDao milestoneDao;
+	@Inject
+	private MemberDao memberDao;
+	@Inject
+	private ProjectDao projectDao;
 	@Inject
 	private KanbanDao kanbanDao;
 	@Inject
@@ -133,20 +145,80 @@ public class IssueREST {
 	}
 	
 	@PutMapping
-	public ServiceResult updateIssue(
+	public IssueHistoryVO updateIssue(
 			@RequestParam int issue_sid
 			,@RequestParam String editpart
 			,@RequestParam Optional<String> parameter
+			,Authentication authentication
+			,HttpSession session
 		) {
 		
 		ServiceResult result = service.updateIssue(issue_sid, editpart, parameter);
 		
-		return result;
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		int proj_no = getProjNoFromSession(session);
+		
+		IssueHistoryVO history = new IssueHistoryVO();
+		if(ServiceResult.OK.equals(result)) {
+			// 해당하는 issue history를 남겨 준다.
+			history.setIssue_sid(issue_sid);
+			history.setMem_no(mem_no);
+			String hisContent = parameter.isPresent()? getHistoryData(editpart,parameter.get(),proj_no) : null;
+			history.setIssue_his_cont(hisContent);
+			history.setIssue_his_type(getHistoryType(editpart,parameter));
+			result = dao.insertIssueHistory(history) ==1 ? ServiceResult.OK : ServiceResult.FAIL;
+		}
+		
+		return history;
 	}
 	
-	@DeleteMapping
-	public Map<String, Object> deleteIssue() {
-		return null;
+	// 파라미터를 바탕으로 히스토리 유형 찾아주는 메서드
+	String getHistoryType(String editpart, Optional<String> parameter) {
+		boolean isDelete = !parameter.isPresent();
+		
+		String type = null;
+		
+		switch(editpart) {
+			case "milest_sid": type = isDelete ? "RM" : "EM"; break;
+			case "assigneeAdd": type = "AA"; break;
+			case "assigneeDel": type = "RA"; break;
+			case "label_no": type = isDelete ? "RL" : "EL"; break;
+			case "issue_priority": type = isDelete ? "RP" : "EP"; break;
+			case "issue_start_date": type = "ES"; break;
+			case "issue_end_date": type = "EE"; break;
+		}
+		
+		return type;
+	}
+	
+	// 이슈 히스토리 삽입할 데이터 DB에서 받아오는 메서드
+	String getHistoryData(String editpart, String parameter, int proj_no) {
+		String data = null;
+		Integer intParameter = NumberUtils.isNumber(parameter)? Integer.parseInt(parameter) : null;
+		
+		// 중간에 data= 없는 부분들은 아래까지 중첩이라 비워둔 겁니다.
+		switch(editpart) {
+		case "milest_sid": 
+			data = dao.selectMilestoneTitle(intParameter); 
+			break;
+		case "assigneeAdd":
+		case "assigneeDel": 
+			ProjMemVO projMem = new ProjMemVO();
+			projMem.setMem_no(intParameter);
+			projMem.setProj_no(proj_no);
+			data =dao.selectMemProjNick(projMem);
+			break;
+		case "label_no": 
+			data = dao.selectLabelName(intParameter); 
+			break;
+		case "issue_priority": 
+		case "issue_start_date":
+		case "issue_end_date": 
+			data = parameter; 
+			break;
+		}
+		
+		return data;
 	}
 	
 	@GetMapping("{issue_no}")

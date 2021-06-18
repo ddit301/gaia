@@ -9,6 +9,7 @@ import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
 import best.gaia.vo.MilestoneVO;
 import best.gaia.vo.PagingVO;
+import best.gaia.vo.ProjMemVO;
 
 
 @Repository
@@ -66,5 +67,17 @@ public interface IssueDao {
 	 * @return
 	 */
 	public int deleteIssueAssignee(Map<String, Integer> assignee);
+	
+	/**
+	 * for issue history 
+	 */
+	
+	public String selectMilestoneTitle(int milest_sid);
+	/**
+	 * @param param ( proj_no, mem_no ) 
+	 * @return
+	 */
+	public String selectMemProjNick(ProjMemVO projMem);
+	public String selectLabelName(int label_no);
 	
 }
