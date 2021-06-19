@@ -10,7 +10,7 @@
 	<div class="header-fixed">
 <div class="nav-header ">
      <div class="brand-logo">
-         <a href="#">
+         <a class="moveButton" data-menu="overview">
              <b class="logo-abbr"><img src="${cPath }/resources/assets/images/logo-text.png" alt=""> </b>
              <span class="logo-compact"><img src="${cPath }/resources/assets/images/logo-compact.png" alt=""></span>
              <span class="brand-title">

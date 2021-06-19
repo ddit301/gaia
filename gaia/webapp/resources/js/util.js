@@ -16,8 +16,8 @@ $(function(){
 		movePageHistory(menuName);
 	})
 	
-	// 우측 상단 profile 관련 메뉴에 대한 처리
-	$('.dropdown-profile').on('click', '.moveButton', function(){
+	// 상단 profile 메뉴에 대한 처리
+	$('.header-fixed').on('click', '.moveButton', function(){
 		event.preventDefault();
 		let menuName = $(this).data('menu');
 		memberMovePageHistory(menuName);
