@@ -121,7 +121,6 @@ public class WikiREST {
 		// service 호출해 그 결과 result 에 담기
 				ServiceResult result = service.insertWiki(wiki);
 				
-				System.out.println(wiki);
 				Map<String, Object> map = new HashMap<>();
 				map.put("wiki", wiki);
 				map.put("result", result);

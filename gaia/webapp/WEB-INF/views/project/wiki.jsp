@@ -10,42 +10,59 @@
 
 <link href="${cPath }/resources/assets/css/wiki.css" rel="stylesheet">
 <div class="page-titles row mx-0">
-	<div class="col p-md-0">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li>
-			<li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li>
-		</ol>
-	</div>
+	<!-- 	<div class="col p-md-0"> -->
+	<!-- 		<ol class="breadcrumb"> -->
+	<%-- 			<li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li> --%>
+	<%-- 			<li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li> --%>
+	<!-- 		</ol> -->
+	<!-- 	</div> -->
 </div>
 <!-- row -->
 
 <div class="wiki-container">
-	<div class="wiki-head row">
-		<div class="title-wiki col-md-6">
-			<span></span>
-		</div>
-		<div class="col-md-2"></div>
-		<div class="wiki-btn-group col-md-4">
-			<button type="button"
-				class="delete-wiki btn col-md-3 btn-sm btn-danger"
-				data-toggle="modal" data-target="#basicModal">Delete</button>
-			<button type="button" class="edit-wiki btn col-md-3 btn-sm btn-flat"
-				data-toggle="modal" data-target="#wikiModal">Edit</button>
-			<button type="button" class="new-wiki btn col-md-3 btn-sm btn-info"
-				data-toggle="modal" data-target="#wikiModal">New</button>
-		</div>
-		<div class="wiki-writer">
-			<span></span> <span></span> <span></span> <span></span> <input
-				type="hidden" value="wiki_sid" name="wiki_sid"
-				class="wiki-his-link-no"> <a class="wikiHis"></a>
 
+<!-- 	<div class="col-md-12"> -->
+		<div class="card">
+			<div id="wiki-head" class="row">
+				<div class="title-wiki col-md-7">
+					<span></span>
+				</div>
+				<div class="col-md-1"></div>
+				<div class="wiki-btn-group col-md-4">
+					<button type="button" class="delete-wiki btn col-md-3 btn-sm btn-danger" data-toggle="modal" data-target="#basicModal">Delete</button>
+					<button type="button" class="edit-wiki btn col-md-3 btn-sm btn-flat" data-toggle="modal" data-target="#wikiModal">Edit</button>
+					<button type="button" class="new-wiki btn col-md-3 btn-sm btn-info" data-toggle="modal" data-target="#wikiModal">New</button>
+				</div>
+		
+				<div class="wiki-writer">
+					<span></span> <span></span> <span></span> <span></span> 
+					<input type="hidden" value="wiki_sid" name="wiki_sid" class="wiki-his-link-no"> <a class="wikiHis"></a>
+				</div>
+			</div>
+			<hr>
+
+			<div class="wiki-body row">
+				<blockquote class="wiki-content">
+					<span></span>
+				</blockquote>
+
+				<blockquote class="wiki-right">
+					<div class="wiki-search">
+						<input type="text" name="wiki_title" placeholder="search wiki title" class="wikisearchtitle">
+						<button type="button" class="wiki-search-btn btn-sm btn-primary">search</button>
+					</div>
+					<div id="wiki-list"></div>
+				</blockquote>
+			</div>
 		</div>
-	</div>
+<!-- 	</div> -->
+
+
+
 
 	<!--Delete Wiki Modal -->
 	<div class="bootstrap-modal">
-		<div class="modal fade" id="basicModal" style="display: none;"
-			aria-hidden="true">
+		<div class="modal fade" id="basicModal" style="display: none;" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -61,55 +78,21 @@
 					</div>
 					<div class="modal-footer">
 						<input type="hidden" value="" class="wiki-link-sid">
-						<button type="button" class="btn btn-secondary "
-							data-dismiss="modal">Close</button>
-						<button type="button" id="delete-wiki-btn" class="btn btn-danger"
-							data-dismiss="modal">Delete wiki</button>
+						<button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+						<button type="button" id="delete-wiki-btn" class="btn btn-danger" data-dismiss="modal">Delete wiki</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--edit wiki modal -->
-	<!--            			<div class="modal fade" id="editwikiModal" tabindex="-1" aria-labelledby="editwikiModal" aria-hidden="true"> -->
-	<!-- 					  <div class="modal-dialog modal-lg modal-dialog-scrollable" > -->
-	<!-- 					    <div class="modal-content"> -->
-	<!-- 					      <div class="modal-header"> -->
-	<!-- 					        <h5 class="modal-title" id="editwikiModal">wiki 수정</h5> -->
-	<!-- 					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-	<!-- 					          <span aria-hidden="true">&times;</span> -->
-	<!-- 					        </button> -->
-	<!-- 					      </div> -->
-	<!-- 					      <div class="modal-body"> -->
-	<!-- 					        <form> -->
-	<!-- 					          <div class="form-group"> -->
-	<!-- 					            <label for="edit-wiki-title-input" class="col-form-label">wiki 제목</label> -->
-	<!-- 					            <input type="text" class="form-control" id="wiki-title-input"> -->
-	<!-- 					          </div> -->
-	<!-- 					          <div id="editorArea" class="form-group"> -->
-	<!-- 					            <label class="col-form-label">wiki 내용</label> -->
-	<!-- 					          </div> -->
-	<!-- 					        </form> -->
-	<!-- 					      </div> -->
-	<!-- 					      <div class="modal-footer"> -->
-	<!-- 					        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button> -->
-	<!-- 					        <button id="editWikiBtn" type="button" class="btn btn-success" disabled>Edit</button> -->
-	<!-- 					      </div> -->
-	<!-- 					    </div> -->
-	<!-- 					  </div> -->
-	<!-- 					</div> -->
-
-
 
 	<!-- new wiki modal -->
-	<div class="modal fade" id="wikiModal" tabindex="-1"
-		aria-labelledby="wikiModal" aria-hidden="true">
+	<div class="modal fade" id="wikiModal" tabindex="-1" aria-labelledby="wikiModal" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="wikiModal">wiki 추가</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -125,44 +108,25 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button id="closeWikiBtn" type="button" class="btn btn-warning"
-						data-dismiss="modal">Close</button>
-					<button id="saveWikiBtn" type="button" class="btn btn-success"
-						disabled>Save</button>
+					<button id="closeWikiBtn" type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+					<button id="saveWikiBtn" type="button" class="btn btn-success" disabled>Save</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="editor"></div>
 
-
-	<div class="wiki-body row">
-		<div class="wiki-content col-md-8">
-			<span></span>
-		</div>
-		<div class="wiki-right row col-md-4">
-			<!--             			<div class ="wiki-search-box row"> -->
-			<div class="wiki-search">
-				<input type="text" name="wiki_title" placeholder="search wiki title"
-					class="wikisearchtitle">
-				<button type="button" class="wiki-search-btn btn-sm btn-primary">search</button>
-			</div>
-			<div id="wiki-list"></div>
-			<!-- 						</div>	 -->
-		</div>
-	</div>
-
-	<div class="wiki-footer row">
-		<div class="wiki-history-title col-md-12">
-
-			<span>WIKI HISTORY</span> <span></span>
-		</div>
-		<div class="col-md-12">
+	<div class="card row" id="wiki-his">
+		<div class="wiki-footer col-md-12">
+		<blockquote class="wiki-history-title col-md-12">
+						<span>WIKI HISTORY</span> <span></span>
+			<div class="col-md-12">
 			<div id="wiki-history"></div>
 		</div>
-
-
+		</blockquote>
+		</div>
 	</div>
+	
 
 </div>
 
@@ -170,25 +134,24 @@
 	<div class="wikiBox">
 		<div class="text-center">
 			<div class="wiki-title">
-				<input type="hidden" value="" class="wiki-link-no"> 
-				<a class="wiki-btn" href="javascript:void(0)"></a>
+				<input type="hidden" value="" class="wiki-link-no"> <a
+					class="wiki-btn" href="javascript:void(0)"></a>
 			</div>
 		</div>
 	</div>
 </div>
 <!--  hidden="hidden" -->
-<div id = "wiki-history-temple" hidden="hidden">
+<div id="wiki-history-temple" hidden="hidden">
 	<div class="wikiHisBox row col-md-12">
-		<div class="wiki-his-nick col-md-2">
-			<span></span>
+		<div class="wiki-his-nick col-md-4">
+			<span></span> <span></span>
+		</div>
+		<div class="wiki-his-date col-md-4">
 			<span></span>
 		</div>
-		<div class="wiki-his-date col-md-2">
-			<span></span>
-		</div>
-		<div class="wiki-his-link col-md-2">
-			<input type="hidden" value="" class= "wiki-his-link-no">
-			<a class="wiki-his-btn" href="javascript:void(0)">보기</a>
+		<div class="wiki-his-link col-md-4">
+			<input type="hidden" value="" class="wiki-his-link-no"> <a
+				class="wiki-his-btn" href="javascript:void(0)">[보기]</a>
 		</div>
 		<div class="col-md-6"></div>
 	</div>
