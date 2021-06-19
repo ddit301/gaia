@@ -61,7 +61,7 @@
 /* 	border : 1px solid black; */
 	text-align: center;
 	width : 100%;
-	min-height: 260px;
+	min-height: 240px;
 }
 .wiki-title{
 	font-size: larger;
@@ -83,6 +83,12 @@
 	border : 1px solid black;
 	overflow-y: auto;
 }
-.menubox-header label, input[type=text]{
+/* .menubox-header label, input[type=text]{ */
+/* 	width : auto; */
+/* } */
+/* .wiki-title-input{ */
+/* 	width : 100%; */
+/* } */
+.wikisearchtitle{
 	width : auto;
 }

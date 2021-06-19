@@ -8,12 +8,11 @@
 	height : 50px;
 	margin : 2px;
 }
-.milestone-new-btn{
-	margin-bottom : 10px;
-}
+
 .milestone-new-btn a{
+	margin : 10px;
 	float: right; 
-	margin-right: 5px;
+	transition: none;
 }
 .milestone-chk{
 	margin : 10px;
