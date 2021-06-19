@@ -142,6 +142,7 @@ const getCookie = function(name) {
 	return CookieValue? decodeURI(CookieValue[2]) : null;
 };
 
+// 쿠키 값 설정하는 function
 const setCookie = function(name, value, exp){
 	var date = new Date();
 	date.setTime(date.getTime() + exp*24*60*60*1000);

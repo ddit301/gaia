@@ -170,9 +170,6 @@ const movePage = function(pageParam){
 // 특정 프로젝트 선택시 해당 프로젝트로 이동하는 함수
 const loadProject = function(managerId, projectTitle, pageParam){
 	
-	// 프로젝트를 불러 올때 메뉴를 함께 불러온다.
-	loadMenu();
-	
 	// 비동기로 세션에 선택한 프로젝트를 기록한 뒤, 해당 프로젝트의 pageParam으로 이동한다.
 	// pageParam이 null 일 경우 'code'로 이동한다.
 	$.ajax({
@@ -186,6 +183,10 @@ const loadProject = function(managerId, projectTitle, pageParam){
 			if(res == "OK"){
 				// proj_user_nick 자바 스크립트 변수에 쿠키에서 새로 받아와 저장해준다.
 				proj_user_nick = getProjNickFromCookie();
+				
+				// 프로젝트를 불러 올때 메뉴바를 새로 불러온다.
+				loadMenu();
+	
 				movePageHistory(pageParam? pageParam : 'code');
 			}
 		},
