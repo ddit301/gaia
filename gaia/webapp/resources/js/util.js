@@ -23,6 +23,11 @@ $(function(){
 		memberMovePageHistory(menuName);
 	})
 	
+	// 언어 선택 버튼에 대한 처리
+	$('.languages').on('click', 'a', function(){
+		let selectedLanguage = languages[$(this).text()];
+		selecteLanguage(selectedLanguage);
+	})
 	
 	//////////////////////////////////////////////////////////////////////////////
 	//
@@ -50,6 +55,13 @@ $(function(){
 //////////////////////////////////////////////////////////////////////////////
 
 const priorities = ['즉시','긴급','높음','보통','낮음','무시'];
+const languages = {
+	'English' : 'ENG'
+	,'한국어' : 'KOR'
+	,'Deutsch' : 'GER'
+	,'日本語' : 'JAP'
+	,'中文' : 'CHI'
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -129,6 +141,12 @@ const getCookie = function(name) {
 	let CookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
 	return CookieValue? decodeURI(CookieValue[2]) : null;
 };
+
+const setCookie = function(name, value, exp){
+	var date = new Date();
+	date.setTime(date.getTime() + exp*24*60*60*1000);
+	document.cookie = name+'='+escape(value)+';expires='+date.toUTCString()+';path=/';
+}
 	
 // 현 URL에서 contextPath 빼고 구하는 function
 const getCurrentUrl = function(){
@@ -161,6 +179,11 @@ const preventKorean = function() {
   var pattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\s]/;
   this.value = this.value.replace(pattern, '');
 };
+
+// value로 key 값 찾는 함수
+const getKeyByValue = function(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
 
 // 각종 nullChecking 모음. null에 해당하면 false 값이 존재하면 true. return
 const CheckNullUndefined = function(value){
@@ -258,4 +281,98 @@ var swal = {
 		})
 	}
 }
+
+// DB 에서 메뉴에 대한 데이터를 받아와 화면에 출력해주는 함수 입니다.
+const loadMenu = function(){
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/menu',
+		method : 'get',
+		success : function(menulist) {
+			
+			let singlemenuTemplate = $('#sidebar-template').find('.singlemenu');
+			let parentmenuTemplate = $('#sidebar-template').find('.parentmenu');
+			let menus = [];
+			$('#menu').empty();
+			$.each(menulist, function(i,menu){
+				let data = menu.MENU_DATA;
+				let icon = menu.MENU_ICON;
+				let parent = menu.MENU_PARENT;
+				let setIndex = menu.MENU_SET_INDEX;
+				let menucode = menu.MENU_CODE;
+				
+				// 언어 목록은 languages 객체에서 받아옵니다.
+				let menuname = {};
+				let languageArea = $('#languages');
+				languageArea.empty();
+				languageArr = Object.keys(languages);
+				for (let i in languageArr ){
+					let langLi = '<li><a>'+languageArr[i]+'</a></li>';
+					languageArea.append(langLi);
+					// 모든 언어 관련 메뉴 이름을 menuname 객체에 담아준다.
+					lan3char = languages[languageArr[i]];
+					// menuname 객체에 각 언어별 데이터를 기록해준다. 변수명을 동적으로 생성하기 위해 eval 사용
+					menuname[lan3char] = eval('menu.MENU_NM_'+lan3char);
+				}
+				
+				let languageSetting = getCookie('language') ? getCookie('language') : 'ENG';
+				
+				// 언어 선택에 맞게 text 바꿔주고
+				$('#currentLanguage').text(getKeyByValue(languages, languageSetting));
+				
+				// data가 있으면 싱글메뉴, 없으면 parent menu 입니다.
+				let menuBox = data ? singlemenuTemplate.clone() : parentmenuTemplate.clone();
+				let menuBoxATag = menuBox.find('a');
+				menuBoxATag.find('i').addClass(icon);
+				menuBoxATag.attr('data-menu', data);
+				menuBoxATag.attr('data-set_index', setIndex);
+				menuBoxATag.find('span').text(menuname[languageSetting]);
+				
+				// 메뉴 식별을 위한 class를 추가해준다.
+				menuBoxATag.addClass('menu-'+ menucode);
+				
+				// 부모 메뉴가 있는 경우에는 부모 메뉴의 ul에 append 한다.
+				if(parent){
+					let parentMenu = menus[menus.length-1];
+					parentMenu.find('ul').append(menuBox);
+				} else{
+					// 부모메뉴가 없는 경우에는 menus에 push 한다.
+					menus.push(menuBox);
+				}
+				
+			})
+			
+			// 모든 메뉴를 담았으면 메뉴들을 출력해준다. 
+			$('#menu').append(menus);
+			// https://github.com/onokumus/metismenu 참고해서 발동. 기존의 custom.min.js에 있던건 주석 처리했음.
+			$('#menu').metisMenu();
+			
+			
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+	
+		},
+		dataType : 'json'
+		,async : false
+	})
+	
+}
+
+// 언어 선택을 처리하는 함수
+const selecteLanguage = function(selectedLanguage){
+	//언어 선택시 쿠키에 저장하고
+	setCookie('language', selectedLanguage, 30);
+	// 메뉴 새로 불러준다.
+	loadMenu();
+};
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		

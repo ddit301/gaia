@@ -29,7 +29,7 @@ $(function(){
 		$('.square__box').tooltip('hide');
 		// 선택 메뉴 Code 로 바꾸기 (css)
 		$('.metismenu').find('a').removeClass('selectedMenu');
-		$('.metismenu').find('.codemenu').addClass('selectedMenu');
+		$('.metismenu').find('.menu-code').addClass('selectedMenu');
 		// 선택 프로젝트 그림자 만들기
 		$('.projBox').children('button').removeClass('selectedProj');
 		$(this).addClass('selectedProj');
@@ -291,9 +291,9 @@ const insertProject = function(proj_title, proj_cont){
 			project_title = project.proj_title;
 			loadProject(manager_id,project_title, 'management');
 			// 선택 메뉴 management 로 바꾸기 (css)
-			$('#sideSettingMenu').click();
+			$('.menu-setting').click();
 			$('.metismenu').find('a').removeClass('selectedMenu');
-			$('.metismenu').find('.managementmenu').addClass('selectedMenu');
+			$('.metismenu').find('.menu-management').addClass('selectedMenu');
 		},
 		error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);

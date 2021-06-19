@@ -41,6 +41,10 @@
 button.selectedProj{
 	box-shadow: 3px 3px 5px 6px #ccc;
 }
+.projectBtn:hover{
+	box-shadow: 3px 3px 5px 6px #ccc;
+	
+}
 .projBox button:focus{
 	outline:none;
 }
@@ -155,4 +159,28 @@ button.selectedProj{
 .roleDeleteBtn{
 	float : right;
 }
+.moveButton:hover{
+	cursor : pointer;
+}
+.languages a:hover{
+	cursor : pointer;
+}
+.has-arrow:hover{
+	cursor : pointer;
+}
+#language-setting a:hover{
+	cursor : pointer;
+}
+#language-setting{
+	width : 90px;
+}
+#language-setting a{
+	width : 100%;
+	text-align : right;
+}
+
+
+
+
+
 

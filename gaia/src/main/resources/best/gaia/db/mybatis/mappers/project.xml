@@ -144,6 +144,7 @@
 		    left outer join member proj_manager on (project.mem_no = proj_manager.mem_no)
 		where proj_mem.mem_no = #{mem_no}
 			and proj_status = 0
+			and proj_mem.proj_drop_date is null
 		order by proj_start_date
 	</select>
 	
