@@ -241,6 +241,13 @@ public class MemberREST {
 		return dao.selectmemberForpersonalProfile(mem_no);
 	}
 	
+	@GetMapping("getMemIdFromMemNo.do")
+	public String getMemIdFromMemNo(
+			@RequestParam int mem_no
+			) {
+		return dao.getMemIdFromMemNo(mem_no);
+	}
+	
 	
 	
 }
