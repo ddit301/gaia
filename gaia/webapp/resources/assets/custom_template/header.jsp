@@ -66,20 +66,22 @@
 					</div>
 				</li>
 <!------------------------	알람 끝 -->
-					<li class="icons dropdown d-none d-md-flex"><a
-					href="javascript:void(0)" class="log-user" data-toggle="dropdown">
-						<span>English</span> <i class="fa fa-angle-down f-s-14"
-						aria-hidden="true"></i>
-				</a>
+<!------------------------------------------ 언어 설정 시작 -->
+					<li id="language-setting" class="icons dropdown d-none d-md-flex">
+						<a data-toggle="dropdown">
+							<span id="currentLanguage">English</span> 
+							<i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
+						</a>
 					<div
 						class="drop-down dropdown-language animated fadeIn  dropdown-menu">
 						<div class="dropdown-content-body">
-							<ul>
-								<li><a href="javascript:void()">English</a></li>
-								<li><a href="javascript:void()">한국어</a></li>
+							<ul id="languages" class="languages">
+								<li><a>English</a></li>
+								<li><a>한국어</a></li>
 							</ul>
 						</div>
 					</div></li>
+<!------------------------------------------ 언어 설정 끝 -->
 				<li class="icons dropdown">
 					<div class="user-img c-pointer position-relative" data-toggle="dropdown">
 						<span class="activity active"></span> 
@@ -91,17 +93,15 @@
 								<li><a href="#" class="moveButton" data-menu="overview"><i
 										class="icon-user"></i> <span>Overview</span></a></li>
 								<li><a href="#" class="moveButton" data-menu="setting"><i
-										class="icon-user"></i> <span>Setting</span></a></li>
+										class="icon-settings"></i> <span>Setting</span></a></li>
 								<li>
-									<a href="email-inbox.html">
+									<a href="#" class="moveButton" data-menu="chat">
 										<i class="icon-envelope-open"></i> 
 										<span>Inbox</span>
 										<div class="badge gradient-3 badge-pill badge-primary">3</div>
 									</a>
 								</li>
 								<hr class="my-2" />
-								<li><a href="page-lock.html"><i class="icon-lock"></i>
-										<span>Lock Screen</span></a></li>
 								<li><a href="${cPath }/signout"><i class="icon-key"></i>
 										<span>SIGN OUT</span></a></li>
 							</ul>

@@ -73,7 +73,7 @@
        		</div>
        		<div class="newsBody row">
        			<div class="news-left col-md-6">
-       				<img src="/gaia/resources/assets/images/big/about-2.png" alt="">
+       				<img alt="">
        			</div>
        			<div class="news-right col-md-6">
 
