@@ -285,6 +285,10 @@ var swal = {
 // DB 에서 메뉴에 대한 데이터를 받아와 화면에 출력해주는 함수 입니다.
 const loadMenu = function(){
 	
+	// metismenu 가 이미 있을때 .metisMenu 가 먹히지 않아서 지운후 동적으로 재 생성 해주도록 했음.
+	$('#projectsidebar').empty();
+	$('#projectsidebar').append('<ul class="metismenu" id="menu"> </ul>');
+
 	$.ajax({
 		url : getContextPath() + '/restapi/project/menu',
 		method : 'get',

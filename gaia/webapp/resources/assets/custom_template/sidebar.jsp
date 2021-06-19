@@ -9,9 +9,10 @@
     pageEncoding="UTF-8"%>
 
 <div class="nk-sidebar" style="position: fixed;">           
-    <div class="nk-nav-scroll">
-        <ul class="metismenu" id="menu">
-        </ul>
+    <div id="projectsidebar" class="nk-nav-scroll">
+<!--      metismenu 가 이미 있을때 $('#menu').metisMenu(); 가 먹히지 않아서 지운후 동적으로 재 생성 해주도록 했음. -->
+<!--         <ul class="metismenu" id="menu"> -->
+<!--         </ul> -->
     </div>
 </div>
 
