@@ -6,19 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-.loginDiv{	
-	border : 1px solid black;
-	width : 500px;
-	height : 500px;
-	position : absolute;
-	top : 50%;
-	left : 50%;
-	margin-top : -250px;
-	margin-left : -250px;
-	padding : 50px;
-}
-</style>
 <title>test3 login</title>
 </head>
 <body>

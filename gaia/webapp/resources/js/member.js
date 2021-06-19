@@ -238,7 +238,7 @@ const loadMemberInfo_account = function() {
 		type: 'get',
 		success: function(res) {
 			console.log(JSON.stringify(res.search));
-			let nm = $("#mem_nm").attr('placeholder', res.search.mem_nm);
+			let nm = $("#mem_nick").attr('placeholder', res.search.mem_nick);
 			$(".profile_img").attr("src", getProfilePath(mem_pic_file_name));
 		},
 		async: false
@@ -249,22 +249,31 @@ const loadMemberInfo_account = function() {
 	})
 }
 
-
 //이름 변경 버튼 바인딩
 const changeUserNameBtn = $("body").on("click",".changeAccountBtn", function() {
 	event.preventDefault();
 	let form_data = { "_method": "put" };
 	let pass = false;
+	let passLength = $("#mem_pass").val().length;
+	console.log(passLength);
 	if ($(this).val() == "mem_nm") {
 		form_data["mem_nm"] = $("#" + $(this).val() + "").val();
 		confirmAlert("name", form_data);
 	} else {
-		let form_data = $(".password_form").serializeJSON();
-		form_data["_method"] = "put";
-		form_data["need"] = "mem_password";
-
-		if (valid(pass) == true) {
-			confirmAlert("pass", form_data);
+		$(".confirmNewPassword").find("span").prop("hidden", true)
+		if(7 < mem_pass.length  && mem_pass.length < 16){
+			let form_data = $(".password_form").serializeJSON();
+			form_data["_method"] = "put";
+			form_data["need"] = "mem_password";
+	
+			if (valid(pass) == true) {
+				confirmAlert("pass", form_data);
+			}
+		}else{
+			swal.warning({
+				title : "글자 수를 맞춰주세요.",
+				text: "password는 8자 이상 15자 이상이어야 합니다!!"
+			});
 		}
 	}
 })
@@ -407,13 +416,14 @@ const loadMemberInfo_log = function() {
 		data: { "need": "logList" },
 		type: 'get',
 		success: function(res) {
+			console.log(res)
 			$(".profile_img").attr("src", getProfilePath(res.search.mem_pic_file_name));
 			$(".profile_img_label").attr("title", "View " + res.search.mem_id + "'s profile");
 			$(".profile_img_label").siblings("input").val(res.search.mem_id);
 			$.each(res.logList, function(i, v) {
 				let log = $("#logTemplate").children(".log").clone();
 				let timeAgo = moment(v.date, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
-				let ip = v.date + '<span class="vertical-separator"></span>' + timeAgo;
+				let ip = v.ip + '<span class="vertical-separator"></span>' + timeAgo;
 				log.find(".log-card-ip").html(ip);
 				log.find(".log-card-actor").children("a").text(res.search.mem_id + " - user.login");
 				log.appendTo("#logList");
@@ -431,3 +441,10 @@ const toOverview = function() {
 	$('.profile_img_label').tooltip('hide');
 	memberMovePageHistory('overview');
 }
+
+////////////////////////////////////////////////////
+//
+// personalPage.jsp
+//
+////////////////////////////////////////////////////
+
