@@ -61,7 +61,7 @@ public class MemberUrlMapper {
 				, Model model, Authentication authentication
 			) {
 		model.addAttribute("mem_id", mem_id);
-		model.addAttribute("memberPageParam", memberPageParam.isPresent() ? memberPageParam.get() : null);
+		model.addAttribute("memberPageParam", memberPageParam.isPresent() ? memberPageParam.get() : "personalPage");
 
 		return "view/template/project";
 	}
@@ -88,4 +88,5 @@ public class MemberUrlMapper {
 		model.addAttribute("memberPageParam", "chat");
 		return "view/template/project";
 	}
+	
 }

@@ -440,3 +440,10 @@ const toOverview = function() {
 	$('.profile_img_label').tooltip('hide');
 	memberMovePageHistory('overview');
 }
+
+////////////////////////////////////////////////////
+//
+// personalPage.jsp
+//
+////////////////////////////////////////////////////
+
