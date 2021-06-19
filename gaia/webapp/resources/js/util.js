@@ -72,6 +72,7 @@ const getStringArrayFromBinaryAndArray = function(binary, array){
 	}
 	return result;
 }
+let languageSetting = 'eng';
 
 /**
 	특정 태그의 hidden 상태를 토글 해 줍니다. hidden 상태의 tag가 parameter로 들어가면
@@ -257,5 +258,73 @@ var swal = {
 			timer: 1500
 		})
 	}
+}
+
+// DB 에서 메뉴에 대한 데이터를 받아와 화면에 출력해주는 함수 입니다.
+const loadMenu = function(){
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/menu',
+		method : 'get',
+		success : function(menulist) {
+			
+			let singlemenuTemplate = $('#sidebar-template').find('.singlemenu');
+			let parentmenuTemplate = $('#sidebar-template').find('.parentmenu');
+			let menus = [];
+			$('#menu').empty();
+			$.each(menulist, function(i,menu){
+				let data = menu.menu_data;
+				let icon = menu.menu_icon;
+				let menuname = {};
+				menuname.eng = menu.menu_nm_eng;
+				menuname.kor = menu.menu_nm_kor;
+				let parent = menu.menu_parent;
+				let setIndex = menu.menu_set_index;
+				let menucode = menu.menu_code;
+				
+				// data가 있으면 싱글메뉴, 없으면 parent menu 입니다.
+				let menuBox = data ? singlemenuTemplate.clone() : parentmenuTemplate.clone();
+				let menuBoxATag = menuBox.find('a');
+				menuBoxATag.find('i').addClass(icon);
+				menuBoxATag.attr('data-menu', data);
+				menuBoxATag.attr('data-eng', menuname.eng);
+				menuBoxATag.attr('data-kor', menuname.kor);
+				menuBoxATag.attr('data-set_index', setIndex);
+				menuBoxATag.find('span').text(menuname[languageSetting]);
+				
+				// 메뉴 식별을 위한 class를 추가해준다.
+				menuBoxATag.addClass('menu-'+ menucode);
+				
+				// 부모 메뉴가 있는 경우에는 부모 메뉴의 ul에 append 한다.
+				if(parent){
+					let parentMenu = menus[menus.length-1];
+					console.log(menus)
+					console.log(menus.length)
+					console.log(parentMenu);
+					console.log(parentMenu.find('ul'));
+					parentMenu.find('ul').append(menuBox);
+				} else{
+					// 부모메뉴가 없는 경우에는 menus에 push 한다.
+					menus.push(menuBox);
+				}
+				
+			})
+			
+			// 모든 메뉴를 담았으면 메뉴들을 출력해준다. 
+			$('#menu').append(menus);
+			// https://github.com/onokumus/metismenu 참고해서 발동. 기존의 custom.min.js에 있던건 주석 처리했음.
+			$('#menu').metisMenu();
+			
+			
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+	
+		},
+		dataType : 'json'
+		,async : false
+	})
+	
+	
 }
 		

@@ -8,4 +8,12 @@
 		    and use_yn = 'Y'
 	</select>
 	
+	<select id="selectMenuList" resultType="best.gaia.vo.MenuVO">
+		select * 
+		from menu
+		start with menu_parent is null 
+		connect by prior menu_no = menu_parent
+		order siblings by menu_no
+	</select>
+	
 </mapper>

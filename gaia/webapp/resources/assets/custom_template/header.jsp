@@ -74,9 +74,9 @@
 					<div
 						class="drop-down dropdown-language animated fadeIn  dropdown-menu">
 						<div class="dropdown-content-body">
-							<ul>
-								<li><a href="javascript:void()">English</a></li>
-								<li><a href="javascript:void()">한국어</a></li>
+							<ul class="languages">
+								<li><a>English</a></li>
+								<li><a>한국어</a></li>
 							</ul>
 						</div>
 					</div></li>
