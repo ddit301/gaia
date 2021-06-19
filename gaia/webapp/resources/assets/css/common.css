@@ -168,8 +168,16 @@ button.selectedProj{
 .has-arrow:hover{
 	cursor : pointer;
 }
-
-
+#language-setting a:hover{
+	cursor : pointer;
+}
+#language-setting{
+	width : 90px;
+}
+#language-setting a{
+	width : 100%;
+	text-align : right;
+}
 
 
 

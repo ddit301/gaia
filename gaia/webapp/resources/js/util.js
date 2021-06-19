@@ -23,6 +23,11 @@ $(function(){
 		memberMovePageHistory(menuName);
 	})
 	
+	// 언어 선택 버튼에 대한 처리
+	$('.languages').on('click', 'a', function(){
+		let selectedLanguage = languages[$(this).text()];
+		selecteLanguage(selectedLanguage);
+	})
 	
 	//////////////////////////////////////////////////////////////////////////////
 	//
@@ -50,6 +55,13 @@ $(function(){
 //////////////////////////////////////////////////////////////////////////////
 
 const priorities = ['즉시','긴급','높음','보통','낮음','무시'];
+const languages = {
+	'English' : 'eng'
+	,'한국어' : 'kor'
+	,'Deutsch' : 'ger'
+	,'日本語' : 'jap'
+	,'中文' : 'chi'
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -72,7 +84,6 @@ const getStringArrayFromBinaryAndArray = function(binary, array){
 	}
 	return result;
 }
-let languageSetting = 'eng';
 
 /**
 	특정 태그의 hidden 상태를 토글 해 줍니다. hidden 상태의 tag가 parameter로 들어가면
@@ -130,6 +141,12 @@ const getCookie = function(name) {
 	let CookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
 	return CookieValue? decodeURI(CookieValue[2]) : null;
 };
+
+const setCookie = function(name, value, exp){
+	var date = new Date();
+	date.setTime(date.getTime() + exp*24*60*60*1000);
+	document.cookie = name+'='+escape(value)+';expires='+date.toUTCString()+';path=1';
+}
 	
 // 현 URL에서 contextPath 빼고 구하는 function
 const getCurrentUrl = function(){
@@ -162,6 +179,11 @@ const preventKorean = function() {
   var pattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\s]/;
   this.value = this.value.replace(pattern, '');
 };
+
+// value로 key 값 찾는 함수
+const getKeyByValue = function(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
 
 // 각종 nullChecking 모음. null에 해당하면 false 값이 존재하면 true. return
 const CheckNullUndefined = function(value){
@@ -275,20 +297,34 @@ const loadMenu = function(){
 			$.each(menulist, function(i,menu){
 				let data = menu.menu_data;
 				let icon = menu.menu_icon;
-				let menuname = {};
-				menuname.eng = menu.menu_nm_eng;
-				menuname.kor = menu.menu_nm_kor;
 				let parent = menu.menu_parent;
 				let setIndex = menu.menu_set_index;
 				let menucode = menu.menu_code;
+				
+				// 언어 목록은 languages 객체에서 받아옵니다.
+				let menuname = {};
+				let languageArea = $('#languages');
+				languageArea.empty();
+				languageArr = Object.keys(languages);
+				for (let i in languageArr ){
+					let langLi = '<li><a>'+languageArr[i]+'</a></li>';
+					languageArea.append(langLi);
+					// 모든 언어 관련 메뉴 이름을 menuname 객체에 담아준다.
+					lan3char = languages[languageArr[i]];
+					// menuname 객체에 각 언어별 데이터를 기록해준다. 변수명을 동적으로 생성하기 위해 eval 사용
+					menuname[lan3char] = eval('menu.menu_nm_'+lan3char);
+				}
+				
+				let languageSetting = getCookie('language') ? getCookie('language') : 'eng';
+				
+				// 언어 선택에 맞게 text 바꿔주고
+				$('#currentLanguage').text(getKeyByValue(languages, languageSetting));
 				
 				// data가 있으면 싱글메뉴, 없으면 parent menu 입니다.
 				let menuBox = data ? singlemenuTemplate.clone() : parentmenuTemplate.clone();
 				let menuBoxATag = menuBox.find('a');
 				menuBoxATag.find('i').addClass(icon);
 				menuBoxATag.attr('data-menu', data);
-				menuBoxATag.attr('data-eng', menuname.eng);
-				menuBoxATag.attr('data-kor', menuname.kor);
 				menuBoxATag.attr('data-set_index', setIndex);
 				menuBoxATag.find('span').text(menuname[languageSetting]);
 				
@@ -321,6 +357,22 @@ const loadMenu = function(){
 		,async : false
 	})
 	
-	
 }
+
+// 언어 선택을 처리하는 함수
+const selecteLanguage = function(selectedLanguage){
+	//언어 선택시 쿠키에 저장하고
+	setCookie('language', selectedLanguage, 30);
+	// 메뉴 새로 불러준다.
+	loadMenu();
+};
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		

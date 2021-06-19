@@ -20,6 +20,9 @@ public class MenuVO {
 	 private Integer menu_set_index;
 	@NotBlank@Size(max=200) private String menu_nm_eng;
 	@NotBlank@Size(max=200) private String menu_nm_kor;
+	@NotBlank@Size(max=200) private String menu_nm_jap;
+	@NotBlank@Size(max=200) private String menu_nm_chi;
+	@NotBlank@Size(max=200) private String menu_nm_ger;
 	 private Integer menu_parent;
 
 }

@@ -66,20 +66,22 @@
 					</div>
 				</li>
 <!------------------------	알람 끝 -->
-					<li class="icons dropdown d-none d-md-flex"><a
-					href="javascript:void(0)" class="log-user" data-toggle="dropdown">
-						<span>English</span> <i class="fa fa-angle-down f-s-14"
-						aria-hidden="true"></i>
-				</a>
+<!------------------------------------------ 언어 설정 시작 -->
+					<li id="language-setting" class="icons dropdown d-none d-md-flex">
+						<a data-toggle="dropdown">
+							<span id="currentLanguage">English</span> 
+							<i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
+						</a>
 					<div
 						class="drop-down dropdown-language animated fadeIn  dropdown-menu">
 						<div class="dropdown-content-body">
-							<ul class="languages">
+							<ul id="languages" class="languages">
 								<li><a>English</a></li>
 								<li><a>한국어</a></li>
 							</ul>
 						</div>
 					</div></li>
+<!------------------------------------------ 언어 설정 끝 -->
 				<li class="icons dropdown">
 					<div class="user-img c-pointer position-relative" data-toggle="dropdown">
 						<span class="activity active"></span> 
