@@ -416,13 +416,14 @@ const loadMemberInfo_log = function() {
 		data: { "need": "logList" },
 		type: 'get',
 		success: function(res) {
+			console.log(res)
 			$(".profile_img").attr("src", getProfilePath(res.search.mem_pic_file_name));
 			$(".profile_img_label").attr("title", "View " + res.search.mem_id + "'s profile");
 			$(".profile_img_label").siblings("input").val(res.search.mem_id);
 			$.each(res.logList, function(i, v) {
 				let log = $("#logTemplate").children(".log").clone();
 				let timeAgo = moment(v.date, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).fromNow();
-				let ip = v.date + '<span class="vertical-separator"></span>' + timeAgo;
+				let ip = v.ip + '<span class="vertical-separator"></span>' + timeAgo;
 				log.find(".log-card-ip").html(ip);
 				log.find(".log-card-actor").children("a").text(res.search.mem_id + " - user.login");
 				log.appendTo("#logList");
