@@ -2,8 +2,12 @@
 
 .wiki-container{
 	display : grid;
-	margin-left: 0;
+/* 	margin-left: 0; */
     width: 100%;
+}
+.card{
+	margin-left: 15px;
+    margin-right: 15px;
 }
 .title-wiki{
 	font-size: 2.0em;
@@ -13,55 +17,51 @@
 	margin : auto;
 	padding : auto;	
 }
-.wiki-head{
-	background : white; 
-	border : 1px solid black;
+#wiki-head{
 	margin-left: 15px;
-    width :100%;
-    padding : auto;	
+	margin-right : 15px;
+	 padding : 10px;	
 }
 .wiki-body{
-	width : 100%;
-	margin-left: 15px;
-	padding : auto;	
+margin-left: 15px;
 }
 .wiki-content{
-	background : white; 
+	width : calc(70% - 15px);
 	height : 300px;
-	border : 1px solid black;
 	max-height: 300px;
-/*     overflow-y: auto; */
-}
-.tui-editor-contents{
-	max-height: 298px;
-	overflow-y: auto;
-}
-
-.wiki-right{
-	background : white; 
-	height : 300px;
-	border : 1px solid black;
-	max-height: 300px;
+/* 	margin-left : 15px; */
     overflow-y: auto;
-	text-align: center;
+}
+.wiki-right{
+	width : calc(30% - 30px);
+	height : 300px;
+	max-height: 300px;
+	margin-left : 15px;
+    overflow-y: auto;
+}
+
+.wiki-search{
+	margin-left : 15px;
+    display : flex;
+    justify-content : center;
 
 }
-.wiki-search{
-    margin-left: 20%;
-
+.wiki-search-btn{
+	margin-left : 5px;
 }
 .wiki-btn-group{
+	margin : auto;
 	text-align: center;
+	
 }
 .wiki-writer{
 	font-size: larger;
 	margin-left: 10px;
 }
 #wiki-list{
-/* 	border : 1px solid black; */
 	text-align: center;
 	width : 100%;
-	min-height: 240px;
+	min-height: 235px;
 }
 .wiki-title{
 	font-size: larger;
@@ -70,25 +70,31 @@
 .wikiHis{
 	transition: none;
 }
-.wiki-head .wiki-writer .wikiHis:hover{
+#wiki-head .wiki-writer .wikiHis:hover{
 	color: blue;
 	cursor: pointer;
 }
 .wiki-footer{
-	width : 100%;
-	background : white; 
-	margin-left : 15px;
-	padding : auto;
+    margin-right: 15px;
 	height : 200px;
-	border : 1px solid black;
+	max-height: 200px;
 	overflow-y: auto;
 }
-/* .menubox-header label, input[type=text]{ */
-/* 	width : auto; */
-/* } */
-/* .wiki-title-input{ */
-/* 	width : 100%; */
-/* } */
+.wiki-history-title{
+	height : 130px;
+	max-height : 130px;
+	padding : 15px;
+	overflow-y: auto;
+	margin-top : 15px;
+}
 .wikisearchtitle{
 	width : auto;
+}
+#wiki-his{
+	width : auto;
+	margin-right : 15px;
+}
+.wikiHisBox{
+	font-size: 1.3em;
+    font-weight: bold;
 }
