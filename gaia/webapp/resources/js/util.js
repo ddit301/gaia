@@ -298,10 +298,6 @@ const loadMenu = function(){
 				// 부모 메뉴가 있는 경우에는 부모 메뉴의 ul에 append 한다.
 				if(parent){
 					let parentMenu = menus[menus.length-1];
-					console.log(menus)
-					console.log(menus.length)
-					console.log(parentMenu);
-					console.log(parentMenu.find('ul'));
 					parentMenu.find('ul').append(menuBox);
 				} else{
 					// 부모메뉴가 없는 경우에는 menus에 push 한다.
