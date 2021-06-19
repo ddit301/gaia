@@ -13,9 +13,11 @@
 			<id column="MILEST_SID" property="milest_sid"/>
 			<result column="MILEST_TITLE" property="milest_title"/>
 		</association>
-		<association property="label" javaType="java.util.Map" autoMapping="false">
+		<association property="label" javaType="best.gaia.vo.LabelVO" autoMapping="false">
 			<result column="LABEL_NO" property="label_no"></result>
 			<result column="LABEL_NM" property="label_nm"></result>
+			<result column="LABEL_ICON" property="label_icon"></result>
+			<result column="LABEL_COLOR" property="label_color"></result>
 		</association>
 		
 		<collection property="assigneeList" ofType="best.gaia.vo.MemberVO" javaType="java.util.Set" autoMapping="true">
@@ -36,7 +38,7 @@
 SELECT ISSUE.ISSUE_SID as ISSUE_ID, ISSUE_NO, ISSUE_TITLE, PROGRESS, ISSUE_STATUS, ISSUE_PRIORITY
         ,ISSUE_CREATE_DATE, ISSUE_START_DATE, ISSUE_END_DATE
         ,MILESTONE.MILEST_SID, MILESTONE.MILEST_TITLE
-        ,LABEL.LABEL_NO, LABEL.LABEL_NM
+        ,LABEL.LABEL_NO, LABEL.LABEL_NM, label.label_icon, label.label_color
         ,ISSUE.PROJ_NO
         ,WRITER.MEM_NO AS WRITER_NO, WRITER.MEM_PIC_FILE_NAME AS WRITER_PIC
         ,WRITER_PM.PROJ_USER_NICK AS WRITER_NICK
@@ -172,15 +174,9 @@ FROM ISSUE
 			)
 	</insert>
 	
-	<update id="updateIssue">
+	<update id="updateIssue" parameterType="map">
 		UPDATE ISSUE
-			SET
-				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(issue_status)">
-					ISSUE_STATUS = #{issue_status, jdbcType=NUMERIC}
-				</if>
-				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(issue_title)">
-					ISSUE_TITLE = #{issue_title, jdbcType=VARCHAR}
-				</if>
+			SET ${editpart} = #{parameter, jdbcType=VARCHAR}
 			WHERE ISSUE_SID = #{issue_sid, jdbcType=NUMERIC}
 	</update>
 	
@@ -200,4 +196,37 @@ FROM ISSUE
 		)
 	</insert>
 	
+	<update id="deleteIssueAssignee" parameterType="map">
+		DELETE FROM issue_assignee
+		WHERE mem_no = #{mem_no}
+		    	AND issue_sid = #{issue_sid}
+	</update>
+	
+	<select id="selectMilestoneTitle" parameterType="int" resultType="string">
+		select milest_title
+		from milestone
+		where milest_sid = #{milest_sid}
+	</select>
+	
+	<select id="selectMemProjNick" parameterType="best.gaia.vo.ProjMemVO" resultType="string">
+		select proj_user_nick
+		from proj_mem
+		where proj_no= #{proj_no} and mem_no = #{mem_no}
+	</select>
+	
+	<select id="selectLabelName" parameterType="int" resultType="string">
+		select label_nm 
+		from label
+		where label_no = #{label_no}
+	</select>
+	
+	
+	
 </mapper>
+
+
+
+
+
+
+

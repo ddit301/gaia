@@ -6,10 +6,16 @@
 $(function(){
 	
 	let wiki = null;
+	// wiki history 에서 버튼을 클릭한 경우
+	$('.content-body').on('click','.wiki-his-btn',function(){
+		let wiki_no = $(this).siblings('input').val();
+//		alert(wiki_no);
+		wikiView(wiki_no);
+	})
+	
 	
 	// wiki 등록을 위한 버튼 이벤트
 	$('.content-body').on('click','.new-wiki', function(){
-			alert("1 new wiki");
 	$('.modal-title').text('wiki 추가');
 	$('#saveWikiBtn').text('save');
 	$('#wiki-title-input').val('');
@@ -25,6 +31,7 @@ $(function(){
 	// 특정 위키 클릭시 불러오는 메서드
 	$('.content-body').on('click','.wiki-btn',function(){
 		//특정 위키의 wiki_no 불러옴.
+		$('#wiki-history').empty();
 		let wiki_no = $(this).siblings('input').val();
 		wikiView(wiki_no);
 	
@@ -38,7 +45,6 @@ $(function(){
 	
 	// 위키 수정 버튼 클릭 시
 	$('.content-body').on('click','.edit-wiki',function(){
-		alert("2 edit wiki");
 		
 		// new wiki 와 모달을 같이 쓰기 때문에 save 를 edit 으로 변경한다.
 		$('.modal-title').text('wiki 수정');
@@ -58,6 +64,13 @@ $(function(){
 		wikilist(wiki_title);
 		
 	})
+	// wiki history 버튼 클릭 
+	$('.content-body').on('click','.wikiHis',function(){
+			let wiki_sid = $(this).siblings('input').val();
+			event.preventDefault();
+			wikihistory(wiki_sid);
+			
+		})		
 	
 	
 })
@@ -66,7 +79,6 @@ $(function(){
 	// 특정 위키 수정하는 함수 
 	// 수정이긴하지만 계층형 이기 때문에 insert 를 시킬 예정 
 const editWiki = function(){
-		alert("3 edit function")
 		let wiki_title = wiki.wiki_title;
 		let wiki_cont = wiki.wiki_cont;
 
@@ -97,7 +109,7 @@ const editWiki = function(){
 						
 						$('.modal-backdrop').removeClass('show').css("display","none");
 						// toastr 알람
-						toastr.success('새로운 위키 수정에 성공했습니다.')
+						toastr.success('위키 수정에 성공했습니다.')
 						movePageHistory("wiki");
 						
 						// 에디터 비우기
@@ -140,6 +152,7 @@ const delWiki = function(wiki_sid){
 			},
 			success : function(res) {
 				$('.modal-backdrop').removeClass('show').css("display","none");
+//				$('.modal-backdrop').modal('show');
 				swal.success();
 				movePageHistory("wiki");
 			},
@@ -173,17 +186,18 @@ const wikiView = function(wiki_no){
 			success : function(res) {
 				
 				wiki = res;
-				
-				console.log(res);
 
 				$('.title-wiki').children('span').text(res.wiki_title);
 				$('.wiki-writer').children('span').eq(0).text(res.proj_user_nick);
 				if(res.parent_wiki == null){
 					$('.wiki-writer').children('span').eq(1).text('open');
 					$('.wiki-writer').children('a').text('');
+					$('.wiki-history-title').children('span').eq(1).text('(히스토리가 없습니다.)');
 				}else{
 					$('.wiki-writer').children('span').eq(1).text('edit');
-					$('.wiki-writer').children('a').text('3 edit history');
+					$('.wiki-writer').children('a').text(' history');
+					$('.wiki-writer').children('.wiki-his-link-no').val(res.wiki_sid);
+					$('.wiki-history-title').children('span').eq(1).text('');
 				}
 				
 				$('.wiki-writer').children('span').eq(2).text('this wiki');
@@ -199,10 +213,7 @@ const wikiView = function(wiki_no){
 				
 			},
 			error : function(xhr, error, msg) {
-				// 조회중인 프로젝트 번호를 세션에서 못 받아 올 경우, 메인 홈페이지로 보낸다.
-				if(xhr.status == 400){
-					window.location.href = getContextPath();
-				}
+		
 				console.log(xhr);
 				console.log(error);
 				console.log(msg);
@@ -215,8 +226,6 @@ const wikiView = function(wiki_no){
 	
 	
 const wikilist = function(wiki_title){
-
-	  var scopeWikiNo = '${wiki_no}';
             // project 내 첫번째 wiki 출력 
             	$.ajax({
             		url : getContextPath() + '/restapi/project/wikis/'
@@ -225,18 +234,9 @@ const wikilist = function(wiki_title){
 						'wiki_title' : wiki_title
 					},
 					success : function(res) {
-						if(!!scopeWikiNo){
 							$.each(res.dataList, function(i,v){
-								if(v.wiki_no == '${wiki_no}'){
 									$('.title-wiki').children('span').text(v.wiki_title);
-									
-									
-								}
 							})
-						}else{ // requestScope에 wiki_no가 존재하지 않을 시 가장 처음 작성된 kiki를 불러옴.
-						
-						}	
-							
 							wiki = res.dataList[0];
 							if(wiki == null){
 								$('.title-wiki').children('span').text('등록된 위키가 없습니다.');
@@ -258,10 +258,13 @@ const wikilist = function(wiki_title){
 							if(wiki.parent_wiki == null){
 								$('.wiki-writer').children('span').eq(1).text('open');
 								$('.wiki-writer').children('a').text('');
-								$('.wiki-history-discription-history').children('span').eq(0).text('히스토리가 없습니다.')
+								$('.wiki-history-title').children('span').eq(1).text('(히스토리가 없습니다.)');
 							}else{
 								$('.wiki-writer').children('span').eq(1).text('edit');
-								$('.wiki-writer').children('a').text('3 edit history');
+								$('.wiki-writer').children('a').text(' history');
+								$('.wiki-writer').children('.wiki-his-link-no').val(wiki.wiki_sid);
+								console.log(wiki.wiki_sid);
+								$('.wiki-history-title').children('span').eq(1).text('');
 							}
 							$('.wiki-writer').children('span').eq(2).text('this wiki');
 							$('.wiki-writer').children('span').eq(3).text(moment(wiki.wiki_write_date).fromNow()+'. ');
@@ -288,10 +291,7 @@ const wikilist = function(wiki_title){
 							}
 					},
 					error : function(xhr, error, msg) {
-						// 조회중인 프로젝트 번호를 세션에서 못 받아 올 경우, 메인 홈페이지로 보낸다.
-						if(xhr.status == 400){
-							window.location.href = getContextPath();
-						}
+			
 						console.log(xhr);
 						console.log(error);
 						console.log(msg);
@@ -304,41 +304,80 @@ const wikilist = function(wiki_title){
 
 // 위키 생성 하는 함수
 const newWiki = function() {
-	$('#saveWikiBtn').on('click', function(){
-		alert("click save btn")
-				wiki_title = $('#wiki-title-input').val();
-				wiki_cont = editor.getMarkdown();
-				// 위키 insert 하기
-				$.ajax({
-					url : getContextPath()+'/restapi/project/wikis',
-					method : 'post',
-					data : {
-						'wiki_title' : wiki_title
-						,'wiki_cont' : wiki_cont
-						
-					},
-					success : function(res) {
-						
-				$('.modal-backdrop').removeClass('show').css("display","none");
-						// toastr 알람
-						toastr.success('새로운 위키 등록에 성공했습니다.')
-						movePageHistory("wiki");
-						
-						
-						// 에디터 비우기
-						$('#wiki-title-input').val('');
-						editor.reset();
-						// 모달 닫기
-						$('#wikiModal').modal('hide');
-						
-					},
-					error : function(xhr, error, msg) {
-						ajaxError(xhr, error, msg);
-					},
-					dataType : 'json'
+		$('#saveWikiBtn').on('click', function(){
+					wiki_title = $('#wiki-title-input').val();
+					wiki_cont = editor.getMarkdown();
+					// 위키 insert 하기
+					$.ajax({
+						url : getContextPath()+'/restapi/project/wikis',
+						method : 'post',
+						data : {
+							'wiki_title' : wiki_title
+							,'wiki_cont' : wiki_cont
+							
+						},
+						success : function(res) {
+							
+					$('.modal-backdrop').removeClass('show').css("display","none");
+							// toastr 알람
+							toastr.success('새로운 위키 등록에 성공했습니다.')
+							movePageHistory("wiki");
+							
+							
+							// 에디터 비우기
+							$('#wiki-title-input').val('');
+							editor.reset();
+							// 모달 닫기
+							$('#wikiModal').modal('hide');
+							
+						},
+						error : function(xhr, error, msg) {
+							ajaxError(xhr, error, msg);
+						},
+						dataType : 'json'
+					})
+					
 				})
-				
+		
+	}
+	
+	// 위키 히스토리 불러오는 함수
+	const wikihistory = function(wiki_sid){
+		
+
+		
+		
+		$.ajax({
+        		url : getContextPath() + '/restapi/project/wikis/history/'+ wiki_sid	
+				,type : 'get',
+				success : function(res) {
+					
+					console.log(res[0]);
+					$.each(res, function(i, v) {
+					let wikiHisBox = $('#wiki-history-temple').children('.wikiHisBox').clone();
+//					wikiHisBox.attr('data-wiki_no',v.wiki_no);
+					wikiHisBox.find('.wiki-his-nick').children('span').eq(0).text(v.proj_user_nick);
+					wikiHisBox.find('.wiki-his-nick').children('span').eq(1).text(' edit this wiki');
+					wikiHisBox.find('.wiki-his-date').children('span').text(v.wiki_write_date);
+					wikiHisBox.find('.wiki-his-link').children('input').val(v.wiki_no);
+					
+					$('#wiki-history').append(wikiHisBox);
+					
+					
+//					$('#wiki-history').empty();
+				})
+					
+				},
+				error : function(xhr, error, msg) {
+					console.log(xhr);
+					console.log(error);
+					console.log(msg);
+				},
+				dataType : 'json'
+
 			})
+			
+	}
 	
-}
 	
+		
