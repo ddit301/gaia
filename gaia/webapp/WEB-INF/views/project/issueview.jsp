@@ -161,7 +161,7 @@
 		<div class="col-md-1">
 			<img class="commenter profile" alt="">
 		</div>
-		<div class="rep-right col-md-10">
+		<div class="rep-right col-md-10 card">
 			<div class="repHeader">
 				<span></span>
 				commented <span></span>
@@ -175,13 +175,13 @@
 	
 	<!--  이슈 수정내역 시작-->
 	<div class="issue-change row">
-		<div class="col-md-1"></div>
-		<div class="col-md-1">
-			<i class="icon-note menu-icon"></i>
-		</div>
-		<div class="col-md-10">
+<!-- 		<div class="col-md-1"></div> -->
+		<div class="issue-edit-history col-md-9">
 			<img class="profile issueHistory" src="" alt="">
 			<span></span>
+		</div>
+		<div class="col-md-3">
+			<span class="edittime"></span>
 		</div>
 	</div>
 	<!--  이슈 수정내역 끝-->

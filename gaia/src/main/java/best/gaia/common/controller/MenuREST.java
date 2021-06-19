@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.common.dao.CommonCodeDao;
+import best.gaia.common.service.CommonCodeService;
 import best.gaia.project.dao.RepositoryDao;
 import best.gaia.project.service.ProjectService;
-import best.gaia.vo.MenuVO;
 import best.gaia.vo.ProjectVO;
 
 @RestController
@@ -31,6 +31,10 @@ public class MenuREST {
 
 	@Inject
 	private CommonCodeDao dao;
+	
+	@Inject
+	private CommonCodeService service;
+	
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
@@ -44,8 +48,13 @@ public class MenuREST {
 
 	@GetMapping
 	public List<Map<String, Object>> selectMenuList(
+			HttpSession session
 			) {
-		return dao.selectMenuList();
+		int proj_no = getProjNoFromSession(session);
+		
+		// 프로젝트에 속하지 않은 메뉴는 service 로직에서 미리 걸러서 보내준다.
+		
+		return service.selectMenuList(proj_no);
 	}
 
 

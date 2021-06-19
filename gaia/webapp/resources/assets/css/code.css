@@ -36,3 +36,6 @@
 	color : black;
 	font-weight : bold;
 }
+a:not([href]):not([tabindex]).filename-text:hover{
+	color : #58a6ff
+}

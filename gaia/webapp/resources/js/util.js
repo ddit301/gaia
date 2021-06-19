@@ -16,8 +16,8 @@ $(function(){
 		movePageHistory(menuName);
 	})
 	
-	// 우측 상단 profile 관련 메뉴에 대한 처리
-	$('.dropdown-profile').on('click', '.moveButton', function(){
+	// 상단 profile 메뉴에 대한 처리
+	$('.header-fixed').on('click', '.moveButton', function(){
 		event.preventDefault();
 		let menuName = $(this).data('menu');
 		memberMovePageHistory(menuName);
@@ -142,6 +142,7 @@ const getCookie = function(name) {
 	return CookieValue? decodeURI(CookieValue[2]) : null;
 };
 
+// 쿠키 값 설정하는 function
 const setCookie = function(name, value, exp){
 	var date = new Date();
 	date.setTime(date.getTime() + exp*24*60*60*1000);
@@ -285,6 +286,10 @@ var swal = {
 // DB 에서 메뉴에 대한 데이터를 받아와 화면에 출력해주는 함수 입니다.
 const loadMenu = function(){
 	
+	// metismenu 가 이미 있을때 .metisMenu 가 먹히지 않아서 지운후 동적으로 재 생성 해주도록 했음.
+	$('#projectsidebar').empty();
+	$('#projectsidebar').append('<ul class="metismenu" id="menu"> </ul>');
+
 	$.ajax({
 		url : getContextPath() + '/restapi/project/menu',
 		method : 'get',
@@ -294,6 +299,7 @@ const loadMenu = function(){
 			let parentmenuTemplate = $('#sidebar-template').find('.parentmenu');
 			let menus = [];
 			$('#menu').empty();
+			
 			$.each(menulist, function(i,menu){
 				let data = menu.MENU_DATA;
 				let icon = menu.MENU_ICON;
@@ -344,6 +350,7 @@ const loadMenu = function(){
 			
 			// 모든 메뉴를 담았으면 메뉴들을 출력해준다. 
 			$('#menu').append(menus);
+			
 			// https://github.com/onokumus/metismenu 참고해서 발동. 기존의 custom.min.js에 있던건 주석 처리했음.
 			$('#menu').metisMenu();
 			

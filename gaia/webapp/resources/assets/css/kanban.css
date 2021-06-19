@@ -3,3 +3,15 @@
 	color : blue;
 	font-weight : bold;
 }
+.kanban-board{
+    margin-bottom: 30px;
+    border: 0px;
+    border-radius: 0.625rem;
+    box-shadow: 6px 11px 41px -28px #a99de7;
+}
+#myKanban button{
+	float : right;
+	margin-right : 10px;
+	margin-bottom : 10px;
+}
+	

@@ -300,7 +300,6 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 				filenameElement.addClass(file.type);
 				filenameElement.attr('data-type', file.type);
 				filenameElement.attr('data-path', file.path);
-				filenameElement.attr('href', file.html_url);
 				if (file.type == 'file')
 					filenameElement.attr('data-download_url', file.download_url);
 
