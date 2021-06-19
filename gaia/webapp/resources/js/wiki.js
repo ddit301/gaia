@@ -11,6 +11,8 @@ $(function(){
 		let wiki_no = $(this).siblings('input').val();
 //		alert(wiki_no);
 		wikiView(wiki_no);
+		$('.wiki-history-title').children('span').eq(1).text(' ');
+		$('.wiki-writer').children('a').text(' ');
 	})
 	
 	
@@ -352,12 +354,16 @@ const newWiki = function() {
 				,type : 'get',
 				success : function(res) {
 					
-					console.log(res[0]);
 					$.each(res, function(i, v) {
 					let wikiHisBox = $('#wiki-history-temple').children('.wikiHisBox').clone();
 //					wikiHisBox.attr('data-wiki_no',v.wiki_no);
 					wikiHisBox.find('.wiki-his-nick').children('span').eq(0).text(v.proj_user_nick);
+					console.log(v.parent_wiki)
+					if(v.parent_wiki == null){
+					wikiHisBox.find('.wiki-his-nick').children('span').eq(1).text(' open this wiki');
+					}else{
 					wikiHisBox.find('.wiki-his-nick').children('span').eq(1).text(' edit this wiki');
+					}
 					wikiHisBox.find('.wiki-his-date').children('span').text(v.wiki_write_date);
 					wikiHisBox.find('.wiki-his-link').children('input').val(v.wiki_no);
 					

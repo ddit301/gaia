@@ -188,7 +188,7 @@
 		</div>
 		<div class="wiki-his-link col-md-2">
 			<input type="hidden" value="" class= "wiki-his-link-no">
-			<a class="wiki-his-btn" href="javascript:void(0)">보기</a>
+			<a class="wiki-his-btn" href="javascript:void(0)">[보기]</a>
 		</div>
 		<div class="col-md-6"></div>
 	</div>
