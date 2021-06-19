@@ -8,7 +8,7 @@
 		    and use_yn = 'Y'
 	</select>
 	
-	<select id="selectMenuList" resultType="best.gaia.vo.MenuVO">
+	<select id="selectMenuList" resultType="map">
 		select * 
 		from menu
 		start with menu_parent is null 

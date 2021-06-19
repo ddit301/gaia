@@ -56,11 +56,11 @@ $(function(){
 
 const priorities = ['즉시','긴급','높음','보통','낮음','무시'];
 const languages = {
-	'English' : 'eng'
-	,'한국어' : 'kor'
-	,'Deutsch' : 'ger'
-	,'日本語' : 'jap'
-	,'中文' : 'chi'
+	'English' : 'ENG'
+	,'한국어' : 'KOR'
+	,'Deutsch' : 'GER'
+	,'日本語' : 'JAP'
+	,'中文' : 'CHI'
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -295,11 +295,11 @@ const loadMenu = function(){
 			let menus = [];
 			$('#menu').empty();
 			$.each(menulist, function(i,menu){
-				let data = menu.menu_data;
-				let icon = menu.menu_icon;
-				let parent = menu.menu_parent;
-				let setIndex = menu.menu_set_index;
-				let menucode = menu.menu_code;
+				let data = menu.MENU_DATA;
+				let icon = menu.MENU_ICON;
+				let parent = menu.MENU_PARENT;
+				let setIndex = menu.MENU_SET_INDEX;
+				let menucode = menu.MENU_CODE;
 				
 				// 언어 목록은 languages 객체에서 받아옵니다.
 				let menuname = {};
@@ -312,10 +312,10 @@ const loadMenu = function(){
 					// 모든 언어 관련 메뉴 이름을 menuname 객체에 담아준다.
 					lan3char = languages[languageArr[i]];
 					// menuname 객체에 각 언어별 데이터를 기록해준다. 변수명을 동적으로 생성하기 위해 eval 사용
-					menuname[lan3char] = eval('menu.menu_nm_'+lan3char);
+					menuname[lan3char] = eval('menu.MENU_NM_'+lan3char);
 				}
 				
-				let languageSetting = getCookie('language') ? getCookie('language') : 'eng';
+				let languageSetting = getCookie('language') ? getCookie('language') : 'ENG';
 				
 				// 언어 선택에 맞게 text 바꿔주고
 				$('#currentLanguage').text(getKeyByValue(languages, languageSetting));

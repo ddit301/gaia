@@ -43,7 +43,7 @@ public class MenuREST {
 	private static final Logger logger = LoggerFactory.getLogger(MenuREST.class);
 
 	@GetMapping
-	public List<MenuVO> selectMenuList(
+	public List<Map<String, Object>> selectMenuList(
 			) {
 		return dao.selectMenuList();
 	}
