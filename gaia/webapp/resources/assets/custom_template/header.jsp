@@ -10,7 +10,7 @@
 	<div class="header-fixed">
 <div class="nav-header ">
      <div class="brand-logo">
-         <a href="#">
+         <a class="moveButton" data-menu="overview">
              <b class="logo-abbr"><img src="${cPath }/resources/assets/images/logo-text.png" alt=""> </b>
              <span class="logo-compact"><img src="${cPath }/resources/assets/images/logo-compact.png" alt=""></span>
              <span class="brand-title">
@@ -90,12 +90,12 @@
 					<div class="drop-down dropdown-profile   dropdown-menu">
 						<div class="dropdown-content-body">
 							<ul>
-								<li><a href="#" class="moveButton" data-menu="overview"><i
+								<li><a class="moveButton" data-menu="overview"><i
 										class="icon-user"></i> <span>Overview</span></a></li>
-								<li><a href="#" class="moveButton" data-menu="setting"><i
+								<li><a class="moveButton" data-menu="setting"><i
 										class="icon-settings"></i> <span>Setting</span></a></li>
 								<li>
-									<a href="#" class="moveButton" data-menu="chat">
+									<a class="moveButton" data-menu="chat">
 										<i class="icon-envelope-open"></i> 
 										<span>Inbox</span>
 										<div class="badge gradient-3 badge-pill badge-primary">3</div>

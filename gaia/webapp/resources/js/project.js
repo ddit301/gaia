@@ -4,6 +4,10 @@ $(function(){
  	// 처음 페이지를 호출 했을때도 아래의 코드를 탑니다.
 	// 페이지 열릴때 멤버 관련된 url 이란 판단이 되면, movePageHistory 발동. member면 멤버쪽에서 발동.
 	if(pageParam){
+		
+		// 메뉴목록 불러와 화면에 출력하기. 해당 함수는 util.js에 위치합니다.
+		loadMenu();
+		
 		if(pageParam == 'issueview'){
 			issueView(issue_no);
 		}else if(pageParam == 'milestoneview'){
@@ -25,6 +29,7 @@ $(function(){
 		manager_id = $(this).data('manager_id'); 
 		project_title = $(this).data('project_title');
 		loadProject(manager_id,project_title);
+		
 		// 툴팁 hide 시키기
 		$('.square__box').tooltip('hide');
 		// 선택 메뉴 Code 로 바꾸기 (css)
@@ -178,6 +183,10 @@ const loadProject = function(managerId, projectTitle, pageParam){
 			if(res == "OK"){
 				// proj_user_nick 자바 스크립트 변수에 쿠키에서 새로 받아와 저장해준다.
 				proj_user_nick = getProjNickFromCookie();
+				
+				// 프로젝트를 불러 올때 메뉴바를 새로 불러온다.
+				loadMenu();
+	
 				movePageHistory(pageParam? pageParam : 'code');
 			}
 		},

@@ -53,8 +53,12 @@
 	font-weight : bold;
 	margin-top : 10px;
 }
+.issue-body{
+	margin-top : 15px;
+}
 .issue-body .col-md-9{
-	padding-top : 30px;
+	margin-top : 15px;
+	margin-bottom : 15px;
 }
 .issue-reply, .repWrite{
 	padding-left : 20px;
@@ -82,12 +86,18 @@
 	width : 100%;
 }
 .issue-change img{
-	width : 30px;
-	height : 30px;
+	width : 35px;
+	height : 35px;
 	margin-right : 10px;
+}
+.issue-edit-history{
+	font-size : 1.5em;
 }
 .issue-change i{
 	padding-left : 30px;
+}
+.issue-change{
+	margin-left : 15px;
 }
 .repWrite{
 	margin-top : 30px;
@@ -246,7 +256,6 @@
 .issue-title i:hover{
 	cursor: pointer;
 }
-
 
 
 

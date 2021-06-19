@@ -9,7 +9,7 @@
     pageEncoding="UTF-8"%>
 <a href="javascript:void(0)" data-toggle="dropdown"> 
 	<i class="mdi mdi-email-outline"></i> 
-	<span class="badge gradient-1 badge-pill badge-primary"></span>
+	<span class="badge gradient-1 badge-pill badge-primary">1</span>
 </a>
 
 <div class="drop-down dropdown-menu animated fadeIn position-fixed" style="position:fixed">
@@ -21,7 +21,7 @@
 			<!-- 템플릿들 들어가는 자리  -->
 		</ul>
 		<div class="dropdown-divider"></div>
-		<a class="dropdown-item toChattingPage moveButton" data-menu="chat" href="javascript:void()">see more chats ...</a>
+		<a class="dropdown-item toChattingPage moveButton" data-menu="chat">see more chats ...</a>
 	</div>
 </div>
 
@@ -43,15 +43,3 @@
 	</ul>
 </div>
 
-<script>
-// chattingPage로 이동.
-$(".toChattingPage.moveButton").on('click',  function(){
-	event.preventDefault();
-	let menuName = $(this).data('menu');
-	memberMovePageHistory(menuName);
-})
-// 페이지 로딩 시 데이터 받기.
-var messengerData = function(){
-}
-
-</script>
