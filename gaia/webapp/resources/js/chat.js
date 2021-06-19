@@ -105,7 +105,6 @@ const sideBarChatRoomListInfo = function(res, room_no) {
 			if(participant.mem_id!=res.mem_id){
 				if (j < 2) {mem += participant.mem_id + ", ";}
 				if (j > 1) {mem_count = "님 외 " + (j - 1) + "명";} else {mem_count = "";}
-				
 			}
 		})
 		// profileImg 설정 및 효과(3명 이상일 시 퍼지는 효과)
@@ -242,6 +241,32 @@ const inputChatUpload = function(content, room_no){
 		dataType : 'json'
 	})
 	return result;
+}
+
+////////////////////////////////////////////////////
+//
+// Header 관련 messenger 
+//
+////////////////////////////////////////////////////
+
+// messenger 불러와서 찍어주기
+const headerMessengerList = function(){
+	let need = "oracle";
+	// 확인 버튼 눌렀을때 가입정보 insert 해준다.
+    $.ajax({
+		url : getContextPath() + '/restapi/chat/chats',
+		method : 'post',
+		data : {
+			"need" : need,
+		},
+		success : function(res) {
+			console.log(res);
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
+		},
+		dataType : 'json',
+	})
 }
 
 ////////////////////////////////////////////////////
