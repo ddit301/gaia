@@ -22,7 +22,6 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.common.dao.CommonCodeDao;
 import best.gaia.project.dao.RepositoryDao;
 import best.gaia.project.service.ProjectService;
-import best.gaia.vo.MenuVO;
 import best.gaia.vo.ProjectVO;
 
 @RestController

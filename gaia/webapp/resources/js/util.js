@@ -294,6 +294,7 @@ const loadMenu = function(){
 			let parentmenuTemplate = $('#sidebar-template').find('.parentmenu');
 			let menus = [];
 			$('#menu').empty();
+			
 			$.each(menulist, function(i,menu){
 				let data = menu.MENU_DATA;
 				let icon = menu.MENU_ICON;
@@ -344,6 +345,7 @@ const loadMenu = function(){
 			
 			// 모든 메뉴를 담았으면 메뉴들을 출력해준다. 
 			$('#menu').append(menus);
+			
 			// https://github.com/onokumus/metismenu 참고해서 발동. 기존의 custom.min.js에 있던건 주석 처리했음.
 			$('#menu').metisMenu();
 			

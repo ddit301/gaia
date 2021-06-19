@@ -39,20 +39,3 @@
 
 </div>
         
-<script>
-	$(function(){
-		// 메뉴목록 불러와 화면에 출력하기. 해당 함수는 util.js에 위치합니다.
-		loadMenu();
-	})
-</script>        
-
-
-
-
-
-
-
-
-
-
-

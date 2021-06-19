@@ -4,6 +4,10 @@ $(function(){
  	// 처음 페이지를 호출 했을때도 아래의 코드를 탑니다.
 	// 페이지 열릴때 멤버 관련된 url 이란 판단이 되면, movePageHistory 발동. member면 멤버쪽에서 발동.
 	if(pageParam){
+		
+		// 메뉴목록 불러와 화면에 출력하기. 해당 함수는 util.js에 위치합니다.
+		loadMenu();
+		
 		if(pageParam == 'issueview'){
 			issueView(issue_no);
 		}else if(pageParam == 'milestoneview'){
@@ -25,6 +29,7 @@ $(function(){
 		manager_id = $(this).data('manager_id'); 
 		project_title = $(this).data('project_title');
 		loadProject(manager_id,project_title);
+		
 		// 툴팁 hide 시키기
 		$('.square__box').tooltip('hide');
 		// 선택 메뉴 Code 로 바꾸기 (css)
@@ -164,6 +169,9 @@ const movePage = function(pageParam){
 
 // 특정 프로젝트 선택시 해당 프로젝트로 이동하는 함수
 const loadProject = function(managerId, projectTitle, pageParam){
+	
+	// 프로젝트를 불러 올때 메뉴를 함께 불러온다.
+	loadMenu();
 	
 	// 비동기로 세션에 선택한 프로젝트를 기록한 뒤, 해당 프로젝트의 pageParam으로 이동한다.
 	// pageParam이 null 일 경우 'code'로 이동한다.
