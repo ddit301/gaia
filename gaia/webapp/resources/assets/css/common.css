@@ -185,7 +185,9 @@ button.selectedProj{
 	width : 100%;
 	text-align : right;
 }
-
+.profile:hover{
+	cursor: pointer;
+}
 
 
 

@@ -70,4 +70,5 @@ public interface MemberDao {
 	
 	public List<Map<String, Object>> selectmemberForpersonalProfile(int mem_no);
 	public Integer getMemNoFromMemId(String mem_id);
+	public String getMemIdFromMemNo(int mem_no);
 }
