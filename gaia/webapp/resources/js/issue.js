@@ -509,8 +509,9 @@ const loadIssue = function(){
 					issue_history.find('.commenter').attr('src',getProfilePath(v.historyWriter.mem_pic_file_name));
 				}else{
 					issue_history = $('#issue-template').children('.issue-change').clone();
-					issue_history.find('span').text(historyTypeToText(v));
+					issue_history.find('.issue-edit-history').find('span').text(historyTypeToText(v));
 					issue_history.find('.profile').attr('src',getProfilePath(v.historyWriter.mem_pic_file_name));
+					issue_history.find('.edittime').text(moment(v.issue_his_date).fromNow());
 				}
 				$('#issue-body-cont').append(issue_history);
 			})
