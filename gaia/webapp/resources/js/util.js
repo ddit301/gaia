@@ -314,14 +314,17 @@ const loadMenu = function(){
 				languageArr = Object.keys(languages);
 				for (let i in languageArr ){
 					let langLi = '<li><a>'+languageArr[i]+'</a></li>';
+					// 언어 목록에 지원 가능한 언어 목록을 출력해준다.
 					languageArea.append(langLi);
 					// 모든 언어 관련 메뉴 이름을 menuname 객체에 담아준다.
-					lan3char = languages[languageArr[i]];
+					let lan3char = languages[languageArr[i]];
 					// menuname 객체에 각 언어별 데이터를 기록해준다. 변수명을 동적으로 생성하기 위해 eval 사용
 					menuname[lan3char] = eval('menu.MENU_NM_'+lan3char);
 				}
 				
-				let languageSetting = getCookie('language') ? getCookie('language') : 'ENG';
+				// 언어 설정에 cookie에 저장 되어 있으면 불러온다. 없으면 기본값 ENG
+				let languageCookie = getCookie('language');
+				let languageSetting = languageCookie ? languageCookie : 'ENG';
 				
 				// 언어 선택에 맞게 text 바꿔주고
 				$('#currentLanguage').text(getKeyByValue(languages, languageSetting));
