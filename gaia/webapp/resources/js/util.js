@@ -145,7 +145,7 @@ const getCookie = function(name) {
 const setCookie = function(name, value, exp){
 	var date = new Date();
 	date.setTime(date.getTime() + exp*24*60*60*1000);
-	document.cookie = name+'='+escape(value)+';expires='+date.toUTCString()+';path=1';
+	document.cookie = name+'='+escape(value)+';expires='+date.toUTCString()+';path=/';
 }
 	
 // 현 URL에서 contextPath 빼고 구하는 function
