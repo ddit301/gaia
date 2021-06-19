@@ -266,6 +266,7 @@ const saveModuleSetting = function(){
 		success : function(res) {
 			if(res == "OK"){
 				toastr.success('프로젝트 모듈 설정을 정상적으로 변경했습니다.');
+				loadMenu();
 			}else{
 				toastr.error('에러 발생. 정상적으로 수정되지 않았습니다.');
 			}
