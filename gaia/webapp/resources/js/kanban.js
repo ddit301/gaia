@@ -369,7 +369,7 @@ const makeKanban = function(board){
           enabled: true,
           content: '+ 카드 추가',
           class: 'btn btn-success',
-          footer: true
+          footer: false
         }
 
       });
