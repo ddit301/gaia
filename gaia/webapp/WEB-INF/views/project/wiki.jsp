@@ -22,7 +22,7 @@
 <div class="wiki-container">
 
 <!-- 	<div class="col-md-12"> -->
-		<div class="card">
+		<div class="card" id ="wiki-header">
 			<div id="wiki-head" class="row">
 				<div class="title-wiki col-md-7">
 					<span></span>
