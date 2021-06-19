@@ -67,4 +67,7 @@ public interface MemberDao {
 	public int deleteMember(int mem_no);
 	
 	public List<ProjMemVO> selectProjectMembers(Map<String,Object> param);
+	
+	public List<Map<String, Object>> selectmemberForpersonalProfile(int mem_no);
+	public Integer getMemNoFromMemId(String mem_id);
 }
