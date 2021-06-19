@@ -8,7 +8,7 @@
             <div class="card side-position-fixed"> 
                 <div class="card-body">
                     <div class="media align-items-center mb-4">
-                        <img class="mr-3 rounded-circle" id="profile_img"src="${cPath}/resources/assets/images/member/profile.png" width="80" height="80" alt="">
+                        <img class="mr-3 rounded-circle" id="profile_img" onerror="imgOnErr()" width="80" height="80" alt="">
                         <div class="media-body">
                             <h3 class="mb-0">${mem_id }</h3>
                             <p class="text-muted mb-0">Deutch</p>

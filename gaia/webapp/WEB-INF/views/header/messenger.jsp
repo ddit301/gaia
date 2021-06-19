@@ -31,7 +31,7 @@
 	<ul id="messengerTemplate" hidden="hidden">
 		<li class="messenger">
 			<a>
-				<img class="float-left mr-3 avatar-img" src="${cPath }/resources/assets/images/avatar/1.jpg" alt="">
+				<img class="float-left mr-3 avatar-img" src="${cPath }/resources/assets/images/avatar/1.jpg" onerror="imgOnErr()" alt="">
 				<div class="notification-content">
 					<div class="notification-heading">Saiful Islam</div>
 					<div class="notification-timestamp">08 Hours ago</div>

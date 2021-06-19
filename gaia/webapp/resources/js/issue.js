@@ -345,7 +345,7 @@ const loadIssueList = function(){
 				$.each(v.assigneeList, function(j, assignee){
 					if(assigneeSize == 1) j=99;
 					issueBox.children('.issue-assignee').append(
-							'<img class="profile assignee assignee'+j+'" src="'+getProfilePath(assignee.mem_pic_file_name)+'">');
+							'<img class="profile assignee assignee'+j+'" onerror="imgOnErr()" src="'+getProfilePath(assignee.mem_pic_file_name)+'">');
 				})
 				issueBox.children('.issue-writer').children('img').attr('src',getProfilePath(v.writer.mem_pic_file_name));
 				if(v.replyCount > 0){

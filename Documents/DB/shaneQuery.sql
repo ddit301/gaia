@@ -270,7 +270,7 @@ order by label_no, mem_role_no;
 -----------------------------6. Member------------------------------------------
 -- a. 특정 프로젝트에 속한 멤버 목록 불러오기
 -- b. 특정 프로젝트에 속하지 않은 멤버 검색하기
-
+-- c. 개인 멤버 페이지 조회용 멤버 받아오기
 
 -----------------------------------------------------------------------------------
 -- a. 특정 프로젝트에 속한 멤버 목록 불러오기
@@ -303,6 +303,59 @@ where mem_no not in (select mem_no from memlist)
 order by mem_no;
 
 -----------------------------------------------------------------------
+-- c. 개인 멤버 페이지 조회용 멤버 받아오기
+with issuecnt as(
+    select count(*)
+    from issue
+    where mem_no = 4
+)
+,milestonecnt as(
+    select count(*)
+    from milestone
+    where mem_no = 4
+)
+,newscnt as(
+    select count(*)
+    from news
+    where mem_no = 4
+)
+,newscomcnt as(
+    select count(*)
+    from news_comment
+    where mem_no = 4
+)
+,issueassigneecnt as(
+    select count(*)
+    from issue_assignee
+    where mem_no = 4
+)
+,memchatcnt as(
+    select count(*)
+    from mem_chat
+    where mem_no = 4
+)
+select member.mem_id, member.mem_nick, member.mem_tel, member.mem_pic_file_name
+        , member.mem_sign_date, member.mem_quit_date, member.mem_nm, member.mem_bio, member.mem_working_city, member.mem_status
+        , proj_join_date, proj_drop_date, proj_user_nick
+        , manager.mem_id as proj_managerid, proj_title, proj_cont, proj_start_date, proj_est_end_date, proj_status
+        , (select * from issuecnt) as issuecnt
+        , (select * from newscnt) as newscnt
+        , (select * from newscomcnt) as newscomcnt
+        , (select * from milestonecnt) as milestonecnt
+        , (select * from issueassigneecnt) as issueassigneecnt
+        , (select * from memchatcnt) as memchatcnt
+from member
+    left outer join proj_mem on (member.mem_no = proj_mem.mem_no)
+    left outer join project on (proj_mem.proj_no = project.proj_no)
+    left outer join member manager on (project.mem_no = manager.mem_no)
+where member.mem_no = 4;
+
+
+
+-----------------------------------------------------------------------
+
+
+
 
 
 
