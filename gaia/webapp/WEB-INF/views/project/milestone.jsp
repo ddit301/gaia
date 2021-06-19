@@ -9,7 +9,7 @@
     pageEncoding="UTF-8"%>
     
     <link href="${cPath }/resources/assets/css/milestone.css" rel="stylesheet"> 
-	     	<div class="container">
+	     	<div class="milest-container">
 <!-- 	            <div class="row page-titles mx-0"> -->
 <!-- 	                <div class="col p-md-0"> -->
 <!-- 	                    <ol class="breadcrumb"> -->
