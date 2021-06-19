@@ -225,6 +225,7 @@ textarea {
     font-weight: bold;
     font-size: 1.4em;
     margin: auto;
+    width: max-content;
 }
 .row {
     display: flex;
@@ -233,13 +234,13 @@ textarea {
 .chat-room-position-above{
 	position: absolute;
     top: 35%;
-    left: 50%;
+    left: 60%;
     transform: translate(-50%, -50%);
 }
 .chat-room-position-under{
 	position: absolute;
     top: 50%;
-    left: 50%;
+    left: 60%;
     transform: translate(-50%, -50%);
 }
 .inputForm{
@@ -247,4 +248,11 @@ textarea {
 }
 #chatInput{
 	width: 100%;
+}
+.chat-top-img-size{
+	height: 40px;
+    width: 40px;
+}
+.side-bar-card-body{
+	padding: 1.25em !important; 
 }

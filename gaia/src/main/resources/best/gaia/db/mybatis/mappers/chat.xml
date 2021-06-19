@@ -27,12 +27,12 @@
 		FROM MEMBER
 	 	WHERE MEM_NO NOT IN #{mem_no}
 	 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(keyword)">
-		        and (mem_id like #{keyword}
-				    or mem_nick like #{keyword}	  
-		            or mem_nm like #{keyword}
-		            or mem_bio like #{keyword}	
-		            or mem_working_city like #{keyword}
-		        )
+		         AND ( INSTR(LOWER(MEM_ID) ,LOWER(#{keyword}))>0
+		          OR INSTR(LOWER(MEM_NICK) ,LOWER(#{keyword}))>0
+		          OR INSTR(LOWER(MEM_NM) ,LOWER(#{keyword}))>0
+		          OR INSTR(LOWER(MEM_BIO) ,LOWER(#{keyword}))>0
+		          OR INSTR(LOWER(MEM_WORKING_CITY) ,LOWER(#{keyword}))>0
+		         )
 		</if>
 	</select>
 	
