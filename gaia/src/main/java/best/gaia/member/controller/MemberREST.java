@@ -1,5 +1,7 @@
 package best.gaia.member.controller;
 
+import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +11,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -26,13 +27,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.member.dao.MemberDao;
 import best.gaia.member.service.LogService;
 import best.gaia.member.service.MemberService;
 import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.utils.exception.ResourceNotFoundException;
 import best.gaia.vo.AttachFileVO;
 import best.gaia.vo.MemberVO;
-import static best.gaia.utils.SessionUtil.*;
 
 @RestController
 @RequestMapping(value="restapi/member/members", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -41,6 +43,9 @@ public class MemberREST {
 	private static final Logger logger = LoggerFactory.getLogger(MemberREST.class);
 	@Inject
 	private MemberService service;
+	
+	@Inject
+	private MemberDao dao;
 	
 	@Inject
 	private LogService logService;
@@ -223,4 +228,29 @@ public class MemberREST {
 			Authentication authentication) {
 		return null;
 	}
+	
+	@GetMapping("personalProfile.do")
+	public List<Map<String, Object>> personalProfile(
+			@RequestParam String mem_id
+			) {
+		Integer mem_no = dao.getMemNoFromMemId(mem_id);
+		
+		if(mem_no == null)
+			throw new ResourceNotFoundException();
+		
+		return dao.selectmemberForpersonalProfile(mem_no);
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+

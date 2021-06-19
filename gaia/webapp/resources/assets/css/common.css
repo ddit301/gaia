@@ -54,7 +54,14 @@ button.selectedProj{
     text-align: center;
 }
 .profileBox img{
+	width : 100%;
 	padding : 4px;
+	height : 300px;
+	object-fit : cover;
+}
+.pluscard .profileBox{
+	height : 315px;
+	padding-top : 50px;
 }
 .memcard.dropped .card{
 	box-shadow : 0 0 0 1px red inset;
