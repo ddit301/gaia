@@ -90,11 +90,26 @@ a:not([href]):not([tabindex]).filename-text:hover{
 .overview-cont{
 	margin-bottom : 20px;
 }
-
-
-
-
-
+.git.row{
+	height : fit-content;
+}
+.projnick-mng i{
+	float : right;
+}
+.projnick-mng p:hover{
+	color : var(--info);
+	cursor : pointer;
+}
+.projnick-mng button{
+	margin-top : 10px;
+	margin-left : 5px;
+	float : right;
+}
+.mem-overview-card input[type=text]{
+	width : auto;
+	padding : 2px;
+	font-size : 1.1em;
+}
 
 
 

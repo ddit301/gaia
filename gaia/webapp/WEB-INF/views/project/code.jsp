@@ -51,23 +51,41 @@
 		<div class="project-overview col-md-3">
 			<div class="col-md-12">
 				<div class="card">
-					<p class="projtitle">GAIA</p>
+					<p class="projtitle"></p>
 					<div class="overview-cont">
-						<span>뭐 어쩌구 쩌쩌구 하는 프로젝트인데 어쩌구 저쩌구 쫌 길게 들어감.</span>
+						<span></span>
 					</div>
 					<div class="start-date">
-						<span>2021.04.14</span>
+						<span></span>
 					</div>
 					<div class="end-date">
-						~ <span>2021.04.14</span>
+						~ <span></span>
 					</div>
 					<div class="progress-bar bg-success" role="progressbar"></div>
 				</div>
+<!-- 				프로젝트 닉네임 관리-->
+				<div class="projnick-mng card">
+					<p>나의 가입 정보
+						<i class="icon-settings menu-icon"></i>
+					</p>
+					<div>
+						<div class="mem-overview-card">
+							<img class="profile" onerror="imgOnErr()">
+							<input type="text" maxlength="12" hidden="hidden">
+							<span></span>
+						<div class="btnArea" hidden="hidden">
+							<button class="btn btn-success">저장</button>
+							<button class="btn btn-warning">취소</button>
+						</div>
+						</div>
+					</div>
+				</div>
+<!-- 				프로젝트 닉네임 관리 끝-->
 				<div class="manager-overview card">
 					<p>프로젝트 관리자</p>
 					<div class="mem-overview-card">
 						<img class="profile" onerror="imgOnErr()">
-						<span>운영자</span>
+						<span></span>
 					</div>
 				</div>
 				<div class="members-overview card">

@@ -168,6 +168,10 @@ const getProfilePath = function (filename) {
 const getProjNickFromCookie = function(){
 	return getCookie('proj_user_nick');
 } 
+// 내 멤버 번호 쿠키에서 받아오기
+const getMemNoFromCookie = function(){
+	return getCookie('mem_no');
+} 
 // 쿠키에 있는 프로필 사진 파일명을 받아와 이미지 경로로 반환해주는 함수
 const getProfilePathFromCookie = function(){
 	return getProfilePath(getCookie('mem_pic_file_name'));

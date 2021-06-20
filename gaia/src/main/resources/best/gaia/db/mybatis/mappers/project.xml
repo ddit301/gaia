@@ -158,7 +158,12 @@
 	<update id="updateProjectMemberRole" parameterType="best.gaia.vo.ProjMemVO">
 		UPDATE proj_mem
 		SET
-		    mem_role_no = #{mem_role_no}
+			<if test="mem_role_no != null">
+			    mem_role_no = #{mem_role_no}
+			</if>
+			<if test="proj_user_nick != null">
+			   	proj_user_nick = #{proj_user_nick}
+			</if>
 		WHERE
 		        mem_no = #{mem_no}
 		    AND proj_no = #{proj_no}
