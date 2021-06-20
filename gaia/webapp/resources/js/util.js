@@ -25,7 +25,7 @@ $(function(){
 	
 	// 언어 선택 버튼에 대한 처리
 	$('.languages').on('click', 'a', function(){
-		let selectedLanguage = languages[$(this).text()];
+		let selectedLanguage = getKeyByValue(languages, $(this).text());
 		selecteLanguage(selectedLanguage);
 	})
 	
@@ -55,12 +55,13 @@ $(function(){
 //////////////////////////////////////////////////////////////////////////////
 
 const priorities = ['즉시','긴급','높음','보통','낮음','무시'];
+
 const languages = {
-	'English' : 'ENG'
-	,'한국어' : 'KOR'
-	,'Deutsch' : 'GER'
-	,'日本語' : 'JAP'
-	,'中文' : 'CHI'
+	 'ENG' : 'English'
+	,'KOR' : '한국어' 
+	,'GER' : 'Deutsch'
+	,'JAP' : '日本語' 
+	,'CHI' : '中文' 
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -308,23 +309,21 @@ const loadMenu = function(){
 				let menucode = menu.MENU_CODE;
 				
 				// 언어 목록은 languages 객체에서 받아옵니다.
-				let menuname = {};
 				let languageArea = $('#languages');
 				languageArea.empty();
-				languageArr = Object.keys(languages);
+				languageArr = Object.values(languages);
 				for (let i in languageArr ){
+					// 언어 목록에 지원 가능한 언어 목록을 출력해준다.
 					let langLi = '<li><a>'+languageArr[i]+'</a></li>';
 					languageArea.append(langLi);
-					// 모든 언어 관련 메뉴 이름을 menuname 객체에 담아준다.
-					lan3char = languages[languageArr[i]];
-					// menuname 객체에 각 언어별 데이터를 기록해준다. 변수명을 동적으로 생성하기 위해 eval 사용
-					menuname[lan3char] = eval('menu.MENU_NM_'+lan3char);
 				}
 				
-				let languageSetting = getCookie('language') ? getCookie('language') : 'ENG';
+				// 언어 설정에 cookie에 저장 되어 있으면 불러온다. 없으면 기본값 ENG
+				let languageCookie = getCookie('language');
+				let languageSetting = languageCookie ? languageCookie : 'ENG';
 				
 				// 언어 선택에 맞게 text 바꿔주고
-				$('#currentLanguage').text(getKeyByValue(languages, languageSetting));
+				$('#currentLanguage').text(languages[languageSetting]);
 				
 				// data가 있으면 싱글메뉴, 없으면 parent menu 입니다.
 				let menuBox = data ? singlemenuTemplate.clone() : parentmenuTemplate.clone();
@@ -332,7 +331,9 @@ const loadMenu = function(){
 				menuBoxATag.find('i').addClass(icon);
 				menuBoxATag.attr('data-menu', data);
 				menuBoxATag.attr('data-set_index', setIndex);
-				menuBoxATag.find('span').text(menuname[languageSetting]);
+				
+				// 언어 세팅에 맞게 메뉴명을 출력해준다. 
+				menuBoxATag.find('span').text(eval('menu.MENU_NM_'+languageSetting));
 				
 				// 메뉴 식별을 위한 class를 추가해준다.
 				menuBoxATag.addClass('menu-'+ menucode);

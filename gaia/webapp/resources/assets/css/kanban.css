@@ -14,4 +14,7 @@
 	margin-right : 10px;
 	margin-bottom : 10px;
 }
-	
+.kanban-board{
+	height : 700px;
+	overflow-y : scroll;
+}

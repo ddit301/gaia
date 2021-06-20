@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<div class="header-fixed">
-<div class="nav-header ">
+<div class="nav-header" style="background: linear-gradient(to right, #acb6e5, #86fde8);">
      <div class="brand-logo">
          <a class="moveButton" data-menu="overview">
              <b class="logo-abbr"><img src="${cPath }/resources/assets/images/logo-text.png" alt=""> </b>
