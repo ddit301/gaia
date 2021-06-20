@@ -213,6 +213,11 @@ const rulChecker = function(text){
 	return text + (isSingleCharacter(text)? '를' : '을'); 
 }
 
+// \n 등을 <br> 태그로 바꿔서 반환해주는 함수
+const toBrTag = function(str){
+	return str? str.replace(/(?:\r\n|\r|\n)/g, '<br>') : '';
+}
+
 //////////////////////////////////////////////////////////////////////////////
 //
 //	 각종 설정

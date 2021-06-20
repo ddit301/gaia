@@ -2,6 +2,7 @@ package best.gaia.vo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.constraints.Min;
@@ -37,5 +38,6 @@ public class ProjectVO implements Serializable{
 	private Set<IssueVO> issueList;
 	private List<LabelVO> labelList;
 	private List<MemRoleVO> roleList;
+	private List<Map<String, Object>> memberList;
 	
 }

@@ -271,4 +271,37 @@
 		where proj_no = #{proj_no}
 	</select>
 	
+	<resultMap type="best.gaia.vo.ProjectVO" id="overviewMap" autoMapping="true">
+		<id property="proj_no" column="PROJ_NO"/>
+		<association property="projectManager" javaType="best.gaia.vo.MemberVO">
+			<id property="mem_no" column="PROJ_MNG_NO"/>
+			<result property="mem_nick" column="MNG_NICK"/>
+		</association>
+		<collection property="memberList" ofType="java.util.Map" javaType="java.util.List">
+			<id property="memno" column="MEMBER_NO"></id>
+			<result property="nick" column="MEMBER_NICK"/>
+			<result property="role" column="MEM_ROLE"/>
+		</collection>
+	
+	</resultMap>
+	
+	<select id="selectProjectOverview" parameterType="int" resultMap="overviewMap">
+		select project.proj_no, proj_title, proj_cont, proj_Start_date, proj_est_end_date, proj_status
+		        ,manager.mem_no as PROJ_MNG_NO, manager.proj_user_nick as MNG_NICK
+		        ,member.mem_no as MEMBER_NO, member.proj_user_nick as MEMBER_NICK, mem_role.mem_role_nm as MEM_ROLE
+		from project
+		    inner join proj_mem manager on project.mem_no = manager.mem_no and project.proj_no = manager.proj_no
+		    inner join proj_mem member on project.proj_no = member.proj_no
+		    inner join mem_role on (member.mem_role_no = mem_role.mem_role_no)
+		where project.proj_no = #{mem_no}
+		order by member.mem_role_no
+	
+	</select>
+	
 </mapper>
+
+
+
+
+
+

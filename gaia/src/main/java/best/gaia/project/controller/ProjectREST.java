@@ -15,11 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
@@ -27,8 +28,6 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.enumpkg.ServiceResult;
-import best.gaia.vo.IssueVO;
-import best.gaia.vo.PagingVO;
 import best.gaia.vo.ProjectVO;
 
 @RestController
@@ -57,7 +56,7 @@ public class ProjectREST {
 		return dao.selectProjectList(mem_no);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public ProjectVO insertProject(
 			@ModelAttribute ProjectVO project
 			,Authentication authentication
@@ -70,7 +69,7 @@ public class ProjectREST {
 		return project;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
+	@PutMapping
 	public ServiceResult updateProject(
 			HttpSession session
 			,@RequestParam Optional<String> proj_cont
@@ -95,9 +94,24 @@ public class ProjectREST {
 	}
 
 	
-	@RequestMapping(method = RequestMethod.DELETE)
+	@DeleteMapping
 	public Map<String, Object> deleteProject() {
 		return null;
 	}
+	
+	@GetMapping("loadProjectOverview.do")
+	public ProjectVO selectProjectOverview(HttpSession session) {
+		int proj_no = getProjNoFromSession(session);
+		return dao.selectProjectOverview(proj_no);
+	}
 
 }
+
+
+
+
+
+
+
+
+

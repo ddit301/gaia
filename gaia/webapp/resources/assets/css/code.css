@@ -23,19 +23,83 @@
 	text-decoration: underline;
 }
 .repoHeader{
+	margin-left :15px;
+}
+.repoHeader .repoInfo{
 	font-size : 2.5em;
-	margin-left : 0px;
 }
 .git .repoHeader img{
-	height : 32px;
+	height : 50px;
+	margin-bottom : 20px;
 }
 .git .repoHeader a{
 	width : fit-content;
 }
-.git .repoHeader span{
+.git .repoHeader .repoInfo span{
 	color : black;
 	font-weight : bold;
 }
 a:not([href]):not([tabindex]).filename-text:hover{
 	color : #58a6ff
 }
+.languageInfo{
+	text-align : right;
+	font-size : 1.5em;
+}
+.codepage-body{
+	padding : 30px;
+}
+.repoInfo{
+	padding-top : 20px;
+	padding-left : 50px;
+}
+.repoBody{
+	padding-right : 0px;
+}
+.mem-overview-card img{
+	margin-bottom : 5px;
+}
+.project-overview span{
+	font-size : 1.5em;
+}
+.project-overview p{
+	font-size : 1.5em;
+}
+.project-overview .card{
+	padding : 15px;
+}
+.project-overview .start-date,.end-date{
+	text-align : right;
+}
+.mem-overview-card{
+	margin : 5px;
+}
+.project-overview .progress-bar{
+	margin-top : 10px;
+}
+.projtitle{
+	font-weight: bold;
+}
+.codepage-body{
+	padding-right : 0px;
+}
+.codepage-body .row{
+	margin-right : 0px;
+	padding-right : 0px;
+}
+.overview-cont{
+	margin-bottom : 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

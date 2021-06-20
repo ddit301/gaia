@@ -174,15 +174,79 @@ const openFileFromUrl = function(download_url){
 	
 }
 
+//uri 로 부터 파일 이름만 찾는 함수.
 const getFileNameFromUri = function(fileUri){
 	let lastIndexOfSlash = fileUri.lastIndexOf('/');
 	return lastIndexOfSlash == -1 ? null : fileUri.substring(lastIndexOfSlash+1);
 }
 
+// 파일 이름으로 부터 확장자 얻는 함수.
 const getExtension = function(fileName){
 	let lastIndexOfComma = fileName.lastIndexOf('.');
 	return lastIndexOfComma == -1 ? null : fileName.substring(lastIndexOfComma+1);
 }
+
+// Code 페이지 프로젝트 정보 불러오는 함수
+const loadProjectOverview = function(){
+	$.ajax({
+		url : getContextPath() + '/restapi/project/projects/loadProjectOverview.do',
+		method : 'get',
+		success : function(project) {
+			let overviewDiv = $('.project-overview')
+			overviewDiv.find('.projtitle').text(project.proj_title.toUpperCase());
+			$('.overview-cont').find('span').html(toBrTag(project.proj_cont));
+			$('.manager-overview').find('.mem-overview-card').find('img').attr('src', getProfilePath(project.projectManager.mem_no));
+			$('.manager-overview').find('.mem-overview-card').find('span').text(project.projectManager.mem_nick);
+			
+			// 날짜에 따른 진척률 계산
+			let startDate = project.proj_start_date;
+			let endDate = project.proj_est_end_date;
+			let total;
+			let prog;
+			
+			if(endDate){
+				total = moment(endDate) - moment(startDate);
+				prog = moment() - moment(startDate);
+			}			
+			overviewDiv.find('.start-date').find('span').text(moment(startDate).format('YYYY-MM-DD'));
+			overviewDiv.find('.end-date').find('span').text(endDate ? moment(endDate).format('YYYY-MM-DD') : '');
+			let progPercent = endDate ? Math.round(prog / total * 1000) / 10 : 0;
+			progPercent = progPercent > 100 ? 100 : progPercent ;
+			
+			let progressBar = $('.progress-bar');
+			progressBar.text(progPercent + '%');
+			progressBar.attr("style", 'width:' + progPercent + '%');
+			
+			
+			let memListArea =  $('.members-overview').children('div');
+			memListArea.empty();
+			// 멤버 목록 반복문
+			$.each(project.memberList, function(i,member){
+				let memBox = $('#codeTemplates').find('.mem-overview-card').clone();
+				memBox.find('img').attr('src', getProfilePath(member.memno));
+				memBox.find('span').text(member.nick);
+				memBox.find('small').text(member.role);
+				memListArea.append(memBox);
+			});
+			 
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+
+		},
+		dataType : 'json'
+	})
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -257,12 +321,12 @@ const loadLanguageInfo = function(gitRepoUrl) {
 					total = total + value;
 					otherlangTotal = otherlangTotal + value;
 				}
-				langs.push('others');
+				langs.push('Others');
 				counts.push(otherlangTotal);
 			}
-			let languageDiv = $('.project-overview').find('.languageInfo');
+			let languageDiv = $('.repoHeader').find('.languageInfo').find('span');
 			for(i=0; i<langs.length; i++){
-				let lanTag =$('<p>'+langs[i] + ' : ' + Math.round(counts[i]/total*1000)/10 + '%</p>'); 
+				let lanTag = langs[i] + ' : ' + Math.round(counts[i]/total*1000)/10 +'%<br/>' ; 
 				languageDiv.append(lanTag);
 			}
 		},
