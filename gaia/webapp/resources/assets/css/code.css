@@ -74,9 +74,6 @@ a:not([href]):not([tabindex]).filename-text:hover{
 .mem-overview-card{
 	margin : 5px;
 }
-.project-overview .progress-bar{
-	margin-top : 10px;
-}
 .projtitle{
 	font-weight: bold;
 }
@@ -117,7 +114,16 @@ a:not([href]):not([tabindex]).filename-text:hover{
 	padding : 2px;
 	font-size : 1.1em;
 }
-
+.progress-area{
+	width : 100%;
+	border : 1px solid #6fd96f;
+	border-radius : 1em;
+	overflow : hidden;
+	margin-top : 10px;
+}
+.progress-bar{
+	margin : 0px;
+}
 
 
 

@@ -12,7 +12,7 @@
 <div class="container-fluid">
 	<div class="codepage-body row">
 <!-- 		repository start -->
-		<div class="repository col-md-9 row">
+		<div class="repository col-md-8 row">
 	<!-- 			git repository -->
 			<div class="git row">
 				<div class="card repoHeader row">
@@ -48,7 +48,7 @@
 	<!-- 		repository end -->
 		</div>
 	<!-- project-overview start -->
-		<div class="project-overview col-md-3">
+		<div class="project-overview col-md-4">
 			<div class="col-md-12">
 				<div class="card">
 					<p class="projtitle"></p>
@@ -61,7 +61,9 @@
 					<div class="end-date">
 						~ <span></span>
 					</div>
-					<div class="progress-bar bg-success" role="progressbar"></div>
+					<div class="progress-area">
+						<div class="progress-bar bg-success" role="progressbar"></div>
+					</div>
 				</div>
 <!-- 				프로젝트 닉네임 관리-->
 				<div class="projnick-mng card">
