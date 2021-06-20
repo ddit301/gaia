@@ -197,6 +197,12 @@
 		WHERE MEM_NO = #{mem_no}
 	</select>
 	
+	<select id="getMemNickFromMemNo" parameterType="int" resultType="string">
+		SELECT MEM_NICK
+		FROM MEMBER
+		WHERE MEM_NO = #{mem_no}
+	</select>
+	
 	<select id="selectmemberForpersonalProfile" parameterType="int" resultType="map">
 		with issuecnt as(
 		    select count(*)

@@ -92,8 +92,8 @@ $(function(){
 	$('body').on('click', '.searchedMember', function(){
 		let selectedMemberLi = $(this);
 		let selectedMemNo = $(this).data('mem_no');
-		let selectedMemName = $(this).find('.memnm').text();
-		inviteMember(selectedMemNo,selectedMemName,selectedMemberLi);
+		let selectedMemNick = $(this).find('.memnick').text();
+		inviteMember(selectedMemNo,selectedMemNick,selectedMemberLi);
 	})
 	
 	
@@ -568,7 +568,7 @@ const searchMember = function(keyword){
 }
 
 // 멤버 초대하는 function
-const inviteMember = function(selectedMemNo,selectedMemName,selectedMemberLi){
+const inviteMember = function(selectedMemNo,selectedMemNick,selectedMemberLi){
 	// sweetAlert 버튼 초기화
 	 swalWithBootstrapButtons = Swal.mixin({
 		  customClass: {
@@ -579,7 +579,7 @@ const inviteMember = function(selectedMemNo,selectedMemName,selectedMemberLi){
 	})	
 		
 	swalWithBootstrapButtons.fire({
-			  title: '정말 '+selectedMemName+'님을 프로젝트에 초대하겠습니까?',
+			  title: '정말 '+selectedMemNick+'님을 프로젝트에 초대하겠습니까?',
 			  text: "초대 즉시 멤버로 등록됩니다.",
 			  icon: 'question',
 			  showCancelButton: true,
@@ -590,7 +590,7 @@ const inviteMember = function(selectedMemNo,selectedMemName,selectedMemberLi){
 			  if (result.isConfirmed) {
 			    swalWithBootstrapButtons.fire(
 			      'Success!',
-			      selectedMemName+'님을 멤버로 등록했습니다.',
+			      selectedMemNick+'님을 멤버로 등록했습니다.',
 			      'success'
 			    )
 				// 확인 버튼 눌렀을때 가입정보 insert 해준다.
@@ -599,7 +599,7 @@ const inviteMember = function(selectedMemNo,selectedMemName,selectedMemberLi){
 					method : 'post',
 					data : {
 						'mem_no' : selectedMemNo
-						,'proj_user_nick' : selectedMemName 
+						,'proj_user_nick' : selectedMemNick 
 					},
 					success : function(res) {
 						if(res == "OK"){
