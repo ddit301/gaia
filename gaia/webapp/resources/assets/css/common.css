@@ -65,7 +65,7 @@ button.selectedProj{
 	padding-top : 50px;
 }
 .memcard.dropped .card{
-	box-shadow : 0 0 0 1px red inset;
+	box-shadow : 0 0 0 4px red inset;
 }
 .memcard .card:hover{
 	box-shadow : 0 0 0 5px grey inset;
@@ -178,6 +178,17 @@ button.selectedProj{
 }
 #language-setting a:hover{
 	cursor : pointer;
+}
+#languages{
+	padding-top : 0px;
+	padding-bottom : 0px;
+}
+#languages li:hover{
+	cursor : pointer;
+	background-color : #EEEEFF;
+}
+#languages li{
+	font-size : 1.2em;
 }
 #language-setting{
 	width : 90px;

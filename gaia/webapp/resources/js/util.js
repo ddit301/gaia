@@ -24,8 +24,8 @@ $(function(){
 	})
 	
 	// 언어 선택 버튼에 대한 처리
-	$('.languages').on('click', 'a', function(){
-		let selectedLanguage = getKeyByValue(languages, $(this).text());
+	$('.languages').on('click', 'li', function(){
+		let selectedLanguage = getKeyByValue(languages, $(this).children('a').text());
 		selecteLanguage(selectedLanguage);
 	})
 	
