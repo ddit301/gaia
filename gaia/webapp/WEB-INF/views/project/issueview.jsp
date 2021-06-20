@@ -36,7 +36,7 @@
    			</div>
   				<div class="repWrite row">
      		<div class="col-md-1">
-     			<img id="myProfile" class="profile" alt="">
+     			<img id="myProfile" class="profile" onerror="imgOnErr()">
      		</div>
      		<div class="rep-right col-md-10">
      			<div class="editorBody">
@@ -159,7 +159,7 @@
 	<!--  이슈 댓글 시작-->
 	<div class="issue-reply row">
 		<div class="col-md-1">
-			<img class="commenter profile" alt="">
+			<img class="commenter profile" onerror="imgOnErr()">
 		</div>
 		<div class="rep-right col-md-10 card">
 			<div class="repHeader">
@@ -177,7 +177,7 @@
 	<div class="issue-change row">
 <!-- 		<div class="col-md-1"></div> -->
 		<div class="issue-edit-history col-md-9">
-			<img class="profile issueHistory" src="" alt="">
+			<img class="profile issueHistory" src="" onerror="imgOnErr()">
 			<span></span>
 		</div>
 		<div class="col-md-3">
@@ -193,12 +193,12 @@
 		<div class="assigneecheck">
 			<i class="icon-check" hidden="true"></i>
 		</div>
-		<img class="profile" src="/resources/images/profiles/default">
+		<img class="profile" onerror="imgOnErr()">
 		<span>닉네임</span>
 	</a>
 <!-- 	담당자 템플릿 - 지정됨 -->
 	<li class="assigned">
-		<img class="profile" src="/resources/images/profiles/1">
+		<img class="profile nonlink" onerror="imgOnErr()">
 		<span>최강한화</span>
 	</li>
 <!-- 	마일스톤 템플릿 -->
@@ -213,7 +213,7 @@
 </div>
             
 <script>
-	issue_no = '${issue_no}';
+	issue_no = getUrlParameter();
 	issue = null;
        		
 	// ToastUI Editor 에디터 적용시키기

@@ -18,10 +18,4 @@ public class IssueViewController {
 		return "project/issueview";
 	}
 	
-	@RequestMapping(value = "view/project/newissue")
-	public String newIssuePage(
-			) {
-		return "project/newissue";
-	}
-		
 }

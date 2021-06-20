@@ -58,6 +58,7 @@ button.selectedProj{
 	padding : 4px;
 	height : 300px;
 	object-fit : cover;
+	object-position : center;
 }
 .pluscard .profileBox{
 	height : 315px;
@@ -187,8 +188,16 @@ button.selectedProj{
 }
 .profile:hover{
 	cursor: pointer;
+	border : 3px solid darkseagreen;
+	transition : border 200ms;
 }
 
+.profile{
+    width: 57px; height: 57px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
 
 
 

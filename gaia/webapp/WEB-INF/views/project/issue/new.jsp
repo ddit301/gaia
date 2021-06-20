@@ -14,12 +14,12 @@
 		<div class="assigneecheck">
 			<i class="icon-check" hidden="true"></i>
 		</div>
-		<img class="profile" src="/resources/images/profiles/default">
+		<img class="profile nonlink" onerror="imgOnErr()">
 		<span>닉네임</span>
 	</a>
 <!-- 	담당자 템플릿 - 지정됨 -->
 	<li class="assigned">
-		<img class="profile" src="/resources/images/profiles/1">
+		<img class="profile" onerror="imgOnErr()">
 		<span>최강한화</span>
 	</li>
 <!-- 	마일스톤 템플릿 -->

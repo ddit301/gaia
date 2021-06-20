@@ -28,7 +28,7 @@
         </button>
       </div>
       <div class="mngMemModal modal-body">
-      	<img style="max-width:300px;">
+      	<img style="max-width:300px;" onerror="imgOnErr()">
         <div>
         	<label>회원 번호 :</label> 
         	<span id="proj_mem_no"></span>
@@ -78,7 +78,7 @@
 <div id="setting-member-template" hidden="hidden">
 <!--     	멤버 검색결과 li 시작 -->
  		<li class="searchedMember">
- 			<img class="profile" src="/resources/images/profiles/1">
+ 			<img class="profile" onerror="imgOnErr()">
  			<span class="memid">id</span>
  			<span class="memnm">name</span>
  			<span class="memnick">nick</span>
@@ -90,7 +90,7 @@
      <div class="memcard col-md-3">
          <div class="card">
          	<div class="profileBox">
-              <img class="img-fluid" src="${cPath }/resources/images/profiles/1" alt="">
+              <img class="img-fluid" onerror="imgOnErr()" alt="">
          	</div>
              <div class="card-body">
                  <h5 class="proj-nick card-title">닉네임</h5>

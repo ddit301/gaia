@@ -105,15 +105,7 @@ const isHidden = function(tag){
 $(window).bind("popstate", function(event) {
     var data = event.originalEvent.state;
     if(data){ // 이전 페이지 데이터가 있으면 ajax로 다시 요청해 화면 렌더링.
-    	if(data.startsWith("issueView")){
-    		let issue_no = data.substring("issueView".length);
-    		issueView(issue_no);
-    	}else if(data == 'newIssue'){
-    		newIssue();
-    	}else if(data.startsWith("milestoneView")){
-    		let milest_no = data.substring("milestoneView".length);
-    		milestoneView(milest_no);
-    	}else if(data.startsWith('member-')){
+    	if(data.startsWith('member-')){
 			memberMovePage(data.substring('member-'.length));
 		}else{
 	    	movePage(data);
@@ -154,6 +146,12 @@ const setCookie = function(name, value, exp){
 const getCurrentUrl = function(){
 	let hostIndex = location.href.indexOf( location.host ) + location.host.length;
 	return location.href.substring(hostIndex);
+}
+
+// 현 URL 에서 마지막 parameter 번호만 구해서 반환하는 function
+const getUrlParameter = function(){
+	let url = location.href;
+	return url.substring(url.lastIndexOf('/')+1);
 }
 
 // 스크롤 맨 위로 올리는 함수
@@ -374,7 +372,6 @@ const selecteLanguage = function(selectedLanguage){
 	// 메뉴 새로 불러준다.
 	loadMenu();
 };
-		
 		
 		
 		
