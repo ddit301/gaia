@@ -213,7 +213,7 @@
 </div>
             
 <script>
-	issue_no = '${issue_no}';
+	issue_no = getUrlParameter();
 	issue = null;
        		
 	// ToastUI Editor 에디터 적용시키기

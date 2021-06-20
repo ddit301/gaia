@@ -16,7 +16,7 @@ $(function(){
 	$('.content-body').on('click','.milestoneButton',function(){
 		event.preventDefault();
 		let milest_no = $(this).parents('.milestoneBox').data('milest_no');
-		milestoneView(milest_no);
+		movePageHistory('milestone/'+milest_no);
 	})
 	
    	// 마일스톤 이슈 all / open /closed 버튼
@@ -57,7 +57,7 @@ $(function(){
 	
 	// 마일스톤 수정 취소 버튼 클릭 시 
 	$('.content-body').on('click', '#milest-edit-close-btn', function(){
-		milestoneView(milestObject.milest_no);
+		movePageHistory('milestone/'+milestObject.milest_no);
 	})
 	
 	// 마일스톤 수정 버튼 클릭 시 
@@ -67,7 +67,7 @@ $(function(){
 	
 	// 마일스톤 수정 중 close 버튼 누른 경우
 	$('.content-body').on('click','#milest-edit-close-btn',function(){
-		milestoneView(milestObject.milest_no);
+		movePageHistory('milestone/'+milestObject.milest_no);
 	})
 	
 	// 작성된 마일스톤 등록
@@ -386,8 +386,7 @@ const RegisterMilestone = function(){
 			'milest_cont' : milest_cont
 		},
 		success : function(res) {
-
-			milestoneView(res.milest_no);
+			movePageHistory('milestone/'+res.milest_no);
 		},
 		error : function(xhr, error, msg) {
 			console.log(xhr);
@@ -421,7 +420,7 @@ const milestoneEditSave = function(){
 		},
 		success : function(res) {
 			toastr.success('마일스톤 수정 성공');
-			milestoneView(milestObject.milest_no);
+			movePageHistory('milestone/'+milestObject.milest_no);
 		},
 		error : function(xhr, error, msg) {
 			console.log(xhr);
@@ -432,35 +431,6 @@ const milestoneEditSave = function(){
 
 	})
 }
-
-// milestoneView
-const milestoneView = function(milest_no){
-	window.scrollTo({top:0, left:0, behavior:'auto'});
-	
-	data = 'milestoneView'+milest_no;
-	title = '';
-	url = getContextPath()+'/'+manager_id+'/'+project_title+'/milestone/'+milest_no;
-	history.pushState(data,title,url);
-	
-	$.ajax({
-		url : getContextPath()+'/view/project/milestoneview'
-		,type : 'get'
-		,data : {
-			'manager_id' : manager_id
-			,'project_title' : project_title
-			,'milest_no' : milest_no
-			}
-		,success : function(res) {
-			$('.content-body').html(res);
-		}
-		,error : function(xhr){
-			alert('error : ' + xhr.status);
-		},
-		dataType : 'html'
-	})
-}
-
-
 
 
 

@@ -184,7 +184,7 @@
             
 <script>
 	$(function(){
-       	milest_no = '${milest_no}';
+       	milest_no = getUrlParameter();
 
        	issue_status = null;
        	milestObject = null;

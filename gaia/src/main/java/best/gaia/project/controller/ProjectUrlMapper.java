@@ -45,49 +45,30 @@ public class ProjectUrlMapper {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUrlMapper.class);
 	
-	@GetMapping({""
-		,"{pageParam}"
-		,"issue/{issue_no}"
-		,"milestone/{milest_no}"
-		})
+	@GetMapping({"","{pageParam}", "{pageParam}/{paramNo}"})
 	public String projectMenuOverview(
 			@PathVariable String manager_id
 			,@PathVariable String project_title
 			,@PathVariable Optional<String> pageParam 
-			,@PathVariable Optional<String> issue_no 
-			,@PathVariable Optional<String> milest_no 
+			,@PathVariable Optional<String> paramNo 
 			,Authentication authentication
 			,HttpSession session
 			,Model model
 			,HttpServletResponse resp
 			) throws UnsupportedEncodingException {
 		
-		loadProjectProcessor(manager_id, project_title, authentication, session, model, resp);
+		// 접속중인 프로젝트에 대한 처리를 먼저 한다.
+		loadProjectProcessor(manager_id, project_title, authentication, session, resp);
 		
-		// pageParam 없는 요소들은 수동으로 pageParam 넣어주기. 
-		// 매핑 패턴을 {pageParam}/{paramNo}하고 paramNo도 Optional로 받으면 하드코딩 하지 않아도 될듯.
-		if(issue_no.isPresent()) {
-			if("new".equals(issue_no.get())) {
-				pageParam = Optional.of("issue/new");
-			}else {
-				pageParam = Optional.of("issueview");
-			}
-		}else if(milest_no.isPresent()) {
-			if("new".equals(milest_no.get())) {
-				pageParam = Optional.of("milestone/new");
-			}else {
-				pageParam = Optional.of("milestoneview");
-			}
+		// paramNo 가 존재할때는 pageParam에 붙여준다.
+		if(paramNo.isPresent()) {
+			pageParam = Optional.of(String.format("%s/%s", pageParam.get(),paramNo.get()));
 		}
 		
-		if(!pageParam.isPresent())
-			pageParam = Optional.of("code");
-		
-		model.addAttribute("pageParam", pageParam.get());
+		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : Optional.of("code"));
 		model.addAttribute("manager_id", manager_id);
 		model.addAttribute("project_title", project_title);
-		model.addAttribute("issue_no", issue_no.isPresent() ? issue_no.get() : null);
-		model.addAttribute("milest_no", milest_no.isPresent() ? milest_no.get() : null);
+		
 		return "view/template/project";
 	}
 	
@@ -96,7 +77,6 @@ public class ProjectUrlMapper {
 			, String project_title
 			, Authentication authentication
 			, HttpSession session
-			, Model model
 			, HttpServletResponse resp) {
 		// manager_id랑 project_title로 proj_no 찾아 내기
 		Map<String, Object> map = new HashMap<>();

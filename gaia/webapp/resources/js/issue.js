@@ -10,7 +10,7 @@ $(function(){
 	// 특정 이슈 클릭시 불러오는 메서드
 	$('#main-wrapper').on('click', '.issueButton', function(){
 		let issue_no = $(this).parents('.issueBox').data('issue_no');
-		issueView(issue_no);
+		movePageHistory('issue/'+issue_no);
 	})
 	
 	// 이슈 등록 페이지로 이동하는 버튼 이벤트
@@ -365,31 +365,6 @@ const loadIssueList = function(){
 	})
 }
 
-// 이슈 상세 조회 페이지로 이동하는 함수
-const issueView = function(issue_no){
-	window.scrollTo({top:0, left:0, behavior:'auto'});
-	
-	data = 'issueView'+issue_no;
-	title = '';
-	url = getContextPath()+'/'+manager_id+'/'+project_title+'/issue/'+issue_no;
-	history.pushState(data, title, url);
-	
-	$.ajax({
-		url : getContextPath()+'/view/project/issueview'
-		,type : 'get'
-		,data : {
-			'issue_no' : issue_no
-			}
-		,success : function(res){
-			$('.content-body').html(res);
-		}
-		,error : function(xhr){
-			alert('error : ' + xhr.status);
-		},
-		dataType : 'html'
-	})
-}
-
 // 이슈 생성 페이지로 이동하는 함수
 const newIssue = function(){
 	movePageHistory('issue/new');
@@ -560,7 +535,7 @@ const registerIssue = function(){
 			toastr.success('issue 등록에 성공했습니다.')
 			
 			// 작성 성공시에는 작성한 이슈 페이지로 넘겨버린다.
-			issueView(res.issue_no);
+			movePageHistory('issue/'+ res.issue_no);
 		},
 		error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);

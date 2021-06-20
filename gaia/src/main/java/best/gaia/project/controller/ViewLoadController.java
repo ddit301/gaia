@@ -15,12 +15,15 @@ public class ViewLoadController {
 		return "project/"+menuname;
 	}
 	
-	@RequestMapping(value = "{menuname1}/{menuname2}")
+	@RequestMapping(value = "{menuname}/{parameter}")
 	public String menuMapperDeeper(
-			@PathVariable String menuname1
-			,@PathVariable String menuname2
+			@PathVariable String menuname
+			,@PathVariable String parameter
 			) {
-		return "project/"+menuname1+"/"+menuname2;
+		
+		String viewPage = String.format("project/%s", menuname);
+		
+		return "new".equals(parameter) ? String.format("%s/new", viewPage) : String.format("%sview", viewPage);
 	}
 		
 }
