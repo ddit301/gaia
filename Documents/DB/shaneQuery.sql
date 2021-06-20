@@ -270,6 +270,7 @@ from project
     inner join proj_mem member on project.proj_no = member.proj_no
     inner join mem_role on (member.mem_role_no = mem_role.mem_role_no)
 where project.proj_no = 1
+        and member.proj_drop_date is null
 order by member.mem_role_no;
 
 

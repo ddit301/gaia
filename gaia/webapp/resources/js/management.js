@@ -480,7 +480,7 @@ const addRoleTemplate = function(){
 	let roleBoxArea = $('#roleBoxArea');
 	let roleBox = roleBoxTemplate.clone();
 	roleBox.find('.rolename').find('input[type=text]').val('역할명');
-	roleBox.css({"backgroundColor":'#FFEEEE'});
+	roleBox.addClass('newRole');
 	roleBoxArea.append(roleBox);
 }
 
@@ -506,7 +506,9 @@ const addAndEditRole = function(){
 			,mem_role_nm : mem_role_nm
 			,authority : authority
 		};
+		
 		(mem_role_no ? editRoles : newRoles).push(role);
+		
 	}
 	
 //	각각의 배열을 직렬화 해서 요청 보낸다.
@@ -514,7 +516,7 @@ const addAndEditRole = function(){
 	let newRolesData = JSON.stringify(newRoles);
 	
 	$.ajax({
-		url : getContextPath() + '/restapi/project/memroles',
+		url : getContextPath() + '/restapi/project/roles',
 		method : 'post',
 		data : {
 			'editRolesData' : editRolesData
@@ -528,6 +530,10 @@ const addAndEditRole = function(){
 					toastr.success(newCount + '개의 역할을 성공적으로 추가 했습니다.');
 				if(editCount)
 					toastr.success('성공적으로 업데이트 했습니다.');
+				
+				// 새로 정보 받아오기
+				loadProjectForManagement();
+
 			}else{
 				toastr.error('에러발생.');
 			}
@@ -578,7 +584,7 @@ const deleteRole = function(roleBox){
 		    )
 			// 기존의 역할을 삭제 시킨다.
 			$.ajax({
-				url : getContextPath() + '/restapi/project/memroles',
+				url : getContextPath() + '/restapi/project/roles',
 				method : 'post',
 				data : {
 					'mem_role_no' : mem_role_no
