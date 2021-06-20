@@ -210,6 +210,17 @@ button.selectedProj{
 .newRole{
 	background-color : #FFEEEE;
 }
-
+.proj-close-btns{
+	width : 100%;
+}
+.proj-finish-date button{
+	float : right;
+}
+.proj-finish-date{
+	display : flex;
+}
+#mng_proj_end{
+	width : 60%;	
+}
 
 

@@ -25,6 +25,12 @@ $(function() {
 		let roleBox = $(this).parents('.roleBox');
 		deleteRole(roleBox);
 	})
+	
+	// 프로젝트 열기 및 마감 버튼 
+	$('body').on('click', '.proj-close-btns button', function(){
+		let status = $(this).hasClass('btn-success') ? 0 : 1;
+		updateProjectStatus(status);
+	})
 
 	/**********************************
 					버튼 매핑 끝
@@ -134,6 +140,13 @@ const loadProjectForManagement = function(){
 	let enddate = project.proj_est_end_date;
 	$('#mng_proj_end').val(enddate? moment(enddate).format('YYYY-MM-DD') : '');
 	
+	// 프로젝트 상태에 따른 버튼 hidden 처리
+	let status = project.proj_status;
+	
+	let openBtn = $('.proj-close-btns').find('.btn-success');
+	let closeBtn = $('.proj-close-btns').find('.btn-danger');
+	status == 0 ? toggleHidden(openBtn) : toggleHidden(closeBtn);
+	
 	// 사용 모듈 출력
 	let moduleDiv = $('#mng_module');
 	let moduleData = project.proj_module_set;
@@ -238,7 +251,11 @@ const changeProjectEndDate = function(proj_est_end_date){
 		},
 		success : function(res) {
 			if(res == "OK"){
-				toastr.success('프로젝트 예정 마감일을 정상적으로 변경했습니다.');
+				Swal.fire(
+					'변경 성공!',
+					'프로젝트 마감일을 변경했습니다.',
+					'success'
+				)
 			}else{
 				toastr.error('에러 발생. 정상적으로 수정되지 않았습니다.');
 			}
@@ -548,6 +565,7 @@ const addAndEditRole = function(){
 	
 }
 
+// 멤버 역할 삭제 함수
 const deleteRole = function(roleBox){
 	let mem_role_no = roleBox.data('mem_role_no');
 	let mem_role_nm = roleBox.find('input[type=text]').val();
@@ -619,8 +637,32 @@ const deleteRole = function(roleBox){
 	
 }
 
+// 프로젝트의 열림/ 닫힘 상태를 변경하는 메서드
+const updateProjectStatus = function(proj_status){
+	$.ajax({
+	url : getContextPath() + '/restapi/project/projects',
+	method : 'post',
+	data : {
+		'proj_status' : proj_status
+		,'_method' : 'put'
+	},
+	success : function(res) {
+		if(res == "OK"){
+			let btns = $('.proj-close-btns').find('button');
+			let btnSize = btns.length;
+			for(i=0; i<btnSize; i++){
+				toggleHidden(btns.eq(i));
+			}
+			toastr.success(proj_status!=0 ? '프로젝트를 마감했습니다.' : '프로젝트를 다시 활성화 시켰습니다.')
+		}
+	},
+	error : function(xhr, error, msg) {
+		ajaxError(xhr, error, msg);
 
-
+	},
+	dataType : 'json'
+})
+}
 
 
 
