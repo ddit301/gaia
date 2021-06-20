@@ -24,8 +24,8 @@ $(function(){
 	})
 	
 	// 언어 선택 버튼에 대한 처리
-	$('.languages').on('click', 'a', function(){
-		let selectedLanguage = getKeyByValue(languages, $(this).text());
+	$('.languages').on('click', 'li', function(){
+		let selectedLanguage = getKeyByValue(languages, $(this).children('a').text());
 		selecteLanguage(selectedLanguage);
 	})
 	
@@ -168,6 +168,10 @@ const getProfilePath = function (filename) {
 const getProjNickFromCookie = function(){
 	return getCookie('proj_user_nick');
 } 
+// 내 멤버 번호 쿠키에서 받아오기
+const getMemNoFromCookie = function(){
+	return getCookie('mem_no');
+} 
 // 쿠키에 있는 프로필 사진 파일명을 받아와 이미지 경로로 반환해주는 함수
 const getProfilePathFromCookie = function(){
 	return getProfilePath(getCookie('mem_pic_file_name'));
@@ -211,6 +215,11 @@ const roChecker = function(text){
 // '를' 이 붙어야 하는지 '을'이 붙어야 하는지를 체크해주는 함수
 const rulChecker = function(text){
 	return text + (isSingleCharacter(text)? '를' : '을'); 
+}
+
+// \n 등을 <br> 태그로 바꿔서 반환해주는 함수
+const toBrTag = function(str){
+	return str? str.replace(/(?:\r\n|\r|\n)/g, '<br>') : '';
 }
 
 //////////////////////////////////////////////////////////////////////////////

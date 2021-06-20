@@ -1,6 +1,5 @@
 package best.gaia.project.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -55,7 +54,7 @@ public class ProjectUrlMapper {
 			,HttpSession session
 			,Model model
 			,HttpServletResponse resp
-			) throws UnsupportedEncodingException {
+			) {
 		
 		// 접속중인 프로젝트에 대한 처리를 먼저 한다.
 		loadProjectProcessor(manager_id, project_title, authentication, session, resp);
@@ -65,7 +64,7 @@ public class ProjectUrlMapper {
 			pageParam = Optional.of(String.format("%s/%s", pageParam.get(),paramNo.get()));
 		}
 		
-		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : Optional.of("code"));
+		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : "code");
 		model.addAttribute("manager_id", manager_id);
 		model.addAttribute("project_title", project_title);
 		

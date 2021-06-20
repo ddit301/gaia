@@ -50,6 +50,7 @@ public interface ProjectDao {
 	 */
 	public List<ProjectVO> selectProjectList(Integer mem_no);
 	public ProjectVO selectProject(int proj_no);
+	public ProjectVO selectProjectOverview(int proj_no);
 	public int insertProject(ProjectVO project);
 	public int updateProject(ProjectVO project);
 	public ProjectVO loadProjectForManagement(int proj_no);
@@ -71,6 +72,7 @@ public interface ProjectDao {
 	public int insertMemberRole(MemRoleVO memRole);
 	public int updateMemberRole(MemRoleVO memRole);
 	public int deleteMemberRole(int mem_role_no);
+	public int getMemberCountsWithMemRole(int mem_role_no);
 	
 	/**
 	 * label

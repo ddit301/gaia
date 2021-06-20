@@ -245,4 +245,5 @@
 		where member.mem_no = #{mem_no}
 	</select>
 	
+	
 </mapper>

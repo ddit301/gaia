@@ -86,4 +86,5 @@
 </div>
 <script>
 loadMemberInfo_overview();
+loadMenu();
 </script>

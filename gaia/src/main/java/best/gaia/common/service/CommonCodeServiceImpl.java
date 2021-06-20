@@ -35,10 +35,14 @@ public class CommonCodeServiceImpl implements CommonCodeService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectMenuList(int proj_no) {
+	public List<Map<String, Object>> selectMenuList(Integer proj_no) {
 		
 		// 1. 모든 메뉴 리스트 받아 온 후
 		List<Map<String, Object>> menuList = dao.selectMenuList();
+		
+		// 프로젝트가 아직 결정되지 않은 상태라면 모든 메뉴를 다 반환한다.
+		if(proj_no == null)
+			return menuList;
 		
 		// 2. 해당 proj_no 에서 사용중인 모듈 설정 불러와서
 		ProjectVO project = projDao.selectProject(proj_no);

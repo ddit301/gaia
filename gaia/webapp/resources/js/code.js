@@ -23,6 +23,28 @@ $(function() {
 			openFileFromUrl(download_url);
 		}
 	})
+	
+	// 내 가입 정보 수정 하러 가는 버튼
+	$('body').on('click' , '.projnick-mng p', function(){
+		toggleProjNickChange();
+	});
+	
+	// 내 가입 정보 수정 취소 버튼
+	$('body').on('click', '.projnick-mng .btnArea .btn-warning', function(){
+		toggleProjNickChange();
+	});
+	
+	// 내 가입 정보 수정 저장 버튼
+	$('body').on('click', '.projnick-mng .btnArea .btn-success', function(){
+		changeProjNick();
+		toggleProjNickChange();
+	});
+	
+	// 소속 멤버 설정 클릭하면 멤버 설정 페이지로 이동
+	$('body').on('click' , '.members-overview p', function(){
+		movePageHistory('member');
+	});	
+	
 
 	/**********************************
 					버튼 매핑 끝
@@ -174,15 +196,141 @@ const openFileFromUrl = function(download_url){
 	
 }
 
+//uri 로 부터 파일 이름만 찾는 함수.
 const getFileNameFromUri = function(fileUri){
 	let lastIndexOfSlash = fileUri.lastIndexOf('/');
 	return lastIndexOfSlash == -1 ? null : fileUri.substring(lastIndexOfSlash+1);
 }
 
+// 파일 이름으로 부터 확장자 얻는 함수.
 const getExtension = function(fileName){
 	let lastIndexOfComma = fileName.lastIndexOf('.');
 	return lastIndexOfComma == -1 ? null : fileName.substring(lastIndexOfComma+1);
 }
+
+// Code 페이지 프로젝트 정보 불러오는 함수
+const loadProjectOverview = function(){
+	$.ajax({
+		url : getContextPath() + '/restapi/project/projects/loadProjectOverview.do',
+		method : 'get',
+		success : function(project) {
+			let overviewDiv = $('.project-overview')
+			overviewDiv.find('.projtitle').text(project.proj_title.toUpperCase());
+			$('.overview-cont').find('span').html(toBrTag(project.proj_cont));
+			$('.manager-overview').find('.mem-overview-card').find('img').attr('src', getProfilePath(project.projectManager.mem_no));
+			$('.manager-overview').find('.mem-overview-card').find('span').text(project.projectManager.mem_nick);
+			
+			// 내 정보 출력 (쿠키에서 받아옴)
+			let myinfoArea = overviewDiv.find('.projnick-mng');
+			myinfoArea.find('img').attr('src' , getProfilePathFromCookie());
+			myinfoArea.find('span').text(getProjNickFromCookie());
+						
+			// 날짜에 따른 진척률 계산
+			let startDate = project.proj_start_date;
+			let endDate = project.proj_est_end_date;
+			let total;
+			let prog;
+			
+			if(endDate){
+				total = moment(endDate) - moment(startDate);
+				prog = moment() - moment(startDate);
+			}			
+			overviewDiv.find('.start-date').find('span').text(moment(startDate).format('YYYY-MM-DD'));
+			overviewDiv.find('.end-date').find('span').text(endDate ? moment(endDate).format('YYYY-MM-DD') : '');
+			let progPercent = endDate ? Math.round(prog / total * 1000) / 10 : 0;
+			progPercent = progPercent > 100 ? 100 : progPercent ;
+			
+			let progressBar = $('.progress-bar');
+			progressBar.text(progPercent + '%');
+			progressBar.attr("style", 'width:' + progPercent + '%');
+			
+			let memListArea =  $('.members-overview').children('div');
+			
+			memListArea.empty();
+			// 멤버 목록 반복문
+			$.each(project.memberList, function(i,member){
+				let memBox = $('#codeTemplates').find('.mem-overview-card').clone();
+				memBox.find('img').attr('src', getProfilePath(member.memno));
+				memBox.find('span').text(member.nick);
+				memBox.find('small').text(member.role);
+				memListArea.append(memBox);
+			});
+			
+			 
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+
+		},
+		dataType : 'json'
+	})
+}
+
+const toggleProjNickChange = function(){
+	let nickArea = $('.projnick-mng').find('span');
+	let nickInputArea = $('.projnick-mng').find('input');
+	nickInputArea.val(getProjNickFromCookie());
+	let buttonArea = $('.projnick-mng').find('.btnArea');
+	toggleHidden(nickArea);
+	toggleHidden(nickInputArea);
+	toggleHidden(buttonArea);
+}
+
+// 내 프로젝트 닉네임 변경하는 메서드
+const changeProjNick = function(){
+	let oldNick = $('.projnick-mng').find('.mem-overview-card').find('span').text();
+	let nick = $('.projnick-mng').find('input').val();
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/members',
+		method : 'post',
+		data : {
+			'proj_user_nick' : nick
+			,'_method' : 'put'
+		}, 
+		success : function(result) {
+			// 화면에 있는 모든 멤버 관련 정보들 중 나에 대한 정보는 프로젝트 닉네임을 변경해준다.
+			if(result == 'OK'){
+				
+				// 나의 가입 정보에 있는 닉네임 변경
+				$('.projnick-mng').find('.mem-overview-card').find('span').text(nick);
+				
+				// 프로젝트 관리자가 나라면 닉네임 변경
+				let managerNickSpan = $('.manager-overview').find('span');
+				if( managerNickSpan.text() == oldNick){
+					managerNickSpan.text(nick);
+				}
+				
+				// 소속 멤버 중에서 내것 찾아서 닉네임 변경
+				let memberCards = $('.members-overview').find('.mem-overview-card');
+				let memberCardsSize = memberCards.length;
+				for(i=0; i< memberCardsSize; i++){
+					let memNickSpan = memberCards.eq(i).find('span')
+					if(memNickSpan.text() == oldNick){
+						memNickSpan.text(nick);
+						break;
+					}
+				}
+				
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+
+		},
+		dataType : 'json'
+	})
+	
+	
+	
+};
+
+
+
+
+
+
+
 
 
 
@@ -257,12 +405,12 @@ const loadLanguageInfo = function(gitRepoUrl) {
 					total = total + value;
 					otherlangTotal = otherlangTotal + value;
 				}
-				langs.push('others');
+				langs.push('Others');
 				counts.push(otherlangTotal);
 			}
-			let languageDiv = $('.project-overview').find('.languageInfo');
+			let languageDiv = $('.repoHeader').find('.languageInfo').find('span');
 			for(i=0; i<langs.length; i++){
-				let lanTag =$('<p>'+langs[i] + ' : ' + Math.round(counts[i]/total*1000)/10 + '%</p>'); 
+				let lanTag = langs[i] + ' : ' + Math.round(counts[i]/total*1000)/10 +'%<br/>' ; 
 				languageDiv.append(lanTag);
 			}
 		},
@@ -273,6 +421,7 @@ const loadLanguageInfo = function(gitRepoUrl) {
 	});
 }
 
+// 깃허브에서 파일들 탐색하는 함수
 const loadFilesFromGit = function(gitRepoUrl, path) {
 	$.ajax({
 		url: 'https://api.github.com/repos/' + gitRepoUrl + '/contents' + (path ? '/' + path : ''),

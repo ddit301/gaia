@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
+import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.ProjMemVO;
@@ -82,11 +84,26 @@ public class ProjectMemberRest {
 			@ModelAttribute ProjMemVO projMem
 			,HttpSession session
 			,Authentication authentication
+			,HttpServletResponse resp
 			) {
 		int proj_no = getProjNoFromSession(session);
 		projMem.setProj_no(proj_no);
 		
+		// 회원 role 설정때는 mem_no가 파라미터로 오지만, 개인 프로젝트 닉네임 수정 할때는 파라미터가 없고, 인증 객체에서 받아옵니다.
+		Boolean isNickChange = false;
+		if(projMem.getMem_no() == null) {
+			isNickChange = true;
+			int mem_no = getMemberNoFromAuthentication(authentication);
+			projMem.setMem_no(mem_no);
+		}
+		
 		int result = dao.updateProjectMemberRole(projMem);
+		
+		// 닉네임 변경하는 업무였고, 성공 했으면 쿠키를 변경해준다.
+		if(result == 1 && isNickChange == true) {
+			CookieUtil.addCookie("proj_user_nick", projMem.getProj_user_nick(), resp);
+		}
+		
 		return result==1? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	
