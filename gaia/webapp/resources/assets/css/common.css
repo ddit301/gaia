@@ -189,9 +189,7 @@ button.selectedProj{
 .profile:hover{
 	cursor: pointer;
 	border : 3px solid darkseagreen;
-	transition : border 200ms;
 }
-
 .profile{
     width: 57px; height: 57px;
     object-fit: cover;

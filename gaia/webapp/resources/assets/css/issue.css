@@ -159,10 +159,10 @@
 .issue-assignee:hover .assignee2{transform: translateX(45px);}
 .issue-assignee:hover .assignee3{transform: translateX(75px);}
 
-.assignee0{transform: translateX(0px); transition: all 0.8s ease}
-.assignee1{transform: translateX(0px); transition: all 0.8s ease}
-.assignee2{transform: translateX(0px); transition: all 0.8s ease}
-.assignee3{transform: translateX(0px); transition: all 0.8s ease}
+.assignee0{transform: translateX(0px); transition: transform 0.8s ease}
+.assignee1{transform: translateX(0px); transition: transform 0.8s ease}
+.assignee2{transform: translateX(0px); transition: transform 0.8s ease}
+.assignee3{transform: translateX(0px); transition: transform 0.8s ease}
 
 #saveIssue{
 	margin-top : 20px;
