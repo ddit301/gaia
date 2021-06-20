@@ -65,7 +65,7 @@ public class ProjectUrlMapper {
 			pageParam = Optional.of(String.format("%s/%s", pageParam.get(),paramNo.get()));
 		}
 		
-		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : Optional.of("code"));
+		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : "code");
 		model.addAttribute("manager_id", manager_id);
 		model.addAttribute("project_title", project_title);
 		
