@@ -108,8 +108,6 @@ $(window).bind("popstate", function(event) {
     	if(data.startsWith("issueView")){
     		let issue_no = data.substring("issueView".length);
     		issueView(issue_no);
-    	}else if(data == 'newIssue'){
-    		newIssue();
     	}else if(data.startsWith("milestoneView")){
     		let milest_no = data.substring("milestoneView".length);
     		milestoneView(milest_no);

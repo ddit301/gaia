@@ -58,6 +58,7 @@ button.selectedProj{
 	padding : 4px;
 	height : 300px;
 	object-fit : cover;
+	object-position : center;
 }
 .pluscard .profileBox{
 	height : 315px;
@@ -191,6 +192,12 @@ button.selectedProj{
 	transition : border 200ms;
 }
 
+.profile{
+    width: 57px; height: 57px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
 
 
 

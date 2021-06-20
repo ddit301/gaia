@@ -15,7 +15,7 @@
             <div class="card side-position-fixed"> 
                 <div class="card-body">
                     <div class="media align-items-center mb-4">
-                        <img class="mr-3 rounded-circle" width="80" height="80" alt="">
+                        <img class="mr-3 rounded-circle" onerror="imgOnErr()" width="80" height="80" alt="">
                         <div class="media-body">
                             <h3 class="mb-0">id</h3>
                             <p class="text-muted mb-0"></p>
