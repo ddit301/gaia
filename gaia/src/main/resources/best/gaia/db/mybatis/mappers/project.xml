@@ -304,6 +304,12 @@
 	
 	</select>
 	
+	<select id="getMemberCountsWithMemRole" parameterType="int" resultType="int">
+		select count(*)
+		from proj_mem
+		where mem_role_no = #{mem_role_no}
+	</select>
+	
 </mapper>
 
 

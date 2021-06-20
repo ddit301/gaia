@@ -326,6 +326,22 @@ public class ProjectServiceImpl implements ProjectService {
 		return result;
 	}
 
+	@Override
+	public ServiceResult deleteMemRole(int mem_role_no) {
+		
+		// 일단 해당 role을 가지고 있는 회원이 있는지 확인한다. 있다면 haschild를 반환한다.
+		int cnt = projectDao.getMemberCountsWithMemRole(mem_role_no);
+		int result = 0;
+		if(cnt > 0) {
+			return ServiceResult.HASCHILD;
+		}else {
+			result = projectDao.deleteMemberRole(mem_role_no);
+		}
+		
+		// TODO Auto-generated method stub
+		return result >0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
 }
 
 

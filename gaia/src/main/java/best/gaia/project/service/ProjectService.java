@@ -33,6 +33,7 @@ public interface ProjectService {
 	 *  프로젝트 멤버 역할관련 service
 	 **********************************************************************/
 	public ServiceResult insertAndUpdateMemroles(int proj_no, List<MemRoleVO> newRoles, List<MemRoleVO> editRoles);
+	public ServiceResult deleteMemRole(int mem_role_no);
 	
 	/**********************************************************************
 	 *  뉴스 관련 service
@@ -70,7 +71,6 @@ public interface ProjectService {
 	 *  라벨 관련 service
 	 **********************************************************************/	
 	public ServiceResult deleteLabel(int label_no);
-	
 	
 	
 	

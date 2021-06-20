@@ -72,6 +72,7 @@ public interface ProjectDao {
 	public int insertMemberRole(MemRoleVO memRole);
 	public int updateMemberRole(MemRoleVO memRole);
 	public int deleteMemberRole(int mem_role_no);
+	public int getMemberCountsWithMemRole(int mem_role_no);
 	
 	/**
 	 * label

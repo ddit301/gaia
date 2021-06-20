@@ -593,8 +593,15 @@ const deleteRole = function(roleBox){
 				success : function(res) {
 					if(res == "FAIL"){
 						toastr.error('에러발생');
-					}else{
+					}else if(res == "OK"){
 						roleBox.remove();
+					}else if(res == "HASCHILD"){
+						$('.swal2-confirm').click();
+						Swal.fire(
+							'삭제 실패',
+							mem_role_nm+ '역할을 가진 회원이 있습니다. 해당 회원의 역할을 변경한 뒤에 삭제해주세요.'
+							,'error'
+						)
 					}
 				},
 				error : function(xhr, error, msg) {

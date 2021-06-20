@@ -85,13 +85,30 @@ public class MemberRoleRest {
 		
 	}
 	
+	/**
+	 * @param mem_role_no
+	 * @return OK, HASCHILD, FAIL
+	 */
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ServiceResult deleteMemrole(
 			@RequestParam int mem_role_no
 			) {
-		int result = dao.deleteMemberRole(mem_role_no);
 		
-		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
+		return service.deleteMemRole(mem_role_no);
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
