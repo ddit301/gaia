@@ -40,6 +40,11 @@ $(function() {
 		toggleProjNickChange();
 	});
 	
+	// 소속 멤버 설정 클릭하면 멤버 설정 페이지로 이동
+	$('body').on('click' , '.members-overview p', function(){
+		movePageHistory('member');
+	});	
+	
 
 	/**********************************
 					버튼 매핑 끝

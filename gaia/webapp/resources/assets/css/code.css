@@ -96,7 +96,14 @@ a:not([href]):not([tabindex]).filename-text:hover{
 .projnick-mng i{
 	float : right;
 }
+.members-overview i{
+	float : right;
+}
 .projnick-mng p:hover{
+	color : var(--info);
+	cursor : pointer;
+}
+.members-overview p:hover{
 	color : var(--info);
 	cursor : pointer;
 }

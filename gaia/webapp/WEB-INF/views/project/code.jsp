@@ -89,7 +89,9 @@
 					</div>
 				</div>
 				<div class="members-overview card">
-					<p>소속 멤버</p>
+					<p>소속 멤버
+						<i class="icon-settings menu-icon"></i>
+					</p>
 					<div>
 						<div class="mem-overview-card">
 							<img class="profile" onerror="imgOnErr()">
