@@ -73,6 +73,34 @@ $(function(){
 	$('body').on('click', '.many-issue-close button', function(){
 		closeManyIssues();
 	})
+	
+	
+	// 이슈 라벨별 필터링 기능 
+	$('body').on('click', '.issue-header .labeldrop-area .dropdown-menu a', function(){
+		let label_no = $(this).data('label_no');
+		loadIssueList('label_no',label_no)
+	})
+	// 이슈 작성자 필터링 기능 
+	$('body').on('click', '.issue-header .writerdropArea .dropdown-menu a', function(){
+		let mem_no = $(this).data('mem_no');
+		loadIssueList('writer_no',mem_no)
+	})
+	// 이슈 중요도 필터링 기능 
+	$('body').on('click', '.issue-header .prioritydropArea .dropdown-menu a', function(){
+		let priority = $(this).data('priority');
+		loadIssueList('priority',priority)
+	})
+	// 이슈 마일스톤 필터링 기능 
+	$('body').on('click', '.issue-header .miledropArea .dropdown-menu a', function(){
+		let milest_sid = $(this).data('milest_sid');
+		loadIssueList('milest_sid',milest_sid)
+	})
+	// 이슈 담당자 필터링 기능 
+	$('body').on('click', '.issue-header .assigneedropArea .dropdown-menu a', function(){
+		let mem_no = $(this).data('mem_no');
+		loadIssueList('mem_no',mem_no)
+	})
+	
 
 	////////////////////////////////////////////////////
 	//
@@ -315,13 +343,15 @@ $(function(){
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 // 이슈 목록 불러오는 함수
-const loadIssueList = function(){
+const loadIssueList = function(searchKey, searchValue){
     $.ajax({
 		url : getContextPath() + '/restapi/project/issues',
 		type : 'get',
 		data : {
 			'issue_status' : issue_status
 			,'currentPage' : currentPage
+			,'searchKey' : searchKey
+			,'searchValue' : searchValue
 		},
 		success : function(res) {
 			$('#issuelist').empty();
@@ -360,7 +390,12 @@ const loadIssueList = function(){
 				issueBox.children('.issue-title').children('a').text(v.issue_title);
 				issueBox.children('.issue-priority').text(priorities[v.issue_priority]);
 				if(v.label){
-					issueBox.children('.issue-label').text(v.label.label_nm);
+					let labelBox = $('#issue-template').children('.small-label').clone();
+					let label = v.label;
+					labelBox.find('i').addClass(label.label_icon);
+					labelBox.find('span').text(label.label_nm);
+					labelBox.css({"backgroundColor":label.label_color});
+					issueBox.children('.issue-label').html(labelBox);
 				}
 				if(v.milestone){
 					issueBox.children('.milestone').text(v.milestone.milest_title);
@@ -843,9 +878,86 @@ const closeManyIssues = function(){
 		},
 		dataType : 'json'
 	})
-
 	
 };
+
+// 이슈 목록 불러올때 component 들 받아오는 함수입니다. dropdown 메뉴를 렌더링 해 줍니다.
+const loadIssueComponents = function(){
+	
+	let projectComponents = loadProjectComponents();
+	
+	let members = projectComponents.members;
+	let milestones = projectComponents.milestones;
+	let labels = projectComponents.labels;
+	let issuePrioritySet = projectComponents.issuePriority;
+	let templateArea = $('#issue-template');
+	
+	// 라벨들 출력해주기
+	let labeldropArea = $('.labeldrop-area').find('.dropdown-menu');
+	labeldropArea.empty();
+	$.each(labels, function(i,label){
+		let labeldrop = templateArea.find('.labeldrop').clone();
+		labeldrop.attr('data-label_no', label.label_no);
+		labeldrop.text(label.label_nm);
+		labeldropArea.append(labeldrop);
+	})
+	
+	// 회원 목록 출력해주기
+	let writerdropArea = $('.writerdropArea').find('.dropdown-menu');
+	let assigneedropArea = $('.assigneedropArea').find('.dropdown-menu');
+	writerdropArea.empty();
+	assigneedropArea.empty();
+	$.each(members, function(i, member){
+		let writerdrop = templateArea.find('.writerdrop').clone();
+		writerdrop.attr('data-mem_no', member.mem_no);
+		writerdrop.text(member.proj_user_nick);
+		writerdropArea.append(writerdrop);
+		let assigneedrop = templateArea.find('.assigneedrop').clone();
+		assigneedrop.attr('data-mem_no', member.mem_no);
+		assigneedrop.text(member.proj_user_nick);
+		assigneedropArea.append(assigneedrop);
+	})
+	
+	// 이슈 중요도를 화면에 출력해준다.
+	let prioritydropArea = $('.prioritydropArea').find('.dropdown-menu');
+	prioritydropArea.empty();
+	
+	let priorityTemplate =  templateArea.find('.prioritydrop');
+	
+	let issuePriorityList = getStringArrayFromBinaryAndArray(issuePrioritySet, priorities);
+	let issuePrioritySize = issuePriorityList.length;
+	
+	for(i=0; i<issuePrioritySize; i++){
+		let prioritydrop = priorityTemplate.clone();
+		let priorityText = issuePriorityList[i];
+		prioritydrop.text(priorityText);
+		prioritydrop.attr('data-priority', priorities.indexOf(priorityText));
+		prioritydropArea.append(prioritydrop);
+	}
+	
+	// 마일스톤 목록을 출력해준다.
+	let miledropArea = $('.miledropArea').find('.dropdown-menu');
+	miledropArea.empty();
+	$.each(milestones, function(i, milestone){
+		let miledrop = templateArea.find('.miledrop').clone();
+		miledrop.attr('data-milest_sid', milestone.milest_sid);
+		miledrop.text(milestone.milest_title);
+		miledropArea.append(miledrop);
+	})
+	
+	
+	
+	
+	
+}
+
+
+
+
+
+
+
+
 
 
 
