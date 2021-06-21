@@ -3,9 +3,11 @@ package best.gaia.calendar.dao;
 import static org.junit.Assert.*;
 
 import java.util.Calendar;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -48,7 +50,7 @@ public class CalendarDaoTest {
 	@Inject
 	WebApplicationContext container;
 
-	@Test
+//	@Test
 	public void testSelectIssuesByProj_no() {
 		service.selectMilestoneIssuesByProj_no(1);
 	}
@@ -56,9 +58,13 @@ public class CalendarDaoTest {
 	/**
 	 * Test method for {@link best.gaia.calendar.dao.CalendarDao#selectMilestoneByProj_no(int)}.
 	 */
-//	@Test
-	public void testSelectMilestoneByProj_no() {
-		fail("Not yet implemented");
+	@Test
+	public void testUpdateIssue() {
+		Map<String, Object> issueSidStatus = new HashedMap();
+		issueSidStatus.put("issue_sid", 122);
+		issueSidStatus.put("issue_status", 1);
+		int result = dao.updateIssueStatus(issueSidStatus);
+		System.out.println(result);
 	}
 
 	/**

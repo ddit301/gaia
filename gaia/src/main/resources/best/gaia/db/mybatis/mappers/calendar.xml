@@ -35,4 +35,14 @@
 		WHERE PROJ_NO = ${proj_no}
 	</select>
 	
+	<update id="updateIssueStatus" parameterType="java.util.Map">
+		UPDATE ISSUE
+		SET ISSUE_STATUS = ${status}
+		WHERE ISSUE_SID = ${sid}
+	</update>
+	<update id="updateMilestoneStatus" parameterType="java.util.Map">
+		UPDATE MILESTONE
+		SET MILEST_STATUS = ${status}
+		WHERE MILEST_SID = ${sid}
+	</update>	
 </mapper>
