@@ -40,7 +40,7 @@ public class ProjectController {
 			,HttpServletResponse resp
 			,Model model
 			) {
-		urlMapper.loadProjectProcessor(manager_id, project_title, authentication, session, model, resp);
+		urlMapper.loadProjectProcessor(manager_id, project_title, authentication, session, resp);
 		return ServiceResult.OK;
 	}
 	

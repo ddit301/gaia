@@ -151,7 +151,7 @@
 	<div id="setting-member-template-chat">
 		<ul>
 			<li class="searchedMemberChat">
-				<img class="profile" src="/resources/images/profiles/1">
+				<img class="profile" onerror="imgOnErr()">
 				<span class="memid">id</span>
 				<span class="memnm">name</span>
 				<span class="memnick">nick</span>

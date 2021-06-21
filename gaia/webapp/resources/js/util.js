@@ -24,8 +24,8 @@ $(function(){
 	})
 	
 	// 언어 선택 버튼에 대한 처리
-	$('.languages').on('click', 'a', function(){
-		let selectedLanguage = getKeyByValue(languages, $(this).text());
+	$('.languages').on('click', 'li', function(){
+		let selectedLanguage = getKeyByValue(languages, $(this).children('a').text());
 		selecteLanguage(selectedLanguage);
 	})
 	
@@ -105,15 +105,7 @@ const isHidden = function(tag){
 $(window).bind("popstate", function(event) {
     var data = event.originalEvent.state;
     if(data){ // 이전 페이지 데이터가 있으면 ajax로 다시 요청해 화면 렌더링.
-    	if(data.startsWith("issueView")){
-    		let issue_no = data.substring("issueView".length);
-    		issueView(issue_no);
-    	}else if(data == 'newIssue'){
-    		newIssue();
-    	}else if(data.startsWith("milestoneView")){
-    		let milest_no = data.substring("milestoneView".length);
-    		milestoneView(milest_no);
-    	}else if(data.startsWith('member-')){
+    	if(data.startsWith('member-')){
 			memberMovePage(data.substring('member-'.length));
 		}else{
 	    	movePage(data);
@@ -156,6 +148,12 @@ const getCurrentUrl = function(){
 	return location.href.substring(hostIndex);
 }
 
+// 현 URL 에서 마지막 parameter 번호만 구해서 반환하는 function
+const getUrlParameter = function(){
+	let url = location.href;
+	return url.substring(url.lastIndexOf('/')+1);
+}
+
 // 스크롤 맨 위로 올리는 함수
 const scrollUp = function(){
 	window.scrollTo({top:0, left:0, behavior:'auto'});
@@ -169,6 +167,10 @@ const getProfilePath = function (filename) {
 // 프로젝트 닉네임 쿠키에서 받아오기
 const getProjNickFromCookie = function(){
 	return getCookie('proj_user_nick');
+} 
+// 내 멤버 번호 쿠키에서 받아오기
+const getMemNoFromCookie = function(){
+	return getCookie('mem_no');
 } 
 // 쿠키에 있는 프로필 사진 파일명을 받아와 이미지 경로로 반환해주는 함수
 const getProfilePathFromCookie = function(){
@@ -213,6 +215,11 @@ const roChecker = function(text){
 // '를' 이 붙어야 하는지 '을'이 붙어야 하는지를 체크해주는 함수
 const rulChecker = function(text){
 	return text + (isSingleCharacter(text)? '를' : '을'); 
+}
+
+// \n 등을 <br> 태그로 바꿔서 반환해주는 함수
+const toBrTag = function(str){
+	return str? str.replace(/(?:\r\n|\r|\n)/g, '<br>') : '';
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -374,7 +381,6 @@ const selecteLanguage = function(selectedLanguage){
 	// 메뉴 새로 불러준다.
 	loadMenu();
 };
-		
 		
 		
 		

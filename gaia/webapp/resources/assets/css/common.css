@@ -58,13 +58,14 @@ button.selectedProj{
 	padding : 4px;
 	height : 300px;
 	object-fit : cover;
+	object-position : center;
 }
 .pluscard .profileBox{
 	height : 315px;
 	padding-top : 50px;
 }
 .memcard.dropped .card{
-	box-shadow : 0 0 0 1px red inset;
+	box-shadow : 0 0 0 4px red inset;
 }
 .memcard .card:hover{
 	box-shadow : 0 0 0 5px grey inset;
@@ -178,6 +179,17 @@ button.selectedProj{
 #language-setting a:hover{
 	cursor : pointer;
 }
+#languages{
+	padding-top : 0px;
+	padding-bottom : 0px;
+}
+#languages li:hover{
+	cursor : pointer;
+	background-color : #EEEEFF;
+}
+#languages li{
+	font-size : 1.2em;
+}
 #language-setting{
 	width : 90px;
 }
@@ -187,9 +199,28 @@ button.selectedProj{
 }
 .profile:hover{
 	cursor: pointer;
+	border : 3px solid darkseagreen;
 }
-
-
-
+.profile{
+    width: 57px; height: 57px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+.newRole{
+	background-color : #FFEEEE;
+}
+.proj-close-btns{
+	width : 100%;
+}
+.proj-finish-date button{
+	float : right;
+}
+.proj-finish-date{
+	display : flex;
+}
+#mng_proj_end{
+	width : 60%;	
+}
 
 

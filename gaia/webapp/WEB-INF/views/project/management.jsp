@@ -204,9 +204,11 @@
 			<div class="card-body">
 				<h4 class="card-title">프로젝트 예정 마감일</h4>
 				<p class="text-muted">프로젝트 마감 예정일을 설정해주세요.</p>
-				<div class="row form-material">
-					<div class="col-md-6">
-						<input id="mng_proj_end" class="datePick form-control" type="text">
+				<div class="proj-finish-date form-material">
+					<input id="mng_proj_end" class="datePick form-control" type="text">
+					<div class="proj-close-btns">
+						<button class="btn btn-success">열기</button>
+						<button class="btn btn-danger">마감</button>
 					</div>
 				</div>
 			</div>
@@ -371,17 +373,18 @@
 		</div>
 
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+

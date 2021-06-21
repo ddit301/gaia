@@ -58,7 +58,7 @@
 	 	<div class="news">
        		<div class="newsheader row">
        			<div class="newsWriter col-md-2">
-       				<img class="profile" alt="newsWriter">
+       				<img class="profile" onerror="imgOnErr()">
        				<span></span>
        			</div>
        			<div class="newsTitle col-md-6">
@@ -102,7 +102,7 @@
 	<div class="news-reply row">
 		<div class="col-md-2">
 			<div class="repwriter row">
-				<img class="profile" alt="repwriter">
+				<img class="profile" onerror="imgOnErr()">
 			</div>
 			<span>Josh</span>
 		</div>

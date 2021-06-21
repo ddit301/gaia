@@ -91,7 +91,7 @@
 			<a class="issueButton" href="javascript:void(0)"></a>                                                       
 		</div>                                                                                          
 	    <div class="issue-writer col-md-1">                                                                  
-			<img class="profile">
+			<img class="profile" onerror="imgOnErr()">
 		</div>                                                                                      
 	    <div class="issue-priority col-md-1"></div>                                                       
 		<div class="issue-label col-md-1"></div>                                                           

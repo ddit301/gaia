@@ -169,7 +169,7 @@
 					</div>  
 					<div class="col-md-1"></div>                                                                                         
 				    <div class="issue-writer col-md-1">                                                                  
-						<img class="profile">  
+						<img class="profile" onerror="imgOnErr()">  
 					</div>                                                                                      
 				    <div class="issue-priority col-md-1"></div>                                                       
 					<div class="issue-label col-md-1"></div>  
@@ -184,7 +184,7 @@
             
 <script>
 	$(function(){
-       	milest_no = '${milest_no}';
+       	milest_no = getUrlParameter();
 
        	issue_status = null;
        	milestObject = null;

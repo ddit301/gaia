@@ -223,7 +223,7 @@ group by milest_title;
 -- a. member 닉네임과 project 이름으로 (url) 프로젝트 번호 알아내기
 -- b. 특정 회원이 속한 프로젝트 목록 조회하기
 -- c. 프로젝트 관리 위해 프로젝트 정보 불러오기
-
+-- d. code 페이지 위한 프로젝트 정보 조회
 -----------------------------------------------------------------------------------
 
 -- a. member 닉네임과 project 이름으로 (url) 프로젝트 번호 알아내기
@@ -260,7 +260,18 @@ where project.proj_no = 1
 order by label_no, mem_role_no;
 
 --------------------------------------------------------------------------------
+-- d. code 페이지 위한 프로젝트 정보 조회
 
+select project.proj_no, proj_title, proj_cont, proj_Start_date, proj_est_end_date, proj_status
+        ,manager.mem_no as PROJ_MNG_NO, manager.proj_user_nick as MNG_NICK
+        ,member.mem_no as MEMBER_NO, member.proj_user_nick as MEMBER_NICK, mem_role.mem_role_nm as MEM_ROLE
+from project
+    inner join proj_mem manager on project.mem_no = manager.mem_no and project.proj_no = manager.proj_no
+    inner join proj_mem member on project.proj_no = member.proj_no
+    inner join mem_role on (member.mem_role_no = mem_role.mem_role_no)
+where project.proj_no = 1
+        and member.proj_drop_date is null
+order by member.mem_role_no;
 
 
 -----------------------------------------------------------------------------------
@@ -270,7 +281,7 @@ order by label_no, mem_role_no;
 -----------------------------6. Member------------------------------------------
 -- a. 특정 프로젝트에 속한 멤버 목록 불러오기
 -- b. 특정 프로젝트에 속하지 않은 멤버 검색하기
-
+-- c. 개인 멤버 페이지 조회용 멤버 받아오기
 
 -----------------------------------------------------------------------------------
 -- a. 특정 프로젝트에 속한 멤버 목록 불러오기
@@ -303,6 +314,59 @@ where mem_no not in (select mem_no from memlist)
 order by mem_no;
 
 -----------------------------------------------------------------------
+-- c. 개인 멤버 페이지 조회용 멤버 받아오기
+with issuecnt as(
+    select count(*)
+    from issue
+    where mem_no = 4
+)
+,milestonecnt as(
+    select count(*)
+    from milestone
+    where mem_no = 4
+)
+,newscnt as(
+    select count(*)
+    from news
+    where mem_no = 4
+)
+,newscomcnt as(
+    select count(*)
+    from news_comment
+    where mem_no = 4
+)
+,issueassigneecnt as(
+    select count(*)
+    from issue_assignee
+    where mem_no = 4
+)
+,memchatcnt as(
+    select count(*)
+    from mem_chat
+    where mem_no = 4
+)
+select member.mem_id, member.mem_nick, member.mem_tel, member.mem_pic_file_name
+        , member.mem_sign_date, member.mem_quit_date, member.mem_nm, member.mem_bio, member.mem_working_city, member.mem_status
+        , proj_join_date, proj_drop_date, proj_user_nick
+        , manager.mem_id as proj_managerid, proj_title, proj_cont, proj_start_date, proj_est_end_date, proj_status
+        , (select * from issuecnt) as issuecnt
+        , (select * from newscnt) as newscnt
+        , (select * from newscomcnt) as newscomcnt
+        , (select * from milestonecnt) as milestonecnt
+        , (select * from issueassigneecnt) as issueassigneecnt
+        , (select * from memchatcnt) as memchatcnt
+from member
+    left outer join proj_mem on (member.mem_no = proj_mem.mem_no)
+    left outer join project on (proj_mem.proj_no = project.proj_no)
+    left outer join member manager on (project.mem_no = manager.mem_no)
+where member.mem_no = 4;
+
+
+
+-----------------------------------------------------------------------
+
+
+
 
 
 

@@ -11,6 +11,6 @@ public interface CommonCodeService {
 	 */
 	public Map<String, String> getCodeMap(String com_code_grp);
 	
-	public List<Map<String, Object>> selectMenuList(int proj_no);
+	public List<Map<String, Object>> selectMenuList(Integer proj_no);
 	
 }

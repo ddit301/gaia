@@ -1,5 +1,5 @@
 package best.gaia.utils.enumpkg;
 
 public enum ServiceResult {
-	OK, FAIL, NOTEXIST, INVALIDPASSWORD, PKDUPLICATED
+	OK, FAIL, NOTEXIST, INVALIDPASSWORD, PKDUPLICATED, HASCHILD
 }
