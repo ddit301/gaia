@@ -58,12 +58,6 @@ public class IssueREST {
 	@Inject
 	private IssueDao dao;
 	@Inject
-	private MilestoneDao milestoneDao;
-	@Inject
-	private MemberDao memberDao;
-	@Inject
-	private ProjectDao projectDao;
-	@Inject
 	private KanbanDao kanbanDao;
 	@Inject
 	private WebApplicationContext container;
@@ -81,9 +75,38 @@ public class IssueREST {
 			HttpSession session
 			,@ModelAttribute PagingVO<IssueVO> pagingVO
 			,@ModelAttribute IssueVO detailSearch
+			,@RequestParam Optional<String> searchKey
+			,@RequestParam Optional<Integer> searchValue
 			) {
+		
 		// session 에서 프로젝트 번호를 받아와 detailSearch에 등록합니다.
 		detailSearch.setProj_no(getProjNoFromSession(session));
+		
+		// searchKey 와 searchValue가 있을 경우 detailSearch에 등록 합니다.
+		if(searchKey.isPresent() && searchValue.isPresent()) {
+			
+			switch(searchKey.get()) {
+			case "label_no": 
+				detailSearch.setLabel_no(searchValue.get());
+				break;
+			case "writer_no":
+				detailSearch.setMem_no(searchValue.get());
+				break;
+			case "priority":
+				detailSearch.setIssue_priority(searchValue.get());
+				break;
+			case "milest_sid":
+				detailSearch.setMilest_sid(searchValue.get());
+				break;
+			case "mem_no" :
+				// 이슈 담당자 관련 프로퍼티가 없어서 progress를 빌린다.
+				detailSearch.setProgress(searchValue.get());
+				break;
+			default:
+				break;
+			}
+		}
+		
 		pagingVO.setDetailSearch(detailSearch);
 		
 		// issueList 를 받아와 pagingVO 에 담는다.

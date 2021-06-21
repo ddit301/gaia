@@ -73,6 +73,34 @@ $(function(){
 	$('body').on('click', '.many-issue-close button', function(){
 		closeManyIssues();
 	})
+	
+	
+	// 이슈 라벨별 필터링 기능 
+	$('body').on('click', '.issue-header .labeldrop-area .dropdown-menu a', function(){
+		let label_no = $(this).data('label_no');
+		loadIssueList('label_no',label_no)
+	})
+	// 이슈 작성자 필터링 기능 
+	$('body').on('click', '.issue-header .writerdropArea .dropdown-menu a', function(){
+		let mem_no = $(this).data('mem_no');
+		loadIssueList('writer_no',mem_no)
+	})
+	// 이슈 중요도 필터링 기능 
+	$('body').on('click', '.issue-header .prioritydropArea .dropdown-menu a', function(){
+		let priority = $(this).data('priority');
+		loadIssueList('priority',priority)
+	})
+	// 이슈 마일스톤 필터링 기능 
+	$('body').on('click', '.issue-header .miledropArea .dropdown-menu a', function(){
+		let milest_sid = $(this).data('milest_sid');
+		loadIssueList('milest_sid',milest_sid)
+	})
+	// 이슈 담당자 필터링 기능 
+	$('body').on('click', '.issue-header .assigneedropArea .dropdown-menu a', function(){
+		let mem_no = $(this).data('mem_no');
+		loadIssueList('mem_no',mem_no)
+	})
+	
 
 	////////////////////////////////////////////////////
 	//
@@ -315,13 +343,15 @@ $(function(){
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 // 이슈 목록 불러오는 함수
-const loadIssueList = function(){
+const loadIssueList = function(searchKey, searchValue){
     $.ajax({
 		url : getContextPath() + '/restapi/project/issues',
 		type : 'get',
 		data : {
 			'issue_status' : issue_status
 			,'currentPage' : currentPage
+			,'searchKey' : searchKey
+			,'searchValue' : searchValue
 		},
 		success : function(res) {
 			$('#issuelist').empty();
@@ -910,7 +940,7 @@ const loadIssueComponents = function(){
 	miledropArea.empty();
 	$.each(milestones, function(i, milestone){
 		let miledrop = templateArea.find('.miledrop').clone();
-		miledrop.attr('milest_sid', milestone.milest_sid);
+		miledrop.attr('data-milest_sid', milestone.milest_sid);
 		miledrop.text(milestone.milest_title);
 		miledropArea.append(miledrop);
 	})
