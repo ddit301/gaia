@@ -32,9 +32,9 @@
 					<div class="col-md-9">
 						<div class="chat-top row">
 							<div class="col-md-3 log-img-center chat-img chat_img">
-								<img class="rounded-circle profile_img img-center pro_img chat-top-img-size" height="50" width="50" src="">
-								<img class="rounded-circle profile_img img-left pro_img chat-top-img-size" height="50" width="50" src="">
-								<img class="rounded-circle profile_img img-right pro_img chat-top-img-size" height="50" width="50" src="">
+								<img class="rounded-circle profile_img img-center pro_img chat-top-img-size" onerror="imgOnErr()" height="50" width="50" src="">
+								<img class="rounded-circle profile_img img-left pro_img chat-top-img-size" onerror="imgOnErr()" height="50" width="50" src="">
+								<img class="rounded-circle profile_img img-right pro_img chat-top-img-size" onerror="imgOnErr()" height="50" width="50" src="">
 							</div>
 							<div class="col-md-6 membersId">
 								<span></span>
@@ -60,9 +60,9 @@
 						<div class="chat-room-right">
 							<div class="chat-room-position-above">
 								<div class="log-img-center chat-img chat_img">
-									<img class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
-									<img class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
-									<img class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">
+									<img onerror="imgOnErr()" class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
+									<img onerror="imgOnErr()" class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
+									<img onerror="imgOnErr()" class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">
 								</div>
 							</div>
 							<div class="chat-room-position-under">
@@ -104,10 +104,10 @@
 	<li class="chatRoom" >
 		<div class="card">
 			<div class="row chatList-card-body">
-				<div class="col-md-5 log-img-center chat-img pr-0"">
-					<img class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
-					<img class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
-					<img class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">
+				<div class="col-md-5 log-img-center chat-img pr-0">
+					<img onerror="imgOnErr()" class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
+					<img onerror="imgOnErr()" class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
+					<img onerror="imgOnErr()" class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">
 			   	</div>
 		   	 	<div class="col-md-7 pr-0">
 			        <div class="log-card-actor">
