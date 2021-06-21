@@ -16,4 +16,5 @@ public interface CalendarDao {
 	public List<LabelVO> labelList(int proj_no);
 	public int updateIssueStatus(Map<String, Object> issueSidStatus);
 	public int updateMilestoneStatus(Map<String, Object> milestSidStatus);
+	public int updateIssueDate(Map<String, Object> issueInfo);
 }

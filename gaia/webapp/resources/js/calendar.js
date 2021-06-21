@@ -11,19 +11,25 @@
  * Copyright (c) 2021 by Team Gaia All right reserved
  * </pre>
  */
-const issueMilestoneInfoForCalendar = function(){
-	let arr;
+$(function(){
+	$(".body").on("click","button.fc-prev-button",function() {
+	    var date = jQuery("#calendar").fullCalendar("getDate");
+		console.log(date)
+	    convertDate(date);
+	});	
+})
+const issueMilestoneInfoForCalendar = function(status){
+	console.log("issueMilestoneInfoForCalendar");
+	status = CheckNullUndefined(status) ? 1 : status;
 	$.ajax({
 		url : getContextPath()+"/restapi/project/calendar",
 		method : 'get',
 		success : function(res) {
-			scrollUp();
 			console.log(res);
-			// closed"0", open"1", 공백  으로 status를 표시할 수 있다.
-			CheckNullUndefined(status) ? arr=addCalendarArray(res, ) : arr=addCalendarArray(res, status);
+			scrollUp();
 			
-			console.log(arr);
-			calendar(arr, status);
+			// open / close;
+			reCal(res, status);
 		},
 		async : false
 		, error : function(xhr, error, msg) {
@@ -36,18 +42,15 @@ const issueMilestoneInfoForCalendar = function(){
 // 조건 부여하기.
 const addCalendarArray = function(res, status){
 	let arr = [];
-	console.log(status);
-	// open, close, all
-	// status 가 undefined이면 모두 보여주기 - param을 넘기지 않으면 됨.
-	// 0이면 0인 녀석들만 보여주기 1이면 1인 녀석들만 보여주기.
+	// open, close, all 별로 출력할 item들 걸러주기
 	$.each(res.milestoneList, function(i, milest){
 		!CheckNullUndefined(status) ? 
 				(milest.milest_status==status ? printChart(milest, arr,status) : null) :  printChart(milest, arr);
-	})
+	});
 	$.each(res.issueList, function(i, issue){
 		!CheckNullUndefined(status) ? 
 				(issue.issue_status==status ? printChart(issue, arr,status) : null) :  printChart(issue, arr);
-	})
+	});
 	return arr;
 }
 
@@ -91,15 +94,44 @@ const printChart = function(name, arr, total_status){
 		}
 	}
 }
-const calendar = function(arr){
+// 출력 함수
+const reCal = function(res, status){
+	console.log("reCal");
+	let arr;
+	CheckNullUndefined(status) ? arr=addCalendarArray(res, ) : arr=addCalendarArray(res, status);
+	calendar(arr, res);
+}
+const calendar = function(arr, res){
+	let isChanged = false;
 	let currentTime = new Date();
 	currentTime = moment(currentTime).format('YYYY-MM-DD');
     var calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
+	  customButtons: {
+	    openBtn: {
+	      text: 'open',
+	      click: function() 
+			// 값이 변경 했을 경우만 ajax 호출 변경하지 않을 경우 기존의 결과로출력(퍼포먼스)
+			isChanged ? issueMilestoneInfoForCalendar(1) : reCal(res, 1);
+	      }
+	    },
+	    closedBtn: {
+	      text: 'closed',
+	      click: function() {
+			isChanged ? issueMilestoneInfoForCalendar(0) : reCal(res, 0);
+	      }
+	    },
+	    allBtn: {
+	      text: 'all',
+	      click: function() {
+	        isChanged ? issueMilestoneInfoForCalendar() : reCal(res, );
+	      }
+	    }
+	  },
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: 'openBtn,closedBtn,allBtn dayGridMonth,timeGridWeek,timeGridDay'
       },
       initialDate: currentTime,
       navLinks: true, // can click day/week names to navigate views
@@ -107,78 +139,53 @@ const calendar = function(arr){
       selectMirror: true,
      
       select: function(arg) {
-        var title = prompt('Event Title:');
-        if (title) {
-          calendar.addEvent({
-            title: title,
-            start: arg.start,
-            end: arg.end,
-            allDay: arg.allDay
-          })
-        }
+//        var title = prompt('Event Title:');
+//        if (title) {
+//          calendar.addEvent({
+//            title: title,
+//            start: arg.start,
+//            end: arg.end,
+//            allDay: arg.allDay
+//          })
+//        }
         calendar.unselect()
       },
       eventClick: function(arg) {
+		isChanged = true;
 		console.log(arg)
 		if(CheckNullUndefined(arg.event.extendedProps.total_status)){
-			console.log("show All")
     		closeOrOpenAlert(arg, );
 		}else{
-			console.log("show open/close")
 			closeOrOpenAlert(arg, arg.event.extendedProps.total_status);
 		}
       },
+	  eventDrop: function (arg) {
+		isChanged = true;
+		updateStatus(arg,null, "yes");
+		toastr.success('Update에 성공했습니다.')
+      },
+      eventResize: function (arg) {
+		isChanged = true;
+		console.log(arg.endDelta);
+		toastr.success('Update에 성공했습니다.')
+      },
       editable: true,
+	  droppable : true, 
       dayMaxEvents: true, // allow "more" link when too many events
       events: arr
-
-//       [
-//         {
-//           title: 'All Day Event',
-//           start: '2021-09-01'
-//         },
-//         {
-//           title: 'Long Event',
-//           start: '2021-09-07',
-//           end: '2021-09-10'
-//         },
-//         {
-//           groupId: 999,
-//           title: 'Repeating Event',
-//           start: '2021-09-09T16:00:00'
-//         },
-//         {
-//           groupId: 999,
-//           title: 'Repeating Event',
-//           start: '2021-09-16T16:00:00'
-//         },
-//         {
-//           title: 'Conference',
-//           start: '2021-09-11',
-//           end: '2021-09-13'
-//         },
-//         {
-//           title: 'Meeting',
-//           start: '2021-09-12T10:30:00',
-//           end: '2021-09-12T12:30:00'
-//         },
-//         {
-//           title: 'Click for Google',
-//           url: 'http://google.com/',
-//           start: '2021-09-28'
-//         }
-//       ]
     });
     calendar.render();
 }
 
 // 클릭 시 해당 메뉴를 닫을지 열것인지 알러트
 const closeOrOpenAlert = function(arg, isShowAll){
-	let status_value = "CLOSE";
+	
 	// self_status 가 1이면 0으로 0 이면 1로 변경
 	let toBeStatus = Number(arg.event.extendedProps.self_status) ? 0 : 1;
 	
-	arg.event.extendedProps.self_status == 0 ? status_value : status_value="OPEN"; 
+	// self_status 가 1(open)이면 closed할거냐 묻고 0(closed)이면 open할거냐고 묻기 
+	let status_value = 
+			Number(arg.event.extendedProps.self_status) ? "OPEN": "CLOSED"; 
 	  
 	swalWithBootstrapButtons = Swal.mixin({
 		customClass: {
@@ -197,32 +204,45 @@ const closeOrOpenAlert = function(arg, isShowAll){
 		reverseButtons: false
 	}).then((result) => {
 		if (result.isConfirmed) {
-			// update
-			let result = updateStatus(arg.event.extendedProps.menu, arg.event.extendedProps.sid, 
-									toBeStatus);
+			// update 실행시키기.
+			let result = updateStatus(arg,toBeStatus, null);
 			if(result != 0){
-				// false면 open/close.  true는 undefined
+				// false면 open/close. true는 undefined
 				CheckNullUndefined(isShowAll) ?  null : arg.event.remove();
 				swal.success();
+				toastr.success("["+arg.event.extendedProps.menu+"] '"+arg.event.title+"'가 "+status_value+" 되었습니다.")
+			}else{
+				toastr.error('Update에 실패했습니다.')
 			}
 		}
 	})
 }
+// 날짜 계산 
+const dateCal = function(arg){
+	console.log(arg);
+	// 0이면 else로.
+	if(arg.delta.months){
+		console.log("bbbbb");
+	}else{
+		console.log("aaaaa");
+	}
+}
 
-
-const updateStatus = function(menu, sid, status){
-	menu = menu.toLowerCase();
-	console.log(menu);
+// update
+const updateStatus = function(arg, toBeStatus, isChangeDate){
+	console.log(arg);
+	let data = {};
+	data["_method"] = "put";
+	data["need"] =  arg.event.extendedProps.menu.toLowerCase();
+	data["sid"] = arg.event.extendedProps.sid;
+	CheckNullUndefined(isChangeDate) ?  
+			(data["status"]=toBeStatus) : (data["isChangeDate"]=isChangeDate, (data["changedDate"]=dateCal(arg));
 	
+	console.log(data)
 	$.ajax({
 		url : getContextPath()+"/restapi/project/calendar",
 		method : "post",
-		data : {
-			"_method" : "put",
-			"need" : menu,
-			"sid" : sid,
-			"status" : status
-		},
+		data : data,
 		success : function(res) {
 			console.log(res);
 		},

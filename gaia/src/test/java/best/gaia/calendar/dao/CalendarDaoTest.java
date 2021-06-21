@@ -58,7 +58,7 @@ public class CalendarDaoTest {
 	/**
 	 * Test method for {@link best.gaia.calendar.dao.CalendarDao#selectMilestoneByProj_no(int)}.
 	 */
-	@Test
+//	@Test
 	public void testUpdateIssue() {
 		Map<String, Object> issueSidStatus = new HashedMap();
 		issueSidStatus.put("issue_sid", 122);
@@ -67,12 +67,13 @@ public class CalendarDaoTest {
 		System.out.println(result);
 	}
 
-	/**
-	 * Test method for {@link best.gaia.calendar.dao.CalendarDao#labelList(int)}.
-	 */
-//	@Test
-	public void testLabelList() {
-		fail("Not yet implemented");
+	@Test
+	public void testUpdateDate() {
+		Map<String, Object> issueSidStatus = new HashedMap();
+		issueSidStatus.put("issue_sid", 14);
+		issueSidStatus.put("issue_status", 1);
+		int result = dao.updateIssueStatus(issueSidStatus);
+		System.out.println(result);
 	}
 
 }

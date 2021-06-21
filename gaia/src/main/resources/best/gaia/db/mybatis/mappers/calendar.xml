@@ -44,5 +44,11 @@
 		UPDATE MILESTONE
 		SET MILEST_STATUS = ${status}
 		WHERE MILEST_SID = ${sid}
+	</update>
+	<update id="updateIssueDate" parameterType="java.util.Map">
+		UPDATE ISSUE
+		SET ISSUE_START_DATE = ${issue_start_date}, ISSUE_END_DATE = ${issue_end_date}
+		WHERE ISSUE_SID = ${sid}
+		
 	</update>	
 </mapper>

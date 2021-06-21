@@ -79,12 +79,15 @@ public class CalendarREST {
 		logger.info("Put in");
 		logger.info("need : {}", need);
 		logger.info("dataMap : {}", dataMap);
-		if("issue".equals(need)) {
-			result = dao.updateIssueStatus(dataMap);
-		}else if("milestone".equals(need)) {
-			result = dao.updateMilestoneStatus(dataMap);
+		if("yes".equals(dataMap.get("isChangeDate"))) {
+			result = 3;
+		}else {
+			if("issue".equals(need)) {
+				result = dao.updateIssueStatus(dataMap);
+			}else if("milestone".equals(need)) {
+				result = dao.updateMilestoneStatus(dataMap);
+			}
 		}
 		return result;
 	}
-	
 }
