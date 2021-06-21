@@ -7,19 +7,22 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <link href="${cPath }/resources/assets/css/news.css" rel="stylesheet">
     
-            <div class="container-fluid">
-            	<div id="newsmenu" class="row">
-            		<div class="col-md-10">
-            		</div>
-            		<div class="col-md-2">
-	            		<button type="button" class="btn mb-1 btn-rounded btn-outline-dark" data-toggle="modal" data-target="#exampleModal">뉴스추가</button>
-            		</div>
-            	</div>
-            	<div id="newsContainer">
-            	</div>
-            </div>
+    
+<div class="container-fluid">
+	<div id="newsmenu" class="row">
+		<div class="col-md-12">
+	 		<button type="button" class="btn mb-1 btn-rounded btn-outline-dark" data-toggle="modal" data-target="#exampleModal">뉴스추가</button>
+		</div>
+	</div>
+	<div id="newsContainer">
+	</div>
+</div>
+
+<!-- <div id="top" style="display: hidden;"> -->
+<div id="top" hidden="true" >
+	<i class="icon-arrow-up-circle"></i>
+</div>
             
             
 <!-- 뉴스 작성 Modal -->
@@ -52,45 +55,40 @@
 </div>
 <div id="editor"></div>
 
+
+<!-- 뉴스 관련 템플릿들  -->
 <div id="news-template" hidden="hidden" >
-
-	<!-- news template start -->
-	 	<div class="news">
-       		<div class="newsheader row">
-       			<div class="newsWriter col-md-2">
-       				<img class="profile" onerror="imgOnErr()">
-       				<span></span>
-       			</div>
-       			<div class="newsTitle col-md-6">
-       				<p></p> 
-       			</div>
-       			<div class="newsTime col-md-3">
-       				<span></span>
-       			</div>
-       			<div class="col-md-1">
-       				<i class="icon-options menu-icon"></i>
-       			</div>
-       		</div>
-       		<div class="newsBody row">
-       			<div class="news-left col-md-6">
-       				<img alt="">
-       			</div>
-       			<div class="news-right col-md-6">
-
-       				<div class="newsReplyArea">
-       				</div>
-      					<div class="news-writebox row">
-      						<div class="col-md-10">
-      							<input type="text">
-      						</div>
-      						<div class="col-md-2">
-      							<button class="news-rep-reg btn" type="button" class="btn">등록</button>
-      						</div>
-      					</div>
-       			</div>
-       		</div>
-       	</div>
-	<!-- news template end -->
+ 
+ <!-- 	newscard 시작 -->
+	<div class="news card">
+		<div class="newsheader row">
+			<div class="mem-overview-card col-md-2">
+				<img class="profile" onerror="imgOnErr()" src="/resources/images/profiles/4">
+				<span>팀장 꼬북</span>
+			</div>
+			<div class="newstitle col-md-9">
+				<span class="news-title-text">뉴스 제목이 들어갈 자리입니다.</span>
+				<span class="newsWriteTime">3 hours ago</span>
+			</div>
+			<i class="icon icon-settings"></i>
+		</div>
+		<div class="newsBody row">
+			<div class="news-left col-md-6">
+				<img>
+			</div>
+			<div class="news-right col-md-6">
+				<div class="newsReplyArea">
+				</div>
+				<div class="news-writebox row">
+					<div class="col-md-10">
+						<input type="text">
+					</div>
+					<button class="news-rep-reg btn" type="button" class="btn">등록</button>
+    				</div>
+			</div>
+		</div>
+	</div>
+<!-- 	newscard 끝 -->
 	
 	<!-- 	newsContent template -->
 	<div id="contTemplate">
@@ -98,19 +96,17 @@
 		</div>
 	</div>
 
-	<!-- news reply template start-->
+	<!-- 					news reply 시작 -->
 	<div class="news-reply row">
 		<div class="col-md-2">
-			<div class="repwriter row">
-				<img class="profile" onerror="imgOnErr()">
-			</div>
-			<span>Josh</span>
+			<img class="profile" src="/resources/images/profiles/4" onerror="imgOnErr()">
+			<p>팀장 꼬북</p>
 		</div>
-		<div class="repcont col-md-10">
-			<p></p>
+		<div class="col-md-10">
+			<span>댓글 내용</span>
 		</div>
 	</div>
-	<!-- news reply template end-->
+<!-- 					news reply 끝 -->
 	
 </div>
 
@@ -123,12 +119,22 @@
  	
 	//스크롤 바닥 감지 무한스크롤 코드 
 	window.onscroll = function(e) {
+		
 		let currUrl = window.location.href;
 		//news 페이지가 아니면 동작하지 않게끔 한다.
 		if(currUrl.substring(currUrl.lastIndexOf('/')+1) != 'news') 
 			return false;
+		
+		// 스크롤이 내려왔을때는 위로 올라가는 버튼 보여준다. 
+		if(window.innerHeight < window.scrollY){
+			$('#top').attr('hidden', false);
+		}else{
+			$('#top').attr('hidden', true);
+		}
+		
 	    //window height + window scrollY 값이 document height보다 클 경우,
 	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+			
 	    	if(currentPage < totalPage ){
 		    	//실행할 로직 (콘텐츠 추가)
 		        currentPage = currentPage + 1;
@@ -136,12 +142,9 @@
 	    	}
 	    }
 	};
-           	
 	
  	///////////////////////////////////////////////////////////////
- 	//////////								///////////////////////
  	//////////		on ready functions 		///////////////////////
- 	//////////								///////////////////////
  	///////////////////////////////////////////////////////////////
 	$(function(){
 		
@@ -165,178 +168,13 @@
 		
 		// 페이지 로드시 일단 뉴스 1페이지 로드
 		loadNews(currentPage);
-		
-		$('#saveNewsBtn').on('click', function(){
-			news_title = $('#news-title-input').val();
-			news_content = editor.getMarkdown();
-			// 뉴스 insert 하기
-			$.ajax({
-				url : getContextPath()+'/restapi/project/news',
-				method : 'post',
-				data : {
-					'news_title' : news_title
-					,'news_cont' : news_content
-				},
-				success : function(res) {
-					// toastr 알람
-					toastr.success('새로운 뉴스 등록에 성공했습니다.')
-					
-					// 에디터 비우기
-					$('#news-title-input').val('');
-					editor.reset();
-					// 모달 닫기
-					$('#exampleModal').modal('hide')
-					
-					// 비동기로 새로운 뉴스 생성해 위에 붙여주기
-					let news = getNewsObectWithJson(res.news);
-					$('#newsContainer').prepend(news);
-					
-				},
-				error : function(xhr, error, msg) {
-					ajaxError(xhr, error, msg);
-				},
-				dataType : 'json'
-			})
-			
-		})
-		
-		
+
 		// title과 editor의 내용이 있을 때만 save 버튼 활성화
 		editor.on('change', function(){
-			checkValidation();
+			checkNewsValidation();
 		});
-		$('#news-title-input').on('input', function(){
-			checkValidation();
-		});
-		
-		// 뉴스 댓글 등록 이벤트
-		$('#newsContainer').on('click', '.news-rep-reg', function(){
-			let selectedNews = $(this).parents('.news');
-			let news_sid = selectedNews.data('news_sid');
-			let news_com_cont =  selectedNews.find('.news-writebox').find('input').val();
-			// 댓글 내용이 없으면 댓글 등록이 되지 않는다.
-			if(news_com_cont.length == 0){
-				toastr.error('댓글 내용을 입력해주세요.');
-				return false;
-			}
-			$.ajax({
-				url : getContextPath() + '/restapi/project/news-comments',
-				method : 'post',
-				data : {
-					'news_sid' : news_sid
-					,'news_com_cont' : news_com_cont
-				},
-				success : function(res) {
-					// toastr 알람
-					toastr.success('새로운 댓글 등록에 성공했습니다.')
-					let comm = getNewsCommentObjectWithJson(res.newsComment);
-					selectedNews.find('.newsReplyArea').append(comm);
-					selectedNews.find('.news-writebox').find('input').val('');
-				},
-				error : function(xhr, error, msg) {
-					console.log(xhr);
-					console.log(error);
-			 		console.log(msg);
-					if (xhr.status == 401) {
-						toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-						setTimeout(function() {
-							window.location.href = getContextPath()
-						}, 2000);
-					}
 
-				},
-				dataType : 'json'
-			})
-		});
-		
 	})
-	
-///////////////////////////////////////////////////////////////
-//////////								///////////////////////
-//////////		declared functions 		///////////////////////
-//////////								///////////////////////
-///////////////////////////////////////////////////////////////
- 	
-// 뉴스 글 작성할때 제목, 내용 둘다 있는지 확인	
-var checkValidation = function(){
-	let titleLength = $('#news-title-input').val().length;
-	let contLength = editor.getMarkdown().length;
-	if( titleLength * contLength > 0 ){
-		$('#saveNewsBtn').prop('disabled', false);
-	}else{
-		$('#saveNewsBtn').prop('disabled', true);
-	}
-}	
-
-// 뉴스 불러올때와 뉴스 새로 작성했을때 화면에 뉴스 객체 렌더링 용
-var getNewsObectWithJson = function(v){
-	let news = $('#news-template').children('.news').clone();
-	
-	news.find('.newsTitle').children('p').text(v.news_title);
-	// 새로 작성한 글에는 v.writer 가 없습니다. 쿠키에서 접속자의 프로젝트 닉네임 정보를 받아와 기록해야 합니다. 프로필 사진 이름도 쿠키에서 받아옵니다.
-	if(v.writer){
-		news.find('.newsWriter').children('span').text(v.writer.mem_nick);
-		news.find('.newsWriter').children('img').attr('src', getProfilePath(v.writer.mem_pic_file_name));
-	}else{
-		news.find('.newsWriter').children('span').text(proj_user_nick);
-		news.find('.newsWriter').children('img').attr('src', getProfilePath(mem_pic_file_name));
-	}
-	news.find('.newsTime').children('span').text(moment(v.news_write_date == null ? new Date() : v.news_write_date).fromNow());
-	news.attr('data-news_sid',v.news_sid);
-	
-	viewer.setMarkdown(v.news_cont);
-	let newsContent = $('#contTemplate').children('div').clone();
-	
-	if(v.atch_file_sid!=null){
-		news.find('.news-right').prepend(newsContent);
-	}else{
-		news.find('.news-left').html(newsContent);
-	}
-	
-	$.each(v.commentList, function(j, comm){
-		let newsComm = getNewsCommentObjectWithJson(comm);
-		news.find('.newsReplyArea').append(newsComm);
-	})
-	
-	return news;
-}
-// 뉴스 댓글 렌더링 하는 함수도 따로 만들어서 재활용 가능하게끔 
-var getNewsCommentObjectWithJson = function(comm){
-	let newsComm = $('#news-template').children('.news-reply').clone();
-	newsComm.children('.repcont').children('p').text(comm.news_com_cont);
-	newsComm.attr('data-com_no',comm.news_com_no);
-	// 댓글 불러오는게 아닌 새로운 댓글 작성시에는 commentWriter 가 비어있다. 
-	if(comm.commentWriter){
-		newsComm.find('span').text(comm.commentWriter.mem_nick);
-		newsComm.find('.repwriter').children('img').attr('src', getProfilePath(comm.commentWriter.mem_pic_file_name));
-	}else{
-		newsComm.find('span').text(proj_user_nick);
-		newsComm.find('.repwriter').children('img').attr('src', getProfilePath(mem_pic_file_name));
-	}
-	return newsComm;
-}
-
-// news 불러와 화면에 출력하는 함수
-loadNews = function(currentPage){
-	$.ajax({
-		url : getContextPath() + '/restapi/project/news',
-		type : 'get',
-		data : {
-			'currentPage' : currentPage
-		},
-		success : function(res) {
-			totalPage = res.totalPage;
-			$.each(res.dataList, function(i,v){
-				let news = getNewsObectWithJson(v);
-				$('#newsContainer').append(news);
-			})
-		},
-		error : function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
-		},
-		dataType : 'json'
-	})
-}
 				
  </script>
             

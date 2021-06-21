@@ -163,6 +163,10 @@ const scrollUp = function(){
 const getProfilePath = function (filename) {
 	return getContextPath() + '/resources/images/profiles/' + (filename==null ? 'default' : filename);
 }
+// 뉴스 사진 이름을 넣으면 경로를 반환 해주는 함수
+const getNewsPath = function (filename) {
+	return getContextPath() + '/resources/images/news/' + (filename==null ? 'default' : filename);
+}
 
 // 프로젝트 닉네임 쿠키에서 받아오기
 const getProjNickFromCookie = function(){

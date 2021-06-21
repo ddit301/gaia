@@ -41,6 +41,7 @@
 	<script src="${cPath }/resources/js/milestone.js"></script>
 	<script src="${cPath }/resources/js/wiki.js"></script>
 	<script src="${cPath }/resources/js/alarm.js"></script>
+	<script src="${cPath }/resources/js/news.js"></script>
 	<script src="${cPath }/resources/js/websocket.js"></script>
 	<script src="${cPath }/resources/js/member.js"></script>
 	<script src="${cPath }/resources/js/chat.js"></script>
