@@ -104,7 +104,7 @@
 </div>
             
 <script>
-	issue_status = null;
+	issue_status = 0;
 	currentPage = 1;
 	startPage = null;
 	endPage = null;

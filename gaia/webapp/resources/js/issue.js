@@ -703,8 +703,9 @@ const editIssue = function(editpart, parameter){
 		success : function(history) {
 			toastr.success('변경되었습니다.');
 			issue_history = $('#issue-template').children('.issue-change').clone();
-			issue_history.find('span').text(historyTypeToText(history));
+			issue_history.find('.issue-edit-history').find('span').text(historyTypeToText(history));
 			issue_history.find('.profile').attr('src',getProfilePathFromCookie());
+			issue_history.find('.edittime').text(moment().fromNow());
 			$('#issue-body-cont').append(issue_history);
 		},
 		error : function(xhr, error, msg) {

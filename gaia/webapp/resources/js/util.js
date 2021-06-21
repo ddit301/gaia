@@ -29,6 +29,22 @@ $(function(){
 		selecteLanguage(selectedLanguage);
 	})
 	
+	// 프로필 사진 클릭에 대한 처리
+	$('body').on('click', '.profile', function(){
+		// nonlink 클래스를 가졌을 경우 링크를 태우지 않음.
+		if($(this).hasClass('nonlink')){
+			return;
+		}
+		let src = $(this).attr('src');
+		let user_no = src.substring(src.lastIndexOf('/')+1);
+		// 사진 없어서 액박 떴을 경우 data 에서 받아온다.
+		if(user_no == 'default'){
+			user_no = $(this).data('mem_no');
+		}
+		loadPersonalPage(user_no);
+	});
+	
+	
 	//////////////////////////////////////////////////////////////////////////////
 	//
 	//	 Document ready 됐을때 필요한 함수들
@@ -163,6 +179,10 @@ const scrollUp = function(){
 const getProfilePath = function (filename) {
 	return getContextPath() + '/resources/images/profiles/' + (filename==null ? 'default' : filename);
 }
+// 뉴스 사진 이름을 넣으면 경로를 반환 해주는 함수
+const getNewsPath = function (filename) {
+	return getContextPath() + '/resources/images/news/' + (filename==null ? 'default' : filename);
+}
 
 // 프로젝트 닉네임 쿠키에서 받아오기
 const getProjNickFromCookie = function(){
@@ -222,73 +242,12 @@ const toBrTag = function(str){
 	return str? str.replace(/(?:\r\n|\r|\n)/g, '<br>') : '';
 }
 
-//////////////////////////////////////////////////////////////////////////////
-//
-//	 각종 설정
-//
-//////////////////////////////////////////////////////////////////////////////
-
-// toastr 알람 설정
-toastr.options = {
-		  "closeButton": false,
-		  "debug": false,
-		  "newestOnTop": false,
-		  "progressBar": true,
-		  "positionClass": "toast-top-right",
-		  "preventDuplicates": false,
-		  "onclick": null,
-		  "showDuration": "100",
-		  "hideDuration": "1000",
-		  "timeOut": "2000",
-		  "extendedTimeOut": "1000",
-		  "showEasing": "swing",
-		  "hideEasing": "linear",
-		  "showMethod": "fadeIn",
-		  "hideMethod": "fadeOut"
-		}
-		
-// Swal Alert 설정
-var swal = {
-	error : function(data){
-		if(!data){data = { };}
-		Swal.fire({
-			icon: 'error',
-			title: typeof data.title !=='undefined' ? data.title : 'Oops...', 
-			text: !!data.text ? data.text : 'Something went wrong!',
-			showConfirmButton : !!data.confirm ? true : false,
-			timer: 1500
-		})
-	},
-	success : function(data){
-		if(!data){data = { };}
-			Swal.fire({
-				icon: 'success',
-				title: !!data.title ? data.title : 'Success!!',
-				text: !!data.text ? data.text : 'Your work has been saved!',
-				showConfirmButton : !!data.confirm ? true : false,
-				timer: 1500
-			})
-	},
-	warning : function(data){
-		if(!data){data = { };}
-		Swal.fire({
-			icon: 'warning',
-			title: !!data.title ? data.title : 'Oops...', 
-			text: !!data.text ? data.text : 'You should do someting first!',
-			showConfirmButton : !!data.confirm ? true : false,
-			timer: 1500
-		})
-	},
-	info : function(data){
-		if(!data){data = { };}
-		Swal.fire({
-			icon: 'info',
-			title: !!data.title ? data.title : 'Have to know!', 
-			text: !!data.text ? data.text : 'blablabla',
-			showConfirmButton : !!data.confirm ? true : false,
-			timer: 1500
-		})
-	}
+// 이미지 에러일 경우 default 이미지로 바꿔 주면서, mem_no는 data로 기록하도록 해주는 함수.
+const imgOnErr = function(){
+	let target = event.target;
+	let target_mem_no = target.src.substring(target.src.lastIndexOf('/')+1);
+	target.setAttribute('data-mem_no',target_mem_no);
+	target.src = getProfilePath();
 }
 
 // DB 에서 메뉴에 대한 데이터를 받아와 화면에 출력해주는 함수 입니다.
@@ -384,8 +343,28 @@ const selecteLanguage = function(selectedLanguage){
 		
 		
 		
-		
-		
+// 개인별 페이지로 이동하게끔 해주는 함수		
+const loadPersonalPage = function(user_no){
+	
+	// user_no 로 ajax 이용해 user_id 받아온 후 해당 페이지로 이동.
+	
+	$.ajax({
+		url: getContextPath() + '/restapi/member/members/getMemIdFromMemNo.do',
+		type: 'get',
+		data: {
+			'mem_no': user_no
+		},
+		success: function(mem_id) {
+			history.pushState('member-' + 'personalPage', null, getContextPath() + '/' + mem_id);
+			memberMovePage('personalPage')
+		},
+		error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
+		},
+		dataType: 'text'
+	})
+	
+}
 		
 		
 		

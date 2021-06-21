@@ -348,7 +348,9 @@ with issuecnt as(
 select member.mem_id, member.mem_nick, member.mem_tel, member.mem_pic_file_name
         , member.mem_sign_date, member.mem_quit_date, member.mem_nm, member.mem_bio, member.mem_working_city, member.mem_status
         , proj_join_date, proj_drop_date, proj_user_nick
-        , manager.mem_id as proj_managerid, proj_title, proj_cont, proj_start_date, proj_est_end_date, proj_status
+        , manager.mem_id as proj_managerid, member.mem_pic_file_name as managerpic
+        , proj_title, proj_cont, proj_start_date, proj_est_end_date, proj_status
+        , (select count(*) from proj_mem where proj_no = project.proj_no) as projectmemcnount
         , (select * from issuecnt) as issuecnt
         , (select * from newscnt) as newscnt
         , (select * from newscomcnt) as newscomcnt

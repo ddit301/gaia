@@ -20,10 +20,11 @@ public interface KanbanDao {
 	public KanbanCardVO selectCard(int kb_card_no);
 	public Integer getLastCardNo(int kb_col_no);
 	public int insertCard(KanbanCardVO card);
-	public int insertCardWithIssue(KanbanCardVO card);
 	public int updateCard(KanbanCardVO card);
 	public int updateCardContent(KanbanCardVO card);
 	public int deleteCard(KanbanCardVO card);
+	
+	public Integer getFirstColumnNumber(int proj_no);
 	
 	
 }
