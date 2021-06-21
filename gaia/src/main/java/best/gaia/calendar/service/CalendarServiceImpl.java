@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import best.gaia.calendar.dao.CalendarDao;
 import best.gaia.vo.IssueVO;
+import best.gaia.vo.LabelVO;
 import best.gaia.vo.MilestoneVO;
 
 /**
@@ -41,10 +42,12 @@ public class CalendarServiceImpl implements CalendarService{
 	public Map<String, Object> selectMilestoneIssuesByProj_no(int proj_no) {
 		List<IssueVO> issueList = dao.selectIssuesByProj_no(proj_no);
 		List<MilestoneVO> milestoneList = dao.selectMilestoneByProj_no(proj_no);
+		List<LabelVO> labelList = dao.labelList(proj_no);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		result.put("issueList", issueList);
 		result.put("milestoneList", milestoneList);
+		result.put("labelList", labelList);
 		return result;
 	}
 

@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.calendar.dao.CalendarDao">
-	<select id="selectIssuesByProj_no" parameterType="int" resultType="best.gaia.vo.IssueVO">
-		SELECT  ISSUE_SID, ISSUE_NO, MEM_NO, LABEL_NO
-			, MILEST_SID, PROJ_NO, ISSUE_TITLE, ISSUE_CREATE_DATE
+	
+	<resultMap type="best.gaia.vo.IssueVO" id="issueMap" autoMapping="true">
+		<id property="issue_sid" column="ISSUE_SID"/>
+		<association property="label" javaType="best.gaia.vo.LabelVO" autoMapping="false">
+			<id property="label_no" column="LABEL_NO"/>
+			<id property="label_nm" column="LABEL_NM"/>
+			<id property="label_icon" column="LABEL_ICON"/>
+			<id property="label_color" column="LABEL_COLOR"/>
+		</association>
+	</resultMap>
+	<select id="selectIssuesByProj_no" parameterType="int" resultMap="issueMap">
+		SELECT  ISSUE_SID, ISSUE_NO, MEM_NO, ISSUE.LABEL_NO
+			, MILEST_SID, ISSUE.PROJ_NO, ISSUE_TITLE, ISSUE_CREATE_DATE
 			, ISSUE_START_DATE, ISSUE_END_DATE, ISSUE_STATUS
 			, ISSUE_PRIORITY, PROGRESS
+			, LABEL.PROJ_NO, LABEL_NM, LABEL_ICON, LABEL_COLOR
 		FROM ISSUE
-		WHERE PROJ_NO = ${proj_no}
+			LEFT OUTER JOIN LABEL ON (ISSUE.LABEL_NO = LABEL.LABEL_NO)
+		WHERE ISSUE.PROJ_NO = ${proj_no}
 	</select>
 	<select id="selectMilestoneByProj_no" parameterType="int" resultType="best.gaia.vo.MilestoneVO">
 		SELECT MILEST_SID, MEM_NO, PROJ_NO, MILEST_NO
@@ -16,4 +28,11 @@
 		FROM MILESTONE
 		WHERE PROJ_NO = ${proj_no}
 	</select>
+	<select id="labelList" parameterType="int" resultType="best.gaia.vo.LabelVO">
+		SELECT LABEL_NO, PROJ_NO, LABEL_NM 
+			,LABEL_ICON, LABEL_COLOR
+		FROM LABEL
+		WHERE PROJ_NO = ${proj_no}
+	</select>
+	
 </mapper>
