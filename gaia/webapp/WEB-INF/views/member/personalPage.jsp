@@ -9,10 +9,12 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<link href="${cPath }/resources/assets/css/personal.css" rel="stylesheet"> 
+
 <div class="container-fluid personal-profile">
     <div class="row">
         <div class="col-lg-4 col-xl-3">
-            <div class="card side-position-fixed"> 
+            <div class="card side-position-fixed" id="side-profile"> 
                 <div class="card-body">
                     <div class="media align-items-center mb-4">
                         <img class="mr-3 rounded-circle" onerror="imgOnErr()" width="80" height="80" alt="">
@@ -24,33 +26,42 @@
                     <h4>About Me</h4>
                     <p class="text-muted" id="mem_bio">bio</p>
                     <ul class="card-profile__info">
-                        <li class="mb-1"><strong class="text-dark mr-4"><i class="fa fa-star gradient-1-text"></i></strong> <span>ddit301</span></li>
-                        <li><strong class="text-dark mr-4"><i class="mdi mdi-email-outline"></i></strong> <span>name@domain.com</span></li>
+                        <li class="mb-1"><strong class="text-dark mr-4"><i class="fa fa-star gradient-1-text"></i></strong> <span>닉네임</span></li>
+                        <li><strong class="text-dark mr-4"><i class="icon-location-pin icons"></i></strong> <span>지역</span></li>
                     </ul>
-                    <div class="d-flex align-items-center">
-                        <ul class="mb-0 form-profile__icons">
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-user"></i></button>
-                            </li>
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-paper-plane"></i></button>
-                            </li>
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-camera"></i></button>
-                            </li>
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-smile"></i></button>
-                            </li>
-                        </ul>
-                    </div>
+                    	<h4> personal history</h4>	
+                    <ul class="card-profile__info">
+                        <li class="mb-1"><strong class="text-dark mr-4"><i class="icon-notebook icons"></i></strong> <span>이슈담당</span></li>
+                        <li><strong class="text-dark mr-4"><i class="icon-bubbles icons"></i></strong> <span>참여 채팅수</span></li>
+                        <li><strong class="text-dark mr-4"><i class="icon-note icons"></i></strong> <span>작성이슈수</span></li>
+                        <li><strong class="text-dark mr-4"><i class="icon-pencil icons"></i></strong> <span>작성뉴스수</span></li>
+                        <li><strong class="text-dark mr-4"><i class="icon-bulb icons"></i></strong> <span>작성마일스톤수</span></li>
+                        <li><strong class="text-dark mr-4"><i class="icon-plus icons"></i></strong> <span>가입일</span></li>
+                        <li><strong class="text-dark mr-4"><i class="icon-flag icons"></i></strong> <span>상태</span></li>
+                    </ul>
                 </div>
+             
+                
+                
             </div>  
         </div>
-		<div class="col-lg-8 col-xl-9">
-			<div class="card">
+		<div class="col-lg-8 col-xl-9 row" id="projCont">
+			<div class="card col-md-12 row" id="projBody">
+				<div class="projHeader col-md-12">
+				<h1>Project</h1>
+				</div>
+				
 <!-- 				여기에 내용물들을 작성하면 될 듯 합니다. -->
-		    	<div id="personal-page-body" class="container-fluid">
-		        </div>
+		    	<div id="personal-page-content" class="container-fluid row">
+		    		<div class="row col-md-12">
+		    		<div id="personal-page-body" class="container-fluid col-md-12 row">
+		    			
+		    		</div>
+		    		</div>
+				 </div>
+		    	
+		    		
+		       
 		    </div>
 		</div>
     </div>
@@ -91,7 +102,18 @@ $.ajax({
 		let profileArea = $('.personal-profile');
 		profileArea.find('.rounded-circle').attr('src', getProfilePath(member.MEM_PIC_FILE_NAME));
 		profileArea.find('.media-body').find('h3').text(member.MEM_ID);
-		profileArea.find('.media-body').find('p').text(member.MEM_NM);
+		profileArea.find('.media-body').find('p').eq(0).text(member.MEM_NM);
+		profileArea.find('.card-body').find('p').eq(1).text(member.MEM_BIO);
+		profileArea.find('.card-profile__info').find('span').eq(0).text(member.MEM_NICK);
+		profileArea.find('.card-profile__info').find('span').eq(1).text(member.MEM_WORKING_CITY);
+		profileArea.find('.card-profile__info').find('span').eq(2).text('issue assignee : ' + member.ISSUEASSIGNEECNT);
+		profileArea.find('.card-profile__info').find('span').eq(3).text('chat count : ' + member.MEMCHATCNT);
+		profileArea.find('.card-profile__info').find('span').eq(4).text('issue count : ' + member.ISSUECNT);
+		profileArea.find('.card-profile__info').find('span').eq(5).text('news count : ' + member.NEWSCNT);
+		profileArea.find('.card-profile__info').find('span').eq(6).text('milestone count : ' + member.MILESTONECNT);
+		profileArea.find('.card-profile__info').find('span').eq(7).text('sign date : ' + moment(member.MEM_SIGN_DATE).format('YYYY-MM-DD'));
+		profileArea.find('.card-profile__info').find('span').eq(8).text('status : ' + member.MEM_STATUS);
+		
 		
 		/*
 		
@@ -115,13 +137,17 @@ $.ajax({
 		
 		$.each(res, function(i, project){
 			let personalPageBody = $('#personal-page-body');
-			personalPageBody.append(project.PROJ_TITLE);
-			personalPageBody.append(moment(project.JOIN_DATE).format('YYYY-MM-DD'));
-			personalPageBody.append('<br>');
-			personalPageBody.append(moment(project.PROJ_START_DATE).fromNow());
-			personalPageBody.append('<br>');
-			personalPageBody.append('<br>');
-			personalPageBody.append('<br>');
+			
+			personalPageBody.append('<div id="projectBox" class="col-md-6 card">' 
+			+ 'TITLE : ' + project.PROJ_TITLE
+			+ '<br>'
+			+ 'PROJECT MANAGER : ' + project.PROJ_MANAGERID
+			+ '<br>'
+			+ 'JOIN DATE : ' + moment(project.JOIN_DATE).format('YYYY-MM-DD')
+			+ '<br>'
+			+ 'project start ' + moment(project.PROJ_START_DATE).fromNow()
+			+ '</div>');
+			
 			
 // 			프로젝트에 대한건 아래의 변수들을 사용하면 됩니다. $.each 안에서 project. 으로 불러오면 됩니다.
 // 			PROJ_CONT: "test" 

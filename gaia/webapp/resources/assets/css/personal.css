@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+#personal-page-body{
+	padding-top : 0;
+	padding : 10px;
+	margin : 10px;
+	overflow-y : auto;
+	color: #8898aa;
+}
+.personal-page-content{
+	padding-top : -15px;
+	height : 450px;
+	max-height : 450px;
+}
+#projectBox{
+	text-align : center;
+	border-radius: 25px;
+	padding : 10px;
+	height: fit-content;
+	font-size : 1.5em;
+}
+.projHeader{
+	text-align : center;
+	padding-top : 20px;
+}
+.card-body{
+	margin : 10px;
+	padding : 10px;
+}
+.card-body-down{
+	margin : 10px;
+	padding: 10px;
+}
+#projBody{
+	margin-left : 0;
+	margin-right: 0;
+}
+#projCont{
+	margin-left : 0;
+	margin-right: 0;
+}
