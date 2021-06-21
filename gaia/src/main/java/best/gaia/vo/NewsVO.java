@@ -27,7 +27,7 @@ public class NewsVO {
 	@NotBlank@Size(max=200) private String news_title;
 	@NotBlank@Size(max=4000) private String news_cont;
 	@Size(max=7) private String news_write_date;
-	 private Integer atch_file_sid;
+	 private String atch_file_sid;
 	 
 	/**
 	 * Association 관계의 객체 입니다.

@@ -1,7 +1,6 @@
 package best.gaia.issue.controller;
 
-import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
-import static best.gaia.utils.SessionUtil.getProjNoFromSession;
+import static best.gaia.utils.SessionUtil.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,12 +17,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
-import org.elasticsearch.index.engine.Engine.HistorySource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +30,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import best.gaia.issue.dao.IssueDao;
 import best.gaia.issue.dao.MilestoneDao;
@@ -104,7 +104,8 @@ public class IssueREST {
 			,@RequestParam Optional<String> assigneeMemNos
 			) {
 		issue.setMem_no(getMemberNoFromAuthentication(authentication));
-		issue.setProj_no(getProjNoFromSession(session));
+		int proj_no = getProjNoFromSession(session);
+		issue.setProj_no(proj_no);
 		
 		// 이슈 담당자들 존재할 경우 처리해서 issue 객체에 담는다.
 		if(assigneeMemNos.isPresent() && StringUtils.isNotBlank(assigneeMemNos.get())) {
@@ -133,7 +134,12 @@ public class IssueREST {
 				KanbanCardVO card = new KanbanCardVO();
 				card.setIssue_sid(issue.getIssue_sid());
 				card.setMem_no(issue.getMem_no());
-				kanbanDao.insertCardWithIssue(card);
+				// column 정보와 previous 카드 정보 받아와서 입력
+				int kb_col_no = kanbanDao.getFirstColumnNumber(proj_no);
+				card.setKb_col_no(kb_col_no);
+				Integer kb_card_priv_no = kanbanDao.getLastCardNo(kb_col_no);
+				card.setKb_card_priv_no(kb_card_priv_no);
+				kanbanDao.insertCard(card);
 			}
 		}
 		
@@ -172,28 +178,6 @@ public class IssueREST {
 		return history;
 	}
 	
-	// 파라미터를 바탕으로 히스토리 유형 찾아주는 메서드
-	String getHistoryType(String editpart, Optional<String> parameter) {
-		boolean isDelete = !parameter.isPresent();
-		
-		String type = null;
-		
-		switch(editpart) {
-			case "milest_sid": type = isDelete ? "RM" : "EM"; break;
-			case "assigneeAdd": type = "AA"; break;
-			case "assigneeDel": type = "RA"; break;
-			case "label_no": type = isDelete ? "RL" : "EL"; break;
-			case "issue_priority": type = isDelete ? "RP" : "EP"; break;
-			case "issue_start_date": type = "ES"; break;
-			case "issue_end_date": type = "EE"; break;
-			case "issue_title": type = "ET"; break;
-			case "issue_status": 
-				type = "0".equals(parameter.get())? "IO" : "IC";
-				break;
-		}
-		
-		return type;
-	}
 	
 	// 이슈 히스토리 삽입할 데이터 DB에서 받아오는 메서드
 	String getHistoryData(String editpart, String parameter, int proj_no) {
@@ -246,6 +230,33 @@ public class IssueREST {
 		return issue;
 	}
 	
+	/**
+	 * 여러개의 이슈를 한번에 닫는 컨트롤러
+	 * @param closingIssueNumbers
+	 * @return
+	 */
+	@PutMapping("closeManyIssues.do")
+	public ServiceResult closeManyIssues(
+			@RequestParam String closingIssueNumbers
+			,Authentication authentication
+			) {
+		
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		List<Integer> issueSids = new Gson().fromJson(closingIssueNumbers, new TypeToken<ArrayList<Integer>>(){}.getType());
+		
+		return service.closeManyIssues(issueSids,mem_no);
+		
+	}
+	
 	
 
 }
+
+
+
+
+
+
+
+
+

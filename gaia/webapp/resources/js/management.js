@@ -639,29 +639,88 @@ const deleteRole = function(roleBox){
 
 // 프로젝트의 열림/ 닫힘 상태를 변경하는 메서드
 const updateProjectStatus = function(proj_status){
-	$.ajax({
-	url : getContextPath() + '/restapi/project/projects',
-	method : 'post',
-	data : {
-		'proj_status' : proj_status
-		,'_method' : 'put'
-	},
-	success : function(res) {
-		if(res == "OK"){
-			let btns = $('.proj-close-btns').find('button');
-			let btnSize = btns.length;
-			for(i=0; i<btnSize; i++){
-				toggleHidden(btns.eq(i));
-			}
-			toastr.success(proj_status!=0 ? '프로젝트를 마감했습니다.' : '프로젝트를 다시 활성화 시켰습니다.')
-		}
-	},
-	error : function(xhr, error, msg) {
-		ajaxError(xhr, error, msg);
+	
+	// 닫는 경우라면 정말로 닫을 건지 한번 물어보기
+	if(proj_status == 1){
+		// sweetAlert 버튼 초기화
+		 swalWithBootstrapButtons = Swal.mixin({
+			  customClass: {
+				cancelButton: 'btn btn-light',
+			   	confirmButton: 'btn btn-danger'
+			  },
+			  buttonsStyling: false
+		})
+		
+		// 정말로 프로젝트를 마감할건지 물어보기
+		swalWithBootstrapButtons.fire({
+		  title: '정말로 프로젝트를 종료 시키겠습니까?',
+		  text: "프로젝트가 종료됩니다.!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: '종료',
+		  cancelButtonText: '취소',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+			updateProjectStatusFunction(proj_status);
+		  } else if (
+		    result.dismiss === Swal.DismissReason.cancel
+		  ) {
+			// 취소 눌렀으면 진행 멈추기.
+		  }
+		})
+	}else{
+		// 프로젝트 여는 경우라면 바로 연다.
+		updateProjectStatusFunction(proj_status);
+	}
+	
+}
 
-	},
-	dataType : 'json'
-})
+const updateProjectStatusFunction = function(proj_status){
+	// 프로젝트 열기거나 닫기로 했으면 계속 진행하기.
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/projects',
+		method : 'post',
+		data : {
+			'proj_status' : proj_status
+			,'_method' : 'put'
+		},
+		success : function(res) {
+			if(res == "OK"){
+				let btns = $('.proj-close-btns').find('button');
+				let btnSize = btns.length;
+				for(i=0; i<btnSize; i++){
+					toggleHidden(btns.eq(i));
+				}
+
+				if(proj_status==1){
+					// 마감 성공시 프로젝트 마감했다고 알람 띄우기
+					Swal.fire(
+						'프로젝트 종료'
+						,'프로젝트를 종료했습니다.<br>지난 8개월 다들 정말 고생 하셨습니다.'
+						,'success'
+					)
+				}else{
+					// 프로젝트 다시 열었을경우 활성화했다고 알람 띄우기
+					Swal.fire(
+						'프로젝트 오픈'
+						,'프로젝트를 다시 활성화 시켰습니다.'
+						,'success'
+					)
+					
+				}
+				
+				// 왼쪽에 프로젝트 목록 새로 불러오기
+				loadProjectList();
+			}
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+	
+		},
+		dataType : 'json'
+	})
 }
 
 

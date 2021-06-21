@@ -202,13 +202,13 @@
 		<!--          예정 마감일 설정 -->
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">프로젝트 예정 마감일</h4>
-				<p class="text-muted">프로젝트 마감 예정일을 설정해주세요.</p>
+				<h4 class="card-title">프로젝트 종료 예정일</h4>
+				<p class="text-muted">프로젝트 종료 예정일을 설정해주세요.</p>
 				<div class="proj-finish-date form-material">
 					<input id="mng_proj_end" class="datePick form-control" type="text">
 					<div class="proj-close-btns">
 						<button class="btn btn-success">열기</button>
-						<button class="btn btn-danger">마감</button>
+						<button class="btn btn-danger">종료</button>
 					</div>
 				</div>
 			</div>

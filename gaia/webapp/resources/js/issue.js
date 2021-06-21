@@ -50,6 +50,30 @@ $(function(){
  		loadIssueList();
  	});
 
+	// 이슈 목록에서 체크 박스 체크 하면 닫기 버튼 활성화
+	$('body').on('change', '.iss-chkbox input', function(){
+		
+		// 체크 된 박스가 하나라도 있으면 버튼 활성화, 하나도 없으면 버튼 비 활성화
+		let checkboxes = $('#issuelist').find('input[type=checkbox]');
+		let size = checkboxes.length;
+		let checked = false;
+		for(i=0; i<size; i++ ){
+			let check = checkboxes.eq(i).prop('checked');
+			if(check){
+				checked = true;
+				break;
+			}
+		}
+		
+		$('.many-issue-close').find('button').attr('hidden', checked ? false : true);
+		
+	});
+	
+	// 이슈들 여러개 클릭해서 닫기 버튼 누르면 선택한 모든 이슈들 마감 처리
+	$('body').on('click', '.many-issue-close button', function(){
+		closeManyIssues();
+	})
+
 	////////////////////////////////////////////////////
 	//
 	// issue 상세 페이지 버튼 이벤트들 바인딩
@@ -703,8 +727,9 @@ const editIssue = function(editpart, parameter){
 		success : function(history) {
 			toastr.success('변경되었습니다.');
 			issue_history = $('#issue-template').children('.issue-change').clone();
-			issue_history.find('span').text(historyTypeToText(history));
+			issue_history.find('.issue-edit-history').find('span').text(historyTypeToText(history));
 			issue_history.find('.profile').attr('src',getProfilePathFromCookie());
+			issue_history.find('.edittime').text(moment().fromNow());
 			$('#issue-body-cont').append(issue_history);
 		},
 		error : function(xhr, error, msg) {
@@ -782,7 +807,45 @@ const historyTypeToText = function(history){
 	
 }
 
+// 선택한 많은 이슈들 한번에 닫기
+const closeManyIssues = function(){
+	
+	let closingIssueNumbers = [];
+	
+	// 체크된 이슈들의 번호를 모두 받아 배열에 추가한다.
+	let checkboxes = $('#issuelist').find('input[type=checkbox]');
+	let size = checkboxes.length;
+	for(i=0; i<size; i++ ){
+		let chkBox = checkboxes.eq(i);
+		let check = chkBox.prop('checked');
+		if(check){
+			let issue_sid = chkBox.parents('.issueBox').data('issue_sid');
+			closingIssueNumbers.push(issue_sid);
+		}
+	}
+	
+	$.ajax({
+		url : getContextPath() + '/restapi/project/issues/closeManyIssues.do',
+		method : 'post',
+		data : {
+			'closingIssueNumbers' : JSON.stringify(closingIssueNumbers)
+			,'_method' : 'put'
+		},
+		success : function(res) {
+			//완료 후 이슈 목록 새로 받아오기
+			issue_status = 0;
+			loadIssueList();
+			
+			$('.many-issue-close').find('button').attr('hidden', true);
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+	})
 
+	
+};
 
 
 

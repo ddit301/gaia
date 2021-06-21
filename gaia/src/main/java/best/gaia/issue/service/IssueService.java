@@ -109,4 +109,6 @@ public interface IssueService {
 	public ServiceResult deleteMilestone(MilestoneVO search);
 
 	public MilestoneVO selectMilestone(Map<String, Object> search);
+	
+	public ServiceResult closeManyIssues(List<Integer> issueSids, int mem_no);
 }
