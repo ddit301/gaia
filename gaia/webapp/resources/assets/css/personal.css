@@ -1,26 +1,24 @@
 @charset "UTF-8";
 
 #personal-page-body{
-	padding-top : 0;
+	
 	padding : 10px;
 	margin : 10px;
 	overflow-y : auto;
 	color: #8898aa;
+	font-size : 1.5em;
 }
 .personal-page-content{
 	padding-top : -15px;
 	height : 450px;
 	max-height : 450px;
 }
-#projectBox{
-	text-align : center;
+.projectBox-template{
 	border-radius: 25px;
-	padding : 10px;
 	height: fit-content;
 	font-size : 1.5em;
 }
 .projHeader{
-	text-align : center;
 	padding-top : 20px;
 }
 .card-body{
@@ -38,4 +36,33 @@
 #projCont{
 	margin-left : 0;
 	margin-right: 0;
+}
+
+#personal-proj-list{
+	background-color : white;
+	border-radius: 25px;
+	box-shadow: 6px 11px 41px -28px #A99DE7;
+	width : calc(100% - 15px);
+	padding : 10px;
+	margin : 5px;
+}
+
+.cardBox{
+	padding : 10px;
+}
+.projectBox{
+	padding : 10px;
+}
+.projTitle{
+	font-size : 1.5em;
+}
+.projManager{
+	font-size : 1.5em;
+	padding-right : 10px;
+}
+.proj-join-date-info{
+	font-size : 1.5em;
+}
+.proj-start-date-info{
+	font-size : 1.0em;
 }
