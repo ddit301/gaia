@@ -256,7 +256,7 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		KanbanColumnVO thirdColumn = new KanbanColumnVO("DONE");
 		thirdColumn.setProj_no(proj_no);
-		secondColumn.setKb_col_priv_no(secondColumn.getKb_col_no());
+		thirdColumn.setKb_col_priv_no(secondColumn.getKb_col_no());
 		validChecker *= kanbanDao.insertKanbanColumn(thirdColumn);
 		
 		// 프로젝트에 기본 라벨들을 생성해 insert 합니다.

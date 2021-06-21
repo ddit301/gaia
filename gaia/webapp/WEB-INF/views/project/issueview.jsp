@@ -193,7 +193,7 @@
 		<div class="assigneecheck">
 			<i class="icon-check" hidden="true"></i>
 		</div>
-		<img class="profile" onerror="imgOnErr()">
+		<img class="profile nonlink" onerror="imgOnErr()">
 		<span>닉네임</span>
 	</a>
 <!-- 	담당자 템플릿 - 지정됨 -->
