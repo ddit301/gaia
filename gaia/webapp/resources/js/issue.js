@@ -360,7 +360,12 @@ const loadIssueList = function(){
 				issueBox.children('.issue-title').children('a').text(v.issue_title);
 				issueBox.children('.issue-priority').text(priorities[v.issue_priority]);
 				if(v.label){
-					issueBox.children('.issue-label').text(v.label.label_nm);
+					let labelBox = $('#issue-template').children('.small-label').clone();
+					let label = v.label;
+					labelBox.find('i').addClass(label.label_icon);
+					labelBox.find('span').text(label.label_nm);
+					labelBox.css({"backgroundColor":label.label_color});
+					issueBox.children('.issue-label').html(labelBox);
 				}
 				if(v.milestone){
 					issueBox.children('.milestone').text(v.milestone.milest_title);
@@ -843,7 +848,6 @@ const closeManyIssues = function(){
 		},
 		dataType : 'json'
 	})
-
 	
 };
 

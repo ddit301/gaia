@@ -86,7 +86,7 @@ FROM ISSUE
 			        ,ISSUE_PRIORITY ,PROGRESS
 			        ,MILESTONE.MILEST_SID, milestone.milest_title AS MILEST_TITLE
 			        ,WRITER.MEM_NO AS writer_no, writer.mem_pic_file_name AS writer_pic
-			        ,label.label_no, label.label_nm
+			        ,label.label_no, label_nm, label_icon, label_color
 			        ,ASSIGNEE.mem_no, assignee.mem_pic_file_name
 			        ,(select count(*) -1
 			            from issue_history

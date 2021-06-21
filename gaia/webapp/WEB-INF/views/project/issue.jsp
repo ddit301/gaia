@@ -24,6 +24,14 @@
 	            		<button data-status="0" type="button" class="btn mb-1 btn-flat btn-success">Open</button>
 	            		<button data-status="1" type="button" class="btn mb-1 btn-flat btn-light">Closed</button>
             		</div>
+           			<div class="labeldrop dropdown col-md-1">
+                          <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">라벨</button>
+                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                           	<a class="dropdown-item" href="#">Robin</a> 
+                           	<a class="dropdown-item" href="#">Eisen</a> 
+                           	<a class="dropdown-item" href="#">Link 3</a>
+                      		</div>
+           			</div>
            			<div class="dropdown col-md-1">
                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">작성자</button>
                           <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
@@ -34,14 +42,6 @@
            			</div>
            			<div class="dropdown col-md-1">
                           <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">중요도</button>
-                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                           	<a class="dropdown-item" href="#">Robin</a> 
-                           	<a class="dropdown-item" href="#">Eisen</a> 
-                           	<a class="dropdown-item" href="#">Link 3</a>
-                      		</div>
-           			</div>
-           			<div class="dropdown col-md-1">
-                          <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown" aria-expanded="false">라벨</button>
                           <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
                            	<a class="dropdown-item" href="#">Robin</a> 
                            	<a class="dropdown-item" href="#">Eisen</a> 
@@ -85,24 +85,31 @@
 				
 
 <div id="issue-template" hidden="hidden" >
+<!-- issue template -->
 	<div class="issueBox row">                                                                                
 		<div class="iss-chkbox col-md-1">
 			<input type="checkbox">
 		</div>                                                                    
-		<div class="issue-title col-md-5">                                                              
+		<div class="issue-title col-md-4">                                                              
 			<a class="issueButton" href="javascript:void(0)"></a>                                                       
 		</div>                                                                                          
+		<div class="issue-label col-md-2">
+		</div>                                                           
 	    <div class="issue-writer col-md-1">                                                                  
 			<img class="profile" onerror="imgOnErr()">
 		</div>                                                                                      
 	    <div class="issue-priority col-md-1"></div>                                                       
-		<div class="issue-label col-md-1"></div>                                                           
 		<div class="milestone col-md-1"></div>                                                        
 		<div class="issue-assignee col-md-1">                                                                      
 		</div>                                                                                      
 		<div class="reply col-md-1">
 		</div>                                                            
-	</div>        
+	</div>      
+<!-- 	label template   -->
+	<div class="small-label">
+		<i></i>
+		<span></span>
+	</div>
 </div>
             
 <script>
