@@ -33,9 +33,9 @@
 	<script src="${cPath }/resources/js/external/download.js"></script>
 <!-- 	util.js 는 페이지별 js 보다 위에 위치해야 합니다. project.js 도 다른 js보다 상위입니다. -->
 	<script src="${cPath }/resources/js/util.js"></script>
+	<script src="${cPath }/resources/js/common.js"></script>
 	<script src="${cPath }/resources/js/project.js"></script>
 <!-- 	각 페이지별로 필요한 js 파일 입니다.  -->
-	<script src="${cPath }/resources/js/common.js"></script>
 	<script src="${cPath }/resources/js/issue.js"></script>
 	<script src="${cPath }/resources/js/kanban.js"></script>
 	<script src="${cPath }/resources/js/milestone.js"></script>
