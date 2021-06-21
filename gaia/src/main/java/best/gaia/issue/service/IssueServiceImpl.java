@@ -1,6 +1,7 @@
 package best.gaia.issue.service;
 
 import java.util.HashMap;
+import static best.gaia.utils.SessionUtil.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -178,6 +179,29 @@ public class IssueServiceImpl implements IssueService {
 		}
 		
 		return validator == 1? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public ServiceResult closeManyIssues(List<Integer> issueSids, int mem_no) {
+		
+		int validator = 1;
+		
+		for(int issue_sid : issueSids) {
+			// 이슈 닫고
+			ServiceResult result = updateIssue(issue_sid, "issue_status", Optional.of("1"));
+			
+			if(ServiceResult.OK.equals(result)) {
+				// 해당하는 히스토리 등록하고.
+				IssueHistoryVO history = new IssueHistoryVO();
+				history.setMem_no(mem_no);
+				history.setIssue_sid(issue_sid);
+				history.setIssue_his_type(getHistoryType("issue_status",Optional.of("1")));
+				validator *= dao.insertIssueHistory(history);
+			}
+		}
+		
+		return validator == 1 ? ServiceResult.OK : ServiceResult.FAIL;
+		
 	}
 
 
