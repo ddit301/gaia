@@ -54,7 +54,7 @@ public class MemberUrlMapper {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberUrlMapper.class);
 
-	@RequestMapping(value = { "", "{memberPageParam:^(?:(?=help$|overview$)).*}" })
+	@RequestMapping(value = { "", "{memberPageParam:^(?:(?=help$|overview$|chat$)).*}" })
 	public String memberMenuOverview(
 				@PathVariable String mem_id
 				, @PathVariable Optional<String> memberPageParam
@@ -67,7 +67,7 @@ public class MemberUrlMapper {
 	}
 
 	@RequestMapping(value = { "setting",
-			"setting/{memberPageParam:^(?:(?=account$|chat$|projects$|securityLog$|profile$|help$)).*}" })
+			"setting/{memberPageParam:^(?:(?=account$|projects$|securityLog$|profile$|help$)).*}" })
 	public String memberSetting(
 				@PathVariable String mem_id
 				, @PathVariable Optional<String> memberPageParam
@@ -77,15 +77,6 @@ public class MemberUrlMapper {
 		// true 일 때 setting/을 붙여주어 moveHistory함수 탈 때 /eisen/setting/account으로 넘어갈 수 있게
 		// 만듦. 없으면 eisen/account로 주소창이 찍힘.
 		model.addAttribute("memberPageParam", memberPageParam.isPresent() ? "setting/" + memberPageParam.get() : "setting");
-		return "view/template/project";
-	}
-	
-	@RequestMapping(value = { "chat" })
-	public String memberChat(
-			@PathVariable String mem_id
-			, Model model) {
-		model.addAttribute("mem_id", mem_id);
-		model.addAttribute("memberPageParam", "chat");
 		return "view/template/project";
 	}
 	

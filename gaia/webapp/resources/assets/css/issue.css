@@ -256,8 +256,9 @@
 .issue-title i:hover{
 	cursor: pointer;
 }
-
-
+.many-issue-close{
+	padding-left : 30px;
+}
 
 
 

@@ -16,7 +16,9 @@
            			</div>
        			</div>
             	<div class="row issue-header">
-            		<div class="col-md-1"></div>
+            		<div class="many-issue-close col-md-1">
+            			<button class="btn btn-danger" hidden="true">완료</button>
+            		</div>
             		<div id="iss-filter-btn" class="col-md-5">
 	            		<button type="button" class="btn mb-1 btn-flat btn-light">All</button>
 	            		<button data-status="0" type="button" class="btn mb-1 btn-flat btn-success">Open</button>
@@ -104,7 +106,7 @@
 </div>
             
 <script>
-	issue_status = null;
+	issue_status = 0;
 	currentPage = 1;
 	startPage = null;
 	endPage = null;

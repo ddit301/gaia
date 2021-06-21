@@ -182,6 +182,9 @@
 		    inner join mem_role on (proj_mem.mem_role_no = mem_role.mem_role_no)
 		    inner join member on (proj_mem.mem_no = member.mem_no)
 		where proj_mem.proj_no = #{proj_no}
+		<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(active)">
+			and proj_drop_date is null
+		</if>
 		order by proj_mem.mem_role_no, proj_mem.proj_join_date
 	</select>
 	
@@ -193,6 +196,12 @@
 	
 	<select id="getMemIdFromMemNo" parameterType="int" resultType="string">
 		SELECT MEM_ID 
+		FROM MEMBER
+		WHERE MEM_NO = #{mem_no}
+	</select>
+	
+	<select id="getMemNickFromMemNo" parameterType="int" resultType="string">
+		SELECT MEM_NICK
 		FROM MEMBER
 		WHERE MEM_NO = #{mem_no}
 	</select>
@@ -231,7 +240,9 @@
 		select member.mem_id, member.mem_nick, member.mem_tel, member.mem_pic_file_name
 		        , member.mem_sign_date, member.mem_quit_date, member.mem_nm, member.mem_bio, member.mem_working_city, member.mem_status
 		        , proj_join_date, proj_drop_date, proj_user_nick
-		        , manager.mem_id as proj_managerid, proj_title, proj_cont, proj_start_date, proj_est_end_date, proj_status
+		        , manager.mem_id as proj_managerid, member.mem_pic_file_name as managerpic
+		        , proj_title, proj_cont, proj_start_date, proj_est_end_date, proj_status
+		        , (select count(*) from proj_mem where proj_no = project.proj_no) as projectmemcnount
 		        , (select * from issuecnt) as issuecnt
 		        , (select * from newscnt) as newscnt
 		        , (select * from newscomcnt) as newscomcnt

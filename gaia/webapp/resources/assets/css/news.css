@@ -1,56 +1,94 @@
 @charset "UTF-8";
 
-#newsmenu{
-	padding-bottom : 50px;
-}
-.news{
-	margin-right : 50px;
-}
-.news .newsheader{
-	background-color : #EEEEEE;
-	font-size : 1.5em;
+.newsheader{
+	background-color : cornsilk;
 	margin-left : 0px;
-}
-.news .newsBody{
-	margin-left : 0px;
-	margin-bottom : 30px;
-}
-.news .news-left{
-	background-color : white;
-	padding : 0px;
 	font-size : 1.5em;
 }
-.news .news-left .newsContent{
-	padding : 15px;
+.newstitle{
+	padding : 20px;
+	flex-wrap : nowrap;
 }
-.news-left img{
-	margin-left : 0px;
-	width : 100%;
+.newsheader i{
+	float : right;
+	font-size : 1.5em;
+	margin : 20px;
 }
-.news .news-right{
-	background-color : white;
+.newsWriteTime{
+	float : right;
 }
-.news .newsReplyArea{
-	overflow-y : scroll;
-	padding-bottom : 70px;
+.newsReplyArea{
+	padding : 20px;
 }
-.news .news-right .newsContent{
-	padding-top : 20px;
+.newsBody{
+	min-height : 350px;
+	max-height : 500px;
 }
-.newsReplyArea .news-reply span{
-	text-align : center;
-}
-.news-writebox{
-	margin-top : 20px;
-	position : absolute;
-	width : 100%;
-	height : 50px;
-	bottom : 15px;
-}
-.news-writebox input{
-	width : 100%;
+.news-right{
 	height : 100%;
 }
-.news-reply{
-	padding-left : 15px;
+.newsReplyArea{
+	min-height : 250px;
+	max-height : 430px;
+	overflow-y : scroll;
 }
+.news-writebox{
+	padding : 15px;
+}
+.news-writebox input[type=text]{
+	height : 100%;
+}
+.news-left img{
+	height : 100%;
+	width : 100%;
+    object-fit: revert;
+}
+.newsBody{
+	overflow : hidden;
+}
+.news-right{
+	max-height : 500px;
+	overflow-y: scroll;
+}
+#top{
+    position: fixed;
+    right: 2%;
+    bottom: 3%;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    line-height: 55px;
+    display: block;
+}
+#top :hover{
+	cursor : pointer;
+}
+#top i{
+	font-size : 4em;
+}
+#top i:hover{
+	color : royalblue;
+}
+#newsmenu button{
+	float : right;
+}
+#newsmenu{
+	padding : 20px;
+	padding-top : 0px;
+	margin : 0px;
+}
+.newsContent{
+	padding-left : 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

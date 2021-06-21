@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -181,6 +182,29 @@ public class SessionUtil {
 			} catch (IOException e) {}
 		}
 		
+	}
+	
+	// 파라미터를 바탕으로 히스토리 유형 찾아주는 메서드
+	public static String getHistoryType(String editpart, Optional<String> parameter) {
+		boolean isDelete = !parameter.isPresent();
+		
+		String type = null;
+		
+		switch(editpart) {
+			case "milest_sid": type = isDelete ? "RM" : "EM"; break;
+			case "assigneeAdd": type = "AA"; break;
+			case "assigneeDel": type = "RA"; break;
+			case "label_no": type = isDelete ? "RL" : "EL"; break;
+			case "issue_priority": type = isDelete ? "RP" : "EP"; break;
+			case "issue_start_date": type = "ES"; break;
+			case "issue_end_date": type = "EE"; break;
+			case "issue_title": type = "ET"; break;
+			case "issue_status": 
+				type = "0".equals(parameter.get())? "IO" : "IC";
+				break;
+		}
+		
+		return type;
 	}
 	
 }

@@ -236,11 +236,12 @@ public class ProjectServiceImpl implements ProjectService {
 		validChecker *= projectDao.insertMemberRole(memberRole);
 		
 		// 프로젝트 생성자 가입 정보 등록하고 (Manager)
+		String managerNick = memDao.getMemNickFromMemNo(mem_no);
 		ProjMemVO projMem = new ProjMemVO();
 		projMem.setMem_no(mem_no);
 		projMem.setMem_role_no(adminRole.getMem_role_no());
 		projMem.setProj_no(proj_no);
-		projMem.setProj_user_nick("관리자");
+		projMem.setProj_user_nick(managerNick);
 		validChecker *= projectDao.insertProjMem(projMem);
 		
 		// 해당 프로젝트에 기본 칸반 컬럼들 등록해준다. ( Todo, In Progress, Done)
@@ -282,8 +283,13 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<ProjMemVO> selectProjectMembers(int proj_no, String searchword) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("proj_no",proj_no);
-		if(searchword != null)
-			paramMap.put("searchword",searchword);
+		if(searchword != null) {
+			if("active".equals(searchword)) {
+				paramMap.put("active",searchword);
+			}else {
+				paramMap.put("searchword",searchword);
+			}
+		}
 		return memDao.selectProjectMembers(paramMap);
 	}
 
