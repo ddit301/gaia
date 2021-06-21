@@ -182,6 +182,9 @@
 		    inner join mem_role on (proj_mem.mem_role_no = mem_role.mem_role_no)
 		    inner join member on (proj_mem.mem_no = member.mem_no)
 		where proj_mem.proj_no = #{proj_no}
+		<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(active)">
+			and proj_drop_date is null
+		</if>
 		order by proj_mem.mem_role_no, proj_mem.proj_join_date
 	</select>
 	

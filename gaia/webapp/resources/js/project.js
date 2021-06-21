@@ -626,7 +626,7 @@ const loadProjectComponents = function(){
 	let projectDetail = getProjectDetails();
 	
 	let projectComponents = {
-		members : loadProjectMembers()
+		members : loadProjectMembers('active')
 		,milestones : getMilestoneList()
 		,labels : projectDetail.labelList
 		,issuePriority : projectDetail.issue_priority_set
