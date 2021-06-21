@@ -104,7 +104,8 @@ public class IssueREST {
 			,@RequestParam Optional<String> assigneeMemNos
 			) {
 		issue.setMem_no(getMemberNoFromAuthentication(authentication));
-		issue.setProj_no(getProjNoFromSession(session));
+		int proj_no = getProjNoFromSession(session);
+		issue.setProj_no(proj_no);
 		
 		// 이슈 담당자들 존재할 경우 처리해서 issue 객체에 담는다.
 		if(assigneeMemNos.isPresent() && StringUtils.isNotBlank(assigneeMemNos.get())) {
@@ -133,7 +134,12 @@ public class IssueREST {
 				KanbanCardVO card = new KanbanCardVO();
 				card.setIssue_sid(issue.getIssue_sid());
 				card.setMem_no(issue.getMem_no());
-				kanbanDao.insertCardWithIssue(card);
+				// column 정보와 previous 카드 정보 받아와서 입력
+				int kb_col_no = kanbanDao.getFirstColumnNumber(proj_no);
+				card.setKb_col_no(kb_col_no);
+				Integer kb_card_priv_no = kanbanDao.getLastCardNo(kb_col_no);
+				card.setKb_card_priv_no(kb_card_priv_no);
+				kanbanDao.insertCard(card);
 			}
 		}
 		
