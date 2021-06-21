@@ -47,6 +47,9 @@
         </form>
       </div>
       <div class="modal-footer">
+      	<form id="newsImage">
+	      	<input type="file" name="file" accept="image/*">
+      	</form>
         <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
         <button id="saveNewsBtn" type="button" class="btn btn-success" disabled>Save</button>
       </div>

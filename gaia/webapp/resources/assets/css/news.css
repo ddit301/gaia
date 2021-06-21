@@ -28,6 +28,7 @@
 	height : 100%;
 }
 .newsReplyArea{
+	min-height : 250px;
 	max-height : 430px;
 	overflow-y : scroll;
 }
@@ -75,6 +76,9 @@
 	padding : 20px;
 	padding-top : 0px;
 	margin : 0px;
+}
+.newsContent{
+	padding-left : 20px;
 }
 
 

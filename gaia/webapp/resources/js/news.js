@@ -145,17 +145,20 @@ const loadNews = function(currentPage){
 
 // 뉴스 저장하는 함수
 const saveNews = function(){
-	news_title = $('#news-title-input').val();
-	news_content = editor.getMarkdown();
+	let news_title = $('#news-title-input').val();
+	let news_cont = editor.getMarkdown();
+	
+	let fileForm = document.getElementById('newsImage');
+	let formData = new FormData(fileForm);
+	
+	formData.append('news_title',news_title);
+	formData.append('news_cont',news_cont);
 	
 	// 뉴스 insert 하기
 	$.ajax({
 		url : getContextPath()+'/restapi/project/news',
 		method : 'post',
-		data : {
-			'news_title' : news_title
-			,'news_cont' : news_content
-		},
+		data : formData,
 		success : function(res) {
 			// toastr 알람
 			toastr.success('새로운 뉴스 등록에 성공했습니다.')
@@ -174,6 +177,10 @@ const saveNews = function(){
 		error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
 		},
+		enctype : 'multipart/form-data'
+	    ,processData: false,
+	    contentType: false,
+	    cache: false,
 		dataType : 'json'
 	})
 }

@@ -283,8 +283,13 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<ProjMemVO> selectProjectMembers(int proj_no, String searchword) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("proj_no",proj_no);
-		if(searchword != null)
-			paramMap.put("searchword",searchword);
+		if(searchword != null) {
+			if("active".equals(searchword)) {
+				paramMap.put("active",searchword);
+			}else {
+				paramMap.put("searchword",searchword);
+			}
+		}
 		return memDao.selectProjectMembers(paramMap);
 	}
 
