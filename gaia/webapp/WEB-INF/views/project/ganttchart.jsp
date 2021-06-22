@@ -7,8 +7,11 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <div class="container-fluid">
+    <div style="position:relative" class="gantt" id="GanttChartDIV"></div>
 </div>
-	
-	
+
+<script>
+getMilestoneList(1);
+loadGanttPage();
+</script>

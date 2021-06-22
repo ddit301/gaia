@@ -14,5 +14,5 @@
 	</div>
 </div>
 <script>
-issueMilestoneInfoForCalendar();
+	issueMilestoneInfoForCalendar();
 </script>

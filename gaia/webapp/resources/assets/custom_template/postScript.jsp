@@ -51,6 +51,10 @@
 	<script src="${cPath }/resources/fullCalendar/lib/main.js"></script>
 	<script src="${cPath }/resources/js/calendar.js"></script>
 	<script src="${cPath }/resources/js/personal.js"></script>
+	<script src="${cPath }/resources/assets/dist/jsgantt.js"></script>
+	<script src="${cPath }/resources/js/gantt.js"></script>
+	
+	
 <script type="text/javascript">
 	let project_title = '${project_title}';
 	let manager_id = '${manager_id}';

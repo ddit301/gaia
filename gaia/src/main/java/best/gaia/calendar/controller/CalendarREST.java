@@ -13,11 +13,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.calendar.dao.CalendarDao;
 import best.gaia.calendar.service.CalendarService;
+import best.gaia.utils.enumpkg.ServiceResult;
 /**
  * 
  * Calendar에 대한 객체입니다.
@@ -40,6 +44,9 @@ import best.gaia.calendar.service.CalendarService;
 public class CalendarREST {
 
 	@Inject
+	private CalendarDao dao;
+	
+	@Inject
 	private CalendarService service;
 	
 	@Inject
@@ -58,9 +65,29 @@ public class CalendarREST {
 			HttpSession session
 			){
 		int proj_no = getProjNoFromSession(session);
-		service.selectMilestoneIssuesByProj_no(proj_no);
 		
 		return service.selectMilestoneIssuesByProj_no(proj_no);
 	}
 	
+	@PutMapping
+	public int updateStatus(
+			@RequestParam(required=false) String need
+			, @RequestParam Map<String, Object> dataMap
+			){
+		int result = 0;
+		if("yes".equals(dataMap.get("isChangeDate"))) {
+			if("issue".equals(need)) {
+				result = dao.updateIssueDate(dataMap);
+			}else if("milestone".equals(need)) {
+				result = dao.updateMilestoneStatus(dataMap);
+			}
+		}else {
+			if("issue".equals(need)) {
+				result = dao.updateIssueStatus(dataMap);
+			}else if("milestone".equals(need)) {
+				result = dao.updateMilestoneStatus(dataMap);
+			}
+		}
+		return result;
+	}
 }
