@@ -103,6 +103,7 @@
 	margin : 10px;
 	height : 180px;
 	padding: 5px;
+	margin-top: 100px;
 }
 .milestoneview-title{
 	overflow:hidden; 
@@ -137,6 +138,7 @@
 	line-height: 50px;
 }
 .milestoneview-header{
+	width: calc(100% - 15px);
 	grid-template-columns: 150px 150px;
 	background:gray;
 	height:50px; 
