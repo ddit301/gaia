@@ -45,6 +45,16 @@ $(function() {
 		movePageHistory('member');
 	});	
 	
+	// 깃 저장소 등록 버튼
+	$('body').on('click', '#regGit', function(){
+		$('#addGitModal').modal('toggle');
+	});
+	
+	// 깃 저장소 연동 해제
+	$('body').on('click', '#removeGit', function(){
+		removeGitRepo();
+	});
+	
 
 	/**********************************
 					버튼 매핑 끝
@@ -97,9 +107,6 @@ $(function() {
 ********************************/
 let gitRepoUrl = null;
 
-
-
-
 /**********************************
 	함수 선언부
 ********************************/
@@ -122,6 +129,10 @@ const loadRepositoryList = function() {
 					let repoHeader = $('.git').find('.repoInfo').children('a');
 					repoHeader.attr('href', 'https://github.com/' + gitRepoUrl);
 					repoHeader.find('span').text(gitRepoUrl);
+					
+					// Github 연동 취소하는 버튼도 넣어준다.
+					$('.git').find('.repoInfo').append('<button id="removeGit" class="btn btn-sm btn-danger">x</button>')
+					
 					loadGit(gitRepoUrl);
 					hasGit = true;
 				}else if(v.repo_type == 'svn'){
@@ -131,7 +142,8 @@ const loadRepositoryList = function() {
 			});
 			if(!hasGit){
 				let fileNavHeader = $('.git').find('.fileNavHeader').children('span');
-				fileNavHeader.html('등록된 Git 저장소가 없습니다.');
+				// 깃 저장소 등록 버튼 만들기
+				fileNavHeader.html('<p>연결된 Git 저장소가 없습니다. <a id="regGit">등록하기</a></p>');
 			}
 		},
 		error: function(xhr, error, msg) {
@@ -328,14 +340,6 @@ const changeProjNick = function(){
 
 
 
-
-
-
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //	 gitHub restAPI 활용 하는 함수 목록
@@ -352,6 +356,9 @@ const readmeFromRepo = function(gitRepoUrl) {
 		method: 'get',
 		success: function(res) {
 			decoded = Base64.decode(res.content);
+		},
+		beforeSend : function(xhr){
+			xhr.setRequestHeader("Authorization", "token " + gitHash);
 		},
 		error: function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
@@ -370,6 +377,8 @@ const renderMarkdown = function(text) {
 		data: JSON.stringify({ "text": text }),
 		success: function(res) {
 			$('#testGit').append(res);
+		},beforeSend : function(xhr){
+			xhr.setRequestHeader("Authorization", "token " + gitHash);
 		},
 		error: function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
@@ -413,6 +422,8 @@ const loadLanguageInfo = function(gitRepoUrl) {
 				let lanTag = langs[i] + ' : ' + Math.round(counts[i]/total*1000)/10 +'%<br/>' ; 
 				languageDiv.append(lanTag);
 			}
+		},beforeSend : function(xhr){
+			xhr.setRequestHeader("Authorization", "token " + gitHash);
 		},
 		error: function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
@@ -502,6 +513,8 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 			// 폴더 - 파일 순으로 출력 해 준다.
 			fileNavBody.append(folders);
 			fileNavBody.append(files);
+		},beforeSend : function(xhr){
+			xhr.setRequestHeader("Authorization", "token " + gitHash);
 		},
 		error: function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
@@ -510,5 +523,177 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 		async: false
 	});
 }
+
+// Github에서 유저 정보 받아오는 메서드
+const getGitUserInfo = function(username) {
+	let userinfo;
+	$.ajax({
+		url: 'https://api.github.com/users/' + username,
+		method: 'get',
+		success: function(res) {
+			userinfo = res;
+		},beforeSend : function(xhr){
+			xhr.setRequestHeader("Authorization", "token " + gitHash);
+		},
+		error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType: 'json',
+		async: false
+	});
+	return userinfo;
+}
+
+// gitHub 에서 저장소 정보 받아오는 메서드
+const getGitRepoInfo = function(username, reponame){
+	let repoInfo;
+	$.ajax({
+		url: 'https://api.github.com/repos/' + username + '/' + reponame,
+		method: 'get',
+		success: function(res) {
+			repoInfo = res;
+		},beforeSend : function(xhr){
+			xhr.setRequestHeader("Authorization", "token " + gitHash);
+		},
+		error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType: 'json',
+		async: false
+	});
+	return repoInfo;
+}
+
+// 깃 아이디 체크하는 메서드
+const gitIdCheck = function(){
+	let gitId = $('#gitId').val();
+
+	// 아이콘 클래스 초기화
+	let icon = $('.gitIdArea').find('i');
+	icon.removeClass();
+
+	if(gitId.length < 2) return;
+
+	// 해당하는 사용자가 있는지 확인
+	let userInfo = getGitUserInfo(gitId);
+	if(userInfo){
+		icon.addClass('icon icon-check');
+	}else{
+		icon.addClass('icon icon-close');
+	}
+}
+
+// 깃 repo 체크하는 메서드
+const gitRepoCheck = function(){
+	let gitId = $('#gitId').val();
+	let repoName = $('#repoName').val();
+	
+	// 아이콘 클래스 초기화
+	let icon = $('.gitRepoArea').find('i');
+	icon.removeClass();
+	
+	if(gitId.length < 2 || repoName.length < 2) return;
+	
+	let repoInfo = getGitRepoInfo(gitId, repoName);
+	
+	if(repoInfo){
+		icon.addClass('icon icon-check');
+		$('#addGitRepoBtn').prop('disabled', false);
+	}else{
+		icon.addClass('icon icon-close');
+	}
+} 
+
+// 깃 저장소 등록 메서드
+const saveGitRepo = function(){
+	
+	let gitId = $('#gitId').val();
+	let repoName = $('#repoName').val();
+	let repo_url = gitId + '/' + repoName;
+	
+	// 모달을 일단 닫아준다.
+	$('#addGitModal').modal('hide');
+	
+	// 해당 깃 정보로 저장소를 저장한다.
+	$.ajax({
+		url: getContextPath() + '/restapi/project/repositories',
+		method: 'post',
+		data : {
+			'repo_url' :repo_url 
+			,'repo_type' : 'git'
+		},
+		success: function(res) {
+			if(res == "OK"){
+				// 성공시 code 페이지 새로 불러온다.
+				movePageHistory('code');
+			}
+		},
+		error: function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType: 'json',
+		async: false
+	});
+	
+}
+
+// 깃 저장소 연동 해지 메서드
+const removeGitRepo = function(){
+	
+	// sweetAlert 버튼 초기화
+	 swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+			cancelButton: 'btn btn-light',
+		   	confirmButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+	})	
+	
+	swalWithBootstrapButtons.fire({
+		  title: '정말로 Github 연동을 해지하겠습니까?',
+		  text: "연동이 해지됩니다!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: '해지',
+		  cancelButtonText: '취소',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    $.ajax({
+				url : getContextPath() + '/restapi/project/repositories',
+				method : 'post',
+				data : {
+					'repo_type' : 'git'
+					,'_method' : 'delete'
+				},
+				success : function(res) {
+					if(res == "OK"){
+						swalWithBootstrapButtons.fire(
+					      '성공!',
+					      'Github Repository 와의 연동이 해지되었습니다.',
+					      'success'
+			  			)
+						// 코드 페이지 새로 불러오기.
+						movePageHistory('code');
+					}
+				},
+				error : function(xhr, error, msg) {
+					ajaxError(xhr, error, msg)
+				},
+				dataType : 'json'
+			})
+		    
+		  } else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === Swal.DismissReason.cancel
+		  ) {
+		  }
+		})
+};
+
+
+
+
+
 
 

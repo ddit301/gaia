@@ -8,7 +8,15 @@
     
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-	
+    
+<script>
+	$(function(){
+		// 페이지 준비되면 모든 저장소 정보를 불러온다.
+		loadRepositoryList();
+		loadProjectOverview();
+	})
+</script>	
+
 <div class="container-fluid">
 	<div class="codepage-body row">
 <!-- 		repository start -->
@@ -130,15 +138,40 @@
 	</div>
 </div>
 
+<!-- Git 저장소 등록용 Modal -->
+<div class="modal fade" id="addGitModal" tabindex="-1" aria-labelledby="addGitModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="addGitModalLabel">Git 저장소 등록</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="gitAddModal labelmodal modal-body container-fluid">
+      	<div class="gitIdArea">
+	      	<label for="gitId">Github 아이디</label><br/>
+	      	<input id="gitId" type="text">
+	      	<button class="btn" onclick="gitIdCheck()">확인</button>
+	      	<i></i>
+      	</div>
+      	<div class="gitRepoArea">
+	      	<label for="repoName">저장소 이름</label><br/>
+	      	<input id="repoName" type="text">
+	      	<button class="btn" onclick="gitRepoCheck()">확인</button>
+	      	<i></i>
+      	</div>
+      </div>
+      <div class="modal-footer">
+      	<button id="addGitRepoBtn" onclick="saveGitRepo()" class="btn btn-success" disabled>저장</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" hidden="hidden">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<script>
-	$(function(){
-		// 페이지 준비되면 모든 저장소 정보를 불러온다.
-		loadRepositoryList();
-		loadProjectOverview();
-	})
-	
-</script>
+
+
 
 
 
