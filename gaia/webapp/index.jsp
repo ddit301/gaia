@@ -64,15 +64,16 @@
     <link id="color-scheme" href="resources/main/css/colors/default.css" rel="stylesheet">
     <script src="resources/main/lib/jquery/dist/jquery.js"></script>
     
-    <script type="text/javascript">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-190810131-3"></script>
+	 <script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
-	  gtag('config', 'G-3YZPKG0D0K');
+	  gtag('config', 'UA-190810131-3');
 	  
-	function getContextPath() {
-   		return "<%=request.getContextPath()%>";
-	}
+		function getContextPath() {
+	   		return "<%=request.getContextPath()%>";
+		}
 		// 로그인 실패시 처리인데 어쩔수없이 일단 이렇게 짜뒀습니다.
         let authUser = '${sessionScope } ${authUser }'
         let message = null;
