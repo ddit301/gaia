@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .newsheader{
-	background-color : cornsilk;
+	background-color : aliceblue;
 	margin-left : 0px;
 	font-size : 1.5em;
 }
@@ -38,6 +38,7 @@
 }
 .news-writebox input[type=text]{
 	height : 100%;
+	width : 100%;
 }
 .news-left img{
 	height : 100%;
@@ -84,10 +85,9 @@
 .news-rep-time{
 	float : right;
 }
-
-
-
-
+.news.card{
+	box-shadow: 36px 35px 61px -44px grey;
+}
 
 
 
