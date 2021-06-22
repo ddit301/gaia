@@ -1,8 +1,6 @@
 package best.gaia.calendar.dao;
 
-import static org.junit.Assert.*;
-
-import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -18,11 +16,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.calendar.service.CalendarService;
-import best.gaia.chat.dao.ElasticChatDao;
-import best.gaia.chat.dao.OracleChatDao;
-import best.gaia.chat.service.ChatService;
 import best.gaia.chat.service.ChatServiceImplTest;
-import best.gaia.vo.ChatRoomVO;
+import best.gaia.vo.IssueVO;
 
 /**
  * @author Eisen
@@ -69,11 +64,21 @@ public class CalendarDaoTest {
 
 	@Test
 	public void testUpdateDate() {
-		Map<String, Object> issueSidStatus = new HashedMap();
-		issueSidStatus.put("issue_sid", 14);
-		issueSidStatus.put("issue_status", 1);
-		int result = dao.updateIssueStatus(issueSidStatus);
-		System.out.println(result);
+		Map<String, Object> milestonSid = new HashedMap();
+		milestonSid.put("start_date",  String.valueOf("2021-06-02"));
+		milestonSid.put("end_date", String.valueOf("2021-06-21"));
+		milestonSid.put("sid", 11);
+		
+		int result = dao.updateMilestoneDate(milestonSid);
+//		System.out.println(String.valueOf(issueSid.get("start_date")));
+	}
+//	@Test
+	public void testSelect() {
+		List<IssueVO> issueList = dao.selectIssuesByProj_no(1);
+		IssueVO issue = issueList.get(0);
+		String date = issue.getIssue_end_date();
+		
+		
 	}
 
 }

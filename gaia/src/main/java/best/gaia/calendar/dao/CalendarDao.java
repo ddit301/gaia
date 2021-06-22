@@ -17,4 +17,5 @@ public interface CalendarDao {
 	public int updateIssueStatus(Map<String, Object> issueSidStatus);
 	public int updateMilestoneStatus(Map<String, Object> milestSidStatus);
 	public int updateIssueDate(Map<String, Object> issueInfo);
+	public int updateMilestoneDate(Map<String, Object> issueInfo);
 }

@@ -26,29 +26,49 @@
 			, MILEST_TITLE, MILEST_CONT, MILEST_DATE, MILEST_START_DATE
 			, MILEST_END_DATE, MILEST_STATUS
 		FROM MILESTONE
-		WHERE PROJ_NO = ${proj_no}
+		WHERE PROJ_NO = #{proj_no}
 	</select>
 	<select id="labelList" parameterType="int" resultType="best.gaia.vo.LabelVO">
 		SELECT LABEL_NO, PROJ_NO, LABEL_NM 
 			,LABEL_ICON, LABEL_COLOR
 		FROM LABEL
-		WHERE PROJ_NO = ${proj_no}
+		WHERE PROJ_NO = #{proj_no}
 	</select>
 	
 	<update id="updateIssueStatus" parameterType="java.util.Map">
 		UPDATE ISSUE
-		SET ISSUE_STATUS = ${status}
-		WHERE ISSUE_SID = ${sid}
+		SET ISSUE_STATUS = #{status}
+		WHERE ISSUE_SID = #{sid}
 	</update>
 	<update id="updateMilestoneStatus" parameterType="java.util.Map">
 		UPDATE MILESTONE
-		SET MILEST_STATUS = ${status}
-		WHERE MILEST_SID = ${sid}
+		SET MILEST_STATUS = #{status}
+		WHERE MILEST_SID = #{sid}
 	</update>
 	<update id="updateIssueDate" parameterType="java.util.Map">
 		UPDATE ISSUE
-		SET ISSUE_START_DATE = ${issue_start_date}, ISSUE_END_DATE = ${issue_end_date}
-		WHERE ISSUE_SID = ${sid}
-		
-	</update>	
+		SET 
+		<trim prefixOverrides=",">
+		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(start_date)">
+		    , ISSUE_START_DATE = #{start_date, jdbcType=VARCHAR}
+		    </if>
+		    <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(end_date)">
+			, ISSUE_END_DATE = #{end_date, jdbcType=VARCHAR}
+			</if>
+	    </trim>
+		WHERE ISSUE_SID = #{sid}
+	</update>
+	<update id="updateMilestoneDate" parameterType="java.util.Map">
+		UPDATE MILESTONE
+		SET 
+		<trim prefixOverrides=",">
+		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(start_date)">
+		    , MILEST_START_DATE = #{start_date, jdbcType=VARCHAR}
+		    </if>
+		    <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(end_date)">	
+			, MILEST_END_DATE = #{end_date, jdbcType=VARCHAR}
+			</if>
+	    </trim>
+		WHERE MILEST_SID = #{sid}
+	</update>
 </mapper>

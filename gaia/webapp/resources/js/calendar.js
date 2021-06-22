@@ -110,7 +110,7 @@ const calendar = function(arr, res){
 	  customButtons: {
 	    openBtn: {
 	      text: 'open',
-	      click: function() 
+	      click: function() {
 			// 값이 변경 했을 경우만 ajax 호출 변경하지 않을 경우 기존의 결과로출력(퍼포먼스)
 			isChanged ? issueMilestoneInfoForCalendar(1) : reCal(res, 1);
 	      }
@@ -219,26 +219,32 @@ const closeOrOpenAlert = function(arg, isShowAll){
 }
 // 날짜 계산 
 const dateCal = function(arg){
-	console.log(arg);
+	console.log(arg.event.start)
+	console.log(arg.event.end);
+
 	// 0이면 else로.
 	if(arg.delta.months){
-		console.log("bbbbb");
 	}else{
-		console.log("aaaaa");
 	}
+	
 }
 
 // update
 const updateStatus = function(arg, toBeStatus, isChangeDate){
 	console.log(arg);
 	let data = {};
+	let start = YYYYMMDD(arg.event.start);
+	let end =  YYYYMMDD(arg.event.end);
+	console.log(start)
 	data["_method"] = "put";
 	data["need"] =  arg.event.extendedProps.menu.toLowerCase();
 	data["sid"] = arg.event.extendedProps.sid;
 	CheckNullUndefined(isChangeDate) ?  
-			(data["status"]=toBeStatus) : (data["isChangeDate"]=isChangeDate, (data["changedDate"]=dateCal(arg));
+			(data["status"]=toBeStatus) : 
+				(data["isChangeDate"]=isChangeDate, 
+				data["start_date"]=start,
+				data["end_date"]=end);
 	
-	console.log(data)
 	$.ajax({
 		url : getContextPath()+"/restapi/project/calendar",
 		method : "post",

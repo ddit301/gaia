@@ -65,7 +65,6 @@ public class CalendarREST {
 			HttpSession session
 			){
 		int proj_no = getProjNoFromSession(session);
-		service.selectMilestoneIssuesByProj_no(proj_no);
 		
 		return service.selectMilestoneIssuesByProj_no(proj_no);
 	}
@@ -76,11 +75,12 @@ public class CalendarREST {
 			, @RequestParam Map<String, Object> dataMap
 			){
 		int result = 0;
-		logger.info("Put in");
-		logger.info("need : {}", need);
-		logger.info("dataMap : {}", dataMap);
 		if("yes".equals(dataMap.get("isChangeDate"))) {
-			result = 3;
+			if("issue".equals(need)) {
+				result = dao.updateIssueDate(dataMap);
+			}else if("milestone".equals(need)) {
+				result = dao.updateMilestoneStatus(dataMap);
+			}
 		}else {
 			if("issue".equals(need)) {
 				result = dao.updateIssueStatus(dataMap);
