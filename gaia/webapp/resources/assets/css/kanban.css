@@ -27,3 +27,6 @@
 #myKanban{
 	padding-left : 70px;
 }
+.kanban-drag{
+	height : 100%;
+}
