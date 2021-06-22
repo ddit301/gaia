@@ -7,3 +7,4 @@ gaia/src/main/resources/best/gaia/db/dbinfo.properties
 RemoteSystemsTempFiles/.project
 gaia/src/test/java/shane
 /test/
+gaia/webapp/resources/js/secret.js

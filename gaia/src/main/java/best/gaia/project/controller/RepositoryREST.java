@@ -2,6 +2,7 @@ package best.gaia.project.controller;
 
 import static best.gaia.utils.SessionUtil.getProjNoFromSession;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,12 +16,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.project.dao.RepositoryDao;
 import best.gaia.project.service.ProjectService;
-import best.gaia.vo.ProjectVO;
+import best.gaia.utils.enumpkg.ServiceResult;
 
 @RestController
 @RequestMapping(value = "restapi/project/repositories", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -55,8 +57,20 @@ public class RepositoryREST {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Map<String, Object> insertRepository() {
-		return null;
+	public ServiceResult insertRepository(
+			HttpSession session
+			,@RequestParam String repo_url
+			,@RequestParam String repo_type
+			) {
+		Map<String,Object> repository = new HashMap<>();
+		
+		repository.put("repo_url", repo_url);
+		repository.put("repo_type", repo_type);
+		repository.put("proj_no", getProjNoFromSession(session));
+		
+		int result = dao.insertRepository(repository);
+		
+		return result == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
@@ -65,8 +79,25 @@ public class RepositoryREST {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
-	public Map<String, Object> deleteRepository() {
-		return null;
+	public ServiceResult deleteRepository(
+			HttpSession session
+			,@RequestParam String repo_type) {
+		Map<String,Object> repository = new HashMap<>();
+		
+		repository.put("repo_type", repo_type);
+		repository.put("proj_no", getProjNoFromSession(session));
+		
+		int result = dao.deleteRepository(repository);
+		
+		return result == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 }
+
+
+
+
+
+
+
+

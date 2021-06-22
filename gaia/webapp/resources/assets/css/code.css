@@ -124,6 +124,40 @@ a:not([href]):not([tabindex]).filename-text:hover{
 .progress-bar{
 	margin : 0px;
 }
+.fileNavHeader p{
+	margin-top:30px;
+	margin-left:30px;
+}
+#regGit:hover{
+	cursor : pointer;
+	color : var(--blue)
+}
+#regGit {
+	color : var(--info);
+}
+#gitId, #repoName{
+	width: 50%;
+}
+.gitAddModal i{
+	font-size : 1.5em;
+	float : right
+}
+.gitAddModal{
+	font-size : 1.5em;
+}
+.gitAddModal .icon-check{
+	color : green;
+}
+.gitAddModal .icon-close{
+	color : red;	
+}
+#removeGit{
+	margin-left : 10px;
+	font-weight : bold;
+}
+
+
+
 
 
 
