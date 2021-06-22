@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-lg-4 col-xl-3">
             <div class="card side-position-fixed" id="side-profile"> 
-                <div class="card-body">
+                <div class=" card-body">
                     <div class="media align-items-center mb-4">
                         <img class="mr-3 rounded-circle" onerror="imgOnErr()" width="80" height="80" alt="">
                         <div class="media-body">
@@ -51,10 +51,10 @@
     </div>
 </div>
 <!-- hidden -->
-<div id="personal-template" hidden="true">
+<div id="personal-template" hidden="hidden">
 			    		<!-- 			    		project box 시작 -->
 							<div class="projectBox col-md-6">
-								<div class ="cardBox card col-md-12">
+								<div class ="projCardBox card col-md-12">
 									<div class="projTitle">
 									   <i class="icon-fire large-icons"></i> 
 									   <span>프로젝트이름</span>

@@ -56,14 +56,27 @@ const printPersonalPage = function(){
 			
 			
 			$.each(res, function(i, project){
-				
 				let projectBox = $('#personal-template').children('.projectBox').clone();
+
+				if(project.PROJ_TITLE == null){
+					projectBox.find('.projTitle').find('span').text('참여 프로젝트가 없습니다.')
+					projectBox.find('.manager-area').remove();
+					projectBox.find('.profile').remove();
+					projectBox.find('.proj-join-date-info').remove();
+					projectBox.find('.proj-start-date-info').remove();
+					projectBox.find('.progress-area').remove();
+					
+				}else{
+					projectBox.find('.projTitle').find('span').text(project.PROJ_TITLE);
+					projectBox.find('.projManager').find('span').text(project.PROJ_MANAGERID);
+					projectBox.find('.profile').attr('src', getProfilePath(project.MANAGERPIC));
+					projectBox.find('.proj-join-date-info').find('span').text('join ' + moment(project.JOIN_DATE).format('YYYY-MM-DD'));
+					projectBox.find('.proj-start-date-info').find('span').text('project start ' + moment(project.PROJ_START_DATE).fromNow());
+					
+				}
+			
 				
-				projectBox.find('.projTitle').find('span').text(project.PROJ_TITLE);
-				projectBox.find('.projManager').find('span').text(project.PROJ_MANAGERID);
-				projectBox.find('.profile').attr('src', getProfilePath(project.MANAGERPIC));
-				projectBox.find('.proj-join-date-info').find('span').text('join ' + moment(project.JOIN_DATE).format('YYYY-MM-DD'));
-				projectBox.find('.proj-start-date-info').find('span').text('project start ' + moment(project.PROJ_START_DATE).fromNow());
+				
 				
 				$('#personal-proj-list').append(projectBox);
 				
@@ -104,6 +117,7 @@ const printPersonalPage = function(){
 			});
 			
 		},
+		
 		error : function(xhr, error, msg) {
 			// 존재하지 않는 아이디의 경우가 있으므로 무조건 필요합니다. 따로 리다이렉트는 안합니다.
 			// 존재하지 않는 회원의 페이지에 방문 했을경우의 디자인은 간단히만 처리 해 주세요. 일단 sweetr 메시지만 해둡니다.

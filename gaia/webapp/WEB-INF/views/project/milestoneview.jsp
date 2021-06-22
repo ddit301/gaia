@@ -9,7 +9,7 @@
     pageEncoding="UTF-8"%>
     
     <link href="${cPath }/resources/assets/css/milestone.css" rel="stylesheet">
-    	<div class="wiki-container"> 
+    	<div class="milest-container"> 
 <!-- 	            <div class="row page-titles mx-0"> -->
 <!-- 	                <div class="col p-md-0"> -->
 <!-- 	                    <ol class="breadcrumb"> -->
@@ -95,70 +95,30 @@
 	            		<button data-status="0" type="button" class="status-btn btn mb-1 btn-sm btn-flat btn-light">Open</button>
 	            		<button data-status="1" type="button" class="status-btn btn mb-1 btn-sm btn-flat btn-light">Closed</button>
             		</div>
-<!--            			<div class="col-md-1"></div> -->
+           			<div class="col-md-1"></div>
 				
-<!-- 						<div class="milestone-dropdown-btn"> -->
-					<div class="dropdown-btn col-md-1">	
-						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">정렬</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">최신순</a> 
-							<a class="dropdown-item" href="#">오래된순</a> 
-							<a class="dropdown-item" href="#">댓글많은순</a>
-						</div>
+					<div class="col-md-1">	
+						<button class="btn btn-sm">작성자</button>
 					</div>
-				
-					<div class="dropdown-btn col-md-1">	
-						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">담당자</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">Shane</a> 
-							<a class="dropdown-item" href="#">Robin</a> 
-							<a class="dropdown-item" href="#">Eisen</a>
-						</div>
+					<div class="col-md-1">	
+						<button class="btn btn-sm">중요도</button>
 					</div>
-					
-					<div class="dropdown-btn col-md-1" >	
-						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">중요도</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">무시</a> 
-							<a class="dropdown-item" href="#">낮음</a> 
-							<a class="dropdown-item" href="#">보통</a>
-						</div>
-					</div>	
-
-					<div class="dropdown-btn col-md-1">	
-						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">라벨</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">버그</a> 
-							<a class="dropdown-item" href="#">문서</a> 
-							<a class="dropdown-item" href="#">처리완료</a>
-						</div>
+					<div class="col-md-1">	
+						<button class="btn btn-sm">라벨</button>
 					</div>
-					
 					<div class="col-md-1"></div>
-					<div class="dropdown-btn col-md-1">				
-						<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">작성자</button>
-						<div class="dropdown-menu" x-placement="bottom-start"
-							style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 28px, 0px);">
-							<a class="dropdown-item" href="#">Shane</a> 
-							<a class="dropdown-item" href="#">Robin</a> 
-							<a class="dropdown-item" href="#">Eisen</a>
-						</div>
+					<div class="col-md-1">	
+						<button class="btn btn-sm">담당자</button>
 					</div>
-						<div class="col-md-1"></div>
-<!-- 						</div> -->
+					<div class="col-md-1"></div>
 				</div> 
 			
 				<div id="milestone-issuelist"></div>
            		<div class="milestoneview-footer"></div>
-	           			
 
-           	</div>
+          </div>
 				
-
+		<!-- milestone-issue-template -->
 			<div id="milestone-issue-template" hidden="hidden" >
 				<div class="issueBox row">                                                                                
 					<div class="iss-chkbox col-md-1">
@@ -172,7 +132,7 @@
 						<img class="profile" onerror="imgOnErr()">  
 					</div>                                                                                      
 				    <div class="issue-priority col-md-1"></div>                                                       
-					<div class="issue-label col-md-1"></div>  
+					<div class="milest-issue-label col-md-1"></div>  
 					<div class="col-md-1"></div>                                                           
 					<div class="issue-assignee col-md-1">                                                                      
 					</div>                                                                                      
@@ -180,7 +140,7 @@
 					</div>                                                            
 				</div>        
 			</div>
-            
+	
             
 <script>
 	$(function(){
