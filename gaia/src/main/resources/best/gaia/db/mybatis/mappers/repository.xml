@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="best.gaia.project.dao.RepositoryDao">
+	
 	<select id="selectRepositoryList" parameterType="int" resultType="java.util.HashMap">
 		SELECT *
 		FROM REPOSITORY
 		WHERE PROJ_NO = #{proj_no}
 	</select>
+	
+	<insert id="insertRepository" parameterType="map">
+		INSERT INTO repository (
+		    proj_no,
+		    repo_url,
+		    repo_type
+		) VALUES (
+		    #{proj_no}
+		    ,#{repo_url}
+		    ,#{repo_type}
+		)
+	</insert>
+	
+	<delete id="deleteRepository" parameterType="map">
+		DELETE FROM repository
+		WHERE
+		        proj_no = #{proj_no}
+		    AND repo_type = #{repo_type}
+	</delete>
 	
 </mapper>
