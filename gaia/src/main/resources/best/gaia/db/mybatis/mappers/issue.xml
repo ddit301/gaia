@@ -180,8 +180,8 @@ FROM ISSUE
 			    ,#{proj_no,jdbcType=NUMERIC}
 			    ,#{issue_title,jdbcType=VARCHAR}
 			    ,sysdate
-			    ,#{issue_start_date,jdbcType=VARCHAR}
-			    ,#{issue_end_date,jdbcType=VARCHAR}
+			    , TO_DATE(#{issue_start_date,jdbcType=VARCHAR},'YYYY-MM-DD')     
+			    , TO_DATE(#{issue_end_date,jdbcType=VARCHAR}, 'YYYY-MM-DD')
 			    ,#{issue_priority, jdbcType=VARCHAR}
 			)
 	
@@ -213,8 +213,15 @@ FROM ISSUE
 	
 	<update id="updateIssue" parameterType="map">
 		UPDATE ISSUE
-			SET ${editpart} = #{parameter, jdbcType=VARCHAR}
-			WHERE ISSUE_SID = #{issue_sid, jdbcType=NUMERIC}
+			<choose>
+				<when test='"issue_start_date".equalsIgnoreCase(editpart) or "issue_end_date".equalsIgnoreCase(editpart)'>
+					SET ${editpart} = TO_DATE(#{parameter, jdbcType=VARCHAR}, 'YYYY-MM-DD')
+				</when>
+				<otherwise>
+					SET ${editpart} = #{parameter, jdbcType=VARCHAR}
+				</otherwise>
+			</choose>
+		WHERE ISSUE_SID = #{issue_sid, jdbcType=NUMERIC}
 	</update>
 	
 	<update id="deleteLabelFromIssue" parameterType="int">
