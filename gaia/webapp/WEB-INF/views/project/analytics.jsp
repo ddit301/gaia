@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <div class="container-fluid">
+	통계
 </div>
             
 

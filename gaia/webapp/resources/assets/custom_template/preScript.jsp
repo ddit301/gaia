@@ -19,7 +19,6 @@
     <!-- Custom Stylesheet -->
     <link href="${cPath }/resources/assets/css/member.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/alarm.css" rel="stylesheet">
-    <link href="${cPath }/resources/assets/css/chat.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/code.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/issue.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/news.css" rel="stylesheet">

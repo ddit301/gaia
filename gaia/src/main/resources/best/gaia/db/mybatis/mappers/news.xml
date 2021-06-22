@@ -32,7 +32,7 @@
 	<select id="selectNewsList" parameterType="best.gaia.vo.PagingVO" resultMap="newsMap">
 	select  a.*
 	from (
-	        SELECT dense_rank() over(order by news.news_sid desc) as dr
+	        SELECT dense_rank() over(order by news.news_write_date desc) as dr
 	            ,news.news_sid, news.proj_no, news_no, news_title, news_cont, news_write_date
 	            ,atch_file_sid
 	            ,writer.mem_no

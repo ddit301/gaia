@@ -79,6 +79,7 @@ $(function(){
 	
 	// 추가 프로젝트 멤버 초대 모달 띄우는 버튼
 	$('body').on('click', '.pluscard', function(){
+		$('#memSearchResult').empty();
 		$('#inviteMember').modal('show');
 	});
 	
@@ -95,6 +96,13 @@ $(function(){
 		let selectedMemNick = $(this).find('.memnick').text();
 		inviteMember(selectedMemNo,selectedMemNick,selectedMemberLi);
 	})
+	
+	// 멤버 검색 on input 으로 하기
+	$('body').on('input', '.inviteModal input[type=text]', function(){
+		let keyword = $(this).parent().children('input').val();
+		if(keyword.length == 0) return;
+		searchMember(keyword);
+	});
 	
 	
 	/******************************************************
@@ -139,6 +147,19 @@ const movePage = function(pageParam){
 	// sideBar와 햄버거 메뉴를 보여줍니다.- 멤버에서는 안보이기 때문
 	$('.nk-sidebar').removeAttr('hidden');
 	$('.nav-control').removeAttr('hidden');
+	
+	// 선택한 메뉴를 체크해줍니다.
+	let allMenu = $('.metismenu').find('a');
+	allMenu.removeClass('selectedMenu');
+	menuSize = allMenu.length;
+	for(i =0; i<menuSize; i++){
+		let menu = allMenu.eq(i);
+		if(menu.data('menu') == pageParam){
+			menu.addClass('selectedMenu');
+			break;
+		}
+	}
+	
 	
 	scrollUp();
 	
