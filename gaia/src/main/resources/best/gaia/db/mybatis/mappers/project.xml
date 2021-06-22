@@ -62,7 +62,7 @@
 		    mem_no = #{mem_no,jdbcType=NUMERIC}
 		    ,proj_title = #{proj_title,jdbcType=VARCHAR}
 		    ,proj_cont = #{proj_cont,jdbcType=VARCHAR}             
-			,proj_est_end_date = #{proj_est_end_date,jdbcType=VARCHAR}     
+			,proj_est_end_date = TO_DATE(#{proj_est_end_date,jdbcType=VARCHAR},'YYYY-MM-DD')     
 			,issue_priority_set = #{issue_priority_set,jdbcType=NUMERIC}   
 			,proj_module_set = #{proj_module_set,jdbcType=NUMERIC}       
 			,proj_status = #{proj_status,jdbcType=VARCHAR}          

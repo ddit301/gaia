@@ -40,14 +40,6 @@
             </div>  
         </div>
 		<div class="col-lg-8 col-xl-9">
-			<div class="row justify-content-end">
-				<div class="col col-md-3">
-					<ol class="breadcrumb">
-					    <li class="breadcrumb-item"><a class="moveButton" data-menu="overview" href="javascript:void(0)">Member</a></li>
-					    <li class="breadcrumb-item active"><a class="moveButton" data-menu="${menuname}" href="javascript:void(0)">${menuname}</a></li>
-					</ol>
-				</div>
-			</div>
 			<div class="card">
 		    	<div class="container-fluid">
 			        <div class="row" id="issues">
