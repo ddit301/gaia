@@ -52,16 +52,12 @@
   let pwc=false;
   $("#password").on("keyup", function () {
     let pwvalue = $(this).val().trim();
-    const regpw = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*()]).{8,16}$/;
-    console.log('a');
-    if (pwvalue.trim().length < 8 || pwvalue.trim().length > 16) {
-    	console.log('1');
-      pwc=nopro(this, "비밀번호는 8~16자 입니다.");
-    } else if (!regpw.test(pwvalue)) {
-    	console.log('2');
-      pwc=nopro(this, "8~16자의 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
+//     const regpw = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*()]).{4,12}$/;
+    if (pwvalue.trim().length < 4 || pwvalue.trim().length > 12) {
+      pwc=nopro(this, "비밀번호는 4~12자 입니다.");
+//     } else if (!regpw.test(pwvalue)) {
+//       pwc=nopro(this, "4~12자의 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
     } else {
-    	console.log('3');
       pwc=okpro(this);
     }
   })
@@ -112,7 +108,7 @@
 			if(result.result=="OK"){
 				alic=okpro(input);
 			}else{
-				alic=nopro(input, "중복된 별명입니다.");
+				alic=nopro(input, "중복된 아이디 입니다.");
 			}
 		},
 		"error" : function(xhr){

@@ -21,7 +21,7 @@ public class PagingVO<T> implements Serializable {
 	}
 
 	private int totalRecord;
-	private int screenSize = 10;
+	private int screenSize = 8;
 	private int blockSize = 5;
 	private int currentPage;
 

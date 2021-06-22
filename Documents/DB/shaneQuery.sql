@@ -26,7 +26,7 @@ from (
         ,ISSUE_PRIORITY ,PROGRESS
         ,MILESTONE.MILEST_SID, milestone.milest_title AS MILEST_TITLE
         ,WRITER.MEM_NO AS writer_no, writer.mem_pic_file_name AS writer_pic
-        ,label.label_no, label.label_nm
+        ,label.label_no, label_nm, label_icon, label_color
         ,ASSIGNEE.mem_no, assignee.mem_pic_file_name
         ,(select count(*) -1
             from issue_history
@@ -40,8 +40,41 @@ from (
         LEFT OUTER JOIN issue_assignee ON (issue.issue_sid = issue_assignee.issue_sid)
         LEFT OUTER JOIN MEMBER ASSIGNEE ON (issue_assignee.mem_no = assignee.mem_no)
     WHERE ISSUE.proj_no = 1
-            and issue_status = 0) a;
+            and issue_status = 1) a;
     --WHERE DR BETWEEN 5 AND 10;
+
+
+
+-- 추가 + 갯수 카운팅
+select  nvl(max(dr),0)
+		from (
+			    SELECT dense_rank() over(order by issue.issue_sid desc) as dr
+			        ,ISSUE.ISSUE_SID AS ISSUE_ID ,ISSUE_NO ,ISSUE.PROJ_NO ,ISSUE_TITLE 
+			        ,ISSUE_CREATE_DATE ,ISSUE_START_DATE ,ISSUE_END_DATE ,ISSUE_STATUS
+			        ,ISSUE_PRIORITY ,PROGRESS
+			        ,MILESTONE.MILEST_SID, milestone.milest_title AS MILEST_TITLE
+			        ,WRITER.MEM_NO AS writer_no, writer.mem_pic_file_name AS writer_pic
+			        ,label.label_no, label_nm, label_icon, label_color
+			        ,ASSIGNEE.mem_no, assignee.mem_pic_file_name
+			        ,(select count(*) -1
+			            from issue_history
+			            where issue_history.issue_sid = ISSUE.issue_sid
+			                    and issue_history.issue_his_type = 'RE'
+			        ) as replyCount
+		    FROM ISSUE
+		        LEFT OUTER JOIN MILESTONE ON (ISSUE.MILEST_SID = milestone.milest_sid)
+		        INNER JOIN MEMBER WRITER ON (ISSUE.MEM_NO = WRITER.MEM_NO)
+		        LEFT OUTER JOIN LABEL ON (issue.label_no = label.label_no)
+		        LEFT OUTER JOIN issue_assignee ON (issue.issue_sid = issue_assignee.issue_sid)
+		        LEFT OUTER JOIN MEMBER ASSIGNEE ON (issue_assignee.mem_no = assignee.mem_no)
+			 
+		 WHERE ISSUE.proj_no = 1
+			AND ( ISSUE_STATUS = '0' 
+					
+					
+						and label.LABEL_NO = 5 ) 
+	  
+			)a;
 ------------------------------------------------------------------------
 -- b. 이슈 상세정보 보기 
 ------------------------------------------------------------------------
