@@ -88,7 +88,7 @@
 </div>
 
 <script>
-
+scrollUp();
 printPersonalPage();
 
 
