@@ -140,6 +140,8 @@ function ajaxError(xhr, error, msg){
 		setTimeout(function() {
 			window.location.href = "/";
 		}, 2000);
+	}else if(xhr.status == 423){
+		toastr.error("해당 프로젝트에 접근할 수 있는 권한이 없습니다.");
 	}
 }
 
