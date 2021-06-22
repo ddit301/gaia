@@ -79,6 +79,7 @@ $(function(){
 	
 	// 추가 프로젝트 멤버 초대 모달 띄우는 버튼
 	$('body').on('click', '.pluscard', function(){
+		$('#memSearchResult').empty();
 		$('#inviteMember').modal('show');
 	});
 	
@@ -95,6 +96,13 @@ $(function(){
 		let selectedMemNick = $(this).find('.memnick').text();
 		inviteMember(selectedMemNo,selectedMemNick,selectedMemberLi);
 	})
+	
+	// 멤버 검색 on input 으로 하기
+	$('body').on('input', '.inviteModal input[type=text]', function(){
+		let keyword = $(this).parent().children('input').val();
+		if(keyword.length == 0) return;
+		searchMember(keyword);
+	});
 	
 	
 	/******************************************************
