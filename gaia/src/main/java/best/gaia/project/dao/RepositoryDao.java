@@ -11,5 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface RepositoryDao {
 	
 	public List<Map<String, Object>> selectRepositoryList(int proj_no);
-	
+
+	public int insertRepository(Map<String, Object> repository);
+	public int deleteRepository(Map<String, Object> repository);
 }
