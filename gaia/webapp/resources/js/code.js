@@ -357,10 +357,9 @@ const readmeFromRepo = function(gitRepoUrl) {
 		success: function(res) {
 			decoded = Base64.decode(res.content);
 		},
-//		beforeSend : function(xhr){
-//			xhr.setRequestHeader("Authorization", "token " + gitHash)
-//			,xhr.setRequestHeader("if-modified-since", null);
-//		},
+		beforeSend : function(xhr){
+			xhr.setRequestHeader("Authorization", "token " + gitHash)
+		},
 		error: function(xhr, error, msg) {
 		},
 		dataType: 'json',

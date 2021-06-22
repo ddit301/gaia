@@ -282,6 +282,10 @@
 .dropdown a:hover{
 	cursor : pointer;
 }
+.issue-header .dropdown-menu{
+	max-height : 300px;
+	overflow-y : scroll;
+}
 
 
 
