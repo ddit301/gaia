@@ -19,6 +19,7 @@
 }
 .newsReplyArea{
 	padding : 20px;
+	padding-right : 0px;
 }
 .newsBody{
 	min-height : 350px;
@@ -80,7 +81,9 @@
 .newsContent{
 	padding-left : 20px;
 }
-
+.news-rep-time{
+	float : right;
+}
 
 
 

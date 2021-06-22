@@ -105,8 +105,11 @@
 			<img class="profile" src="/resources/images/profiles/4" onerror="imgOnErr()">
 			<p>팀장 꼬북</p>
 		</div>
-		<div class="col-md-10">
+		<div class="col-md-7">
 			<span>댓글 내용</span>
+		</div>
+		<div class="col-md-3">
+			<span class="news-rep-time"></span>
 		</div>
 	</div>
 <!-- 					news reply 끝 -->
