@@ -367,8 +367,8 @@ const makeKanban = function(board){
         }
         ,itemAddOptions: {
           enabled: true,
-          content: '+ 카드 추가',
-          class: 'btn btn-success',
+          content: '+추가',
+          class: 'btn kanbanplus',
           footer: false
         }
 

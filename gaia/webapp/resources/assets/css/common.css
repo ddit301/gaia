@@ -90,10 +90,14 @@ button.selectedProj{
 	font-size : 2em;
 	margin-top : 5px;
 	float : right;
+    color: cadetblue;
 }
 #memSearchResult{
 	height : 300px;
 	overflow-y : scroll;
+}
+li.searchedMember{
+	padding:10px;	
 }
 
 /* 라벨 관련 css */
@@ -222,5 +226,17 @@ button.selectedProj{
 #mng_proj_end{
 	width : 60%;	
 }
+.inviteModal input{
+	width:auto;
+}
+
+
+
+
+
+
+
+
+
 
 

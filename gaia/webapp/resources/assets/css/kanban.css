@@ -7,14 +7,26 @@
     margin-bottom: 30px;
     border: 0px;
     border-radius: 0.625rem;
-    box-shadow: 6px 11px 41px -28px #a99de7;
+    box-shadow: 13px 11px 11px -15px grey;
+	height : 700px;
+	overflow-y : scroll;
+	background : white;
 }
 #myKanban button{
 	float : right;
 	margin-right : 10px;
 	margin-bottom : 10px;
 }
-.kanban-board{
-	height : 700px;
-	overflow-y : scroll;
+.kanban-board-header:hover{
+	cursor: move;
+}
+.kanban-item{
+	background : aliceblue;
+    box-shadow: 14px 17px 13px -15px grey;
+}
+#myKanban{
+	padding-left : 70px;
+}
+.kanban-drag{
+	height : 100%;
 }

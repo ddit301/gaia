@@ -70,7 +70,7 @@ const getNewsBoxFromJson = function(news){
 	newsBox.find('.mem-overview-card').find('img').attr('src', getProfilePath(news.writer.mem_pic_file_name) );
 	
 	// 작성 시간 등록
-	newsBox.find('.newsWriteTime').text(moment(news.news_write_date == null ? new Date() : news.news_write_date).fromNow());
+	newsBox.find('.newsWriteTime').text(moment(news.news_write_date == null ? new Date() : news.news_write_date).format('YYYY-MM-DD hh:mm'));
 	newsBox.attr('data-news_sid',news.news_sid);
 	
 	// viewer에 글자 넣고, newsContent로 클론해오기.
@@ -109,8 +109,10 @@ const getNewsCommentBoxFromJson = function(comm){
 			mem_nick : proj_user_nick
 			,mem_pic_file_name : mem_pic_file_name
 		}
+		comm.news_com_date = moment();
 	}
 	
+	newsCommentBox.find('.news-rep-time').text(moment(comm.news_com_date).fromNow());
 	newsCommentBox.find('p').text(comm.commentWriter.mem_nick);
 	newsCommentBox.find('img').attr('src', getProfilePath(comm.commentWriter.mem_pic_file_name) );
 	
