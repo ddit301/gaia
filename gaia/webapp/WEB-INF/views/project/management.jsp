@@ -248,17 +248,17 @@
 						</div>
 						<div class="form-check form-check-inline">
 							<label class="form-check-label"> <input type="checkbox"
-								class="form-check-input" value="">클라우드
-							</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<label class="form-check-label"> <input type="checkbox"
 								class="form-check-input" value="">뉴스
 							</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<label class="form-check-label"> <input type="checkbox"
 								class="form-check-input" value="">위키
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input type="checkbox"
+								class="form-check-input" value="">통계
 							</label>
 						</div>
 						<button id="saveModuleBtn" style="float: right" class="btn btn-success">저장</button>

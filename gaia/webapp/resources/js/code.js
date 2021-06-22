@@ -358,10 +358,9 @@ const readmeFromRepo = function(gitRepoUrl) {
 			decoded = Base64.decode(res.content);
 		},
 		beforeSend : function(xhr){
-			xhr.setRequestHeader("Authorization", "token " + gitHash);
+			xhr.setRequestHeader("Authorization", "token " + gitHash)
 		},
 		error: function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
 		},
 		dataType: 'json',
 		async: false
@@ -381,7 +380,6 @@ const renderMarkdown = function(text) {
 			xhr.setRequestHeader("Authorization", "token " + gitHash);
 		},
 		error: function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
 		},
 		dataType: 'html',
 	});
@@ -426,7 +424,6 @@ const loadLanguageInfo = function(gitRepoUrl) {
 			xhr.setRequestHeader("Authorization", "token " + gitHash);
 		},
 		error: function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
 		},
 		dataType: 'json',
 	});
@@ -517,7 +514,6 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 			xhr.setRequestHeader("Authorization", "token " + gitHash);
 		},
 		error: function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
 		},
 		dataType: 'json',
 		async: false
@@ -536,7 +532,6 @@ const getGitUserInfo = function(username) {
 			xhr.setRequestHeader("Authorization", "token " + gitHash);
 		},
 		error: function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
 		},
 		dataType: 'json',
 		async: false
@@ -556,7 +551,6 @@ const getGitRepoInfo = function(username, reponame){
 			xhr.setRequestHeader("Authorization", "token " + gitHash);
 		},
 		error: function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
 		},
 		dataType: 'json',
 		async: false
@@ -629,7 +623,6 @@ const saveGitRepo = function(){
 			}
 		},
 		error: function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
 		},
 		dataType: 'json',
 		async: false

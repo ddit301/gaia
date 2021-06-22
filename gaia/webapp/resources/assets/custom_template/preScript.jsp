@@ -19,7 +19,6 @@
     <!-- Custom Stylesheet -->
     <link href="${cPath }/resources/assets/css/member.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/alarm.css" rel="stylesheet">
-    <link href="${cPath }/resources/assets/css/chat.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/code.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/issue.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/news.css" rel="stylesheet">
@@ -41,17 +40,18 @@
     <link href="${cPath }/resources/fullCalendar/lib/main.css" rel="stylesheet">
     <!-- jquery -->
     <script src="${cPath }/resources/js/external/jquery.min.js"></script>
+	
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-3YZPKG0D0K"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-190810131-3"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
-	  gtag('config', 'G-3YZPKG0D0K');
+	  gtag('config', 'UA-190810131-3');
 	  
-	function getContextPath() {
-   		return "<%=request.getContextPath()%>";
-	}
+		function getContextPath() {
+	   		return "<%=request.getContextPath()%>";
+		}
 	
 	</script>
 	

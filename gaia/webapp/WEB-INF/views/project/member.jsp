@@ -61,7 +61,10 @@
         </button>
       </div>
       <div class="inviteModal modal-body">
-      	<input type="text"><button id="memSearchBtn" class="btn">검색</button>
+      	<div>
+	      	<input type="text">
+	      	<button id="memSearchBtn" class="btn">검색</button>
+      	</div>
     	<ul id="memSearchResult">
     	</ul> 
       </div>
