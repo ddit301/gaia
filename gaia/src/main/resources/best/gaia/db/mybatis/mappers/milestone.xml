@@ -43,6 +43,8 @@
 			<id column="ISSUE_ID" property="issue_sid"/>
 				<result column="issue_no" property="issue_no"></result>
 				<result column="issue_title" property="issue_title"></result>
+				<result column="issue_priority" property="issue_priority"></result>
+				
 <!-- 				<result column="ISSUE_WRI_MEM_PIC" property="mem_pic_file_name"></result> -->
 			<association property="label" javaType="best.gaia.vo.LabelVO" autoMapping="false">
 				<result column="LABEL_NO" property="label_no"></result>
