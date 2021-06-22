@@ -121,6 +121,7 @@ $(function(){
 	$('.content-body').on('click', '#milest-changes-btn', function(){
 		milestoneEditSave();
 	})
+	
 
 })
 	
@@ -322,20 +323,27 @@ milestoneissuelist = function(issue_status){
         		$('.milestoneview-percent').children('span').text((res.milest_percent == null ? 0 : res.milest_percent)+'% complete '+res.open_issue_cnt+' open '+res.close_issue_cnt+' closed');
 				
         		total_count = Object.keys(res.issueList).length;
-        		
+        	
+					
+	
+					
 				$.each(res.issueList, function(i, v) {
+					
 					let issueBox = $('#milestone-issue-template').children('.issueBox').clone();
 					issueBox.attr('data-issue_no',v.issue_no);
 					issueBox.children('.issue-title').children('a').text(v.issue_title);
+					// 이슈 작성자 이미지
+					issueBox.children('.issue-writer').children('img').attr('src',getProfilePath(res.issueWriter.mem_pic_file_name));
 					issueBox.children('.issue-priority').text(
-							v.issue_priority == 1 ? '무시' :
-							v.issue_priority == 2 ? '낮음' :
+							v.issue_priority == 5 ? '무시' :
+							v.issue_priority == 4 ? '낮음' :
 							v.issue_priority == 3 ? '보통' :
-							v.issue_priority == 4 ? '높음' :
-							v.issue_priority == 5 ? '긴급' : '즉시');
+							v.issue_priority == 2 ? '높음' :
+							v.issue_priority == 1 ? '긴급' : 
+							v.issue_priority == 0 ? '즉시' : ' ');
 					
 					if(v.label){
-					issueBox.children('.issue-label').text(v.label.label_nm);								
+					issueBox.children('.milest-issue-label').text(v.label.label_nm);								
 					}
 			
 				let assigneeSize = v.assigneeList.length;
@@ -344,9 +352,8 @@ milestoneissuelist = function(issue_status){
 					if(assigneeSize == 1) j=99;
 					// 이슈 담당자 이미지(여러명)
 					issueBox.children('.issue-assignee').append(
-							'<img class="profile assignee assignee'+j+'" src="'+getProfilePath(assignee.mem_pic_file_name)+'">');
-					// 이슈 작성자 이미
-					issueBox.children('.issue-writer').children('img').attr('src',getProfilePath(v.assigneeList[0].mem_pic_file_name));
+							'<img class="profile assignee assignee'+j+'" onerror="imgOnErr()" src="'+getProfilePath(assignee.mem_pic_file_name)+'">');
+
 				})
 					if(v.replyCount > 0){
 						issueBox.children('.reply').html(
@@ -431,7 +438,5 @@ const milestoneEditSave = function(){
 
 	})
 }
-
-
 
 
