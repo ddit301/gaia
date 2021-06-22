@@ -140,6 +140,19 @@ const movePage = function(pageParam){
 	$('.nk-sidebar').removeAttr('hidden');
 	$('.nav-control').removeAttr('hidden');
 	
+	// 선택한 메뉴를 체크해줍니다.
+	let allMenu = $('.metismenu').find('a');
+	allMenu.removeClass('selectedMenu');
+	menuSize = allMenu.length;
+	for(i =0; i<menuSize; i++){
+		let menu = allMenu.eq(i);
+		if(menu.data('menu') == pageParam){
+			menu.addClass('selectedMenu');
+			break;
+		}
+	}
+	
+	
 	scrollUp();
 	
 	if(!pageParam)
