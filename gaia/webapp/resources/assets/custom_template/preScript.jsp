@@ -42,6 +42,11 @@
     <link href="${cPath }/resources/assets/dist/jsgantt.css" rel="stylesheet">
     <!-- jquery -->
     <script src="${cPath }/resources/js/external/jquery.min.js"></script>
+    <!-- 	Git Authentication 받아오는 js 및 변수 선언 -->
+    <script>
+		let gitHash = '';
+    </script>
+	<script src="${cPath }/resources/js/secret.js"></script>
 	
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-190810131-3"></script>
