@@ -334,14 +334,8 @@ milestoneissuelist = function(issue_status){
 					issueBox.children('.issue-title').children('a').text(v.issue_title);
 					// 이슈 작성자 이미지
 					issueBox.children('.issue-writer').children('img').attr('src',getProfilePath(res.issueWriter.mem_pic_file_name));
-					issueBox.children('.issue-priority').text(
-							v.issue_priority == 5 ? '무시' :
-							v.issue_priority == 4 ? '낮음' :
-							v.issue_priority == 3 ? '보통' :
-							v.issue_priority == 2 ? '높음' :
-							v.issue_priority == 1 ? '긴급' : 
-							v.issue_priority == 0 ? '즉시' : ' ');
-					
+					issueBox.children('.issue-priority').text(priorities[v.issue_priority]);
+					console.log(priorities[v.issue_priority])
 					if(v.label){
 					issueBox.children('.milest-issue-label').text(v.label.label_nm);								
 					}
