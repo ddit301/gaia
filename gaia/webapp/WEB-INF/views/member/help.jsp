@@ -54,9 +54,9 @@
                 <div class="col-lg-8">
                   <select class="form-control" id="inq_sort" name="inq_sort">
                     <option value="">Please select</option>
-                    <option value="html">결제 오류</option>
-                    <option value="css">버그</option>
-                    <option value="javascript">운영 문의</option>
+                    <option value="PAY">결제 오류</option>
+                    <option value="BUG">버그</option>
+                    <option value="OPR">운영 문의</option>
                   </select>
                 </div>
               </div>
@@ -186,67 +186,44 @@ $('#date-format').attr('placeholder',dayPlaceholder);
     
     $("#submitter").on("click",function(e){
     	e.preventDefault();
-    	let formContent = $("#inquiryForm");
-    	thisFormSubmit(formContent);
+    	thisFormSubmit();
     })
 
   })
   
-  function thisFormSubmit(f) { 
-	  /** * 입력 필드 validattion check 로직 */ 
-	  /** * ajax로 다른 페이지를 처리 후에 결과가 성공일 때 전송 처리를 한다. */ 
-	  // 전송 여부 boolean 값 
-	  // 초기값은 false로 셋팅을 한다. 
+  function thisFormSubmit() { 
 	  var isSubmit = false; 
-// 	  console.log(f.find('input'));
-// 	  $.each(f.find('input'), function(index, item){
-		  
-// 		  console.log('inputs',index, item)
-// 	  });
-
-// 	  var inputId=$("input[name=id]").val();
-// 	  let data = $('form').serialize();
-	  let sort = '[' + $('#inq_sort').val() + ']';
-	  let occur = $('#date-format').val();
-	  let title = '[' + $('#inq_title').val() + ']';
-	  let cont = $('#inq_cont').val();
-// 	console.log(data); //inq_sort=&inq_title=title&inq_cont=contents
-	console.log($('#inq_title'));
-	console.log(sort + occur + title + cont);
-	alert("stop");
-// 	  $.ajax({ 
-// 		  url:'[주소]', 
-// 		  type:'post', 
-// 		  data:$('form').serialize(), 
-// 		  dataType:'json', 
-// 		  // 다른 페이지를 처리 후에 결과가 성공일 때 
-// 		  // 비동기식으로 처리를 함 
-// 		  async: false, 
-// 		  success:function(data) {
-// 			  var message = data.message;
-// 			  // 결과값이 성공이면 전송 여부는 
-// 			  true if ( message == 'Success' ) { 
-// 				  isSubmit = true; 
-// 				  } else {
-// 				  // 결과값이 실패이면 전송 여부는 false 
-// 				  // 앞서 초기값을 false로 해 놓았지만 한번 더 선언을 한다. 
-// 				  isSubmit = false; }
-// 		  }, 
-// 		  error:function(request, status, error) { 
-// 			  // 오류가 발생했을 때 호출된다. 
-// 			  console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); 
-// 			  // ajax 처리가 결과가 에러이면 전송 여부는 false 
-// 			  // 앞서 초기값을 false로 해 놓았지만 한번 더 선언을 한다. 
-// 			  isSubmit = false; 
-// 		  },
-// 		  beforeSend:function() { 
-// 			  // 로딩바를 보여준다. 
-// 			  }, 
-// 		  complete:function() { 
-// 			  // 로딩바를 해제한다. 
-// 			  } 
-// 		  }); 
-// 	  if ( !isSubmit ) return false;
+	  let sort = '[ ' + $('#inq_sort').val();
+	  let occur = ' OCCURRED AT ' + $('#date-format').val()+ ' ]';
+	  let title = '[ ' + $('#inq_title').val() + ' :: ';
+	  let cont = $('#inq_cont').val() + ']';
+	  let datas = sort + occur + title + cont;
+	  $.ajax({ 
+		  url:'restapi/member/inquiry', 
+		  type:'post', 
+		  data: {inq_data : datas}, 
+		  dataType:'json', 
+		  async: false, 
+		  success:function(data) {
+			  var message = data.message;
+			  // 결과값이 성공이면 전송 여부는 
+			  true if ( message == 'Success' ) { 
+				  isSubmit = true; 
+				  } else {
+				  isSubmit = false; }
+		  }, 
+		  error:function(request, status, error) { 
+			  console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); 
+			  isSubmit = false; 
+		  },
+		  beforeSend:function() { 
+			  // 로딩바를 보여준다. 
+			  }, 
+		  complete:function() { 
+			  // 로딩바를 해제한다. 
+			  } 
+		  }); 
+	  if ( !isSubmit ) return false;
 	}
 
 </script>
