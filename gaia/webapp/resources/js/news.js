@@ -29,6 +29,12 @@ $(function() {
 	$('body').on('click', '#top', function(){
 		window.scrollTo({top:0, left:0, behavior:'smooth'});
 	})
+	
+	// 뉴스 이미지 클릭시 크게 보는 이벤트
+	$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
 
 
 })
@@ -81,6 +87,7 @@ const getNewsBoxFromJson = function(news){
 	if(news.atch_file_sid!=null){
 		newsBox.find('.newsReplyArea').prepend(newsContent);
 		newsBox.find('.news-left').find('img').attr('src', getNewsPath(news.atch_file_sid));
+		newsBox.find('.lightbox').attr('href', getNewsPath(news.atch_file_sid));
 	}else{
 		newsBox.find('.news-left').html(newsContent);
 	}
