@@ -99,7 +99,7 @@
 					</div>
 				</div>
 				<div class="members-overview card">
-					<p>소속 멤버
+					<p id="howmanyMember">소속 멤버
 						<i class="icon-settings menu-icon"></i>
 					</p>
 					<div>
