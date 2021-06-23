@@ -46,6 +46,7 @@
 					<result column="ISSUE_START_DATE" property="issue_start_date"></result>
 					<result column="ISSUE_END_DATE" property="issue_end_date"></result>
 					<result column="ISSUE_STATUS" property="issue_status"></result>
+					<result column="issue_priority" property="issue_priority"></result>
 	<!-- 				<result column="ISSUE_WRI_MEM_PIC" property="mem_pic_file_name"></result> -->
 				<association property="label" javaType="best.gaia.vo.LabelVO" autoMapping="false">
 					<result column="LABEL_NO" property="label_no"></result>

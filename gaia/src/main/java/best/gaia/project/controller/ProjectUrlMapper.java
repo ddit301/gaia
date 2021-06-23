@@ -1,5 +1,7 @@
 package best.gaia.project.controller;
 
+import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -23,8 +25,8 @@ import org.springframework.web.context.WebApplicationContext;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.CookieUtil;
+import best.gaia.utils.exception.NotYourProjectException;
 import best.gaia.utils.exception.ResourceNotFoundException;
-import static best.gaia.utils.SessionUtil.*;
 @Controller
 @RequestMapping("{manager_id:^(?:(?!admin$|view$|restapi$).)*$}/{project_title:^(?:(?!overview$|help$|chat$|setting$).)*$}")
 public class ProjectUrlMapper {
@@ -87,16 +89,20 @@ public class ProjectUrlMapper {
 		if(proj_no == null)
 			throw new ResourceNotFoundException();
 		
-		// 접속중인 유저가 해당 proj_no에 대해 조회할 수 있는 권한이 있는지 체크
 		int mem_no = getMemberNoFromAuthentication(authentication);
-		/* 코드 작성 필요*/
 		
 		// 조회중인 프로젝트의 proj_no 를 세션에 저장하기
 		session.setAttribute("proj_no", proj_no);
 		
 		// Cookie 에 접속중인 회원의 proj 내에서의 닉네임을 쿠키에 저장하기
 		String proj_user_nick = service.getProjectNick(proj_no, mem_no);
-		CookieUtil.addCookie("proj_user_nick", proj_user_nick, resp);
+		if(proj_user_nick != null) {
+			CookieUtil.addCookie("proj_user_nick", proj_user_nick, resp);
+			CookieUtil.addCookie("proj_no", String.valueOf(proj_no), resp);
+		}else {
+			// 접속중인 유저가 해당 proj_no에 가입 정보가 없을 경우에는 에러를 보낸다.
+			throw new NotYourProjectException();
+		}
 	}
 	
 }

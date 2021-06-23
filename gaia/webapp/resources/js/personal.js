@@ -1,17 +1,26 @@
 
 
+
+$(function(){
+	$('body').on('click', '.projectBox', function(){
+		let mngid = $(this).data('manager_id');
+		let projtitle = $(this).data('project_title');
+		loadProject(mngid,projtitle);
+	})
+});
+
 ////////////////////////////////////////////////////
 //
 // personalPage 이벤
 //
 ////////////////////////////////////////////////////
 
-const printPersonalPage = function(){
+const printPersonalPage = function(mem_id){
 	$.ajax({
-		url : getContextPath() + 'restapi/member/members/personalProfile.do',
+		url : getContextPath() + '/restapi/member/members/personalProfile.do',
 		method : 'get',
 		data : {
-			'mem_id' : getCurrentUrl().substring(1)
+			'mem_id' : mem_id
 		},
 		success : function(res) {
 			member = res[0];
@@ -22,13 +31,14 @@ const printPersonalPage = function(){
 			profileArea.find('.card-body').find('p').eq(1).text(member.MEM_BIO);
 			profileArea.find('.card-profile__info').find('span').eq(0).text(member.MEM_NICK);
 			profileArea.find('.card-profile__info').find('span').eq(1).text(member.MEM_WORKING_CITY);
-			profileArea.find('.card-profile__info').find('span').eq(2).text('issue assignee : ' + member.ISSUEASSIGNEECNT);
-			profileArea.find('.card-profile__info').find('span').eq(3).text('chat count : ' + member.MEMCHATCNT);
-			profileArea.find('.card-profile__info').find('span').eq(4).text('issue count : ' + member.ISSUECNT);
-			profileArea.find('.card-profile__info').find('span').eq(5).text('news count : ' + member.NEWSCNT);
-			profileArea.find('.card-profile__info').find('span').eq(6).text('milestone count : ' + member.MILESTONECNT);
-			profileArea.find('.card-profile__info').find('span').eq(7).text('sign date : ' + moment(member.MEM_SIGN_DATE).format('YYYY-MM-DD'));
-			profileArea.find('.card-profile__info').find('span').eq(8).text('status : ' + member.MEM_STATUS);
+			profileArea.find('.card-profile__info').find('span').eq(2).text(member.MEM_TEL);
+			profileArea.find('.card-profile__info').find('span').eq(3).text('할당된 일감 : ' + member.ISSUEASSIGNEECNT);
+			profileArea.find('.card-profile__info').find('span').eq(4).text('참여 채팅수 : ' + member.MEMCHATCNT);
+			profileArea.find('.card-profile__info').find('span').eq(5).text('작성 이슈 : ' + member.ISSUECNT);
+			profileArea.find('.card-profile__info').find('span').eq(6).text('작성 뉴스 : ' + member.NEWSCNT);
+			profileArea.find('.card-profile__info').find('span').eq(7).text('작성 마일스톤 : ' + member.MILESTONECNT);
+			profileArea.find('.card-profile__info').find('span').eq(8).text('가입일 : ' + moment(member.MEM_SIGN_DATE).format('YYYY-MM-DD'));
+			profileArea.find('.card-profile__info').find('span').eq(9).text('상태 : ' + member.MEM_STATUS);
 			
 			
 			/*
@@ -57,13 +67,34 @@ const printPersonalPage = function(){
 			
 			$.each(res, function(i, project){
 				
+				if(project.PROJ_DROP_DATE){
+					return;
+				}
+				
 				let projectBox = $('#personal-template').children('.projectBox').clone();
 				
-				projectBox.find('.projTitle').find('span').text(project.PROJ_TITLE);
-				projectBox.find('.projManager').find('span').text(project.PROJ_MANAGERID);
-				projectBox.find('.profile').attr('src', getProfilePath(project.MANAGERPIC));
-				projectBox.find('.proj-join-date-info').find('span').text('join ' + moment(project.JOIN_DATE).format('YYYY-MM-DD'));
-				projectBox.find('.proj-start-date-info').find('span').text('project start ' + moment(project.PROJ_START_DATE).fromNow());
+				projectBox.attr('data-manager_id',project.PROJ_MANAGERID);
+				projectBox.attr('data-project_title',project.PROJ_TITLE);
+				
+				if(project.PROJ_TITLE == null){
+					projectBox.find('.projTitle').find('span').text('참여 프로젝트가 없습니다.')
+					projectBox.find('.manager-area').remove();
+					projectBox.find('.profile').remove();
+					projectBox.find('.proj-join-date-info').remove();
+					projectBox.find('.proj-start-date-info').remove();
+					projectBox.find('.progress-area').remove();
+					
+				}else{
+					projectBox.find('.projTitle').find('span').text(project.PROJ_TITLE);
+					projectBox.find('.projManager').find('span').text(project.MEM_ROLE_NM + ' - ' + project.PROJ_USER_NICK);
+					projectBox.find('.profile').attr('src', getProfilePath(project.MANAGERPIC));
+					projectBox.find('.proj-join-date-info').find('span').text('join ' + moment(project.JOIN_DATE).format('YYYY-MM-DD'));
+					projectBox.find('.proj-start-date-info').find('span').text('project start ' + moment(project.PROJ_START_DATE).fromNow());
+					
+				}
+			
+				
+				
 				
 				$('#personal-proj-list').append(projectBox);
 				
@@ -104,6 +135,7 @@ const printPersonalPage = function(){
 			});
 			
 		},
+		
 		error : function(xhr, error, msg) {
 			// 존재하지 않는 아이디의 경우가 있으므로 무조건 필요합니다. 따로 리다이렉트는 안합니다.
 			// 존재하지 않는 회원의 페이지에 방문 했을경우의 디자인은 간단히만 처리 해 주세요. 일단 sweetr 메시지만 해둡니다.
@@ -114,6 +146,7 @@ const printPersonalPage = function(){
 			ajaxError(xhr, error, msg);
 		},
 		dataType : 'json'
+		,async : false
 	})
 } 	
 

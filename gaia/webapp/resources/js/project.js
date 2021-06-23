@@ -182,6 +182,10 @@ const movePage = function(pageParam){
 // 특정 프로젝트 선택시 해당 프로젝트로 이동하는 함수
 const loadProject = function(managerId, projectTitle, pageParam){
 	
+	// 전역변수에 정보들을 넣어 줘야 한다.
+	manager_id = managerId;
+	projectTitle = projectTitle;
+	
 	// 비동기로 세션에 선택한 프로젝트를 기록한 뒤, 해당 프로젝트의 pageParam으로 이동한다.
 	// pageParam이 null 일 경우 'code'로 이동한다.
 	$.ajax({

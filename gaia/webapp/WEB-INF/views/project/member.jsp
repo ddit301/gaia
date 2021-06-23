@@ -81,7 +81,7 @@
 <div id="setting-member-template" hidden="hidden">
 <!--     	멤버 검색결과 li 시작 -->
  		<li class="searchedMember">
- 			<img class="profile" onerror="imgOnErr()">
+ 			<img class="nonlink profile" onerror="imgOnErr()">
  			<span class="memid">id</span>
  			<span class="memnm">name</span>
  			<span class="memnick">nick</span>

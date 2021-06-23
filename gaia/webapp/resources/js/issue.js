@@ -511,7 +511,7 @@ const loadIssue = function(){
 			
 			// 작성자 정보 및 작성 시간 프린트
 			$('.writerinfo').children('span:first').text(res.writer.mem_nick + ' opened ');
-			$('.writerinfo').children('span:last').text(moment(res.issue_create_date).fromNow());
+			$('.writerinfo').children('span:last').text(moment(res.issue_create_date).format('YYYY-MM-DD hh:mm'));
 			
 			// 이슈가 닫힌 상태면 그에 맞게 버튼라벨을 바꿔준다.
 			if(issue.issue_status == 1){
