@@ -5,12 +5,13 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import best.gaia.member.dao.MemberDao;
+import best.gaia.project.dao.ProjectDao;
+import best.gaia.utils.SmsUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.AttachFileVO;
 import best.gaia.vo.InquiryVO;
@@ -22,8 +23,10 @@ public class MemberServiceImpl implements MemberService {
 
 	@Inject
 	private MemberDao dao;
-//	@Inject
-//	private AuthenticateService authService;
+	@Inject
+	private ProjectDao projectDao;
+	@Inject
+	private SmsUtil smsutil;
 
 	@Inject
 	private PasswordEncoder passwordEncoder;
@@ -161,5 +164,35 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public ServiceResult sendMessageToMemNo(int mem_no, String message) {
+		String phoneNumber = dao.getPhoneNoFromMemNo(mem_no); 
+		
+		if(phoneNumber != null) {
+			smsutil.sendSms(phoneNumber, message);
+		}
+		
+		return ServiceResult.OK;
+	}
+
+	@Override
+	public ServiceResult sendMessagesToProjMember(int proj_no, String message) {
+		
+		List<Integer> memNoList = projectDao.getProjMemNumbers(proj_no);
+		
+		for(Integer mem_no : memNoList) {
+			sendMessageToMemNo(mem_no, message);
+		}
+			
+		return ServiceResult.OK;
+	}
 
 }
+
+
+
+
+
+
+
+
+

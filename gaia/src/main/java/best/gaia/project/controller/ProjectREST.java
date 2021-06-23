@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.member.service.MemberService;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.enumpkg.ServiceResult;
@@ -36,6 +37,8 @@ public class ProjectREST {
 
 	@Inject
 	private ProjectService service;
+	@Inject
+	private MemberService memberService;
 	@Inject
 	private ProjectDao dao;
 	@Inject
@@ -91,6 +94,18 @@ public class ProjectREST {
 			original.setIssue_priority_set(issue_priority_set.get());
 		}else if(proj_status.isPresent()) {
 			original.setProj_status(proj_status.get());
+			
+			// project 종료시에는 해당 프로젝트 멤버들에게 문자를 보낸다.
+			if("1".equals(proj_status.get())) {
+				ProjectVO project = dao.selectProject(proj_no);
+				String proj_title = project.getProj_title();
+				String message = String.format("%s 프로젝트가 종료 되었습니다.", proj_title);
+				if("ddit302".equals(proj_title)) {
+					// ddit 302가 종료되는 경우 특별 메시지 전송
+					message += " 지난 8개월 정말 고생 많으셨습니다.";
+				}
+				memberService.sendMessagesToProjMember(proj_no, message);
+			}
 		}
 		
 		return dao.updateProject(original) == 1 ? ServiceResult.OK : ServiceResult.FAIL;

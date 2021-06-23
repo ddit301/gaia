@@ -67,6 +67,9 @@ public interface MemberService {
 	 * @return 존재하지 않으면, custom exception 발생 INVALIDPASSWORD, OK, FAIL
 	 */
 	public ServiceResult removeMember(MemberVO member);
+	
+	public ServiceResult sendMessageToMemNo(int mem_no, String message);
+	public ServiceResult sendMessagesToProjMember(int proj_no, String message);
 
 	public int insertInquiryFiles(AttachFileVO file);
 
