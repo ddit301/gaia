@@ -86,7 +86,7 @@ $(function(){
 	//////////////////////////////////////////////////////////////////////////////
 	
 	// ajax 로딩 관련 선언
-	let loading = $('<div id="loading" class="loading"><img id="loading_img" alt="loading" src="/resources/images/loading/ajax-loader.gif" /></div>')
+	let loading = $('<div id="loading" class="loading"><img id="loading_img" alt="loading" src="'+getContextPath()+'/resources/images/loading/ajax-loader.gif" /></div>')
 			.appendTo(document.body).hide();
 	
 	$(window).ajaxStart(function(){

@@ -26,6 +26,7 @@
                     <ul class="card-profile__info">
                         <li class="mb-1"><strong class="text-dark mr-4"><i class="fa fa-star gradient-1-text"></i></strong> <span>닉네임</span></li>
                         <li><strong class="text-dark mr-4"><i class="icon-location-pin icons"></i></strong> <span>지역</span></li>
+                        <li><strong class="text-dark mr-4"><i class="icon-phone icons"></i></strong> <span>전화번호</span></li>
                     </ul>
                     	<h4> personal history</h4>	
                     <ul class="card-profile__info">
@@ -63,9 +64,8 @@
 											<div class="projManager">
 											   <i class="icon-badge large-icons"></i> 
 													<span>프로젝트 매니져</span>
-								
 													
-													<img class="profile" onerror="imgOnErr()" src="/resources/images/profiles/1">
+													<img class="profile" onerror="imgOnErr()">
 											</div>
 										</div>
 									<div class="proj-join-date-info">
@@ -89,7 +89,7 @@
 
 <script>
 
-printPersonalPage();
-
+scrollUp();
+printPersonalPage(getCurrentUrl().substring(getCurrentUrl().lastIndexOf('/')+1));
 
 </script>
