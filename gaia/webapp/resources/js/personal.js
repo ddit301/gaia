@@ -22,13 +22,14 @@ const printPersonalPage = function(mem_id){
 			profileArea.find('.card-body').find('p').eq(1).text(member.MEM_BIO);
 			profileArea.find('.card-profile__info').find('span').eq(0).text(member.MEM_NICK);
 			profileArea.find('.card-profile__info').find('span').eq(1).text(member.MEM_WORKING_CITY);
-			profileArea.find('.card-profile__info').find('span').eq(2).text('issue assignee : ' + member.ISSUEASSIGNEECNT);
-			profileArea.find('.card-profile__info').find('span').eq(3).text('chat count : ' + member.MEMCHATCNT);
-			profileArea.find('.card-profile__info').find('span').eq(4).text('issue count : ' + member.ISSUECNT);
-			profileArea.find('.card-profile__info').find('span').eq(5).text('news count : ' + member.NEWSCNT);
-			profileArea.find('.card-profile__info').find('span').eq(6).text('milestone count : ' + member.MILESTONECNT);
-			profileArea.find('.card-profile__info').find('span').eq(7).text('sign date : ' + moment(member.MEM_SIGN_DATE).format('YYYY-MM-DD'));
-			profileArea.find('.card-profile__info').find('span').eq(8).text('status : ' + member.MEM_STATUS);
+			profileArea.find('.card-profile__info').find('span').eq(2).text(member.MEM_TEL);
+			profileArea.find('.card-profile__info').find('span').eq(3).text('issue assignee : ' + member.ISSUEASSIGNEECNT);
+			profileArea.find('.card-profile__info').find('span').eq(4).text('chat count : ' + member.MEMCHATCNT);
+			profileArea.find('.card-profile__info').find('span').eq(5).text('issue count : ' + member.ISSUECNT);
+			profileArea.find('.card-profile__info').find('span').eq(6).text('news count : ' + member.NEWSCNT);
+			profileArea.find('.card-profile__info').find('span').eq(7).text('milestone count : ' + member.MILESTONECNT);
+			profileArea.find('.card-profile__info').find('span').eq(8).text('sign date : ' + moment(member.MEM_SIGN_DATE).format('YYYY-MM-DD'));
+			profileArea.find('.card-profile__info').find('span').eq(9).text('status : ' + member.MEM_STATUS);
 			
 			
 			/*
