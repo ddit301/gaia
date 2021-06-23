@@ -65,7 +65,7 @@
 													<span>프로젝트 매니져</span>
 								
 													
-													<img class="profile" onerror="imgOnErr()" src="/resources/images/profiles/1">
+													<img class="profile" onerror="imgOnErr()">
 											</div>
 										</div>
 									<div class="proj-join-date-info">
@@ -89,7 +89,8 @@
 
 <script>
 scrollUp();
-printPersonalPage();
+let viewmem_id  = getCurrentUrl().substring(getCurrentUrl().lastIndexOf('/')+1);
+printPersonalPage(viewmem_id);
 
 
 </script>
