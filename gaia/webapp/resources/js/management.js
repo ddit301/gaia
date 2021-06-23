@@ -680,7 +680,6 @@ const updateProjectStatusFunction = function(proj_status){
 	// 프로젝트 열기거나 닫기로 했으면 계속 진행하기.
 	
 	let currentProjNo = getCookie('proj_no');
-	console.log(currentProjNo);
 	
 	$.ajax({
 		url : getContextPath() + '/restapi/project/projects',
