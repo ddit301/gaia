@@ -57,15 +57,13 @@
 							<div class="projectBox col-md-6">
 								<div class ="projCardBox card col-md-12">
 									<div class="projTitle">
-									   <i class="icon-fire large-icons"></i> 
+									   <img class="nonlink profile" onerror="imgOnErr()">
 									   <span>프로젝트이름</span>
 							 		 </div>
 										<div class="manager-area">
 											<div class="projManager">
 											   <i class="icon-badge large-icons"></i> 
 													<span>프로젝트 매니져</span>
-													
-													<img class="profile" onerror="imgOnErr()">
 											</div>
 										</div>
 									<div class="proj-join-date-info">

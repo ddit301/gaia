@@ -55,6 +55,7 @@
 }
 .projTitle{
 	font-size : 1.5em;
+	margin-bottom : 15px;
 }
 .projManager{
 	font-size : 1.5em;
@@ -66,3 +67,21 @@
 .proj-start-date-info{
 	font-size : 1.0em;
 }
+.projCardBox:hover{
+	cursor: pointer;
+	background:aliceblue
+}
+.projCardBox{
+	background:mintcream;
+}
+.projTitle .nonlink:hover{
+	border : none;
+}
+
+
+
+
+
+
+
+

@@ -240,7 +240,7 @@
 		)
 		select member.mem_id, member.mem_nick, member.mem_tel, member.mem_pic_file_name
 		        , member.mem_sign_date, member.mem_quit_date, member.mem_nm, member.mem_bio, member.mem_working_city, member.mem_status
-		        , proj_join_date, proj_drop_date, proj_user_nick
+		        , proj_join_date, proj_drop_date, proj_user_nick, mem_role_nm
 		        , manager.mem_id as proj_managerid, manager.mem_pic_file_name as managerpic
 		        , proj_title, proj_cont, proj_start_date, proj_est_end_date, proj_status
 		        , (select count(*) from proj_mem where proj_no = project.proj_no) as projectmemcnount
@@ -254,6 +254,7 @@
 		    left outer join proj_mem on (member.mem_no = proj_mem.mem_no)
 		    left outer join project on (proj_mem.proj_no = project.proj_no)
 		    left outer join member manager on (project.mem_no = manager.mem_no)
+		    left outer join mem_role on (proj_mem.mem_role_no = mem_role.mem_role_no)
 		where member.mem_no = #{mem_no}
 	</select>
 	

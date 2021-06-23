@@ -196,7 +196,7 @@ const delCard = function(){
 
 // 카드 이슈로 이동하는 funciton
 const jumpToIssue = function(){
-	issueView(rightClickedCard.dataset.issue_no);
+	movePageHistory('issue/'+rightClickedCard.dataset.issue_no);
 }
 
 const getKanbaBoard = function(){

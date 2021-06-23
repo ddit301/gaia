@@ -21,6 +21,8 @@ $(function(){
 		$('#saveWikiBtn').text('save');
 		$('#wiki-title-input').val('');
 		
+		editor.reset();
+		
 		// newhandler 생성 모달 반복 삭제
 		let newHandler = function(){
 			$(document).off("shown.bs.modal",'#wikiModal',newHandler)
@@ -107,46 +109,6 @@ $(function(){
 	
 	
 })
-
-
-	// 특정 위키 수정하는 함수 
-	// 수정이긴하지만 계층형 이기 때문에 insert 를 시킬 예정 
-const editWiki = function(){
-	// 위키 insert => edit 하기
-	
-	// 수정된 입력값 wiki_title 에 넣기
-	wiki_title = $('#wiki-title-input').val();
-	wiki_cont = editor.getMarkdown();
-	// 수정된 content wiki_cont 에 넣기
-	
-	$.ajax({
-		url : getContextPath()+'/restapi/project/wikis',
-		method : 'post',
-		data : {
-			'wiki_title' : wiki_title
-			,'wiki_cont' : wiki_cont
-			,'parent_wiki' : parent_wiki
-		},
-		success : function(res) {
-			
-			$('.modal-backdrop').removeClass('show').css("display","none");
-			// toastr 알람
-			toastr.success('위키 수정에 성공했습니다.')
-			movePageHistory("wiki");
-			
-			// 에디터 비우기
-			$('#wiki-title-input').val('');
-			editor.reset();
-			// 모달 닫기
-			$('#wikiModal').modal('hide');
-			
-		},
-		error : function(xhr, error, msg) {
-			ajaxError(xhr, error, msg);
-		},
-		dataType : 'json'
-	})
-}
 
 
 	// 특정 위키 삭제하는 함수
@@ -313,15 +275,52 @@ const newWiki = function() {
 		data : {
 			'wiki_title' : wiki_title
 			,'wiki_cont' : wiki_cont
-			
 		},
 		success : function(res) {
 			
-	$('.modal-backdrop').removeClass('show').css("display","none");
+		$('.modal-backdrop').removeClass('show').css("display","none");
 			// toastr 알람
 			toastr.success('새로운 위키 등록에 성공했습니다.')
 			movePageHistory("wiki");
 			
+			// 에디터 비우기
+			$('#wiki-title-input').val('');
+			editor.reset();
+			// 모달 닫기
+			$('#wikiModal').modal('hide');
+			
+		},
+		error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg);
+		},
+		dataType : 'json'
+	})
+}
+
+	// 특정 위키 수정하는 함수 
+	// 수정이긴하지만 계층형 이기 때문에 insert 를 시킬 예정 
+const editWiki = function(){
+	// 위키 insert => edit 하기
+	
+	// 수정된 입력값 wiki_title 에 넣기
+	wiki_title = $('#wiki-title-input').val();
+	wiki_cont = editor.getMarkdown();
+	// 수정된 content wiki_cont 에 넣기
+	
+	$.ajax({
+		url : getContextPath()+'/restapi/project/wikis',
+		method : 'post',
+		data : {
+			'wiki_title' : wiki_title
+			,'wiki_cont' : wiki_cont
+			,'parent_wiki' : parent_wiki
+		},
+		success : function(res) {
+			
+		$('.modal-backdrop').removeClass('show').css("display","none");
+			// toastr 알람
+			toastr.success('위키 수정에 성공했습니다.')
+			movePageHistory("wiki");
 			
 			// 에디터 비우기
 			$('#wiki-title-input').val('');
