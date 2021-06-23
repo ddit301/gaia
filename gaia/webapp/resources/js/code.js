@@ -346,6 +346,13 @@ const changeProjNick = function(){
 //
 //////////////////////////////////////////////////////////////////////////////
 
+// 깃 요청 하기 전에 secret 코드가 있으면 인증된 요청을 보내고, 없으면 일반 요청을 보내는 beforeSend 함수 선언
+const gitBeforeSend = function(xhr){
+	if(gitHash){
+		xhr.setRequestHeader("Authorization", "token " + gitHash)
+	}
+}
+
 // 특정 github 저장소에서 readme 파일을 불러오는 함수
 // url 형식은 ddit301/gaia 처럼 아이디/프로젝트 가 들어가면 됩니다.
 // @return string
@@ -357,9 +364,7 @@ const readmeFromRepo = function(gitRepoUrl) {
 		success: function(res) {
 			decoded = Base64.decode(res.content);
 		},
-		beforeSend : function(xhr){
-			xhr.setRequestHeader("Authorization", "token " + gitHash)
-		},
+		beforeSend : gitBeforeSend,
 		error: function(xhr, error, msg) {
 		},
 		dataType: 'json',
@@ -376,9 +381,7 @@ const renderMarkdown = function(text) {
 		data: JSON.stringify({ "text": text }),
 		success: function(res) {
 			$('#testGit').append(res);
-		},beforeSend : function(xhr){
-			xhr.setRequestHeader("Authorization", "token " + gitHash);
-		},
+		},beforeSend : gitBeforeSend,
 		error: function(xhr, error, msg) {
 		},
 		dataType: 'html',
@@ -420,9 +423,7 @@ const loadLanguageInfo = function(gitRepoUrl) {
 				let lanTag = langs[i] + ' : ' + Math.round(counts[i]/total*1000)/10 +'%<br/>' ; 
 				languageDiv.append(lanTag);
 			}
-		},beforeSend : function(xhr){
-			xhr.setRequestHeader("Authorization", "token " + gitHash);
-		},
+		},beforeSend : gitBeforeSend,
 		error: function(xhr, error, msg) {
 		},
 		dataType: 'json',
@@ -510,9 +511,7 @@ const loadFilesFromGit = function(gitRepoUrl, path) {
 			// 폴더 - 파일 순으로 출력 해 준다.
 			fileNavBody.append(folders);
 			fileNavBody.append(files);
-		},beforeSend : function(xhr){
-			xhr.setRequestHeader("Authorization", "token " + gitHash);
-		},
+		},beforeSend : gitBeforeSend,
 		error: function(xhr, error, msg) {
 		},
 		dataType: 'json',
@@ -528,9 +527,7 @@ const getGitUserInfo = function(username) {
 		method: 'get',
 		success: function(res) {
 			userinfo = res;
-		},beforeSend : function(xhr){
-			xhr.setRequestHeader("Authorization", "token " + gitHash);
-		},
+		},beforeSend : gitBeforeSend,
 		error: function(xhr, error, msg) {
 		},
 		dataType: 'json',
@@ -547,9 +544,7 @@ const getGitRepoInfo = function(username, reponame){
 		method: 'get',
 		success: function(res) {
 			repoInfo = res;
-		},beforeSend : function(xhr){
-			xhr.setRequestHeader("Authorization", "token " + gitHash);
-		},
+		},beforeSend : gitBeforeSend,
 		error: function(xhr, error, msg) {
 		},
 		dataType: 'json',
