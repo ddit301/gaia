@@ -619,7 +619,9 @@ const saveGitRepo = function(){
 		success: function(res) {
 			if(res == "OK"){
 				// 성공시 code 페이지 새로 불러온다.
-				movePageHistory('code');
+				setTimeout(function(){
+					movePageHistory('code');
+				}, 500 )
 			}
 		},
 		error: function(xhr, error, msg) {
