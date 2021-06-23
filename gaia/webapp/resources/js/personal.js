@@ -6,12 +6,12 @@
 //
 ////////////////////////////////////////////////////
 
-const printPersonalPage = function(){
+const printPersonalPage = function(mem_id){
 	$.ajax({
-		url : getContextPath() + 'restapi/member/members/personalProfile.do',
+		url : getContextPath() + '/restapi/member/members/personalProfile.do',
 		method : 'get',
 		data : {
-			'mem_id' : getCurrentUrl().substring(1)
+			'mem_id' : mem_id
 		},
 		success : function(res) {
 			member = res[0];
@@ -128,6 +128,7 @@ const printPersonalPage = function(){
 			ajaxError(xhr, error, msg);
 		},
 		dataType : 'json'
+		,async : false
 	})
 } 	
 
