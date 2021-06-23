@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import best.gaia.member.dao.MemberDao;
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.vo.AttachFileVO;
+import best.gaia.vo.InquiryVO;
 import best.gaia.vo.MemberVO;
 
 //import kr.or.ddit.utils.CryptoUtil;
@@ -146,6 +148,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Map<String, Object>> memberStatusList() {
 		return dao.memberStatusList();
+	}
+
+	@Override
+	public int insertInquiryFiles(AttachFileVO file) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public InquiryVO enrollInquiry(InquiryVO inquiry) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

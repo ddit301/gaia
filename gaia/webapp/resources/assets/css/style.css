@@ -4183,9 +4183,9 @@ input[type="button"].btn-block {
   right: 0;
   left: 0;
   z-index: 1;
-  height: calc(2.0625rem + 2px);
+  /* height: calc(2.0625rem + 2px); */
   padding: 0.375rem 0.75rem;
-  line-height: 1.5;
+  line-height: 1;
   color: #495057;
   background-color: #fff;
   border: 1px solid #ced4da;
@@ -4199,9 +4199,9 @@ input[type="button"].btn-block {
   bottom: 0;
   z-index: 3;
   display: block;
-  height: 2.0625rem;
+  /* height: 2.0625rem; */
   padding: 0.375rem 0.75rem;
-  line-height: 1.5;
+  line-height: 1;
   color: #495057;
   content: "Browse";
   background-color: #e9ecef;
@@ -16636,6 +16636,22 @@ table.dataTable thead .sorting::after {
   background: #4540f7;
   color: #fff;
   border-color: #4540f7;
+}
+
+.btn-outline-gray {
+  HEIGHT: 1.85REM;
+  LINE-HEIGHT: 0.5;
+  border: 1px solid #ced4da;
+  color: #525252;
+  BACKGROUND-COLOR: #e9ecef;
+}
+
+.btn-outline-gray:active,
+.btn-outline-gray:focus,
+.btn-outline-gray:hover {
+  background: #797979;
+  color: #fff;
+  border-color: #afafaf;
 }
 
 .btn-outline-secondary {

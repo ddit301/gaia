@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import best.gaia.utils.enumpkg.ServiceResult;
+import best.gaia.vo.AttachFileVO;
+import best.gaia.vo.InquiryVO;
 import best.gaia.vo.MemberVO;
 
 public interface MemberService {
@@ -65,5 +67,9 @@ public interface MemberService {
 	 * @return 존재하지 않으면, custom exception 발생 INVALIDPASSWORD, OK, FAIL
 	 */
 	public ServiceResult removeMember(MemberVO member);
+
+	public int insertInquiryFiles(AttachFileVO file);
+
+	public InquiryVO enrollInquiry(InquiryVO inquiry);
 
 }

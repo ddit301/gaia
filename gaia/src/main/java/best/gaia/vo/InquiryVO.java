@@ -1,9 +1,15 @@
 package best.gaia.vo;
 
+import java.util.List;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +32,8 @@ public class InquiryVO {
 	private String inq_date;
 	@Size(max = 1)
 	private String inq_status_yn;
-	private Integer atch_file_sid;
+	@JsonIgnore
+	private List<AttachFileVO> attachFileList;
+	@JsonIgnore
+	private transient MultipartFile[] files; 
 }
