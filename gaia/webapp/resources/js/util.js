@@ -207,7 +207,7 @@ const getKeyByValue = function(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
-// 각종 nullChecking 모음. null에 해당하면 false 값이 존재하면 true. return
+// 각종 nullChecking 모음. true = null | false = 값이 존. return
 const CheckNullUndefined = function(value){
   return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
 }

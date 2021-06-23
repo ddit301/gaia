@@ -34,4 +34,10 @@ public interface MilestoneDao {
 	
 	public int deleteMilestone(MilestoneVO search);
 	
+	/**
+	 * 해당 프로젝트의 모든 마일스톤과 이슈들의 정보를 받아옴.
+	 * @param proj_no
+	 * @return
+	 */
+	public List<MilestoneVO> selectMilestoneIssueList(int proj_no);
 }
