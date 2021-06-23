@@ -185,7 +185,7 @@ const closeOrOpenAlert = function(arg, isShowAll){
 	
 	// self_status 가 1(open)이면 closed할거냐 묻고 0(closed)이면 open할거냐고 묻기 
 	let status_value = 
-			Number(arg.event.extendedProps.self_status) ? "OPEN": "CLOSED"; 
+			Number(arg.event.extendedProps.self_status) ? "CLOSED" : "OPEN"; 
 	  
 	swalWithBootstrapButtons = Swal.mixin({
 		customClass: {
@@ -235,7 +235,6 @@ const updateStatus = function(arg, toBeStatus, isChangeDate){
 	let data = {};
 	let start = YYYYMMDD(arg.event.start);
 	let end =  YYYYMMDD(arg.event.end);
-	console.log(start)
 	data["_method"] = "put";
 	data["need"] =  arg.event.extendedProps.menu.toLowerCase();
 	data["sid"] = arg.event.extendedProps.sid;

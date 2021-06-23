@@ -50,10 +50,10 @@
 		SET 
 		<trim prefixOverrides=",">
 		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(start_date)">
-		    , ISSUE_START_DATE = #{start_date, jdbcType=VARCHAR}
+		    , ISSUE_START_DATE = TO_DATE(#{start_date,jdbcType=VARCHAR},'YYYY-MM-DD')
 		    </if>
 		    <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(end_date)">
-			, ISSUE_END_DATE = #{end_date, jdbcType=VARCHAR}
+			, ISSUE_END_DATE = TO_DATE(#{end_date,jdbcType=VARCHAR},'YYYY-MM-DD')
 			</if>
 	    </trim>
 		WHERE ISSUE_SID = #{sid}
@@ -63,10 +63,10 @@
 		SET 
 		<trim prefixOverrides=",">
 		 	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(start_date)">
-		    , MILEST_START_DATE = #{start_date, jdbcType=VARCHAR}
+		    , MILEST_START_DATE = TO_DATE(#{start_date,jdbcType=VARCHAR},'YYYY-MM-DD')
 		    </if>
 		    <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(end_date)">	
-			, MILEST_END_DATE = #{end_date, jdbcType=VARCHAR}
+			, MILEST_END_DATE = TO_DATE(#{end_date,jdbcType=VARCHAR},‘YYYY-MM-DD’)
 			</if>
 	    </trim>
 		WHERE MILEST_SID = #{sid}

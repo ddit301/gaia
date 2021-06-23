@@ -75,13 +75,18 @@ public class CalendarREST {
 			, @RequestParam Map<String, Object> dataMap
 			){
 		int result = 0;
+		logger.info("{}",dataMap);
+		
+		// changeDate가 yes면 need를 확인해서 issue or milestone 업데이트.
 		if("yes".equals(dataMap.get("isChangeDate"))) {
 			if("issue".equals(need)) {
+				logger.info("{}",dataMap);
 				result = dao.updateIssueDate(dataMap);
 			}else if("milestone".equals(need)) {
 				result = dao.updateMilestoneStatus(dataMap);
 			}
 		}else {
+			// 아닐 경우 status만 변경(open(0), closed(1))
 			if("issue".equals(need)) {
 				result = dao.updateIssueStatus(dataMap);
 			}else if("milestone".equals(need)) {
