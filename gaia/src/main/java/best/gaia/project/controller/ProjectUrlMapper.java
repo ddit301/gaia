@@ -98,6 +98,7 @@ public class ProjectUrlMapper {
 		String proj_user_nick = service.getProjectNick(proj_no, mem_no);
 		if(proj_user_nick != null) {
 			CookieUtil.addCookie("proj_user_nick", proj_user_nick, resp);
+			CookieUtil.addCookie("proj_no", String.valueOf(proj_no), resp);
 		}else {
 			// 접속중인 유저가 해당 proj_no에 가입 정보가 없을 경우에는 에러를 보낸다.
 			throw new NotYourProjectException();

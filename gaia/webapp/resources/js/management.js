@@ -679,6 +679,8 @@ const updateProjectStatus = function(proj_status){
 const updateProjectStatusFunction = function(proj_status){
 	// 프로젝트 열기거나 닫기로 했으면 계속 진행하기.
 	
+	let currentProjNo = getCookie('proj_no');
+	
 	$.ajax({
 		url : getContextPath() + '/restapi/project/projects',
 		method : 'post',
@@ -698,7 +700,7 @@ const updateProjectStatusFunction = function(proj_status){
 					// 마감 성공시 프로젝트 마감했다고 알람 띄우기
 					Swal.fire(
 						'프로젝트 종료'
-						,'프로젝트를 종료했습니다.<br>지난 8개월 다들 정말 고생 하셨습니다.'
+						,'프로젝트를 종료했습니다.'+ (currentProjNo== 103? '<br>지난 8개월 다들 정말 고생 하셨습니다.' : '')
 						,'success'
 					)
 				}else{
