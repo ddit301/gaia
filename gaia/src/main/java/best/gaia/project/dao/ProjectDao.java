@@ -64,6 +64,7 @@ public interface ProjectDao {
 	public int setMemberActive(ProjMemVO param);
 	public List<MemberVO> searchMemberToInvite(Map<String, Object> paramMap); 
 	public int selectLowestRoleNo(int proj_no);
+	public List<Integer> getProjMemNumbers(int proj_no);
 	
 	/**
 	 * memrole
