@@ -256,5 +256,11 @@
 		where member.mem_no = #{mem_no}
 	</select>
 	
+	<select id="getPhoneNoFromMemNo" parameterType="int" resultType="string">
+		select mem_tel
+		from member
+		where mem_no = #{mem_no}
+	</select>
+	
 	
 </mapper>
