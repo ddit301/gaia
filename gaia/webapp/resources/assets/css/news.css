@@ -88,7 +88,9 @@
 .news.card{
 	box-shadow: 36px 35px 61px -44px grey;
 }
-
+.news-left img:hover{
+	cursor: pointer;
+}
 
 
 
