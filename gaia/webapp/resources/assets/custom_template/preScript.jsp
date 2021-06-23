@@ -40,8 +40,6 @@
     <link href="${cPath }/resources/fullCalendar/lib/main.css" rel="stylesheet">
     <!-- jsgantt -->
     <link href="${cPath }/resources/assets/dist/jsgantt.css" rel="stylesheet">
-    <!-- lightbox -->
-    <link href="${cPath }/resources/assets/css/external/ekko-lightbox.css" rel="stylesheet">
     <!-- jquery -->
     <script src="${cPath }/resources/js/external/jquery.min.js"></script>
     <!-- 	Git Authentication 받아오는 js 및 변수 선언 -->

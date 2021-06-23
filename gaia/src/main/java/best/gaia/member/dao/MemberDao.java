@@ -72,5 +72,4 @@ public interface MemberDao {
 	public Integer getMemNoFromMemId(String mem_id);
 	public String getMemIdFromMemNo(int mem_no);
 	public String getMemNickFromMemNo(int mem_no);
-	public String getPhoneNoFromMemNo(int mem_no);
 }

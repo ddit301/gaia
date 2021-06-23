@@ -229,52 +229,7 @@ li.searchedMember{
 .inviteModal input{
 	width:auto;
 }
-#shortcutModal .modal-header{
-	display : block;
-}
-.shorthead{
-	font-size : 2.5em;
-	margin-bottom : 15px;
-}
-.shorthead button{
-	font-size : 1.5em;
-}
-.modal-header p{
-	font-size : 1.5em;
-}
-#shortcutModal .modal-content{
-	color : white;
-	background : dimgray;
-	
-}
-#shorthead .modal-title{
-	font-weight : bold;
-}
-span.shortcut{
-    border: 2px solid white;
-    margin: 6px;
-    padding: 6px;
-    border-radius: 0.7rem;
-}
-#shortcutModal .modal-body{
-	display : grid;
-}
-#shortcutModal .modal-body h3{
-	margin-top : 15px;
-	color : white;
-}
-#shortcutModal .modal-body div{
-	font-size : 1.3em;
-}
-#shortcutModal .modal-body button{
-	float : right;
-	background: dimgray;
-    color: white;
-    border: 2px solid white;
-    border-radius: 0.7rem;
-    margin: 6px;
-    padding: 6px;
-}
+
 
 
 

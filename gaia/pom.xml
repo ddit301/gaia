@@ -369,11 +369,5 @@
 	  <artifactId>google-analytics-data</artifactId>
 	  <version>0.7.1</version>
 	</dependency>
-<!-- 	coolsms -->
-	<dependency>
-	  <groupId>net.nurigo</groupId>
-	  <artifactId>javaSDK</artifactId>
-	  <version>2.2</version>
-	</dependency>
 </dependencies>
 </project>

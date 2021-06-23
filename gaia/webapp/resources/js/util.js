@@ -42,42 +42,6 @@ $(function(){
 		loadPersonalPage(user_no);
 	});
 	
-	// keyboard 단축키 바인딩.
-	$(document).bind('keypress', function(e) {
-		// 단축키 목록 보는 단축키 : ctrl + '/'
-		let ctrl = e.ctrlKey;
-		let shift = e.shiftKey;
-		let key = e.which;
-		if(ctrl && shift){
-			switch(key){
-				case 14 : movePageHistory('news'); break;
-				case 49 : movePageHistory('code'); break;
-				case 53 : console.log('컨트롤러 코드'); break;
-				case 30 : console.log('서비스 코드'); break;
-				case 55 : console.log('다오 코드'); break;
-			}
-			
-		}else if(ctrl) {
-			switch(key){
-				case 7 : movePageHistory('ganttchart'); break;
-				case 11 : movePageHistory('kanbanboard'); break;
-				case 12 : movePageHistory('calendar'); break;
-				case 13 : movePageHistory('milestone'); break;
-				case 16 : movePageHistory('wiki'); break;
-				case 21 : movePageHistory('issue'); break;
-				case 47 :
-					$('#shortcutModal').modal('toggle');
-					break;
-			}
-		}
-	});
-	
-	
-
-
-	
-	
-	
 	
 	//////////////////////////////////////////////////////////////////////////////
 	//

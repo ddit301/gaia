@@ -7,7 +7,8 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
+    
 <div class="container-fluid">
 	<div id="newsmenu" class="row">
 		<div class="col-md-12">
@@ -22,7 +23,8 @@
 <div id="top" hidden="true" >
 	<i class="icon-arrow-up-circle"></i>
 </div>
-
+            
+            
 <!-- 뉴스 작성 Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -54,8 +56,6 @@
     </div>
   </div>
 </div>
-
-<!-- 마크다운 에디터 -> 에디터로 만들어서 모달로 들어감. -->
 <div id="editor"></div>
 
 
@@ -77,9 +77,7 @@
 		</div>
 		<div class="newsBody row">
 			<div class="news-left col-md-6">
-				<a class="lightbox" data-toggle="lightbox">
-					<img>
-				</a>
+				<img>
 			</div>
 			<div class="news-right col-md-6">
 				<div class="newsReplyArea">

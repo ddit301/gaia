@@ -27,14 +27,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.member.service.MemberService;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
 import best.gaia.utils.CookieUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.MemberVO;
 import best.gaia.vo.ProjMemVO;
-import best.gaia.vo.ProjectVO;
 
 @RestController
 @RequestMapping(value="restapi/project/members", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -42,8 +40,6 @@ public class ProjectMemberRest {
 	
 	@Inject
 	private ProjectService service;
-	@Inject
-	private MemberService memberService;
 	@Inject
 	private ProjectDao dao;
 	@Inject
@@ -78,17 +74,7 @@ public class ProjectMemberRest {
 		projMem.setProj_no(proj_no);
 		int mem_role_no = dao.selectLowestRoleNo(proj_no);
 		projMem.setMem_role_no(mem_role_no);
-		
 		int result = dao.insertProjMem(projMem);
-		
-		// 프로젝트 생성자가 자동 가입 되는 경우가 아니면 해당 멤버에게 가입 되었다는 메시지를 보낸다.
-		ProjectVO project = dao.selectProject(proj_no);
-		int mem_no = projMem.getMem_no();
-		if(project.getMem_no() != mem_no) {
-			String proj_title = project.getProj_title();
-			memberService.sendMessageToMemNo(
-					mem_no, String.format("%s 프로젝트에 가입되었습니다.", proj_title));
-		}
 		
 		return result == 1 ? ServiceResult.OK : ServiceResult.FAIL;
 	}

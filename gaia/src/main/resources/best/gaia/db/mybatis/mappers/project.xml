@@ -310,12 +310,6 @@
 		where mem_role_no = #{mem_role_no}
 	</select>
 	
-	<select id="getProjMemNumbers" parameterType="int" resultType="int">
-		SELECT MEM_NO
-		FROM PROJ_MEM
-		WHERE PROJ_NO = #{proj_no} and proj_drop_date is null
-	</select>
-	
 </mapper>
 
 
