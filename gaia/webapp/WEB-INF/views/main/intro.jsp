@@ -15,21 +15,23 @@
       <div class="scanlines">
       </div>
     </section>
-
-
-	<section class="home-section home-full-height  parallax-bg testimonial"
-      data-background="resources/main/images/intro.gif" data-animated="resources/main/images/intro.gif" data-static="resources/main/images/intro.gif" class="hov-anim">
-       
+    
+    <section class="module bg-dark-20 parallax-bg " data-background="resources/main/images/intro.gif">
+      <div class="testimonials-slider pt-140 pb-140">
+      </div>
     </section>
 
-	<section class="module bg-dark-10 parallax-bg "
-      data-background="resources/main/images/intro.gif">
-      <div class="testimonials-slider pt-140 pb-140">
-       </div>
-      </section>
+    <section class="home-section home-full-height  parallax-bg testimonial"
+      data-background="resources/main/images/intro.gif" data-animated="resources/main/images/intro.gif"
+      data-static="resources/main/images/intro.gif" class="hov-anim">
+    </section>
 
-    <section class="module bg-dark-90 parallax-bg "
-      data-background="resources/main/images/intro.gif">
+    <section class="module bg-dark-10 parallax-bg " data-background="resources/main/images/intro.gif">
+      <div class="testimonials-slider pt-140 pb-140">
+      </div>
+    </section>
+
+    <section class="module bg-dark-90 parallax-bg " data-background="resources/main/images/intro.gif">
       <div class="testimonials-slider pt-140 pb-140">
         <ul class="slides">
           <li>
@@ -40,19 +42,37 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
-                  <blockquote class="testimonial-text font-alt">I am alone, and feel the charm of existence in this
-                    spot, which was created for the bliss of souls like mine.</blockquote>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-4 col-sm-offset-4">
                   <div class="testimonial-author">
                     <div class="testimonial-caption font-alt">
-                      <div class="testimonial-title">Jack Woods</div>
-                      <div class="testimonial-descr">SomeCompany INC, CEO</div>
+                      <div class="testimonial-title">ALL-IN-ONE PMS GAIA</div>
+                      <div class="testimonial-descr">Tech Stack</div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                  <blockquote class="testimonial-text font-alt">
+                  <img src="https://img.shields.io/badge/Java-007396?style=flat-square&amp;logo=Java&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&amp;logo=Spring&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&amp;logo=HTML5&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&amp;logo=CSS3&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/JavaScript-[F7DF1E?style=flat-square&amp;logo=JavaScript&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&amp;logo=jQuery&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&amp;logo=Oracle&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/ElasticSearch-005571?style=flat-square&amp;logo=ElasticSearch&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&amp;logo=MongoDB&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/Apache tomcat-F8DC75?style=flat-square&amp;logo=Apache-tomcat&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/macOS-000000?style=flat-square&amp;logo=apple&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/Eclipse-2C2255?style=flat-square&amp;logo=Eclipse&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/VScode-007ACC?style=flat-square&amp;logo=Visual-Studio-Code&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&amp;logo=Postman&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/Markdown-000000?style=flat-square&amp;logo=Markdown&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&amp;logo=Slack&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&amp;logo=Figma&amp;logoColor=white">
+                  <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&amp;logo=GitHub&amp;logoColor=white">
+                  </blockquote>
                 </div>
               </div>
             </div>
@@ -65,19 +85,18 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
-                  <blockquote class="testimonial-text font-alt">I should be incapable of drawing a single stroke at the
-                    present moment; and yet I feel that I never was a greater artist than now.</blockquote>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-4 col-sm-offset-4">
                   <div class="testimonial-author">
                     <div class="testimonial-caption font-alt">
-                      <div class="testimonial-title">Jim Stone</div>
-                      <div class="testimonial-descr">SomeCompany INC, CEO</div>
+                      <div class="testimonial-title">TEAM SEED</div>
+                      <div class="testimonial-descr">구성</div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                  <blockquote class="testimonial-text font-alt"> 3줄 가량의 설명 </blockquote>
                 </div>
               </div>
             </div>
@@ -90,19 +109,18 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
-                  <blockquote class="testimonial-text font-alt">I am so happy, my dear friend, so absorbed in the
-                    exquisite sense of mere tranquil existence, that I neglect my talents.</blockquote>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-4 col-sm-offset-4">
                   <div class="testimonial-author">
                     <div class="testimonial-caption font-alt">
-                      <div class="testimonial-title">Adele Snow</div>
-                      <div class="testimonial-descr">SomeCompany INC, CEO</div>
+                      <div class="testimonial-title">제목 </div>
+                      <div class="testimonial-descr">소제목</div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                  <blockquote class="testimonial-text font-alt"> 3줄 가량의 설명 </blockquote>
                 </div>
               </div>
             </div>
@@ -110,6 +128,24 @@
         </ul>
       </div>
     </section>
+    
+    
+    
+    
+    
+    
+    여기서부터
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <section class="module" id="news">
       <div class="container">
         <div class="row">
@@ -234,12 +270,12 @@
         </div>
       </div>
     </section>
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 
     <section class="home-section home-full-height bg-dark-30" id="home"
       data-background="resources/main/images/section-5.jpg">
@@ -352,16 +388,16 @@
         </div>
       </div>
     </section>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
   </div>
