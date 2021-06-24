@@ -16,7 +16,7 @@
       }
     </style>
     
-    <title>Gaia</title>
+    <title>gaia</title>
     <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1">
 
     <div hidden class="fit-vids-style">­<style>               .fluid-width-video-wrapper {                 width: 100%;                              position: relative;                       padding: 0;                            }                                                                                   .fluid-width-video-wrapper iframe,        .fluid-width-video-wrapper object,        .fluid-width-video-wrapper embed {           position: absolute;                       top: 0;                                   left: 0;                                  width: 100%;                              height: 100%;                          }                                       </style></div>

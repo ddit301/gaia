@@ -2,6 +2,10 @@ package best.gaia.project.controller;
 
 import static best.gaia.utils.SessionUtil.getProjNoFromSession;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -60,6 +64,22 @@ public class ProjectController {
 			) {
 		int proj_no = getProjNoFromSession(session);
 		return dao.loadProjectForManagement(proj_no);
+	}
+	
+	@GetMapping("loadAnalytics.do")
+	public Map<String, Object> loadAnalytics(
+			HttpSession session
+			) {
+		int proj_no = getProjNoFromSession(session);
+		
+		List<Map<String,Object>> members = dao.getProjectMemberAnalytics(proj_no);
+		Map<String, Object> project = dao.getProjectAnalytics(proj_no);
+		Map<String, Object> result = new HashMap<>();
+		result.put("members", members);
+		result.put("project", project);
+		
+		
+		return result;
 	}
 		
 }

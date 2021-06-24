@@ -22,6 +22,7 @@
     <link href="${cPath }/resources/assets/css/code.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/issue.css" rel="stylesheet">
     <link href="${cPath }/resources/assets/css/news.css" rel="stylesheet">
+    <link href="${cPath }/resources/assets/css/analytics.css" rel="stylesheet">
 <!--     kanbaj css -->
     <link href="${cPath }/resources/assets/dist/jkanban.min.css" rel="stylesheet" >
     <link href="${cPath }/resources/assets/css/kanban.css" rel="stylesheet">

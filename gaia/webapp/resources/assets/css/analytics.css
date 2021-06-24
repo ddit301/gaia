@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+
+.proj-going span{
+	font-size : 1.5em;
+}
+.proj-going i{
+	font-size : 1.5em;
+	margin-right : 10px;
+}
+.proj-stat div{
+	padding : 0px;
+}
+.proj-stat .stat1{
+	padding-right : 20px;
+}
+.stat-data{
+	margin: 30px;
+	font-size : 1.3em;
+}
+.stat1 .icon-check{
+	color : green;
+}
+.stat1 .icon-close{
+	color : salmon;
+}
+.proj-stat i{
+	margin-right : 10px;
+}
+.stat-data .stat-num{
+	text-align : right;
+	padding-right : 60px;
+}
+.stat-data .row{
+	padding-bottom : 10px;
+}
+#mem-stat-area{
+	font-size : 1.2em;
+}
+.mem-stat-box span{
+	padding-top : 10px;
+}
+.mem-stat-box:hover{
+	background : aliceblue;
+}
+.stat-data .row:hover{
+	background : aliceblue;
+}
+.mem-stat-box{
+	margin-top : 10px;	
+}
