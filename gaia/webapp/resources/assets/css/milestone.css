@@ -7,19 +7,16 @@
 /* 	margin-right : 50px; */
 }
 .milestone-header{
-	background-color : gray;
-	height : 50px;
+	background-color : white;
 	margin : 2px;
+	padding : 20px;
+	padding-left : 30px;
 }
 
 .milestone-new-btn a{
 	margin : 10px;
 	float: right; 
 	transition: none;
-}
-.milestone-chk{
-	margin : 10px;
-	padding-right : 5px;
 }
 .milestoneBox{
 	background-color : #FFFFFF;
@@ -37,9 +34,6 @@
 	padding-left : 40px;
 	text-overflow:ellipsis; 
 	white-space:nowrap;
-}
-#milestoneview-template{
-	
 }
 .milestoneButton{
 	transition: none;
@@ -84,9 +78,6 @@
 	width: 90%; 
 	line-height: 50px;
 }
-.progress{
-	height: 10px;
-} 
 .milestone-percent span{
 	line-height: 50px;
 }
@@ -131,17 +122,17 @@
 	width: 90%; 
 	line-height: 50px;
 }
-.progress{
+.milestone-bar .progress{
 	height: 10px;
 } 
 .milestoneview-percent span{
 	line-height: 50px;
 }
 .milestoneview-header{
+    display: -webkit-box;
 	width: calc(100% - 15px);
 	grid-template-columns: 150px 150px;
-	background:gray;
-	height:50px; 
+	background:white;
 	margin:10px; 
 	padding:10px;
 }
@@ -149,85 +140,13 @@
 	float:left;
 	line-height: 50%;
 }
-.dropdown-btn{
-	padding-right : 5px;
-	height : 30px;
-	line-height: 50%;
-}
 #milestone-issuelist{
     padding : 10px;
 }
-/* .issueBox{ */
-/* 	background-color : #FFFFFF; */
-/* 	color : black; */
-/* 	margin-left : auto; */
-/* 	margin-right : auto; */
-/* 	margin-bottom : 10px; */
-/* 	padding-top : 0; */
-/* } */
-/* .issue-title { */
-/* 	text-align : center; */
-/* } */
-/* .issue-title a{ */
-/* 	font-weight : bold; */
-/* 	font-size : 1.5em; */
-/* 	line-height : 60px; */
-/* } */
-.priority{
-	text-align: center;
-	line-height: 60px;
-}
-/* .issue-label{ */
-/* 	text-align: center; */
-/* 	line-height: 60px; */
-/* 	overflow:hidden;  */
-/* 	text-overflow:ellipsis;  */
-/* 	white-space:nowrap; */
-/* } */
-/* .issue-priority{ */
-/* 	text-align: center; */
-/*     line-height: 60px; */
-/* } */
 .edit-milestone-title{
 	border : 1px solid red;
 }
-.button{
-	text-align: center;
+#newMilestone{
+	position : absolute;
+	right : 0px;
 }
-/* .issue-assignee{ */
-/* 	position : relative; */
-/* 	text-align: center; */
-/* 	line-height: 60px; */
-/* } */
-
-/* .profile.assignee{ */
-/* 	position : absolute; */
-/* 	top : 0; */
-/* 	left : 0; */
-/* } */
-.assignee0{
-	z-index : 0;
-	margin-left : -5px;
-}
-.assignee1{
-	z-index : 1;
-	margin-left : 12px;
-}
-.assignee2{
-	z-index : 2;
-	margin-left : 19px;
-}
-.assignee3{
-	z-index : 3;
-	margin-left : 26px;
-}
-.issue-assignee:hover .assignee0{transform: translateX(-15px);}
-.issue-assignee:hover .assignee1{transform: translateX(15px);}
-.issue-assignee:hover .assignee2{transform: translateX(45px);}
-.issue-assignee:hover .assignee3{transform: translateX(75px);}
-
-.assignee0{transform: translateX(0px); transition: all 0.8s ease}
-.assignee1{transform: translateX(0px); transition: all 0.8s ease}
-.assignee2{transform: translateX(0px); transition: all 0.8s ease}
-.assignee3{transform: translateX(0px); transition: all 0.8s ease}
-
