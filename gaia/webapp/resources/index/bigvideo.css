@@ -1,0 +1,67 @@
+/*	BigVideo Styles
+	You may need to adjust these styles to get this working right in your design.
+*/
+
+#big-video-wrap{overflow:hidden;position:static;height:100%;width:100%;top:0;left:0;}
+#big-video-vid,#big-video-image{position:absolute;}
+
+/*
+ * BigVideo Slider Styles
+ */
+
+.slider {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 800%; /* NOTE: 100% * numVideos */
+    height: 100%;
+    z-index: 0;
+}
+
+.screen {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    width: 12.5%; /*  NOTE: 100%/numVideos  */
+    float: left;
+}
+
+.screen video {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.big-image, .screen video {
+    min-width: 100%;
+    min-height: 100%;
+    height: auto;
+    width: auto;
+}
+
+/* Nav */
+.screen-btn {
+    background-image: url("../img/sprite-feature-controls.png");
+    bottom: 112px;
+    cursor: pointer;
+    height: 65px;
+    left: 2%;
+    position: absolute;
+    width: 65px;
+    z-index: 1;
+}
+
+.screen-btn:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#next-btn {
+    background-position: center right;
+    margin-left: 70px;
+}
