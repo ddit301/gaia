@@ -73,7 +73,8 @@
 	      </div>
 	      <div>
 	      	<span>Analytics</span>
-	      	<button>P</button>
+	      	<button>A</button>
+	      	<button>Shift</button>
 	      	<button>Ctrl</button>
 	      </div>
 <!-- 	      <h3>Code</h3> -->

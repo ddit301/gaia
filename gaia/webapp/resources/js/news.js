@@ -106,6 +106,9 @@ const getNewsBoxFromJson = function(news){
 		newsBox.find('.newsReplyArea').append(newsComm);
 	})
 	
+	// 댓글 달리는 곳에 로그인 한 유저 프로필 사진 넣기
+	newsBox.find('.news-writebox').find('img').attr('src', getProfilePath(getCookie('mem_pic_file_name')));
+	
 	return newsBox;
 }
 
