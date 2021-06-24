@@ -131,6 +131,11 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public ServiceResult deleteMilestone(MilestoneVO search) {
+		
+		// 1 속한 이슈들의 마일스톤 번호를 null로 변경한다.
+		milestoneDao.unassignMilestone(search.getMilest_sid());
+		
+		// 2. 해당 마일스톤을 삭제한다. 
 		int result = milestoneDao.deleteMilestone(search);
 		
 		return result==1? ServiceResult.OK : ServiceResult.FAIL;	
