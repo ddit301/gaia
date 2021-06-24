@@ -104,6 +104,9 @@ const loadMemberInfo_overview = function() {
 				}
 			}
 			$("#mem_bio").text(memberInfo.mem_bio);
+			$('#mem_nick').find('span').text(memberInfo.mem_nick);
+			$('#mem_work_city').find('span').text(memberInfo.mem_working_city);
+			$('#mem_tel').find('span').text(memberInfo.mem_tel);
 		}
 		, async: false
 		, error: function(xhr, error, msg) {

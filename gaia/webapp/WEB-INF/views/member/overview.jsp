@@ -5,37 +5,23 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-xl-3">
-            <div class="card side-position-fixed"> 
-                <div class="card-body">
+            <div class="card side-position-fixed" id="side-profile"> 
+                <div class="card-body" id="side-profile-body">
                     <div class="media align-items-center mb-4">
                         <img class="mr-3 rounded-circle" id="profile_img" onerror="imgOnErr()" width="80" height="80" alt="">
                         <div class="media-body">
                             <h3 class="mb-0">${mem_id }</h3>
-                            <p class="text-muted mb-0">Deutch</p>
+
                         </div>
                     </div>
                     <h4>About Me</h4>
-                    <p class="text-muted" id="mem_bio">${model.mem_bio }</p>
+                    <p class="text-muted" id="mem_bio"></p>
                     <ul class="card-profile__info">
-                        <li class="mb-1"><strong class="text-dark mr-4"><i class="fa fa-star gradient-1-text"></i></strong> <span>ddit301</span></li>
-                        <li><strong class="text-dark mr-4"><i class="mdi mdi-email-outline"></i></strong> <span>name@domain.com</span></li>
+                        <li class="mb-1" id="mem_nick"><strong class="text-dark mr-4"><i class="fa fa-star gradient-1-text"></i></strong> <span>닉네임</span></li>
+                        <li class="mb-1" id="mem_work_city"><strong class="text-dark mr-4"><i class="icon-location-pin icons"></i></strong> <span>지역</span></li>
+                        <li class="mb-1" id="mem_tel"><strong class="text-dark mr-4"><i class="icon-phone icons"></i></strong> <span>전화번호</span></li>
                     </ul>
-                    <div class="d-flex align-items-center">
-                        <ul class="mb-0 form-profile__icons">
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-user"></i></button>
-                            </li>
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-paper-plane"></i></button>
-                            </li>
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-camera"></i></button>
-                            </li>
-                            <li class="d-inline-block">
-                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-smile"></i></button>
-                            </li>
-                        </ul>
-                    </div>
+                    
                 </div>
             </div>  
         </div>
@@ -58,20 +44,21 @@
 	    <div class="card">
 	        <div class="card-body">
 	         	<div class = "issue-card-top">
-	            	<p class="mb-sm-0">You/don't/have/more/issues</p>
-	            	<h3>?</h3>
+	            	<p class="mb-sm-0"></p>
+	            	<h3>담당하고 있는 이슈가 없습니다. 
+	            		<br> 
+	            		프로젝트에 참여해 이슈를 작성해보세요.
+	            	</h3>
 	            </div> 
 	            <div class="row issue-card-mid">
 	             	<div class="col-md-6">
 	                	<small class="text-muted issue_date"></small>
 	             	</div>
-	           	 	<div class="col-md-6 media-reply__link">
-		                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-up"></i></button>
-		                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-thumbs-down"></i></button>
-		                <button class="btn btn-transparent p-0 ml-3 font-weight-bold fixer_id">by ${mem_id }</button>
+	           	 	<div class="col-md-6 media-reply__link" id="by_mem_nick">
+		                <button class="btn btn-transparent p-0 ml-10 font-weight-bold fixer_id"></button>
 	             	</div>
 	             </div>
-	             <p class="issue-card-bot">담당하고 있는 이슈에 새로운 소식이 존재하지 않습니다.</p>
+	             <p class="issue-card-bot"></p>
 	    	</div>
 	    </div>
 	</div>
