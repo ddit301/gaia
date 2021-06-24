@@ -1362,7 +1362,9 @@ input:focus {
 .icon-close{
 	color: red;
 }
-
+#hiddenKkobuk, #hiddenEisen, #hiddenJosh, #hiddenAdmin:hover{
+	cursor: pointer;
+}
 
 
 

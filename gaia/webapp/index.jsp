@@ -176,6 +176,29 @@
 				passCheck();
 			})
 			
+			
+			// 관리용 히든 로그인 이벤트
+			signInButton = $('#signInArea').find('button');
+			 $('#hiddenKkobuk').on('click', function(){
+				 idInput.value = 'kkobuk';
+				 pwInput.value = 'java';
+				 signInButton.click();
+			 })
+			 $('#hiddenEisen').on('click', function(){
+				 idInput.value = 'eisen';
+				 pwInput.value = 'java';
+				 signInButton.click();
+			 })
+			 $('#hiddenJosh').on('click', function(){
+				 idInput.value = 'josh';
+				 pwInput.value = 'java';
+				 signInButton.click();
+			 })
+			 $('#hiddenAdmin').on('click', function(){
+				 window.location.href="${cPath}/admin"
+			 })
+			
+			
         })
         
 		
@@ -219,11 +242,11 @@
 	<div id="signInArea" hidden="true">
 		<form method="post" action="${cPath}/signin/signinCheck">
 			<div id="nameArea">
-				<i class="icon icon-user"></i>
+				<i id="hiddenKkobuk" class="icon icon-user"></i>
 				<input id="username" name="mem_id" type="text" placeholder="Username">
 			</div>
 			<div id="passArea">
-				<i class="icon icon-lock"></i>
+				<i id="hiddenEisen" class="icon icon-lock"></i>
 				<input id="password" name="mem_pass" type="password" placeholder="Password">
 			</div>
 			<button>GET STARTED</button>
@@ -233,11 +256,11 @@
 	<div id="signUpArea" hidden="true">
 		<form method="post" action="${cPath}/signup/register">
 			<div>
-				<i class="icon icon-user"></i>
+				<i id="hiddenJosh" class="icon icon-user"></i>
 				<input id="signUpId" type="text" name="mem_id" placeholder="Username">
 			</div>
 			<div>
-				<i class="icon icon-pencil"></i>
+				<i id="hiddenAdmin" class="icon icon-pencil"></i>
 				<input id="signUpName" type="text" name="mem_nick" placeholder="Full name">
 			</div>
 			<div>
