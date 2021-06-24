@@ -29,7 +29,7 @@
 		<form-login 
 			username-parameter="mem_id"
 			password-parameter="mem_pass"
-			login-page="/signin"
+			login-page="/"
 			login-processing-url="/signin/signinCheck"
 			always-use-default-target="false"
 			authentication-failure-handler-ref="failureHandler"
