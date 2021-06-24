@@ -45,9 +45,6 @@ const calComp = function(start_date, end_date, title){
 		total = end_date.diff(start_date, 'days');
 		process = today < start_date ?  0 : today.diff(start_date, 'days');
 		result = process<=total ? Math.round((process / total) * 100) : "100";
-		if(title =="장비점검"){
-			console.log(result)
-		}  
 	}
 	return result;
 }
@@ -70,8 +67,6 @@ g.setOptions({
   vFormatArr: ['Day', 'Week', 'Month'], // Even with setUseSingleCell using Hour format on such a large chart can cause issues in some browsers,
 });
 $.each(list, function(i, milestone){
-	console.log("milestone")
-	console.log(i)
 	g.AddTaskItem(new JSGantt.TaskItem(
 			milestone.milest_sid 
 			, CheckNullUndefined(milestone.milest_title) ? "독립적인 이슈 목록" : milestone.milest_title 
@@ -91,7 +86,6 @@ $.each(list, function(i, milestone){
 			, g 
 	));
 	$.each(milestone.issueList, function(l, issue){
-		console.log(cnt)
 		if(CheckNullUndefined(issue)){
 			return true;
 		}
@@ -115,50 +109,7 @@ $.each(list, function(i, milestone){
 		));
 	})
 });
-	//g.AddTaskItemObject({
-//	  <pID>25</pID>
-//    <pName>WCF Changes</pName>
-//    <pStart></pStart>
-//    <pEnd></pEnd>
-//    <pClass>gtaskred</pClass>
-//    <pLink></pLink>
-//    <pMile>0</pMile>
-//    <pRes></pRes>
-//    <pComp>0</pComp>
-//    <pGroup>1</pGroup>
-	//    <pParent>2</pParent>
-//    <pOpen>1</pOpen>
-//    <pDepend>2,24</pDepend>
-//    <pCaption>A caption</pCaption>
-//    <pNotes>Text - can include limited HTML</pNotes>
-//																																		   Gp Pt  Op  Dp
-//g.AddTaskItem(new JSGantt.TaskItem(1,   'Define Chart API',     '',           '',          'ggroupblack',  '',       0, 'Brian',    0,   1, 0,  1, '',      '',      'Some Notes text', g ));
-//g.AddTaskItem(new JSGantt.TaskItem(11,  'Chart Object',         '2016-02-20','2016-02-20', 'gmilestone',   '',       1, 'Shlomy',   100, 0, 1,  1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(12,  'Task Objects',         '',           '',          'ggroupblack',  '',       0, 'Shlomy',   40,  1, 1,  1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(121, 'Constructor Proc',     '2016-02-21','2016-03-09', 'gtaskblue',    '',       0, 'Brian T.', 60,  0, 12, 1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(122, 'Task Variables',       '2016-03-06','2016-03-11', 'gtaskred',     '',       0, 'Brian',    60,  0, 12, 1, 121,     '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(123, 'Task by Minute/Hour',  '2016-03-09','2016-03-14 12:00', 'gtaskyellow', '',  0, 'Ilan',     60,  0, 12, 1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(124, 'Task Functions',       '2016-03-09','2016-03-29', 'gtaskred',     '',       0, 'Anyone',   60,  0, 12, 1, '123SS', 'This is a caption', null, g));
-//g.AddTaskItem(new JSGantt.TaskItem(2,   'Create HTML Shell',    '2016-03-24','2016-03-24', 'gtaskyellow',  '',       0, 'Brian',    20,  0, 0,  1, 122,     '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(3,   'Code Javascript',      '',           '',          'ggroupblack',  '',       0, 'Brian',    0,   1, 0,  1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(31,  'Define Variables',     '2016-02-25','2016-03-17', 'gtaskpurple',  '',       0, 'Brian',    30,  0, 3,  1, '',      'Caption 1','',   g));
-//g.AddTaskItem(new JSGantt.TaskItem(32,  'Calculate Chart Size', '2016-03-15','2016-03-24', 'gtaskgreen',   '',       0, 'Shlomy',   40,  0, 3,  1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(33,  'Draw Task Items',      '',           '',          'ggroupblack',  '',       0, 'Someone',  40,  2, 3,  1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(332, 'Task Label Table',     '2016-03-06','2016-03-09', 'gtaskblue',    '',       0, 'Brian',    60,  0, 33, 1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(333, 'Task Scrolling Grid',  '2016-03-11','2016-03-20', 'gtaskblue',    '',       0, 'Brian',    0,   0, 33, 1, '332',   '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(34,  'Draw Task Bars',       '',           '',          'ggroupblack',  '',       0, 'Anybody',  60,  1, 3,  0, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(341, 'Loop each Task',       '2016-03-26','2016-04-11', 'gtaskred',     '',       0, 'Brian',    60,  0, 34, 1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(342, 'Calculate Start/Stop', '2016-04-12','2016-05-18', 'gtaskpink',    '',       0, 'Brian',    60,  0, 34, 1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(343, 'Draw Task Div',        '2016-05-13','2016-05-17', 'gtaskred',     '',       0, 'Brian',    60,  0, 34, 1, '',      '',      '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(344, 'Draw Completion Div',  '2016-05-17','2016-06-04', 'gtaskred',     '',       0, 'Brian',    60,  0, 34, 1, "342,343",'',     '',      g));
-//g.AddTaskItem(new JSGantt.TaskItem(35,  'Make Updates',         '2016-07-17','2017-09-04', 'gtaskpurple',  '',       0, 'Brian',    30,  0, 3,  1, '333',   '',      '',      g));
 
 g.Draw();
-//let ganttDom = document.getElementById('GanttChartDIV')
-//let tableDom = ganttDom.querySelector('.gmainleft')
-//let ganttChartDom = ganttDom.querySelector('.gmainright')
-//tableDom.style = 'width:20%'
-//ganttChartDom.style = 'flex:90%'
-
 
 }

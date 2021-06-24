@@ -83,7 +83,7 @@ public class CalendarREST {
 				logger.info("{}",dataMap);
 				result = dao.updateIssueDate(dataMap);
 			}else if("milestone".equals(need)) {
-				result = dao.updateMilestoneStatus(dataMap);
+				result = dao.updateMilestoneDate(dataMap);
 			}
 		}else {
 			// 아닐 경우 status만 변경(open(0), closed(1))
