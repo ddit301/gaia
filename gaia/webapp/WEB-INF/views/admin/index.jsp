@@ -120,8 +120,6 @@
     </script>
 
 
-
-
   </head>
 
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
@@ -141,19 +139,14 @@
               <ul class="nav navbar-nav navbar-left">
                 <li class=""><a href="#" data-menu="admin/member">회원조회</a>
                 </li>
-                <li class=""><a href="#" data-menu="">결제내역확인</a>
-                </li>
                 <li class=""><a href="#" data-menu="admin/inquiry">1:1문의 관리</a>
-                </li>
-                <li class=""><a href="#" data-menu="admin/statics">통계</a>
                 </li>
                 <li class=""><a href="#" data-menu="admin/monitoring">서버환경 조회</a>
                 </li>
               </ul>
             </div>
             <div class="space-between">
-              <ul class="nav navbar-nav navbar-right
-           	">
+              <ul class="nav navbar-nav navbar-right">
                 <li class=""><a href="/">Sign out</a>
               </ul>
             </div>
@@ -161,8 +154,6 @@
 
         </div>
       </nav>
-
-
 
 
     </main>
