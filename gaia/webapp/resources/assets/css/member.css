@@ -133,14 +133,14 @@ textarea {
 	transform: translateX(15px); transition: all 0.8s ease;
 }
 .chat {
-    border-radius: 45px;
+    border-radius: 20px;
     background: white;
     margin: 1% auto;
     padding: 18px;
     display: flex;
     justify-content: space-between;
     box-shadow: 5px 5px 25px #c9bcd0;
-    min-height: 500px;
+    min-height: 560px;
     max-height: 85vh;
     overflow: hidden;
     
@@ -151,7 +151,7 @@ textarea {
 }
 .chat-card{
 	border:hidden;
-	border-radius: 0.625rem;
+	border-radius: 1rem;
     box-shadow: 2px 11px 41px -10px #a99de7;
     position: relative;
     display: flex;
@@ -159,12 +159,11 @@ textarea {
     min-width: 0;
     word-wrap: break-word;
     background-clip: border-box;
-    border-radius: 0.25rem;
     margin:10px 0;
 }
 .chat-box.right .chat-card{
 	border:hidden;
-	border-radius: 0.625rem;
+	border-radius: 1rem;
     box-shadow: -2px 11px 27px -11px #a99de7;
     position: relative;
     display: flex;
@@ -172,18 +171,19 @@ textarea {
     min-width: 0;
     word-wrap: break-word;
     background-clip: border-box;
-    border-radius: 0.25rem;
     margin:10px 0;
 }
 .left{
 	float: left;
+	margin-left: 5%;
 }
 .right{
 	float: right;
+	margin-right: 5%;
 }
 .chat-room{
 	overflow:auto;
-	height:50vh;
+	height:55vh;
 }
 .chatRoom:hover{
 	box-shadow: 9px 35px 35px -28px #a99de7;
@@ -216,12 +216,14 @@ textarea {
 }
 .chat-top{
 	height : 10%;
+	padding: 0px 0 15px 0;
 }
 .inputChatText{
 	margin: auto;
 	text-align: center;
 }
 .membersId{
+	color: black;
     font-weight: bold;
     font-size: 1.4em;
     margin: auto;
@@ -234,13 +236,13 @@ textarea {
 .chat-room-position-above{
 	position: absolute;
     top: 35%;
-    left: 60%;
+    left: 57%;
     transform: translate(-50%, -50%);
 }
 .chat-room-position-under{
 	position: absolute;
-    top: 50%;
-    left: 60%;
+    top: 60%;
+    left: 57%;
     transform: translate(-50%, -50%);
 }
 .inputForm{
@@ -250,8 +252,8 @@ textarea {
 	width: 100%;
 }
 .chat-top-img-size{
-	height: 40px;
-    width: 40px;
+	height: 50px;
+    width: 50px;
 }
 .side-bar-card-body{
 	padding: 1.25em !important; 
@@ -286,4 +288,38 @@ textarea {
 }
 #side-profile{
 	font-size : 1.3em;
+}
+.col-md-9.inputForm{
+	padding: 0;
+}
+li.searchedMemberChat{
+	padding: 10px;
+}
+#memSearchResultChat{
+	height: 300px;
+	overflow-y: scroll;
+}
+.col-md-2.log-img-center.chat-img.chat_img{
+	padding-left: 10%;
+}
+.img-left.chat-room-right{
+	transform: translateX(-40px); transition: all 0.8s ease;
+}
+.img-right.chat-room-right{
+	transform: translateX(40px); transition: all 0.8s ease;
+}
+.chat-img:hover .img-left.chat-room-right{
+	transform: translateX(-65px);
+}
+.chat-img:hover .img-right.chat-room-right{
+	transform: translateX(65px);
+}
+.chat-img:hover .img-center{
+	box-shadow: 9px 35px 35px -28px #a99de7;
+}
+.col-xl-3-custom{
+	max-width: 23%;
+}
+.col-xl-9-custom{
+	max-width: 70%;	
 }

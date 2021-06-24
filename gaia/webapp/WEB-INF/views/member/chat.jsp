@@ -10,8 +10,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-4 col-xl-3">
+    <div class="row position-fixed">
+        <div class="col-lg-4 col-xl-3 col-xl-3-custom">
             <div class="card chatRoomList-over side-position-fixed"> 
                 <div class="card-body side-bar-card-body">
                 	<div id="chatRoomList-top border-bottom" >
@@ -26,7 +26,7 @@
                 </div>
             </div>  
         </div>
-		<div class="col-lg-8 col-xl-9">
+		<div class="col-lg-8 col-xl-9 col-xl-9-custom">
  			<div class="chat">
 				<div class="row">
 					<div class="col-md-9">
@@ -37,6 +37,9 @@
 								<img class="rounded-circle profile_img img-right pro_img chat-top-img-size" onerror="imgOnErr()" height="50" width="50" src="">
 							</div>
 							<div class="col-md-6 membersId">
+								<span></span>
+							</div>
+							<div class="col-md-3 ">
 								<span></span>
 							</div>
 						</div>
@@ -60,9 +63,9 @@
 						<div class="chat-room-right">
 							<div class="chat-room-position-above">
 								<div class="log-img-center chat-img chat_img">
-									<img onerror="imgOnErr()" class="rounded-circle profile_img img-center pro_img" height="50" width="50" src="">
-									<img onerror="imgOnErr()" class="rounded-circle profile_img img-left pro_img" height="50" width="50" src="">
-									<img onerror="imgOnErr()" class="rounded-circle profile_img img-right pro_img" height="50" width="50" src="">
+									<img onerror="imgOnErr()" class="rounded-circle profile_img img-center pro_img" height="100" width="100" src="">
+									<img onerror="imgOnErr()" class="rounded-circle profile_img img-left pro_img chat-room-right" height="100" width="100" src="">
+									<img onerror="imgOnErr()" class="rounded-circle profile_img img-right pro_img chat-room-right" height="100" width="100" src="">
 								</div>
 							</div>
 							<div class="chat-room-position-under">

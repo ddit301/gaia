@@ -28,6 +28,7 @@ $(function(){
 	})
 	// 추가 채팅 멤버 초대 모달 띄우는 버튼
 	$('body').on('click', '.newChat', function(){
+		$('#memSearchResultChat').empty();
 		$('#inviteMemberChat').modal('show');
 	});
 	
@@ -55,9 +56,26 @@ const loadMemberInfo_chat = function() {
 		type: 'get',
 		data: { "need": need },
 		success: function(res) {
+			scrollUp()
 			console.log(res)
 			// 채팅 날짜 순으로 정렬 하기 (가장최근이 가장 위로)
-			sortByDate(res.roomList);
+			if(!CheckNullUndefined(res.roomList)){
+				res.roomList.sort(function(a, b){
+				  let dateA = a.chatList[0].date.toLowerCase();
+				  let dateB = b.chatList[0].date.toLowerCase();
+				  if (dateA > dateB) 
+				  {
+				    return -1;
+				  }    
+				  else if (dateA < dateB)
+				  {
+				    return 1;
+				  }   
+				  return 0;
+				});
+			}else{
+				alert("error")
+			}
 			
 			// 가장 최근의 채팅방의 채팅 내역 보여주기
 			loadChatList_chatRoom(res.roomList[0].chatroom_no);
