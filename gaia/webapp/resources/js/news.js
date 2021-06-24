@@ -36,6 +36,14 @@ $(function() {
         $(this).ekkoLightbox();
     });
 
+	// 뉴스 추가 버튼 누를때 에디터 비워주기
+	$('body').on('click', '#newsmenu button', function(){
+		// 에디터 비우기
+		$('#news-title-input').val('');
+		editor.reset();
+		$('#newsImage').find('input[type=file]').val('');
+	})
+
 
 })
 /**********************************
@@ -172,10 +180,8 @@ const saveNews = function(){
 			// toastr 알람
 			toastr.success('새로운 뉴스 등록에 성공했습니다.')
 			
-			// 에디터 비우기
-			$('#news-title-input').val('');
-			editor.reset();
 			// 모달 닫기
+			editor.reset();
 			$('#exampleModal').modal('hide')
 			
 			// 비동기로 새로운 뉴스 생성해 위에 붙여주기
