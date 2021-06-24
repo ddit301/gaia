@@ -196,4 +196,17 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
    			 where milest_sid = #{milest_sid ,jdbcType=NUMERIC}
 	</delete>
 	
+	<update id="unassignMilestone" parameterType="int">
+		update issue
+		  set milest_sid = null
+		where milest_sid = #{milest_sid}
+	</update>
+	
 </mapper>
+
+
+
+
+
+
+

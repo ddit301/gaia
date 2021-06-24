@@ -34,6 +34,8 @@ public interface MilestoneDao {
 	
 	public int deleteMilestone(MilestoneVO search);
 	
+	public int unassignMilestone(int milest_sid);
+	
 	/**
 	 * 해당 프로젝트의 모든 마일스톤과 이슈들의 정보를 받아옴.
 	 * @param proj_no
