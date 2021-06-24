@@ -99,9 +99,9 @@ const reCal = function(res, status){
 	console.log("reCal");
 	let arr;
 	CheckNullUndefined(status) ? arr=addCalendarArray(res, ) : arr=addCalendarArray(res, status);
-	calendar(arr, res);
+	showCalendar(arr, res);
 }
-const calendar = function(arr, res){
+const showCalendar = function(arr, res){
 	let isChanged = false;
 	let currentTime = new Date();
 	currentTime = moment(currentTime).format('YYYY-MM-DD');

@@ -11,7 +11,7 @@
     <div style="position:relative" class="gantt" id="GanttChartDIV"></div>
 </div>
 
+
 <script>
-getMilestoneList(1);
 loadGanttPage();
 </script>
