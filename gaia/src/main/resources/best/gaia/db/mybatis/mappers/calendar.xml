@@ -66,7 +66,7 @@
 		    , MILEST_START_DATE = TO_DATE(#{start_date,jdbcType=VARCHAR},'YYYY-MM-DD')
 		    </if>
 		    <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(end_date)">	
-			, MILEST_END_DATE = TO_DATE(#{end_date,jdbcType=VARCHAR},‘YYYY-MM-DD’)
+			, MILEST_END_DATE = TO_DATE(#{end_date,jdbcType=VARCHAR},'YYYY-MM-DD')
 			</if>
 	    </trim>
 		WHERE MILEST_SID = #{sid}

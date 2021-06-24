@@ -120,8 +120,6 @@
     </script>
 
 
-
-
   </head>
 
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
@@ -134,29 +132,22 @@
           <div class="navbar-header">
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span
                 class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
-                class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand"
-              href="/gaia/admin">GAIA ADMIN</a>
+                class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">GAIA</a>
           </div>
           <div class="collapse navbar-collapse" id="custom-collapse">
             <div class="space-between">
               <ul class="nav navbar-nav navbar-left">
                 <li class=""><a href="#" data-menu="admin/member">회원조회</a>
                 </li>
-                <li class=""><a href="#" data-menu="">결제내역확인</a>
-                </li>
                 <li class=""><a href="#" data-menu="admin/inquiry">1:1문의 관리</a>
-                </li>
-                <li class=""><a href="#" data-menu="admin/statics">통계</a>
                 </li>
                 <li class=""><a href="#" data-menu="admin/monitoring">서버환경 조회</a>
                 </li>
               </ul>
             </div>
             <div class="space-between">
-              <ul class="nav navbar-nav navbar-right
-           	">
-                <li class=""><a class="" href="#" onclick="javascript:asyncMovePage('${cPath}/signout');"
-                    data-toggle="">Sign out</a>
+              <ul class="nav navbar-nav navbar-right">
+                <li class=""><a href="/">Sign out</a>
               </ul>
             </div>
           </div>
@@ -165,82 +156,12 @@
       </nav>
 
 
-
-
     </main>
     <main id="mainBody">
 
       <!-- 	default included page -->
       <jsp:include page="member.jsp"></jsp:include>
 
-    </main>
-
-    <main id="mainFooter">
-      <div class="module-small bg-dark">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-3">
-              <div class="widget">
-                <h5 class="widget-title font-alt">About SEED</h5>
-                <p>The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                <p>Phone: +80 234 567 89 10</p>Fax: +1 234 567 89 10
-                <p>Email:<a href="#">gaia@gaia.best</a></p>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="widget">
-                <h5 class="widget-title font-alt">Recent Comments</h5>
-                <ul class="icon-list">
-                  <li>Shane on <a href="#">Designer Desk Essentials</a></li>
-                  <li>Robin on <a href="#">Realistic Business Card Mockup</a></li>
-                  <li>Josh on <a href="#">Eco bag Mockup</a></li>
-                  <li>Eisen on <a href="#">Bottle Mockup</a></li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <div class="widget">
-                <h5 class="widget-title font-alt">Popular Posts</h5>
-                <ul class="widget-posts">
-                  <li class="clearfix">
-                    <div class="widget-posts-image"><a href="#"><img src="main/images/rp-1.jpg"
-                          alt="Post Thumbnail" /></a></div>
-                    <div class="widget-posts-body">
-                      <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                      <div class="widget-posts-meta">23 january</div>
-                    </div>
-                  </li>
-                  <li class="clearfix">
-                    <div class="widget-posts-image"><a href="#"><img src="main/images/rp-2.jpg"
-                          alt="Post Thumbnail" /></a></div>
-                    <div class="widget-posts-body">
-                      <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                      <div class="widget-posts-meta">15 February</div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr class="divider-d">
-      <footer class="footer bg-dark">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-6">
-              <p class="copyright font-alt">&copy; 2021&nbsp;<a href="index.html">team SEED</a>, All Rights Reserved</p>
-            </div>
-            <div class="col-sm-6">
-              <div class="footer-social-links"><a href="#"><i class="fa fa-github"></i></a><a href="#"><i
-                    class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-skype"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
 
   </body>

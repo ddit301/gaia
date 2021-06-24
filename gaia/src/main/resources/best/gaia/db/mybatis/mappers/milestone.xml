@@ -37,25 +37,33 @@
 			<association property="issueWriter" javaType="best.gaia.vo.MemberVO" autoMapping="false">
 				<id column="ISSUE_WRI_MEM_NO" property="mem_no" />
 				<result column="ISSUE_WRI_MEM_PIC" property="mem_pic_file_name"></result>
-			
 			</association>
-		<collection property="issueList" ofType="best.gaia.vo.IssueVO" javaType="java.util.List" autoMapping="false">
-			<id column="ISSUE_ID" property="issue_sid"/>
-				<result column="issue_no" property="issue_no"></result>
-				<result column="issue_title" property="issue_title"></result>
-				<result column="issue_priority" property="issue_priority"></result>
-				
-<!-- 				<result column="ISSUE_WRI_MEM_PIC" property="mem_pic_file_name"></result> -->
-			<association property="label" javaType="best.gaia.vo.LabelVO" autoMapping="false">
-				<result column="LABEL_NO" property="label_no"></result>
-				<result column="LABEL_NM" property="label_nm"></result>
-			</association>
-		<collection property="assigneeList" ofType="best.gaia.vo.MemberVO" javaType="java.util.Set" autoMapping="false">
-				<id column="ISSUE_ASSIN_MEM_NO" property="mem_no" />	
-				<result column="ISSUE_ASSIGN_MEM_PIC" property="mem_pic_file_name"></result>
-<!-- 				<result column="ISSUE_ASIGN_MEM" property="proj_user_nick"></result> -->
-		</collection>
-		</collection>    
+			<collection property="issueList" ofType="best.gaia.vo.IssueVO" javaType="java.util.List" autoMapping="false">
+				<id column="ISSUE_ID" property="issue_sid"/>
+					<result column="ISSUE_NO" property="issue_no"></result>
+					<result column="ISSUE_TITLE" property="issue_title"></result>
+					<result column="MILEST_ID" property="milest_sid"></result>
+					<result column="ISSUE_START_DATE" property="issue_start_date"></result>
+					<result column="ISSUE_END_DATE" property="issue_end_date"></result>
+					<result column="ISSUE_STATUS" property="issue_status"></result>
+					<result column="issue_priority" property="issue_priority"></result>
+	<!-- 				<result column="ISSUE_WRI_MEM_PIC" property="mem_pic_file_name"></result> -->
+				<association property="label" javaType="best.gaia.vo.LabelVO" autoMapping="false">
+					<result column="LABEL_NO" property="label_no"></result>
+					<result column="LABEL_NM" property="label_nm"></result>
+				</association>
+				<collection property="assigneeList" ofType="best.gaia.vo.MemberVO" javaType="java.util.Set" autoMapping="false">
+						<id column="ISSUE_ASSIN_MEM_NO" property="mem_no" />	
+						<result column="MEM_ID" property="mem_id"></result>
+						<result column="ISSUE_ASSIGN_MEM_PIC" property="mem_pic_file_name"></result>
+		<!-- 				<result column="ISSUE_ASIGN_MEM" property="proj_user_nick"></result> -->
+				</collection>
+				<collection property="historyList" ofType="best.gaia.vo.IssueHistoryVO" javaType="java.util.List" autoMapping="false">
+						<id column="ISSUE_HIS_NO" property="issue_his_no" />	
+						<result column="ISSUE_HIS_CONT" property="issue_his_cont"></result>
+		<!-- 				<result column="ISSUE_ASIGN_MEM" property="proj_user_nick"></result> -->
+				</collection>
+			</collection>    
 	</resultMap>
 	
 	<select id="selectMilestone" resultMap="milestoneMap">
@@ -116,6 +124,26 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
 			       ORDER BY ISSUE_NO DESC    
 	</select>
 	
+	<select id="selectMilestoneIssueList" resultMap="milestoneMap" parameterType="int" >
+		WITH ISSUEINFO AS (
+		    SELECT A.ISSUE_SID, B.MEM_NO, M.MEM_ID, A.ISSUE_TITLE,  A.PROJ_NO 
+		        , A.MILEST_SID, A.ISSUE_START_DATE, A.ISSUE_END_DATE
+		        , A.ISSUE_STATUS
+		    FROM ISSUE A
+		        LEFT OUTER JOIN ISSUE_ASSIGNEE B ON (A.ISSUE_SID = B.ISSUE_SID)
+		        LEFT OUTER JOIN MEMBER M ON (B.MEM_NO = M.MEM_NO)
+		        LEFT OUTER JOIN LABEL C ON (A.LABEL_NO = C.LABEL_NO)
+		)
+		SELECT NVL(D.MILEST_SID, 0) AS MILEST_SID, D.MILEST_TITLE, D.MILEST_START_DATE, D.MILEST_END_DATE 
+		    , D.MILEST_NO, D.MILEST_CONT, D.MILEST_STATUS
+		    , F.ISSUE_SID AS ISSUE_ID, F.MEM_NO AS ISSUE_ASSIN_MEM_NO, F.MEM_ID, F.ISSUE_TITLE
+		    , F.MILEST_SID AS MILEST_ID, F.ISSUE_START_DATE, F.ISSUE_END_DATE
+		    , F.ISSUE_STATUS 
+		FROM MILESTONE D
+		FULL OUTER JOIN ISSUEINFO F ON (D.MILEST_SID = F.MILEST_SID)
+		WHERE D.PROJ_NO = ${proj_no} OR F.PROJ_NO=${proj_no}
+	</select>
+	
 	
 	<insert id="insertMilestone" parameterType="best.gaia.vo.MilestoneVO">
 		<selectKey resultType = "best.gaia.vo.MilestoneVO" keyProperty="milest_sid,milest_no" order="BEFORE">
@@ -167,6 +195,5 @@ SELECT DISTINCT ISSUE.ISSUE_SID AS ISSUE_ID, ISSUE.ISSUE_NO, ISSUE.ISSUE_TITLE,I
 			 delete from milestone
    			 where milest_sid = #{milest_sid ,jdbcType=NUMERIC}
 	</delete>
-	
 	
 </mapper>

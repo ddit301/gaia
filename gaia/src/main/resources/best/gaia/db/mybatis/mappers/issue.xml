@@ -120,7 +120,8 @@ FROM ISSUE
 			)a
 		<![CDATA[
 			WHERE DR >= #{startRow} AND DR <= #{endRow}
-		]]>			
+		]]>		
+		order by issue_create_date desc
 	</select>
 	
 	<select id="selectIssueCount" parameterType="best.gaia.vo.PagingVO" resultType="int">

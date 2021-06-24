@@ -48,8 +48,8 @@ public class MilestoneREST {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<MilestoneVO> selectMilestoneList(
-			HttpSession session
-			, @RequestParam(required=false) String milest_status
+				HttpSession session
+				, @RequestParam(required=false) String milest_status
 			) {
 		
 		PagingVO<MilestoneVO> pagingVO = new PagingVO<MilestoneVO>();
@@ -62,63 +62,7 @@ public class MilestoneREST {
 		
 		pagingVO.setDetailSearch(detailSearch);
 		
-		return service.selecMilestoneList(pagingVO);
-	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public Map<String, Object> insertMilestone(
-			HttpSession session
-			, @ModelAttribute MilestoneVO milestone
-			, Authentication authentication
-			) {
-		
-		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
-		milestone.setMem_no(getMemberNoFromAuthentication(authentication));
-		
-		// proj_no 를 milestone VO 에 넣기 
-		int proj_no = getProjNoFromSession(session);
-		milestone.setProj_no(proj_no);
-		
-		ServiceResult result = service.insertMilestone(milestone);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("milest_no",milestone.getMilest_no());
-		map.put("result",result);
-
-		return map;
-	}
-	
-	@RequestMapping(method=RequestMethod.PUT)
-	public Map<String, Object> updateMilestone(
-			 @ModelAttribute MilestoneVO milestone
-			, Authentication authentication
-			) {
-		
-		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
-		milestone.setMem_no(getMemberNoFromAuthentication(authentication));
-		
-		ServiceResult result = service.updateMilestone(milestone);
-		
-		Map<String, Object> map = new HashMap<>();
-		
-		map.put("result",result);
-
-		return map;
-	}
-	
-	@DeleteMapping()
-	public Map<String, Object> deleteMilestone(
-			 @ModelAttribute MilestoneVO search
-			 , Authentication authentication
-				) {
-		
-		ServiceResult result = service.deleteMilestone(search);
-		Map<String,Object>map = new HashMap<>();
-		
-		map.put("result",result);
-		
-		return map;
-		
+		return service.selectMilestoneList(pagingVO);
 	}
 	@RequestMapping(value="{milest_no}", method=RequestMethod.GET)
 	public MilestoneVO selectMilestone(
@@ -147,5 +91,76 @@ public class MilestoneREST {
 		
 		return milestone;
 	}
+	@RequestMapping(method=RequestMethod.GET, params = "need")
+	public Map<String, Object> selectMilestoneIssueList(
+				@RequestParam String need
+				, @RequestParam(required=false) Integer issue_status
+				,HttpSession session
+			) {
+		Integer proj_no = getProjNoFromSession(session);
+		
+		List<MilestoneVO> list = service.selectMilestoneList(proj_no);
+		
+		Map<String,Object> result = new HashMap<>();
+		result.put("list", list);
+		return result;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public Map<String, Object> insertMilestone(
+				HttpSession session
+				, @ModelAttribute MilestoneVO milestone
+				, Authentication authentication
+			) {
+		
+		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
+		milestone.setMem_no(getMemberNoFromAuthentication(authentication));
+		
+		// proj_no 를 milestone VO 에 넣기 
+		int proj_no = getProjNoFromSession(session);
+		milestone.setProj_no(proj_no);
+		
+		ServiceResult result = service.insertMilestone(milestone);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("milest_no",milestone.getMilest_no());
+		map.put("result",result);
+
+		return map;
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT)
+	public Map<String, Object> updateMilestone(
+				 @ModelAttribute MilestoneVO milestone
+				, Authentication authentication
+			) {
+		
+		// memberVO 가 가지고 있는 mem_no milestone에 넣기 
+		milestone.setMem_no(getMemberNoFromAuthentication(authentication));
+		
+		ServiceResult result = service.updateMilestone(milestone);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("result",result);
+
+		return map;
+	}
+	
+	@DeleteMapping()
+	public Map<String, Object> deleteMilestone(
+				 @ModelAttribute MilestoneVO search
+				 , Authentication authentication
+			) {
+		
+		ServiceResult result = service.deleteMilestone(search);
+		Map<String,Object>map = new HashMap<>();
+		
+		map.put("result",result);
+		
+		return map;
+		
+	}
+	
 	
 }

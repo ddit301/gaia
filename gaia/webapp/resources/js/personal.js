@@ -1,5 +1,14 @@
 
 
+
+$(function(){
+	$('body').on('click', '.projectBox', function(){
+		let mngid = $(this).data('manager_id');
+		let projtitle = $(this).data('project_title');
+		loadProject(mngid,projtitle);
+	})
+});
+
 ////////////////////////////////////////////////////
 //
 // personalPage 이벤
@@ -23,13 +32,13 @@ const printPersonalPage = function(mem_id){
 			profileArea.find('.card-profile__info').find('span').eq(0).text(member.MEM_NICK);
 			profileArea.find('.card-profile__info').find('span').eq(1).text(member.MEM_WORKING_CITY);
 			profileArea.find('.card-profile__info').find('span').eq(2).text(member.MEM_TEL);
-			profileArea.find('.card-profile__info').find('span').eq(3).text('issue assignee : ' + member.ISSUEASSIGNEECNT);
-			profileArea.find('.card-profile__info').find('span').eq(4).text('chat count : ' + member.MEMCHATCNT);
-			profileArea.find('.card-profile__info').find('span').eq(5).text('issue count : ' + member.ISSUECNT);
-			profileArea.find('.card-profile__info').find('span').eq(6).text('news count : ' + member.NEWSCNT);
-			profileArea.find('.card-profile__info').find('span').eq(7).text('milestone count : ' + member.MILESTONECNT);
-			profileArea.find('.card-profile__info').find('span').eq(8).text('sign date : ' + moment(member.MEM_SIGN_DATE).format('YYYY-MM-DD'));
-			profileArea.find('.card-profile__info').find('span').eq(9).text('status : ' + member.MEM_STATUS);
+			profileArea.find('.card-profile__info').find('span').eq(3).text('할당된 일감 : ' + member.ISSUEASSIGNEECNT);
+			profileArea.find('.card-profile__info').find('span').eq(4).text('참여 채팅수 : ' + member.MEMCHATCNT);
+			profileArea.find('.card-profile__info').find('span').eq(5).text('작성 이슈 : ' + member.ISSUECNT);
+			profileArea.find('.card-profile__info').find('span').eq(6).text('작성 뉴스 : ' + member.NEWSCNT);
+			profileArea.find('.card-profile__info').find('span').eq(7).text('작성 마일스톤 : ' + member.MILESTONECNT);
+			profileArea.find('.card-profile__info').find('span').eq(8).text('가입일 : ' + moment(member.MEM_SIGN_DATE).format('YYYY-MM-DD'));
+			profileArea.find('.card-profile__info').find('span').eq(9).text('상태 : ' + member.MEM_STATUS);
 			
 			
 			/*
@@ -57,8 +66,16 @@ const printPersonalPage = function(mem_id){
 			
 			
 			$.each(res, function(i, project){
+				
+				if(project.PROJ_DROP_DATE){
+					return;
+				}
+				
 				let projectBox = $('#personal-template').children('.projectBox').clone();
-
+				
+				projectBox.attr('data-manager_id',project.PROJ_MANAGERID);
+				projectBox.attr('data-project_title',project.PROJ_TITLE);
+				
 				if(project.PROJ_TITLE == null){
 					projectBox.find('.projTitle').find('span').text('참여 프로젝트가 없습니다.')
 					projectBox.find('.manager-area').remove();
@@ -69,7 +86,7 @@ const printPersonalPage = function(mem_id){
 					
 				}else{
 					projectBox.find('.projTitle').find('span').text(project.PROJ_TITLE);
-					projectBox.find('.projManager').find('span').text(project.PROJ_MANAGERID);
+					projectBox.find('.projManager').find('span').text(project.MEM_ROLE_NM + ' - ' + project.PROJ_USER_NICK);
 					projectBox.find('.profile').attr('src', getProfilePath(project.MANAGERPIC));
 					projectBox.find('.proj-join-date-info').find('span').text('join ' + moment(project.JOIN_DATE).format('YYYY-MM-DD'));
 					projectBox.find('.proj-start-date-info').find('span').text('project start ' + moment(project.PROJ_START_DATE).fromNow());

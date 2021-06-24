@@ -87,7 +87,7 @@
 						<span class="activity active"></span> 
 						<img class="profile_img" onerror="imgOnErr()" height="40" width="40"alt="">
 					</div>
-					<div class="drop-down dropdown-profile   dropdown-menu">
+					<div class="drop-down dropdown-profile dropdown-menu" style="font-size : 1.2em;">
 						<div class="dropdown-content-body">
 							<ul>
 								<li><a class="moveButton" data-menu="overview"><i
@@ -103,7 +103,7 @@
 								</li>
 								<hr class="my-2" />
 								<li><a href="${cPath }/signout"><i class="icon-key"></i>
-										<span>SIGN OUT</span></a></li>
+										<span style="color : black;">SIGN OUT</span></a></li>
 							</ul>
 						</div>
 					</div>
