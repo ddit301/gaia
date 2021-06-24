@@ -83,6 +83,9 @@ public interface ProjectDao {
 	public int updateLabel(LabelVO label);
 	public int deleteLabel(int label_no);
 	
+	public Map<String, Object> getProjectAnalytics(int proj_no);
+	public List<Map<String, Object>> getProjectMemberAnalytics(int proj_no);
+	
 	
 }
 

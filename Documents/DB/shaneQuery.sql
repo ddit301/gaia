@@ -9,6 +9,7 @@
 -- 4. Milestone
 -- 5. Project
 -- 6. Member
+-- 7. Analytics
 
 ------------------------------------------------------------------------
 
@@ -400,6 +401,183 @@ where member.mem_no = 4;
 
 
 -----------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------
+
+-----------------------------7. Analytics----------------------------------------
+-- 1. 프로젝트 통계 불러오기
+-- 2. 프로젝트 멤버 통계 불러오기
+
+--------------------------------------------------------------------------------
+-- 1. 프로젝트 통계 불러오기
+with 
+milest as(
+    select count(*) as milestonecount, proj_no
+    from milestone
+    group by proj_no
+)
+,issues as(
+    select count(*) as issuecount, proj_no
+    from issue
+    group by proj_no
+)
+,openissue as(
+    select count(*) as openissue, proj_no
+    from issue
+    where issue_status = 0
+    group by proj_no
+)
+,issuehiscount as (
+    select count(*) as issuehiscount, proj_no
+    from issue_history
+        inner join issue on (issue_history.issue_sid = issue.issue_sid)
+    group by proj_no
+)
+,openmilestone as(
+    select count(*) as openmilestone, proj_no
+    from milestone
+    where milest_status = 0
+    group by proj_no
+)
+,labelcount as(
+    select count(*) as labelcount, proj_no
+    from label
+    group by proj_no
+)
+,rolecount as(
+    select count(*) as rolecount, proj_no
+    from mem_role
+    group by proj_no
+)
+,columncount as (
+    select count(*) as columncount, proj_no
+    from kanban_col
+    group by proj_no
+)
+,cardcount as (
+    select count(*) as cardcount, proj_no
+    from kanban_card
+        inner join kanban_col on (kanban_card.kb_col_no = kanban_col.kb_col_no)
+    group by proj_no
+)
+,newscount as(
+    select count(*) as newscount, proj_no
+    from news
+    group by proj_no
+)
+,newscomcount as(
+    select count(*) as newscomcount, proj_no
+    from news_comment
+        inner join news on (news_comment.news_sid = news.news_sid)
+    group by proj_no
+)
+,wikicount as(
+    select count(*) as wikicount, proj_no
+    from wiki
+    where wiki.parent_wiki is null
+    group by proj_no
+)
+select project.proj_no, project.proj_start_date, project.proj_est_end_date
+        ,nvl(milestonecount,0) as milestonecount
+        ,nvl(issuecount, 0) as issuecount
+        ,nvl(openissue, 0) as openissue
+        ,nvl(openmilestone,0) as openmilestone
+        ,nvl(issuehiscount, 0) as issuehiscount
+        ,nvl(labelcount, 0) as labelcount
+        ,nvl(rolecount, 0) as rolecount
+        ,nvl(columncount, 0) as columncount
+        ,nvl(cardcount, 0) as cardcount
+        ,nvl(newscount, 0) as newscount
+        ,nvl(newscomcount, 0) as newscomcount
+        ,nvl(wikicount, 0) as wikicount
+from project
+        left outer join milest on (project.proj_no = milest.proj_no)
+        left outer join issues on (project.proj_no = issues.proj_no)
+        left outer join openissue on (project.proj_no = openissue.proj_no)
+        left outer join openmilestone on (project.proj_no = openmilestone.proj_no)
+        left outer join issuehiscount on (project.proj_no = issuehiscount.proj_no)
+        left outer join labelcount on (project.proj_no = labelcount.proj_no)
+        left outer join rolecount on (project.proj_no = rolecount.proj_no)
+        left outer join columncount on (project.proj_no = columncount.proj_no)
+        left outer join cardcount on (project.proj_no = cardcount.proj_no)
+        left outer join newscount on (project.proj_no = newscount.proj_no)
+        left outer join newscomcount on (project.proj_no = newscomcount.proj_no)
+        left outer join wikicount on (project.proj_no = wikicount.proj_no)
+where project.proj_no = 1;
+
+
+
+
+---------------------------------------------------------------------------
+
+-- 2. 프로젝트 멤버 통계 불러오기
+with 
+milestonecount as(
+    select count(*) as milestonecount, mem_no, proj_no
+    from milestone
+    group by mem_no, proj_no
+)
+,issuecount as (
+    select count(*) as issuecount, mem_no, proj_no
+    from issue
+    group by mem_no, proj_no
+)
+,issuecomcount as(
+    select count(*) as issuecomcount, issue_history.mem_no, proj_no
+    from issue_history
+        inner join issue on (issue_history.issue_sid = issue.issue_sid)
+    where issue_history.issue_his_type = 'RE'
+    group by issue_history.mem_no, proj_no
+)
+,taskcount as(
+    select count(*) as taskcount, issue_assignee.mem_no, proj_no
+    from issue_assignee
+            inner join issue on (issue_assignee.issue_sid = issue.issue_sid)
+    group by issue_assignee.mem_no, proj_no
+)
+,wikicount as(
+    select count(*) as wikicount, mem_no, proj_no
+    from wiki
+    group by mem_no, proj_no
+)
+,newscount as (
+    select count(*) as newscount, mem_no, proj_no
+    from news
+    group by mem_no, proj_no
+)
+,newscomcount as (
+    select count(*) as newscomcount, news_comment.mem_no, proj_no
+    from news_comment
+        inner join news on news_comment.news_sid = news.news_sid
+    group by news_comment.mem_no, proj_no
+)
+select proj_mem.mem_no, proj_join_date, proj_drop_date, proj_user_nick
+        , mem_role_nm
+        , member.mem_pic_file_name
+        , nvl(milestonecount, 0) as milestonecount
+        , nvl(issuecount, 0) as issuecount
+        , nvl(issuecomcount, 0) as issuecomcount
+        , nvl(taskcount, 0) as taskcount
+        , nvl(wikicount, 0) as wikicount
+        , nvl(newscount, 0) as newscount
+        , nvl(newscomcount, 0) as newscomcount
+from proj_mem
+        inner join member on (proj_mem.mem_no = member.mem_no)
+        inner join mem_role on (proj_mem.mem_role_no = mem_role.mem_role_no)
+        left outer join milestonecount on (proj_mem.proj_no = milestonecount.proj_no and proj_mem.mem_no = milestonecount.mem_no)
+        left outer join issuecount on (proj_mem.proj_no = issuecount.proj_no and proj_mem.mem_no = issuecount.mem_no)
+        left outer join issuecomcount on (proj_mem.proj_no = issuecomcount.proj_no and proj_mem.mem_no= issuecomcount.mem_no)
+        left outer join taskcount on (proj_mem.proj_no = taskcount.proj_no and proj_mem.mem_no = taskcount.mem_no)
+        left outer join wikicount on (proj_mem.proj_no = wikicount.proj_no and proj_mem.mem_no = wikicount.mem_no)
+        left outer join newscount on (proj_mem.proj_no = newscount.proj_no and proj_mem.mem_no = newscount.mem_no)
+        left outer join newscomcount on (proj_mem.proj_no = newscomcount.proj_no and proj_mem.mem_no = newscomcount.mem_no)
+where proj_mem.proj_no = 1
+order by proj_mem.mem_role_no;
+
+
 
 
 

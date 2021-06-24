@@ -3,7 +3,8 @@
 
 <script>
 	$(function(){
-// 		loadAnalytics();
+		scrollUp();
+		loadAnalytics();
 	})
 	
 </script>
@@ -49,7 +50,7 @@
 						</div>
 						<div class="col-md-8">
 							<div class="progress-area">
-								<div class="progress-bar bg-success" role="progressbar" style="width:92.8%">92.8%</div>
+								<div class="progress-bar bg-success" role="progressbar" style="width:0%">92.8%</div>
 							</div>
 						</div>
 					</div>
@@ -60,7 +61,7 @@
 						</div>
 						<div class="col-md-8">
 							<div class="progress-area">
-								<div class="progress-bar bg-success" role="progressbar" style="width:92.8%">92.8%</div>
+								<div class="progress-bar bg-success" role="progressbar" style="width:0%">92.8%</div>
 							</div>
 						</div>
 					</div>
@@ -118,7 +119,7 @@
 							</div>
 <!-- 							개별스탯 이슈 종료 -->
 <!-- 						개별 스탯 - 이슈 히스토리 시작 -->
-							<div class="row stat-issue">
+							<div class="row stat-issue-history">
 								<div class="col-md-4">
 									<i class="icon icon-puzzle"></i>
 									<span>이슈 히스토리</span>
@@ -129,7 +130,7 @@
 							</div>
 <!-- 							개별스탯 이슈 히스토리 종료 -->
 <!-- 						개별 스탯 - 라벨 시작 -->
-							<div class="row stat-issue">
+							<div class="row stat-label">
 								<div class="col-md-4">
 									<i class="icon icon-list"></i>
 									<span>라벨</span>
@@ -140,13 +141,13 @@
 							</div>
 <!-- 							개별스탯 라벨 종료 -->
 <!-- 						개별 스탯 - 멤버 역할 수 시작 -->
-							<div class="row stat-issue">
+							<div class="row stat-role">
 								<div class="col-md-4">
 									<i class="icon icon-user"></i>
 									<span>멤버 역할</span>
 								</div>
 								<div class="stat-num col-md-4">
-									<span>5</span>
+									<span>1</span>
 								</div>
 							</div>
 <!-- 							개별스탯 멤버 열할 수  종료 -->
@@ -168,7 +169,7 @@
 				<!-- 						stat data 시작 -->
 						<div class="stat-data">
 			<!-- 						개별 스탯 - 칸반 컬럼 시작 -->
-							<div class="row stat-issue">
+							<div class="row stat-col">
 								<div class="col-md-4">
 									<i class="icon icon-cursor-move"></i>
 									<span>칸반 컬럼</span>
@@ -178,7 +179,7 @@
 								</div>
 							</div>
 			<!-- 						개별 스탯 - 칸반 카드 시작 -->
-							<div class="row stat-issue">
+							<div class="row stat-card">
 								<div class="col-md-4">
 									<i class="icon icon-credit-card"></i>
 									<span>칸반 카드</span>
@@ -188,7 +189,7 @@
 								</div>
 							</div>
 			<!-- 						개별 스탯 - 칸반 뉴스 시작 -->
-							<div class="row stat-issue">
+							<div class="row stat-news">
 								<div class="col-md-4">
 									<i class="icon icon-book-open"></i>
 									<span>뉴스</span>
@@ -198,7 +199,7 @@
 								</div>
 							</div>
 			<!-- 						개별 스탯 - 뉴스 댓글 시작 -->
-							<div class="row stat-issue">
+							<div class="row stat-news-com">
 								<div class="col-md-4">
 									<i class="icon icon-bubbles"></i>
 									<span>뉴스 댓글</span>
@@ -208,7 +209,7 @@
 								</div>
 							</div>
 			<!-- 						개별 스탯 - 위키 시작 -->
-							<div class="row stat-issue">
+							<div class="row stat-wiki">
 								<div class="col-md-4">
 									<i class="icon icon-notebook"></i>
 									<span>위키</span>

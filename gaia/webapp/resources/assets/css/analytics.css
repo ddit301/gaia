@@ -46,3 +46,6 @@
 .stat-data .row:hover{
 	background : aliceblue;
 }
+.mem-stat-box{
+	margin-top : 10px;	
+}

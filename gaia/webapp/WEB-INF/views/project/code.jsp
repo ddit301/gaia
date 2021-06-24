@@ -70,7 +70,7 @@
 						~ <span></span>
 					</div>
 					<div class="progress-area">
-						<div class="progress-bar bg-success" role="progressbar"></div>
+						<div class="progress-bar bg-success" role="progressbar" style="width:0%"></div>
 					</div>
 				</div>
 <!-- 				프로젝트 닉네임 관리-->
