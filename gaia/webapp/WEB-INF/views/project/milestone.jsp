@@ -8,50 +8,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <link href="${cPath }/resources/assets/css/milestone.css" rel="stylesheet"> 
-	     	<div class="milest-container">
-<!-- 	            <div class="row page-titles mx-0"> -->
-<!-- 	                <div class="col p-md-0"> -->
-<!-- 	                    <ol class="breadcrumb"> -->
-<%-- 	                        <li class="breadcrumb-item"><a class="moveButton" href="#">${project_title }</a></li> --%>
-<%-- 	                        <li class="breadcrumb-item active"><a href="javascript:void(0)">${menuname }</a></li> --%>
-<!-- 	                    </ol> -->
-<!-- 	                </div> -->
-<!-- 	            </div> -->
-            <!-- row -->
 
-
-	     		<div class="milestone-new-btn">
-					<a id="newMilestone" class="label label-info" data-menu="newmilestone" href="javascript:void(0)">New milestone</a>
-				</div>
-		     	<div class="milestone-header row">
-					<div class="milestone-chk row col-md-6">
-						<button type="button" class="status-btn btn col-mb-2 btn-sm btn-flat btn-success ">All</button>
-		            	<button data-status="0" type="button" class="status-btn btn col-mb-2 btn-sm btn-flat btn-light">Open</button>
-		            	<button data-status="1" type="button" class="status-btn btn col-mb-2 btn-sm btn-flat btn-light">Closed</button>
-					</div>
-		     	</div>
-		     	<div id="milestone-list"></div>
-		     	<div class="milestone-footer">
-<!-- 		     		<div> -->
-<!-- 	           			<ul class="pagination justify-content-center"> -->
-<!-- 	                       <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a> -->
-<!-- 	                       </li> -->
-<!-- 	                       <li class="page-item"><a class="page-link" href="#">1</a> -->
-<!-- 	                       </li> -->
-<!-- 	                       <li class="page-item"><a class="page-link" href="#">2</a> -->
-<!-- 	                       </li> -->
-<!-- 	                       <li class="page-item"><a class="page-link" href="#">3</a> -->
-<!-- 	                       </li> -->
-<!-- 	                       <li class="page-item"><a class="page-link" href="#">Next</a> -->
-<!-- 	                       </li> -->
-<!-- 	                   </ul> -->
-<!--            		</div> -->
-		     	</div>
-			</div>	
+<div class="milest-container container-fluid">
+	<div class="milestone-header row card">
+		<div class="milestone-chk row col-md-12">
+			<button type="button" class="status-btn btn col-mb-2 btn-sm btn-flat btn-success ">All</button>
+	        <button data-status="0" type="button" class="status-btn btn col-mb-2 btn-sm btn-flat btn-light">Open</button>
+	        <button data-status="1" type="button" class="status-btn btn col-mb-2 btn-sm btn-flat btn-light">Closed</button>
+			<button id="newMilestone" class="btn btn-success">New milestone</button>
+		</div>
+	</div>
+	<div id="milestone-list">
+	</div>
+</div>	
 			
 				<div id="milestone-template" hidden="hidden">
-					<div class="milestoneBox">	
+					<div class="milestoneBox card">	
 						<div class = "row">
 							<div class="milestone-title col-md-6">
 								<a class="milestoneButton" data-menu="milestoneview" href="javascript:void(0)"></a>    
