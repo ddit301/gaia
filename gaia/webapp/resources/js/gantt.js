@@ -21,9 +21,14 @@ const calIssueAssignees = function(mems){
 	if(mems.length == 0){
 		result = "";
 	}else{
-		$.each(mems, function(i, v){
-			result += v.mem_id;
-		});
+		if(mems.length !=1 ){
+			$.each(mems, function(i, v){
+				result += v.mem_id+", ";
+			});
+		}else{
+			result = mems[0].mem_id
+		}
+	
 	}
 	return result;
 }
@@ -51,65 +56,55 @@ const calComp = function(start_date, end_date, title){
 
 const loadGanttPage = function(){
 	let list = loadMilestoneIssueList();
-	let cnt =0;
+	let mile_cnt =0;
+	let issue_cnt =list.length;
 	var g = new JSGantt.GanttChart(document.getElementById('GanttChartDIV'), 'day');
 
-g.setOptions({
-  vCaptionType: 'Complete',  // Set to Show Caption : None,Caption,Resource,Duration,Complete,     
-  vQuarterColWidth: 36,
-  vDateTaskDisplayFormat: 'day dd month yyyy', // Shown in tool tip box
-  vDayMajorDateDisplayFormat: 'mon yyyy - Week ww',// Set format to dates in the "Major" header of the "Day" view
-  vWeekMinorDateDisplayFormat: 'dd mon', // Set format to display dates in the "Minor" header of the "Week" view
-  vLang: 'en',
-  vShowTaskInfoLink: 1, // Show link in tool tip (0/1)
-  vShowEndWeekDate: 0,  // Show/Hide the date for the last day of the week in header for daily
-  vUseSingleCell: 10000, // Set the threshold cell per table row (Helps performance for large data.
-  vFormatArr: ['Day', 'Week', 'Month'], // Even with setUseSingleCell using Hour format on such a large chart can cause issues in some browsers,
-});
-$.each(list, function(i, milestone){
-	g.AddTaskItem(new JSGantt.TaskItem(
-			milestone.milest_sid 
-			, CheckNullUndefined(milestone.milest_title) ? "독립적인 이슈 목록" : milestone.milest_title 
+	g.setOptions({
+	   vCaptionType: 'Complete',  // Set to Show Caption : None,Caption,Resource,Duration,Complete,     
+	   vQuarterColWidth: 36,
+	   vDateTaskDisplayFormat: 'day dd month yyyy', // Shown in tool tip box
+	   vDayMajorDateDisplayFormat: 'mon yyyy - Week ww',// Set format to dates in the "Major" header of the "Day" view
+	   vWeekMinorDateDisplayFormat: 'dd mon', // Set format to display dates in the "Minor" header of the "Week" view
+	   vLang: 'en',
+	   vShowTaskInfoLink: 1, // Show link in tool tip (0/1)
+	   vShowEndWeekDate: 0,  // Show/Hide the date for the last day of the week in header for daily
+	   vUseSingleCell: 10000, // Set the threshold cell per table row (Helps performance for large data.  
+	   vFormatArr: ['Day', 'Week', 'Month'], // Even with setUseSingleCell using Hour format on such a large chart can cause issues in some browsers,
+	});
+	$.each(list, function(i, milestone){
+		g.AddTaskItem(new JSGantt.TaskItem(
+			++mile_cnt
+			, milestone.milest_title ? milestone.milest_title :"독립적인 이슈 목록"
 			, milestone.milest_start_date
 			, milestone.milest_end_date
-			, "ggroupblack"
-			, ''
-			, 0
+			, "ggroupblack", '', 0
 			, ""
 			, Number(milestone.milest_status) ? "100" : calComp(milestone.milest_start_date,milestone.milest_end_date)
 			, 1
-				, 0
+				, ""
 			, Number(milestone.milest_status) ? "0" : "1"
 			, ''
 			, ''
-			, milestone.milest_cont
-			, g 
-	));
-	$.each(milestone.issueList, function(l, issue){
-		if(CheckNullUndefined(issue)){
-			return true;
-		}
-		g.AddTaskItem(new JSGantt.TaskItem(
-			cnt++
-			, issue.issue_title
-			, issue.issue_start_date
-			, issue.issue_end_date
-			, Number(issue.issue_status) ? "gtaskred" : "gtaskblue"
-			, ''
-			, 0
-			, CheckNullUndefined(issue.assigneeList) ? "" : calIssueAssignees(issue.assigneeList)
-			, Number(issue.issue_status) ? "100" : calComp(issue.issue_start_date,issue.issue_end_date, issue.issue_title)
-			, 0
-				, milestone.milest_sid
-			, 2
-			, milestone.milest_sid
-			, ''
-			, Number(issue.issue_status) ? "Closed" : "Open"
-			, g 
+			, milestone.milest_cont, g 
 		));
-	})
-});
-
+		$.each(milestone.issueList, function(l, issue){
+			g.AddTaskItem(new JSGantt.TaskItem(
+				++issue_cnt
+				, issue.issue_title
+				, issue.issue_start_date
+				, issue.issue_end_date
+				, Number(issue.issue_status) ? "gtaskred" : "gtaskblue", '', 0
+				, CheckNullUndefined(issue.assigneeList) ? "" : calIssueAssignees(issue.assigneeList)
+				, Number(issue.issue_status) ? "100" : calComp(issue.issue_start_date,issue.issue_end_date, issue.issue_title)
+				, 0
+					, mile_cnt
+				, 2
+				, mile_cnt
+				, ''
+				, Number(issue.issue_status) ? "Closed" : "Open", g 
+			));
+		})
+	});
 g.Draw();
-
 }
