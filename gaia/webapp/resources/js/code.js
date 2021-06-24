@@ -260,6 +260,8 @@ const loadProjectOverview = function(){
 			
 			memListArea.empty();
 			// 멤버 목록 반복문
+			
+			$('#howmanyMember').append(' '+project.memberList.length+'명');
 			$.each(project.memberList, function(i,member){
 				let memBox = $('#codeTemplates').find('.mem-overview-card').clone();
 				memBox.find('img').attr('src', getProfilePath(member.memno));

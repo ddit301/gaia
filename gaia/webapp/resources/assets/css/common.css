@@ -195,7 +195,7 @@ li.searchedMember{
 	font-size : 1.2em;
 }
 #language-setting{
-	width : 90px;
+	width : 120px;
 }
 #language-setting a{
 	width : 100%;
@@ -275,7 +275,9 @@ span.shortcut{
     margin: 6px;
     padding: 6px;
 }
-
+span#currentLanguage {
+    font-size: 1.3em;
+}
 
 
 

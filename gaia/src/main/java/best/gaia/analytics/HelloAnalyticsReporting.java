@@ -31,8 +31,7 @@ import com.google.api.services.analyticsreporting.v4.model.ReportRow;
 public class HelloAnalyticsReporting {
   private static final String APPLICATION_NAME = "Hello Analytics Reporting";
   private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-//  private static final String KEY_FILE_LOCATION = "best/gaia/analytics/gaia-317606-67595930a744.json";
-  private static final String KEY_FILE_LOCATION = "/Users/shane/Documents/gaia-317606-67595930a744.json";
+  private static final String KEY_FILE_LOCATION = "gaia-317606-67595930a744.json";
   private static final String VIEW_ID = "245149382";
   public static void main(String[] args) {
     try {
@@ -56,7 +55,7 @@ public class HelloAnalyticsReporting {
 
     HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
     GoogleCredential credential = GoogleCredential
-        .fromStream(new FileInputStream(KEY_FILE_LOCATION))
+        .fromStream(HelloAnalyticsReporting.class.getResourceAsStream(KEY_FILE_LOCATION))
         .createScoped(AnalyticsReportingScopes.all());
 
     // Construct the Analytics Reporting service object.
