@@ -77,7 +77,15 @@ public interface IssueService {
 	 * @param pagingVO
 	 * @return
 	 */
-	public List<MilestoneVO> selecMilestoneList(PagingVO<MilestoneVO> pagingVO);
+	public List<MilestoneVO> selectMilestoneList(PagingVO<MilestoneVO> pagingVO);
+	
+	/**
+	 * gantt chart의 데이
+	 * @param proj_no
+	 * @return
+	 */
+	public List<MilestoneVO> selectMilestoneList(int proj_no);
+	
 	
 	/**
 	 * 마일스톤 상세 조회

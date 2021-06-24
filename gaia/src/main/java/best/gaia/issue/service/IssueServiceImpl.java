@@ -95,7 +95,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public List<MilestoneVO> selecMilestoneList(PagingVO<MilestoneVO> pagingVO) {
+	public List<MilestoneVO> selectMilestoneList(PagingVO<MilestoneVO> pagingVO) {
 		return milestoneDao.selectMilestoneList(pagingVO);
 	}
 
@@ -110,7 +110,11 @@ public class IssueServiceImpl implements IssueService {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
-
+	@Override
+	public List<MilestoneVO> selectMilestoneList(int proj_no) {
+		return milestoneDao.selectMilestoneIssueList(proj_no);
+	}
+	
 	@Override
 	public ServiceResult insertMilestone(MilestoneVO milestone) {
 		int result = milestoneDao.insertMilestone(milestone);
