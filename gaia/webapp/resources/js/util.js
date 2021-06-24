@@ -50,6 +50,7 @@ $(function(){
 		let key = e.which;
 		if(ctrl && shift){
 			switch(key){
+				case 1 : movePageHistory('analytics'); break;
 				case 14 : movePageHistory('news'); break;
 				case 49 : movePageHistory('code'); break;
 				case 53 : console.log('컨트롤러 코드'); break;
