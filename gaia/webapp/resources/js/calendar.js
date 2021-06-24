@@ -14,18 +14,15 @@
 $(function(){
 	$(".body").on("click","button.fc-prev-button",function() {
 	    var date = jQuery("#calendar").fullCalendar("getDate");
-		console.log(date)
 	    convertDate(date);
 	});	
 })
 const issueMilestoneInfoForCalendar = function(status){
-	console.log("issueMilestoneInfoForCalendar");
 	status = CheckNullUndefined(status) ? 1 : status;
 	$.ajax({
 		url : getContextPath()+"/restapi/project/calendar",
 		method : 'get',
 		success : function(res) {
-			console.log(res);
 			scrollUp();
 			
 			// open / close;
@@ -80,7 +77,9 @@ const printChart = function(name, arr, total_status){
 				sid: name.milest_sid,
 				self_status: name.milest_status,
 	  			title: name.milest_title,
-	  			start: name.milest_start_date
+	  			start: name.milest_start_date,
+				isStart : 1,
+				id : name.milest_sid
 	  		})
 	  		arr.push({
 				total_status : total_status,
@@ -89,14 +88,15 @@ const printChart = function(name, arr, total_status){
 				self_status: name.milest_status,
 				borderColor: "#d83737",
 	  			title: name.milest_title,
-	  			start: name.milest_end_date
+	  			start: name.milest_end_date,
+				isStart : 0,
+				id : name.milest_sid
 	  		})
 		}
 	}
 }
 // 출력 함수
 const reCal = function(res, status){
-	console.log("reCal");
 	let arr;
 	CheckNullUndefined(status) ? arr=addCalendarArray(res, ) : arr=addCalendarArray(res, status);
 	showCalendar(arr, res);
@@ -105,7 +105,7 @@ const showCalendar = function(arr, res){
 	let isChanged = false;
 	let currentTime = new Date();
 	currentTime = moment(currentTime).format('YYYY-MM-DD');
-    var calendarEl = document.getElementById('calendar');
+    let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
 	  customButtons: {
 	    openBtn: {
@@ -139,34 +139,26 @@ const showCalendar = function(arr, res){
       selectMirror: true,
      
       select: function(arg) {
-//        var title = prompt('Event Title:');
-//        if (title) {
-//          calendar.addEvent({
-//            title: title,
-//            start: arg.start,
-//            end: arg.end,
-//            allDay: arg.allDay
-//          })
-//        }
         calendar.unselect()
       },
       eventClick: function(arg) {
 		isChanged = true;
-		console.log(arg)
+		
 		if(CheckNullUndefined(arg.event.extendedProps.total_status)){
-    		closeOrOpenAlert(arg, );
+    		closeOrOpenAlert(calendar, arg, );
 		}else{
-			closeOrOpenAlert(arg, arg.event.extendedProps.total_status);
+			closeOrOpenAlert(calendar, arg, arg.event.extendedProps.total_status);
 		}
       },
 	  eventDrop: function (arg) {
 		isChanged = true;
 		updateStatus(arg,null, "yes");
+		console.log(arg)
 		toastr.success('Update에 성공했습니다.')
       },
       eventResize: function (arg) {
 		isChanged = true;
-		console.log(arg.endDelta);
+		updateStatus(arg,null, "yes");
 		toastr.success('Update에 성공했습니다.')
       },
       editable: true,
@@ -178,7 +170,7 @@ const showCalendar = function(arr, res){
 }
 
 // 클릭 시 해당 메뉴를 닫을지 열것인지 알러트
-const closeOrOpenAlert = function(arg, isShowAll){
+const closeOrOpenAlert = function(calendar, arg, isShowAll){
 	
 	// self_status 가 1이면 0으로 0 이면 1로 변경
 	let toBeStatus = Number(arg.event.extendedProps.self_status) ? 0 : 1;
@@ -208,33 +200,34 @@ const closeOrOpenAlert = function(arg, isShowAll){
 			let result = updateStatus(arg,toBeStatus, null);
 			if(result != 0){
 				// false면 open/close. true는 undefined
-				CheckNullUndefined(isShowAll) ?  null : arg.event.remove();
+				if(!CheckNullUndefined(isShowAll)){
+					for(i=0; i<2; i++){
+						calendar.getEventById(arg.event.id).remove()
+					}
+				} 
 				swal.success();
 				toastr.success("["+arg.event.extendedProps.menu+"] '"+arg.event.title+"'가 "+status_value+" 되었습니다.")
+				// 동일한 id를 가지고 있는 item(마일스톤) 삭제하기
+				
 			}else{
 				toastr.error('Update에 실패했습니다.')
 			}
 		}
 	})
 }
-// 날짜 계산 
-const dateCal = function(arg){
-	console.log(arg.event.start)
-	console.log(arg.event.end);
 
-	// 0이면 else로.
-	if(arg.delta.months){
-	}else{
-	}
-	
-}
+
 
 // update
 const updateStatus = function(arg, toBeStatus, isChangeDate){
-	console.log(arg);
 	let data = {};
-	let start = YYYYMMDD(arg.event.start);
-	let end =  YYYYMMDD(arg.event.end);
+	let start = CheckNullUndefined(arg.event.start) ? null : YYYYMMDD(arg.event.start)
+	let end =  CheckNullUndefined(arg.event.end) ? null : YYYYMMDD(arg.event.end)
+	if(!arg.event.extendedProps.isStart){
+		end = start
+		start = null
+	}
+	
 	data["_method"] = "put";
 	data["need"] =  arg.event.extendedProps.menu.toLowerCase();
 	data["sid"] = arg.event.extendedProps.sid;
@@ -243,13 +236,12 @@ const updateStatus = function(arg, toBeStatus, isChangeDate){
 				(data["isChangeDate"]=isChangeDate, 
 				data["start_date"]=start,
 				data["end_date"]=end);
-	
 	$.ajax({
 		url : getContextPath()+"/restapi/project/calendar",
 		method : "post",
 		data : data,
 		success : function(res) {
-			console.log(res);
+			console.log("Update success")
 		},
 		async : false
 		, error : function(xhr, error, msg) {
