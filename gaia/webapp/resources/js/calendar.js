@@ -24,7 +24,7 @@ const issueMilestoneInfoForCalendar = function(status){
 		method : 'get',
 		success : function(res) {
 			scrollUp();
-			
+			$("calendar").empty()
 			// open / close;
 			reCal(res, status);
 		},
@@ -39,6 +39,7 @@ const issueMilestoneInfoForCalendar = function(status){
 // 조건 부여하기.
 const addCalendarArray = function(res, status){
 	let arr = [];
+	console.log(status)
 	// open, close, all 별로 출력할 item들 걸러주기
 	$.each(res.milestoneList, function(i, milest){
 		!CheckNullUndefined(status) ? 
@@ -97,6 +98,7 @@ const printChart = function(name, arr, total_status){
 }
 // 출력 함수
 const reCal = function(res, status){
+	console.log(status)
 	let arr;
 	CheckNullUndefined(status) ? arr=addCalendarArray(res, ) : arr=addCalendarArray(res, status);
 	showCalendar(arr, res);
@@ -143,7 +145,7 @@ const showCalendar = function(arr, res){
       },
       eventClick: function(arg) {
 		isChanged = true;
-		
+		console.log(arg.event.id)
 		if(CheckNullUndefined(arg.event.extendedProps.total_status)){
     		closeOrOpenAlert(calendar, arg, );
 		}else{
@@ -153,12 +155,11 @@ const showCalendar = function(arr, res){
 	  eventDrop: function (arg) {
 		isChanged = true;
 		updateStatus(arg,null, "yes");
-		toastr.success('Update에 성공했습니다.')
+		
       },
       eventResize: function (arg) {
 		isChanged = true;
 		updateStatus(arg,null, "yes");
-		toastr.success('Update에 성공했습니다.')
       },
       editable: true,
 	  droppable : true, 
@@ -200,8 +201,12 @@ const closeOrOpenAlert = function(calendar, arg, isShowAll){
 			if(result != 0){
 				// false면 open/close. true는 undefined
 				if(!CheckNullUndefined(isShowAll)){
-					for(i=0; i<2; i++){
-						calendar.getEventById(arg.event.id).remove()
+					if(arg.event.extendedProps.menu =="MILESTONE"){
+						for(i=0; i<2; i++){
+							calendar.getEventById(arg.event.id).remove()
+						}
+					}else{
+						arg.event.remove()
 					}
 				} 
 				swal.success();
@@ -222,11 +227,14 @@ const updateStatus = function(arg, toBeStatus, isChangeDate){
 	let data = {};
 	let start = CheckNullUndefined(arg.event.start) ? null : YYYYMMDD(arg.event.start)
 	let end =  CheckNullUndefined(arg.event.end) ? null : YYYYMMDD(arg.event.end)
-	if(!arg.event.extendedProps.isStart){
-		end = start
-		start = null
+	console.log(end)
+	if(!CheckNullUndefined(arg.event.extendedProps.isStart)){
+		if(!arg.event.extendedProps.isStart){
+			end = start
+			start = null
+		}
 	}
-	
+	console.log(end)
 	data["_method"] = "put";
 	data["need"] =  arg.event.extendedProps.menu.toLowerCase();
 	data["sid"] = arg.event.extendedProps.sid;
@@ -241,6 +249,7 @@ const updateStatus = function(arg, toBeStatus, isChangeDate){
 		data : data,
 		success : function(res) {
 			console.log("Update success")
+			toastr.success('Update에 성공했습니다.')
 		},
 		async : false
 		, error : function(xhr, error, msg) {
