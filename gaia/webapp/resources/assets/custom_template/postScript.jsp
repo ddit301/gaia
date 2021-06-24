@@ -48,6 +48,7 @@
 	<script src="${cPath }/resources/js/member.js"></script>
 	<script src="${cPath }/resources/js/chat.js"></script>
 	<script src="${cPath }/resources/js/code.js"></script>
+	<script src="${cPath }/resources/js/analytics.js"></script>
 	<script src="${cPath }/resources/js/management.js"></script>
 	<script src="${cPath }/resources/fullCalendar/lib/main.js"></script>
 	<script src="${cPath }/resources/js/calendar.js"></script>

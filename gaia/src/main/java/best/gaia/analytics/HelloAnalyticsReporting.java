@@ -6,7 +6,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -125,7 +124,7 @@ public class HelloAnalyticsReporting {
       for (ReportRow row: rows) {
         List<String> dimensions = row.getDimensions();
         List<DateRangeValues> metrics = row.getMetrics();
-
+        
         for (int i = 0; i < dimensionHeaders.size() && i < dimensions.size(); i++) {
           System.out.println(dimensionHeaders.get(i) + ": " + dimensions.get(i));
         }
