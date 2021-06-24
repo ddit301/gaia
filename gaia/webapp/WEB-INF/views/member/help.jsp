@@ -198,30 +198,29 @@ $('#date-format').attr('placeholder',dayPlaceholder);
 	  let title = '[ ' + $('#inq_title').val() + ' :: ';
 	  let cont = $('#inq_cont').val() + ']';
 	  let datas = sort + occur + title + cont;
+	  let img = $(".basic-form").serializeJSON();
 	  $.ajax({ 
-		  url:'restapi/member/inquiry', 
+		  url: getContextPath() + 'restapi/member/inquiry', 
 		  type:'post', 
-		  data: {inq_data : datas}, 
+		  data: {
+			  inq_data : datas
+			  }, 
 		  dataType:'json', 
 		  async: false, 
 		  success:function(data) {
-			  var message = data.message;
-			  // 결과값이 성공이면 전송 여부는 
-			  true if ( message == 'Success' ) { 
-				  isSubmit = true; 
-				  } else {
-				  isSubmit = false; }
+		  var message = data.message;
+			  // 결과값이 성공이면 전송 여부는 true
+			if ( message == 'Success' ) { 
+			  isSubmit = true; 
+			  } else {
+			  isSubmit = false; }
+			window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+			toastr.success('Update에 성공했습니다.')
 		  }, 
 		  error:function(request, status, error) { 
 			  console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); 
 			  isSubmit = false; 
-		  },
-		  beforeSend:function() { 
-			  // 로딩바를 보여준다. 
-			  }, 
-		  complete:function() { 
-			  // 로딩바를 해제한다. 
-			  } 
+		  }
 		  }); 
 	  if ( !isSubmit ) return false;
 	}

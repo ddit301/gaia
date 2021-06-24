@@ -17,121 +17,19 @@
     </section>
 
 
-
-
-    <section class="home-section home-full-height bg-dark-30" id="home"
-      data-background="resources/main/images/section-5.jpg">
-      <div class="video-player"
-        data-property="{videoURL:'https://www.youtube.com/watch?v=bNucJgetMjE', containment:'.home-section', startAt:18, mute:true, autoPlay:true, loop:true, opacity:1, showControls:false, showYTLogo:false, vol:25}">
-      </div>
-      <div class="video-controls-box">
-        <div class="container">
-          <div class="video-controls"><a class="fa fa-volume-up" id="video-volume" href="#">&nbsp;</a><a
-              class="fa fa-pause" id="video-play" href="#">&nbsp;</a></div>
-        </div>
-      </div>
-      <div class="titan-caption">
-        <div class="caption-content">
-          <div class="font-alt mb-30 titan-title-size-1">Hello &amp; welcome</div>
-          <div class="font-alt mb-40 titan-title-size-4">We are SEED</div><a
-            class="section-scroll btn btn-border-w btn-round" href="#about">Learn More</a>
-        </div>
-      </div>
+	<section class="home-section home-full-height  parallax-bg testimonial"
+      data-background="resources/main/images/intro.gif" data-animated="resources/main/images/intro.gif" data-static="resources/main/images/intro.gif" class="hov-anim">
+       
     </section>
 
+	<section class="module bg-dark-10 parallax-bg "
+      data-background="resources/main/images/intro.gif">
+      <div class="testimonials-slider pt-140 pb-140">
+       </div>
+      </section>
 
-
-
-
-
-    <hr class="divider-w">
-    <section class="module" id="team">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6 col-sm-offset-3">
-            <h2 class="module-title font-alt">Meet Our Team</h2>
-            <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like
-              these sweet mornings of spring which I enjoy with my whole heart.</div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="">
-            <div class="team-item">
-              <div class="team-image"><img src="resources/main/images/team-1.jpg" alt="Member Photo" />
-                <div class="team-detail">
-                  <h5 class="font-alt">Hi all</h5>
-                  <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus,
-                    a&amp;nbsp;iaculis diam.</p>
-                  <div class="team-social"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
-                        class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i
-                        class="fa fa-skype"></i></a></div>
-                </div>
-              </div>
-              <div class="team-descr font-alt">
-                <div class="team-name">Jim Stone</div>
-                <div class="team-role">Art Director</div>
-              </div>
-            </div>
-          </div>
-          <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="">
-            <div class="team-item">
-              <div class="team-image"><img src="resources/main/images/team-2.jpg" alt="Member Photo" />
-                <div class="team-detail">
-                  <h5 class="font-alt">Good day</h5>
-                  <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus,
-                    a&amp;nbsp;iaculis diam.</p>
-                  <div class="team-social"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
-                        class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i
-                        class="fa fa-skype"></i></a></div>
-                </div>
-              </div>
-              <div class="team-descr font-alt">
-                <div class="team-name">Andy River</div>
-                <div class="team-role">Creative director</div>
-              </div>
-            </div>
-          </div>
-          <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="">
-            <div class="team-item">
-              <div class="team-image"><img src="resources/main/images/team-3.jpg" alt="Member Photo" />
-                <div class="team-detail">
-                  <h5 class="font-alt">Hello</h5>
-                  <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus,
-                    a&amp;nbsp;iaculis diam.</p>
-                  <div class="team-social"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
-                        class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i
-                        class="fa fa-skype"></i></a></div>
-                </div>
-              </div>
-              <div class="team-descr font-alt">
-                <div class="team-name">Adele Snow</div>
-                <div class="team-role">Account manager</div>
-              </div>
-            </div>
-          </div>
-          <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="">
-            <div class="team-item">
-              <div class="team-image"><img src="resources/main/images/team-4.jpg" alt="Member Photo" />
-                <div class="team-detail">
-                  <h5 class="font-alt">Yes, it's me</h5>
-                  <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus,
-                    a&amp;nbsp;iaculis diam.</p>
-                  <div class="team-social"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
-                        class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i
-                        class="fa fa-skype"></i></a></div>
-                </div>
-              </div>
-              <div class="team-descr font-alt">
-                <div class="team-name">Dylan Woods</div>
-                <div class="team-role">Developer</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="module bg-dark-60 pt-0 pb-0 parallax-bg testimonial"
-      data-background="resources/main/images/testimonial_bg.jpg">
+    <section class="module bg-dark-90 parallax-bg "
+      data-background="resources/main/images/intro.gif">
       <div class="testimonials-slider pt-140 pb-140">
         <ul class="slides">
           <li>
@@ -336,4 +234,134 @@
         </div>
       </div>
     </section>
+    
+    
+    
+    
+    
+    
+
+    <section class="home-section home-full-height bg-dark-30" id="home"
+      data-background="resources/main/images/section-5.jpg">
+      <div class="video-player"
+        data-property="{videoURL:'https://www.youtube.com/watch?v=bNucJgetMjE', containment:'.home-section', startAt:18, mute:true, autoPlay:true, loop:true, opacity:1, showControls:false, showYTLogo:false, vol:25}">
+      </div>
+      <div class="video-controls-box">
+        <div class="container">
+          <div class="video-controls"><a class="fa fa-volume-up" id="video-volume" href="#">&nbsp;</a><a
+              class="fa fa-pause" id="video-play" href="#">&nbsp;</a></div>
+        </div>
+      </div>
+      <div class="titan-caption">
+        <div class="caption-content">
+          <div class="font-alt mb-30 titan-title-size-1">Hello &amp; welcome</div>
+          <div class="font-alt mb-40 titan-title-size-4">We are SEED</div><a
+            class="section-scroll btn btn-border-w btn-round" href="#about">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+    <hr class="divider-w">
+    <section class="module" id="team">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <h2 class="module-title font-alt">Meet Our Team</h2>
+            <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like
+              these sweet mornings of spring which I enjoy with my whole heart.</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="">
+            <div class="team-item">
+              <div class="team-image"><img src="resources/main/images/team-1.jpg" alt="Member Photo" />
+                <div class="team-detail">
+                  <h5 class="font-alt">Hi all</h5>
+                  <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus,
+                    a&amp;nbsp;iaculis diam.</p>
+                  <div class="team-social"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+                        class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i
+                        class="fa fa-skype"></i></a></div>
+                </div>
+              </div>
+              <div class="team-descr font-alt">
+                <div class="team-name">Jim Stone</div>
+                <div class="team-role">Art Director</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="">
+            <div class="team-item">
+              <div class="team-image"><img src="resources/main/images/team-2.jpg" alt="Member Photo" />
+                <div class="team-detail">
+                  <h5 class="font-alt">Good day</h5>
+                  <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus,
+                    a&amp;nbsp;iaculis diam.</p>
+                  <div class="team-social"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+                        class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i
+                        class="fa fa-skype"></i></a></div>
+                </div>
+              </div>
+              <div class="team-descr font-alt">
+                <div class="team-name">Andy River</div>
+                <div class="team-role">Creative director</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="">
+            <div class="team-item">
+              <div class="team-image"><img src="resources/main/images/team-3.jpg" alt="Member Photo" />
+                <div class="team-detail">
+                  <h5 class="font-alt">Hello</h5>
+                  <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus,
+                    a&amp;nbsp;iaculis diam.</p>
+                  <div class="team-social"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+                        class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i
+                        class="fa fa-skype"></i></a></div>
+                </div>
+              </div>
+              <div class="team-descr font-alt">
+                <div class="team-name">Adele Snow</div>
+                <div class="team-role">Account manager</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="">
+            <div class="team-item">
+              <div class="team-image"><img src="resources/main/images/team-4.jpg" alt="Member Photo" />
+                <div class="team-detail">
+                  <h5 class="font-alt">Yes, it's me</h5>
+                  <p class="font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus,
+                    a&amp;nbsp;iaculis diam.</p>
+                  <div class="team-social"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+                        class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i
+                        class="fa fa-skype"></i></a></div>
+                </div>
+              </div>
+              <div class="team-descr font-alt">
+                <div class="team-name">Dylan Woods</div>
+                <div class="team-role">Developer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   </div>
