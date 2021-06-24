@@ -245,7 +245,7 @@ li.searchedMember{
 #shortcutModal .modal-content{
 	color : white;
 	background : dimgray;
-	
+	opacity : 0.8;
 }
 #shorthead .modal-title{
 	font-weight : bold;

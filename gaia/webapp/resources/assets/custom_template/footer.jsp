@@ -71,25 +71,31 @@
 	      	<button>P</button>
 	      	<button>Ctrl</button>
 	      </div>
-	      <h3>Code</h3>
 	      <div>
-	      	<span>Controller</span>
-	      	<button>5</button>
+	      	<span>Analytics</span>
+	      	<button>A</button>
 	      	<button>Shift</button>
 	      	<button>Ctrl</button>
 	      </div>
-	      <div>
-	      	<span>Business Logic Layer</span>
-	      	<button>6</button>
-	      	<button>Shift</button>
-	      	<button>Ctrl</button>
-	      </div>
-	      <div>
-	      	<span>Persistene Layer</span>
-	      	<button>7</button>
-	      	<button>Shift</button>
-	      	<button>Ctrl</button>
-	      </div>
+<!-- 	      <h3>Code</h3> -->
+<!-- 	      <div> -->
+<!-- 	      	<span>Controller</span> -->
+<!-- 	      	<button>5</button> -->
+<!-- 	      	<button>Shift</button> -->
+<!-- 	      	<button>Ctrl</button> -->
+<!-- 	      </div> -->
+<!-- 	      <div> -->
+<!-- 	      	<span>Business Logic Layer</span> -->
+<!-- 	      	<button>6</button> -->
+<!-- 	      	<button>Shift</button> -->
+<!-- 	      	<button>Ctrl</button> -->
+<!-- 	      </div> -->
+<!-- 	      <div> -->
+<!-- 	      	<span>Persistene Layer</span> -->
+<!-- 	      	<button>7</button> -->
+<!-- 	      	<button>Shift</button> -->
+<!-- 	      	<button>Ctrl</button> -->
+<!-- 	      </div> -->
       </div>
     </div>
   </div>

@@ -73,7 +73,7 @@ const loadAnalytics = function(){
 			taskProgBar.attr("style", 'width:' + taskProg + '%');
 			
 			// 일감 갯수에 대해 출력
-			$('.progress-status').find('span').text('총 '+ totalTask + '개의 일감중 '+ finishedTask + '완료.');
+			$('.progress-status').find('span').text('총 '+ totalTask + '개의 일감중 '+ finishedTask + '개 완료.');
 			
 			// 마일스톤 통계 출력
 			$('.stat-milestone').find('span').eq(1).text(project.MILESTONECOUNT);

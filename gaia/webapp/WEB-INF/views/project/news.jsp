@@ -85,11 +85,14 @@
 				<div class="newsReplyArea">
 				</div>
 				<div class="news-writebox row">
-					<div class="col-md-10">
-						<input type="text">
+					<div class="col-md-11 row">
+						<div class="col-md-2">
+							<img class="nonlink profile" src="/resources/images/profiles/2" onerror="imgOnErr()">
+						</div>
+						<input class="col-md-10" type="text">
 					</div>
-					<button class="news-rep-reg btn" type="button" class="btn">등록</button>
-    				</div>
+					<button class="news-rep-reg btn btn-success">등록</button>
+    			</div>
 			</div>
 		</div>
 	</div>

@@ -36,6 +36,14 @@ $(function() {
         $(this).ekkoLightbox();
     });
 
+	// 뉴스 추가 버튼 누를때 에디터 비워주기
+	$('body').on('click', '#newsmenu button', function(){
+		// 에디터 비우기
+		$('#news-title-input').val('');
+		editor.reset();
+		$('#newsImage').find('input[type=file]').val('');
+	})
+
 
 })
 /**********************************
@@ -97,6 +105,9 @@ const getNewsBoxFromJson = function(news){
 		let newsComm = getNewsCommentBoxFromJson(comm);
 		newsBox.find('.newsReplyArea').append(newsComm);
 	})
+	
+	// 댓글 달리는 곳에 로그인 한 유저 프로필 사진 넣기
+	newsBox.find('.news-writebox').find('img').attr('src', getProfilePath(getCookie('mem_pic_file_name')));
 	
 	return newsBox;
 }
@@ -172,10 +183,8 @@ const saveNews = function(){
 			// toastr 알람
 			toastr.success('새로운 뉴스 등록에 성공했습니다.')
 			
-			// 에디터 비우기
-			$('#news-title-input').val('');
-			editor.reset();
 			// 모달 닫기
+			editor.reset();
 			$('#exampleModal').modal('hide')
 			
 			// 비동기로 새로운 뉴스 생성해 위에 붙여주기
