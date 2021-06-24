@@ -153,7 +153,6 @@ const showCalendar = function(arr, res){
 	  eventDrop: function (arg) {
 		isChanged = true;
 		updateStatus(arg,null, "yes");
-		console.log(arg)
 		toastr.success('Update에 성공했습니다.')
       },
       eventResize: function (arg) {
