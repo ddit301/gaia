@@ -37,7 +37,7 @@
 			<div class="col-md-2 log-img-center">
 				<a class="profile_img_label" data-toggle="tooltip" data-placement="bottom" 
 						title="Tooltip on bottom" data-id="" onclick="toOverview();" href="javascript:void();">
-					<img class="rounded-circle profile_img" height="50" width="50" src="${mem_pic_file_name }">
+					<img class="rounded-circle profile_img" height="50" width="50" src="${mem_pic_file_name }" onerror="imgOnErr()">
 		   		</a>
 		   		<input type="hidden" value="" name="mem_id">
 		   	</div>
