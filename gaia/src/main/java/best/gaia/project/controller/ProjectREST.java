@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.chat.dao.ElasticChatDao;
+import best.gaia.chat.dao.ElasticChatDaoImpl;
 import best.gaia.member.service.MemberService;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
@@ -44,6 +46,9 @@ public class ProjectREST {
 	@Inject
 	private WebApplicationContext container;
 	private ServletContext application;
+	@Inject
+	private ElasticChatDao chatdao;
+	
 
 	@PostConstruct
 	public void init() {
@@ -57,6 +62,19 @@ public class ProjectREST {
 		int mem_no = getMemberNoFromAuthentication(authentication);
 		
 		return dao.selectProjectList(mem_no);
+	}
+	// totalSearch
+	@GetMapping(params = "{need=totalSearch}")
+	public List<Map<String, Object>> selectKewordResult(
+					Authentication authentication
+					, @RequestParam String need
+					, @RequestParam Map<String, Object> map
+					) {
+		int mem_no = getMemberNoFromAuthentication(authentication);
+		
+		
+		List<Map<String, Object>> result = chatdao.getTotalSearchResult((String) map.get("keyword")); 
+		return result;
 	}
 
 	@PostMapping

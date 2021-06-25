@@ -60,4 +60,21 @@ public class ElasticChatDaoImpl implements ElasticChatDao {
 		
 		return elastic.simpleSearch(index, query, sort, size);
 	}
+	
+
+	
+	/**
+	 *  통합 검색 용!!
+	 */
+	@Override
+	public List<Map<String, Object>> getTotalSearchResult(String keyword) {
+		
+		Map<String, Object> query = new HashMap<>();
+		query.put("_all", keyword);
+		
+		Map<String, SortOrder> sort = new HashMap<>();
+		sort.put("date", SortOrder.DESC);
+		
+		return elastic.totalSearch("");
+	}
 }

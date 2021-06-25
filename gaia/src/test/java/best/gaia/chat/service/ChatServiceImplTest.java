@@ -41,6 +41,21 @@ public class ChatServiceImplTest {
 	WebApplicationContext container;
 	
 	
+	
+	// 통합 검색 
+	@Test
+	public void testTotalSearch() {
+		String keyword = "SMITH";
+		
+		
+		List<Map<String, Object>> result = chatDao.getTotalSearchResult(keyword);
+		System.out.println(result);
+	}
+	
+	
+	
+	
+	
 //	@Test
 	public void testCreateChatRoom() {
 		ChatRoomVO roomInfo = new ChatRoomVO();

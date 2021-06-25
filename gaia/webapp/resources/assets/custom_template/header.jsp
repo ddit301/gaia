@@ -27,19 +27,23 @@
 				<span class="toggle-icon"><i class="icon-menu"></i></span>
 			</div>
 		</div>
-		<div class="header-left">
+		<div class="header-left header-left-custom">
 			<div class="input-group icons">
 				<div class="input-group-prepend">
 					<span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3"
 						id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
 				</div>
-				<input type="search" class="form-control" placeholder="Search"
-					aria-label="Search Dashboard">
-				<div class="drop-down   d-md-none">
-					<form action="#">
-						<input type="text" class="form-control" placeholder="Search">
-					</form>
+				<input type="text" class="form-control dropdown-toggle total-search" placeholder="Search"
+					aria-label="Search Dashboard" id="dropdownMenuSearchInput"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="">
+				<div class="dropdown">
+				  <div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
+				    <a class="dropdown-item" href="#">Action</a>
+				    <a class="dropdown-item" href="#">Another action</a>
+				    <a class="dropdown-item" href="#">Something else here</a>
+				  </div>
 				</div>
+				
 			</div>
 		</div>
 		<div class="header-right">

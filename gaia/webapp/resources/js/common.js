@@ -67,7 +67,31 @@ var swal = {
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////////
+//
+//	 total_search
+//
+//////////////////////////////////////////////////////////////////////////////
 
+$(function(){
+	$('body').on("keyup", "#dropdownMenuSearchInput",function(e){
+		let keyword = $(this).val()
+		console.log($(this).val())
+		elasticTotalSearch(keyword);
+	})
+});
 
-
-
+const elasticTotalSearch = function(keyword){
+	$.ajax({
+		url : "http://222.114.124.74:9200/gaia/_search?q="+keyword,
+		method : 'get',
+		success : function(res) {
+			console.log(res)	
+		},
+		async : false
+		, error : function(xhr, error, msg) {
+			ajaxError(xhr, error, msg)
+		},
+		dataType : 'json'
+	})
+}

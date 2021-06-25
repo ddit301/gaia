@@ -22,6 +22,7 @@ import org.elasticsearch.common.Strings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -129,5 +130,46 @@ public class ElasticUtil {
 		
 		return response.getShardInfo().getSuccessful();
 	}
-
+	
+	
+	// 보류
+	public List<Map<String,Object>> totalSearch(
+			String keyword){
+		/*
+		 * search API 참고 주소
+		 * https://www.elastic.co/guide/en/elasticsearch/client/java-rest/master/java-rest-high-search.html
+		 */
+		
+		// search에 index 조건 걸기
+		SearchRequest searchRequest = new SearchRequest();
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		// query에 있는 셋 쿼리 조건으로 걸기
+			searchSourceBuilder.query(QueryBuilders.termQuery("q", "SMITH"));
+		
+		// sort 에 있는 셋을 정렬 조건으로 걸기
+//		for(String key : sort.keySet()) {
+//			searchSourceBuilder.sort(new FieldSortBuilder(key).order(sort.get(key)));
+//		}
+		
+//		if(size != null) {
+//			searchSourceBuilder.size(size);
+//		}else {
+//			searchSourceBuilder.size(20);
+//		}
+		
+		searchRequest.source(searchSourceBuilder);
+		
+		List<Map<String,Object>> list = new ArrayList<>();
+		try(RestHighLevelClient client = new RestHighLevelClient(restClientBuilder)) {
+			SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
+			SearchHits searchHits = response.getHits();
+			for(SearchHit hit : searchHits) {
+				Map<String, Object> sourceMap = hit.getSourceAsMap();
+				list.add(sourceMap);
+			}
+		} catch (IOException e) {}
+		
+		return list;
+		
+	}
 }
