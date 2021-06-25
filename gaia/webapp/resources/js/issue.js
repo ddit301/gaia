@@ -398,7 +398,11 @@ const loadIssueList = function(searchKey, searchValue){
 					issueBox.children('.issue-label').html(labelBox);
 				}
 				if(v.milestone){
-					issueBox.children('.milestone').text(v.milestone.milest_title);
+					let miletitle = v.milestone.milest_title;
+					if(miletitle.length > 7){
+						miletitle = miletitle.substring(0,6) + '...';
+					}
+					issueBox.children('.milestone').text(miletitle);
 				}
 				let assigneeSize = v.assigneeList.length;
 				$.each(v.assigneeList, function(j, assignee){

@@ -74,6 +74,15 @@ $(function(){
 		wikilist(wiki_title);
 		
 	})
+	
+	// wiki title 입력시 바로바로 검색
+	$('.content-body').on('input','input.wikisearchtitle',function(){
+		let wiki_title = $('input.wikisearchtitle').val();
+		wikilist(wiki_title);
+		
+	})
+	
+	
 	// wiki history 버튼 클릭 
 	$('.content-body').on('click','.wikiHis',function(){
 			let wiki_sid = $(this).siblings('input').val();

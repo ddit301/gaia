@@ -66,5 +66,6 @@
 	</div>
 </div>
 <script>
+scrollUp();
 loadMemberInfo_account();
 </script>

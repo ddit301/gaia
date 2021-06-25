@@ -287,6 +287,16 @@ const imgOnErr = function(){
 	target.src = getProfilePath();
 }
 
+// json 으로 parse 가능한 string인지 체크하는 함수
+const IsJsonString = function (str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 // DB 에서 메뉴에 대한 데이터를 받아와 화면에 출력해주는 함수 입니다.
 const loadMenu = function(){
 	
