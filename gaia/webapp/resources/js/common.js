@@ -76,55 +76,83 @@ var swal = {
 $(function(){
 	var timer;
 	$('body').on("keyup", "#dropdownMenuSearchInput",function(e){
-		
+		console.log($(this).val())
 		clearTimeout(timer);
 		let keyword = $(this).val()
-		console.log($(this).val())
 		timer = setTimeout("elasticTotalSearch('"+keyword+"')", 500)
 	})
-	function alertTest(){
-		alert("heyyyyyy")
-	}
 });
 
 const elasticTotalSearch = function(keyword){
-	
 	keyword = encodeURI(keyword)
-	let list;
 	$.ajax({
 		url : getContextPath() + "/restapi/project/projects/",
 		method : 'get',
 		data : {"need" : "totalSearch",
 				"keyword" : keyword},
 		success : function(res) {
+			console.log(res)
+			// 시작하기 전에 비워주기.
 			$(".dropdown .dropdown-menu.total-search-dropdown").empty();
 			
-			// issue를 거르기.
-			$.each(res.hits.hits, function(i, hit){
-				if("issue_sid" in hit._source){
-					searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("a").clone()
-					searchResult.html('<i class="icon-fire"></i>'+hit._source.issue_his_cont)
-					console.log(searchResult.text())
-//					var index = res.hits.hits.indexOf(hit);
-//					if (index !== -1) {
-//						console.log(res.hits.hits.splice(index, 1));
-//					}
-				}
+			// copyList를 생성해서 issue, milestone 등을빼내기
+			let copyList = [...res.hits.hits];
+			console.log(copyList)			
+			
+			if(res.hits.hits.length == 0){
+				searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("a").clone()
+				searchResult.html('<i class="mdi mdi-alert-circle-outline"></i>검색 결과가 없습니다.')
 				$(".dropdown .dropdown-menu.total-search-dropdown").prepend(searchResult);
-			})
-			
-			
-			
-			$.each(res.hits.hits, function(i, hit){
-				
-			})
-			console.log(list)
-			console.log(res.hits.hits)
+			}
+			// issue를 거르기.
+			console.log(res.hits.hits.length)
+			if(res.hits.hits.length != 0){
+				searchResultLoop(res, "issue_sid",copyList);
+				console.log(res.hits.hits.length)
+				searchResultLoop(res, "milest_sid",copyList);
+				console.log(res.hits.hits.length)
+				searchResultLoop(res, "proj_no",copyList);
+				console.log(res.hits.hits.length)
+				searchResultLoop(res, "news_sid",copyList);
+				console.log(res.hits.hits.length)
+				searchResultLoop(res, "mem_no",copyList);
+				console.log(res.hits.hits.length)
+			}
 		},
 		async : false
 		, error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg)
 		},
 		dataType : 'json'
+	})
+}
+const searchResultLoop = function(res, key, copyList){
+	console.log(res.hits.hits)
+	console.log(copyList)
+	console.log(key)
+	cnt = 0;
+	$.each(res.hits.hits, function(i, hit){
+		console.log(i)
+		if(key in hit["_source"]){
+			searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("a").clone()
+			if(key == "issue_sid"){
+				searchResult.html('<i class="icon-fire"></i>'+hit._source.issue_his_cont)
+			}else if(key == "milest_sid"){
+				searchResult.html('<i class="icon-direction"></i>'+hit._source.milest_title)
+			}else if(key == "proj_no"){
+				searchResult.html('<i class="mdi file-document-outlinee"></i>'+hit._source.proj_title)
+			}else if(key == "news_sid"){
+				searchResult.html('<i class="icon-book-open"></i>'+hit._source.news_title)
+			}else if(key == "mem_no"){
+				searchResult.html('<i class="icon-user"></i>'+hit._source.mem_no)
+			}
+			var index = copyList.indexOf(hit);
+			if (index !== -1) {
+				console.log(copyList.splice(index-cnt, 1));
+				cnt++;
+			}
+			$(".dropdown .dropdown-menu.total-search-dropdown").prepend(searchResult);
+		}
+		res.hits.hits = [...copyList]
 	})
 }
