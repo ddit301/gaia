@@ -63,6 +63,7 @@ public class AlarmServiceImpl implements AlarmService {
 		
 		int manager_no = project.getMem_no();
 		String manager_id = memDao.getMemIdFromMemNo(manager_no);
+		dataMap.put("type", "PJ");
 		dataMap.put("manager_id",manager_id);
 		dataMap.put("project_title", project.getProj_title());
 		
