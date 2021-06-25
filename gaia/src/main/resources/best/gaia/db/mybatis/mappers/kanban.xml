@@ -70,7 +70,7 @@
 		        left outer join member assignee on (issue_assignee.mem_no = assignee.mem_no)
 		        left outer join proj_mem assignee_pm on (assignee.mem_no = assignee_pm.mem_no and issue.proj_no = assignee_pm.proj_no)
 		)
-		select distinct kanban.KB_COL_NO as kb_col_id
+		select kanban.KB_COL_NO as kb_col_id
 		        , KB_COL_PRIV_NO , kanban.PROJ_NO , KB_COL_NM
 		        , cards.*
 		        , card_writer.mem_no as card_writer_mem_no

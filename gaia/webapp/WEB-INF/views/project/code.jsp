@@ -25,7 +25,7 @@
 			<div class="git row">
 				<div class="card repoHeader row">
 					<div class="row">
-						<div class="repoInfo col-md-8">
+						<div class="repoInfo col-md-7">
 							<div class="githubimg row">
 								<img src="${cPath }/resources/images/github/GitHub-Mark/PNG/GitHub-Mark-32px.png">
 								<img src="${cPath }/resources/images/github/GitHub-Logos/GitHub_Logo.png">
@@ -34,7 +34,7 @@
 								<span></span>
 							</a>
 						</div>		         
-						<div class="languageInfo col-md-4">
+						<div class="languageInfo col-md-5">
 							<span></span>
 			            </div>
 					</div>
