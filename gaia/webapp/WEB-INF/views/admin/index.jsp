@@ -115,6 +115,10 @@
     			  "showMethod": "fadeIn",
     			  "hideMethod": "fadeOut"
     			}
+    	  
+    	  $('#signout').on('click', function(){
+    		  location.href=$(this).attr('href');
+    	  })
       })
       
     </script>
@@ -147,7 +151,7 @@
             </div>
             <div class="space-between">
               <ul class="nav navbar-nav navbar-right">
-                <li class=""><a href="/">Sign out</a>
+                <li class=""><a id="signout" href="/">Sign out</a>
               </ul>
             </div>
           </div>

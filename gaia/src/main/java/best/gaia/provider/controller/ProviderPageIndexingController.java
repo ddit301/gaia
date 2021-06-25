@@ -3,6 +3,7 @@ package best.gaia.provider.controller;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
-import best.gaia.main.controller.MainPageIndexingController;
+import best.gaia.utils.exception.UnauthorizedException;
 
 /**
  * 
@@ -54,8 +55,34 @@ public class ProviderPageIndexingController {
 	}
 
 	@RequestMapping
-	public String adminPage() {
+	public String adminPage(
+			HttpServletRequest req
+			) {
+		
+		// 외부 ip에서 접근 시도시 접근 차단
+		
+		String ip = req.getRemoteAddr();
+		
+		Boolean isLocal = "0:0:0:0:0:0:0:1".contentEquals(ip);
+		
+		if("127.0.0.1".equals(ip)) {
+			isLocal = true;
+		}
+		
+		if(!isLocal) {
+			throw new UnauthorizedException();
+		}
+		
+		
 		return "admin/index";
 	}
 
 }
+
+
+
+
+
+
+
+

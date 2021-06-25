@@ -29,7 +29,7 @@
 			            <p style="font-weight:bold">Changing your username can have unintended side effects.</p>
 			            <div class="card input-control">
 				            <h4 class="card-title">Name</h4>
-			            	<input type="text" placeholder="input default" id="mem_nick" class="form-control input-default">
+			            	<input type="text" placeholder="input default" id="mem_nm" class="form-control input-default">
 			            </div>
 			            <div class="outline-button">
 			            	<button type="button" class="btn mb-1 btn-dark changeAccountBtn" id="changeUserNameBtn" value="mem_nm">Change username</button>

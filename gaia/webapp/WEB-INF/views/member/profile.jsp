@@ -26,7 +26,7 @@
 			                    	<input type="hidden" value="put" name="_method">
 				            		<div class="ml-3 form-group">
 				                        <div class="card mem_nick">
-						            		<h4 class="card-title">NickName</h4>
+						            		<h4 class="card-title">Nickname</h4>
 				                            <input type="text" name="mem_nick" class="form-control input-default" placeholder="Input Default">
 				                        </div>
 				                        <div class="card mem_bio">
@@ -37,7 +37,7 @@
 						            		<h4 class="card-title">Working-City</h4>
 				                            <input type="text" class="form-control input-default" name="mem_working_city" placeholder="Input Default">
 				                        </div>
-				                        <div class="card mem_tell">
+				                        <div class="card mem_tel">
 					                        <h4 class="card-title">Tel</h4>
 				                            <input type="text" class="form-control input-default" name="mem_tel" placeholder="Input Default">
 				                        </div>
