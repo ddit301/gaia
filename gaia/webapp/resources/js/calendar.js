@@ -16,6 +16,11 @@ $(function(){
 	    var date = jQuery("#calendar").fullCalendar("getDate");
 	    convertDate(date);
 	});	
+	
+	$('body').on('click', '.fc-button-group:eq(1) button', function(){
+		$('.fc-button-group:eq(1) button').removeClass('fc-button-active');
+		$(this).addClass('fc-button-active');
+	});
 })
 const issueMilestoneInfoForCalendar = function(status){
 	status = CheckNullUndefined(status) ? 1 : status;
@@ -145,7 +150,6 @@ const showCalendar = function(arr, res){
       },
       eventClick: function(arg) {
 		isChanged = true;
-		console.log(arg.event.id)
 		if(CheckNullUndefined(arg.event.extendedProps.total_status)){
     		closeOrOpenAlert(calendar, arg, );
 		}else{
@@ -167,6 +171,14 @@ const showCalendar = function(arr, res){
       events: arr
     });
     calendar.render();
+	let buttons = $('.fc-button-group').find('button');
+	for(i=0; i<buttons.length; i++){
+		let text = buttons.eq(i).text();
+		if(text == 'open'){
+			buttons.eq(i).addClass('fc-button-active');
+			break;
+		}
+	}
 }
 
 // 클릭 시 해당 메뉴를 닫을지 열것인지 알러트

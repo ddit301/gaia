@@ -130,7 +130,7 @@
 <!-- 	role 시작 -->
 	<div class="roleBox row">
 		<div class="rolename col-md-1">
-			<input type="text" value="역할명" maxlength="8">
+			<input type="text" placeholder="역할명" maxlength="8">
 		</div>
 		<div class="basic-form col-md-10">
 			<div class="role_auth_list form-group row">

@@ -496,7 +496,6 @@ const addRoleTemplate = function(){
 	let roleBoxTemplate = $('#manage-template').find('.roleBox');
 	let roleBoxArea = $('#roleBoxArea');
 	let roleBox = roleBoxTemplate.clone();
-	roleBox.find('.rolename').find('input[type=text]').val('역할명');
 	roleBox.addClass('newRole');
 	roleBoxArea.append(roleBox);
 }
@@ -517,6 +516,16 @@ const addAndEditRole = function(){
 		let mem_role_nm = roleBox.find('input[type=text]').val();
 		let authDiv = roleBox.find('.role_auth_list');
 		let authority = binaryDataReader(authDiv);
+		
+		// 역할 명 중에 빈칸이 하나라도 있으면 저장 시키지 않는다.
+		if(!mem_role_nm){
+			Swal.fire(
+				'저장 실패'
+				,'역할 이름은 공백일 수 없습니다.'
+				,'error'
+			)
+			return;
+		}
 		
 		let role = {
 			mem_role_no : mem_role_no

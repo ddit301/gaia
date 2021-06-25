@@ -10,7 +10,10 @@ const getAlarm = function(){
 			$('#alarmList').empty();
 			$.each(res, function(i, v) {
 				let alarm = $('#headerTemplate').children('.alarm').clone();
-				alarm.children('a').attr('href',v.url);
+				alarm.addClass('issue-alarm');
+				if(v.url){
+					alarm.children('a').attr('data-issue_no',v.url.substring(v.url.lastIndexOf('/')+1));
+				}
 				alarm.find('.notifi-cont').html(v.alarm_cont);
 				alarm.find('.notifi-time').text(moment(v.alarm_create_date).fromNow());
 				if(v.alarm_chk_date == null){
@@ -69,7 +72,7 @@ $(function(){
 		}else{
 			// 새로운 알람의 갯수가 0 일 경우에는 새로운 알람이 없다고 바꾸며 모든 unchecked 클래스 체크를 없앤다.
 			$('#alarmHeader').text('새로운 알람이 없습니다');
-			$('.alarm').css("background-color",'rgb(255, 255, 255)');
+			$('#alarmList .alarm').css("background-color",'rgb(255, 255, 255)');
 			$('.unchecked').removeClass('unchecked');
 		}
 		
@@ -92,6 +95,13 @@ $(function(){
 			dataType : 'json'
 		})
 	})
+	
+	// 이슈 알람 클릭시 해당 이슈로 이동하기
+	$('body').on('click', '.issue-alarm', function(){
+		let issue_no = $(this).find('a').data('issue_no');
+		movePageHistory('issue/'+issue_no);
+	})
+	
 	
 })
 
