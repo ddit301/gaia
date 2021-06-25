@@ -85,10 +85,10 @@
 				</div>
 				<div class="news-writebox row">
 					<div class="col-md-11 row">
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<img class="nonlink profile" src="/resources/images/profiles/2" onerror="imgOnErr()">
 						</div>
-						<input class="col-md-10" type="text">
+						<input class="col-md-9" type="text">
 					</div>
 					<button class="news-rep-reg btn btn-success">등록</button>
     			</div>
@@ -105,11 +105,11 @@
 
 	<!-- 					news reply 시작 -->
 	<div class="news-reply row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<img class="profile" src="/resources/images/profiles/4" onerror="imgOnErr()">
 			<p>팀장 꼬북</p>
 		</div>
-		<div class="col-md-7">
+		<div class="col-md-6">
 			<span>댓글 내용</span>
 		</div>
 		<div class="col-md-3">
