@@ -197,6 +197,42 @@
 			 $('#hiddenAdmin').on('click', function(){
 				 window.location.href="${cPath}/admin"
 			 })
+			 
+			 // 중복 아이디 검사
+			 $('#signUpId').on('input', function(){
+				 
+				let inputText = $(this).val().trim();
+                let usernameicon = $('#hiddenJosh');
+                usernameicon.removeClass();
+				
+				if(!inputText || inputText.length < 4){
+	                usernameicon.addClass('icon icon-user');
+					return;
+				}
+				 
+		        $.ajax({
+		            "url": "${cPath}/signup/idCheck",
+		            "method": "post",
+		            "data": { "mem_id": inputText },
+		            "dataType": "json",
+		            "success": function (result) {
+		            	
+	                  
+		              if (result.result == "OK") {
+		                // 만들 수 있는 아이디
+		                usernameicon.addClass('icon icon-check');
+		              } else {
+		            	 // 중복된 아이디
+		                usernameicon.addClass('icon icon-close');
+		              }
+		              
+		            },
+		            "error": function (xhr) {
+		              console.log(xhr.status);
+		            }, async : false
+		        })
+				 
+			 })
 			
 			
         })
