@@ -22,6 +22,7 @@ import org.elasticsearch.common.Strings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -34,6 +35,19 @@ import com.ibatis.common.resources.Resources;
 
 @Component
 public class ElasticUtil {
+	private String hostname;
+	private int port;
+	
+	
+	public String getHostname() {
+		return hostname;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+
 	private RestClientBuilder restClientBuilder;
 	
 	private ElasticUtil() {
@@ -41,8 +55,8 @@ public class ElasticUtil {
 		try {	// dbinfo.properties에서 접속 정보 받아옵니다.
 			properties.load(Resources.getResourceAsReader("best/gaia/db/dbinfo.properties"));
 		} catch (IOException e) {}
-        String hostname = properties.getProperty("el.url");
-        int port = Integer.parseInt(properties.getProperty("el.port"));
+        hostname = properties.getProperty("el.url");
+        port = Integer.parseInt(properties.getProperty("el.port"));
         HttpHost host = new HttpHost(hostname, port);
         restClientBuilder = RestClient.builder(host);
 	};
@@ -129,5 +143,42 @@ public class ElasticUtil {
 		
 		return response.getShardInfo().getSuccessful();
 	}
-
+	
+	
+	// 보류
+	public List<Map<String,Object>> totalSearch(
+			String keyword){
+		/*
+		 * search API 참고 주소
+		 * https://www.elastic.co/guide/en/elasticsearch/client/java-rest/master/java-rest-high-search.html
+		 */
+		
+		// search에 index 조건 걸기
+		SearchRequest searchRequest = new SearchRequest();
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		// query에 있는 셋 쿼리 조건으로 걸기
+		searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+		
+		// sort 에 있는 셋을 정렬 조건으로 걸기
+//		for(String key : sort.keySet()) {
+//			searchSourceBuilder.sort(new FieldSortBuilder(key).order(sort.get(key)));
+//		}
+		
+		searchSourceBuilder.size(50000);
+		
+		searchRequest.source(searchSourceBuilder);
+		
+		List<Map<String,Object>> list = new ArrayList<>();
+		try(RestHighLevelClient client = new RestHighLevelClient(restClientBuilder)) {
+			SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
+			SearchHits searchHits = response.getHits();
+			for(SearchHit hit : searchHits) {
+				Map<String, Object> sourceMap = hit.getSourceAsMap();
+				list.add(sourceMap);
+			}
+		} catch (IOException e) {}
+		
+		return list;
+		
+	}
 }

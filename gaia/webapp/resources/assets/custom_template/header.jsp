@@ -27,19 +27,24 @@
 				<span class="toggle-icon"><i class="icon-menu"></i></span>
 			</div>
 		</div>
-		<div class="header-left">
+		<div class="header-left header-left-custom">
 			<div class="input-group icons">
 				<div class="input-group-prepend">
 					<span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3"
 						id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
 				</div>
-				<input type="search" class="form-control" placeholder="Search"
-					aria-label="Search Dashboard">
-				<div class="drop-down   d-md-none">
-					<form action="#">
-						<input type="text" class="form-control" placeholder="Search">
-					</form>
+				<input type="text" class="form-control dropdown-toggle total-search" placeholder="Search"
+					aria-label="Search Dashboard" id="dropdownMenuSearchInput"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="">
+				<div class="dropdown">
+				  <div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
+				    <a class="dropdown-item" href="#"><i class="icon-fire"></i>Issue</a>
+				    <a class="dropdown-item" href="#"><i class="icon-direction"></i>Milestone</a>
+				    <a class="dropdown-item" href="#"><i class="mdi mdi-file-document-outline"></i>Milestone</a>
+				    <a class="dropdown-item" href="#"><i class="icon-user"></i> Member</a>
+				  </div>
 				</div>
+				
 			</div>
 		</div>
 		<div class="header-right">
@@ -130,5 +135,8 @@
 		</a>
 	</li>
 <!-- 	알람 템플릿 끝 -->
-
+<!--	통합 검색 템플릿 -->
+	<div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
+	    <a class="dropdown-item" href="#">TestText</a>
+	</div>
 </div>

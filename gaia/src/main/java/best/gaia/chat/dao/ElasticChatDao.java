@@ -14,4 +14,9 @@ public interface ElasticChatDao {
 	public List<Map<String, Object>> getMessageListbyChatRoom(int chatRoom_no);
 	
 	public List<Map<String, Object>> getMessageListbyChatRoomOne(int chatRoom_no, int size);
+
+	
+	
+	// 통합 검색 
+	public List<Map<String, Object>> getTotalSearchResult(String keyword);
 }
