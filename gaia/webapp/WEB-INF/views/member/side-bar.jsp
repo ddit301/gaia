@@ -13,7 +13,7 @@
 	            <img class="mr-3 rounded-circle profile_img" height="80" width="80" src="${mem_pic_file_name}">
 	            <div class="media-body">
 	                <h3 class="m-b-3">${mem_id }</h3>
-	                <p class="text-muted mb-0">Deutch</p>
+	                <p class="text-muted mb-0"></p>
 	            </div>
 	        </div>
         </div>
@@ -24,7 +24,6 @@
 	         	<a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting"> Profile</a>
 	            <a href="javascript:void()" class="list-group-item text-primary p-r-2 moveButton" data-menu="setting/account">Account</a>  
 	            <a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting/securityLog">Security log</a>
-	            <a href="javascript:void()" class="list-group-item text-primary p-r-0 moveButton" data-menu="setting/help">Help</a>
         	</div>
         </div>
 	</div>

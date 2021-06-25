@@ -65,7 +65,6 @@ const loadMemberInfo_overview = function() {
 		type: 'get',
 		data: { "need": need },
 		success: function(res) {
-			console.log(res);
 			let memberInfo = res.search;
 			let length;
 			let proj_manager = "";
@@ -136,7 +135,6 @@ const loadMemberInfo_profile = function() {
 		url: getContextPath() + "/restapi/member/members",
 		type: 'get',
 		success: function(data) {
-			console.log(data);
 			res = data.search;
 			msl = data.memberStatusList
 			let placeholder = $(".card.mem_nick").children('input').attr('placeholder', res.mem_nick);
@@ -235,13 +233,11 @@ $(function() {
 
 // 페이지로딩 ajax / no need
 const loadMemberInfo_account = function() {
-	let imgPath = getContextPath() + "/resources/profiles/";
 	$.ajax({
 		url: getContextPath() + "/restapi/member/members",
 		type: 'get',
 		success: function(res) {
-			console.log(JSON.stringify(res.search));
-			let nm = $("#mem_nick").attr('placeholder', res.search.mem_nick);
+			$("#mem_nm").attr('placeholder', res.search.mem_nm);
 			$(".profile_img").attr("src", getProfilePath(mem_pic_file_name));
 		},
 		async: false
@@ -258,7 +254,6 @@ const changeUserNameBtn = $("body").on("click",".changeAccountBtn", function() {
 	let form_data = { "_method": "put" };
 	let pass = false;
 	let passLength = $("#mem_pass").val().length;
-	console.log(passLength);
 	if ($(this).val() == "mem_nm") {
 		form_data["mem_nm"] = $("#" + $(this).val() + "").val();
 		confirmAlert("name", form_data);
@@ -299,7 +294,6 @@ const confirmAlert = function(ajaxEvent, form_data) {
 		reverseButtons: false
 	}).then((result) => {
 		if (result.isConfirmed) {
-			console.log(ajaxEvent)
 			ajaxEvent: ajaxEvent == "name" ? updateName(form_data) : updatePass(form_data);
 		}
 	})
@@ -419,7 +413,6 @@ const loadMemberInfo_log = function() {
 		data: { "need": "logList" },
 		type: 'get',
 		success: function(res) {
-			console.log(res)
 			$(".profile_img").attr("src", getProfilePath(res.search.mem_pic_file_name));
 			$(".profile_img_label").attr("title", "View " + res.search.mem_id + "'s profile");
 			$(".profile_img_label").siblings("input").val(res.search.mem_id);
