@@ -36,6 +36,7 @@ import best.gaia.chat.dao.ElasticChatDao;
 import best.gaia.member.service.MemberService;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
+import best.gaia.utils.ElasticUtil;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.ProjectVO;
 
@@ -54,7 +55,8 @@ public class ProjectREST {
 	private ServletContext application;
 	@Inject
 	private ElasticChatDao chatdao;
-	
+	@Inject
+	private ElasticUtil elUtil;
 
 	@PostConstruct
 	public void init() {
@@ -79,7 +81,8 @@ public class ProjectREST {
 		int mem_no = getMemberNoFromAuthentication(authentication);
 		String keyword = (String) map.get("keyword");
 		
-		String url = "http://222.114.124.74:9200/gaia/_search?q="+keyword;
+		
+		String url = String.format("http://%s:%d/gaia/_search?q=%s",elUtil.getHostname(),elUtil.getPort(),keyword);
 		String text = getRequestApiGet(url);
 		logger.info("{}", keyword);
 		

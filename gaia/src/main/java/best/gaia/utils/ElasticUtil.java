@@ -35,6 +35,19 @@ import com.ibatis.common.resources.Resources;
 
 @Component
 public class ElasticUtil {
+	private String hostname;
+	private int port;
+	
+	
+	public String getHostname() {
+		return hostname;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+
 	private RestClientBuilder restClientBuilder;
 	
 	private ElasticUtil() {
@@ -42,8 +55,8 @@ public class ElasticUtil {
 		try {	// dbinfo.properties에서 접속 정보 받아옵니다.
 			properties.load(Resources.getResourceAsReader("best/gaia/db/dbinfo.properties"));
 		} catch (IOException e) {}
-        String hostname = properties.getProperty("el.url");
-        int port = Integer.parseInt(properties.getProperty("el.port"));
+        hostname = properties.getProperty("el.url");
+        port = Integer.parseInt(properties.getProperty("el.port"));
         HttpHost host = new HttpHost(hostname, port);
         restClientBuilder = RestClient.builder(host);
 	};

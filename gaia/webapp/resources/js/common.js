@@ -98,15 +98,23 @@ const elasticTotalSearch = function(keyword){
 				"keyword" : keyword},
 		success : function(res) {
 			$(".dropdown .dropdown-menu.total-search-dropdown").empty();
-			// issue를 한번 거름.
+			
+			// issue를 거르기.
 			$.each(res.hits.hits, function(i, hit){
 				if("issue_sid" in hit._source){
 					searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("a").clone()
 					searchResult.html('<i class="icon-fire"></i>'+hit._source.issue_his_cont)
 					console.log(searchResult.text())
+//					var index = res.hits.hits.indexOf(hit);
+//					if (index !== -1) {
+//						console.log(res.hits.hits.splice(index, 1));
+//					}
 				}
 				$(".dropdown .dropdown-menu.total-search-dropdown").prepend(searchResult);
 			})
+			
+			
+			
 			$.each(res.hits.hits, function(i, hit){
 				
 			})
