@@ -74,7 +74,7 @@
 	padding-right : 0px;
 }
 .rep-right .repHeader, .repBody{
-	padding : 10px;
+	padding : 20px;
 }
 .rep-right .repHeader{
 	background-color : #F7F7F7;
@@ -286,7 +286,9 @@
 	max-height : 300px;
 	overflow-y : scroll;
 }
-
+.issueBox .reply.col-md-1 {
+    font-size: 1.3em;
+}
 
 
 
