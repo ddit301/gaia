@@ -10,7 +10,8 @@ const getAlarm = function(){
 			$('#alarmList').empty();
 			$.each(res, function(i, v) {
 				let alarm = $('#headerTemplate').children('.alarm').clone();
-				alarm.children('a').attr('href',v.url);
+				alarm.addClass('issue-alarm');
+				alarm.children('a').attr('data-issue_no',v.url.substring(v.url.lastIndexOf('/')+1));
 				alarm.find('.notifi-cont').html(v.alarm_cont);
 				alarm.find('.notifi-time').text(moment(v.alarm_create_date).fromNow());
 				if(v.alarm_chk_date == null){
@@ -92,6 +93,13 @@ $(function(){
 			dataType : 'json'
 		})
 	})
+	
+	// 이슈 알람 클릭시 해당 이슈로 이동하기
+	$('body').on('click', '.issue-alarm', function(){
+		let issue_no = $(this).find('a').data('issue_no');
+		movePageHistory('issue/'+issue_no);
+	})
+	
 	
 })
 
