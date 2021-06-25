@@ -49,13 +49,19 @@ $(function(){
 		let shift = e.shiftKey;
 		let key = e.which;
 		if(ctrl && shift){
+			console.log(key);
 			switch(key){
 				case 1 : movePageHistory('analytics'); break;
 				case 14 : movePageHistory('news'); break;
 				case 49 : movePageHistory('code'); break;
-				case 53 : console.log('컨트롤러 코드'); break;
-				case 30 : console.log('서비스 코드'); break;
-				case 55 : console.log('다오 코드'); break;
+				case 51 : movePageHistory('milestone'); break;
+				case 52 : movePageHistory('issue'); break;
+				case 53 : movePageHistory('ganttchart'); break;
+				case 30 : movePageHistory('calendar'); break;
+				case 55 : movePageHistory('kanbanboard'); break;
+				case 56 : movePageHistory('news'); break;
+				case 57 : movePageHistory('wiki'); break;
+				case 48 : movePageHistory('analytics'); break;
 			}
 			
 		}else if(ctrl) {
