@@ -4,6 +4,7 @@
 	color : black;
 	margin-bottom : 20px;
 	height : 60px;
+    display: -webkit-inline-box;
 }
 .issue-header div{
 	padding-top : 10px;
@@ -286,7 +287,10 @@
 	max-height : 300px;
 	overflow-y : scroll;
 }
-
+.issue-header button.btn.btn-grey.dropdown-toggle{
+	background : aliceblue;
+	
+}
 
 
 

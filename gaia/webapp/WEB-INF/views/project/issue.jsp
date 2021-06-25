@@ -15,7 +15,7 @@
 	           			<button type="button" id="newIssueBtn" class="btn mb-1 btn-rounded btn-outline-dark">이슈등록</button>
            			</div>
        			</div>
-            	<div class="row issue-header">
+            	<div class="row issue-header card">
             		<div class="many-issue-close col-md-1">
             			<button class="btn btn-danger" hidden="true">완료</button>
             		</div>
@@ -59,7 +59,7 @@
            			</div>
             	</div>
             	
-           		<div id="issuelist"></div>
+           		<div id="issuelist" class="card"></div>
            		<div class="issue-footer">
            			<div>
 	           			<ul class="pagination justify-content-center">
