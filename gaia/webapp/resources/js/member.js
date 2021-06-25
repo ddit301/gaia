@@ -258,8 +258,7 @@ const changeUserNameBtn = $("body").on("click",".changeAccountBtn", function() {
 		form_data["mem_nm"] = $("#" + $(this).val() + "").val();
 		confirmAlert("name", form_data);
 	} else {
-		$(".confirmNewPassword").find("span").prop("hidden", true)
-		if(7 < passLength  && passLength < 16){
+		if(3 < passLength  && passLength < 16){
 			let form_data = $(".password_form").serializeJSON();
 			form_data["_method"] = "put";
 			form_data["need"] = "mem_password";

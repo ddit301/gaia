@@ -73,5 +73,6 @@
 </div>
 
 <script>
+scrollUp();
 loadMemberInfo_profile();
 </script>
