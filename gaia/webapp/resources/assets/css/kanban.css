@@ -24,9 +24,6 @@
 	background : aliceblue;
     box-shadow: 14px 17px 13px -15px grey;
 }
-#myKanban{
-	padding-left : 70px;
-}
 .kanban-drag{
 	height : 100%;
 }

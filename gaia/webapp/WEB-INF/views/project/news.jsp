@@ -65,15 +65,14 @@
  <!-- 	newscard 시작 -->
 	<div class="news card">
 		<div class="newsheader row">
-			<div class="mem-overview-card col-md-2">
+			<div class="mem-overview-card col-md-3">
 				<img class="profile" onerror="imgOnErr()" src="/resources/images/profiles/4">
 				<span>팀장 꼬북</span>
 			</div>
-			<div class="newstitle col-md-9">
+			<div class="newstitle col-md-8">
 				<span class="news-title-text">뉴스 제목이 들어갈 자리입니다.</span>
 				<span class="newsWriteTime">3 hours ago</span>
 			</div>
-			<i class="icon icon-settings"></i>
 		</div>
 		<div class="newsBody row">
 			<div class="news-left col-md-6">

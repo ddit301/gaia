@@ -261,11 +261,11 @@ const makeKanban = function(board){
     	// 칸반 보드로 쓸 div에 대한 셀렉터
         element: "#myKanban"
         // 칸반 컬럼간의 간격
-        ,gutter: "10px"
+//        ,gutter: "10px"
         // 칸반 컬럼들의 가로 길이
-        ,widthBoard: "350px"
+//        ,widthBoard: "250px"
         // 컬럼 크기 상대적으로 지정하려면 true. 이 경우에는 gutter와 widthBoard가 필요 없음.
-        ,responsivePercentage : false
+        ,responsivePercentage : true
         // 위에서 만든 컬럼들을 가진 boards 객체를 등록해준다.
         ,boards: board
         // 카드 클릭 이벤트
