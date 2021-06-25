@@ -233,7 +233,7 @@
 					<h4 class="card-title">멤버별 통계</h4>
 					<div class="basic-form">
 						<div class="form-group">
-							<label>참여중인 인원 5명</label>
+							<label id="ana-memcount"></label>
 						</div>
 					</div>
 					<div id="mem-stat-header">
