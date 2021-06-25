@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import best.gaia.alarm.service.AlarmService;
 import best.gaia.member.service.MemberService;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
@@ -44,6 +45,8 @@ public class ProjectMemberRest {
 	private ProjectService service;
 	@Inject
 	private MemberService memberService;
+	@Inject
+	private AlarmService alarmService;
 	@Inject
 	private ProjectDao dao;
 	@Inject
@@ -141,7 +144,16 @@ public class ProjectMemberRest {
 			) {
 		int proj_no = getProjNoFromSession(session);
 		projMem.setProj_no(proj_no);
+		
 		int result = dao.setMemberActive(projMem);
+		
+		// 회원을 복귀 시킬때는 해당 회원에게 알람을 보냅니다.
+		if(result == 1) {
+			ProjectVO project = dao.selectProject(proj_no);
+			project.setMem_no(projMem.getMem_no());
+			return alarmService.insertInviteAlarm(project);
+		}
+		
 		return result==1? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	

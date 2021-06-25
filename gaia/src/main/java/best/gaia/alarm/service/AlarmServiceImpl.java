@@ -14,18 +14,22 @@ import com.google.gson.Gson;
 import best.gaia.alarm.dao.AlarmDao;
 import best.gaia.common.dao.CommonCodeDao;
 import best.gaia.common.service.CommonCodeService;
+import best.gaia.member.dao.MemberDao;
 import best.gaia.utils.ParsingUtil;
 import best.gaia.utils.components.WebSocketComponent;
 import best.gaia.utils.enumpkg.ServiceResult;
 import best.gaia.vo.AlarmVO;
 import best.gaia.vo.IssueHistoryVO;
 import best.gaia.vo.IssueVO;
+import best.gaia.vo.ProjectVO;
 
 @Service
 public class AlarmServiceImpl implements AlarmService {
 	
 	@Inject
 	private AlarmDao dao;
+	@Inject
+	private MemberDao memDao;
 	
 	@Inject
 	private CommonCodeService commonService;
@@ -35,6 +39,40 @@ public class AlarmServiceImpl implements AlarmService {
 	
 	@Inject
 	private WebSocketComponent webSocket;
+	
+	@Override
+	public ServiceResult insertInviteAlarm(ProjectVO project) {
+		AlarmVO alarm = new AlarmVO();
+		alarm.setMem_no(project.getMem_no());
+		String alarm_type = "PJ";
+		alarm.setAlarm_type(alarm_type);
+		alarm.setSender_no(project.getMem_no());
+		
+		// 알람 내용을 맵으로 만들기
+		Map<String, String> alarmContent = new HashMap<>();
+		alarmContent.put("proj_title", project.getProj_title());
+		
+		// 해당 알람 내용은 json 형태로 alarm_cont에 저장한다
+		String alarm_cont = new Gson().toJson(alarmContent);
+		alarm.setAlarm_cont(alarm_cont);
+		
+		int result = dao.insertAlarm(alarm);
+		
+		// 알람 전송에 성공했으면, 세션에 해당 유저가 접속중일 경우 websocket을 통해 push 알림을 보낸다.
+		Map<String, Object> dataMap = new HashMap<>();
+		
+		int manager_no = project.getMem_no();
+		String manager_id = memDao.getMemIdFromMemNo(manager_no);
+		dataMap.put("manager_id",manager_id);
+		dataMap.put("project_title", project.getProj_title());
+		
+		String data = new Gson().toJson(dataMap);
+		
+		webSocket.sendPushNotificationToMember(project.getMem_no(), alarm_type, data);
+		
+		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
+		
+	}
 	
 	@Override
 	@Transactional
@@ -88,7 +126,9 @@ public class AlarmServiceImpl implements AlarmService {
 			alarm.setAlarm_cont(alarm_cont);
 			
 			// 마지막으로 alarm_cont에 url이 있다면, 담아서 보내줍니다. 
-			alarm.setUrl(alarmData.get("url").toString());
+			if(alarmData.containsKey("url")) {
+				alarm.setUrl(alarmData.get("url").toString());
+			}
 			
 		}
 		
@@ -100,5 +140,6 @@ public class AlarmServiceImpl implements AlarmService {
 	public int updateUnreadAlarms(int mem_no) {
 		return dao.updateUnreadAlarms(mem_no);
 	}
+
 
 }

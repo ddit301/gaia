@@ -11,7 +11,9 @@ const getAlarm = function(){
 			$.each(res, function(i, v) {
 				let alarm = $('#headerTemplate').children('.alarm').clone();
 				alarm.addClass('issue-alarm');
-				alarm.children('a').attr('data-issue_no',v.url.substring(v.url.lastIndexOf('/')+1));
+				if(v.url){
+					alarm.children('a').attr('data-issue_no',v.url.substring(v.url.lastIndexOf('/')+1));
+				}
 				alarm.find('.notifi-cont').html(v.alarm_cont);
 				alarm.find('.notifi-time').text(moment(v.alarm_create_date).fromNow());
 				if(v.alarm_chk_date == null){
