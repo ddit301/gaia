@@ -46,7 +46,7 @@ public class WebSocketComponent {
 		case "IC" : 
 			message = data + "님이 당신의 이슈에 댓글을 달았습니다.";
 			break;
-		case "PJ" :
+		default : 
 			message = data;
 			break;
 		}
