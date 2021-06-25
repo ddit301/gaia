@@ -189,6 +189,9 @@ joinFunction = function(){
 		success : function(res) {
 			
 			if(res == "OK"){
+				// 가입 성공하면 가입 폼들 비워준다.
+				$('#signupForm').find('input[type=text]').val('');
+				
 				Swal.fire(
 				  '회원 가입 성공',
 				  '로그인 버튼을 눌러 로그인 해 주세요.',
