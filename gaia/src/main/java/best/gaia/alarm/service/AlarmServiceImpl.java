@@ -41,16 +41,19 @@ public class AlarmServiceImpl implements AlarmService {
 	private WebSocketComponent webSocket;
 	
 	@Override
-	public ServiceResult insertInviteAlarm(ProjectVO project) {
+	public ServiceResult insertInviteAlarm(Map<String, Object> inviteInfo) {
 		AlarmVO alarm = new AlarmVO();
-		alarm.setMem_no(project.getMem_no());
+		int receiverNo = Integer.parseInt(inviteInfo.get("receiverNo").toString());
+		int ownerNo = Integer.parseInt(inviteInfo.get("ownerNo").toString());
+		String proj_title = inviteInfo.get("proj_title").toString();
+		alarm.setMem_no(receiverNo);
 		String alarm_type = "PJ";
 		alarm.setAlarm_type(alarm_type);
-		alarm.setSender_no(project.getMem_no());
+		alarm.setSender_no(ownerNo);
 		
 		// 알람 내용을 맵으로 만들기
 		Map<String, String> alarmContent = new HashMap<>();
-		alarmContent.put("proj_title", project.getProj_title());
+		alarmContent.put("proj_title", proj_title);
 		
 		// 해당 알람 내용은 json 형태로 alarm_cont에 저장한다
 		String alarm_cont = new Gson().toJson(alarmContent);
@@ -61,15 +64,14 @@ public class AlarmServiceImpl implements AlarmService {
 		// 알람 전송에 성공했으면, 세션에 해당 유저가 접속중일 경우 websocket을 통해 push 알림을 보낸다.
 		Map<String, Object> dataMap = new HashMap<>();
 		
-		int manager_no = project.getMem_no();
-		String manager_id = memDao.getMemIdFromMemNo(manager_no);
+		String manager_id = memDao.getMemIdFromMemNo(ownerNo);
 		dataMap.put("type", "PJ");
 		dataMap.put("manager_id",manager_id);
-		dataMap.put("project_title", project.getProj_title());
+		dataMap.put("project_title", proj_title);
 		
 		String data = new Gson().toJson(dataMap);
 		
-		webSocket.sendPushNotificationToMember(project.getMem_no(), alarm_type, data);
+		webSocket.sendPushNotificationToMember(receiverNo, alarm_type, data);
 		
 		return result==1 ? ServiceResult.OK : ServiceResult.FAIL;
 		
