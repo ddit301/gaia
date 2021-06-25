@@ -288,6 +288,7 @@ span#currentLanguage {
 	min-width: 15rem !important;
 	max-height: 400px;
     overflow-y: scroll;
+    text-overflow: ellipsis;
 }
 .header-left-custom{
     width: 25%;
