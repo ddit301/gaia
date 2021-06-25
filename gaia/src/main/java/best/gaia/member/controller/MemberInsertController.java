@@ -1,6 +1,5 @@
 package best.gaia.member.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,35 +46,19 @@ public class MemberInsertController {
 		return resultMap;
 	}
 
-	@RequestMapping(value = "/signup/register", method = RequestMethod.POST)
-	public String process(@ModelAttribute("member") MemberVO member, BindingResult errors, Model model)
-			throws IOException {
-		String view = null;
-		String message = null;
+	@RequestMapping(value = "/signup/register"
+			, method = RequestMethod.POST
+			, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ServiceResult process(@ModelAttribute("member") MemberVO member, BindingResult errors, Model model) {
+		
+		ServiceResult result = ServiceResult.FAIL;
+		
 		if (!errors.hasErrors()) {
-			ServiceResult result = service.enrollMember(member);
-			switch (result) {
-			case PKDUPLICATED:
-				view = "/signup";
-				message = "아이디 중복";
-				break;
-			case OK:
-
-				view = "redirect:/";
-				break;
-			default:
-				message = "서버 오류, 잠시 뒤 다시 시도하세요.";
-				view = "/signup";
-				break;
-			}
-		} else {
-			// 검증 불통
-			view = "/signup";
+			result = service.enrollMember(member);
 		}
 
-		model.addAttribute("message", message);
-
-		return view;
+		return result;
 	}
 
 }
