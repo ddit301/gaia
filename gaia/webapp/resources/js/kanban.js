@@ -340,6 +340,9 @@ const makeKanban = function(board){
 					,'kb_card_cont' : text
 				},
 				success : function(res) {
+					
+					toastr.success('새로운 카드를 등록했습니다.');
+					
 		            // 카드 템플릿을 받아와 새로운 카드 객체를 만든다.
 		            let cardCont = $('#kanban-template').children('.kanban_card').clone();
 		            cardCont.find('.card_content').text(text);
