@@ -112,7 +112,7 @@
                 </div>
 
                 <div class="span_4 col clearfix">
-                    <h2 class="screen-heading" style="margin-top: 30%;">
+                    <h2 class="screen-heading" style="margin-top: 50%;">
                         <span style="font-size:1.5em">Gaia</span><br>
                         <br>Endless Programming<br>
                     </h2>
