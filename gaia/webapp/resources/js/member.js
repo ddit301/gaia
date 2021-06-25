@@ -259,7 +259,7 @@ const changeUserNameBtn = $("body").on("click",".changeAccountBtn", function() {
 		confirmAlert("name", form_data);
 	} else {
 		$(".confirmNewPassword").find("span").prop("hidden", true)
-		if(7 < mem_pass.length  && mem_pass.length < 16){
+		if(7 < passLength  && passLength < 16){
 			let form_data = $(".password_form").serializeJSON();
 			form_data["_method"] = "put";
 			form_data["need"] = "mem_password";
@@ -325,7 +325,6 @@ const updateName = function(form_data) {
 // 비밀번호 변경함수
 const updatePass = function(form_data) {
 	if (!$(".confirmNewPassword").find("span").prop("hidden") && !!$("#old_pass").val()) {
-		console.log(form_data);
 		$.ajax({
 			url: getContextPath() + "/restapi/member/members/",
 			method: 'post',
