@@ -34,9 +34,6 @@
 .stat-data .row{
 	padding-bottom : 10px;
 }
-#mem-stat-area{
-	font-size : 1.2em;
-}
 .mem-stat-box span{
 	padding-top : 10px;
 }
@@ -48,4 +45,10 @@
 }
 .mem-stat-box{
 	margin-top : 10px;	
+}
+#mem-stat-header span{
+	padding : 0px;
+}
+#mem-stat-header row{
+	text-align : center;
 }

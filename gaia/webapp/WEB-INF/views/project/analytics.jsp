@@ -44,22 +44,22 @@
 						</div>
 					</div>
 					<div class="date-stauts row">
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<i class="icon icon-calender"></i>
 							<span>2020.11.14 ~ 2021.06.28</span>
 						</div>
-						<div class="col-md-8">
+						<div class="col-md-7">
 							<div class="progress-area">
 								<div class="progress-bar bg-success" role="progressbar" style="width:0%">92.8%</div>
 							</div>
 						</div>
 					</div>
 					<div class="progress-status row">
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<i class="icon icon-docs"></i>
 							<span>총 132개의 일감중 102개 완료.</span>
 						</div>
-						<div class="col-md-8">
+						<div class="col-md-7">
 							<div class="progress-area">
 								<div class="progress-bar bg-success" role="progressbar" style="width:0%">92.8%</div>
 							</div>
@@ -122,7 +122,7 @@
 							<div class="row stat-issue-history">
 								<div class="col-md-4">
 									<i class="icon icon-puzzle"></i>
-									<span>이슈 히스토리</span>
+									<span>히스토리</span>
 								</div>
 								<div class="stat-num col-md-4">
 									<span>125</span>
@@ -310,21 +310,18 @@
 	</div>
 
 	<div class="ga-datas">
-		<div class="row">
 <!-- 			browser -->
 			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/explorer?params=_u..nav%3Ddefault%26_r.explorerCard..selmet%3D%5B%22activeUsers%22%5D%26_r.explorerCard..seldim%3D%5B%22browser%22%5D&r=user-technology-detail" target=”_blank”>
 				<img src="${cPath}/resources/images/analytics/browser.png">
-			</a>
-<!-- 		device -->
-			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/explorer?params=_u..nav%3Ddefault%26_r.explorerCard..selmet%3D%5B%22activeUsers%22%5D%26_r.explorerCard..seldim%3D%5B%22deviceCategory%22%5D&r=user-technology-detail" target=”_blank”>
-				<img src="${cPath}/resources/images/analytics/device.png">
 			</a>
 <!-- 			OS -->
 			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/explorer?params=_u..nav%3Ddefault%26_r.explorerCard..selmet%3D%5B%22activeUsers%22%5D%26_r.explorerCard..seldim%3D%5B%22operatingSystem%22%5D&r=user-technology-detail" target=”_blank”>
 				<img src="${cPath}/resources/images/analytics/os.png">
 			</a>
-		</div>
-		<div class="row">
+<!-- 		device -->
+			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/explorer?params=_u..nav%3Ddefault%26_r.explorerCard..selmet%3D%5B%22activeUsers%22%5D%26_r.explorerCard..seldim%3D%5B%22deviceCategory%22%5D&r=user-technology-detail" target=”_blank”>
+				<img src="${cPath}/resources/images/analytics/device.png">
+			</a>
 <!-- 			language -->
 			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/explorer?params=_u..nav%3Ddefault%26_r.explorerCard..selmet%3D%5B%22activeUsers%22%5D%26_r.explorerCard..seldim%3D%5B%22language%22%5D&r=user-demographics-detail" target=”_blank”>
 				<img src="${cPath}/resources/images/analytics/language.png">
@@ -337,39 +334,29 @@
 			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/explorer?params=_u..nav%3Ddefault%26_r.explorerCard..selmet%3D%5B%22activeUsers%22%5D%26_r.explorerCard..seldim%3D%5B%22city%22%5D&r=user-demographics-detail" target=”_blank”>
 				<img src="${cPath}/resources/images/analytics/city.png">
 			</a>
-		
-		</div>
-		<div class="row">
-<!-- 		country -->
-			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/explorer?params=_u..nav%3Ddefault%26_r.explorerCard..selmet%3D%5B%22activeUsers%22%5D%26_r.explorerCard..seldim%3D%5B%22country%22%5D&r=user-demographics-detail" target=”_blank”>
-				<img src="${cPath}/resources/images/analytics/country.png">
-			</a>
 <!-- 			time -->
 			<a>
 				<img src="${cPath}/resources/images/analytics/time.png">
 			</a>
-		
-		</div>
-		<div class="row">
-<!-- 			cohort -->
-			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/dashboard?params=_u..nav%3Ddefault%26_u.date00%3D20210513%26_u.date01%3D20210623&r=lifecycle-retention-overview" target=”_blank”>
-				<img src="${cPath}/resources/images/analytics/cohort.png">
-			</a>
-<!-- 			user -->
-			<a>
-				<img src="${cPath}/resources/images/analytics/user.png">
-			</a>
-		</div>
-		
-		<div class="row">
 <!-- 		last 30min -->
 			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/realtime/overview?params=_u..nav%3Ddefault" target=”_blank”>
 				<img src="${cPath}/resources/images/analytics/last.png">
+			</a>
+<!-- 			cohort -->
+			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/dashboard?params=_u..nav%3Ddefault%26_u.date00%3D20210513%26_u.date01%3D20210623&r=lifecycle-retention-overview" target=”_blank”>
+				<img src="${cPath}/resources/images/analytics/cohort.png">
 			</a>
 <!-- 			title -->
 			<a>
 				<img src="${cPath}/resources/images/analytics/title.png">
 			</a>
-		</div>
+<!-- 		country -->
+			<a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p273331838/reports/explorer?params=_u..nav%3Ddefault%26_r.explorerCard..selmet%3D%5B%22activeUsers%22%5D%26_r.explorerCard..seldim%3D%5B%22country%22%5D&r=user-demographics-detail" target=”_blank”>
+				<img src="${cPath}/resources/images/analytics/country.png">
+			</a>
+<!-- 			user -->
+			<a>
+				<img src="${cPath}/resources/images/analytics/user.png">
+			</a>
 	</div>
 </div>
