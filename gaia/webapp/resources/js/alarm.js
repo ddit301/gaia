@@ -69,7 +69,7 @@ $(function(){
 		}else{
 			// 새로운 알람의 갯수가 0 일 경우에는 새로운 알람이 없다고 바꾸며 모든 unchecked 클래스 체크를 없앤다.
 			$('#alarmHeader').text('새로운 알람이 없습니다');
-			$('.alarm').css("background-color",'rgb(255, 255, 255)');
+			$('#alarmList .alarm').css("background-color",'rgb(255, 255, 255)');
 			$('.unchecked').removeClass('unchecked');
 		}
 		
