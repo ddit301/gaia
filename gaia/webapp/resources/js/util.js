@@ -49,7 +49,6 @@ $(function(){
 		let shift = e.shiftKey;
 		let key = e.which;
 		if(ctrl && shift){
-			console.log(key);
 			switch(key){
 				case 1 : movePageHistory('analytics'); break;
 				case 14 : movePageHistory('news'); break;
