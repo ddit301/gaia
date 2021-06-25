@@ -35,12 +35,13 @@
 				</div>
 				<input type="text" class="form-control dropdown-toggle total-search" placeholder="Search"
 					aria-label="Search Dashboard" id="dropdownMenuSearchInput"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="">
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<div class="dropdown">
 				  <div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
 				    <a class="dropdown-item" href="#"><i class="icon-fire"></i>Issue</a>
 				    <a class="dropdown-item" href="#"><i class="icon-direction"></i>Milestone</a>
-				    <a class="dropdown-item" href="#"><i class="mdi mdi-file-document-outline"></i>Milestone</a>
+				    <a class="dropdown-item" href="#"><i class="mdi file-document-outline"></i>Project</a>
+				    <a class="dropdown-item" href="#"><i class="icon-book-open"></i>News</a>
 				    <a class="dropdown-item" href="#"><i class="icon-user"></i> Member</a>
 				  </div>
 				</div>
