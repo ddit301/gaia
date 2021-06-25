@@ -4,6 +4,7 @@
 	color : black;
 	margin-bottom : 20px;
 	height : 60px;
+    display: -webkit-inline-box;
 }
 .issue-header div{
 	padding-top : 10px;
@@ -288,6 +289,9 @@
 }
 .issueBox .reply.col-md-1 {
     font-size: 1.3em;
+}
+.issue-header button.btn.btn-grey.dropdown-toggle{
+	background : aliceblue;
 }
 
 
