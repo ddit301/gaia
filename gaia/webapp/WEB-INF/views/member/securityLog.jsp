@@ -58,5 +58,6 @@
 	</div>
 </div>
 <script>
+	scrollUp();
 	loadMemberInfo_log();
 </script>

@@ -49,9 +49,6 @@
 		</div>
 		<div class="header-right">
 			<ul class="clearfix">
-				<li class="icons dropdown">
-					<jsp:include page="/WEB-INF/views/header/messenger.jsp"></jsp:include>
-				</li>
 <!------------------------ 	알람 드랍다운 시작 -->
 				<li class="icons dropdown">
 					<a id="alarmIcon" href="javascript:void(0)" data-toggle="dropdown"> 

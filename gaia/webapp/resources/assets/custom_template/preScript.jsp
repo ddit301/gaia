@@ -48,7 +48,7 @@
     <script src="${cPath }/resources/js/external/jquery.min.js"></script>
     <!-- 	Git Authentication 받아오는 js 및 변수 선언 -->
     <script>
-		let gitHash = '';
+		gitHash = null;
     </script>
 	<script src="${cPath }/resources/js/secret.js"></script>
 	

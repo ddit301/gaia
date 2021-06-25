@@ -96,7 +96,8 @@ const loadAnalytics = function(){
 			$('.stat-news').find('span').eq(1).text(project.NEWSCOUNT);
 			$('.stat-news-com').find('span').eq(1).text(project.NEWSCOMCOUNT);
 			$('.stat-wiki').find('span').eq(1).text(project.WIKICOUNT);
-			
+		
+			$('#ana-memcount').text('참여중인 인원 '+members.length+'명');
 			let memBoxArea = $('#mem-stat-area');
 			memBoxArea.empty();
 			$.each(members, function(i, member) {
