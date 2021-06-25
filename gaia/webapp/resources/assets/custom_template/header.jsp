@@ -38,9 +38,10 @@
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="">
 				<div class="dropdown">
 				  <div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
-				    <a class="dropdown-item" href="#">Action</a>
-				    <a class="dropdown-item" href="#">Another action</a>
-				    <a class="dropdown-item" href="#">Something else here</a>
+				    <a class="dropdown-item" href="#"><i class="icon-fire"></i>Issue</a>
+				    <a class="dropdown-item" href="#"><i class="icon-direction"></i>Milestone</a>
+				    <a class="dropdown-item" href="#"><i class="mdi mdi-file-document-outline"></i>Milestone</a>
+				    <a class="dropdown-item" href="#"><i class="icon-user"></i> Member</a>
 				  </div>
 				</div>
 				
@@ -134,5 +135,8 @@
 		</a>
 	</li>
 <!-- 	알람 템플릿 끝 -->
-
+<!--	통합 검색 템플릿 -->
+	<div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
+	    <a class="dropdown-item" href="#">TestText</a>
+	</div>
 </div>

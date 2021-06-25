@@ -1,7 +1,14 @@
 package best.gaia.project.controller;
 
-import static best.gaia.utils.SessionUtil.*;
+import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
+import static best.gaia.utils.SessionUtil.getProjNoFromSession;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -26,7 +33,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import best.gaia.chat.dao.ElasticChatDao;
-import best.gaia.chat.dao.ElasticChatDaoImpl;
 import best.gaia.member.service.MemberService;
 import best.gaia.project.dao.ProjectDao;
 import best.gaia.project.service.ProjectService;
@@ -64,17 +70,21 @@ public class ProjectREST {
 		return dao.selectProjectList(mem_no);
 	}
 	// totalSearch
-	@GetMapping(params = "{need=totalSearch}")
-	public List<Map<String, Object>> selectKewordResult(
+	@GetMapping(params = {"need=totalSearch"})
+	public String selectKewordResult(
 					Authentication authentication
 					, @RequestParam String need
 					, @RequestParam Map<String, Object> map
-					) {
+					) throws IOException {
 		int mem_no = getMemberNoFromAuthentication(authentication);
+		String keyword = (String) map.get("keyword");
 		
+		String url = "http://222.114.124.74:9200/gaia/_search?q="+keyword;
+		String text = getRequestApiGet(url);
+		logger.info("{}", keyword);
 		
-		List<Map<String, Object>> result = chatdao.getTotalSearchResult((String) map.get("keyword")); 
-		return result;
+//		List<Map<String, Object>> result = chatdao.getTotalSearchResult((String) map.get("keyword")); 
+		return text;
 	}
 
 	@PostMapping
@@ -141,13 +151,24 @@ public class ProjectREST {
 		return dao.selectProjectOverview(proj_no);
 	}
 
+	public String getRequestApiGet(String url) throws IOException {
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		// optional default is GET
+		con.setRequestMethod("GET");
+		
+		// add requesttt header 헤더를 만드는
+		con.setRequestProperty("Accept-Chatset", "UTF-8");
+		con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		String resultXmlText = "";
+		while((inputLine = in.readLine()) != null) {
+			resultXmlText += inputLine;
+		}
+		in.close();
+		con.disconnect();
+		return resultXmlText;
+	}
 }
-
-
-
-
-
-
-
-
-

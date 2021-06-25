@@ -286,6 +286,8 @@ span#currentLanguage {
 .total-search-dropdown{
 	transform: translate3d(-240px, 38px, 0px) !important;
 	min-width: 15rem !important;
+	max-height: 400px;
+    overflow-y: scroll;
 }
 .header-left-custom{
     width: 25%;

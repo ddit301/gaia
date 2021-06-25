@@ -144,18 +144,14 @@ public class ElasticUtil {
 		SearchRequest searchRequest = new SearchRequest();
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		// query에 있는 셋 쿼리 조건으로 걸기
-			searchSourceBuilder.query(QueryBuilders.termQuery("q", "SMITH"));
+		searchSourceBuilder.query(QueryBuilders.matchAllQuery());
 		
 		// sort 에 있는 셋을 정렬 조건으로 걸기
 //		for(String key : sort.keySet()) {
 //			searchSourceBuilder.sort(new FieldSortBuilder(key).order(sort.get(key)));
 //		}
 		
-//		if(size != null) {
-//			searchSourceBuilder.size(size);
-//		}else {
-//			searchSourceBuilder.size(20);
-//		}
+		searchSourceBuilder.size(50000);
 		
 		searchRequest.source(searchSourceBuilder);
 		

@@ -74,19 +74,44 @@ var swal = {
 //////////////////////////////////////////////////////////////////////////////
 
 $(function(){
+	var timer;
 	$('body').on("keyup", "#dropdownMenuSearchInput",function(e){
+		
+		clearTimeout(timer);
 		let keyword = $(this).val()
 		console.log($(this).val())
-		elasticTotalSearch(keyword);
+		timer = setTimeout("elasticTotalSearch('"+keyword+"')", 500)
 	})
+	function alertTest(){
+		alert("heyyyyyy")
+	}
 });
 
 const elasticTotalSearch = function(keyword){
+	
+	keyword = encodeURI(keyword)
+	let list;
 	$.ajax({
-		url : "http://222.114.124.74:9200/gaia/_search?q="+keyword,
+		url : getContextPath() + "/restapi/project/projects/",
 		method : 'get',
+		data : {"need" : "totalSearch",
+				"keyword" : keyword},
 		success : function(res) {
-			console.log(res)	
+			$(".dropdown .dropdown-menu.total-search-dropdown").empty();
+			// issue를 한번 거름.
+			$.each(res.hits.hits, function(i, hit){
+				if("issue_sid" in hit._source){
+					searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("a").clone()
+					searchResult.html('<i class="icon-fire"></i>'+hit._source.issue_his_cont)
+					console.log(searchResult.text())
+				}
+				$(".dropdown .dropdown-menu.total-search-dropdown").prepend(searchResult);
+			})
+			$.each(res.hits.hits, function(i, hit){
+				
+			})
+			console.log(list)
+			console.log(res.hits.hits)
 		},
 		async : false
 		, error : function(xhr, error, msg) {
