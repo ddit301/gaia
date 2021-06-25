@@ -1365,7 +1365,9 @@ input:focus {
 #hiddenKkobuk, #hiddenEisen, #hiddenJosh, #hiddenAdmin:hover{
 	cursor: pointer;
 }
-
+.swal2-container.swal2-center>.swal2-popup{
+	opacity : 0.8;
+}
 
 
 

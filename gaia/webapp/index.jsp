@@ -61,7 +61,6 @@
     
 <!-- index script start -->
 <script>
-
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
@@ -94,150 +93,9 @@
 	        	//화면 위로 올리기 
 	        	window.scrollTo(0,0);
         	}
-        	
-        	let signInArea = $('#signInArea');
-        	let SingUpArea = $('#signUpArea');
-        	
-        	// 로그인 버튼 클릭시 로그인 화면 보여주기. 
-        	$('#signInBtn').on('click', function(){
-        		toggleHidden(signInArea);
-        		SingUpArea.prop('hidden', true);
-        	})
-        	
-        	// 회원가입 클릭시 가입 화면 보여주기. 
-        	$('#signUpBtn').on('click', function(){
-        		toggleHidden(SingUpArea);
-        		signInArea.prop('hidden', true);
-        	})
-        	
-        	// 영역 바깥 클릭 이벤트
-        	$('body').click(function(e) {
-        		// 영역 바깥쪽이고 가입이나 로그인 버튼이 아닐 경우 폼을 숨긴다.
-        		if($(e.target).parents('.formArea').length < 1
-        				&& ! $(e.target).hasClass('formArea')
-        				&& ! $(e.target).hasClass('btnImg') ){
-        			signInArea.prop('hidden', true);
-        			SingUpArea.prop('hidden', true);
-        			
-        			// 아이디 비번 입력했던것도 지워준다
-        			$('#username').val('');
-        			$('#password').val('');
-        			
-        		} 
-        	});
-
-        	
-        	
-	        // 한글 입력 방지
-	    	var idInput = document.querySelector('#username');
-			var pwInput = document.querySelector('#password');
-			var signUpId = document.querySelector('#signUpId');
-			var signUpPass1 = document.querySelector('#signUpPass1');
-			var signUpPass2 = document.querySelector('#signUpPass2');
-			
-			var korean = function() {
-			  var pattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-			  this.value = this.value.replace(pattern, '');
-			};
-			
-			idInput.addEventListener('keyup', korean);
-			pwInput.addEventListener('keyup', korean);
-			signUpId.addEventListener('keyup', korean);
-			signUpPass1.addEventListener('keyup', korean);
-			signUpPass2.addEventListener('keyup', korean);
-			
-			passCheck = function(){
-				
-				var pass1 = $('#signUpPass1').val();
-				var pass2 = $('#signUpPass2').val();
-				let passChecker = $('#passChecker');
-				
-				// pass 1이나 2가 없을 경우 자물쇠 아이콘으로 다시 만들고 함수 종료
-				if(!pass1 || !pass2){
-					passChecker.removeClass();
-					passChecker.addClass('icon icon-lock');
-					return;
-				}
-				
-				if(pass1 == pass2){
-					passChecker.removeClass();
-					passChecker.addClass('icon icon-check');
-				}else{
-					passChecker.removeClass();
-					passChecker.addClass('icon icon-close');
-				}
-			}
-        	
-			// 비밀번호 재 입력 확인
-			$('#signUpPass1').on('input', function(){
-				passCheck();
-			})
-			$('#signUpPass2').on('input', function(){
-				passCheck();
-			})
-			
-			
-			// 관리용 히든 로그인 이벤트
-			signInButton = $('#signInArea').find('button');
-			 $('#hiddenKkobuk').on('click', function(){
-				 idInput.value = 'kkobuk';
-				 pwInput.value = 'java';
-				 signInButton.click();
-			 })
-			 $('#hiddenEisen').on('click', function(){
-				 idInput.value = 'eisen';
-				 pwInput.value = 'java';
-				 signInButton.click();
-			 })
-			 $('#hiddenJosh').on('click', function(){
-				 idInput.value = 'josh';
-				 pwInput.value = 'java';
-				 signInButton.click();
-			 })
-			 $('#hiddenAdmin').on('click', function(){
-				 window.location.href="${cPath}/admin"
-			 })
-			 
-			 // 중복 아이디 검사
-			 $('#signUpId').on('input', function(){
-				 
-				let inputText = $(this).val().trim();
-                let usernameicon = $('#hiddenJosh');
-                usernameicon.removeClass();
-				
-				if(!inputText || inputText.length < 4){
-	                usernameicon.addClass('icon icon-user');
-					return;
-				}
-				 
-		        $.ajax({
-		            "url": "${cPath}/signup/idCheck",
-		            "method": "post",
-		            "data": { "mem_id": inputText },
-		            "dataType": "json",
-		            "success": function (result) {
-		            	
-	                  
-		              if (result.result == "OK") {
-		                // 만들 수 있는 아이디
-		                usernameicon.addClass('icon icon-check');
-		              } else {
-		            	 // 중복된 아이디
-		                usernameicon.addClass('icon icon-close');
-		              }
-		              
-		            },
-		            "error": function (xhr) {
-		              console.log(xhr.status);
-		            }, async : false
-		        })
-				 
-			 })
-			
 			
         })
         
-		
 </script>
 <!-- index script end -->
 </head>
@@ -290,7 +148,7 @@
 	</div>
 	
 	<div id="signUpArea" hidden="true">
-		<form method="post" action="${cPath}/signup/register">
+		<form id="signupForm" method="post" action="${cPath}/signup/register">
 			<div>
 				<i id="hiddenJosh" class="icon icon-user"></i>
 				<input id="signUpId" type="text" name="mem_id" placeholder="Username">
@@ -307,7 +165,7 @@
 				<i id="passChecker" class="icon icon-lock"></i>
 				<input id="signUpPass2" type="password" name="re_pass" placeholder="Re-Enter Password">
 			</div>
-			<button>JOIN GAIA</button>
+			<button id="joinBtn">JOIN GAIA</button>
 		</form>
 	</div>
 	
@@ -317,7 +175,7 @@
 
 <script src="${cPath}/resources/index/jquery.imagesloaded.min.js"></script>
 <script src="${cPath}/resources/index/main.js"></script>
-<!-- endbuild -->
-
+<script src="${cPath }/resources/js/index.js"></script>
+<script src="${cPath }/resources/js/external/sweetalert2@11.js"></script>
 
 </body></html>
