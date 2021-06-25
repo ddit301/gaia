@@ -10,7 +10,7 @@
 	<div class="card-body">
 		<div class="card">
 			<div class="media align-items-center mb-4">
-	            <img class="mr-3 rounded-circle profile_img" height="80" width="80" src="${mem_pic_file_name}">
+	            <img class="mr-3 rounded-circle profile_img" height="80" width="80" src="${mem_pic_file_name}"  onerror="imgOnErr()">
 	            <div class="media-body">
 	                <h3 class="m-b-3">${mem_id }</h3>
 	                <p class="text-muted mb-0"></p>
