@@ -150,8 +150,11 @@ public class ProjectMemberRest {
 		// 회원을 복귀 시킬때는 해당 회원에게 알람을 보냅니다.
 		if(result == 1) {
 			ProjectVO project = dao.selectProject(proj_no);
-			project.setMem_no(projMem.getMem_no());
-			return alarmService.insertInviteAlarm(project);
+			Map<String, Object> inviteInfo = new HashMap<>();
+			inviteInfo.put("proj_title", project.getProj_title());
+			inviteInfo.put("ownerNo", project.getMem_no());
+			inviteInfo.put("receiverNo", projMem.getMem_no());
+			return alarmService.insertInviteAlarm(inviteInfo);
 		}
 		
 		return result==1? ServiceResult.OK : ServiceResult.FAIL;

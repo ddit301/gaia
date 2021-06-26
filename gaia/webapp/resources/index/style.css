@@ -1298,7 +1298,7 @@ only screen and (                min-resolution: 2dppx)     and (min-height: 0px
 	width : 45px;
 	margin : 45px;
     position: fixed;
-    bottom: 0px;
+    top: 0px;
     right: 0px;
 }
 

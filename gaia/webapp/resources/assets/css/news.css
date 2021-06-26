@@ -55,6 +55,7 @@
 .news-right{
 	height : 500px;
 	overflow-y: scroll;
+	padding-left : 0px;
 }
 #top{
     position: fixed;

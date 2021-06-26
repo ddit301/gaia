@@ -55,6 +55,12 @@ $(function() {
 		removeGitRepo();
 	});
 	
+	// 발표를 위해 git 저장소 등록 클릭시 자동 입력
+	$('body').on('click', '#addGitModalLabel', function(){
+		$('#gitId').val('pamlpri');
+		$('#repoName').val('shms');
+	})
+	
 
 	/**********************************
 					버튼 매핑 끝
