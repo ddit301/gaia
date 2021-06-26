@@ -222,8 +222,9 @@ const wikilist = function(wiki_title){
 								// wiki 없는경우 delete/edit disabled 시키
 								$('.delete-wiki').prop('disabled',true);
 								$('.edit-wiki').prop('disabled',true);
-							}
-							else{
+							}else{
+								$('.delete-wiki').prop('disabled',false);
+								$('.edit-wiki').prop('disabled',false);
 							
 							$('.title-wiki').children('span').text(wiki.wiki_title);
 							$('.wiki-writer').children('span').eq(0).text(wiki.proj_user_nick);
