@@ -10,10 +10,10 @@
     
 <div class="helparea">
 	<div>
-		<a class="lightbox" data-toggle="lightbox" href="/resources/images/news/103/2e3899f2-3c21-489c-81b8-3dadd3d03d5e_IMG_3897.png">
+		<a class="lightbox" data-toggle="lightbox" href="${cPath }/resources/images/news/103/2e3899f2-3c21-489c-81b8-3dadd3d03d5e_IMG_3897.png">
 			<i class="icon-question"></i>
 		</a>
-		<a class="lightbox lasthelp" data-toggle="lightbox" href="/resources/images/news/103/cdc345ce-d6ec-47b9-b21f-22d7962c7521_IMG_242234.png">
+		<a class="lightbox lasthelp" data-toggle="lightbox" href="${cPath }/resources/images/news/103/cdc345ce-d6ec-47b9-b21f-22d7962c7521_IMG_242234.png">
 			<i class="icon-question"></i>
 		</a>
 	</div>
