@@ -38,11 +38,13 @@
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<div class="dropdown">
 				  <div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
-				    <a class="dropdown-item" href="#"><i class="icon-fire"></i>Issue</a>
-				    <a class="dropdown-item" href="#"><i class="icon-direction"></i>Milestone</a>
-				    <a class="dropdown-item" href="#"><i class="mdi file-document-outline"></i>Project</a>
-				    <a class="dropdown-item" href="#"><i class="icon-book-open"></i>News</a>
-				    <a class="dropdown-item" href="#"><i class="icon-user"></i> Member</a>
+				    <a class="dropdown-item" href="#"><i class="icon-fire pr-2"></i>Issue</a>
+				    <a class="dropdown-item" href="#"><i class="icon-direction pr-2"></i>Milestone</a>
+				    <a class="dropdown-item" href="#"><i class="icon-doc pr-2"></i>Project</a>
+				    <a class="dropdown-item" href="#"><i class="icon-cursor-move pr-2"></i>kanban</a>
+				    <a class="dropdown-item" href="#"><i class="icon-graduation pr-2"></i>Wiki</a>
+				    <a class="dropdown-item" href="#"><i class="icon-book-open pr-2"></i>News</a>
+				    <a class="dropdown-item" href="#"><i class="icon-user pr-2"></i> Member</a>
 				  </div>
 				</div>
 				

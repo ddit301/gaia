@@ -99,21 +99,29 @@ const elasticTotalSearch = function(keyword){
 			let copyList = [...res.hits.hits];
 			console.log(copyList)			
 			
+			// 검색 결과가 존재하지 않을 경우 검색결과가 없습니다 출력하기.
 			if(res.hits.hits.length == 0){
 				searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("a").clone()
 				searchResult.html('<i class="mdi mdi-alert-circle-outline"></i>검색 결과가 없습니다.')
 				$(".dropdown .dropdown-menu.total-search-dropdown").prepend(searchResult);
 			}
-			// issue를 거르기.
+			
+			// issue_history 거르기.
+			console.log(res.hits.hits.length)
+			searchResultLoopDelete(res, "issue_his_no",copyList);
+			
+			// issue > milestone > news > proj > mem 순서로 걸러야 함.
 			console.log(res.hits.hits.length)
 			if(res.hits.hits.length != 0){
 				searchResultLoop(res, "issue_sid",copyList);
 				console.log(res.hits.hits.length)
 				searchResultLoop(res, "milest_sid",copyList);
 				console.log(res.hits.hits.length)
-				searchResultLoop(res, "proj_no",copyList);
-				console.log(res.hits.hits.length)
 				searchResultLoop(res, "news_sid",copyList);
+				console.log(res.hits.hits.length)
+				searchResultLoop(res, "wiki_sid",copyList);
+				console.log(res.hits.hits.length)
+				searchResultLoop(res, "proj_no",copyList);
 				console.log(res.hits.hits.length)
 				searchResultLoop(res, "mem_no",copyList);
 				console.log(res.hits.hits.length)
@@ -136,22 +144,43 @@ const searchResultLoop = function(res, key, copyList){
 		if(key in hit["_source"]){
 			searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("a").clone()
 			if(key == "issue_sid"){
-				searchResult.html('<i class="icon-fire"></i>'+hit._source.issue_his_cont)
+				searchResult.html('<i class="icon-fire pr-2"></i>'+hit._source.issue_title)
 			}else if(key == "milest_sid"){
-				searchResult.html('<i class="icon-direction"></i>'+hit._source.milest_title)
-			}else if(key == "proj_no"){
-				searchResult.html('<i class="mdi file-document-outlinee"></i>'+hit._source.proj_title)
+				searchResult.html('<i class="icon-direction pr-2"></i>'+hit._source.milest_title)
 			}else if(key == "news_sid"){
-				searchResult.html('<i class="icon-book-open"></i>'+hit._source.news_title)
+				searchResult.html('<i class="icon-book-open pr-2"></i>'+hit._source.news_title)
+			}else if(key == "wiki_sid"){
+				searchResult.html('<i class="icon-graduation pr-2"></i>'+hit._source.wiki_title)
+			}else if(key == "proj_no"){
+				searchResult.html('<i class="icon-doc pr-2"></i>'+hit._source.proj_title)
+			}else if(key == "kb_card_no"){
+				searchResult.html('<i class="icon-cursor-move pr-2"></i>'+hit._source.kb_card_cont)
 			}else if(key == "mem_no"){
-				searchResult.html('<i class="icon-user"></i>'+hit._source.mem_no)
+				searchResult.html('<i class="icon-user pr-2"></i>'+hit._source.mem_no)
 			}
 			var index = copyList.indexOf(hit);
 			if (index !== -1) {
-				console.log(copyList.splice(index-cnt, 1));
+				console.log(copyList.splice(index, 1));
 				cnt++;
 			}
 			$(".dropdown .dropdown-menu.total-search-dropdown").prepend(searchResult);
+		}
+		res.hits.hits = [...copyList]
+	})
+}
+
+const searchResultLoopDelete = function(res, key, copyList){
+	console.log(res.hits.hits)
+	console.log(copyList)
+	console.log(key)
+	$.each(res.hits.hits, function(i, hit){
+		console.log(i)
+		console.log(key in hit["_source"])
+		if(key in hit["_source"]){
+			var index = copyList.indexOf(hit);
+			if (index !== -1) {
+				console.log(copyList.splice(index, 1));
+			}
 		}
 		res.hits.hits = [...copyList]
 	})
