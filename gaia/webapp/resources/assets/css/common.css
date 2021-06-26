@@ -285,9 +285,14 @@ span#currentLanguage {
 
 .total-search-dropdown{
 	transform: translate3d(-240px, 38px, 0px) !important;
-	min-width: 15rem !important;
+	width: 15rem !important;
 	max-height: 400px;
     overflow-y: scroll;
+    text-overflow: ellipsis;
+}
+.total-search-dropdown-text{
+    overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 .header-left-custom{

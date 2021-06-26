@@ -38,6 +38,9 @@
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<div class="dropdown">
 				  <div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
+					  <div class="">
+					  	<a class="dropdown-item" href="#"><i class="icon-fire pr-2"></i>Issue</a>
+					  </div>
 				    <a class="dropdown-item" href="#"><i class="icon-fire pr-2"></i>Issue</a>
 				    <a class="dropdown-item" href="#"><i class="icon-direction pr-2"></i>Milestone</a>
 				    <a class="dropdown-item" href="#"><i class="icon-doc pr-2"></i>Project</a>
@@ -137,6 +140,8 @@
 <!-- 	알람 템플릿 끝 -->
 <!--	통합 검색 템플릿 -->
 	<div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
-	    <a class="dropdown-item" href="#">TestText</a>
+		<div class="total-search-dropdown-text pr-2">
+		    <a class="dropdown-item total-search-dropdown-text" href="#">TestText</a>
+		</div>
 	</div>
 </div>

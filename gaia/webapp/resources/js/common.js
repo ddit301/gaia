@@ -85,6 +85,7 @@ $(function(){
 
 const elasticTotalSearch = function(keyword){
 	keyword = encodeURI(keyword)
+	keyword += "*";
 	$.ajax({
 		url : getContextPath() + "/restapi/project/projects/",
 		method : 'get',
@@ -92,6 +93,7 @@ const elasticTotalSearch = function(keyword){
 				"keyword" : keyword},
 		success : function(res) {
 			console.log(res)
+			
 			// 시작하기 전에 비워주기.
 			$(".dropdown .dropdown-menu.total-search-dropdown").empty();
 			
@@ -101,8 +103,8 @@ const elasticTotalSearch = function(keyword){
 			
 			// 검색 결과가 존재하지 않을 경우 검색결과가 없습니다 출력하기.
 			if(res.hits.hits.length == 0){
-				searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("a").clone()
-				searchResult.html('<i class="mdi mdi-alert-circle-outline"></i>검색 결과가 없습니다.')
+				searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("div").clone()
+				searchResult.children("a").html('<i class="mdi mdi-alert-circle-outline pr-2"></i>검색 결과가 없습니다.')
 				$(".dropdown .dropdown-menu.total-search-dropdown").prepend(searchResult);
 			}
 			
@@ -113,6 +115,9 @@ const elasticTotalSearch = function(keyword){
 			// issue > milestone > news > proj > mem 순서로 걸러야 함.
 			console.log(res.hits.hits.length)
 			if(res.hits.hits.length != 0){
+				
+				searchResultLoop(res, "kb_card_no",copyList);
+				console.log(res.hits.hits.length)
 				searchResultLoop(res, "issue_sid",copyList);
 				console.log(res.hits.hits.length)
 				searchResultLoop(res, "milest_sid",copyList);
@@ -125,6 +130,14 @@ const elasticTotalSearch = function(keyword){
 				console.log(res.hits.hits.length)
 				searchResultLoop(res, "mem_no",copyList);
 				console.log(res.hits.hits.length)
+			}
+			// 검색 후 처리 결과가 0일 경우
+			dropdown_a =$(".dropdown .dropdown-menu.total-search-dropdown").children('a')
+			if(res.hits.hits.length == 0 && CheckNullUndefined(dropdown_a) ){
+				$(".dropdown .dropdown-menu.total-search-dropdown").empty();
+				searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("div").clone()
+				searchResult.children("a").html('<i class="mdi mdi-alert-circle-outline pr-2"></i>검색 결과가 없습니다.')
+				$(".dropdown .dropdown-menu.total-search-dropdown").prepend(searchResult);
 			}
 		},
 		async : false
@@ -142,21 +155,21 @@ const searchResultLoop = function(res, key, copyList){
 	$.each(res.hits.hits, function(i, hit){
 		console.log(i)
 		if(key in hit["_source"]){
-			searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("a").clone()
-			if(key == "issue_sid"){
-				searchResult.html('<i class="icon-fire pr-2"></i>'+hit._source.issue_title)
+			searchResult = $("#headerTemplate .dropdown-menu.total-search-dropdown").children("div").clone()
+			if(key == "kb_card_no"){
+				searchResult.children("a").html('<i class="icon-cursor-move pr-2"></i>'+hit._source.kb_card_cont)
+			}else if(key == "issue_sid"){
+				searchResult.children("a").html('<i class="icon-fire pr-2"></i>'+hit._source.issue_title)
 			}else if(key == "milest_sid"){
-				searchResult.html('<i class="icon-direction pr-2"></i>'+hit._source.milest_title)
+				searchResult.children("a").html('<i class="icon-direction pr-2"></i>'+hit._source.milest_title)
 			}else if(key == "news_sid"){
-				searchResult.html('<i class="icon-book-open pr-2"></i>'+hit._source.news_title)
+				searchResult.children("a").html('<i class="icon-book-open pr-2"></i>'+hit._source.news_title)
 			}else if(key == "wiki_sid"){
-				searchResult.html('<i class="icon-graduation pr-2"></i>'+hit._source.wiki_title)
+				searchResult.children("a").html('<i class="icon-graduation pr-2"></i>'+hit._source.wiki_title)
 			}else if(key == "proj_no"){
-				searchResult.html('<i class="icon-doc pr-2"></i>'+hit._source.proj_title)
-			}else if(key == "kb_card_no"){
-				searchResult.html('<i class="icon-cursor-move pr-2"></i>'+hit._source.kb_card_cont)
+				searchResult.children("a").html('<i class="icon-doc pr-2"></i>'+hit._source.proj_title)
 			}else if(key == "mem_no"){
-				searchResult.html('<i class="icon-user pr-2"></i>'+hit._source.mem_no)
+				searchResult.children("a").html('<i class="icon-user pr-2"></i>'+hit._source.mem_id)
 			}
 			var index = copyList.indexOf(hit);
 			if (index !== -1) {
