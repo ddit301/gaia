@@ -4,6 +4,14 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+
+$(function(){
+	$('body').on('click', '.searchedMem', function(){
+		let mem_no = $(this).data('mem_no');
+		loadPersonalPage(mem_no);
+	})
+})
+
 // toastr 알람 설정
 toastr.options = {
 		  "closeButton": false,
@@ -186,7 +194,7 @@ const searchResultLoop = function(res, key, copyList){
 				
 				city = CheckNullUndefined(hit._source.mem_working_city) ? "" : hit._source.mem_working_city;
 						
-				searchResult.children("a").removeClass("pl-5").addClass("pl-4").html(profileImg + hit._source.mem_nick+bar+city)
+				searchResult.children("a").removeClass("pl-5").addClass("pl-4").addClass('searchedMem').attr('data-mem_no',hit._source.mem_no).html(profileImg + hit._source.mem_nick+bar+city)
 			}
 			var index = copyList.indexOf(hit);
 			if (index !== -1) {
