@@ -163,7 +163,7 @@ a,
 .module,
 .module-small {
   position: relative;
-  padding: 140px 0;
+  padding: 40px 0;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
@@ -3032,3 +3032,23 @@ Google map
     width: 100%;
   }
 }
+#hiddenBtt{
+	font-size : 2em;
+	color : #666;
+}
+#hiddenBtt:hover{
+	cursor: pointer;
+}
+.module img{
+	display : block;
+	margin : auto;
+	width : 700px;
+}
+#hiddenAA{
+	text-align : center;
+}
+	
+	
+	
+	
+	
