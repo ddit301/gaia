@@ -38,16 +38,43 @@
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<div class="dropdown">
 				  <div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
-					  <div class="">
-					  	<a class="dropdown-item" href="#"><i class="icon-fire pr-2"></i>Issue</a>
+					  <div class="total-search-dropdown-text pr-2">
+					  	<h6 class="dropdown-header"><i class="icon-fire pr-2"></i>Issue</h6>
+					  	<a class="dropdown-item total-search-dropdown-text pl-5">Issue</a>
 					  </div>
-				    <a class="dropdown-item" href="#"><i class="icon-fire pr-2"></i>Issue</a>
-				    <a class="dropdown-item" href="#"><i class="icon-direction pr-2"></i>Milestone</a>
-				    <a class="dropdown-item" href="#"><i class="icon-doc pr-2"></i>Project</a>
-				    <a class="dropdown-item" href="#"><i class="icon-cursor-move pr-2"></i>kanban</a>
-				    <a class="dropdown-item" href="#"><i class="icon-graduation pr-2"></i>Wiki</a>
-				    <a class="dropdown-item" href="#"><i class="icon-book-open pr-2"></i>News</a>
-				    <a class="dropdown-item" href="#"><i class="icon-user pr-2"></i> Member</a>
+					  <div class = "dropdown-divider"></div>
+					  <div class="total-search-dropdown-text pr-2">
+					  	<h6 class="dropdown-header"><i class="icon-fire pr-2"></i>Milestone</h6>
+					  	<a class="dropdown-item total-search-dropdown-text pl-5" >Milestone</a>
+					  </div>
+					   <div class = "dropdown-divider"></div>
+					  <div class="total-search-dropdown-text pr-2">
+					  	<h6 class="dropdown-header"><i class="icon-doc pr-2"></i>Project</h6>
+				  		<a class="dropdown-item total-search-dropdown-text pl-5" >Project</a> 
+					  </div>
+					   <div class = "dropdown-divider"></div>
+					  <div class="total-search-dropdown-text pr-2">
+					  	<h6 class="dropdown-header"><i class="icon-cursor-move pr-2"></i>kanban</h6>
+					  	<a class="dropdown-item total-search-dropdown-text pl-5" >kanban</a> 
+					  </div>
+					   <div class = "dropdown-divider"></div>
+					  <div class="total-search-dropdown-text pr-2">
+					  	<h6 class="dropdown-header"><i class="icon-graduation pr-2"></i>Wiki</h6>
+					  <a class="dropdown-item total-search-dropdown-text pl-5" >Wiki</a>
+					  </div>
+					   <div class = "dropdown-divider"></div>
+					  <div class="total-search-dropdown-text pr-2">
+					  	<h6 class="dropdown-header"><i class="icon-book-open pr-2"></i>News</h6>
+					  	<a class="dropdown-item total-search-dropdown-text pl-5">News</a>
+					  </div>
+			    	 <div class = "dropdown-divider"></div>
+				    <div class="total-search-dropdown-text pr-2">
+			  			<h6 class="dropdown-header"><i class="icon-fire pr-2"></i>Member</h6> 
+					  	<a class="dropdown-item total-search-dropdown-text pl-5" > 
+					  		<img class="profile_img" onerror="imgOnErr()" height="40" width="40"alt="">
+					  		<span> 1</span><span class="vertical-separator"></span>TestTextMember
+					  	</a>
+					  </div>
 				  </div>
 				</div>
 				
@@ -141,7 +168,8 @@
 <!--	통합 검색 템플릿 -->
 	<div class="dropdown-menu total-search-dropdown" aria-labelledby="dropdownMenuSearchInput">
 		<div class="total-search-dropdown-text pr-2">
-		    <a class="dropdown-item total-search-dropdown-text" href="#">TestText</a>
+		    <a class="dropdown-item total-search-dropdown-text pl-5"><span> 1</span><span class="left-border"> 2</span>TestText</a>
 		</div>
 	</div>
+	
 </div>

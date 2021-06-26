@@ -82,7 +82,7 @@ public class ProjectREST {
 		String keyword = (String) map.get("keyword");
 		
 		
-		String url = String.format("http://%s:%d/gaia/_search?q=%s",elUtil.getHostname(),elUtil.getPort(),keyword);
+		String url = String.format("http://%s:%d/gaia/_search?scroll=10m&size=20&q=%s",elUtil.getHostname(),elUtil.getPort(),keyword);
 		String text = getRequestApiGet(url);
 		logger.info("{}", keyword);
 		
