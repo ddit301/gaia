@@ -4,13 +4,11 @@
 	<section class="module">
 		<div class="container">
 			<div class="row monitoring-div">
-
 			</div>
 			
 		</div>
 	</section>
 </div>
-        
 
 
 <!-- Modal -->

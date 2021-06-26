@@ -131,7 +131,7 @@
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
-      <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+      <nav class="navbar navbar-custom navbar-fixed-top" role="navigation"  hidden="true">
         <div class="container">
           <div class="navbar-header">
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span
@@ -164,10 +164,11 @@
     <main id="mainBody">
 
       <!-- 	default included page -->
-      <jsp:include page="member.jsp"></jsp:include>
+      <jsp:include page="monitoring.jsp"></jsp:include>
 
     </main>
-
   </body>
+  
+  
 
   </html>
