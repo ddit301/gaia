@@ -44,10 +44,10 @@
 				<div id="milestoneview-template">
 					<div class="milestoneviewBox card">	
 						<div class = "row">
-							<div class ="milest-status col-md-1">
+							<div class ="milest-status col-md-2">
 								<span class="label label-success">Open</span>
 							</div>
-							<div class="milestoneview-title col-md-5">
+							<div class="milestoneview-title col-md-4">
 								<span></span>
 				            </div>  
 				                                                                                  
