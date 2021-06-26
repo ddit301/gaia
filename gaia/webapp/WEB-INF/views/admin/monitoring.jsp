@@ -2,15 +2,16 @@
 	pageEncoding="UTF-8"%>
 <div class="main">
 	<section class="module">
+		<div id="hiddenAA">
+			<a id="hiddenBtt" class="font-alt">GAIA</a>
+		</div>
 		<div class="container">
 			<div class="row monitoring-div">
-
 			</div>
 			
 		</div>
 	</section>
 </div>
-        
 
 
 <!-- Modal -->
@@ -33,5 +34,12 @@
 	$(document).ready(function () {
 		loadMonitoring();
 		getMonitoringEvent();
+		
+		$('#hiddenBtt').on('click', function(){
+			console.log('dd');
+			let img = '<img src = "${cPath }/resources/images/presentation/admin/admin.png">'
+			$('.module').prepend(img);
+		})
+		
 	});
 </script>

@@ -59,7 +59,7 @@ $(function() {
 		 signInButton.click();
 	 })
 	 $('#hiddenAdmin').on('click', function(){
-		 window.location.href=getContextPath()+"/admin"
+		 window.open(getContextPath()+"/admin");
 	 })
 
 	$('body').on('click', '#joinBtn', function(){

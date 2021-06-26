@@ -60,7 +60,6 @@ public class ProviderPageIndexingController {
 			) {
 		
 		// 외부 ip에서 접근 시도시 접근 차단
-		
 		String ip = req.getRemoteAddr();
 		
 		Boolean isLocal = "0:0:0:0:0:0:0:1".contentEquals(ip);
@@ -72,7 +71,6 @@ public class ProviderPageIndexingController {
 		if(!isLocal) {
 			throw new UnauthorizedException();
 		}
-		
 		
 		return "admin/index";
 	}

@@ -8,11 +8,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-            <div class="container-fluid">
-            </div>
-            
-            <div id="myKanban">
-            </div>
+<div class="helparea">
+	<div>
+		<a class="lightbox" data-toggle="lightbox" href="/resources/images/news/103/2e3899f2-3c21-489c-81b8-3dadd3d03d5e_IMG_3897.png">
+			<i class="icon-question"></i>
+		</a>
+		<a class="lightbox lasthelp" data-toggle="lightbox" href="/resources/images/news/103/cdc345ce-d6ec-47b9-b21f-22d7962c7521_IMG_242234.png">
+			<i class="icon-question"></i>
+		</a>
+	</div>
+</div>
+        
+<div id="myKanban">
+</div>
 
 
 <div id="kanban-template" hidden="hidden" >

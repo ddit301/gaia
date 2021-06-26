@@ -27,3 +27,15 @@
 .kanban-drag{
 	height : 100%;
 }
+.helparea{
+	display : inline-block;
+	width : 100%;
+}
+.helparea div{
+	float:right;
+	font-size : 2em;
+	margin-right : 20px;
+}
+.helparea a{
+	color: ghostwhite;
+}
