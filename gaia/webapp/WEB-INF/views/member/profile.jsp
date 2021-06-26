@@ -58,7 +58,7 @@
 				            		<input type="hidden" value="put" name="_method">
 				            		<div class="img-grid-right">
 					            		<label class="d-block"> Profile picture</label>
-					            		<img id="prof-change" class="mb-3 rounded-circle profile_img" style="width: 100%; object-fit: contain;" onerror="imgOnErr()" >
+					            		<img id="prof-change" class="mb-3 rounded-circle profile_img" style="width: 100%;" onerror="imgOnErr()" >
 					            		<button type="button" class="btn mb-1 btn-outline-info edit-profile">Edit</button>
 					            		<input class="form-control btn mb-1 btn-outline-info" id="upload_image" type="file" name="files" accept="image/*" hidden="hidden" />
 				            		</div>
