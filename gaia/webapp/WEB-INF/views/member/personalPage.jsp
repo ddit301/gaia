@@ -30,13 +30,13 @@
                     </ul>
                     	<h4> personal history</h4>	
                     <ul class="card-profile__info">
-                        <li class="mb-1"><strong class="text-dark mr-4"><i class="icon-notebook icons"></i></strong> <span>이슈담당</span></li>
-                        <li><strong class="text-dark mr-4"><i class="icon-bubbles icons"></i></strong> <span>참여 채팅수</span></li>
-                        <li><strong class="text-dark mr-4"><i class="icon-note icons"></i></strong> <span>작성이슈수</span></li>
-                        <li><strong class="text-dark mr-4"><i class="icon-pencil icons"></i></strong> <span>작성뉴스수</span></li>
-                        <li><strong class="text-dark mr-4"><i class="icon-bulb icons"></i></strong> <span>작성마일스톤수</span></li>
-                        <li><strong class="text-dark mr-4"><i class="icon-plus icons"></i></strong> <span>가입일</span></li>
-                        <li><strong class="text-dark mr-4"><i class="icon-flag icons"></i></strong> <span>상태</span></li>
+                        <li class="mb-1"><strong class="text-dark"><i class="icon-notebook icons"></i></strong> <span>이슈담당</span></li>
+                        <li><strong class="text-dark"><i class="icon-bubbles icons"></i></strong> <span>참여 채팅수</span></li>
+                        <li><strong class="text-dark"><i class="icon-note icons"></i></strong> <span>작성이슈수</span></li>
+                        <li><strong class="text-dark"><i class="icon-pencil icons"></i></strong> <span>작성뉴스수</span></li>
+                        <li><strong class="text-dark"><i class="icon-bulb icons"></i></strong> <span>작성마일스톤수</span></li>
+                        <li><strong class="text-dark"><i class="icon-plus icons"></i></strong> <span>가입일</span></li>
+                        <li><strong class="text-dark"><i class="icon-flag icons"></i></strong> <span>상태</span></li>
                     </ul>
                 </div>
              
