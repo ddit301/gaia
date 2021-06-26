@@ -284,19 +284,47 @@ span#currentLanguage {
 }
 
 .total-search-dropdown{
-	transform: translate3d(-240px, 38px, 0px) !important;
-	min-width: 15rem !important;
+	transform: translate3d(-305px, 38px, 0px) !important;
+	width: 19rem !important;
 	max-height: 400px;
     overflow-y: scroll;
     text-overflow: ellipsis;
 }
+.total-search-dropdown-text{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .header-left-custom{
-    width: 25%;
+    width: 35%;
+}
+.dropdown-header{
+	color : #b73e3eb3 !important;
+    background-color: #f3f7f9;
+    font-size: 1rem;
 }
 
+.pl-25{
+	padding-left: 2.5rem !important;
+}
 
-
-
+.dropdown-item:hover{
+    color: #16181b;
+    text-decoration: none;
+    background-color: #f9e2f24f;
+    font-size:1.1rem;
+    border: 0px;
+    border-radius: 0.325rem;
+    box-shadow: 15px 7px 15px -10px #a99de7;
+}
+.dropdown-item{
+	color: #212529 !important;
+    margin: 0.5rem 0;
+}
+.searchProfile{
+	width: 45px !important;
+    height: 45px !important;
+}
 
 
 
