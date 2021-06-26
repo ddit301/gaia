@@ -132,9 +132,6 @@ const elasticTotalSearch = function(keyword){
 	})
 }
 const searchResultLoop = function(res, key, copyList){
-	console.log(res.hits.hits)
-	console.log(copyList)
-	console.log(key)
 	existH6 = false;
 	cnt = 0;
 	$.each(res.hits.hits, function(i, hit){
@@ -189,7 +186,7 @@ const searchResultLoop = function(res, key, copyList){
 				
 				city = CheckNullUndefined(hit._source.mem_working_city) ? "" : hit._source.mem_working_city;
 						
-				searchResult.children("a").removeClass("pl-5").addClass("pl-4").html(profileImg + hit._source.mem_id+bar+city)
+				searchResult.children("a").removeClass("pl-5").addClass("pl-4").html(profileImg + hit._source.mem_nick+bar+city)
 			}
 			var index = copyList.indexOf(hit);
 			if (index !== -1) {
