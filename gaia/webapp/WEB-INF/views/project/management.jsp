@@ -336,7 +336,11 @@
 		<!--      멤버 역할 및 권한 관리 -->
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">멤버 역할 및 권한 관리</h4>
+				<h4 class="card-title">멤버 역할 및 권한 관리
+					<a class="lightbox" data-toggle="lightbox" href="/resources/images/presentation/binary.png">
+					<i class="icon-question"></i>
+				</a>
+				</h4>
 				<p class="text-muted">역할 별로 다른 권한을 부여할 수 있습니다.</p>
 				<div id="rolehead">
 					<div class="row">

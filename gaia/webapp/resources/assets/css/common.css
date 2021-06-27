@@ -308,7 +308,7 @@ span#currentLanguage {
 	padding-left: 2.5rem !important;
 }
 
-.dropdown-item:hover{
+.total-search-dropdown .dropdown-item:hover{
     color: #16181b;
     text-decoration: none;
     background-color: #f9e2f24f;
