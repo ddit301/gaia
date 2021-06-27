@@ -40,6 +40,7 @@
 				<input type="text" placeholder="Title"/>
 			</div>
 			<div id="editor"></div>
+			<button id="autoIssue" class="btn btn-success" style="opacity:0.1;">자동 등록</button>
 			<button id="saveIssue" class="btn btn-success" disabled>이슈 등록</button>
 		</div>
 		<div class="menulist col-md-3">
@@ -188,6 +189,15 @@ editor = new toastui.Editor({
 		})
 		$('.issueTitle').children('input').on('input', function(){
 			checkValidationToInsertIssue();
+		})
+		
+		
+		//발표용 자동 등록 기능
+		$('#autoIssue').on('click', function(){
+			let issauto = '# 이번주 직원별 평가  나왔습니다.\n|| 평점 | 평가|  \n|:--- | ---: | :---: |  \n| 철수| 90| 참잘했어요. |  \n| 영희| 50| 분발하세요. | \n\n## 코드 블럭\n```java\nSystem.out.println("Hello world");\n```\n> 위의 코드 입력시 Hello World를 출력합니다!';
+			$('.issueTitle').find('input').val('이번주 직원 평가 결과');
+			editor.setMarkdown(issauto);
+			$('#saveIssue').prop('disabled', false);
 		})
 		
 	})
