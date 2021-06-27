@@ -26,7 +26,7 @@
 <!-- 뉴스 작성 Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" id="newswrite-temp">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">뉴스 추가</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -183,6 +183,15 @@
 		editor.on('change', function(){
 			checkNewsValidation();
 		});
+		
+		
+		// 발표용 기능 - 뉴스추가 버튼 누르면 내용물 채우기
+		$('#newswrite-temp').on('click', function(){
+			let tempcont = '# 새소식 입니다\n## 대덕 인재 개발원 풀 스택 6기 인원들이 최종 발표를 한다고 합니다.\n> 다들 잘 했으면 좋겠어요 ! 화이팅 !';
+			editor.setMarkdown(tempcont);
+			$('#news-title-input').val('오늘자 인재개발원 새 소식입니다.');
+			$('#saveNewsBtn').prop('disabled', false);
+		})
 
 	})
 				
