@@ -291,7 +291,7 @@ const newWiki = function() {
 		$('.modal-backdrop').removeClass('show').css("display","none");
 			// toastr 알람
 			toastr.success('새로운 위키 등록에 성공했습니다.')
-			movePageHistory("wiki");
+//			movePageHistory("wiki");
 			
 			// 에디터 비우기
 			$('#wiki-title-input').val('');
@@ -330,7 +330,7 @@ const editWiki = function(){
 		$('.modal-backdrop').removeClass('show').css("display","none");
 			// toastr 알람
 			toastr.success('위키 수정에 성공했습니다.')
-			movePageHistory("wiki");
+//			movePageHistory("wiki");
 			
 			// 에디터 비우기
 			$('#wiki-title-input').val('');
