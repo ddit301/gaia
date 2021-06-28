@@ -1,8 +1,5 @@
-# GAIA
+![img](https://raw.githubusercontent.com/ddit301/gaia/master/gaia/webapp/resources/assets/images/logo-compact.png)
 > by team seed &nbsp;&nbsp;🌱 <br/>
-
-![img](https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/LOGO-small.png)
-
 ### Gaia is how we develop together.
 
 기존의 Project Management System들의 어려운 사용방법과 높은 진입장벽을 해결하기 위해 기획했습니다.<br/>
