@@ -45,10 +45,10 @@ public class SmsUtil {
 		System.err.println(params);
 		System.err.printf("%s 번호로 %s 라는 메시지를 전송합니다.",phoneNumber, text);
 		
-//		try {
-//			JSONObject obj = (JSONObject) coolsms.send(params);
-//			result = obj.toString();
-//		} catch (CoolsmsException e) {}
+		try {
+			JSONObject obj = (JSONObject) coolsms.send(params);
+			result = obj.toString();
+		} catch (CoolsmsException e) {}
 		
 		return result;
 	}
