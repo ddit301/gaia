@@ -501,7 +501,7 @@ const loadIssue = function(){
 			if(res.issue_priority != null){
 				let priorityBoxes = $('.issue-priority-list').find('.issue-priority');
 				let priorityBoxesLength = priorityBoxes.length;
-				for(i=0; priorityBoxesLength; i++){
+				for(i=0; i<priorityBoxesLength; i++){
 					let selectedBox = priorityBoxes.eq(i);
 					let priority = selectedBox.data('priority');
 					// 지정된 우선도 찾았을 경우 선택 하고 break;
