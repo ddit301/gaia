@@ -184,14 +184,6 @@
 			checkNewsValidation();
 		});
 		
-		
-		// 발표용 기능 - 뉴스추가 버튼 누르면 내용물 채우기
-		$('#newswrite-temp').on('click', function(){
-			let tempcont = '# 새소식 입니다\n## 대덕 인재 개발원 풀 스택 6기 인원들이 최종 발표를 한다고 합니다.\n> 다들 잘 했으면 좋겠어요 ! 화이팅 !';
-			editor.setMarkdown(tempcont);
-			$('#news-title-input').val('오늘자 인재개발원 새 소식입니다.');
-			$('#saveNewsBtn').prop('disabled', false);
-		})
 
 	})
 				
