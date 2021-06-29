@@ -1,4 +1,5 @@
-<img src="https://raw.githubusercontent.com/ddit301/gaia/master/gaia/webapp/resources/assets/images/logo-compact.png" style="background: black;">
+<img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/gaia.png" width=300px>
+
 > by team seed &nbsp;&nbsp;🌱 <br/>
 ### Gaia is how we develop together.
 
