@@ -1,4 +1,5 @@
-const server = "wss://"+location.host+getContextPath()+"/echo";
+const server = (location.protocol == "https:" ? "wss" : "ws" ) + "://"+location.host+getContextPath()+"/echo";
+
 let socket = null; 
 
 $(window).on('beforeunload', function(){
