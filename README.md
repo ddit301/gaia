@@ -27,7 +27,7 @@
 <a href="#" target="_blank"><img src="https://img.shields.io/badge/Markdown-000000?style=flat-square&logo=Markdown&logoColor=white"/></a><a href="#" target="_blank"><img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/></a><a href="#" target="_blank"><img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white"/></a><a href="#" target="_blank"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>
 
 ### Team members 🏕
-<img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/teamgaia.jpeg" alt="drawing" style="max-width:100%;background: black;" width="250"/>
+<img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/teamgaia.jpeg" alt="drawing" style="max-width:100%;background: black;" width="250"/><br/>
 
 <a href="https://github.com/Shane-Park">
   <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/74809918?s=96&amp;v=4" width="48" height="48" alt="@Shane-Park"> Shane
