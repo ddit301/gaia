@@ -95,7 +95,7 @@ const elasticTotalSearch = function(keyword){
 	keyword = encodeURI(keyword)
 	keyword += "*";
 	$.ajax({
-		url : getContextPath() + "/restapi/project/projects/",
+		url : getContextPath() + "/restapi/common/totalsearch.do",
 		method : 'get',
 		data : {"need" : "totalSearch",
 				"keyword" : keyword},
