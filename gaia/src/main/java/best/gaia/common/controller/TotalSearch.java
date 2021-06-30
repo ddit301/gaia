@@ -43,7 +43,8 @@ public class TotalSearch {
 		String url = String.format("http://%s:%d/gaia/_search?scroll=10m&size=20&q=%s",elUtil.getHostname(),elUtil.getPort(),keyword);
 		String text = getRequestApiGet(url);
 		
-		return new String(text.getBytes(),"UTF-8");
+		logger.info(text);
+		return text;
 	}
 	
 	public String getRequestApiGet(String url) throws IOException {
@@ -57,7 +58,7 @@ public class TotalSearch {
 		con.setRequestProperty("Accept-Chatset", "UTF-8");
 		con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
 		
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 		String inputLine;
 		String resultXmlText = "";
 		while((inputLine = in.readLine()) != null) {
