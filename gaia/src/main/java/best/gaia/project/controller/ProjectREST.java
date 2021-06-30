@@ -55,8 +55,7 @@ public class ProjectREST {
 	private ServletContext application;
 	@Inject
 	private ElasticChatDao chatdao;
-	@Inject
-	private ElasticUtil elUtil;
+
 
 	@PostConstruct
 	public void init() {
@@ -70,24 +69,6 @@ public class ProjectREST {
 		int mem_no = getMemberNoFromAuthentication(authentication);
 		
 		return dao.selectProjectList(mem_no);
-	}
-	// totalSearch
-	@GetMapping(params = {"need=totalSearch"})
-	public String selectKewordResult(
-					Authentication authentication
-					, @RequestParam String need
-					, @RequestParam Map<String, Object> map
-					) throws IOException {
-		int mem_no = getMemberNoFromAuthentication(authentication);
-		String keyword = (String) map.get("keyword");
-		
-		
-		String url = String.format("http://%s:%d/gaia/_search?scroll=10m&size=20&q=%s",elUtil.getHostname(),elUtil.getPort(),keyword);
-		String text = getRequestApiGet(url);
-		logger.info("{}", keyword);
-		
-//		List<Map<String, Object>> result = chatdao.getTotalSearchResult((String) map.get("keyword")); 
-		return text;
 	}
 
 	@PostMapping
@@ -154,24 +135,5 @@ public class ProjectREST {
 		return dao.selectProjectOverview(proj_no);
 	}
 
-	public String getRequestApiGet(String url) throws IOException {
-		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		// optional default is GET
-		con.setRequestMethod("GET");
-		
-		// add requesttt header 헤더를 만드는
-		con.setRequestProperty("Accept-Chatset", "UTF-8");
-		con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-		
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		String resultXmlText = "";
-		while((inputLine = in.readLine()) != null) {
-			resultXmlText += inputLine;
-		}
-		in.close();
-		con.disconnect();
-		return resultXmlText;
-	}
+
 }
