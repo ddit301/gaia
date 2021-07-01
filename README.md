@@ -1,7 +1,7 @@
 <img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/gaia.png" width=300px>
 
-> by team seed &nbsp;&nbsp;🌱 <br/>
-Please try out the live <a href="http://222.114.124.74/gaia">Demo</a> here.
+> www.gaia.best by team seed &nbsp;&nbsp;🌱 <br/>
+Please try out gaia on the link above
 ### Gaia is how we develop together.
 
 기존의 Project Management System들의 어려운 사용방법과 높은 진입장벽을 해결하기 위해 기획했습니다.<br/>
