@@ -8,12 +8,14 @@ Please try out the live <a href="http://222.114.124.74/gaia">Demo</a> here.
 프로젝트 관리와 개발자간의 협업을 돕습니다.<br/>
 > 아래의 기능들을 제공합니다
 
-- 코드 저장소
-- 이슈 트래킹
-- 프로젝트 일정 관리
+- 이슈 트래킹 ( Milestone, Issue )
+- 프로젝트 일정 관리 ( Calendar, Gantt )
+- 칸반 보드
+- 위키
+- 뉴스
 - 인스턴트 메신저
-- 클라우드 스토리지
-- Web IDE
+- 프로젝트 통계
+- 통합 검색
 
 >기술 스택은 다음과 같습니다</br>
 <!--https://simpleicons.org/?q=logsta -->
