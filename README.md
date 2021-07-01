@@ -1,19 +1,23 @@
 <img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/gaia.png" width=300px>
 
-> by team seed &nbsp;&nbsp;🌱 <br/>
-Please try out the live <a href="http://222.114.124.74/gaia">Demo</a> here.
+> www.gaia.best by team seed &nbsp;&nbsp;🌱 <br/>
+
+[발표영상](https://youtu.be/PdO3tuBJaUI) 을 확인해보세요<br/>
+[테스트영상](https://www.youtube.com/watch?v=CMbaiaoWkDA) 또한 준비 되어 있습니다.
 ### Gaia is how we develop together.
 
 기존의 Project Management System들의 어려운 사용방법과 높은 진입장벽을 해결하기 위해 기획했습니다.<br/>
 프로젝트 관리와 개발자간의 협업을 돕습니다.<br/>
 > 아래의 기능들을 제공합니다
 
-- 코드 저장소
-- 이슈 트래킹
-- 프로젝트 일정 관리
+- 이슈 트래킹 ( Milestone, Issue )
+- 프로젝트 일정 관리 ( Calendar, Gantt )
+- 칸반 보드
+- 위키
+- 뉴스
 - 인스턴트 메신저
-- 클라우드 스토리지
-- Web IDE
+- 프로젝트 통계
+- 통합 검색
 
 >기술 스택은 다음과 같습니다</br>
 <!--https://simpleicons.org/?q=logsta -->
@@ -49,6 +53,10 @@ Please try out the live <a href="http://222.114.124.74/gaia">Demo</a> here.
 
 > Data Architect
 </br>https://joshwon.tistory.com
+
+
+### 대덕인재개발원 해당 기수 최고의 프로젝트로 선정되었습니다.👏
+<img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/award.jpg" width="250">
 
 
 
