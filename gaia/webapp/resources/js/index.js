@@ -61,6 +61,10 @@ $(function() {
 	 $('#hiddenAdmin').on('click', function(){
 		 window.open(getContextPath()+"/admin");
 	 })
+	 $('#demo').on('click', function(){
+	 	event.preventDefault();
+	 	$('#hiddenKkobuk').click();
+	 });
 
 	$('body').on('click', '#joinBtn', function(){
 		event.preventDefault();
