@@ -18,6 +18,11 @@ public interface OracleChatDao {
 	public List<MemberVO> searchMemberList(Map<String, Object> searchInfo);
 	public int insertChatRoom(ChatRoomVO roomInfo);
 	public int insertChatRoomMember(Map<String, Object> participants);
+	/**
+	 * 
+	 * @param participants
+	 * @return if chatroom is exists return not 0. Otherwise return 0
+	 */
 	public int exists(Map<String, Object> participants);
 	public List<MemberVO> memberListByChatRoom(int chatRoom_no);
 }

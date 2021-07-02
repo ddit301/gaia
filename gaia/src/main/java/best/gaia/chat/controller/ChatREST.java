@@ -159,12 +159,15 @@ public class ChatREST {
 		mem_nos.remove("need");
 		mem_nos.put("mem_no1", member.getMem_no());
 		logger.info("mem_nos {}", mem_nos);
-		
+		// 채팅방이 존재하는지 확인
 		int exists = service.exists(mem_nos);
-		
 		if(exists==0) {
+			// 새로운 채팅방 추가.
 			ServiceResult result = service.createChatRoom(roomInfo, mem_nos);
-			if(ServiceResult.OK != result) exists=0;
+			// 채팅방 생성여부 확인 후 잘 생성되었다면 채팅방 번호 넘기기  
+			exists = ServiceResult.OK != result ? 0 : roomInfo.getChatroom_no();
+			// roomList에 채팅 내역 elastic에서 가지고와서 담기.(정렬시키기.)
+			roomInfo.setChatList(service.getMessageListbyChatRoomOne(roomInfo.getChatroom_no(), 1));  
 		}
 		
 		// roomList의 room 번호마다 채팅들 담기
