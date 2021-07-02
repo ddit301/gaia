@@ -77,11 +77,17 @@ const loadMemberInfo_chat = function() {
 				alert("error")
 			}
 			
-			// 가장 최근의 채팅방의 채팅 내역 보여주기
-			loadChatList_chatRoom(res.roomList[0].chatroom_no);
-			
-			// side-bar 채팅방리스트 출력하기
-			sideBarChatRoomListInfo(res);
+			// null checking
+			if(!CheckNullUndefined(res.roomList[0])){
+				$(".chat .chat_hidden").prop("hidden", false);
+				// 가장 최근의 채팅방의 채팅 내역 보여주기
+				loadChatList_chatRoom(res.roomList[0].chatroom_no);
+				
+				// side-bar 채팅방리스트 출력하기
+				sideBarChatRoomListInfo(res);
+			}else{
+				$(".chat .chat_hidden").prop("hidden", true);
+			}
 		}
 		,async: false
 		,error : function(xhr, error, msg) {
