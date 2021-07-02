@@ -144,6 +144,7 @@
 				<input id="password" name="mem_pass" type="password" placeholder="Password">
 			</div>
 			<button>GET STARTED</button>
+			<button id="demo">DEMO</button>
 		</form>
 	</div>
 	
