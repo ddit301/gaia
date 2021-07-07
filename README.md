@@ -1,20 +1,23 @@
-# GAIA
-> by team seed &nbsp;&nbsp;🌱 <br/>
+<img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/gaia.png" width=300px>
 
-![img](https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/LOGO-small.png)
+> www.gaia.best by team seed &nbsp;&nbsp;🌱 <br/>
 
+[발표영상](https://youtu.be/PdO3tuBJaUI) 을 확인해보세요<br/>
+[테스트영상](https://www.youtube.com/watch?v=CMbaiaoWkDA) 또한 준비 되어 있습니다.
 ### Gaia is how we develop together.
 
 기존의 Project Management System들의 어려운 사용방법과 높은 진입장벽을 해결하기 위해 기획했습니다.<br/>
 프로젝트 관리와 개발자간의 협업을 돕습니다.<br/>
 > 아래의 기능들을 제공합니다
 
-- 코드 저장소
-- 이슈 트래킹
-- 프로젝트 일정 관리
+- 이슈 트래킹 ( Milestone, Issue )
+- 프로젝트 일정 관리 ( Calendar, Gantt )
+- 칸반 보드
+- 위키
+- 뉴스
 - 인스턴트 메신저
-- 클라우드 스토리지
-- Web IDE
+- 프로젝트 통계
+- 통합 검색
 
 >기술 스택은 다음과 같습니다</br>
 <!--https://simpleicons.org/?q=logsta -->
@@ -29,18 +32,14 @@
 <a href="#" target="_blank"><img src="https://img.shields.io/badge/Markdown-000000?style=flat-square&logo=Markdown&logoColor=white"/></a><a href="#" target="_blank"><img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/></a><a href="#" target="_blank"><img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white"/></a><a href="#" target="_blank"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a>
 
 ### Team members 🏕
+<img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/teamgaia.jpeg" alt="drawing" style="max-width:100%;background: black;" width="250"/><br/>
+
 <a href="https://github.com/Shane-Park">
   <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/74809918?s=96&amp;v=4" width="48" height="48" alt="@Shane-Park"> Shane
 </a>
 
 > Project Leader
 </br>https://shanepark.tistory.com
-
-<a href="https://github.com/maskan19">
-<img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/77029227?s=96&amp;v=4" width="48" height="48" alt="@maskan19"> Robin <a/>
-
-> Application Architect
-</br>https://maskan.tistory.com
 
 <a href="https://github.com/KrGil">
 <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/24990542?s=96&amp;v=4" width="48" height="48" alt="@KrGil"> Eisen
@@ -54,6 +53,10 @@
 
 > Data Architect
 </br>https://joshwon.tistory.com
+
+
+### 대덕인재개발원 해당 기수 최고의 프로젝트로 선정되었습니다.👏
+<img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/award.jpg" width="250">
 
 
 

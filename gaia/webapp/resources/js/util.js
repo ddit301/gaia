@@ -180,7 +180,7 @@ function ajaxError(xhr, error, msg){
 	if (xhr.status == 401) {
 		toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
 		setTimeout(function() {
-			window.location.href = "/";
+			window.location.href = getContextPath();
 		}, 2000);
 	}else if(xhr.status == 423){
 		toastr.error("해당 프로젝트에 접근할 수 있는 권한이 없습니다.");

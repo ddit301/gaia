@@ -25,7 +25,7 @@
 		</collection>
 		<collection property="historyList" ofType="best.gaia.vo.IssueHistoryVO" javaType="java.util.List" autoMapping="true">
 			<id property="issue_his_no" column="ISSUE_HIS_NO"/>
-			<association property="historyWriter">
+			<association property="historyWriter" javaType="best.gaia.vo.MemberVO">
 				<id column="HIS_WRITER_NO" property="mem_no"/>
 				<result column="HIS_WRITER_NICK" property="mem_nick"/>
 				<result column="HIS_WRITER_PIC" property="mem_pic_file_name"/>

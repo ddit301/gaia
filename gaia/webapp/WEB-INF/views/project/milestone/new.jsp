@@ -32,7 +32,7 @@
 								<div class="newmilestonebox">
 									<div class="compose-content mt-5">
 										<div class="milestonehead">
-											<div class="milestonehead-heading">New milestone</div>
+											<div id="mile-auto" class="milestonehead-heading">New milestone</div>
 											<div class="milestonehead-description">Create a new
 												milestone to help organize your issues and pull requests.</div>
 										</div>
@@ -124,6 +124,12 @@ $(function(){
 							let startDate = $('.milest-start-date').children('input').val();
 							$('.milest-end-date').children('input').bootstrapMaterialDatePicker("setMinDate",startDate);
 						})
+						
+		// 발표를 위한 마일스톤 생성 매크로
+		$('#mile-auto').on('click', function(){
+			milestTitleArea.val('최종 발표하기');
+			milestContArea.val('최종 발표 잘 하기');
+		})				
 					
 	})
 </script>
