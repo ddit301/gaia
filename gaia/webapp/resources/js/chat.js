@@ -77,11 +77,17 @@ const loadMemberInfo_chat = function() {
 				alert("error")
 			}
 			
-			// 가장 최근의 채팅방의 채팅 내역 보여주기
-			loadChatList_chatRoom(res.roomList[0].chatroom_no);
-			
-			// side-bar 채팅방리스트 출력하기
-			sideBarChatRoomListInfo(res);
+			// null checking
+			if(!CheckNullUndefined(res.roomList[0])){
+				$(".chat .chat_hidden").prop("hidden", false);
+				// 가장 최근의 채팅방의 채팅 내역 보여주기
+				loadChatList_chatRoom(res.roomList[0].chatroom_no);
+				
+				// side-bar 채팅방리스트 출력하기
+				sideBarChatRoomListInfo(res);
+			}else{
+				$(".chat .chat_hidden").prop("hidden", true);
+			}
 		}
 		,async: false
 		,error : function(xhr, error, msg) {
@@ -97,8 +103,8 @@ const sideBarChatRoomListInfo = function(res, room_no) {
 	let selectedChatRoom;
 	let roomList = res.roomList;
 	// 채팅 날짜 순으로 정렬 하기 (가장최근이 가장 위로)
-	sortByDate(res.roomList);
 	console.log(res.roomList);
+	sortByDate(res.roomList);
 	
 	// 특정 채팅방을 선택했다면 side-bar 채팅방의 최상단으로 출력해주기.
 	if(!CheckNullUndefined(room_no)){
@@ -164,7 +170,7 @@ const loadChatList_chatRoom = function(room_no) {
 			console.log(res);
 			let day;
 			$("#this-is-chatRoom").empty();
-			
+			$(".chat .chat_hidden").prop("hidden", false);
 			// 최근 채팅이 아래로 정렬
 			sortByDateChat(res.chatRoom.chatList)
 			

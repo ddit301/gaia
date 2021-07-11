@@ -28,7 +28,7 @@
         </div>
 		<div class="col-lg-8 col-xl-9 col-xl-9-custom">
  			<div class="chat">
-				<div class="row">
+				<div class="row chat_hidden">
 					<div class="col-md-9">
 						<div class="chat-top row">
 							<div class="col-md-3 log-img-center chat-img chat_img">

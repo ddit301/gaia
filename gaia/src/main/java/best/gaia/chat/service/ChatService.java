@@ -42,7 +42,7 @@ public interface ChatService {
 	/**
 	 * 
 	 * @param participants
-	 * @return
+	 * @return if chatroom is exists return not 0. Otherwise return 0
 	 */
 	public int exists(Map<String, Object> participants);
 	/**
