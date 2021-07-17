@@ -68,9 +68,9 @@ public class ProviderPageIndexingController {
 			isLocal = true;
 		}
 		
-		if(!isLocal) {
-			throw new UnauthorizedException();
-		}
+		// 서버 관리 페이지를 local에서만 볼수 있게 하려면 아래 주석을 풀어주세요.
+//		if(!isLocal) 
+//			throw new UnauthorizedException();
 		
 		return "admin/index";
 	}
