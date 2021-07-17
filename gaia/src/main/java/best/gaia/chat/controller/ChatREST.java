@@ -2,6 +2,7 @@ package best.gaia.chat.controller;
 import static best.gaia.utils.SessionUtil.getMemberNoFromAuthentication;
 import static best.gaia.utils.SessionUtil.getMemberVoFromAuthentication;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -156,15 +157,24 @@ public class ChatREST {
 			) {
 		int mem_no = getMemberNoFromAuthentication(authentication);
 		MemberVO member = getMemberVoFromAuthentication(authentication);
+		List<Map<String, Object>> currentChat = null;
 		mem_nos.remove("need");
 		mem_nos.put("mem_no1", member.getMem_no());
 		logger.info("mem_nos {}", mem_nos);
-		
+		// 채팅방이 존재하는지 확인
 		int exists = service.exists(mem_nos);
-		
+		// 채팅방이 존재하지 않는다면 
 		if(exists==0) {
+			// 새로운 채팅방 추가.
 			ServiceResult result = service.createChatRoom(roomInfo, mem_nos);
-			if(ServiceResult.OK != result) exists=0;
+			// 채팅방 생성여부 확인 후 잘 생성되었다면 채팅방 번호 넘기기  
+			exists = !ServiceResult.OK.equals(result) ? 0 : roomInfo.getChatroom_no();
+			// roomList에 채팅 내역 elastic에서 가지고와서 담기.(정렬시키기.)
+			try {
+				Thread.sleep(500);
+				currentChat = service.getMessageListbyChatRoomOne(roomInfo.getChatroom_no(), 1);
+			} catch (InterruptedException e) { e.printStackTrace(); }
+			roomInfo.setChatList(currentChat);
 		}
 		
 		// roomList의 room 번호마다 채팅들 담기
@@ -174,12 +184,20 @@ public class ChatREST {
 		for(ChatRoomVO chatRoom : roomList) {
 			// chatRoomVO의 chatList에 대화 내용들 담기.
 			int chatRoom_no = chatRoom.getChatroom_no();
-			// elastic에서 chatList 뽑기.
-			lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1); 
+			// 만약 elastic에서 데이터를 못 받아온다면 직접 날짜값 집어넣기.
+			if(chatRoom_no == roomInfo.getChatroom_no()){
+				// elastic에서 chatList 뽑기. 해당 번호라면 좀 더 기다렸다가 데이터 요청하기.
+				try {
+					Thread.sleep(500);
+					lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1);
+				} catch (InterruptedException e) { e.printStackTrace(); }
+			}else {
+				lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1);
+			}
+			
 			// 뽑은 chatList를 해당 room의 chatList에 담기.
 			chatRoom.setChatList(lateChat);
 		}
-		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("roomList", roomList);
 		result.put("mem_id", member.getMem_id());

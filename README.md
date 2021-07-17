@@ -55,4 +55,8 @@
 </br>https://joshwon.tistory.com
 
 
+### 대덕인재개발원 해당 기수 최고의 프로젝트로 선정되었습니다.👏
+<img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/award.jpg" width="250">
+
+
 
