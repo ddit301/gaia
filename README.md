@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/ddit301/gaia/master/Documents/logo/gaia.png" width=300px>
 
-> www.gaia.best by team seed &nbsp;&nbsp;🌱 <br/>
+> http://gaia.best/ by team seed &nbsp;&nbsp;🌱 <br/>
 
 [발표영상](https://youtu.be/PdO3tuBJaUI) 을 확인해보세요<br/>
 [테스트영상](https://www.youtube.com/watch?v=CMbaiaoWkDA) 또한 준비 되어 있습니다.
