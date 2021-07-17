@@ -143,7 +143,7 @@
 				<i id="hiddenEisen" class="icon icon-lock"></i>
 				<input id="password" name="mem_pass" type="password" placeholder="Password">
 			</div>
-			<button>GET STARTED</button>
+			<button id="started">GET STARTED</button>
 			<button id="demo">DEMO</button>
 		</form>
 	</div>
