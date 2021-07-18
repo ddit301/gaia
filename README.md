@@ -280,7 +280,7 @@ public class ElasticUtil {
 ## <a href="#index" id="index-main">2.Main</a>
 
 ![main](https://raw.githubusercontent.com/ddit301/gaia/master/readme/main.gif)
-
+f
 > GAIA의 메인 화면 입니다.
 
 ![login](https://raw.githubusercontent.com/ddit301/gaia/master/readme/login.png)
@@ -340,10 +340,12 @@ public class ElasticUtil {
 > 통합 검색 기능을 제공합니다. Key를 입력할 때 마다 바로바로 검색 해 줍니다. Logstash로 Oracle 서버를 Elastic Search에 인덱싱 해서 구현 하였습니다.
 
 4) Multi languages
+
 ![languages](https://raw.githubusercontent.com/ddit301/gaia/master/readme/languages.gif)
 > 다국어 메뉴를 지원합니다. 메뉴는 하드코딩 되어 있지 않고 Database 에서 받아오기 때문에 간단하게 메뉴를 추가하거나 언어를 추가할 수 있습니다.
 
 5) Milestone
+
 ![milestone1](https://raw.githubusercontent.com/ddit301/gaia/master/readme/milestone1.png)
 > 마일스톤 목록을 확인 할 수 있습니다. 각각 마일스톤의 진행도를 한눈에 확인 할 수 있습니다.
 
@@ -351,6 +353,7 @@ public class ElasticUtil {
 > 개별 마일스톤을 조회 하면 해당 마일스톤에 속한 이슈들을 조회 할 수 있습니다.
 
 6) Issue
+
 ![issue](https://raw.githubusercontent.com/ddit301/gaia/master/readme/issue.gif)
 > 이슈 목록 페이지에서는 각 필터별로 이슈들을 필터링 해서 조회 할 수 있습니다.
 
@@ -392,13 +395,16 @@ const rulChecker = function(text){
 ```
 > 한글 종성이 총 28개 인 것을 활용해 코드를 작성 했습니다.
 
-6) Gantt
+7) Gantt
+
 ![gantt](https://raw.githubusercontent.com/ddit301/gaia/master/readme/gantt.png)
 
-7) Calendar
+8) Calendar
+
 ![calendar](https://raw.githubusercontent.com/ddit301/gaia/master/readme/calendar.png)
 
-8) Kanban
+9) Kanban
+
 ![kanban](https://raw.githubusercontent.com/ddit301/gaia/master/readme/kanban.gif)
 > 칸반 기능도 구현했습니다. 각각의 칸반 Column과 Card들은 Singly linked list로 연결 되어 있습니다. 해당 비즈니스 로직은 아래와 같습니다.
 
@@ -460,23 +466,28 @@ const rulChecker = function(text){
 제가 워낙에 칸반을 좋아해서 팀에서도 포스트잇을 활용한 칸반을 적극적으로 활용 했습니다.
 ![kanban2](https://raw.githubusercontent.com/ddit301/gaia/master/readme/kanban2.png)
 
-9)News
+19)News
+
 ![news](https://raw.githubusercontent.com/ddit301/gaia/master/readme/news.gif)
 > 뉴스 페이지 입니다. 무한 스크롤로 페이징 처리 하였습니다.
 
-10)Wiki
+11)Wiki
+
 ![wiki](https://raw.githubusercontent.com/ddit301/gaia/master/readme/wiki.png)
 > 위키 페이지에서는 각 위키별 수정 내역또한 조회 할 수 있습니다.
 
-11)Analytics
+12)Analytics
+
 ![analytics](https://raw.githubusercontent.com/ddit301/gaia/master/readme/analytics.gif)
 > 프로젝트의 각종 통계를 확인 할 수 있는 페이지 입니다.
 
-12)Member
+13)Member
+
 ![member](https://raw.githubusercontent.com/ddit301/gaia/master/readme/member.png)
 > 멤버 관리 페이지에서는 소속된 멤버들을 조회하고, 멤버의 권한을 부여 할 수 있으며 초대 혹은 탈퇴를 시킬 수 있습니다.
 
-13)Management
+14)Management
+
 ![management](https://raw.githubusercontent.com/ddit301/gaia/master/readme/management.gif)
 > 프로젝트를 관리하는 페이지 입니다.
 
