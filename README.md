@@ -1,4 +1,4 @@
-<img src="readme/logo.png" width=300px>
+<img src="https://raw.githubusercontent.com/ddit301/gaia/master/readme/logo.png" width=300px>
 
 > http://www.gaia.best by team seed &nbsp;&nbsp;🌱 <br/>
 [발표영상](https://youtu.be/PdO3tuBJaUI)과 [테스트영상](https://www.youtube.com/watch?v=CMbaiaoWkDA)을 확인해보세요
@@ -46,24 +46,28 @@ GAIA는 기존의 Project Management System들의 어려운 사용법과 높은 
 
 <h1 id="index">Gaia 소개 </h1>
 
-## [1. Gaia](#index-gaia)
+## [1.Gaia](#index-gaia)
 - Single Page Application
 - URL Structure
 - Elastic Search
-## [2. Main](#index-main)
+
+## [2.Main](#index-main)
 - index
 - login
 - admin
-## [3. User](#index-user)
+
+## [3.User](#index-user)
 - overview
 - notification
 - alarm
 - profile
 - setting
 - log
-## [4. Chatting](#index-chatting)
+
+## [4.Chatting](#index-chatting)
 - chat
-## [5. Project](#index-project)
+
+## [5.Project](#index-project)
 - code
 - keyboard shortcut
 - search
@@ -80,7 +84,7 @@ GAIA는 기존의 Project Management System들의 어려운 사용법과 높은 
 - setting - management
 <br/><br/>
 
-<a style="font-size:2em" href="#index" id="index-gaia">1. Gaia</a>
+<a style="font-size:2em" href="#index" id="index-gaia">1.Gaia</a>
 1) Single Page Application
 > gaia는 싱글 페이지 어플리케이션 입니다.
 필요한 각종 함수들을 모듈화 시키고 기초부터 하나씩 설계하다보니 쉽지 않은 과정이었지만 해낼 수 있었습니다. gaia에서의 모든 요청은 비동기로 처리됩니다.
@@ -116,7 +120,7 @@ const movePageHistory = function(pageParam){
 2) URL Structure
 > 또한 pathvariable을 적극적으로 활용해 URL 그 자체가 navigation 역할을 대체할 수 있도록 구현했습니다.
 
-![path](readme/path.png)
+![path](https://raw.githubusercontent.com/ddit301/gaia/master/readme/path.png)
 > 예를 들어 위의 url인 kkobuk/ddit302/issue/9 의 경우에는 kkobuk이 생성한 ddit302 라는 프로젝트의 9번째 이슈를 뜻 합니다.
 
 <br/>
@@ -272,93 +276,93 @@ public class ElasticUtil {
 
 <br><br>
 
-<a style="font-size:2em" href="#index" id="index-main">2. Main</a>
+<a style="font-size:2em" href="#index" id="index-main">2.Main</a>
 
-![main](readme/main.gif)
+![main](https://raw.githubusercontent.com/ddit301/gaia/master/readme/main.gif)
 
 > GAIA의 메인 화면 입니다.
 
-![login](readme/login.png)
+![login](https://raw.githubusercontent.com/ddit301/gaia/master/readme/login.png)
 > 우측 상단 로그인 버튼을 눌러 로그인 할 수 있습니다.
 
-![provider](readme/provider.gif)
+![provider](https://raw.githubusercontent.com/ddit301/gaia/master/readme/provider.gif)
 > 회원가입에서 연필 버튼을 클릭 하면 숨겨진 서버 관리자 모드로 진입 할 수 있습니다.
 
-![provider](readme/provider.png)
+![provider](https://raw.githubusercontent.com/ddit301/gaia/master/readme/provider.png)
 > 해당 페이지에서는 운영중인 서버의 다양한 정보를 실시간으로 확인 할 수 있습니다. 지금은 Oracle cloud의 Ubuntu instance에서 서버를 구동중이라서 OS information에 LINUX로 나오는 것이 확인됩니다.
 
 <br><br>
 
-<a style="font-size:2em" href="#index" id="index-user">3. User</a>
+<a style="font-size:2em" href="#index" id="index-user">3.User</a>
 
-![overview](readme/overview.png)
+![overview](https://raw.githubusercontent.com/ddit301/gaia/master/readme/overview.png)
 > 처음 로그인 했을때 페이지 입니다. 좌측에는 내가 속해있는 프로젝트들이, 중앙부에는 나에게 할당된 이슈들이 보여집니다.
 
-![push](readme/push.gif)
+![push](https://raw.githubusercontent.com/ddit301/gaia/master/readme/push.gif)
 > 누군가가 접속을 하거나 내가 쓴 이슈에 댓글을 달면 push 알람을 받습니다. 우측 상단에 표시됩니다.
 
-![alarms](readme/alarms.png)
+![alarms](https://raw.githubusercontent.com/ddit301/gaia/master/readme/alarms.png)
 > 종 모양 아이콘을 클릭해서 알람들을 확인 할 수 있습니다.
 
-![profile](readme/profile.png)
+![profile](https://raw.githubusercontent.com/ddit301/gaia/master/readme/profile.png)
 > 프로필 정보를 수정 할 수 있으며
 
-![setting](readme/setting.png)
+![setting](https://raw.githubusercontent.com/ddit301/gaia/master/readme/setting.png)
 > 이름과 비밀번호를 변경 할 수 있습니다.
 
-![log](readme/log.png)
+![log](https://raw.githubusercontent.com/ddit301/gaia/master/readme/log.png)
 > 접속 이력은 elastic search의 비관계형 데이터베이스로 관리됩니다.
 
 <br><br>
 
-<a style="font-size:2em" href="#index" id="index-chatting">4. Chatting</a>
-![chat](readme/chat.png)
+<a style="font-size:2em" href="#index" id="index-chatting">4.Chatting</a>
+![chat](https://raw.githubusercontent.com/ddit301/gaia/master/readme/chat.png)
 > 간단한 채팅 기능도 준비되어 있습니다.
 
 <br><br>
 
-<a style="font-size:2em" href="#index" id="index-project">5. Project</a>
+<a style="font-size:2em" href="#index" id="index-project">5.Project</a>
 
 1) Code
 
-![code](readme/code.gif)
+![code](https://raw.githubusercontent.com/ddit301/gaia/master/readme/code.gif)
 > 프로젝트에 들어가면 첫 페이지인 Code 페이지 입니다. Github에 있는 repository와 연동해서 Code와 readme 파일을 가져옵니다. 우측에는 프로젝트에 대한 설명과 멤버들 목록이 나옵니다.
 
 2) Keyboard Shortcuts
 
-![shortcut](readme/shortcut.gif)
+![shortcut](https://raw.githubusercontent.com/ddit301/gaia/master/readme/shortcut.gif)
 > 생산성 향상을 위한 단축키 기능을 제공합니다. Ctrl + '/' 키로 단축키 목록을 확인 할 수 있습니다.
 
 3) Search
 
-![search](readme/search.gif)
+![search](https://raw.githubusercontent.com/ddit301/gaia/master/readme/search.gif)
 > 통합 검색 기능을 제공합니다. Key를 입력할 때 마다 바로바로 검색 해 줍니다. Logstash로 Oracle 서버를 Elastic Search에 인덱싱 해서 구현 하였습니다.
 
 4) Multi languages
-![languages](readme/languages.gif)
+![languages](https://raw.githubusercontent.com/ddit301/gaia/master/readme/languages.gif)
 > 다국어 메뉴를 지원합니다. 메뉴는 하드코딩 되어 있지 않고 Database 에서 받아오기 때문에 간단하게 메뉴를 추가하거나 언어를 추가할 수 있습니다.
 
 5) Milestone
-![milestone1](readme/milestone1.png)
+![milestone1](https://raw.githubusercontent.com/ddit301/gaia/master/readme/milestone1.png)
 > 마일스톤 목록을 확인 할 수 있습니다. 각각 마일스톤의 진행도를 한눈에 확인 할 수 있습니다.
 
-![milestone2](readme/milestone2.png)
+![milestone2](https://raw.githubusercontent.com/ddit301/gaia/master/readme/milestone2.png)
 > 개별 마일스톤을 조회 하면 해당 마일스톤에 속한 이슈들을 조회 할 수 있습니다.
 
 6) Issue
-![issue](readme/issue.gif)
+![issue](https://raw.githubusercontent.com/ddit301/gaia/master/readme/issue.gif)
 > 이슈 목록 페이지에서는 각 필터별로 이슈들을 필터링 해서 조회 할 수 있습니다.
 
-![assignee](readme/assignee.gif)
+![assignee](https://raw.githubusercontent.com/ddit301/gaia/master/readme/assignee.gif)
 > 담당자 목록에 마우스를 올리면 펼쳐서 보여줍니다. css로 구현 했습니다.
 
-![newissue](readme/newissue.gif)
+![newissue](https://raw.githubusercontent.com/ddit301/gaia/master/readme/newissue.gif)
 > 새로운 이슈를 작성 할 수 있습니다.
 
-![issueedit](readme/issueedit.gif)
+![issueedit](https://raw.githubusercontent.com/ddit301/gaia/master/readme/issueedit.gif)
 > 간단하게 수정도 할 수 있고 댓글도 작성 합니다.
 
-![ro](readme/ro.png)
+![ro](https://raw.githubusercontent.com/ddit301/gaia/master/readme/ro.png)
 > 상황에따라 로/으로 을/를과 같은 조사를 구분합니다. 아래의 코드로 구현했습니다.
 
 ```javascript
@@ -388,13 +392,13 @@ const rulChecker = function(text){
 > 한글 종성이 총 28개 인 것을 활용해 코드를 작성 했습니다.
 
 6) Gantt
-![gantt](readme/gantt.png)
+![gantt](https://raw.githubusercontent.com/ddit301/gaia/master/readme/gantt.png)
 
 7) Calendar
-![calendar](readme/calendar.png)
+![calendar](https://raw.githubusercontent.com/ddit301/gaia/master/readme/calendar.png)
 
 8) Kanban
-![kanban](readme/kanban.gif)
+![kanban](https://raw.githubusercontent.com/ddit301/gaia/master/readme/kanban.gif)
 > 칸반 기능도 구현했습니다. 각각의 칸반 Column과 Card들은 Singly linked list로 연결 되어 있습니다. 해당 비즈니스 로직은 아래와 같습니다.
 
 ```java
@@ -453,30 +457,30 @@ const rulChecker = function(text){
 	}
 ```
 제가 워낙에 칸반을 좋아해서 팀에서도 포스트잇을 활용한 칸반을 적극적으로 활용 했습니다.
-![kanban2](readme/kanban2.png)
+![kanban2](https://raw.githubusercontent.com/ddit301/gaia/master/readme/kanban2.png)
 
 9)News
-![news](readme/news.gif)
+![news](https://raw.githubusercontent.com/ddit301/gaia/master/readme/news.gif)
 > 뉴스 페이지 입니다. 무한 스크롤로 페이징 처리 하였습니다.
 
 10)Wiki
-![wiki](readme/wiki.png)
+![wiki](https://raw.githubusercontent.com/ddit301/gaia/master/readme/wiki.png)
 > 위키 페이지에서는 각 위키별 수정 내역또한 조회 할 수 있습니다.
 
 11)Analytics
-![analytics](readme/analytics.gif)
+![analytics](https://raw.githubusercontent.com/ddit301/gaia/master/readme/analytics.gif)
 > 프로젝트의 각종 통계를 확인 할 수 있는 페이지 입니다.
 
 12)Member
-![member](readme/member.png)
+![member](https://raw.githubusercontent.com/ddit301/gaia/master/readme/member.png)
 > 멤버 관리 페이지에서는 소속된 멤버들을 조회하고, 멤버의 권한을 부여 할 수 있으며 초대 혹은 탈퇴를 시킬 수 있습니다.
 
 13)Management
-![management](readme/management.gif)
+![management](https://raw.githubusercontent.com/ddit301/gaia/master/readme/management.gif)
 > 프로젝트를 관리하는 페이지 입니다.
 
-![label](readme/label.gif)
+![label](https://raw.githubusercontent.com/ddit301/gaia/master/readme/label.gif)
 > 새로운 라벨을 생성할 때는 커스터마이징 할 수 있도록 했습니다.
 
-![binary](readme/binary.png)
+![binary](https://raw.githubusercontent.com/ddit301/gaia/master/readme/binary.png)
 > 사용모듈, 이슈중요도, 그리고 권한의 경우에는 컬럼을 여러개 만들 필요 없도록 이진수 형태로 값을 저장하도록 구현했습니다.
