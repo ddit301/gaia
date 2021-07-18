@@ -280,7 +280,6 @@ public class ElasticUtil {
 ## <a href="#index" id="index-main">2.Main</a>
 
 ![main](https://raw.githubusercontent.com/ddit301/gaia/master/readme/main.gif)
-f
 > GAIA의 메인 화면 입니다.
 
 ![login](https://raw.githubusercontent.com/ddit301/gaia/master/readme/login.png)
@@ -463,7 +462,8 @@ const rulChecker = function(text){
 		}
 	}
 ```
-제가 워낙에 칸반을 좋아해서 팀에서도 포스트잇을 활용한 칸반을 적극적으로 활용 했습니다.
+> 제가 워낙에 칸반을 좋아해서 팀에서도 포스트잇을 활용한 칸반을 적극적으로 활용 했습니다.
+
 ![kanban2](https://raw.githubusercontent.com/ddit301/gaia/master/readme/kanban2.png)
 
 19)News
