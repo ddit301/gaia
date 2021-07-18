@@ -84,7 +84,8 @@ GAIA는 기존의 Project Management System들의 어려운 사용법과 높은 
 - setting - management
 <br/><br/>
 
-<a style="font-size:2em" href="#index" id="index-gaia">1.Gaia</a>
+## <a href="#index" id="index-gaia">1.Gaia</a>
+
 1) Single Page Application
 > gaia는 싱글 페이지 어플리케이션 입니다.
 필요한 각종 함수들을 모듈화 시키고 기초부터 하나씩 설계하다보니 쉽지 않은 과정이었지만 해낼 수 있었습니다. gaia에서의 모든 요청은 비동기로 처리됩니다.
@@ -276,7 +277,7 @@ public class ElasticUtil {
 
 <br><br>
 
-<a style="font-size:2em" href="#index" id="index-main">2.Main</a>
+## <a href="#index" id="index-main">2.Main</a>
 
 ![main](https://raw.githubusercontent.com/ddit301/gaia/master/readme/main.gif)
 
@@ -293,7 +294,7 @@ public class ElasticUtil {
 
 <br><br>
 
-<a style="font-size:2em" href="#index" id="index-user">3.User</a>
+## <a href="#index" id="index-user">3.User</a>
 
 ![overview](https://raw.githubusercontent.com/ddit301/gaia/master/readme/overview.png)
 > 처음 로그인 했을때 페이지 입니다. 좌측에는 내가 속해있는 프로젝트들이, 중앙부에는 나에게 할당된 이슈들이 보여집니다.
@@ -315,13 +316,13 @@ public class ElasticUtil {
 
 <br><br>
 
-<a style="font-size:2em" href="#index" id="index-chatting">4.Chatting</a>
+## <a href="#index" id="index-chatting">4.Chatting</a>
 ![chat](https://raw.githubusercontent.com/ddit301/gaia/master/readme/chat.png)
 > 간단한 채팅 기능도 준비되어 있습니다.
 
 <br><br>
 
-<a style="font-size:2em" href="#index" id="index-project">5.Project</a>
+## <a href="#index" id="index-project">5.Project</a>
 
 1) Code
 
