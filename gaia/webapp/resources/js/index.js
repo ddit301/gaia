@@ -42,7 +42,7 @@ $(function() {
 	});
 	
 	// 관리용 히든 로그인 이벤트
-	signInButton = $('#signInArea').find('button');
+	signInButton = $('#signInArea').find('#started');
 	 $('#hiddenKkobuk').on('click', function(){
 		 idInput.value = 'kkobuk';
 		 pwInput.value = 'java';
