@@ -125,7 +125,10 @@
             </div>
         </div>
     </div>
-
+    
+	<a href="https://github.com/ddit301/gaia" target='_blank'>
+		<img class="btnImg" id="gitRepoAddr" src="${cPath }/resources/images/github/GitHub-Mark/PNG/GitHub-Mark-Light-120px-plus.png">
+	</a>
     <img class="btnImg" id="signUpBtn" src="${cPath}/resources/index/img/Add User.svg">
     <img class="btnImg" id="signInBtn" src="${cPath}/resources/index/img/Login.svg">
     
