@@ -1389,7 +1389,11 @@ input:focus {
 #signInBtn{
 	right : 0px;
 }
-
+.loading {
+	box-shadow : rgba(0,0,0,1) 0 0 0 9999px, rgba(0,0,0,0.5) 2px 2px 3px 3px;
+	z-index : 100;
+	transition-duration: 5s;
+}
 
 
 

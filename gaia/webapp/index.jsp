@@ -138,7 +138,7 @@
 <div class="formArea" id="loginform">
 
 	<div id="signInArea" hidden="true">
-		<form method="post" action="${cPath}/signin/signinCheck">
+		<form id="signInForm" method="post" action="${cPath}/signin/signinCheck">
 			<div id="nameArea">
 				<i id="hiddenKkobuk" class="icon icon-user"></i>
 				<input id="username" name="mem_id" type="text" placeholder="Username">

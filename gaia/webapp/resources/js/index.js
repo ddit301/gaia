@@ -9,7 +9,6 @@ $(function() {
 		버튼 매핑 시작
 	********************************/
 	
-	
 	let signInArea = $('#signInArea');
 	let signUpArea = $('#signUpArea');
 	
@@ -24,6 +23,14 @@ $(function() {
 		toggleHidden(signUpArea);
 		signInArea.prop('hidden', true);
 	})
+	
+	// 로그인 할때 이벤트
+	$('#started').on('click', function(){
+		event.preventDefault();
+		$(this).prop('disabled',true);
+		$('#signInArea').addClass('loading');
+		$('#signInForm').submit();
+	});
 	
 	// 영역 바깥 클릭 이벤트
 	$('body').click(function(e) {
@@ -46,25 +53,27 @@ $(function() {
 	 $('#hiddenKkobuk').on('click', function(){
 		 idInput.value = 'kkobuk';
 		 pwInput.value = 'java';
-		 signInButton.click();
+		 $('#signInForm').submit();
 	 })
 	 $('#hiddenEisen').on('click', function(){
 		 idInput.value = 'eisen';
 		 pwInput.value = 'java';
-		 signInButton.click();
+		 $('#signInForm').submit();
 	 })
 	 $('#hiddenJosh').on('click', function(){
 		 idInput.value = 'josh';
 		 pwInput.value = 'java';
-		 signInButton.click();
+		 $('#signInForm').submit();
 	 })
 	 $('#hiddenAdmin').on('click', function(){
 		 window.open(getContextPath()+"/admin");
 	 })
 	 $('#demo').on('click', function(){
-		$('.btnImg').remove();
 	 	event.preventDefault();
-	 	$('#hiddenKkobuk').click();
+		$(this).addClass('loading');
+		idInput.value = 'kkobuk';
+		pwInput.value = 'java';
+	 	$('#signInForm').submit();
 	 });
 
 	$('body').on('click', '#joinBtn', function(){
