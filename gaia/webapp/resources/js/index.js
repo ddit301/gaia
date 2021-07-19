@@ -24,7 +24,7 @@ $(function() {
 		signInArea.prop('hidden', true);
 	})
 	
-	// 로그인 할때 이벤트
+	// 로그인 할때 로딩 이벤트
 	$('#started').on('click', function(){
 		event.preventDefault();
 		$(this).prop('disabled',true);
@@ -53,17 +53,17 @@ $(function() {
 	 $('#hiddenKkobuk').on('click', function(){
 		 idInput.value = 'kkobuk';
 		 pwInput.value = 'java';
-		 $('#signInForm').submit();
+		signInButton.click();
 	 })
 	 $('#hiddenEisen').on('click', function(){
 		 idInput.value = 'eisen';
 		 pwInput.value = 'java';
-		 $('#signInForm').submit();
+		 signInButton.click();
 	 })
 	 $('#hiddenJosh').on('click', function(){
 		 idInput.value = 'josh';
 		 pwInput.value = 'java';
-		 $('#signInForm').submit();
+		 signInButton.click();
 	 })
 	 $('#hiddenAdmin').on('click', function(){
 		 window.open(getContextPath()+"/admin");

@@ -50,8 +50,6 @@
     <script>
 		gitHash = null;
     </script>
-	<script src="${cPath }/resources/js/secret.js"></script>
-	
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-190810131-3"></script>
 	<script>
