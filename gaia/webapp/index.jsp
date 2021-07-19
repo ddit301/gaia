@@ -129,6 +129,7 @@
 	<a href="https://github.com/ddit301/gaia" target='_blank'>
 		<img class="btnImg" id="gitRepoAddr" src="${cPath }/resources/images/github/GitHub-Mark/PNG/GitHub-Mark-Light-120px-plus.png">
 	</a>
+    <img class="btnImg" id="demo" src="${cPath}/resources/index/img/Show.svg">
     <img class="btnImg" id="signUpBtn" src="${cPath}/resources/index/img/Add User.svg">
     <img class="btnImg" id="signInBtn" src="${cPath}/resources/index/img/Login.svg">
     
@@ -147,7 +148,6 @@
 				<input id="password" name="mem_pass" type="password" placeholder="Password">
 			</div>
 			<button id="started">GET STARTED</button>
-			<button id="demo">DEMO</button>
 		</form>
 	</div>
 	

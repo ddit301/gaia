@@ -62,6 +62,7 @@ $(function() {
 		 window.open(getContextPath()+"/admin");
 	 })
 	 $('#demo').on('click', function(){
+		$('.btnImg').remove();
 	 	event.preventDefault();
 	 	$('#hiddenKkobuk').click();
 	 });

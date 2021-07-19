@@ -1293,25 +1293,6 @@ only screen and (                min-resolution: 2dppx)     and (min-height: 0px
   h2, h3 { page-break-after: avoid; }
 }
 
-#signUpBtn, #signInBtn, #gitRepoAddr{
-	width : 45px;
-	margin : 45px;
-    position: fixed;
-    top: 0px;
-    right: 0px;
-}
-
-#gitRepoAddr{
-	right : 200px;
-}
-#signUpBtn{
-	right : 100px;
-}
-
-#signUpBtn, #signInBtn:hover{
-	cursor: pointer;
-}
-
 #loginform{
 	position : absolute;
 	display : grid;
@@ -1371,6 +1352,10 @@ input:focus {
 	opacity : 0.8;
 }
 .btnImg{
+	width : 45px;
+	margin : 45px;
+    position: fixed;
+    top: 0px;
    -webkit-transform:scale(1);
    -moz-transform:scale(1);
    -ms-transform:scale(1); 
@@ -1389,8 +1374,21 @@ input:focus {
     -o-transform:scale(1.2);
     transform:scale(1.2);
 }
-
-
+#gitRepoAddr{
+	right : 300px;
+}
+#demo{
+	right : 200px;
+}
+#signUpBtn{
+	right : 100px;
+}
+.btnImg:hover{
+	cursor: pointer;
+}
+#signInBtn{
+	right : 0px;
+}
 
 
 
