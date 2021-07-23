@@ -45,8 +45,8 @@
 
 
 		<session-management>
-			<concurrency-control max-sessions="5"
-				expired-url="/signin" error-if-maximum-exceeded="true" />
+			<concurrency-control max-sessions="10"
+				expired-url="/signin" error-if-maximum-exceeded="false" />
 		</session-management>
 
 		<csrf disabled="true" />

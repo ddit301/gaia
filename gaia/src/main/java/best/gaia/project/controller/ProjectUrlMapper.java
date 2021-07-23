@@ -61,12 +61,12 @@ public class ProjectUrlMapper {
 		// 접속중인 프로젝트에 대한 처리를 먼저 한다.
 		loadProjectProcessor(manager_id, project_title, authentication, session, resp);
 		
-		// paramNo 가 존재할때는 pageParam에 붙여준다.
 		if(paramNo.isPresent()) {
-			pageParam = Optional.of(String.format("%s/%s", pageParam.get(),paramNo.get()));
+			paramNo = Optional.of(String.format("/%s", paramNo.get())); 
 		}
 		
-		model.addAttribute("pageParam", pageParam.isPresent() ? pageParam.get() : "code");
+		// paramNo가 존재할때는 pageParam에 붙여준다. 또한 pageParam이 없을때는 code 페이지를 보여준다.
+		model.addAttribute("pageParam", String.format("%s%s", pageParam.orElse("code"), paramNo.orElse("")));
 		model.addAttribute("manager_id", manager_id);
 		model.addAttribute("project_title", project_title);
 		
