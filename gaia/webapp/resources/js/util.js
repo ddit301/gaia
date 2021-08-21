@@ -78,13 +78,22 @@ $(function(){
 		}
 	});
 	
-	
+	// 뒤로가기 이벤트 binding 하기
+	$(window).bind("popstate", function(event) {
+	    var data = event.originalEvent.state;
+	    if(data){ // 이전 페이지 데이터가 있으면 ajax로 다시 요청해 화면 렌더링.
+	    	if(data.startsWith('member-')){
+				memberMovePage(data.substring('member-'.length));
+			}else{
+		    	movePage(data);
+	    	}
+	    }else{ // 히스토리에 정보가 없을경우 메인화면으로 이동시키기.
+	    	var url = getContextPath();
+	    	$(location).attr('href',url);
+	    }
+	})
 
 
-	
-	
-	
-	
 	//////////////////////////////////////////////////////////////////////////////
 	//
 	//	 Document ready 됐을때 필요한 함수들
@@ -100,7 +109,6 @@ $(function(){
 	}).ajaxStop(function(){
 		loading.hide();
 	});
-	
 	
 })
 
@@ -125,6 +133,21 @@ const languages = {
 //	 각종 함수 선언
 //
 //////////////////////////////////////////////////////////////////////////////
+
+// ajaxError 설정
+const ajaxError = function(xhr, error, msg){
+	console.log(xhr);
+	console.log(error);
+	console.log(msg);
+	if (xhr.status == 401) {
+		toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
+		setTimeout(function() {
+			window.location.href = "http://gaia.best";
+		}, 2000);
+	}else if(xhr.status == 423){
+		toastr.error("해당 프로젝트에 접근할 수 있는 권한이 없습니다.");
+	}
+}
 
 /**
 	스트링 배열에서 이진법상 1로 등록된 스트링만 골라서 새로운 배열을 반환하는 함수
@@ -155,36 +178,6 @@ const toggleHidden = function(tag){
  */
 const isHidden = function(tag){
 	return tag.prop('hidden');
-}
-
-// 뒤로가기 이벤트 binding 하기
-$(window).bind("popstate", function(event) {
-    var data = event.originalEvent.state;
-    if(data){ // 이전 페이지 데이터가 있으면 ajax로 다시 요청해 화면 렌더링.
-    	if(data.startsWith('member-')){
-			memberMovePage(data.substring('member-'.length));
-		}else{
-	    	movePage(data);
-    	}
-    }else{ // 히스토리에 정보가 없을경우 메인화면으로 이동시키기.
-    	var url = getContextPath();
-    	$(location).attr('href',url);
-    }
-})
-
-// ajaxError 설정
-function ajaxError(xhr, error, msg){
-	console.log(xhr);
-	console.log(error);
-	console.log(msg);
-	if (xhr.status == 401) {
-		toastr.error("세션이 만료되어 로그인 페이지로 이동합니다.");
-		setTimeout(function() {
-			window.location.href = "http://gaia.best";
-		}, 2000);
-	}else if(xhr.status == 423){
-		toastr.error("해당 프로젝트에 접근할 수 있는 권한이 없습니다.");
-	}
 }
 
 // 쿠키 값 얻어오는 function
@@ -242,31 +235,30 @@ const getProfilePathFromCookie = function(){
 // 한글 입력을 방지하는 함수 입니다.띄어쓰기도 막습니다.
 // [selector].addEventListener('keyup', preventKorean); 형태로 사용합니다.
 const preventKorean = function() {
-  var pattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\s]/;
-  this.value = this.value.replace(pattern, '');
+	var pattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\s]/;
+	this.value = this.value.replace(pattern, '');
 };
 
 // value로 key 값 찾는 함수
 const getKeyByValue = function(object, value) {
-  return Object.keys(object).find(key => object[key] === value);
+	return Object.keys(object).find(key => object[key] === value);
 }
 
 // 각종 nullChecking 모음. true = null | false = 값이 존. return
 const CheckNullUndefined = function(value){
-  return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+	return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
 }
 
 // 받침이 있는 문자인지 테스트 해주는 함수 입니다.
 const isSingleCharacter = function(text) {
+	var strGa = 44032; // 가
+	var strHih = 55203; // 힣
 
- var strGa = 44032; // 가
- var strHih = 55203; // 힣
+	var lastStrCode = text.charCodeAt(text.length-1);
 
- var lastStrCode = text.charCodeAt(text.length-1);
-
- if(lastStrCode < strGa || lastStrCode > strHih) {
-  return false; //한글이 아닐 경우 false 반환
- }
+	if(lastStrCode < strGa || lastStrCode > strHih) {
+		return false; //한글이 아닐 경우 false 반환
+	}
 	return (( lastStrCode - strGa ) % 28 == 0)
 }
 
@@ -373,14 +365,13 @@ const loadMenu = function(){
 			// https://github.com/onokumus/metismenu 참고해서 발동. 기존의 custom.min.js에 있던건 주석 처리했음.
 			$('#menu').metisMenu();
 			
-			
 		},
 		error : function(xhr, error, msg) {
 			ajaxError(xhr, error, msg);
-	
 		},
 		dataType : 'json'
 		,async : false
+		
 	})
 	
 }
@@ -399,7 +390,6 @@ const selecteLanguage = function(selectedLanguage){
 const loadPersonalPage = function(user_no){
 	
 	// user_no 로 ajax 이용해 user_id 받아온 후 해당 페이지로 이동.
-	
 	$.ajax({
 		url: getContextPath() + '/restapi/member/members/getMemIdFromMemNo.do',
 		type: 'get',
