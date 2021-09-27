@@ -10,7 +10,7 @@
 	<div class="header-fixed">
 <div class="nav-header" style="background: linear-gradient(to right, #acb6e5, #86fde8);">
      <div class="brand-logo">
-         <a class="moveButton" data-menu="overview">
+         <a id="homeBtn" class="mypage">
              <b class="logo-abbr"><img src="${cPath }/resources/assets/images/logo-text.png" alt=""> </b>
              <span class="logo-compact"><img src="${cPath }/resources/assets/images/logo-compact.png" alt=""></span>
              <span class="brand-title">
@@ -125,7 +125,7 @@
 					<div class="drop-down dropdown-profile dropdown-menu" style="font-size : 1.2em;">
 						<div class="dropdown-content-body">
 							<ul>
-								<li><a class="moveButton" data-menu="overview"><i
+								<li><a class="mypage"><i
 										class="icon-user"></i> <span>Overview</span></a></li>
 								<li><a class="moveButton" data-menu="setting"><i
 										class="icon-settings"></i> <span>Setting</span></a></li>

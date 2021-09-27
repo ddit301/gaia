@@ -1,11 +1,13 @@
 
 
-
 $(function(){
 	$('body').on('click', '.projectBox', function(){
 		let mngid = $(this).data('manager_id');
 		let projtitle = $(this).data('project_title');
 		loadProject(mngid,projtitle);
+	})
+	$('body').on('click', '.mypage', function(){
+		location.href= getContextPath() + '/' + mem_id;
 	})
 });
 
