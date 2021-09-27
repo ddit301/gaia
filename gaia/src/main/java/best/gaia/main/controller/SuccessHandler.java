@@ -52,7 +52,7 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
 			logService.insertLog(member.getMem_no(), request);
 			
 			// 로그인 성공시에 redirect 시킬 주소
-			redirectStratgy.sendRedirect(request, response, "/" + member.getMem_id() + "/overview");
+			redirectStratgy.sendRedirect(request, response, "/" + member.getMem_id());
 			
 			return;
 		}

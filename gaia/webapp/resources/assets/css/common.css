@@ -325,7 +325,8 @@ span#currentLanguage {
 	width: 45px !important;
     height: 45px !important;
 }
-
-
+#homeBtn:hover{
+	cursor: pointer;
+}
 
 
