@@ -92,12 +92,13 @@ const printPersonalPage = function(mem_id){
 					projectBox.find('.profile').attr('src', getProfilePath(project.MANAGERPIC));
 					projectBox.find('.proj-join-date-info').find('span').text('join ' + moment(project.JOIN_DATE).format('YYYY-MM-DD'));
 					projectBox.find('.proj-start-date-info').find('span').text('project start ' + moment(project.PROJ_START_DATE).fromNow());
+
+					if(project.PROJ_STATUS == '1') {
+						projectBox.addClass('closed')
+					}
 					
 				}
 			
-				
-				
-				
 				$('#personal-proj-list').append(projectBox);
 				
  				// 날짜에 따른 진척률 계산

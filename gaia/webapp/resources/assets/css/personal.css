@@ -74,6 +74,9 @@
 .projCardBox{
 	background:mintcream;
 }
+.closed .projCardBox{
+	background:mistyrose;
+}
 .projTitle .nonlink:hover{
 	border : none;
 }
