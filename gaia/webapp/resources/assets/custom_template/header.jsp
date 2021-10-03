@@ -129,6 +129,7 @@
 										class="icon-user"></i> <span>Overview</span></a></li>
 								<li><a class="moveButton" data-menu="setting"><i
 										class="icon-settings"></i> <span>Setting</span></a></li>
+								<!-- 채팅 에러가 존재해서 주석처리 합니다.
 								<li>
 									<a class="moveButton" data-menu="chat">
 										<i class="icon-envelope-open"></i> 
@@ -136,6 +137,7 @@
 										<div class="badge gradient-3 badge-pill badge-primary">3</div>
 									</a>
 								</li>
+								-->
 								<hr class="my-2" />
 								<li><a href="${cPath }/signout"><i class="icon-key"></i>
 										<span style="color : black;">SIGN OUT</span></a></li>
