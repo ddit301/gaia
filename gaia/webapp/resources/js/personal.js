@@ -7,7 +7,9 @@ $(function(){
 		loadProject(mngid,projtitle);
 	})
 	$('body').on('click', '.mypage', function(){
-		location.href= getContextPath() + '/' + mem_id;
+		let mem_id = member.MEM_ID;
+		history.pushState('member-' + 'personalPage', null, getContextPath() + '/' + mem_id);
+		memberMovePage('personalPage')
 	})
 });
 
