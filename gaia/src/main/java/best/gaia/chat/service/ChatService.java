@@ -15,7 +15,7 @@ public interface ChatService {
 	public ServiceResult insertElasticMessage(int mem_no, Map<String, Object> chat);
 	public List<Map<String, Object>> getMemberMessage(int mem_no);
 	public List<Map<String, Object>> getMessageListbyChatRoom(int mem_no);
-	public List<Map<String, Object>> getMessageListbyChatRoomOne(int chatroom_no, int size);
+	public List<Map<String, Object>> getMessageListbyChatRoomOne(int chatroom_no, int size, Integer currentRoom_no);
 	
 	
 	/**

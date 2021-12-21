@@ -89,7 +89,7 @@ public class ChatREST {
 			// chatRoomVO의 chatList에 대화 내용들 담기.
 			int chatRoom_no = chatRoom.getChatroom_no();
 			// elastic에서 chatList 뽑기.
-			lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1); 
+			lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1, null); 
 			// 뽑은 chatList를 해당 room의 chatList에 담기.
 			chatRoom.setChatList(lateChat);
 		}
@@ -107,7 +107,7 @@ public class ChatREST {
 				, @RequestParam(required=false) String keyword
 			) {
 		int mem_no = getMemberNoFromAuthentication(authentication);
-		
+		logger.info("searchMemberList");
 		Map<String, Object> searchInfo = new HashMap<>();
 		searchInfo.put("mem_no",mem_no);
 		searchInfo.put("keyword",keyword);
@@ -170,10 +170,7 @@ public class ChatREST {
 			// 채팅방 생성여부 확인 후 잘 생성되었다면 채팅방 번호 넘기기  
 			exists = !ServiceResult.OK.equals(result) ? 0 : roomInfo.getChatroom_no();
 			// roomList에 채팅 내역 elastic에서 가지고와서 담기.(정렬시키기.)
-			try {
-				Thread.sleep(500);
-				currentChat = service.getMessageListbyChatRoomOne(roomInfo.getChatroom_no(), 1);
-			} catch (InterruptedException e) { e.printStackTrace(); }
+			currentChat = service.getMessageListbyChatRoomOne(roomInfo.getChatroom_no(), 1, null);
 			roomInfo.setChatList(currentChat);
 		}
 		
@@ -184,19 +181,8 @@ public class ChatREST {
 		for(ChatRoomVO chatRoom : roomList) {
 			// chatRoomVO의 chatList에 대화 내용들 담기.
 			int chatRoom_no = chatRoom.getChatroom_no();
-			// 만약 elastic에서 데이터를 못 받아온다면 직접 날짜값 집어넣기.
-			if(chatRoom_no == roomInfo.getChatroom_no()){
-				// elastic에서 chatList 뽑기. 해당 번호라면 좀 더 기다렸다가 데이터 요청하기.
-				try {
-					Thread.sleep(500);
-					lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1);
-				} catch (InterruptedException e) { e.printStackTrace(); }
-			}else {
-				lateChat = service.getMessageListbyChatRoomOne(chatRoom_no, 1);
-			}
-			
 			// 뽑은 chatList를 해당 room의 chatList에 담기.
-			chatRoom.setChatList(lateChat);
+			chatRoom.setChatList(service.getMessageListbyChatRoomOne(chatRoom_no, 1, roomInfo.getChatroom_no()));
 		}
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("roomList", roomList);

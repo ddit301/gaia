@@ -1,5 +1,6 @@
 package best.gaia.chat.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,9 +46,21 @@ public class ChatServiceImpl implements ChatService{
 		return eldao.getMessageListbyChatRoom(chatRoom_no);
 	}
 	@Override
-	public List<Map<String, Object>> getMessageListbyChatRoomOne(int chatRoom_no, int size) {
+	public List<Map<String, Object>> getMessageListbyChatRoomOne(int chatRoom_no, int size, Integer currentRoom_no) {
+		List<Map<String, Object>> lateChat = new ArrayList<Map<String, Object>>();
+		// 만약 elastic에서 데이터를 못 받아온다면 직접 날짜값 집어넣기.
+		if(currentRoom_no != null && chatRoom_no == currentRoom_no){
+			// elastic에서 chatList 뽑기. 해당 번호라면 좀 더 기다렸다가 데이터 요청하기.
+			try {
+				Thread.sleep(500);
+				lateChat = eldao.getMessageListbyChatRoomOne(chatRoom_no, size);
+			} catch (InterruptedException e) { e.printStackTrace(); }
+		}else {
+			lateChat = eldao.getMessageListbyChatRoomOne(chatRoom_no, size);
+		}
+		
 		// 해당 방의 가장 최근 채팅 들고오기.
-		return eldao.getMessageListbyChatRoomOne(chatRoom_no, size);
+		return lateChat;
 	}
 	
 	
