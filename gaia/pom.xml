@@ -115,11 +115,11 @@
 	</dependency>
 
   	<!--  DATABASE CONNECT RELATED -->
- 	<dependency>
-  		<groupId>com.oracle</groupId>
-  		<artifactId>ojdbc6</artifactId>
-  		<version>12.1.0.2</version>
-  	</dependency>
+	<dependency>
+		<groupId>com.oracle.database.jdbc</groupId>
+		<artifactId>ojdbc8</artifactId>
+		<version>21.1.0.0</version>
+	</dependency>
   	<dependency>
   		<groupId>org.apache.ibatis</groupId>
   		<artifactId>ibatis-sqlmap</artifactId>
@@ -334,7 +334,7 @@
 	<dependency>
 		<groupId>org.elasticsearch.client</groupId>
 		<artifactId>elasticsearch-rest-high-level-client</artifactId>
-		<version>7.12.1</version>
+		<version>7.14.0</version>
 	</dependency>
 	<!-- 	Google Analytics -->
 	<dependency>
