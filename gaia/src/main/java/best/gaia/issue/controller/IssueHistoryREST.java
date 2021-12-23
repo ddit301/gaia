@@ -79,7 +79,6 @@ public class IssueHistoryREST {
 		// issue 객체에 해당 히스토리를 넣어서 서비스 로직을 태운다.
 		// 알람 보내는 것 때문에 history 가 아닌 issue 가 필요하다.
 		List<IssueHistoryVO> historyList = new ArrayList<>();
-		logger.info("log4j 취약점 확인을 위한 로그: {}", issueHistory.getIssue_his_cont());
 		historyList.add(issueHistory);
 		issue.setHistoryList(historyList);
 		
