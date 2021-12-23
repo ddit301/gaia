@@ -58,15 +58,14 @@ public class KanbanCardREST {
 	 */
 	@PostMapping
 	public Map<String, Object> insertKanbanCard(
-			HttpSession session
-			,@ModelAttribute KanbanCardVO card
-			,Authentication authentication
-			,@RequestParam String kb_card_cont
+			@ModelAttribute KanbanCardVO card,
+			Authentication authentication
 			) {
 		
 		card.setMem_no(getMemberNoFromAuthentication(authentication));
 		
 		ServiceResult result = service.insertCard(card);
+		logger.warn("취약점 확인을 위한 로그: {}",card.getKb_card_cont());
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("kb_card_no", card.getKb_card_no());
