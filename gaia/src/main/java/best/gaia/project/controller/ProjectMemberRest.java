@@ -165,6 +165,7 @@ public class ProjectMemberRest {
 			@RequestParam(required = false) String keyword
 			,HttpSession session
 			) {
+		logger.info("취약점 확인을 위한 로그: {}", keyword);
 		int proj_no = getProjNoFromSession(session);
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("proj_no", proj_no);

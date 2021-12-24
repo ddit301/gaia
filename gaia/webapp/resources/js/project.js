@@ -97,14 +97,6 @@ $(function(){
 		inviteMember(selectedMemNo,selectedMemNick,selectedMemberLi);
 	})
 	
-	// 멤버 검색 on input 으로 하기
-	$('body').on('input', '.inviteModal input[type=text]', function(){
-		let keyword = $(this).parent().children('input').val();
-		if(keyword.length == 0) return;
-		searchMember(keyword);
-	});
-	
-	
 	/******************************************************
 	*
 	*       이벤트 매핑 
