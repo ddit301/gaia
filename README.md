@@ -1,6 +1,7 @@
 <img src="https://raw.githubusercontent.com/ddit301/gaia/master/readme/logo.png" width=300px>
 
-> [gaia.o-r.kr](http://gaia.o-r.kr) by team seed &nbsp;&nbsp;🌱 <br/>
+> gaia by team seed &nbsp;&nbsp;🌱 <br/>
+2024년 2월 29일부로, 약 30개월간의 운영을 끝내고 서버를 종료하였습니다.
 [발표영상](https://youtu.be/PdO3tuBJaUI)과 [테스트영상](https://www.youtube.com/watch?v=CMbaiaoWkDA)을 확인해보세요
 
 GAIA는 기존의 Project Management System들의 어려운 사용법과 높은 진입장벽을 해결하기 위해 기획되었습니다.<br/>
